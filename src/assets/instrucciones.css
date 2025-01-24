@@ -1,8 +1,8 @@
 /* */
 /******************** Para ver fuentes en local  **********************/
-@font-face {font-family: "lato-regular"; src: local("./src/assets/fonts/lato-regular.woff"), url("./src/assets/fonts/lato-regular.woff") format("woff");}
-@font-face {font-family: "raleway-regular";   src: local("./src/assets/fonts/raleway-regular.woff"), url("./src/assets/fonts/raleway-regular.woff") format("woff");}
-@font-face {font-family: "raleway-bold";  src: local("./src/assets/fonts/raleway-bold.woff"), url("./src/assets/fonts/raleway-bold.woff") format("woff");}
+@font-face {font-family: "lato-regular"; src: local("./fonts/lato-regular.woff"), url("./lato-regular.woff") format("woff");}
+@font-face {font-family: "raleway-regular";   src: local("./fonts/raleway-regular.woff"), url("./fonts/raleway-regular.woff") format("woff");}
+@font-face {font-family: "raleway-bold";  src: local("./fonts/raleway-bold.woff"), url("./fonts/raleway-bold.woff") format("woff");}
 h1,h2{
 	margin-top: 0;
 	margin-bottom:5px;
