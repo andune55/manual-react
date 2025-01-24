@@ -124,7 +124,7 @@
                   
                   <p class="titulo">Cotizador de Criptomonedas</p>
                   <p>Este proyecto al igual que el anterior se conecta a una API para obtener el precio de una Criptomoneda en dólares, pesos mexicanos y otras monedas; Este proyecto incluye Zustand y Zod para validar las respuestas que obtenemos de nuestra API.</p>							
-                  <img src="./src/assets/img/s1-07.jpg" width="" height="" alt=""/> 
+                  <!-- <img src="./src/assets/img/s1-07.jpg" width="" height="" alt=""/>  -->
     
                   <p>Proyecto 04: Migrar Carrito de Compras a useReducer: En este capítulo estaremos viendo como tomar el proyecto de carrito de compras y convertirlo hacia useReducer; cuando tomas un proyecto que conoces en una tecnología nueva es garantía que podrás entender mejor los conceptos.</p>
                   <p>Proyecto 05: Migrar Calculadora de Propinas hacia useReducer: Veamos como migrar nuestro otro proyecto hacia useReducer.</p>
@@ -150,6 +150,7 @@
             
             
             
+            <!-- 
             <div class="row">
               <div class="col-12 padd-5-left">						
                 
@@ -166,10 +167,11 @@
     
                   
                   
-                </div><!-- Fin seccion colapsable interior  -->
+                </div>
     
-              </div>
-            </div><!--Fin row-->
+              </div> 
+            </div>
+            -->
             
             
             
@@ -1868,8 +1870,100 @@
       <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
     </div>
     <div id="seccion6-73">
-      <p>Vamos a empezar a hacer dinámica la sección del carrito de compra.</p>
+      <p>Vamos a empezar a hacer dinámica la sección del carrito de compra. Está en nuestro Header.jsx, vamos a hacer dinámica esta parte y sincronizarla con nuestro state. En nuestro componente App.jsx, al Header le vamos a pasar el carrito <strong>el propo se va a llamar cart y el valor también cart, para no tener que pensar en nombres diferentes es recomendable ponerl el mismo que tiene ese state</strong>.</p>
+      <pre><code class="language-js">
+        &lt;Header
+        cart = &lcub;cart&rcub;
+      /&gt;
+      </code></pre>
+
+      <pre><code class="language-js">
+        export default function Header({cart}){
+      </code></pre>
+
+      <p>la estructura del carrito es con una tabla. Iteramos en el tbody para que genere un tr por cada elemento en nuestro carrito:</p>
+      <pre><code class="language-js">
+        &lcub;cart.map( guitar =&gt;( 
+          &lt;tr&gt;
+            &lt;td&gt;
+              &lt;img className=&quot;img-fluid&quot; src=&quot;./public/img/guitarra&lowbar;02.jpg&quot; alt=&quot;imagen guitarra&quot; /&gt;
+            &lt;/td&gt;
+            &lt;td&gt;SRV&lt;/td&gt;
+            &lt;td className=&quot;fw-bold&quot;&gt;
+                $299
+            &lt;/td&gt;
+            &lt;td className=&quot;flex align-items-start gap-4&quot;&gt;
+              &lt;button
+                type=&quot;button&quot;
+                className=&quot;btn btn-dark&quot;
+              &gt;
+                -
+              &lt;/button&gt;
+                1
+              &lt;button
+                type=&quot;button&quot;
+                className=&quot;btn btn-dark&quot;
+              &gt;
+                &plus;
+              &lt;/button&gt;
+            &lt;/td&gt;
+            &lt;td&gt;
+              &lt;button
+                className=&quot;btn btn-danger&quot;
+                type=&quot;button&quot;
+              &gt;
+                X
+              &lt;/button&gt;
+            &lt;/td&gt;
+          &lt;/tr&gt;
+        ))&rcub;
+      </code></pre>
+
+      <p>Comenta sobre la posibilidad de que este tr lo hiciéramos componente y habla sobre el inconveniente de tener demasiados componentes pequeños, tener que andar enviando y manejando demasiados props (que se podría manejar con Redux toolkit o manejador de estado global pero aún no hemos visto ese tema ni conviene para un proyecto tan pequeño como este.) </p>
+
+      <img src="./src/assets/img/73.png" alt="">
+
+      <p>no lo estoy pasando via props, pero el objeto <strong>guitar</strong> existe dentro de ese paréntesis y puedo acceder a sus propiedades. Si vemos en consola nos da un aviso de id único para Header. Tenemos que darle un key único al tr.</p>
       
+      <pre><code class="language-js">
+        &lt;tbody&gt;
+        &lcub;cart.map( guitar =&gt;( 
+        &lt;tr key=&lcub;guitar.id&rcub;&gt;
+          &lt;td&gt;
+            &lt;img className=&quot;img-fluid&quot; src=&lcub;&grave;/img/$&lcub;guitar.image&rcub;.jpg&grave;&rcub; alt=&quot;imagen guitarra&quot; /&gt;
+          &lt;/td&gt;
+          &lt;td&gt;&lcub;guitar.name&rcub;&lt;/td&gt;
+          &lt;td className=&quot;fw-bold&quot;&gt;
+              $&lcub;guitar.price&rcub;
+          &lt;/td&gt;
+          &lt;td className=&quot;flex align-items-start gap-4&quot;&gt;
+            &lt;button
+              type=&quot;button&quot;
+              className=&quot;btn btn-dark&quot;
+            &gt;
+              -
+            &lt;/button&gt;
+              &lcub;guitar.quantity&rcub;
+            &lt;button
+              type=&quot;button&quot;
+              className=&quot;btn btn-dark&quot;
+            &gt;
+              &plus;
+            &lt;/button&gt;
+          &lt;/td&gt;
+          &lt;td&gt;
+            &lt;button
+              className=&quot;btn btn-danger&quot;
+              type=&quot;button&quot;
+            &gt;
+              X
+            &lt;/button&gt;
+          &lt;/td&gt;
+        &lt;/tr&gt;
+        ))&rcub;
+      &lt;/tbody&gt;
+      </code>
+      </pre>
     </div>
     <!-- Fin bloque desplegable interior-->
     
@@ -2080,37 +2174,12 @@
       </div>
     </div>	
     <!-- FIN SECCIÓN XX -->
-    
-    
-    
-    
-    
-    
-      
-      
-      
         
-       
-      
     
     
       
       
-      <div id="ModalPanel" class="modal-object">
-        <div class="modal-link-close" onclick="$('#ModalPanel').removeClass('open');$('#ModalPanel-overlay').removeClass('open');$('input#search').val('');$('ul#searchresults').html('');"></div>
-        <div id="ModalPanel-component" class="modal-content">
-          
-                <div class="search-results">
-                    <section>
-                        <h2 id="tituloresults" class="tituloresults">Resultados encontrados:</h2>
-                        <ul id="searchresults" class="searchresults">
-                        </ul>
-                    </section>
-                </div>
-                         
-        </div>
-      </div>
-      <div id="ModalPanel-overlay" class="modal-overlay" onclick="$('#ModalPanel').removeClass('open');$('#ModalPanel-overlay').removeClass('open');$('input#search').val('');$('ul#searchresults').html('');"></div>
+      
     
     </div>
       
