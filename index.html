@@ -1,0 +1,2123 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Curso React</title>	
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">	
+    <script src="./src/assets/prism.js"></script>
+    <link rel="stylesheet" href="./src/assets/prism.css" >
+    <link rel="stylesheet" href="./src/assets/instrucciones.css" >
+
+    <script src="./src/assets/jquery-2.1.4.min"></script>  	
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+
+	
+    <div class="contenedor-fluido">
+      
+      <div class="contenedor w-80">
+            <h1>Curso React</h1>
+        <p>Aprende React con TypeScript paso a paso creando proyectos del mundo real.</p>
+    
+        <p>El único curso en Udemy que enseña React con proyectos del mundo real; Incluso si tus bases de JavaScript no son muy fuertes el curso tiene una introducción con todo lo que debes saber.</p>
+        <p>¿Quisiste aprender React y solo te aprendiste los nombres de los Pokemon? entonces este curso es para ti.</p>
+        <p>En este curso aprenderemos a crear proyectos reales abarcando todo el ecosistema de React: State, Hooks, crear tus propios hooks, hooks avanzados, estado global, componentes y eventos, consultar API's externas y crear tus propias API's.</p>
+        <p>Todos los Proyectos incluyen TypeScript desde el inicio.</p>		
+      </div>
+      
+    <!-- SECCION 1 -->
+      <div class="contenedor w-80 background esp-5-bottom">		
+        <div class="row">
+          <div class="flex center-vertical esp-25-top pointer desplegable space-between pointer" onclick="$('#seccion1').toggle();">	
+            <h2>Sección 1: Introducción al Curso - Qué es React, Proyectos que Construiremos y más</h2>				
+                    <span class="cambiaicono ico_chevron_down esp-10-right" title=""></span>
+          </div>
+          
+          <div id="seccion1"  style="display:none">			
+            <div class="row">
+              <div class="col-12 padd-5-left">	
+                
+                <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion1-1').toggle();">	
+                  <h3>1. ¿Qué es React?</h3>			
+                  <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+                </div>
+                
+                <div id="seccion1-1" style="display:none">	
+                  
+                  <p>Es una biblioteca de JS para construir interfaces de usuario</p>
+                  <ul>
+                    <li>Ayuda a crear UI interactivas de forma muy sencilla (tiene muchas funciones y eventos para disparar fcnes en base a las interacciones del usuario)</li>
+                    <li>Se encarga de actualizar y renderizar de manera eficiente los componentes de tu aplicación</li>
+                    <li>Esta basado en componentes: no son mas que fiunciones en JS utilizados para renderizar el diseño de tu aplicación o sitio web</li>
+                    <li>Creado por Meta (antiguo Facebook). También la empresa Versell apoya su desarrollo.</li>
+                  </ul>
+    
+                  <p class="titulo">Ventajas de React</p>			
+                  <ul>
+                    <li>Excelente documentación con muchos ejemplos</li>
+                    <li>Una gran comunidad y muchas librerias que puedes incorporar a tus proyectos</li>
+                    <li>Tecnología con mucha demanda: La mayoría de vacantes solicitan React, tanto para fornt end como para full stack</li>
+                  </ul>
+    
+                  <p class="titulo">¿Qué necesito para aprender React?</p>
+                  <ul>
+                    <li>Dominar HTML y CSS</li>
+                    <li>Conocer la sintaxis Moderna de Javascript (ES6(2015)EcmaScript6 y cada añao hay nuevas que añaden unas cuantas funciones más)</li>
+                    <li>Tener instalado Node.js para crear nuestros proyectos</li>
+                  </ul>
+                  
+                </div><!-- Fin seccion colapsable interior  -->
+                
+                
+              </div>			
+            </div><!--Fin row-->
+              
+            <div class="row">
+              <div class="col-12 padd-5-left">	
+                <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion1-2').toggle();">	
+                  <h3>2. Proyectos 01 a 04 del Curso - Fundamentos de React y TypeScript</h3>			
+                  <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+                </div>						
+                
+                <div id="seccion1-2" style="display:none">	
+                  
+                  <p class="titulo">Proyecto carrito de compras GuitarLA</p>
+                   <p>En este proyecto estaremos aprendiendo los fundamentos de React: <span class="destacado">Componentes, Eventos y State</span>, mientras creas un carrito de compras real con cantidades, precios, y más, tomaremos este mismo carrito para mostrarte como crear tus propios Hooks y como transformarlo a código de TypeScript y cuales son sus beneficios. Carrito de compra persistente sincronizando con localStorage (aprenderemos todas esas acciones agregar elementos, cambiarlos, cambiar cantidades, vaciar carrito...)</p>							
+                  <img src="img/s1-01.jpg" width="" height="" alt=""/> 
+    
+                  <p class="titulo">Calculadora de propinas y consumos. Un proyecto ideal para restaurantes donde se podrá generar una orden con consumos y la persona podrá elegir la propina que desea dejar.</p>							
+                  <img src="img/s1-02.jpg" width="" height="" alt=""/> 
+    
+                  <p class="titulo">Contador de Calorías y Ejercicios</p>	
+                  <p> Una de las tareas que más vas a realizar en tu vida como Developer es procesar formularios; en este proyecto tendremos un formulario, leeremos sus datos, lo vamos a procesar y realizar algunas operaciones como validación y mucho más, además aprenderás que es <span class="destacado">useReducer</span> para manejar estados complejos en tus apps. Veremos cómo funciona este patrón, es un hook especial cuando tenemos un state un poco más complejo.</p>
+                  <img src="img/s1-03.jpg" width="" height="" alt=""/> 
+                  
+                  
+                  <p class="titulo">Control de Gastos y Presupuestos:</p>	
+                  <p>En este proyecto estaremos viendo que es <span class="destacado">Context API</span> para tener un estado global sin dependencias; Context API va a ayudarte a no pasar props por cada componente, completamos el curso con filtrar gastos por categoría, calendario de fechas de gastos, gráficas y mucho más! Por tanto también usaremos reducers, context Api para comenzar a trabajar con un estado global y un custom hook.</p>
+                  <img src="img/s1-04.jpg" width="" height="" alt=""/> 
+                  
+                </div><!-- Fin seccion colapsable interior  -->
+              </div>
+            </div><!--Fin row-->
+            
+            
+            
+            
+            <div class="row">
+              <div class="col-12 padd-5-left">	
+                <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion1-3').toggle();">	
+                  <h3>3. Proyectos 05 a 08 del Curso - React Intermedio y API's</h3>			
+                  <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+                </div>						
+                
+                <div id="seccion1-3" style="display:none">	
+                  
+                  <p class="titulo">Administrador de pacientes de veterinaria</p>
+                  <p>Introduce dos herramientas nuevas: Este proyecto añade dos herramientas nuevas: <span class="destacado">Zustand</span> para manejar un estado global de forma muy simple y <span class="destacado">React Hook Form</span>, una librería para para la parte de validación y procesamiento de nuestros formularios de manera bastante sencilla.</p>														
+                  <img src="img/s1-05.jpg" width="" height="" alt=""/> 
+                  
+                  <p class="titulo">Buscador de clima</p>
+                  <p>Esta será nuestra primera aplicación que obtiene datos de una <span class="destacado">API externa</span>, como React Developer vas a trabajar en muchos proyectos que incluyen API's; estaremos viendo como validar y enviar peticiones hacia API, como leer las respuestas y como mostrar esa información. La parte de APIS es muy importante en el mundo de React.</p>							
+                  <img src="img/s1-06.jpg" width="" height="" alt=""/> 
+                  
+                  <p class="titulo">Cotizador de Criptomonedas</p>
+                  <p>Este proyecto al igual que el anterior se conecta a una API para obtener el precio de una Criptomoneda en dólares, pesos mexicanos y otras monedas; Este proyecto incluye Zustand y Zod para validar las respuestas que obtenemos de nuestra API.</p>							
+                  <img src="img/s1-07.jpg" width="" height="" alt=""/> 
+    
+                  <p>Proyecto 04: Migrar Carrito de Compras a useReducer: En este capítulo estaremos viendo como tomar el proyecto de carrito de compras y convertirlo hacia useReducer; cuando tomas un proyecto que conoces en una tecnología nueva es garantía que podrás entender mejor los conceptos.</p>
+                  <p>Proyecto 05: Migrar Calculadora de Propinas hacia useReducer: Veamos como migrar nuestro otro proyecto hacia useReducer.</p>
+    
+    
+                  <p>Proyecto 10: Buscador de Recetas: Este es nuestro primer proyecto que incluye múltiples páginas; lo estaremos realizando con React Router DOM la librería más popular para crear aplicaciones en React de múltiples página, este curso utiliza el Slice Pattern para tener múltiples Stores de Zustand!</p>
+                  <p>Proyecto 11: Administrador de Productos: Este es nuestro primer proyecto Full Stack donde estaremos creando tanto frontend como backend utilizando el PERN (PostgreSQL, Node.js, Express y React) este proyecto utiliza una REST API que conectaremos con React, añadiremos temas más avanzados como Testing y Documentación de API's.</p>
+                  <p>Proyecto 12: Administrador de Tareas y Proyectos: Este es el Proyecto más avanzado del curso, utiliza el MERN stack que es uno de los más populares hoy en día, este proyecto incluye un sistema robusto de autenticación y registro de usuarios con confirmación de cuentas y resetear el password en caso de olvidarlo; además incluye roles y los usuarios solo pueden realizar ciertas acciones. El curso incluye además una REST API bastante compleja y avanzada, El curso utiliza también React Query, Tailwindcss, React Router, Mongoose, Express, TypeScript y mucho más.</p>
+                  <p>Proyecto 13: Quiosco de Comida: Finalizaremos este curso con una introducción a Next.js, utilizaremos la versión 14 con App Router, Server Actions, Prisma, Zod, Zustand, Tailwind, y mucho más, el proyecto incluye subida de archivos, CRUD Completo, paginador, buscador y más.</p>
+    
+                  
+                </div><!-- Fin seccion colapsable interior  -->
+    
+              </div>
+            </div><!--Fin row-->
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            <div class="row">
+              <div class="col-12 padd-5-left">						
+                
+                <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccionX-X').toggle();">	
+                  <h3>XXXXXXXXXXXXXXXXXXXXXX</h3>			
+                  <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+                </div>						
+                
+                <div id="seccionX-X" style="display:none">	
+                  
+                  <p class="titulo">XXXXXXXXXXXX</p>
+                  <p>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</p>							
+                  <img src="img/XXXX.jpg" width="" height="" alt=""/> 
+    
+                  
+                  
+                </div><!-- Fin seccion colapsable interior  -->
+    
+              </div>
+            </div><!--Fin row-->
+            
+            
+            
+            
+            
+            
+            
+              
+            <div class="row">
+              <div class="col-12">	
+    
+                
+    
+              </div>
+            </div>
+              
+            
+            
+          </div>
+          <!-- Fin div colapsable-->
+      
+      
+        </div>
+      </div>	
+    <!-- FIN SECCION 1 -->	
+    
+    
+    <!-- SECCION 2 -->
+    <div class="contenedor w-80 background esp-5-bottom">		
+      <div class="row">
+        <div class="flex center-vertical esp-25-top pointer desplegable space-between pointer" onclick="$('#seccion2').toggle();">	
+          <h2>Sección 2: Introducción a JavaScript para React</h2>				
+          <span class="cambiaicono ico_chevron_down esp-10-right" title=""></span>
+        </div>
+        
+        <div id="seccion2" style="display:none">
+    
+          <div class="row">
+            <div class="col-12 padd-5-left">	
+    
+    <!-- Bloque desplegable interior -->
+              <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion2-31').toggle();">	
+                <h3>31. Ternarios</h3>			
+                <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+              </div>
+              <div id="seccion2-31" style="display:none">
+                <p></p>
+                <pre>
+                  <code class="language-js">
+                    /*Ternarios --&gt; un if en una versión mas corta. En React se usa mucho porque en los templates no podemos escribir un if en la poarte que se muestra en pantalla
+                    pero sí un ternario*/
+                    
+                    const auth = true
+                    
+                    const saldo = 1000
+                    const pagar = 1200
+                    const tarjeta = false
+                    
+                    // if (auth){
+                    //     console.log('User autenticado..')
+                    // } else {
+                    //     console.log('No auntenticado, ir a Login')
+                    // }
+                    
+                    //con un operador ternario vamos a poder tener todo lo anterior en una línea. Sintaxis algo compleja
+                    
+                    auth ? 
+                      console.log('User autenticado..') : 
+                      console.log('No auntenticado, ir a Login')
+                    
+                    //otra manera combinando operadores que vimos antes
+                    
+                    saldo > pagar ?
+                      console.log('sí puedes pagar') :
+                      console.log('no, no puedes pagar')
+                    
+                    //ternario anidado (al igual que los if se ejecuta la primera condición que se cumpla). 
+                    saldo > pagar ?
+                      console.log('sí puedes pagar') :
+                      tarjeta ?
+                        console.log('puedes pagar con tarjeta') :
+                        console.log('no, no puedes pagar')
+                    
+                    //PERO MEJOR QUE TERNARIOS ANIDADOS ES HACER USO DE OPERADORES PARA MEJOR MANTENIMIENTO DE CÓDIGO
+                    saldo > pagar || tarjeta ?
+                      console.log('sí puedes pagar') :    
+                      console.log('no, no puedes pagar')
+                  </code>
+                </pre>						
+              </div>
+    <!-- Fin bloque desplegable interior -->
+    
+    <!-- Bloque desplegable interior -->
+              <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion2-32').toggle();">	
+                <h3>32. Optional chaining (?) y Nullish coolescing operator (??)</h3>			
+                <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+              </div>
+              <div id="seccion2-32" style="display:none">
+                <p>Son un par de características de las más nuevas que han añadido a js</p>
+                <p><strong class="txt-primario">Optional chaining (?) :</strong></p> 
+                <ul>
+                  <li>permite llamar las propiedades de un objeto o llamar métodos sin tener que verificar si existen o no</li>
+                  <li>además de ahorrarnos código, se usa mucho en respuestas rest API o repsuestas de BBDD en las uqe mkuchas veces no está todo relleno como esperamos</li>
+                  
+                </ul>
+                <pre>
+                  <code class="language-js">								
+                    //Optional chaining (?) 
+                      
+                      const alumno = {
+                        nombre: 'Juan',
+                        clase: 'Programación 1',
+                        aprobado: true,
+                        examenes: {
+                          examen1: 9
+                        }
+                      }
+                      console.log(alumno)
+                      console.log('Despues de ALUMNO')
+    
+                      //si hiciera esto me daría error porque esa propiedad examen1 no está definida, y el resto de mi js deja de funcionar (no saca lo de 'después de ALUMNO'):
+                        //console.log(alumno.examenes.examen1)
+                      
+                      //para esto utilizamos el optional chaining, para ver si existe la propiedad examenes y entonces que nos imprima examen1 (evitamos usar ifs y más código)
+                        console.log(alumno.examenes?.examen1)
+                        console.log('Despues de ALUMNO')
+                    </code>
+                  </pre>
+                  <p><strong class="txt-primario">Nullish coolescing operator (??):</strong> operador lógico que devuelve el valor del lado dcho cuando el valor izdo es nulo o undefined</p> 
+                  <pre>
+                    <code class="language-js">	
+                    //Nullish coolescing operator (??) 
+                      // por ejemplo se usa mucho cuadno se trabaja con un paginador desde la url. Cuando en la urlpage no tenemos esto: "?page=1"
+                      const pagina = null ?? 1
+                      // si tuviéramos este ejemplo "?page=10" 
+                      // const pagina = 10 ?? 1 --&gt; este nos devolveria 10
+                      console.log(pagina)
+                    </code>
+                  </pre>
+              </div>
+    <!-- Fin bloque desplegable interior -->
+    
+              
+    <!-- Bloque desplegable interior -->
+              <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion2-34').toggle();">	
+                <h3>34-36. Introducción a ECMAScript Modules, más sobre módules y export default</h3>			
+                <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+              </div>					
+              <div id="seccion2-34" style="display:none">						
+                <p>Se utilizan mucho en React y en el desarrollo web hoy en día ya que normalmente cuando instalas una dependencia/librería, esa dep. te permite importar ciertas funciones
+                  el mismo React te permite importar sus funciones para que puedas utilizarlas en tu código
+                  Supongamos que estamos creando un proyecto y vamos teniendo cada vez más y más funciones (pone el ejemplo de los tropecientos .js en nuestro html) --> eso se soluciona con los 
+                  módulos de ECMAScript, que nos permiten separar nuestro código.</p>
+      
+                <p>creamos un nuevo "funciones.js" donde metemos nuestras funciones y en nuestro html le indicamos al js que es de type module, y ello nos va a habilitar el poder importar.
+                dentro de nuestro .js de funciones le añadimos un "export" antes de cada función. En el .js donde queramos usar las funciones usamos un import</p>
+                
+                <pre>
+                  <code class="language-js">
+                    //ESTOS MODULOS ESTAN PRESENTES EN TODAS LAS TECNOLOGÍAS DE JS VUE, NODE, REACT... NOS PERMITEN SEPARAR NUESTRO CÓDIGO Y UN MEJOR MANTENIMIENTO
+                    // export function sumar (n1, n2){
+                      //     return n1 + n2
+                      // }
+                      // export function restar (n1, n2){
+                      //     return n1 - n2
+                      // }
+                      // export default function multiplicar (n1, n2){
+                      //     return n1 * n2
+                      // }
+                      // export function dividir (n1, n2){
+                      //     return n1 / n2
+                      // }
+                      
+                      export const sumar = ( n1, n2 ) => n1 + n2
+                      export const restar = ( n1, n2 ) => n1 - n2 
+                      
+                      const multiplicar = ( n1, n2 ) => n1 * n2 
+                      export default multiplicar
+                      
+                      export const dividir = ( n1, n2 ) => n1 / n2 
+    
+                      /* Ambos tipos de export requieren que al importarlos se llamen entre llaves y con el mismo nombre (salvo que usemos un alias)
+                      Como vamos a importar muchas funciones, variables... de muchas librerias ¿como hacemos para evitar la colisión de nombres? utilizamo "alias" --> import {sumar as funcionSumar} 
+    
+                      Existe otro export que es el export default: solo puede haber uno por archivo. Lo importas sin llaves y nombras como queramos
+    
+                      export default function multiplicar (n1, n2){
+                        return n1 * n2
+                      }
+                      */
+                  </code>
+                </pre>   
+                
+                <pre>
+                  <code class="language-js">
+                import agusmultiplica, { sumar, restar, dividir } from './funciones.js' // esta es la mejor manera de importar las funciones que nos ofrecen las dependencias/librerías
+    
+                const resultadoSumar = sumar(25, 30)
+                const resultadoRestar = restar(25, 30)
+                const resultadoMultiplicar = agusmultiplica(25, 30)
+                const resultadoDividir = dividir(100, 10)
+                console.log(resultadoSumar + '\n' + resultadoRestar + '\n' + resultadoMultiplicar + '\n' + resultadoDividir);
+                  </code>
+                </pre>   								
+              </div>
+    <!-- Fin bloque desplegable interior -->
+    
+    <!-- Bloque desplegable interior -->
+              <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion2-37').toggle();">	
+                <h3>37. Fetch API con Promises</h3>			
+                <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+              </div>
+              <div id="seccion2-37" style="display:none">
+                <p>Proporciona una interfaz para poder recuperar recursos y obtener datos a través de la red. Es la versión moderna de las dos tecnologías 
+                  XMLHttpRequest(sintaxis muy difícil) y $.ajax. Usaremos esta herramienta {JSON Placeholder} 
+                  <a class="txt-rojo" href="https://jsonplaceholder.typicode.com" target="_blank">https://jsonplaceholder.typicode.com</a>. Podemos ver este ejemplo de uso en esa misma url:</p>
+                <pre>
+                  <code class="language-js">
+                    fetch('https://jsonplaceholder.typicode.com/todos/1')
+                    .then(response => response.json())
+                    .then(json => console.log(json))
+                  </code>
+                </pre>
+                
+                <p>Vamos a trabajar con el json de 'Comments' <a href="https://jsonplaceholder.typicode.com/comments" class="blank">https://jsonplaceholder.typicode.com/comments</a>. Un json es muy parecido a un XML nos da unos datos con una estructura que podemos renderizar en nuestras aplicaciones.</p>
+                <p>También con FetchAPI es posible obtener datos de un archivo .txt</p>
+                <p>Para usarlo tenemos dos opciones, o ponerlo directamente en el código o meterlo en una función y mandarla llamar.<br>
+                fetch() utiliza promises, que fueron agregados en la versión de js moderno ECMAScript6. Podemos pensar en los promises como un objeto que va a estar disponible a futuro o no. Los promises cuentan con varios pasos y también con varios estados. Esos pasos se representan por una sintaxis que es <span class="destacado">.then()</span> siendo la lectura algo como "quiero obtener los datos de esta url, entonces tengo mi respuesta...voy a hacer..." El .then toma automáticamente un callback, una función que podemos nombrar como queramos <strong>then((response) => {})</strong></p>
+                <pre>
+                  <code class="language-js">								
+                    fetch(url)
+                      .then((response) => {
+                        console.log(response)
+                      })
+                  </code>
+                </pre>
+                <p>En la respuesta de la consola vemos en el Response que el ok es true y el status 200 --> la url existe (si no existiera tendríamos false y 404). Type cors lo veremos mas adelante, es complicado. Podremos ver como personalizar nuestros estados. Las APIS se comunican entre sí con estados numéricos, también los veremos en detalle.</p>
+    
+                <img src="./src/assets/img/37-1.png" alt="">
+    
+                <p>Vemos qe no aparecen los datos por ningún sitio, pero si abrimos el prototype sí vemos los métodos <strong>json() y text()</strong>, que sirven apra decirle qué tipo de datos es el que estoy obteniendo (o un txt o un json). Como es un json le especificamos en el callback que retorne la respuesta como json <span class="destacado">return response.json()</span> lo cual nos dará acceso a otro promise con el que obtendremos los datos:</p>
+    
+                <pre><code class="language-js">
+                  fetch(url)
+                    .then((response) => {									
+                      return response.json()
+                    })
+                    .then(data => {
+                      console.log(data)
+                    })							
+                </code></pre>
+                
+                <p>Como vemos tenemos un .then() y otro .then() y así funcionan los promises, estamos llamando a esa url y no sabemos si vamos a poder obtener los datos o no. En este caso esta url que estamos usando es pública para aprender pero no podemos obtener los datos de por ejemplo instagram, youtubbe... solo haciendo un llamado a una url, en esos casos va a fallar la petición. Como no sabemos el tipo de respuesta que vamos a tener por eso tenemos estos pasos: </p>
+                <ul>
+                  <li>trato de conectarme a un servidor</li>
+                  <li>entonces, si tengo respuesta la quiero como json y estos comentarios son 500 (el tiempo de respuesta no va a ser igual si tengo 2 respuestas que si tengo 500)</li>
+                  <li>una vez que finalice de ejecutarse el código del primer promise, tengo acceso a los datos con el segundo</li>
+                </ul>	
+    
+                <p>Si la url fuera incorrecta, recordemos que el ok saldrá a false, response 200 y tendremos un segundo objeto vacío (del 2º promise). Podemos añadir un catch para intentar especificar algo en caso de error, sin embargo como veremos en la consola no se ejecuta el console log del catch ¿por qué? porque con el fetch() así especificado, el catch solo se ejecuta cuando hay problemas de red (podemos forzarlo quitando la wifi).</p>
+    
+                <pre><code class="language-js">
+                  const url = 'https://jsonplaceholder.typicode.com/urlerronea'
+                  fetch(url)
+                    .then((response) => {	
+                      //console.log(response)								
+                      return response.json()
+                    })
+                    .then((data) => {
+                      console.log(data)
+                    })	
+                    .catch(error=>{
+                      console.log(error)
+                    })
+                </code></pre>
+    
+                <p>Hagamos lo siguiente mejor (if para cuando hay respuesta y un throw new Error para cuando falle) y como veremos, el nuevo error pasará al .catch(). Aprovechamos las funciones de flecha para simplificar la sintaxis del 2º promise y el catch:</p>
+    
+                <pre><code class="language-js">
+                  fetch(url)
+                    .then((response) => {	
+                      //console.log(response)
+                      if(response.ok){								
+                        return response.json()
+                      } 
+                      throw new Error('Hubo un error')
+                    })
+                    .then(data => console.log(data))	
+                    .catch(error=> console.log(error))								
+                </code></pre>
+    
+                <img src="./src/assets/img/37-2.png" alt="">
+    
+                <p>Como decíamos podemos usarlo sin función como acabamos de ver en el ejemplo anterior o también dentro de una función que mandaremos llamar. Funcionaría igual y este sería el código:</p>
+                <pre>
+                  <code class="language-js">
+                    const url = 'https://jsonplaceholder.typicode.com/comments'
+    
+                    const consultarAPI = () => {
+                      fetch(url)
+                        .then((response) => {	
+                          //console.log(response)
+                          if(response.ok){								
+                            return response.json()
+                          } 
+                          throw new Error('Hubo un error')
+                        })
+                        .then(data => console.log(data))	
+                        .catch(error=> console.log(error.message))
+                    }
+                    consultarAPI()
+                  </code>
+                </pre>
+    
+                <p>Fetch API con promises es una gran mejora pero Async Await lo hace aún más simple</p>						
+              </div>
+    <!-- Fin bloque desplegable interior -->
+    
+    
+    <!-- Bloque desplegable interior-->
+              <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion2-38').toggle();">	
+                <h3>38. Fetch API con Async / Await</h3>			
+                <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+              </div>
+              <div id="seccion2-38" style="display:none">
+                <p class="titulo">Fetch con Async / Await <strong>sí requiere una función</strong>, que puede ser un arrow function o un function declaration. A continuación escribiremos código con ambas. En este caso ha de ser asíncrona (por eso requiere una función). Para el caso de función de flecha colocamos la palabra <span class="destacado">async</span> antes de los paréntesis, lo que convierte a la función en asíncrona y nos da acceso a la otra propiedad: <span class="destacado">await</span> que son los que reemplazan a los .then() del ejemplo anterior.</p>
+                
+                <p>El await (como antes los then) espera a que se realice la petición, ocurra una respuesta y vuelve a utilizar otro await para obtener los datos. Tengamos en cuenta que la conexión a una API externa dependerá del tipo de servidor (servidor gratis vs servidor de 1000$/mes) y la conexión que tengamos; y como decíamos leer los datos no va a ser lo mismo leer 2 registros que 500. Los await esperan que finalice de ejecutarse ese código para ir a la siguiente línea.</p>		
+    
+                <p>La sintaxis es un poco diferente y se lee más como "de derecha a izquierda"</p>
+    
+                <pre><code class="language-js">
+                  const url = 'https://jsonplaceholder.typicode.com/comments'
+                  /*
+                  fetch(url)
+                    .then((response) => {	
+                      //console.log(response)
+                      if(response.ok){								
+                        return response.json()
+                      } 
+                      throw new Error('Hubo un error')
+                    })
+                    .then(data => console.log(data))	
+                    .catch(error=> console.log(error.message))
+                  */
+                  const consultarAPI = async () => {
+                    const response = await fetch(url)
+                    const data = await response.json()
+                    console.log(data)
+                  }
+                  consultarAPI()
+                </code></pre>
+    
+                <p>Estos dos códigos hacen lo mismo, pero hay un detalle. Con Async / Await no hay forma de catchear un posible error. Por lo que normalmente cuando usamos Async / Await se usa junto a algo llamado Try Catch. En el caso de que cualquiera de las acciones indicadas en el Try falle, ejecuta lo que especifiquemos en el catch:</p>
+    
+                <pre><code class="language-js">
+                  const url = 'https://jsonplaceholder.typicode.com/comments'
+                  const consultarAPI = async () => {
+                    try {
+                      const response = await fetch(url)
+                      if(!response.ok){
+                        throw new Error('Hubo un error')
+                      }
+                      const data = await response.json()
+                      console.log(data)
+                    } catch (error) {
+                      console.log(error)
+                    }
+                  }
+                  consultarAPI()
+                </code></pre>						
+              </div>
+    <!-- Fin bloque desplegable interior-->
+    
+    
+    <!-- Bloque desplegable interior-->
+              <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion2-39').toggle();">	
+                <h3>39. Medir performance y cómo manejar múltiples consultas</h3>			
+                <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+              </div>
+              <div id="seccion2-39" style="display:none">
+                <p>JS tiene una API para medir la performance de nuestro código. Más de una vez vamos a tener distintos códigos que hagan lo mismo y vamos a querer medir cual es la versión más rápida. Utilizamos para ello <span class="destacado">performance.now()</span>. Lo usamos al principio y al final de nuestro try y sacamos por consola la diferencia en ms. Veremos que en función de la url que usemos (que carga más o menos datos) ese rendimiento en ms varía.</p>
+                <pre>
+                  <code class="language-js">
+                    //Performance y múltiple Async Await
+                    const url = 'https://jsonplaceholder.typicode.com/comments'
+                    const url2 = 'https://jsonplaceholder.typicode.com/todos'
+                    const url3 = 'https://jsonplaceholder.typicode.com/photos'
+                    const consultarAPI = async () => {
+                      try {
+                        const inicio = performance.now()			
+                        const response = await fetch(url3)
+                        if(!response.ok){
+                          throw new Error('Hubo un error')
+                        }
+                        const data = await response.json()
+                        console.log(data)
+                    
+                        const fin = performance.now()			
+                        console.log(`El resultado es: ${fin - inicio} ms`)
+                      } catch (error) {
+                        console.log(error)
+                      }
+                    }
+                    consultarAPI()
+                  </code>
+                </pre>
+                <p>Una aplicación real obtiene datos de muchos sitios distintos. Tal vez nuestra empresa tenga un rp, crm, e-commerce, sistemas de facturación... tal vez estamos creando algo que consume datos de diferentes lugares. Un error muy común es hacer lo siguiente, supongamos que consumimos los 3 "endpoints" de esta manera, vemos la consola (izquierda):</p>
+                <pre>
+                  <code class="language-js">
+                    //Performance y múltiple Async Await
+                    const url = 'https://jsonplaceholder.typicode.com/comments'
+                    const url2 = 'https://jsonplaceholder.typicode.com/todos'
+                    const url3 = 'https://jsonplaceholder.typicode.com/photos'
+                    const consultarAPI = async () => {
+                      try {
+                        const inicio = performance.now()	
+    
+                        const response = await fetch(url)				
+                        const data = await response.json()
+                        console.log(data)
+                    
+                        const response2 = await fetch(url2)				
+                        const data2 = await response2.json()
+                        console.log(data2)
+                    
+                        const response3 = await fetch(url3)				
+                        const data3 = await response3.json()
+                        console.log(data3)
+                    
+                        const fin = performance.now()			
+                        console.log(`El resultado es: ${fin - inicio} ms`)
+                      } catch (error) {
+                        console.log(error)
+                      }
+                    }
+                    consultarAPI()
+                  </code>
+                </pre>
+                <p>usar así los awaits esperando a que cada llamada anterior se resuelva va a hacer que nuestras apps sean más lentas. <strong>¡OJO! va a a habver ocasiones en que realmente querramos llamarlas así secuencialmente porque el siguiente procesado necesite los datos anteriores</strong>. Pero veamos cómo hacerlo en caso de que queramos procesar a la vez todas las llamadas y no secuencialmente. Emplearemos <span class="destacado">Promise.all()</span>:</p>
+    
+                <pre><code class="language-js">
+                  const consultarAPI2 = async () =>{
+                    try {
+                      const inicio = performance.now()
+                  
+                      const [response, response2, response3] = await Promise.all([fetch(url),fetch(url2),fetch(url3)])
+                      const [data, data2, data3] = await Promise.all([response.json(),response2.json(),response3.json()])			  
+                      console.log(data)     
+                      console.log(data2)    
+                      console.log(data3)		
+                  
+                      const fin = performance.now()
+                  
+                      console.log(`El resultado de la SEGUNDA función es: ${fin - inicio} ms`)
+                    } catch (error) {
+                      console.log(error)
+                    }
+                  }
+                  consultarAPI2()
+                </code></pre>
+    
+                <p>Si vemos en la consola (derecha) el resultado de ejecutar las dos funciones <strong>(ver 39-performance.js)</strong> veremos que siempre en cada ejecución, la primera que termina (por tanto con mejor rendimiento, termina en menos ms) es la segunda función.</p>	
+                
+                <img src="./src/assets/img/39-1.png" alt="">
+    
+                
+              </div>
+    <!-- Fin bloque desplegable interior-->
+    
+    
+    <!-- Bloque desplegable interior-->
+              <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion2-40').toggle();">	
+        <h3>40. DOM - Selectores</h3>			
+        <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+              </div>
+              <div id="seccion2-40" style="display:none">
+                <p>Va a ser corto porque de hecho la forma de escribir código de DOM en JS es un poco diferente a como React lo maneja porque tiene algo llamado JSX que simplifica mucho. Pero siempre viene bien aprender o refrescar. Abrimos el DOM.html y colocamos el script:</p>
+                <pre>
+                  <code class="language-html">
+                    &lt;script src=&quot;js/40-DOM-selectores.js&quot;&gt;&lt;/script&gt;
+                  </code>
+                </pre>
+    
+                <p><strong>Selectores</strong>. Todas las interacciones que haces en el DOM con js requieren un selector. Es como en CSS seleccionas un elemento y empiezas a aplicar propiedades css para cambiar apariencia. En JS vas a aseleccionar algún elemento de tu página y vas a regresar operaciones por medio de js para agregar, modificar o eliminar atributos.</p>		
+    
+                <p>queremos seleccionar este elemento del DOM.html:</p>
+    
+                <pre><code class="language-html">
+                  &lt;h1 class=&quot;text-4xl font-black heading&quot;&gt;JavaScript Intermedio - Manipulaci&oacute;n de DOM &lt;/h1&gt;
+                </code></pre>
+    
+                <p>iniciamos con <span class="destacado">document</span>(podemos poner en consola document y vemos que es el documento entero.) De hecho podemos poner en consola document.title y vemos que saca el título de la página. pero para otro tipo de elementos de dentro del html hemos de utilizar <span class="destacado">querySelector()</span>. También comenta los que conocemos <strong>.getElementById</strong>, <strong>.getElementsByTagName</strong>, etc... pero hoy día se recomienda utilizar más la sintaxis con querySelector() porque tenemos acceso a selectores muy similares a los de css (.clase, #id, :last-of-type, :nth-child(),...), y sabiendo css los mismos selectores aplican para seleccionar elementos en js. Como hay selectores muy complejos, podremos seleccionar prácticamente cualquier elemento.</p>
+    
+                <p>Si hacemos un console.log(heading), vemos que nos pone el elemento h1 como está con todo lo que contiene tanto el tag en sí como su contenido. Así seleccionado un elemento tenemos acceso a sus atributos, lo que conocemos como el DOM. El DOM podemos modificarlo y recorrerlo.</p>
+    
+                <div class="flex">
+                  <pre><code class="language-js">
+                    const heading = document.querySelector('.heading')
+                    console.log(heading)
+                    console.log(heading.tagName)
+                    console.log(heading.textContent)
+                    console.log(heading.classList)
+                  </code></pre>
+    
+                  <img src="./src/assets/img/40-1.png" alt="">
+                </div>
+    
+                <p>Veamos ahora el <span class="destacado">querySelectorAll()</span>. La principal diferencia es que trae <strong>TODOS</strong> los elementos que tengan correspondencia con ese selector, mientras que querySelector() solo trae uno (aunque haya más que correspondan con el selector indicado entre paréntesis, solo trae el primero que encuentra)</p> 
+                <pre><code class="language-html">
+                  &lt;nav class=&quot;navegacion my-5 flex gap-5&quot;&gt;
+                    &lt;a href=&quot;&num;&quot;&gt;Enlace 1&lt;/a&gt;
+                    &lt;a href=&quot;&num;&quot;&gt;Enlace 2&lt;/a&gt;
+                    &lt;a href=&quot;&num;&quot;&gt;Enlace 3&lt;/a&gt;
+                    &lt;a href=&quot;&num;&quot;&gt;Enlace 4&lt;/a&gt;
+                  &lt;/nav&gt;		
+                </code></pre>
+    
+                <div class="flex">
+                  <pre><code class="language-js">
+                    const enlaces = document.querySelectorAll('.navegacion a')
+                    console.log(enlaces)
+                  </code></pre>
+    
+                  <img src="./src/assets/img/40-2.png" alt="">
+                </div>
+    
+                
+              </div>
+    <!-- Fin bloque desplegable interior-->
+    
+    <!-- Bloque desplegable interior-->
+              <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion2-41').toggle();">	
+                <h3>41. Manipular elementos HTML con JS</h3>			
+                <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+              </div>
+              <div id="seccion2-41" style="display:none">
+                <p>Veamos algunos ejemplos</p>
+                <pre>
+                  <code class="language-js">
+                    const heading = document.querySelector('.heading')
+                    const enlaces = document.querySelectorAll('.navegacion a')
+                    //console.log(heading.textContent)
+                    
+                    heading.textContent = 'Un nuevo Heading'
+                    heading.id = 'Un nuevo id'
+                    heading.removeAttribute('id')
+                    heading.removeAttribute('class')
+                  </code>
+                </pre>
+    
+                <p>Es muy comun que muchos formularios tengan ya un value por default:</p>		
+    
+                <pre><code class="language-js">
+                  const inputNombre = document.querySelector('#nombre')
+    
+                  //normalmente los atributos de los tags HTML se llaman igual los atributos de JS
+                  inputNombre.value = 'Un nuevo valor'
+                  //aunque no siempre, por ejemplo las clases o los atributos personalizados data-nombre="input"
+                  console.log(inputNombre.classList)
+                  inputNombre.dataset.nombre = "input"
+                  
+                  //Veamos como manipular colecciones. hemos de pasarle la posición o iterar sobre los elementos
+                  console.log(enlaces)
+                  enlaces.forEach( enlace => enlace.textContent = 'Nuevo Enlace')
+                </code></pre>
+              </div>
+    <!-- Fin bloque desplegable interior-->
+    
+    <!-- Bloque desplegable interior-->
+              <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion2-42').toggle();">	
+                <h3>42. DOM eventos con click - <a href="https://developer.mozilla.org/es/docs/Web/API/Element" class="txt-negro" target="blank">Enlace MDN Element</a></h3>			
+                <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+              </div>
+              <div id="seccion2-42" style="display:none">
+                <p>Una de las características ppales de JS es que podamos añadir interacción a nuestras aplicaciones/sitios web. Veamos algunos eventos que nos van a permitir eso.</p>
+                <pre>
+                  <code class="language-js">
+                  const heading = document.querySelector('.heading')
+                  //vimos como podemos cambiar por ejemplo el contenido del tag por un nuevo título
+                  heading.textContent = 'nuevo título'
+                  </code>
+                </pre>
+                <p>Supongamos que quiero esperar a que por ejemplo alguien presione en el titulo para modificarlo. <strong>Una vez que seleccionas un elemento tienes acceso a registrarle un evento con el evento <span class="destacado">addEventListener()</span></strong>. Veamos el siguiente link https://developer.mozilla.org/es/docs/Web/API/Element, en la parte derecha podemos ver los eventos. Los hay de todo tipo, del mouse, de animaciones, eventos cuando copias algo con el teclado,... </p>	
+                
+                <p>esto es lo que se conoce como un callback, espera que ocurra el evento del primer argumento y cuando ocurre se dispara la función indicada en el segundo argumento.</p>
+    
+                <pre><code class="language-js">
+                  heading.addEventListener('click', () => {
+                    heading.textContent = 'Al dar click'
+                  })
+                  heading.addEventListener('dblclick', () => {
+                    heading.textContent = 'Al dar doble click'
+                  })
+                  heading.addEventListener('mouseenter', () => {
+                    heading.textContent = 'Al entrar'
+                  })
+                  heading.addEventListener('mouseleave', () => {
+                    heading.textContent = 'Al salir'
+                  })
+                </code></pre>
+    
+                <p>Para añadir addEventListener a los integrantes de un document.querySelectorAll utilizamos el forEach:</p> 
+    
+                <pre><code class="language-js">
+                  const enlaces = document.querySelectorAll('.navegacion a')
+                  enlaces.forEach( enlace => {
+                    enlace.addEventListener('click', () => {
+                      console.log('diste click en un enlace')
+                    })
+                  })
+                </code></pre>	
+    
+                <p>Vemos que al pulsar cada link la página nos da un salto. El elemento enlace tiene una acción por default que es intentar ir la url indicada en el href pero en nuestro caso no hay nada tenemos un #. Veamos. A la función que se dispara al realizar el evento le podemos pasar un parámetro que llamamos <strong>e, evento, evt, ...</strong> como queramos, y si hacemos un console log de ello vemos que aparece una gran cantida de información sobre el evento que se está llevando a cabo. Si scrolleamos un poco hacia abajo llegamos al "target" que nos da la información de qué es lo que ha disparado ese evento. Hacemos un console.log de e.target y nos da información de qué es a lo que hemos dado click:</p>
+                <pre><code class="language-js">
+                  const enlaces = document.querySelectorAll('.navegacion a')
+                  enlaces.forEach( enlace => {
+                    enlace.addEventListener('click', (e) => {
+                      console.log(e.target)
+                      console.log('diste click en un enlace')
+                      e.preventDefault()
+                      e.target.textContent="diste click"
+                    })
+                  })
+                </code></pre>
+                <img src="./src/assets/img/42-1.png" alt="">
+    
+                <p>cuadno enviamos un formulario hay una acción por default, cuando haces click en un botón hay una acción por default, si presionas un heading o una imagen no hay una acción por default... pero los links es uno d elos elementos que sí tiene una acción por default. usamos <span class="destacado">e.preventDefault()</span> que básicamente le dice al link "ok, tú tines un comportamiento que es abrir una url. No lo hagas.</p>
+    
+                <p>Por tanto nosotros mediante código podemos modificar las acciones a realizar, por ejemplo en un formulario, que en vez de enviarse haga validaciones. Importante:</p>
+                <ul>
+                  <li><span class="destacado">e.preventDefault()</span> nos va a permitir <strong>prevenir la accion por defecto de algún elemento html que realiza algo</strong></li>
+                  <li>ese <span class="destacado">e</span> reporta <strong>el evento que se está registrando</strong>, en nuestro ejemplo el click </li>
+                  <li>el <span class="destacado">e.target</span> es <strong>lo que dispara ese evento</strong>, en nuestro ejemplo un enlace</li>
+                </ul>
+              </div>
+    <!-- Fin bloque desplegable interior-->
+    
+    <!-- Bloque desplegable interior-->
+              <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion2-43').toggle();">	
+                <h3>43. DOM eventos en inputs</h3>			
+                <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+              </div>
+              <div id="seccion2-43" style="display:none">
+                <p>En nuestro DOM.html tenemos estos dos inputs:</p>
+                <pre>
+                  <code class="language-html">
+                    &lt;input type=&quot;text&quot; placeholder=&quot;Tu Nombre&quot; id=&quot;nombre&quot; class=&quot;p-2 rounded-lg text-sm&quot;&gt;
+    
+                    &lt;input type=&quot;password&quot; placeholder=&quot;Tu Password&quot; id=&quot;password&quot; class=&quot;p-2 rounded-lg text-sm&quot;&gt;
+                  </code>
+                </pre>
+    
+                <p>Queremos leer lo que el usuario va escribiendo en el input de nombre. registramos un addEventListener()</p>		
+                <pre>
+                  <code class="language-js">
+                    const inputNombre = document.querySelector('#nombre')
+                    inputNombre.addEventListener('input', (e) => {
+                      console.log('escribiendo')
+                      console.log(e.target)
+                      console.log(e.target.value)
+                      console.log(e.target.value.length)
+                    })		
+                  </code>
+                </pre>
+                <p>Por defecto en un input de tipo password el contenido sale ofuscado. Queremos ver lo que escribimos durante poco tiempo y luego que se vuelva a ofuscar.</p>
+                <pre>
+                  <code class="language-js">
+                    const inputPassword = document.querySelector('#password')
+                    inputPassword.addEventListener('input', functionPassword)
+                    function functionPassword() {
+                      inputPassword.type = "text"
+                      setTimeout(() => {
+                        inputPassword.type = "password"
+                      }, 500)
+                    }		
+                  </code>
+                </pre>
+                
+              </div>
+    <!-- Fin bloque desplegable interior-->
+    
+    
+    <!-- Bloque desplegable interior-->
+              <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion2-43').toggle();">	
+                <h3>44. Eventos en Submit. 45. Validando formulario y mostrando alertas.</h3>			
+                <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+              </div>
+              <div id="seccion2-43" style="display:none">
+                <p>En nuestro formulario tenemos este input de tipo submit. El evento de submit se llama cuando alguien presiona sobre el formulario para enviarlo:</p>
+                <pre>
+                  <code class="language-html">
+                    &lt;input type=&quot;submit&quot; value=&quot;Iniciar Sesi&oacute;n&quot;
+                    class=&quot;bg-cyan-500 hover:bg-cyan-600 text-sm uppercase p-2 font-black text-white cursor-pointer&quot;&gt;
+                  </code>
+                </pre>
+    
+                <p>Veamos un ejemplo de una validación sencilla:</p>
+                <pre>
+                  <code class="language-js">
+                    const formulario = document.querySelector('#formulario')
+                    formulario.addEventListener('submit', e => {
+                      e.preventDefault
+                    
+                      const nombre = document.querySelector('#nombre').value
+                      const password = document.querySelector('#password').value
+                    
+                      if(nombre === '' || password === ''){
+                        console.log('Todos los campos son obligatorios')
+                      } else {
+                        console.log('Todo bien, iniciando sesión')
+                      }
+                      // console.log('Enviando formulario')
+                      // console.log(nombre)
+                      // console.log(password)    
+                    })
+                  </code>
+                </pre>
+    
+                <p>Creamos con JS un elemento html div al que vamos a añadir unas clases de tailwindcss para darle formato.</p>
+    
+                <p>Hemos de seleccionar siempre un elemento de nuestro document en el que queremos renderizar lo que estamos creando. Como estamos creando un div de alerta de validación, tiene sentido que lo queramos mostrar en el formulario. Por tanto agregamos la alerta como un hijo del formulario <span class="destacado">formulario.appendChild(alerta)</span></p>
+                <pre>
+                  <code class="language-js">
+                    const formulario = document.querySelector('#formulario')
+                    formulario.addEventListener('submit', e => {
+                      e.preventDefault
+                      const nombre = document.querySelector('#nombre').value
+                      const password = document.querySelector('#password').value
+                      
+                      //Prevenir nuevas alertas
+                      const alertaPrevia = document.querySelector('.alerta')
+                      /*if (alertaPrevia){
+                        alertaPrevia.remove();
+                      }*/
+                      alertaPrevia?.remove(); //comprobamos si existe con el optional chaining
+    
+                      const alerta = document.createElement('DIV')
+                      //alerta.textContent = 'contenido de alerta'
+                      //alerta.classList = 'clase-1 clase-2' //se pueden añadir así clases de estilo pero se recomienda hacerlo usando .add()
+                      //alerta.classList.add('clase-1','clase-2','clase-3')
+                      //añadamos clases de Tailwind css
+                      alerta.classList.add('alerta','text-white','uppercase', 'text-sm', 'text-center', 'p-2', 'font-black')   
+                  
+                      if(nombre === '' || password === ''){
+                        alerta.textContent = 'Todos los campos son obligatorios'
+                        alerta.classList.add('bg-red-500')
+                      } else {
+                        alerta.textContent = 'Todo bien, iniciando sesión'
+                        alerta.classList.add('bg-green-500')
+                      }
+                      //para eliminar la alerta pasados 2sg
+                      setTimeout(() => {
+                        alerta.remove()
+                      }, 2000);
+                      //console.log(alerta)
+                      formulario.appendChild(alerta)
+                    })
+                  </code>
+                </pre>	
+              </div>
+    <!-- Fin bloque desplegable interior-->
+              
+            </div>			
+          </div><!--Fin row-->
+            
+            
+          
+        </div>
+        <!-- Fin div colapsable-->
+    
+    
+      </div>
+    </div>	
+    <!-- SECCION 2 -->		
+    
+    
+    <!-- SECCION 3 y 4-->
+    <div class="contenedor w-80 background esp-5-bottom">		
+      <div class="row">
+        <div class="flex center-vertical esp-25-top pointer desplegable space-between pointer" onclick="$('#seccion3').toggle();">	
+          <h2>Sección 3 y 4: PROYECTO: Carrito de compras. Introducción / Herramientas / Creando el proyecto en Windows</h2>				
+          <span class="cambiaicono ico_chevron_down esp-10-right" title=""></span>
+        </div>
+        
+        <div id="seccion3" style="display: none">
+            
+          <div class="row">
+            <div class="col-12">	
+              
+              
+              
+              <!-- Bloque desplegable interior-->
+              <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion3-46').toggle();">	
+                <h3>46. Introducción. El proyecto a construir GuitarLA</h3>			
+                <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+              </div>
+              <div id="seccion3-46" style="display:none">
+                <p class="titulo">Proyecto carrito de compras GuitarLA</p>
+    
+                <p>En este proyecto estaremos aprendiendo los fundamentos de React: <span class="destacado">Componentes, Eventos y State</span>, mientras creas un carrito de compras real con cantidades, precios, y más, tomaremos este mismo carrito para mostrarte como crear tus propios Hooks y como transformarlo a código de TypeScript y cuales son sus beneficios. Carrito de compra persistente sincronizando con localStorage (aprenderemos todas esas acciones agregar elementos, cambiarlos, cambiar cantidades, vaciar carrito...)</p>							
+                <img src="img/s1-01.jpg" width="" height="" alt=""/> 
+                
+              </div>
+              <!-- Fin bloque desplegable interior-->
+    
+    
+              <!-- Bloque desplegable interior-->
+              <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion3-47').toggle();">	
+                <h3>47. Herramientas para crear aplicaciones en React.js</h3>			
+                <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+              </div>
+              <div id="seccion3-47" style="display: none;">
+                <p class="titulo">Tecnologías para crear aplicaciones en React</p>
+                <p>Permiten Crear una App En React en Minutos. Existen muchas formas de crear una app en React, incluso tu puedes crear tu propio ambiente de desarrollo con herramientas como Babel, Parcel, Webpack, Vite, etc</p>
+    
+                <p>Pero también existe una gran cantidad de herramientas ya disponibles para crear aplicaciones en React en minutos sin conocer esta configuración</p>
+                
+                
+                <p class="titulo">Ventajas de utilizar una herrmaienta ya existente: <strong>La mayoría de Herramientas ya existentes para crear aplicaciones en React son estables y siguen un enfoque muy claro: No tener que preocuparte por la configuración.</strong> Tú puedes crear tu propio ambiente de desarrollo pero tienes que asegurarte de que cada versión nueva de React, cada version de diferentes librerias sea compatible con tu proyecto y despues tienes que encontrar una forma de compilar código de css (sass etc) ...entonces vamos a gasta r más tiempo en solucionar este tipo de cosas que tirando código. Por eso se recomienda usar una herramienta ya existente</p>
+    
+                <p>Cada una de estas herramientas ya existentes va desde básicas hasta avanzadas. Requieren tener instalado <span class="destacado">Node.js (NPM) o YARN</span>. Existen otros entornos hoy día como <strong>¿bum?</strong> Node.js con npm es bastante estable y es la que estaremos usando</p>
+                
+                <p>Opciones modernas para crear Apps en React. Los más populares hoy en día son<span class="destacado">Vite</span> y <span class="destacado">Next.js</span>. También Remix Run y Astro (que usaba en versiones anteriores del curso. Remix Run fue adquirido recientemente por shopify y están haciendo muchos cambios y no está listo)</p>
+                
+                <p class="titulo">Recomendaciones del equipo de React</p>
+    
+                <p>En su documentación recomiendan comenzar por Next.js o Remix para nuevos proyectos. Entonces ¿ya no se deben crear proyectos von Vite? Cuando creas proyectos con Vite tendrás que instalar dependencias para Routing, Consultas HTTP y más (herramientas como Next.js y Remix ya lo tienen incluido)</p>
+    
+                <p><strong>Usualmente siempre hay que aprender primero la herramienta/lenguage de programación y después el framework por lo que esa recomendación es un poco rara, porque cuando estes creando un proyecto ya sea en Next.js o Remix tal vez estés escribiendo un código y no sabes si eso es React o si eso es Next. Y esa es la explicación de por qué los proyectos en este curso utilizan Vite y al final tendremos un proyecto con Next quedando más claro qué es React y qué es Next.js</strong></p>						
+              </div>
+              <!-- Fin bloque desplegable interior-->
+    
+              <!-- Bloque desplegable interior-->
+              <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion4-48').toggle();">	
+                <h3>48. Instalando node y npm</h3>			
+                <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+              </div>
+              <div id="seccion4-48" style="display:none">
+                <p><a class="rojo" href="https://nodejs.org/es/" target="_blank">https://nodejs.org/es/</a> Requerimos node para crear nuestros proyectos pero también para instalar dependencias con npm</p>	
+              
+                <p>Una vez instalado abrimos la terminal y comprobamos las versiones del entorno(node.js) <span class="destacado">node -v</span> y de las dependencias(npm) <span class="destacado">npm -v</span></p>
+                
+              </div>
+              <!-- Fin bloque desplegable interior-->
+    
+    
+              <!-- Bloque desplegable interior-->
+              <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion4-49').toggle();">	
+                <h3>49. Creando el primer proyecto</h3>			
+                <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+              </div>
+              <div id="seccion4-49" style="display:none">
+                <p>Abrimos terminal, vamos al escritorio (que es donde voy a crear los proyectos) y ponemos <span class="destacado">npm create vite@latest</span> (si es la primera vez nos pedirá instalar la dependencia de vite le decimos que "y"). A continuación nos pide nombre y lo llamamos <strong>guitarla</strong>. A continuación nos pide que elijamos framework (Vanilla, Vue, <strong>React</strong>, Preact, Lit, Svelte, Solid, Qwik, Others) y elegimos React. Nos pide elegir variante, normalmente y como él ha trabajado este curso es <strong>Typescript + SWC</strong>(SWC es un compilador nuevo de los de Vite basado en Ros, muy rápido)  pero al ser el primer proyecto elegiremos <strong>Javascript + SWC</strong>. Remix es una alternativa a Next.JS de los creadores de shopify pero este curso no incluye remix porque la compra fue hace poco y están modificando/agregando muchas cosas</p>
+              
+              <img src="./src/assets/img/49-1.png" alt="">
+    
+              <p>ejecutamos los 3 comandos que nos indica para situarnos en la nueva carpeta del proyecto <span class="destacado">cd guitarla</span>, instalar las dependencias <span class="destacado">npm install</span>y arrancar el proyecto <span class="destacado">npm run dev</span></p>
+    
+              <img src="./src/assets/img/49-2.png" alt="">
+    
+              <p>Cuando generamos un proyecto en React con Vite vemos que la estructura por defecto es muy simple:</p>					
+              <ul>
+                <li><strong>carpeta "node_modules":</strong> las dependencias del proyecto. Va creciendo conforme instalamos más dependencias</li>
+                <li><strong>carpeta public:</strong> colocaremos por ej imagenes que seran accesibles para los visitantes de nuestro sitio web o app</li>
+                <li><strong>carpeta src:</strong> colocaremos todo nuestro código. Si revisamos la página de inicio de nuestro proyecto <strong>http://localhost:5173/</strong> nos dice: <strong>Edit src/App.jsx and save to test HMR</strong>. Así que abramos ese jsx, que es la página de inicio. 
+                  <img src="./src/assets/img/49-3.png" alt=""><br>
+                  En esta carpeta <strong>src</strong> es donde vamos a pasar la mayor parte del tiempo escribiendo código (colocaremos nuestros customs hooks, librerías, componentes...).
+                </li>
+                <li>.gitignore: va a ignorar algunos archivos</li>
+                <li><strong>index.html:</strong> básicamente lo que hace es inyectar React en el div <code class="language-html">&lt;div id="root"&gt;&lt;/div&gt;</code>. Si abrimos el <strong>main.jsx</strong> vemos el siguiente código donde se busca ese div con id="root" donde monta toda la aplicación de React. En el index.html podemos poner algún background, agregar algunos tags mas de html que sean importantes para nuestro proyecto, pero no vamos a escribir código html ahí habitualmente.
+                <pre><code class="language-js">
+                  createRoot(document.getElementById(&apos;root&apos;)).render(
+                    &lt;StrictMode&gt;
+                      &lt;App /&gt;
+                    &lt;/StrictMode&gt;&comma;
+                    )						
+                </code></pre>
+                </li>
+                <li><strong>package.json:</strong> ahí está el comando de "dev" que ejecutamos para arrancar y tiene algunos comandos para construir proyecto, previsualizarlo, y es donde se instalan las dependencias del proyecto y las de desarrollo. Al tener esas dependencias y sus versiones indicadas nos aseguramos que el equipo de trabajo sepa qué depndencias hay que tener para funcionar correctamente.</li>
+              </ul>
+              
+                
+              </div>
+              <!-- Fin bloque desplegable interior-->
+    
+                  
+            </div>			
+          </div><!--Fin row-->
+    
+        </div>
+        <!-- Fin div colapsable-->
+    
+    
+      </div>
+    </div>	
+    <!-- FIN SECCION 3 y 4-->	
+    
+    
+    
+    <!-- SECCIÓN 6 -->
+    <div class="contenedor w-80 background esp-5-bottom">		
+      <div class="row">
+        <div class="flex center-vertical esp-25-top pointer desplegable space-between pointer" onclick="$('#seccion6').toggle();">	
+          <h2>Sección 6: PROYECTO: Carrito de Compras - Creando el Carrito, introducción a Hooks y más</h2>				
+          <span class="cambiaicono ico_chevron_down esp-10-right" title=""></span>
+        </div>
+        
+        <div id="seccion6">
+            
+          <div class="row">
+            <div class="col-12">	
+              
+              <!-- Bloque desplegable interior-->
+              <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion6-52').toggle();">	
+                <h3>52. La estructura de archivos de React</h3>			
+                <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+              </div>
+              <div id="seccion6-52" style="display:none">
+                <p><strong>index.html:</strong> Archivo html sobre el cual se monta la app de React. </p>	
+                <p><strong>App.jsx:</strong> nuestro componente principal de aplicación. Es donde estaremos agregando nuestros componentes.</p>	
+                <p><strong>index.css:</strong> para código css que aplique en toda la app</p>	
+                <p><strong>main.jsx:</strong> donde importamos la hoja de estilo y el componente ppal para que se inyecten en ese index.html</p>	
+    
+                  
+                <p>React es una librería de JS por tanto todo el código de JS que se genera es inyectado en el div <code class="language-html">&lt;div id="root"&gt;&lt;/div&gt;</code>. Por tanto es un DOM virtual, es código html que fue generado Unicamente con js. En este index podemos meter las google fonts o librerías de animaciones de css. Es nuestro archivo principal pero usualmente no vamos a hacer cambios aquí (solo el title)</p>
+                <p><strong>package-lock.json:</strong> no tocamos se genera a partir del package.json y las dependencias indicadas ahí</p>
+                <p><strong>package.json:</strong> dependencias y qué versiones están instaladas y utiliza este proyecto. De hecho en la parte de scripts, vemos que el de dev manda ejecutar <span class="destacado">vite</span>.</p>
+                <pre><code class="language-js">
+                  "scripts": {
+                    "dev": "vite",
+                    "build": "vite build",
+                    "lint": "eslint .",
+                    "preview": "vite preview"
+                    },
+                </code></pre>	
+                  
+                <p>Si vamos añadiendo dependencias se van colocando aquí en el bloque siguiente de dependencias de proyecto y en el siguiente dependencias de desarrollo.</p>
+                <p>Nos fijamos en los dos logos que aparecen en la página de inicio. carpeta public --> 'vite.svg' y carpeta src>assets --> 'react.svg'. Vemos en nuestro <strong>App.jsx</strong> como se llaman esos logos usando la sintaxis propia de react conocida como <span class="destacado">jsx</span>: que nos permite combinar código html con código js. <span class="destacado">Importante como se importa cada cosa en función de donde esté (solo / si en public vs ./ si en src)</span></p>
+                <pre><code class="language-js">
+                  import reactLogo from './assets/react.svg'
+                  import viteLogo from '/vite.svg'
+                </code></pre>
+                <pre><code class="language-html">
+                  &lt;a href=&quot;https://vite.dev&quot; target=&quot;&lowbar;blank&quot;&gt;
+                  &lt;img src=&lcub;viteLogo&rcub; className=&quot;logo&quot; alt=&quot;Vite logo&quot; /&gt;
+                  &lt;/a&gt;
+                  &lt;a href=&quot;https://react.dev&quot; target=&quot;&lowbar;blank&quot;&gt;
+                  &lt;img src=&lcub;reactLogo&rcub; className=&quot;logo react&quot; alt=&quot;React logo&quot; /&gt;
+                  &lt;/a&gt;							
+                </code></pre>
+    
+                <p>Vemos como el componente principal se llama App.jsx y también tenemos una css que se llama igual que ese componente App.css</p>
+                <p>Eliminamos la css, los logos y sus importaciones y uso en App.js, también el import y la const del state (mas adelante veremos) y dejamos solo lo siguiente:</p>
+                <pre><code class="language-js">		
+                  function App() &lcub;
+                  
+                    return (
+                    &lt;&gt;
+                      
+                      &lt;h1&gt;GuitarLA&lt;/h1&gt;
+                      
+                    &lt;/&gt;
+                    )
+                  &rcub;
+                  
+                  export default App
+                </code></pre>
+    
+                <p><strong>main.jsx:</strong> es el archivo principal de nuestra aplicación de React. Recordemos que en index.html todo se agrega en el div <code class="language-html">&lt;div id="root"&gt;&lt;/div&gt;</code>. Este main.jsx lee ese div y entonces monta toda nuestra aplicación de React en ese div. Si nos fijamos en el main.jsx vemos que importamos dos librerias React (librería ligera) y react-dom que es lo que nos permite la integración con nuestro html (hay otra react-native para crearr apps para android y iphone). También aquí se importa el archivo css <strong>index.css</strong> que nos permite agregar estilos globales a todo nuestro proyecto. Lo vaciamos (y así el h1 ya no sale centrado verticalmente)</p>
+                <pre><code class="language-js">
+                  import &lcub; StrictMode &rcub; from &apos;react&apos;
+                  import &lcub; createRoot &rcub; from &apos;react-dom/client&apos;
+                  import &apos;./index.css&apos;
+                  import App from &apos;./App.jsx&apos;
+                  
+                  createRoot(document.getElementById(&apos;root&apos;)).render(
+                    &lt;StrictMode&gt;
+                    &lt;App /&gt;
+                    &lt;/StrictMode&gt;&comma;
+                  )	
+                </code></pre>
+              </div>
+              <!-- Fin bloque desplegable interior-->
+    
+    <!-- Bloque desplegable interior-->
+    <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion6-53').toggle();">	
+      <h3>53. Copiando el código HTML estatico a React</h3>			
+      <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+    </div>
+    <div id="seccion6-53" style="display:none">
+      <p></p>
+      
+    </div>
+    <!-- Fin bloque desplegable interior-->
+    
+    
+    <!-- Bloque desplegable interior-->
+    <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion6-54').toggle();">	
+      <h3>54. Como Escribir código CSS en React</h3>			
+      <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+    </div>
+    <div id="seccion6-54" style="display:none">
+      <p></p>
+      
+    </div>
+    <!-- Fin bloque desplegable interior-->
+    
+    
+              <!-- Bloque desplegable interior-->
+              <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion6-55').toggle();">	
+                <h3>55. ¿Qué son los Componentes en React?</h3>			
+                <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+              </div>
+              <div id="seccion6-55" style="display:none">
+                <p>Una vez copiado (estructurado) el código estático de guitarras que descargamos, sigue siendo estático. Este App.jsx ya es un componente:</p>
+                <ul>
+                  <li>Es una función y su nombre empieza por mayúsculas (para evitar problemas en la compilación). Lo que esté entre las llaves es el contenido de ese componente pero podemos pasarlo a otros por medio de algo llamado props (lo veremos mas adelante)</li>
+                  <li>Tiene un return que devuelve lo que se ve en pantalla</li>
+                  <li>Lo que está antes del return se utiliza para algo</li>
+                  <li>lo que está después tiene otro fin</li>
+                  <li>Básicamente es tener HTML y JS en un solo archivo</li>
+                  <li><strong>¿Qué son los coponentes en React?</strong> React utiliza componentes para la creación de aplicaciones y sitios web. Actualmente nuestro App.jsx tiene demasiado código; (tiene mas de 100 líneas, podemos pensar en dividirl en componentes)</li>
+                  <li><strong>Un componente puede tener la extensión <span class="destacado">.jsx (si utilizamos js)</span> o <span class="destacado">.tsx (si utilizamos typescript)</span>.</strong> .js taambién es posible pero se recomiendan las dos primeras</li>
+                  <li><strong>Un componente normalmente tiene dos propósitos:</strong> ser reutilizable y/o separar la funcionalidad. Si se cumplen ambas mejor.</li>
+                  <li><strong>Siempre tiene que tener un <span class="destacado">return()</span> que es lo que se muestra en pantalla</strong></li>
+                  <li></li>
+                </ul> 
+    
+                <p>Creemos en una nueva carpeta que llamamos "components" nuestro primer componente: <strong>Header.jsx</strong>. Si en el return metemos un h1, vemos que en la app no se muestra nada porque nuestro componente principal App.jsx no sabe de la existencia de este nuevo componente Header.jsx. Hay que exportarlo e importarlo. podemos poner al final del archivo <strong>export default Header</strong> o mejor, colocarlo antes de la palabra function y lo tenemos en una sola línea <span class="destacado">export default function Header(){}</span>. Ahora ya podemos importarlo en cualquier otro componente:</p>
+                <pre><code class="language-js">
+                  export default function Header(){
+    
+                    return(
+                      <h1>Desde Header</h1>
+                    )
+                    
+                  }							
+                </code></pre>
+                  
+                <p>Lo importamos en nuestro componente ppal de Aplicación App.jsx usando al ppio la palbra import y con el autocompletado ya nos sale nuestro Header.</p>
+                <p>Aún tenemos que renderizarlo (como si fueran tags HTML). Importante:</p>
+    
+                <pre><code class="language-html">
+                  &lt;Header/&gt; &lt;!-- sintaxis de componente React --&gt;
+                  &lt;header&gt; &lt;!-- tag HTML --&gt;							
+                </code></pre>
+                
+                <p>Si volvemos a nuestro primer componente y nos fijamos en lo que hay dentro del return() vemos que tenemos un tag de html h1. Esto de primeras parece un poco raro, veamos qué es el jsx</p>
+              </div>
+              <!-- Fin bloque desplegable interior-->
+    
+    
+              <!-- Bloque desplegable interior-->
+              <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion6-56').toggle();">	
+                <h3>56. ¿Qué es JSX? / 57. Renombrando class a className de nuestro proyecto / 58. Creando un Componente para cada Guitarra </h3>			
+                <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+              </div>
+              <div id="seccion6-56" style="display:none">
+    
+                <ul>
+                  <li><span class="destacado">JSX</span> <strong>Javascript Syntax Extension:</strong> es una extensión del lenguage desarrollada también por META (Facebook) para React y es una sintaxis especial para poder agregar HTML y JS en un solo lugar. Al ppio parece un poco complicado pero se ven los beneficios conforme comenzamos a trabajar con ella.</li>
+                  <li>Parece JS (los componentes son funciones) pero muestra código HTML. Básicamente <strong>es un lenguage de Templates/Vistas</strong> que muestra HTML pero tiene todas las funciones de Javascript (todo js puede usarse en los archivos .jsx)</li>
+                  <li><strong>Una vez compilado son archivos JS con funciones y objetos</strong></li>
+                </ul>
+    
+                <p>En la parte anterior del return() podemos colocar código js, probemos con una variable const = name. Para comunicar esto en nuestra vista (dentro del return) <span class="destacado">hay que hacerlo entre llaves {}</span>. <br><span class="rojo">Ojo!</span> si intentamos poner solo {name} sin ningún tag nos da error. También si pongo dos o mas tags html seguidos!!!! Veamos las reglas de JSX y evitar estos errores</p>
+    
+                <ul>
+                  <li>A diferencia de HTML, <strong>en JSX si un elemento HTML tiene tag de apertura ha de tener también el de cierre (los tag &lt;link&gt; &lt;img&gt;A o &lt;input&gt; habr&aacute; que cerrarlas con /&gt;)</strong></li>
+                  <li><strong>Cada componente debe tener un return</strong></li>
+                  <li><strong>En el return solo puede haber un elemento (un tag) en el nivel superior=máximo</strong> --&gt; podría tener un &lt;div&gt; padre englobando todo en el return pero al final cargaríamos nuestro código con divs innecesarios. Para evitar eso usamos los <span class="destacado">Fragment</span>. esta sintaxis que vemos en el ejemplo de nuestro componente principal de aplicación App.jsx es una de las 3 maneras de usar Fragment: <strong>&lt;&gt;</strong>
+                    <ul>
+                      <li><code class="language-js">import { Fragment } from "react"</code> <code class="language-html">&lt;Fragment&gt;&lt;/Fragment&gt;</code></li>
+                      <li><code class="language-js">import React from "react"</code> <code class="language-html">&lt;React.Fragment&gt;&lt;/React.Fragment&gt;</code></li>
+                      <li>Sin hacer ninguna importación simplemente usamos: <code class="language-html">&lt;&gt;&lt;/&gt;</code></li>
+                    </ul>
+                  
+                  </li>
+                </ul>
+    
+                <p>Veamos un resumen de lo que es un componente:</p>
+    
+                <img src="./src/assets/img/56.jpg" alt="">
+                <p>Si vemos la consola nos sale este mensaje de error y es porque en React "class" es una palabra reservada del lenguage js. Con objeto de no mezclar el uso de ese "class" (que es de estilos) con el uso de la palabra reservada de js cuando definamos states, variables..., se soluciona sustituyendolo por className:</p>
+    
+                <img src="./src/assets/img/57.jpg" alt="">
+    
+                <p><span class="destacado">Se recomienda usar tags HTML semantico pero en lugar de class usamos className</span> (eso conecta en automático con el archivo de css de nuestro proyecto). Esto es solo de cara a desarrollo, una vez que compila el proyecto se agregan clases normales. Nos llevamos todo el códiog del header al nuevo componente Header.</p>
+    
+                <p>Creamos un nuevo componente <strong>Guitar.jsx</strong> con el contenido de la primera guitarra y borramos las otras del App.jsx. Lo llamamos desde nuestro App.jsx (la integración con VSCode es muy buena, no hace falta que tecleemos la línea de importar ese cpomponente, con solo escribirlo y enter en el autocompletado nos añade la línea.)</p>
+    
+                <p>Veamos a continuación que son los React Hooks que nos van a permitir Integrar toda las funcionalidades de React con nuestra interfaz</p>
+                
+              </div>
+              <!-- Fin bloque desplegable interior-->
+    
+    
+              <!-- Bloque desplegable interior-->
+              <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion6-59').toggle();">	
+                <h3>59. Introducción a los React Hooks / 60. ¿Qué es el State en React? y useState / 61. Reglas de los Hooks / 62. ¿Qué es useEffect?</h3>			
+                <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+              </div>
+              <div id="seccion6-59" style="display:none">
+                <p>Los <span class="destacado">React Hooks</span> son la base de React. Nos van a permitir Integrar toda las funcionalidades de React con nuestra interfaz.</p>
+                <ul>
+                  <li><strong>Los Hooks permiten usar las diferentes funciones de React en nuestros componentes. React tiene una serie de Hooks pero también podemos crear los nuestros.</strong></li>
+                  <li><strong>Los Hooks están disponibles desde la versión 16.8 de React, previo a ello se tenían que crear Classes para crear y modificar el state, con los Hooks no es necesario.</strong></li>
+                  <li><strong>Existen muchos y se dividen entre Básicos y adicionales</strong></li>
+                  <li>Son los siguientes (como vemos, el nombre de todos empieza con la palabra <strong>use</strong>). Los básicos que están en casi todos los proyectos son los 3 de la izquierda. Los otros son más avanzados que se utilizan para librerías o casos más específicos.</li>
+                  <li><img src="./src/assets/img/hooks.jpg" alt=""></li>
+                  
+                  <li>También podemos crear nuesros propios Hooks así podremos separar nuestro código en funciones reutilizables y sacar todo el beneficio de lo que React ofrece.</li>
+                </ul>
+    
+                <p>Comenzamos utilizando el más común de todos <span class="destacado">useState</span>. Tiene un <a href="https://gist.github.com/codigoconjuan/f333ee8422b0b8c4fde227e81e626cce" target="_blank">Gist con todas las guitarras</a> preparado para utilizarlo en nuestra App simulando una base de datos, pero primero hemos de ver el Hook más común de todos <strong>useState()</strong> y ello nos lleva a ver qué es el <span class="destacado">state en React</span> que es la pieza central de React.</p>
+    
+                <p class="titulo naranja">¿Qué es el State en React?</p>
+                <ul>
+                  <li><strong>El Estado o State en React es una variable con información relevante en nuestra aplicación de React</strong>, algunas veces el state pertenece a un componente en específico y otras veces quieres que sea compartido a lo largo de diferentes componentes.</li>
+                  <li><strong>Pensemos en el state como el resultado de alguna interacción en el sitio o aplicación web: el listado de clientes, la imagen a mostrar en una galería, si un usuario está autenticado o no,...</strong></li>
+                  <li><strong>El state es creado con el Hook useState()</strong>. Veamos un ejemplo:</li>
+                </ul>
+    
+                <p>Importamos el Hook <code class="language-js">import { useState } from "react"</code> y la forma en que vamos a definir nuestro state es así: <code class="language-js">const [customer, setCustomer] = useState({});</code> Creamos una variable const y colocamos entre corchetes [] (useState siempre va a devolver un Array (aquí estamos aplicando Array Destructuring)) y podemos ver que estamos nombrando nuestro state como <strong>customer</strong> y usamos <strong>setCustomer</strong> (este nombre, usar "set", es una convención) a continuación un = seguido de un objeto dentro de paréntesis <strong>({})</strong>, es lo que se conoce como el valor inicial. Veamos más ejemplos de state y cómo, el valor inicial será una u otra cosa en función de qué tipos de datos tengamos:</p>
+                <pre><code class="language-js">
+                  const [customer, setCustomer] = useState({})
+                  const [total, setTotal] = useState(0)
+                  const [products, setProducts] = useState([])
+                  const [modal, setModal] = useState(false)	
+                </code></pre>
+    
+                <p class="titulo">Anatomía de useState: state, función y valor inicial</p>
+                <p><code class="language-js">
+                  const [customer, setCustomer] = useState({});</code></p>
+                <ul>
+                  <li><strong>customer</strong> es el state, la variable que va a tener toda la información</li>
+                  <li><strong>setCustomer</strong> es la función que modifica el state, es la fcn que siempre vamos a usar cuando queramos realizar cambios en nuestro state (en este ejemplo customer)</li>
+                  <li><strong>useState</strong> es el Hook que nos da React</li>
+                  <li>el objeto vacío <strong>({})</strong> es el valor inicial</li>	
+                </ul>
+    
+                <p class="titulo">React reacciona en base al state</p>
+                <ul>
+                  <li>Cada vez que el state cambia, la aplicación de React va a renderizar y actualizarse con esos cambios, no es necesario hacer nada más (recargar página o actualizar el DOM) y nuestra interfaz siempre va a estar sincronizada con el state.</li>
+                  <li>Para modificar el state, se utiliza la función que extraemos cuando declaramos el state en nuestro componente.</li>
+                </ul>
+    
+                <p>Para implementar useState en nuestra App Guitarlab, cerramos todo y dejamos abierto únicamente el componente principal de App, <strong>App.jsx</strong>.</p>
+                <ul>
+                  <li><code class="language-js">import { useState } from "react"</code></li>
+                  <li><strong>El state hay que definirlo en nuestro componente, ni fuera de él ni dentro del return() sino justo antes del return</strong>. Hay ciertas reglas para los Hooks que estaremos viendo a continuación. </li>
+                  <li>lo más básico que nos da react es esto: <code class="language-js">const [] = useState()</code> pero <strong>nosotros tenemos que definir nombre del state, nombre de la función y su valor inicial.</strong>. Supongamos que vamos a crear un state para revisar si un usuario está autenticado o no, si lo está le mostramos un componente y si no lo llevamos al panel de iniciar sesión. <code class="language-js">const [auth, setAuth] = useState(false)</code>. Si sacamos un console.log del state lo vemos (y de hecho 2 veces, uno desde el Componente ppal App.jsx y otro desde el InstallHook.jsx, no nos preocupemos, React forzó en nuevas versiones este doble render para garantizar que se hace buen uso de React). Pero en vez de por consola usemos React developer tools.</li>
+                  <li><strong><a href="https://chromewebstore.google.com/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi?hl=es&pli=1" target="_blank">React developer tools: </a></strong> una vez instalado y reiniciado chrome, en web developer tools tenemos una pestaña nueva llamada components, en la que vamos a ver intuitivamente el árbol de componentes de nuestro proyecto de React (App, Header, Guitar). Si pulsamos en App, vemos en el apartado de Hooks el state y su valor.</li>
+                </ul>
+    
+                
+    
+                <p class="naranja">Reglas de los Hooks</p>
+    
+                <p>Vamos a crear más states. Va a ser muy normal que una App tengamos varios states o el uso de varios Hooks:</p>
+                <pre><code class="language-js">
+                  const [auth, setAuth] = useState(false)
+                  const [total, setTotal] = useState(0)	
+                  const [cart, setCart] = useState([])
+                </code></pre>
+    
+                <p class="titulo">Reglas de los Hooks en React</p>
+                <ul>
+                  <li><strong>Los Hooks se colocan en la parte superior de los componentes de React.</strong> ni dentro de bucles/interacciones, ni dentro de funciones.</li>
+                  <li><strong>No se deben colocar dentro de condicionales ni después de un return:</strong> los Hooks no se pueden registrar en base a una condición porque esa condición puede cambiar en algún momento y entonces tendremos un error.</li>
+                </ul>
+    
+                <p class="naranja">¿Qué es el Hook useEffect?</p>
+                <ul>
+                <li>Tras el useState, <strong>useEffect es el segundo Hook más común que vamos a usar, es muy versátil y lo usaremos mucho</strong>. </li>
+                <li><strong>useEffect siempre es un callback</strong> que, dependiendo como lo declares, va a realizar diferentes acciones.</li>
+                <li>Es el Hook más versátil, sustituto de lo que, en versiones previas de React donde había Clases y métodos del ciclo de vida, era conocido como <strong>componentDidMount()</strong> y <strong>componentDidUpdate()</strong></li>
+                </ul>
+    
+                <p>Importamos el Hook <code class="language-js">import { useEffect } from "react"</code> y para usar este Hook, dentro del () vemos que tiene un calllback que se puede poner como function o como arrow function. Los corchetes del final es lo que se llama <strong>arreglo de dependencias</strong> que ahora veremos:</p>
+                <pre><code class="language-js">
+                  useEffect( () => {
+                    console.log('El componente está listo')
+                  }, [])	
+                </code></pre>
+    
+                <p class="titulo">Usos de useEffect()</p>
+                <ul>
+                  <li>Al ejecutarse automáticamente cuando el componente está listo, es un buen lugar para colocar código para consultar una API o para obtener datos del LocalStorage.</li>
+                  <li>Debido a que le podemos pasar una dependencia (que usualmente va a ser un state) va a estar escuchando por los cambios que suceden en una variable, pudiendo actualizar el componente (o ejecutar ciertas funciones) cuando ese cambio ocurra (podemos estar sincronizando con LocalStorage por ejemplo).</li>
+                  <li>Dependiendo del valor que pasemos en el array de dependencias (o si no pasamos nada) el Hook userEffect va a hacer algo diferente:
+                    <ul>
+                      <li>Si dejamos el arreglo de dependencias vacío (significa que no tiene dependencias) el código especificado en el Hook solo se ejecuta una vez, y lo hace cuando el componente esté listo. Si sacamos un console.log por consola veremos que solo sale 1 vez (sale 2 pero por loq ue decíamos de la comprobación del modo estricto en el main incluido por el equipo de React en versiones recientes)
+                        <pre><code class="language-js">					
+                          useEffect ( () => {
+                            console.log('Componente listo')
+                          }, [])					
+                        </code></pre>
+                      </li>
+                      <li>Si le pasamos un state (o varios), cada vez que cambie cada uno de esos states se ejecuta el efecto (la función) que especifiquemos en el Hook useEffect. En este caso añadimos un setTimeout que nos cambia el state Auth pasados 3 segundos. Veremos que se ejecuta una vez cuando el componente está listo (vemos esas 2 del modo estricto del main.jsx) y pasados 3 sg al cambiar el state auth se vuelve a ejecutar:
+                        <pre><code class="language-js">
+                          useEffect ( () => {
+                            console.log('Componente listo o escuchando por auth')
+                          }, [auth])
+                        
+                          setTimeout(() => {
+                            setAuth(true)
+                          }, 3000); 
+                        </code></pre>
+                      </li>
+                    </ul>
+                    
+                    <p>De esta forma, podemos tener funciones que se ejecuten cuando cambie algún state en nuestra aplicación, para eso es el useEffect(). Es muy útil.</p>
+                    <p>¿podríamos hacer lo siguiente? meter un condicional para ejecutar un código solo en el caso de que el usuario esté autenticado? (comenta que hay gente que dice que no se puede usar eso dentro de un useEffect, pero él afirma que se utiliza muchas veces y que es correcto)</p>
+                    <pre><code class="language-ts">
+                      const [auth, setAuth] = useState(false)
+                    
+                      useEffect ( () => {
+                        if(auth){
+                          console.log('Componente listo o escuchando por auth')
+                        }
+                      }, [auth])
+                      
+                      setTimeout(() => {
+                        setAuth(true)
+                      }, 3000);				
+                    </code></pre>
+    
+                  </li>
+                </ul>
+              </div>
+              <!-- Fin bloque desplegable interior-->
+    
+    
+              <!-- Bloque desplegable interior-->
+              <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion6-63').toggle();">	
+                <h3>63. Añadiendo los Productos al State / 64. Iterando sobre los productos en React / 65. Props / 66. Mostrando la Información de cada Guitarra- 
+                  <a class="txt-negro" href="https://gist.github.com/codigoconjuan/f333ee8422b0b8c4fde227e81e626cce" target="_blank">Gist Guitarras</a></h3>			
+                <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+              </div>
+              <div id="seccion6-63" style="display:none">
+                <p>Veamos como incorporar este <a href="https://gist.github.com/codigoconjuan/f333ee8422b0b8c4fde227e81e626cce" target="_blank">listado de Gist que simula ser una pequeña base de datos de guitarras</a> para hacer nuestra interfaz dinámica y no mostrar una única guitarra. Sobre todo también hacer el componente <strong>Guitar</strong> más inteligente.</p>
+    
+                <p>Creamos en src una carpeta para los datos y un .js con los datos de ese git copiados en raw: <strong>data/db.js</strong>. Es una pequeña base de datos con 12 guitarras cada una con un id, descripción y precio; las imágenes están mapeadas con nuestra carpeta de imágenes. Vamos a nuestro componente principal <strong>App.jsx</strong> e importamos esta base de datos ayudándonos del autocompletado: <code class="language-ts">import { db } from "./data/db"</code>. Si hacemos un console.log(db) podemos ver esa bbdd local. Hagámoslo al estilo de React. Se puede hacer de dos formas:</p>
+    
+                <ul>
+                  <li>Como es un archivo local, podemos ponerle que el valor inicial del state data es lo que tengamos en db
+                    <pre><code class="language-js">const [data, setData] = useState(db)</code></pre>. Vemos en la pestaña de componentes, en el compo App > hooks toda la información de nuestro state. Está bien porque es un archivo local, lo va a leer, importar montar y después montar nuestro componente.</li>
+                  <li>Si trabajáramos con una API usualmente usaremos un useEffect, esto en caso de hacerlo sin dependencias (hay muchas dependencias enfocadas a consumir APIS que se integran bastante bien con React y que lo hacen con un rendimiento excelente aunque es más para grandes proyectos, pero no es nuestro caso). <span class="destacado">Con mi arreglo de dependencias vacío, una vez el componente esté listo especificamos setData(db), es decir seteo en mi state mi base de datos que tenemos en el archivo indicado en la importación.</span>
+                  <pre><code class="language-js">
+                    const [data, setData] = useState([])
+                    useEffect( () => {
+                      setData(db)
+                    },[])			
+                  </code></pre>
+                  si miramos en la pestaña componentes del web developer vemos que se coloca la información de las guitarras dentro del state.
+                  <img src="./src/assets/img/63-db-productos-en-state.jpg" alt=""></li>
+                </ul>	
+    
+                <p>Si esto lo haces desde una API esta forma es la más recomendada porque una API va a conectarse y traerse la información, no sabemos cuando, entonces quieres que se mande llamar una vez que el componente esté listo. Un poco más adelante cuando veamos cómo integrar APIS con React volveremos sobre esto.</p>
+    
+                <p>Una vez tenemos en nuestro state la información de la BBDD de nuestras guitarras, veamos cómo iterar sobre él y comenzar a mostrar la información de nuestras guitarras.</p>
+    
+                <p class="naranja">Iterando sobre los productos en React</p>
+    
+                <p>¿Como sabemos cual es el valor inicial de nuestro state? En nuestro caso es un arreglo y tenemos dos elementos. Hay muchas formas de iterar un arreglo, un for, un forEach. <span class="destacado">Es importante mencionar que antes de nuestro return() podemos escribir lo que se conoce como statements o expresiones, sin embargo dentro del return solo podemos escribir expresiones</span></p>
+    
+                <ul>
+                  <li><strong>Statement</strong> Una app de js es una serie de statements. Cada statement es una instrucción para hacer algo. Algunos statements muy comunes son <strong>creación de variables</strong>, <strong>códigos condicionales con if</strong>, <strong>lanzar errores con throw new Error()</strong>, <strong>Iterar con While o For</strong></li>
+                  <li><strong>Expressions</strong> Una expresión es algo que produce un valor. Algunos ejemplos de Expressions son <strong>ternarios</strong>, <strong>utilizar un Array method que genere un nuevo array</strong>, <strong>map() que genera un nuevo array a diferencia de forEach</strong></li>
+                </ul>
+    
+                <p>Por tanto, tenemos un Array queremos iterar sobre él y como hemos visto un bucle For o un While no se puede usar en la parte del return() pero sí un .map(). Podríamos usar un for para iterar en la parte superior sobre data, pero queremos hacerlo en pantalla por lo que tenemos que hacerlo en el return() del componente, por tanto usamos para ello la expresión .map() que cada vez que lo utilicemos nos genera un array nuevo. El map() va a ejecutarse una vez por cada elemento en nuestro Array. Veamos el siguiente código y como aparece 12 veces el párrafo especificado. Sustituyamos ese párrafo por el componente que teníamos hecho:</p>
+    
+                <pre><code class="language-js">
+                  const [data, setData] = useState(db)
+                </code></pre>
+                <pre><code class="language-html">
+                  &lcub;data.map(() =&gt; (
+                    //&lt;p&gt;Desde Guitarra&lt;/p&gt;
+                    &lt;Guitar/&gt;	
+                  )
+                  )&rcub;
+                  
+                </code></pre>
+    
+                <p>¿qué hemos hecho? accedemos a data que es parte de nuestro state, utilizamos el array method map() y al comenzar a iterar generamos un componente Guitar por cada elemento presente en el arreglo (12 elementos). Nos aparece 12 veces el mismo componente estático &lt;Guitar/&gt;. <strong>En el siguiente vídeo con el uso de props  haremos nuestro componente estático más inteligente, más dinámico.</strong></p>
+    
+                <p class="naranja">¿Qué son los Props en React?</p>
+    
+                <p><strong>Props en React:</strong> es una forma de compartir inofrmación entre componentes</p>
+                <ul>
+                  <li><strong>Los componentes de React utilizan Props para comunicarse entre ellos</strong>. Puedes pasarle información de un componente padre al hijo por medio de estos props. </li>
+                  <li><strong>Los props se parecen mucho a los atributos HTML, la sintaxis es muy similar, pero puedes pasarle arrays, objetos o funciones</strong></li>
+                  <li><strong>Los Props de pasan del padre al hijo, nunca se pueden pasar del hijo al padre</strong>
+                    <ul>
+                      <li>Si tenemos un state que se va a pasar por diferentes componentes, lo mejor es colocarlo en el archivo principal</li>
+                      <li>Cada Nivel de Componentes deberá tomar y pasar el Prop hacia otros componentes. Tecnologías como Redux, Zustand, Jotai o Context evitan tener que hacerlo de esta forma (aunque implementar estas tecnologías para algo tan simple no es recomendado. Algunas las estaremos viendo en este curso)</li>
+                      <li></li>
+                    </ul>
+                  </li>
+                </ul>
+    
+                <p>Supongamos que tenemos un componente llamdo &lt;Header/&gt;. La sintaxis de los Props es como sigue: la parte de la izquierda del "=" es como lo vamos a llamar y poder acceder en el componente hijo, es decir en Header. Lo del lado derecho entre llaves es la información necesaria para ese componente que le vamos a pasar (datos, state, funciones, objetos...).</p>
+    
+                <pre><code class="language-js">
+                  &lt;Header
+                    nombreProp=&lcub; datos / state o Funciones &rcub;
+                  /&gt;
+                </code></pre>
+    
+                <p>Podemos tener múltiples Props, veamos un componente llamado Users:</p>
+                <pre><code class="language-js">
+                  &lt;Users
+                    users=&lcub; users &rcub;
+                    setUsers=&lcub; setUsers &rcub;
+                    title="Listado de Usuarios"
+                  /&gt;
+                </code></pre>
+    
+                <p>Implementemos Props en nuestro componente de guitarras &lt;Guitar /&gt;. Le añadimos este Props a nuestro componente:</p>
+                <pre><code class="language-js">
+                  &lcub;data.map(() =&gt; (                    
+                    &lt;Guitar
+                      price = &lcub;100&rcub;
+                    /&gt;
+                  )
+                  )&rcub;		
+                </code></pre>
+    
+                <p>A nuestro componente Guitar.jsx hemos de añadirle como parámetro la palabra reservada <strong>props</strong>. Si hacemos un console log (antes del return()) de ese props veremos en la consola  ese {price: 100}; viene como un objeto porque le podemos pasar múltiples props. También lo podemos ver en la pestaña de components de React Developer Tools</p>
+                <pre><code class="language-js">
+                  export default function Guitar(props){
+                    console.log(props)
+                    return(
+                </code></pre>
+    
+                <img src="./src/assets/img/63-props1.jpg" alt="">
+    
+                <p>Pasémosle más de un props:</p>
+                <pre><code class="language-js">
+                  &lcub;data.map(() =&gt; (                    
+                    &lt;Guitar
+                      price = &lcub;100&rcub;
+                      auth = true;
+                    /&gt;
+                  )
+                  )&rcub;		
+                </code></pre>
+                <p>¿Cómo puedo acceder individualmente a estos valores <strong>price</strong> y <strong>auth</strong>? Como es un objeto:</p>
+                <pre><code class="language-js">
+                  export default function Guitar(props){
+                    console.log(props.price)
+                    console.log(props.auth)
+                    return(
+                </code></pre>
+    
+                <p>Pero incluso mejor, podemos aplicar destructuring:</p>
+                <pre><code class="language-js">
+                  export default function Guitar({price,auth}){
+                    console.log(price)
+                    console.log(auth)
+                    return(
+                </code></pre>
+    
+                <p class="naranja">Mostrando la Información de cada Guitarra</p>
+    
+                <p>Tenemos el array db.js y cada uno tiene un objeto con la información de cada guitarra. Estamos utilizando un map() para iterar en él así que vamos a acceder a cada uno de esos objetos (en la función de flecha le ponemos el nombre que queramos por ejemplo <strong>guitar</strong>). Creamos el prop guitar y le pasamos como valor el objeto guitar (explica que no hay ningún inconveniente en tener mismo nombre de prop que del objeto que deseas pasarle al prop):</p>
+    
+                <pre><code class="language-js">
+                  const &lsqb;data&comma; setData&rsqb; = useState(db)
+    
+                  &lcub;data.map((guitar) =&gt; (                    
+                    &lt;Guitar
+                      guitar = &lcub;guitar&rcub; 
+                      key = &lcub;guitar.id&rcub; // Cuando iteremos en una lista, React nos requiere que siempre utilicemos un prop especial llamado <strong>key</strong> y pasarle un valor único.                      
+                    /&gt;
+                  )
+                  )&rcub; 
+                </code></pre>
+                <p>Si hacemos un console.log(props) veremos que tenemos un prop que va a tener el objeto de guitarra</p>
+                <pre><code class="language-js">
+                  export default function Guitar(props){
+                  console.log(props)
+                </code></pre>
+    
+                <p>Si aplicamos destructuring quedaría así y en la consola ya vemos que aparece la información propia de cada guitarra:</p>
+                <pre><code class="language-js">
+                  export default function Guitar({guitar}){
+                  console.log(guitar)
+                </code></pre>
+                <img src="./src/assets/img/66-1.jpg" alt="">
+    
+                <p>Para cada elemento html que teníamos en el código estático (nombre, imagen, precio...) que queremos que cargue de forma dinámica hacemos el reemplazo por ejemplo el nombre de la  guitarra que está en el h3, 'Lukather', lo cambiamos por <code class="language-js">{guitar.name}</code>. Si actualizamos el navegador vemos que cada guitarra ya muestra un nombre diferente, porqeu ya estamos leyendo la información de nuestra pequeña base de datos. <span class="destacado">Así vemos el beneficio de los props junto al state junto a emplear array methods para iterar en nuestro state --> crear componentes reutilizables optimizando el código a escribir</span></p>
+    
+                <p>En vez de llamar cada dato así <code class="language-js">{guitar.name}</code>, creemos una variable cont nueva para hacer destructuring del objeto guitar que recibimos como propiedad del compoennte padre App.jsx y simplificar el código de la siguiente manera:</p>
+                  
+                <pre><code class="language-js">
+                  export default function Guitar({guitar}){
+    
+                    const { id, name, image, description, price } = guitar		
+                </code></pre>
+    
+                <p>Hago unos leves cambios de nombre con respecto a lo explicado para rastrear mejor lo que estoy haciendo:</p>
+    
+                <img src="./src/assets/img/66-2.jpg" alt="">
+    
+                <p>En el siguiente video comenzamos con el carrito de la compra.</p>
+              </div>
+              <!-- Fin bloque desplegable interior-->
+    
+    
+              <!-- Bloque desplegable interior-->
+              <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion6-67').toggle();">	
+                <h3>67. Eventos en JSX / 68. Creando un State de Carrito / 69. Agregando Guitarras al Carrito / 70. Detectar si un elemento existe en el carrito / 71. Agregando guitarras al Carrito con Cantidad / 72. Incrementando cantidad si un articulo ya estaba agregado</h3>			
+                <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+              </div>
+              <div id="seccion6-67" style="display:none">
+    
+                <p class="naranja">Eventos en JSX</p>
+    
+                <p>Cuando presione en cada guitarra se tienen que ir listando en el carrito. En ese carrito tenemos que poder ajustar la cantidad y eliminar los que queramos. Si tienes exp en js eso se hace con un addEventListener</p>
+    
+                <p class="titulo">Sobre los eventos en React</p>
+                <ul>
+                  <li>La forma en que React maneja los eventos es muy similar a como lo hace JavaScript de forma nativa con algunos cambios.</li>
+                  <li><strong>Los eventos son camelCase</strong>, es decir en lugar de <strong>onclick</strong> <span class="destacado">onClick</span>, en lugar de <strong>onchange</strong>, <span class="destacado">onChange</span></li>
+                  <li>A diferencia de JS y HTML en los que se coloca el nombre de la función en un string, <strong>en React (JSX) se utiliza la función entre llaves <span class="destacado">{}</span></strong></li>
+                  <li>Ejemplo click en HTML: <code class="language-html">&lt;button onclick=&quot;getLatestOrders()&quot;&gt;Descargar pedidos&lt;/button&gt;</code></li>
+                  <li>Ejemplo click en React(JSX): <code class="language-js">&lt;button onClick=&lcub;getLatestOrders()&rcub;&gt;Descargar pedidos&lt;/button&gt;</code><br>Esa función se recomienda que esté <strong>en el mismo componente antes del return()</strong> o <strong>en un Hook personalizado, otro archivo</strong></li>
+                  <li>Ejemplo submit en HTML: agregarCliente() es la función que va a procesar un formulario de ajax o FetchAPI; también le colocamos un return false): 
+                  <pre><code class="language-html">
+                    &lt;form onsubmit=&quot;agregarCliente()&semi; return false&quot;&gt;
+                      &lt;button type=&quot;submit&quot;&gt;Submit&lt;/button&gt;
+                    &lt;/form&gt;
+                  </code></pre>
+                  </li>
+                  <li>Ejemplo submit en React(JSX): como vemos hay una convención (similar a cuando en los states nombramos las funciones correspondientes del estate con la palabra<strong><span class="destacado">set</span>NombreState</strong>), y para eventos se recomienda usar la palabra <strong><span class="destacado">handle</span>NombreEvento</strong>
+                    <pre><code class="language-html">
+                      &lt;form onSubmit=&lcub;handleSubmit&rcub;&gt;
+                      &lt;button type=&quot;submit&quot;&gt;A&ntilde;adir cliente&lt;/button&gt;
+                    &lt;/form&gt;				
+                    </code></pre>
+                    </li>
+                </ul>
+    
+                <p class="titulo">Vamos a registrar un evento en nuestras guitarras</p>
+                <p>Como cuando yo presione en agregar al carrito quiero realizar una acción, <strong>vamos a agregarle/registrarle a nuestro botón el evento de onClick</strong>:</p>
+    
+                <pre><code class="language-js">
+                  const handleClick = () => {
+                    console.log('Diste click')
+                  }
+                </code></pre>
+                <pre><code class="language-html">
+                  &lt;button 
+                  type=&quot;button&quot;
+                  className=&quot;btn btn-dark w-100&quot;
+                  onClick={handleClick}
+                &gt;Agregar al Carrito&lt;/button&gt;		
+                </code></pre>
+    
+                <p>Me gustaría poder identificar desde qué guitarra estoy haciendo click. ¿Cómo le pasamos un valor para identificar un parámetro o um argumento? Podríamos añadir paréntesis con el id dentro <code class="language-js">onClick={handleClick(id)}</code> ya que el id lo tenemos en la destructuración del prop "propguitar" <code class="language-js">const { id, name, image, description, price } = propguitar</code>. Hagamos que la función handleClick reciba ese argumento y lo vemos en consola. Vemos en la consola que salen TODOS los clicks porque esta expresión <code class="language-js">onClick={handleClick(id)}</code> está mandando llamar la función, no espera que ocurra el evento</p>
+    
+                <p><strong>Cuadno tenemos argumentos, si tenemos funciones que toman parámetros, hay que colocar en la llamada un callback, por ejemplo un arrow function, <code class="language-js">onClick={() =>handleClick(id)}</code> y de esa forma ya no se manda llamar en automático sino que espera el evento.</strong></p>
+    
+                <p>Mejor vamos a pasarle como argumento, en vez de solo el id, todo el objeto de guitarra: <code class="language-js">onClick={() => handleClick(guitar)}</code> y miramos la consola donde nos sale toda la información:</p>
+                
+                <div class="flex">
+                  <div class="w-50">	
+                    <p class="verde">Guitar.jsx</p>:
+                    <pre><code class="language-js">
+                      export default function Guitar({propguitar}){
+    
+                        const { id, name, image, description, price } = propguitar
+                      
+                        const handleClick = (algo) => {
+                          console.log('Diste click', algo)
+                        }
+                      
+                        return(
+                          &lt;div className=&quot;col-md-6 col-lg-4 my-4 row align-items-center&quot;&gt;
+                            &lt;div className=&quot;col-4&quot;&gt;
+                              &lt;img className=&quot;img-fluid&quot; src=&lcub;&grave;/img/$&lcub;image&rcub;.jpg&grave;&rcub; alt=&quot;imagen guitarra&quot; /&gt;
+                            &lt;/div&gt;
+                            &lt;div className=&quot;col-8&quot;&gt;
+                              &lt;h3 className=&quot;text-black fs-4 fw-bold text-uppercase&quot;&gt;&lcub;name&rcub;&lt;/h3&gt;
+                              &lt;p&gt;&lcub;description&rcub;&lt;/p&gt;
+                              &lt;p className=&quot;fw-black text-primary fs-3&quot;&gt;$&lcub;price&rcub;&lt;/p&gt;
+                              &lt;button 
+                                type=&quot;button&quot;
+                                className=&quot;btn btn-dark w-100&quot;
+                                onClick=&lcub;() = &gt;handleClick(propguitar)&rcub;
+                              &gt;Agregar al Carrito&lt;/button&gt;
+                            &lt;/div&gt;
+                          &lt;/div&gt;
+                        )
+                      }
+                    </code></pre>	
+                    <img src="./src/assets/img/67.png" alt="">
+                  </div>
+    
+                  <div class="w-50">
+                    <p class="verde">App.jsx:</p>
+                    <pre><code class="language-js">
+                      import &lcub; useState&comma; useEffect &rcub; from &quot;react&quot;
+                      import Guitar from &quot;../components/Guitar&quot;
+                      import Header from &quot;../components/Header&quot;
+                      import &lcub; db &rcub; from &quot;./data/db&quot;
+                      
+                      function App() &lcub;
+                      
+                        //console.log(db)
+                        const &lsqb;data&comma; setData&rsqb; = useState(db)
+                      
+                        // const &lsqb;data&comma; setData&rsqb; = useState(&lsqb;&rsqb;)
+                        // useEffect( () =&gt; &lcub;
+                        //     setData(db)
+                        // &rcub;&comma;&lsqb;&rsqb;)
+                      
+                        return (
+                          &lt;&gt;   
+                          &lt;Header/&gt;
+                        
+                          &lt;main className=&quot;container-xl mt-5&quot;&gt;
+                            &lt;h2 className=&quot;text-center&quot;&gt;Nuestra Colecci&oacute;n&lt;/h2&gt;
+                      
+                            &lt;div className=&quot;row mt-5&quot;&gt;
+                              &lcub;data.map((guitar) =&gt; (                    
+                                &lt;Guitar
+                                  propguitar = &lcub;guitar&rcub; 
+                                  key = &lcub;guitar.id&rcub;                       
+                                /&gt;
+                              )
+                              )&rcub;         
+                            &lt;/div&gt;
+                          &lt;/main&gt;
+                      
+                          &lt;footer className=&quot;bg-dark mt-5 py-5&quot;&gt;
+                            &lt;div className=&quot;container-xl&quot;&gt;
+                              &lt;p className=&quot;text-white text-center fs-4 mt-4 m-md-0&quot;&gt;GuitarLA - Todos los derechos Reservados&lt;/p&gt;
+                            &lt;/div&gt;
+                          &lt;/footer&gt;        
+                          &lt;/&gt;
+                        )
+                      &rcub;
+                      
+                      export default App
+                    </code></pre>
+                  </div>
+                </div>
+    
+                <p class="naranja">Creando un State de Carrito</p>
+    
+                <p>Veamos como agregar nuestras guitarras. Hagamos un state nuevo de carrito. No es bueno tener 30 o 40 states (en esos casos quizás sean mejores otras opciones como sustain, J, Context API o como Redux Toolkit). Sin embargo, tampoco se recomienda tener un solo state muy grande, porque tener un state muy grande te va a llevar a tener que escribir una lógica muy grande cuando quieras actualizar o modificar ese state.</p>
+    
+                <p>lo creamos en nuestro componente de App.jsx (no lo creamos en Guitar.jsx. cada guitarra es un componente distinto y si crearar ahí un state de carrito tendría 12 diferentes :D). Como va a ser un carrito de compras su valor inicial será un Array vacío <code class="language-js">const [cart, setCart] = useState([])</code> de manera que vamos a tener acceso a ciertos métodos de array para agregar elementos, eliminarlos, revisar si ya existe un elemento y evitar duplicados, si está vacío. <span class="destacado">Son muchos los beneficios de utilizar el tipo de dato adecuado a nuestro state inicial</span>. Si abrimos la pestaña componentes de React Developer Tools vemos que en el componente App tenemos nuestro state de guitarras, pero también este nuevo state de carrito que está vacío (con lo cual, se registró correctamente).</p>
+    
+                <p>¿Cómo agregamos elementos a nuestro carrito? tenemos varias formas de hacerlo:</p>
+    
+                <ul>
+                  <li>la más simple: para agregar elementos a nuestro state "cart" vamos a tener que utilizar simepre la función "setCart". El evento de agregarlos se está presentando en el componente Guitar.jsx. Recordemos que podemos pasar vía props desde el componente padre App.jsx strings, objetos y <strong>funciones</strong>, así que pasamos nuestra función setCart del state cart <span class="verde">App.jsx:</span>
+                    <pre><code class="language-js">
+                      &lcub;data.map((guitar) =&gt; (                    
+                        &lt;Guitar
+                          key = &lcub;guitar.id&rcub; 
+                          propguitar = &lcub;guitar&rcub; 
+                          setCart = &lcub;setCart&rcub;                          
+                        /&gt;
+                      )
+                      )&rcub;
+                    </code></pre>
+                    <span class="verde">Guitar.jsx:</span> <code class="language-js">export default function Guitar({propguitar, setCart}){</code>
+                  <img src="./src/assets/img/68-1.png" alt=""></li>
+                  <li>otra forma de hacerlo: tenemos en el botón nuestro <code class="language-js"> onClick={() => handleClick(propguitar)}</code> modificamos la función para pasarle la guitarra a nuestro state cart: <span class="destacado">esperamos que ocurra el click, cuando pinchas se le pasa la guitarra y seteamos al carrito</span>
+                  <pre><code class="language-js">
+                    const handleClick = (guitar) => {
+                      setCart(guitar)
+                    }			
+                  </code></pre>
+                  <p>cada vez que pinchamos se modifica el state agregando el objeto guitarra, pero si presiono otro reemplaza lo que hay, y en un carrito no queremos reemplazar sino agregar. Lo está escribiendo correctamente pero tenemos que mantener lo que ya teníamos en el carrito. En vez de un objeto quiero que me escriba un array pero nos seguirá pasando lo mismo, cada vez que pulsemos una guitarra reemplazará a la anterior en el state cart:</p>
+                  <img src="./src/assets/img/68-2.png" alt="">
+                  <p>¿Como hago para que los datos que agregué al carrito persistan? Tenemos que tener la referencia de nuestro state de carrito cart, así que lo pasamos desde nuestro componente padre App.jsx al componente Guitar.jsx: <span class="verde">App.jsx:</span></p>
+                  <pre><code class="language-js">
+                    &lcub;data.map((guitar) =&gt; (                    
+                      &lt;Guitar
+                        key = &lcub;guitar.id&rcub; 
+                        propguitar = &lcub;guitar&rcub; 
+                        cart = &lcub;cart&rcub;
+                        setCart = &lcub;setCart&rcub;                          
+                      /&gt;
+                    )
+                    )&rcub;
+                  </code></pre>
+                  <span class="verde">Guitar.jsx:</span> <code class="language-js">export default function Guitar({propguitar, cart, setCart}){</code>
+                  <img src="./src/assets/img/68-3.png" alt="">
+                  </li>
+                  <li>Otra manera: eliminemos la función 
+                    <pre><code class="language-js">
+                      const handleClick = (guitar) => {
+                        setCart([...cart, guitar])
+                      }			
+                    </code></pre>
+                    y llamarla directamente en el onClick: <code class="language-js">onClick={() => setCart([...cart, propguitar])}</code>. <span class="destacado">Algo importante es que ese <strong>setCart</strong> ya sabe lo que hay en el state. Desde que declaramos el state de cart esa función setCart siempre va a estar asociada con ese estate de carrito (sabe de su existencia, sabe qué hay, sabe que tiene que escribir en ese cart, nunca se va a mezclar con otras de otros states.) Por tanto no haría falta pasarle como propiedad el carrito (la función ya sabe lo que tiene).</span> En la nueva función de flecha nótese la convención de nombre <strong>prev</strong>Cart por tanto quedaría así <br><code class="language-js">onClick={() => setCart(prevCart =>[...prevCart, propguitar])}</code><br> No tenemos que pasar el state, la función setCart toma la copia del state actual</li>
+                  </ul>
+    
+                
+                  <p class="naranja">Agregando Guitarras al Carrito</p>
+    
+                  <p>Con el enfoque actual, se hace un poco complicado porque tendríamos que añadir lógica en la llamada del onclick para revisar si un registro está duplicado o no etc... y no queremos lógica en nuestros templates. Para tener lógica usamos la parte de antes del return() o un Hook aparte. Cambiemos el enfoque y modifiquemos nuesto código:</p>
+    
+                  <p>En App.jsx antes del return creamos una nueva función intermedia que sea más descriptiva de loq ue se está haciendo y en donde con cierta lógica podamos evitar problemas ocmo elementos duplicados etc: <strong>function addToCart(){}</strong> y la pasamos como prop para que esté disponible para otros componentes de manera que se pueda agregar ese elemento al carrito. Al parámetro lo llamamos <strong>item</strong> también por convención para reutilización de lógica de carrito.</p>
+    
+                  <pre><code class="language-js">
+                    function addToCart(item){
+                      setCart(prevCart =>[...prevCart, item])
+                    }
+                  </code></pre>
+    
+                  <p class="naranja">Detectar si un elemento existe en el carrito</p>
+    
+                  <p>No queremos tener registros duplicados en un carrito de compras ¿como lo evitamos? antes de setear al carrito de compras hemos de verificar si ese elemento ya existe en el Array, si existe actualizaremos la cantidad y si no existe lo agregamos. Esto nos lleva a un tema que es muy importante en React <span class="destacado">¿Qué significa la inmutabilidad en React?</span> ¿qué significa que un state es inmutable? Si vemos la función que acabamos de crear. setCart(prevCart =>[...prevCart, item]) <strong>no estamos modificando el state, tomamos una copia del state y agregamos el nuevo elemento</strong>. Otros array methods que nos permiten añadir elementos a un array serían por ejemplo <strong>cart.push(item): sin embargo esto modifica el state original</strong>. Y nuestro state tiene que ser inmutable. Por eso siempre se utiliza la función asociada al state. Incluso si utilizáramos la función e hiciéramos algo como setCart(prevCart => cart.push(item) estaríamos modificando el state original. Para saber qué array methods de js mutan el state original y cuales no consultamos: <a href="https://doesitmutate.xyz/" class="txt-negro" target="blank">https://doesitmutate.xyz/</a>
+                  </p>
+    
+                  <p>Para saber si ya existe un elemento en un array vamos a usar el método de arrays <span class="destacado">.findIndex()</span> que no provoca mutación; va a iterar sobre nuestro carrito de compras cart y va ir creando un objeto temporal que por ejemplo llamamos "guitar" (no lo llamamos item porque nuestra función ya tiene un parámetro que se llama así y provocaríamos confusión). En la parte derecha del arrow function añadimos la comprobación de si el elemento nuevo que estamos añadiendo es el mismo que ya existe en mi state. <strong>Si el elemento está presente en el array devuelve el índice que ocupa en el array y si no lo encuentra devuelve -1</strong>. En este punto nuestra función va así y hagamos un console.log() para entenderlo.</p>
+    
+                  <pre><code class="language-js">
+                    function addToCart(item){
+                      const itemExists = cart.findIndex(guitar => guitar.id === item.id) // ese "guitar" es el nombre que queramos poner
+                      console.log(itemExists)
+                  
+                      setCart(prevCart =>[...prevCart, item])
+                    }			
+                  </code></pre>
+    
+                  <p>Como vemos haga lo que haga, de momento seguimos seteando elementos al state. Tendremos que meter una comprobación para antes de setear, si existe en el array actualizaremos la cantidad y si no existe lo agregamos.</p>
+    
+                  <p class="naranja">Agregando guitarras al Carrito con Cantidad</p>
+    
+                  <p>Agreguemos la cantidad de guitarras para poder reflejarlo en el carrito.</p>
+                  <pre><code class="language-js">
+                    function addToCart(item){
+                      const itemExists = cart.findIndex(guitar => guitar.id === item.id)
+                      if(itemExists >= 0){//existe en cart
+                        console.log('ya existe')            
+                      } else{
+                        //console.log('NO EXISTE, agregando...')
+                        item.quantity = 1
+                        setCart(prevCart =>[...prevCart, item])
+                      }       
+                    }	
+                  </code></pre>
+    
+                  <p class="naranja">Incrementando cantidad si un artículo ya estaba</p>
+                  <p>Cuando ya existe, hemos de tener cuidado en no romper ciertas reglas del state. Por ejemplo si en nuestra función añadiéramos esto cuando el elemento existe:
+                  <code class="language-js">cart[itemExists].quantity++</code> <span class="rojo">¡estaríamos modificando directamente nuestro state!</span></p>
+                  <pre><code class="language-js">
+                    function addToCart(item){
+                      const itemExists = cart.findIndex(guitar => guitar.id === item.id)
+                      if(itemExists >= 0){//existe en cart
+                        console.log('ya existe')  
+                        cart[itemExists].quantity++ //estaríamos modificando nuestro estate ¡Y EL STATE ES INMUTABLE!!         
+                      } else{
+                        //console.log('NO EXISTE, agregando...')
+                        item.quantity = 1
+                        setCart(prevCart =>[...prevCart, item])
+                      }       
+                    }
+                  </code></pre>
+    
+                  <p>creamos una copia del carrito usando el spread operator, incrementamos la cantidad y seteamos:</p>
+                  <pre><code class="language-js">
+                    function addToCart(item){
+                      const itemExists = cart.findIndex(guitar => guitar.id === item.id)
+                      if(itemExists >= 0){//existe en cart
+                        const updatedCart = [...cart] //copia nueva de mi state, no modifica mi carrito       
+                        updatedCart[itemExists].quantity++
+                        setCart(updatedCart)
+                      } else{//NO EXISTE en cart
+                        item.quantity = 1
+                        setCart(prevCart =>[...prevCart, item])
+                      }       
+                    }
+                  </code></pre>
+                
+              </div>
+              <!-- Fin bloque desplegable interior-->
+    
+    
+    
+    
+    <!-- Bloque desplegable interior-->
+    <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion6-73').toggle();">	
+      <h3>73. Mostrando los Contenidos del carrito</h3>			
+      <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+    </div>
+    <div id="seccion6-73">
+      <p>Vamos a empezar a hacer dinámica la sección del carrito de compra.</p>
+      
+    </div>
+    <!-- Fin bloque desplegable interior-->
+    
+    
+    <!-- Bloque desplegable interior-->
+    <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion6-74').toggle();">	
+      <h3>74. Detectando si el carrito tiene algo o esta vacio</h3>			
+      <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+    </div>
+    <div id="seccion6-74" style="display:none">
+      <p></p>
+      
+    </div>
+    <!-- Fin bloque desplegable interior-->
+    
+    
+    <!-- Bloque desplegable interior-->
+    <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion6-75').toggle();">	
+      <h3>75. State derivado</h3>			
+      <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+    </div>
+    <div id="seccion6-75" style="display:none">
+      <p></p>
+      
+    </div>
+    <!-- Fin bloque desplegable interior-->
+    
+    
+    <!-- Bloque desplegable interior-->
+    <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion6-76').toggle();">	
+      <h3>76. Calculando el Total a pagar</h3>			
+      <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+    </div>
+    <div id="seccion6-76" style="display:none">
+      <p></p>
+      
+    </div>
+    <!-- Fin bloque desplegable interior-->
+    
+    
+    <!-- Bloque desplegable interior-->
+    <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion6-77').toggle();">	
+      <h3>77. useMemo para mejorar el performance de nuestro código</h3>			
+      <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+    </div>
+    <div id="seccion6-77" style="display:none">
+      <p></p>
+      
+    </div>
+    <!-- Fin bloque desplegable interior-->
+    
+    
+    <!-- Bloque desplegable interior-->
+    <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion6-78').toggle();">	
+      <h3>78. Eliminando Articulos del Carrito</h3>			
+      <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+    </div>
+    <div id="seccion6-78" style="display:none">
+      <p></p>
+      
+    </div>
+    <!-- Fin bloque desplegable interior-->
+    
+    
+    <!-- Bloque desplegable interior-->
+    <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion6-79').toggle();">	
+      <h3>79. Creando una Función para Incrementar las cantidades y RETO 01</h3>			
+      <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+    </div>
+    <div id="seccion6-79" style="display:none">
+      <p></p>
+      
+    </div>
+    <!-- Fin bloque desplegable interior-->
+    
+    
+    <!-- Bloque desplegable interior-->
+    <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion6-80').toggle();">	
+      <h3>80. SOLUCIÓN RETO 01</h3>			
+      <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+    </div>
+    <div id="seccion6-X80" style="display:none">
+      <p></p>
+      
+    </div>
+    <!-- Fin bloque desplegable interior-->
+    
+    
+    <!-- Bloque desplegable interior-->
+    <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion6-81').toggle();">	
+      <h3>81. Agregando la función de Limpiar Carrito</h3>			
+      <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+    </div>
+    <div id="seccion6-81" style="display:none">
+      <p></p>
+      
+    </div>
+    <!-- Fin bloque desplegable interior-->
+    
+    
+    <!-- Bloque desplegable interior-->
+    <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion6-82').toggle();">	
+      <h3>82. Carrito persistente con LocalStorage - Almacenando</h3>			
+      <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+    </div>
+    <div id="seccion6-82" style="display:none">
+      <p></p>
+      
+    </div>
+    <!-- Fin bloque desplegable interior-->
+    
+    
+    <!-- Bloque desplegable interior-->
+    <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion6-83').toggle();">	
+      <h3>83. Carrito persistente con LocalStorage - Recuperar los productos y mostrarlos</h3>			
+      <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+    </div>
+    <div id="seccion6-83" style="display:none">
+      <p></p>
+      
+    </div>
+    <!-- Fin bloque desplegable interior-->
+    
+    
+    <!-- Bloque desplegable interior-->
+    <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion6-84').toggle();">	
+      <h3>84. Últimos Ajustes y Deployment</h3>			
+      <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+    </div>
+    <div id="seccion6-84" style="display:none">
+      <p></p>
+      
+    </div>
+    <!-- Fin bloque desplegable interior-->
+    
+    
+    
+    
+              <!-- Bloque desplegable interior-->
+              <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion6-XX').toggle();">	
+                <h3>XX. XXXXXXXXXXXXXXX</h3>			
+                <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+              </div>
+              <div id="seccion6-XX" style="display:none">
+                <p></p>
+                
+              </div>
+              <!-- Fin bloque desplegable interior-->
+    
+    
+              
+                
+            </div>			
+          </div><!--Fin row-->
+    
+          
+            
+          
+        </div>
+        <!-- Fin div colapsable-->
+    
+    
+      </div>
+    </div>	
+    <!-- FIN SECCIÓN 6 -->
+    
+    
+    
+    
+    
+    <!-- SECCIÓN XX -->
+    <div class="contenedor w-80 background esp-5-bottom">		
+      <div class="row">
+        <div class="flex center-vertical esp-25-top pointer desplegable space-between pointer" onclick="$('#seccionX').toggle();">	
+          <h2>Sección X: XXXXXXXXXXXXXXXXXX</h2>				
+          <span class="cambiaicono ico_chevron_down esp-10-right" title=""></span>
+        </div>
+        
+        <div id="seccionX" style="display:none">
+            
+          <div class="row">
+            <div class="col-12">	
+              
+              <!-- Bloque desplegable interior-->
+              <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccionX-XX').toggle();">	
+                <h3>XX. XXXXXXXXXXX</h3>			
+                <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+              </div>
+              <div id="seccionX-XX" style="display:none">
+                <p></p>
+                
+              </div>
+              <!-- Fin bloque desplegable interior-->
+    
+    
+              
+                
+            </div>			
+          </div><!--Fin row-->
+    
+          
+            
+          
+        </div>
+        <!-- Fin div colapsable-->
+    
+    
+      </div>
+    </div>	
+    <!-- FIN SECCIÓN XX -->
+    
+    
+    
+    
+    
+    
+      
+      
+      
+        
+       
+      
+    
+    
+      
+      
+      <div id="ModalPanel" class="modal-object">
+        <div class="modal-link-close" onclick="$('#ModalPanel').removeClass('open');$('#ModalPanel-overlay').removeClass('open');$('input#search').val('');$('ul#searchresults').html('');"></div>
+        <div id="ModalPanel-component" class="modal-content">
+          
+                <div class="search-results">
+                    <section>
+                        <h2 id="tituloresults" class="tituloresults">Resultados encontrados:</h2>
+                        <ul id="searchresults" class="searchresults">
+                        </ul>
+                    </section>
+                </div>
+                         
+        </div>
+      </div>
+      <div id="ModalPanel-overlay" class="modal-overlay" onclick="$('#ModalPanel').removeClass('open');$('#ModalPanel-overlay').removeClass('open');$('input#search').val('');$('ul#searchresults').html('');"></div>
+    
+    </div>
+      
+     
+
+
+
+  </body>
+</html>
