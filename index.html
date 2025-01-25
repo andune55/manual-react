@@ -1866,7 +1866,7 @@
     
     <!-- Bloque desplegable interior-->
     <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion6-73').toggle();">	
-      <h3>73. Mostrando los Contenidos del carrito</h3>			
+      <h3>73. Mostrando los Contenidos del carrito / 74. Detectando si el carrito está vacío / 75. State derivado</h3>			
       <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
     </div>
     <div id="seccion6-73">
@@ -1964,20 +1964,43 @@
       &lt;/tbody&gt;
       </code>
       </pre>
+
+      <p class="naranja">Detectando si el carrito está vacío</p>
+      <p>¿Hemos de crear un state para eso? no es necesrio crear un state para cada cosa. Veamos un par de alternativas para hacer esto. Estamos pasando como prop desde App.jsx nuestro cart, y en el código del componente Header.jsx iteramos el tr sobre cart. <span class="destacado">En este punto podemos escribir un ternario</span>. <strong>Como vimos en la parte de statements y expresiones, no podemos tener un if pero sí un ternario</strong>:</p>
+      <pre><code class="language-js">
+        &lcub;cart.length === 0 ? (
+          &lt;p className=&quot;text-center&quot;&gt;El carrito esta vacio&lt;/p&gt;                                            
+          ):( 
+          //El resto de la tabla
+        )&rcub;
+      </code></pre>
+      <p>También podemos usar un state derivado en lugar de ese <code class="language-js">cart.length === 0</code></p>
+
+      <p class="naranja">State derivado</p>
+
+      <p>Algunas veces queremos derivar el state. Actualmente tenemos nuestro state de carrito <code class="language-js">const [cart, setCart] = useState([])</code>. En lugar de crear un state nuevo que estemos revisando y su valor dependa de que cart tenga algo, podemos crear una variable/funcion cuyo valor vaya a depender mucho de este otro state. Lo podemos tener ¿en el return del App.jsx? o en el Header.jsx donde lo usamos (opta por esta). La idea es mantener la lógica fuera del template:</p>
+
+      <pre><code class="language-js">
+        export default function Header({cart}){
+
+          //State derivado
+          const isEmpty = () => cart.length === 0
+
+
+          {isEmpty() ? (
+            &lt;p className=&quot;text-center&quot;&gt;El carrito esta vacio&lt;/p&gt;                                            
+          ):( 
+          //El resto de la tabla
+          )}
+
+        
+      </code></pre>
+
     </div>
     <!-- Fin bloque desplegable interior-->
     
     
-    <!-- Bloque desplegable interior-->
-    <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion6-74').toggle();">	
-      <h3>74. Detectando si el carrito tiene algo o esta vacio</h3>			
-      <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
-    </div>
-    <div id="seccion6-74" style="display:none">
-      <p></p>
-      
-    </div>
-    <!-- Fin bloque desplegable interior-->
+
     
     
     <!-- Bloque desplegable interior-->
