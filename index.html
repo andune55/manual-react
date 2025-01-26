@@ -2029,35 +2029,76 @@
 
       <p class="naranja">Eliminando artículos del carrito</p>
 
+      <p>Lo primero que tenemos que hacer es crear una función. El carrito está en el componente <strong>App.jsx</strong> y el botón para eliminar está en el componente <strong>Header.jsx</strong>. Creemos la función en el componente principal y la pasaremos via <strong>props</strong>. Comprobemos de momento con un console.log() sin más que la comunicación entre nuestro botón eliminar del Header y la nueva función creada es correcta. <span class="destacado">Como ya hemos hecho antes, al pasar el prop lo nombramos igual que nuestra función así nos quitamos de tener que pensar en varios nombres (yo en un ejemplo anterior con el objeto guitar le puse al nombre del prop "propguitar" pero era mientras me acostumbraba  a todo esto para no perder la referencia de lo que estaba haciendo).</span></p>
+
+      <pre><code class="language-js">
+        //antes del return
+        function removeFromCart(){
+          console.log('Eliminando...')
+        }
+        
+        //en el return llamando a nuestro componente
+        &lt;Header
+        cart = &lcub;cart&rcub;
+        removeFromCart = &lcub;removeFromCart&rcub;
+      /&gt;      
+      </code></pre>
+
+      <p>Nos vamos ahora a nuestro componente Header.jsx y primero vamos a tomar esa función, aplicamos destructuring a esa función:</p>
+
+      <pre><code class="language-js">export default function Header({cart, removeFromCart}){</code></pre>
+
+      <p>la asociamos con el botón de eliminar. Vamos a esperar que el usuario presione en él por tanto colocamos en el un onClick y pasamos el nombre de la función: <code class="language-js"></code></p>
+
+      <pre><code class="language-html">
+        &lt;button
+          className=&quot;btn btn-danger&quot;
+          type=&quot;button&quot;
+          onClick=&lcub;removeFromCart&rcub;&gt;
+        X
+        &lt;/button&gt;
+      </code></pre>
+
+      <p>Si pulsamos ya vemos en la consola el mensaje que hemos puesto para verificar que hay comuniación. ¿Cçomo eliminamos elementos? Estamos almacenando todo en este arreglo de cart. <span class="destacado">Vamos a utilizar un array method que nos permita sacar elementos de ese arreglo y uno muy común que no muta nuestro state es .filter()</span> Nos va a permitir filtrar en base a una condición. Por ejemplo pensemos en los id. Para ello tenemos que pasarle un parámetro:</p>
+      <ul>
+        <li>le pasamos un parámetro a la función:
+          <pre><code class="language-js">
+            //antes del return
+            function removeFromCart(id){
+              console.log('Eliminando...', id)
+            }
+          </code></pre></li>
+        <li><span class="destacado">si le pasamos un parámetro en el onclick hay que ponerle un callback y le pasamos guitar.id, y de esa forma vamos a poder identificar qué elemento es el que estamos presionando para eliminarlo de nuestro carrito de compras.</span>
+          <pre><code class="language-html">
+            &lt;button
+              className=&quot;btn btn-danger&quot;
+              type=&quot;button&quot;
+              onClick=&lcub;() =&gt; removeFromCart(guitar.id)&rcub;
+            X
+            &lt;/button&gt;
+          </code></pre>          
+        </li>
+      </ul>
+
+      <p>podríamos crear una nueva variable con lo que nos retorna el filter() pero también podemos hacerlo en una sola función: si lo pasamos como callback aquí vamos a tener el valor previo de nuestro carrito. Le aplicamos el método filter() y le indicamos que nos filtre las guitarras cuo id sea diferente al que le pasamos; ello regresa el nuevo arreglo y lo setea en nuestra función.</p>
+
+      <pre><code class="language-js">
+        function removeFromCart(id){
+          //console.log('Eliminando...', id)      
+          setCart(prevCart => prevCart.filter(guitar => guitar.id !== id))
+      }
+      </code></pre>
+
+      <p>Si probamos a eliminar una guitarra vemos que se elimina del carrito y que además el total se actualiza. Recordemos que <strong>carTotal es un state derivado, tiene un useMemo y como dependencia el cart, también se vuelve a ejecutar y calcula el total a pagar de nuestro carrito de compra.</strong>. Si las eliminamos todas vemos que sale lo de que el carrito está vacío, porque también se ejecuta nuestro otro state derivado <strong>isEmpty</strong>.</p>
+
+      <p>Vemos lo sencillo que es con react mantener sincronizado nuestro state con nuestra interfaz, no hay que llamar a ninguna función para refrescar nuestra interfaz, automáticamente lo hace por nosotros.</p>
+
     </div>
     <!-- Fin bloque desplegable interior-->
     
     
    
-    
-    
-    <!-- Bloque desplegable interior-->
-    <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion6-77').toggle();">	
-      <h3>77. useMemo para mejorar el performance de nuestro código</h3>			
-      <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
-    </div>
-    <div id="seccion6-77" style="display:none">
-      <p></p>
-      
-    </div>
-    <!-- Fin bloque desplegable interior-->
-    
-    
-    <!-- Bloque desplegable interior-->
-    <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion6-78').toggle();">	
-      <h3>78. Eliminando Articulos del Carrito</h3>			
-      <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
-    </div>
-    <div id="seccion6-78" style="display:none">
-      <p></p>
-      
-    </div>
-    <!-- Fin bloque desplegable interior-->
+   
     
     
     <!-- Bloque desplegable interior-->
