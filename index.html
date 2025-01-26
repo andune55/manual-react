@@ -1866,11 +1866,11 @@
     
     <!-- Bloque desplegable interior-->
     <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion6-73').toggle();">	
-      <h3>73. Mostrando los Contenidos del carrito / 74. Detectando si el carrito está vacío / 75. State derivado</h3>			
+      <h3>73. Mostrando los Contenidos del carrito / 74. Detectando si el carrito está vacío / 75. State derivado / 76. Calculando el Total a pagar / 77. useMemo para mejorar el performance de nuestro código / 78. Eliminando artículos del carrito</h3>			
       <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
     </div>
     <div id="seccion6-73">
-      <p>Vamos a empezar a hacer dinámica la sección del carrito de compra. Está en nuestro Header.jsx, vamos a hacer dinámica esta parte y sincronizarla con nuestro state. En nuestro componente App.jsx, al Header le vamos a pasar el carrito <strong>el propo se va a llamar cart y el valor también cart, para no tener que pensar en nombres diferentes es recomendable ponerl el mismo que tiene ese state</strong>.</p>
+      <p>Vamos a empezar a hacer dinámica la sección del carrito de compra. Está en nuestro Header.jsx, vamos a hacer dinámica esta parte y sincronizarla con nuestro state. En nuestro componente App.jsx, al Header le vamos a pasar el carrito <strong>el prop se va a llamar cart y el valor también cart, para no tener que pensar en nombres diferentes es recomendable ponerl el mismo que tiene ese state</strong>.</p>
       <pre><code class="language-js">
         &lt;Header
         cart = &lcub;cart&rcub;
@@ -1986,45 +1986,54 @@
           //State derivado
           const isEmpty = () => cart.length === 0
 
-
           {isEmpty() ? (
             &lt;p className=&quot;text-center&quot;&gt;El carrito esta vacio&lt;/p&gt;                                            
           ):( 
           //El resto de la tabla
-          )}
-
-        
+          )}        
       </code></pre>
 
-    </div>
-    <!-- Fin bloque desplegable interior-->
-    
-    
+      <p class="naranja">Calculando el Total a pagar</p>			
+      <p>Metemos el párrafo en la parte del ternario que renderiza la tabla. <strong>nos dará error porque necesitamos tener un único elemento en el nivel superior, metemos un fragment que englobe a la tabla+p</strong>. Para calcular el total a pagar vamos a utilizar un array method llamado <span class="destacado">reduce()</span>. Lo utilizamos para construir este state derivado de lo que tenemos en el carrito de compras:</p>
 
-    
-    
-    <!-- Bloque desplegable interior-->
-    <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion6-75').toggle();">	
-      <h3>75. State derivado</h3>			
-      <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
-    </div>
-    <div id="seccion6-75" style="display:none">
-      <p></p>
-      
+      <pre><code class="language-js">
+        const isEmpty = () => cart.length === 0
+        const cartTotal = () => cart.reduce( (total, item) => total + (item.quantity * item.price), 0)
+      </code></pre>
+
+      <p>Es uno de los pocos array methods que toma dos parámetros, uno es el total ,es decir un acumulado, va a ir iterando sobre cada elemento que tenemos en el carrito; el segundo parámetro <strong>item</strong> es el elemento actual. En el arrow function siguiente al total acumulado le vamos sumando el resultado de multiplicar la cantidad de item * precio de item. el valor <strong>0</strong> es el valor inicial; el carrito inicia en 0 y a apartir de ahí sumamos.</p>
+
+      <p>Si no quisiéramos llamar estas funciones isEmpty() y carTotal() podríamos hacer uso de un Hook que se llama useMemo que también es bastante común</p>
+
+      <p class="naranja">useMemo para mejorar el performance de nuestro código</p>
+
+      <p>Si tenemos experiencia con Vue.js sabremos que hay algo que se llama compute properties y useMemo hace algo bastante similar:</p>
+      <ul>
+        <li>Simplifica los templates un poco</li>
+        <li>Es un Hook enfocado al performance porqeu evita que este código se ejecute (los 2 states derivados vistos) si alguna de las dependencias que vamos a deifnir en ese useMemo no ha cambiado.</li>
+      </ul>
+      <p><strong>Importamos esl Hook useMemo en nuestro componente Header.jsx:</strong> <code class="language-js">import { useMemo } from 'react'</code>. Vamos a usarlo en nuestro state derivado isEmpty. useMemo es una función que toma dos parámetros (un factory que es la función y el array de dependencias), los vemos explicados si nos colocamos en VSC encima de useMemo:</p>
+      <img src="./src/assets/img/77-useMemo.png" alt="">
+      <pre><code class="language-js">
+        const isEmpty = useMemo( () => cart.length === 0, [cart])
+      </code></pre>
+
+      <p>Este código no va a cambiar hasta que cambien ciertas partes de nuestro código. ¿Qué imporancia tiene esto? React siempre va ahacer un render completo de nuestra aplicación. Si presionamos en agregar al carrito, hace un render completo donde tengas el state. Eso puede suponer mucho coste en términos de rendimiento, hacer que nuestra aplicación sea más lenta...entonces <span class="destacado">useMemo es una forma de decirle: "no haghas render completo de mi aplicación hasta que no cambie algo que yo te voy a decir qué es; para eso es el arreglo de dependencias y en concreto este código anterior le dice "vuelve a ejecutar este código, a hacer el render cuando cart cambie, cada vez que añadamos, eliminemos, modificamos algo del carrito"</span>. Como isEmpty ya no es una función, eliminamos en nuestro template esto <code class="language-js"> isEmpty() </code>y en su lugar lo llamamos así <code class="language-js"> isEmpty</code></p>
+
+      <p>Hacemos lo mismo con el state derivado carTotal, porque queremos que el Total se calcule solo cuando el carrito cambie:</p>
+      <pre><code class="language-js">
+        const isEmpty = useMemo( () => cart.length === 0, [cart])
+      </code></pre>
+
+      <p>useMemo no es un Hook que vayamos a utilizar en todos sitios, es un Hook enfocado a performance pero por el hecho de que cachea esos resultados entre renders, <strong>a veces puede ser contraproducente cachear tanto. Hay que probar según el caso y vigilar nuestro state. Si no se actualiza como esperamos lo quitamos y/o valorar otras opciones apra trabajar con caché en nuestros componentes</strong>.</p>
+
+      <p class="naranja">Eliminando artículos del carrito</p>
+
     </div>
     <!-- Fin bloque desplegable interior-->
     
     
-    <!-- Bloque desplegable interior-->
-    <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion6-76').toggle();">	
-      <h3>76. Calculando el Total a pagar</h3>			
-      <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
-    </div>
-    <div id="seccion6-76" style="display:none">
-      <p></p>
-      
-    </div>
-    <!-- Fin bloque desplegable interior-->
+   
     
     
     <!-- Bloque desplegable interior-->
