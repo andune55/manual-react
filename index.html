@@ -1866,7 +1866,7 @@
     
     <!-- Bloque desplegable interior-->
     <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion6-73').toggle();">	
-      <h3>73. Mostrando los Contenidos del carrito / 74. Detectando si el carrito está vacío / 75. State derivado / 76. Calculando el Total a pagar / 77. useMemo para mejorar el performance de nuestro código / 78. Eliminando artículos del carrito</h3>			
+      <h3>73. Mostrando los Contenidos del carrito / 74. Detectando si el carrito está vacío / 75. State derivado / 76. Calculando el Total a pagar / 77. useMemo para mejorar el performance de nuestro código / 78. Eliminando artículos del carrito / 78. Creando una Función para Incrementar las cantidades y RETO 01</h3>			
       <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
     </div>
     <div id="seccion6-73">
@@ -2093,24 +2093,57 @@
 
       <p>Vemos lo sencillo que es con react mantener sincronizado nuestro state con nuestra interfaz, no hay que llamar a ninguna función para refrescar nuestra interfaz, automáticamente lo hace por nosotros.</p>
 
-    </div>
-    <!-- Fin bloque desplegable interior-->
-    
-    
-   
-   
-    
-    
-    <!-- Bloque desplegable interior-->
-    <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion6-79').toggle();">	
-      <h3>79. Creando una Función para Incrementar las cantidades y RETO 01</h3>			
-      <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
-    </div>
-    <div id="seccion6-79" style="display:none">
-      <p></p>
+      <p class="naranja">Creando una Función para Incrementar las cantidades y RETO 01</p>
+      <p>Creamos una nueva función intermedia desriptiva que nos sirva para manejar la lógica. toma un id porque requerimos identificar el elemento. Como está en el Header, la pasamos via prop usando el mismo nombre:</p>
+
+      <pre><code class="language-js">
+        function increaseQuantity(id)&lcub;
+        console.log(&apos;Incrementando...&apos;&comma; id)
+      &rcub;
       
+      return (
+        &lt;&gt;   
+        &lt;Header
+          cart = &lcub;cart&rcub;
+          removeFromCart = &lcub;removeFromCart&rcub;
+          increaseQuantity = &lcub;increaseQuantity&rcub;
+        /&gt;
+      </code></pre>
+
+      <p>Extraemos la nueva prop en la declaración de la función de nuestro componente Header: <code class="language-js">export default function Header({cart, removeFromCart, increaseQuantity}){</code>. En el código del return donde está el botón "+" para incrementar le añadimos el onClick con su función de flecha que llama a ese prop pasándole como argumento el id de la guitarra que se pulsa:</p>
+
+      <pre><code class="language-js">
+        &lt;button
+        type=&quot;button&quot;
+        className=&quot;btn btn-dark&quot;
+        onClick=&lcub;() =&gt; increaseQuantity(guitar.id)&rcub;&gt;
+        &plus;
+      &lt;/button&gt;
+      </code></pre>
+
+      <p>Cada vez que agregábamos un elemento al carrito (ver en nuestro componente App.jsx la función addToCart) estábamos incrementando esta propiedad de cantidad "item.quantity". <strong>Actualicemos nuestra función teniendo esto en mente y que vamos a tener que actualizar esa propiedad de cantidad con cada agregado.</strong> Creamos una variable nueva "updatedCart" y usamos el .map() (recordemos que a diferencia de forEach(), nos va a devolver un array nuevo. Ambos sirven para iterar un arreglo pero .map() nos genera una copia nueva que va a estar en esta variable). Con cart.map( ) accedemos a cada elemento del carrito. También limitamos como número máximo 5 por guitarra. En este punto menciona el libro "Clean Code" y aconseja tanto seguir buenas prácticas ocmo tener preferencias personales; para este caso el es partidario de crear una constante con el valor máximo y es la que llamaremos en nuestra condición <strong>const MAX_ITEMS = 5</strong>:</p>
+
+      <pre><code class="language-js">
+        function increaseQuantity(id){
+          //console.log('Incrementando...', id)
+          const updatedCart = cart.map ( item => {
+              if(item.id === id &amp;&amp; item.quantity &lt; MAX&lowbar;ITEMS){
+                  return{
+                      ...item,//ponemos esto porque no queremos perder la referencia de loq ue ya tenemos en el cart
+                      quantity: item.quantity + 1 //si pusiéramos solo esto solo nos devolvería la cantidad
+                  }
+              }
+              return item //para que mantenga el reto de elementos sobre los que no dimos click en aumentar cantidad
+          })
+          setCart(updatedCart) //esa variable la seteamos al carrito
+      }
+      </code></pre>
+
     </div>
     <!-- Fin bloque desplegable interior-->
+    
+    
+
     
     
     <!-- Bloque desplegable interior-->

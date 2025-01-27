@@ -316,7 +316,7 @@ p.titulo{
         justify-content: flex-end;
     }
 }
-@media screen and (max-width: 480px){
+@media screen and (max-width: 599px){
     .start-s {
         -webkit-box-pack: start;
         -ms-flex-pack: start;
@@ -352,7 +352,7 @@ p.titulo{
 		display: none !important;
 	}
 }
-@media screen and (max-width: 480px){
+@media screen and (max-width: 599px){
     .d-block-s{
 		display: block !important;
 	}
@@ -408,3 +408,14 @@ div.oscuro{
 
 .flex .code-toolbar{width:99%}
 .flex .code-toolbar pre{margin: 0}
+
+/* Sobreescribimos prism para mejora en viusalización de apuntes en móvil*/
+@media screen and (max-width: 599px){
+	code[class*=language-], pre[class*=language-]{
+		white-space: break-spaces !important;
+	}
+	code[class*=language-]{
+		padding: 2px 5px!important;
+		line-height: 16px!important;
+	}
+}
