@@ -2209,7 +2209,222 @@
                   clearCart = &lcub;clearCart&rcub;           
                 /&gt;
                 </code></pre>
+              
+                <!-- BLOQUE CÓDIGO PROVISIONAL -->
+                <div class="flex">                 
+                  <div class="w-50 w-100-s">
+                    <span class="rojo">App.jsx</span><br>
+                    <script type="text/plain" class="language-js">
+                      import { useState, useEffect } from "react"
+                      import Guitar from "../components/Guitar"
+                      import Header from "../components/Header"
+                      import { db } from "./data/db"
+                      
+                      function App() {
+                      
+                          //console.log(db)
+                          const [data, setData] = useState(db)
+                          const [cart, setCart] = useState([])
+                          const MAX_ITEMS = 5
+                          const MIN_ITEMS = 1
+                      
+                          // const [data, setData] = useState([])
+                          // useEffect( () => {
+                          //     setData(db)
+                          // },[])
+                      
+                          function addToCart(item){
+                              const itemExists = cart.findIndex(guitar => guitar.id === item.id)
+                              if(itemExists >= 0){//existe en cart
+                                  if(cart[itemExists].quantity >= MAX_ITEMS) return
+                                  const updatedCart = [...cart] //copia nueva de mi state, no modifica mi carrito       
+                                  updatedCart[itemExists].quantity++
+                                  setCart(updatedCart)
+                              } else{//NO EXISTE en cart
+                                  item.quantity = 1
+                                  setCart(prevCart =>[...prevCart, item])
+                              }       
+                          }
+                      
+                          function removeFromCart(id){
+                              //console.log('Eliminando...', id)      
+                              setCart(prevCart => prevCart.filter(guitar => guitar.id !== id))
+                          }    
+                      
+                          function decreaseQuantity(id){
+                              //console.log('Decrementando...', id)
+                              const updatedCart = cart.map( item => {
+                                  if(item.id === id && item.quantity > MIN_ITEMS){
+                                      return{
+                                          ...item,//ponemos esto porque no queremos perder la referencia de lo que ya tenemos en el cart
+                                          quantity: item.quantity -1 //si pusiéramos solo esto solo nos devolvería la cantidad
+                                      }
+                                  }
+                                  return item //cuando no se cumple la condición: mantiene el resto de elementos sobre los que no dimos click en decrementar cantidad
+                              })
+                              setCart(updatedCart)
+                          }
+                      
+                          function increaseQuantity(id){
+                              //console.log('Incrementando...', id)
+                              const updatedCart = cart.map ( item => {
+                                  if(item.id === id && item.quantity < MAX_ITEMS){
+                                      return{
+                                          ...item,//ponemos esto porque no queremos perder la referencia de lo que ya tenemos en el cart
+                                          quantity: item.quantity + 1 //si pusiéramos solo esto solo nos devolvería la cantidad
+                                      }
+                                  }
+                                  return item //cuando no se cumple la condición: mantiene el resto de elementos sobre los que no dimos click en aumentar cantidad
+                              })
+                              setCart(updatedCart) //esa variable la seteamos al carrito
+                          }
+                      
+                          function clearCart(){
+                              setCart([]) //seteamos un arreglo vacío
+                          }
+                      
+                          return (
+                              <>   
+                              <Header
+                                  cart = {cart}
+                                  removeFromCart = {removeFromCart}
+                                  decreaseQuantity = {decreaseQuantity}
+                                  increaseQuantity = {increaseQuantity}
+                                  clearCart = {clearCart}           
+                              />
+                            
+                              <main className="container-xl mt-5">
+                                  <h2 className="text-center">Nuestra Colección</h2>
+                      
+                                  <div className="row mt-5">
+                                      {data.map((guitar) => (                    
+                                          <Guitar
+                                              key = {guitar.id} 
+                                              propguitar = {guitar} 
+                                              setCart = {setCart}    
+                                              addToCart = {addToCart}                     
+                                          />
+                                      )
+                                      )}         
+                                  </div>
+                              </main>
+                      
+                              <footer className="bg-dark mt-5 py-5">
+                                  <div className="container-xl">
+                                      <p className="text-white text-center fs-4 mt-4 m-md-0">GuitarLA - Todos los derechos Reservados</p>
+                                  </div>
+                              </footer>        
+                              </>
+                          )
+                      }
+                      
+                      export default App
+                      
+                    </script>
+                  </div>
 
+                  <div class="w-50 w-100-s">
+                    <span class="rojo">Header.jsx</span><br>
+                    <script type="text/plain" class="language-js">
+                      import { useMemo } from 'react'
+
+                      export default function Header({cart, removeFromCart, decreaseQuantity, increaseQuantity, clearCart}){
+                      
+                          //State derivado
+                          const isEmpty = useMemo( () => cart.length === 0, [cart])
+                          const cartTotal = useMemo( () => cart.reduce( (total, item) => total + (item.quantity * item.price), 0), [cart])
+                          
+                          return(
+                      
+                              <header className="py-5 header">
+                                  <div className="container-xl">
+                                      <div className="row justify-content-center justify-content-md-between">
+                                          <div className="col-8 col-md-3">
+                                              <a href="index.html">
+                                                  <img className="img-fluid" src="/img/logo.svg" alt="imagen logo" />
+                                              </a>
+                                          </div>
+                                          <nav className="col-md-6 a mt-5 d-flex align-items-start justify-content-end">
+                                              <div className="carrito">
+                                                  <img className="img-fluid" src="/img/carrito.png" alt="imagen carrito" />
+                      
+                                                  <div id="carrito" className="bg-white p-3">
+                                                      
+                                                      {isEmpty ? (
+                                                          <p className="text-center">El carrito esta vacio</p>                                            
+                                                      ):(    
+                                                          <>                          
+                                                          <table className="w-100 table">
+                                                              <thead>
+                                                                  <tr>
+                                                                      <th>Imagen</th>
+                                                                      <th>Nombre</th>
+                                                                      <th>Precio</th>
+                                                                      <th>Cantidad</th>
+                                                                      <th></th>
+                                                                  </tr>
+                                                              </thead>
+                                                          
+                                                              <tbody>
+                                                                  {cart.map( guitar =>( 
+                                                                  <tr key={guitar.id}>
+                                                                      <td>
+                                                                          <img className="img-fluid" src={`/img/${guitar.image}.jpg`} alt="imagen guitarra" />
+                                                                      </td>
+                                                                      <td>{guitar.name}</td>
+                                                                      <td className="fw-bold">
+                                                                              ${guitar.price}
+                                                                      </td>
+                                                                      <td className="flex align-items-start gap-4">
+                                                                          <button
+                                                                              type="button"
+                                                                              className="btn btn-dark"
+                                                                              onClick={() => decreaseQuantity(guitar.id)}>
+                                                                              -
+                                                                          </button>
+                                                                              {guitar.quantity}
+                                                                          <button
+                                                                              type="button"
+                                                                              className="btn btn-dark"
+                                                                              onClick={() => increaseQuantity(guitar.id)}>
+                                                                              +
+                                                                          </button>
+                                                                      </td>
+                                                                      <td>
+                                                                          <button
+                                                                              className="btn btn-danger"
+                                                                              type="button"
+                                                                              onClick={() => removeFromCart(guitar.id)}>
+                                                                              X
+                                                                          </button>
+                                                                      </td>
+                                                                  </tr>
+                                                                  ))}
+                                                              </tbody>
+                                                          </table>
+                                                          <p className="text-end">Total pagar: <span className="fw-bold">${cartTotal}</span></p>
+                                                          </>
+                                                      )}
+                      
+                                                      
+                                                      <button 
+                                                          className="btn btn-dark w-100 mt-3 p-2"
+                                                          onClick={clearCart}
+                                                      >Vaciar Carrito</button>
+                                                  </div>
+                                              </div>
+                                          </nav>
+                                      </div>
+                                  </div>
+                              </header>
+                      
+                          )
+                      
+                      }
+                    </script>
+                  </div>
+                </div>
+                <!-- FIN BLOQUE CÓDIGO PROVISIONAL -->
 
               </div>
               <!-- Fin bloque desplegable interior-->
@@ -2223,8 +2438,9 @@
               </div>
               <div id="seccion6-82">
                 <p class="naranja">Carrito persistente con LocalStorage - Almacenando</p>
-                <p>Tener un carrito persistente es un buen truco para mantener los mismos elementos en el carrito aunque recarguemos navegador.</p>
-
+                <p>Tener un carrito persistente es un buen truco para mantener los mismos elementos en el carrito aunque recarguemos navegador. ¿Cómo hacemos para tener sincronizado nuestro carrito de compras <code class="language-js">const [cart, setCart] = useState([])</code> con localStorage</p>
+                
+                
 
                 <p class="naranja">Carrito persistente con LocalStorage - Recuperar los productos y mostrarlos</p>
                 

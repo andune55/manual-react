@@ -409,7 +409,28 @@ div.oscuro{
 .flex .code-toolbar{width:99%}
 .flex .code-toolbar pre{margin: 0}
 
-/* Sobreescribimos prism para mejora en viusalización de apuntes en móvil*/
+
+
+/* Sobreescribimos ajustes estilos de prism */
+pre[class*=language-] {
+    margin: .5em 0;
+    padding: 1px;
+}
+code[class*=language-], pre[class*=language-]{
+	line-height:1.3;
+	border-radius: 4px;
+}
+div.code-toolbar>.toolbar>.toolbar-item>button{
+	cursor: pointer;
+}
+div.code-toolbar>.toolbar>.toolbar-item>a, div.code-toolbar>.toolbar>.toolbar-item>button, div.code-toolbar>.toolbar>.toolbar-item>span{
+	font-family: monospace;
+    font-size: 1.1em;
+	color: #ffffff;
+}
+
+
+/*mejora en viusalización de apuntes en móvil*/
 @media screen and (max-width: 599px){
 	code[class*=language-], pre[class*=language-]{
 		white-space: break-spaces !important;
@@ -419,3 +440,6 @@ div.oscuro{
 		line-height: 16px!important;
 	}
 }
+
+
+
