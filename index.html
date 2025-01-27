@@ -1863,336 +1863,377 @@
     
     
     
-    
-    <!-- Bloque desplegable interior-->
-    <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion6-73').toggle();">	
-      <h3>73. Mostrando los Contenidos del carrito / 74. Detectando si el carrito está vacío / 75. State derivado / 76. Calculando el Total a pagar / 77. useMemo para mejorar el performance de nuestro código / 78. Eliminando artículos del carrito / 78. Creando una Función para Incrementar las cantidades y RETO 01</h3>			
-      <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
-    </div>
-    <div id="seccion6-73">
-      <p>Vamos a empezar a hacer dinámica la sección del carrito de compra. Está en nuestro Header.jsx, vamos a hacer dinámica esta parte y sincronizarla con nuestro state. En nuestro componente App.jsx, al Header le vamos a pasar el carrito <strong>el prop se va a llamar cart y el valor también cart, para no tener que pensar en nombres diferentes es recomendable ponerl el mismo que tiene ese state</strong>.</p>
-      <pre><code class="language-js">
-        &lt;Header
-        cart = &lcub;cart&rcub;
-      /&gt;
-      </code></pre>
+              
+              <!-- Bloque desplegable interior-->
+              <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion6-81').toggle();">	
+                <h3>73. Mostrando los Contenidos del carrito / 74. Detectando si el carrito está vacío / 75. State derivado / 76. Calculando el Total a pagar / 77. useMemo para mejorar el performance de nuestro código / 78. Eliminando artículos del carrito / 79/80. Creando una Función para Incrementar las cantidades y RETO 01 / 81. Función limpiar carrito</h3>			
+                <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+              </div>
+              <div id="seccion6-81" style="display:none">
+                <p>Vamos a empezar a hacer dinámica la sección del carrito de compra. Está en nuestro Header.jsx, vamos a hacer dinámica esta parte y sincronizarla con nuestro state. En nuestro componente App.jsx, al Header le vamos a pasar el carrito <strong>el prop se va a llamar cart y el valor también cart, para no tener que pensar en nombres diferentes es recomendable ponerl el mismo que tiene ese state</strong>.</p>
+                <pre><code class="language-js">
+                  &lt;Header
+                  cart = &lcub;cart&rcub;
+                /&gt;
+                </code></pre>
 
-      <pre><code class="language-js">
-        export default function Header({cart}){
-      </code></pre>
+                <pre><code class="language-js">
+                  export default function Header({cart}){
+                </code></pre>
 
-      <p>la estructura del carrito es con una tabla. Iteramos en el tbody para que genere un tr por cada elemento en nuestro carrito:</p>
-      <pre><code class="language-js">
-        &lcub;cart.map( guitar =&gt;( 
-          &lt;tr&gt;
-            &lt;td&gt;
-              &lt;img className=&quot;img-fluid&quot; src=&quot;./public/img/guitarra&lowbar;02.jpg&quot; alt=&quot;imagen guitarra&quot; /&gt;
-            &lt;/td&gt;
-            &lt;td&gt;SRV&lt;/td&gt;
-            &lt;td className=&quot;fw-bold&quot;&gt;
-                $299
-            &lt;/td&gt;
-            &lt;td className=&quot;flex align-items-start gap-4&quot;&gt;
-              &lt;button
-                type=&quot;button&quot;
-                className=&quot;btn btn-dark&quot;
-              &gt;
-                -
-              &lt;/button&gt;
-                1
-              &lt;button
-                type=&quot;button&quot;
-                className=&quot;btn btn-dark&quot;
-              &gt;
-                &plus;
-              &lt;/button&gt;
-            &lt;/td&gt;
-            &lt;td&gt;
-              &lt;button
-                className=&quot;btn btn-danger&quot;
-                type=&quot;button&quot;
-              &gt;
-                X
-              &lt;/button&gt;
-            &lt;/td&gt;
-          &lt;/tr&gt;
-        ))&rcub;
-      </code></pre>
+                <p>la estructura del carrito es con una tabla. Iteramos en el tbody para que genere un tr por cada elemento en nuestro carrito:</p>
+                <pre><code class="language-js">
+                  &lcub;cart.map( guitar =&gt;( 
+                    &lt;tr&gt;
+                      &lt;td&gt;
+                        &lt;img className=&quot;img-fluid&quot; src=&quot;./public/img/guitarra&lowbar;02.jpg&quot; alt=&quot;imagen guitarra&quot; /&gt;
+                      &lt;/td&gt;
+                      &lt;td&gt;SRV&lt;/td&gt;
+                      &lt;td className=&quot;fw-bold&quot;&gt;
+                          $299
+                      &lt;/td&gt;
+                      &lt;td className=&quot;flex align-items-start gap-4&quot;&gt;
+                        &lt;button
+                          type=&quot;button&quot;
+                          className=&quot;btn btn-dark&quot;
+                        &gt;
+                          -
+                        &lt;/button&gt;
+                          1
+                        &lt;button
+                          type=&quot;button&quot;
+                          className=&quot;btn btn-dark&quot;
+                        &gt;
+                          &plus;
+                        &lt;/button&gt;
+                      &lt;/td&gt;
+                      &lt;td&gt;
+                        &lt;button
+                          className=&quot;btn btn-danger&quot;
+                          type=&quot;button&quot;
+                        &gt;
+                          X
+                        &lt;/button&gt;
+                      &lt;/td&gt;
+                    &lt;/tr&gt;
+                  ))&rcub;
+                </code></pre>
 
-      <p>Comenta sobre la posibilidad de que este tr lo hiciéramos componente y habla sobre el inconveniente de tener demasiados componentes pequeños, tener que andar enviando y manejando demasiados props (que se podría manejar con Redux toolkit o manejador de estado global pero aún no hemos visto ese tema ni conviene para un proyecto tan pequeño como este.) </p>
+                <p>Comenta sobre la posibilidad de que este tr lo hiciéramos componente y habla sobre el inconveniente de tener demasiados componentes pequeños, tener que andar enviando y manejando demasiados props (que se podría manejar con Redux toolkit o manejador de estado global pero aún no hemos visto ese tema ni conviene para un proyecto tan pequeño como este.) </p>
 
-      <img src="./src/assets/img/73.png" alt="">
+                <img src="./src/assets/img/73.png" alt="">
 
-      <p>no lo estoy pasando via props, pero el objeto <strong>guitar</strong> existe dentro de ese paréntesis y puedo acceder a sus propiedades. Si vemos en consola nos da un aviso de id único para Header. Tenemos que darle un key único al tr.</p>
-      
-      <pre><code class="language-js">
-        &lt;tbody&gt;
-        &lcub;cart.map( guitar =&gt;( 
-        &lt;tr key=&lcub;guitar.id&rcub;&gt;
-          &lt;td&gt;
-            &lt;img className=&quot;img-fluid&quot; src=&lcub;&grave;/img/$&lcub;guitar.image&rcub;.jpg&grave;&rcub; alt=&quot;imagen guitarra&quot; /&gt;
-          &lt;/td&gt;
-          &lt;td&gt;&lcub;guitar.name&rcub;&lt;/td&gt;
-          &lt;td className=&quot;fw-bold&quot;&gt;
-              $&lcub;guitar.price&rcub;
-          &lt;/td&gt;
-          &lt;td className=&quot;flex align-items-start gap-4&quot;&gt;
-            &lt;button
-              type=&quot;button&quot;
-              className=&quot;btn btn-dark&quot;
-            &gt;
-              -
-            &lt;/button&gt;
-              &lcub;guitar.quantity&rcub;
-            &lt;button
-              type=&quot;button&quot;
-              className=&quot;btn btn-dark&quot;
-            &gt;
-              &plus;
-            &lt;/button&gt;
-          &lt;/td&gt;
-          &lt;td&gt;
-            &lt;button
-              className=&quot;btn btn-danger&quot;
-              type=&quot;button&quot;
-            &gt;
-              X
-            &lt;/button&gt;
-          &lt;/td&gt;
-        &lt;/tr&gt;
-        ))&rcub;
-      &lt;/tbody&gt;
-      </code>
-      </pre>
+                <p>no lo estoy pasando via props, pero el objeto <strong>guitar</strong> existe dentro de ese paréntesis y puedo acceder a sus propiedades. Si vemos en consola nos da un aviso de id único para Header. Tenemos que darle un key único al tr.</p>
+                
+                <pre><code class="language-js">
+                  &lt;tbody&gt;
+                  &lcub;cart.map( guitar =&gt;( 
+                  &lt;tr key=&lcub;guitar.id&rcub;&gt;
+                    &lt;td&gt;
+                      &lt;img className=&quot;img-fluid&quot; src=&lcub;&grave;/img/$&lcub;guitar.image&rcub;.jpg&grave;&rcub; alt=&quot;imagen guitarra&quot; /&gt;
+                    &lt;/td&gt;
+                    &lt;td&gt;&lcub;guitar.name&rcub;&lt;/td&gt;
+                    &lt;td className=&quot;fw-bold&quot;&gt;
+                        $&lcub;guitar.price&rcub;
+                    &lt;/td&gt;
+                    &lt;td className=&quot;flex align-items-start gap-4&quot;&gt;
+                      &lt;button
+                        type=&quot;button&quot;
+                        className=&quot;btn btn-dark&quot;
+                      &gt;
+                        -
+                      &lt;/button&gt;
+                        &lcub;guitar.quantity&rcub;
+                      &lt;button
+                        type=&quot;button&quot;
+                        className=&quot;btn btn-dark&quot;
+                      &gt;
+                        &plus;
+                      &lt;/button&gt;
+                    &lt;/td&gt;
+                    &lt;td&gt;
+                      &lt;button
+                        className=&quot;btn btn-danger&quot;
+                        type=&quot;button&quot;
+                      &gt;
+                        X
+                      &lt;/button&gt;
+                    &lt;/td&gt;
+                  &lt;/tr&gt;
+                  ))&rcub;
+                &lt;/tbody&gt;
+                </code>
+                </pre>
 
-      <p class="naranja">Detectando si el carrito está vacío</p>
-      <p>¿Hemos de crear un state para eso? no es necesrio crear un state para cada cosa. Veamos un par de alternativas para hacer esto. Estamos pasando como prop desde App.jsx nuestro cart, y en el código del componente Header.jsx iteramos el tr sobre cart. <span class="destacado">En este punto podemos escribir un ternario</span>. <strong>Como vimos en la parte de statements y expresiones, no podemos tener un if pero sí un ternario</strong>:</p>
-      <pre><code class="language-js">
-        &lcub;cart.length === 0 ? (
-          &lt;p className=&quot;text-center&quot;&gt;El carrito esta vacio&lt;/p&gt;                                            
-          ):( 
-          //El resto de la tabla
-        )&rcub;
-      </code></pre>
-      <p>También podemos usar un state derivado en lugar de ese <code class="language-js">cart.length === 0</code></p>
+                <p class="naranja">Detectando si el carrito está vacío</p>
+                <p>¿Hemos de crear un state para eso? no es necesrio crear un state para cada cosa. Veamos un par de alternativas para hacer esto. Estamos pasando como prop desde App.jsx nuestro cart, y en el código del componente Header.jsx iteramos el tr sobre cart. <span class="destacado">En este punto podemos escribir un ternario</span>. <strong>Como vimos en la parte de statements y expresiones, no podemos tener un if pero sí un ternario</strong>:</p>
+                <pre><code class="language-js">
+                  &lcub;cart.length === 0 ? (
+                    &lt;p className=&quot;text-center&quot;&gt;El carrito esta vacio&lt;/p&gt;                                            
+                    ):( 
+                    //El resto de la tabla
+                  )&rcub;
+                </code></pre>
+                <p>También podemos usar un state derivado en lugar de ese <code class="language-js">cart.length === 0</code></p>
 
-      <p class="naranja">State derivado</p>
+                <p class="naranja">State derivado</p>
 
-      <p>Algunas veces queremos derivar el state. Actualmente tenemos nuestro state de carrito <code class="language-js">const [cart, setCart] = useState([])</code>. En lugar de crear un state nuevo que estemos revisando y su valor dependa de que cart tenga algo, podemos crear una variable/funcion cuyo valor vaya a depender mucho de este otro state. Lo podemos tener ¿en el return del App.jsx? o en el Header.jsx donde lo usamos (opta por esta). La idea es mantener la lógica fuera del template:</p>
+                <p>Algunas veces queremos derivar el state. Actualmente tenemos nuestro state de carrito <code class="language-js">const [cart, setCart] = useState([])</code>. En lugar de crear un state nuevo que estemos revisando y su valor dependa de que cart tenga algo, podemos crear una variable/funcion cuyo valor vaya a depender mucho de este otro state. Lo podemos tener ¿en el return del App.jsx? o en el Header.jsx donde lo usamos (opta por esta). La idea es mantener la lógica fuera del template:</p>
 
-      <pre><code class="language-js">
-        export default function Header({cart}){
+                <pre><code class="language-js">
+                  export default function Header({cart}){
 
-          //State derivado
-          const isEmpty = () => cart.length === 0
+                    //State derivado
+                    const isEmpty = () => cart.length === 0
 
-          {isEmpty() ? (
-            &lt;p className=&quot;text-center&quot;&gt;El carrito esta vacio&lt;/p&gt;                                            
-          ):( 
-          //El resto de la tabla
-          )}        
-      </code></pre>
+                    {isEmpty() ? (
+                      &lt;p className=&quot;text-center&quot;&gt;El carrito esta vacio&lt;/p&gt;                                            
+                    ):( 
+                    //El resto de la tabla
+                    )}        
+                </code></pre>
 
-      <p class="naranja">Calculando el Total a pagar</p>			
-      <p>Metemos el párrafo en la parte del ternario que renderiza la tabla. <strong>nos dará error porque necesitamos tener un único elemento en el nivel superior, metemos un fragment que englobe a la tabla+p</strong>. Para calcular el total a pagar vamos a utilizar un array method llamado <span class="destacado">reduce()</span>. Lo utilizamos para construir este state derivado de lo que tenemos en el carrito de compras:</p>
+                <p class="naranja">Calculando el Total a pagar</p>			
+                <p>Metemos el párrafo en la parte del ternario que renderiza la tabla. <strong>nos dará error porque necesitamos tener un único elemento en el nivel superior, metemos un fragment que englobe a la tabla+p</strong>. Para calcular el total a pagar vamos a utilizar un array method llamado <span class="destacado">reduce()</span>. Lo utilizamos para construir este state derivado de lo que tenemos en el carrito de compras:</p>
 
-      <pre><code class="language-js">
-        const isEmpty = () => cart.length === 0
-        const cartTotal = () => cart.reduce( (total, item) => total + (item.quantity * item.price), 0)
-      </code></pre>
+                <pre><code class="language-js">
+                  const isEmpty = () => cart.length === 0
+                  const cartTotal = () => cart.reduce( (total, item) => total + (item.quantity * item.price), 0)
+                </code></pre>
 
-      <p>Es uno de los pocos array methods que toma dos parámetros, uno es el total ,es decir un acumulado, va a ir iterando sobre cada elemento que tenemos en el carrito; el segundo parámetro <strong>item</strong> es el elemento actual. En el arrow function siguiente al total acumulado le vamos sumando el resultado de multiplicar la cantidad de item * precio de item. el valor <strong>0</strong> es el valor inicial; el carrito inicia en 0 y a apartir de ahí sumamos.</p>
+                <p>Es uno de los pocos array methods que toma dos parámetros, uno es el total ,es decir un acumulado, va a ir iterando sobre cada elemento que tenemos en el carrito; el segundo parámetro <strong>item</strong> es el elemento actual. En el arrow function siguiente al total acumulado le vamos sumando el resultado de multiplicar la cantidad de item * precio de item. el valor <strong>0</strong> es el valor inicial; el carrito inicia en 0 y a apartir de ahí sumamos.</p>
 
-      <p>Si no quisiéramos llamar estas funciones isEmpty() y carTotal() podríamos hacer uso de un Hook que se llama useMemo que también es bastante común</p>
+                <p>Si no quisiéramos llamar estas funciones isEmpty() y carTotal() podríamos hacer uso de un Hook que se llama useMemo que también es bastante común</p>
 
-      <p class="naranja">useMemo para mejorar el performance de nuestro código</p>
+                <p class="naranja">useMemo para mejorar el performance de nuestro código</p>
 
-      <p>Si tenemos experiencia con Vue.js sabremos que hay algo que se llama compute properties y useMemo hace algo bastante similar:</p>
-      <ul>
-        <li>Simplifica los templates un poco</li>
-        <li>Es un Hook enfocado al performance porqeu evita que este código se ejecute (los 2 states derivados vistos) si alguna de las dependencias que vamos a deifnir en ese useMemo no ha cambiado.</li>
-      </ul>
-      <p><strong>Importamos esl Hook useMemo en nuestro componente Header.jsx:</strong> <code class="language-js">import { useMemo } from 'react'</code>. Vamos a usarlo en nuestro state derivado isEmpty. useMemo es una función que toma dos parámetros (un factory que es la función y el array de dependencias), los vemos explicados si nos colocamos en VSC encima de useMemo:</p>
-      <img src="./src/assets/img/77-useMemo.png" alt="">
-      <pre><code class="language-js">
-        const isEmpty = useMemo( () => cart.length === 0, [cart])
-      </code></pre>
+                <p>Si tenemos experiencia con Vue.js sabremos que hay algo que se llama compute properties y useMemo hace algo bastante similar:</p>
+                <ul>
+                  <li>Simplifica los templates un poco</li>
+                  <li>Es un Hook enfocado al performance porqeu evita que este código se ejecute (los 2 states derivados vistos) si alguna de las dependencias que vamos a deifnir en ese useMemo no ha cambiado.</li>
+                </ul>
+                <p><strong>Importamos esl Hook useMemo en nuestro componente Header.jsx:</strong> <code class="language-js">import { useMemo } from 'react'</code>. Vamos a usarlo en nuestro state derivado isEmpty. useMemo es una función que toma dos parámetros (un factory que es la función y el array de dependencias), los vemos explicados si nos colocamos en VSC encima de useMemo:</p>
+                <img src="./src/assets/img/77-useMemo.png" alt="">
+                <pre><code class="language-js">
+                  const isEmpty = useMemo( () => cart.length === 0, [cart])
+                </code></pre>
 
-      <p>Este código no va a cambiar hasta que cambien ciertas partes de nuestro código. ¿Qué imporancia tiene esto? React siempre va ahacer un render completo de nuestra aplicación. Si presionamos en agregar al carrito, hace un render completo donde tengas el state. Eso puede suponer mucho coste en términos de rendimiento, hacer que nuestra aplicación sea más lenta...entonces <span class="destacado">useMemo es una forma de decirle: "no haghas render completo de mi aplicación hasta que no cambie algo que yo te voy a decir qué es; para eso es el arreglo de dependencias y en concreto este código anterior le dice "vuelve a ejecutar este código, a hacer el render cuando cart cambie, cada vez que añadamos, eliminemos, modificamos algo del carrito"</span>. Como isEmpty ya no es una función, eliminamos en nuestro template esto <code class="language-js"> isEmpty() </code>y en su lugar lo llamamos así <code class="language-js"> isEmpty</code></p>
+                <p>Este código no va a cambiar hasta que cambien ciertas partes de nuestro código. ¿Qué imporancia tiene esto? React siempre va ahacer un render completo de nuestra aplicación. Si presionamos en agregar al carrito, hace un render completo donde tengas el state. Eso puede suponer mucho coste en términos de rendimiento, hacer que nuestra aplicación sea más lenta...entonces <span class="destacado">useMemo es una forma de decirle: "no haghas render completo de mi aplicación hasta que no cambie algo que yo te voy a decir qué es; para eso es el arreglo de dependencias y en concreto este código anterior le dice "vuelve a ejecutar este código, a hacer el render cuando cart cambie, cada vez que añadamos, eliminemos, modificamos algo del carrito"</span>. Como isEmpty ya no es una función, eliminamos en nuestro template esto <code class="language-js"> isEmpty() </code>y en su lugar lo llamamos así <code class="language-js"> isEmpty</code></p>
 
-      <p>Hacemos lo mismo con el state derivado carTotal, porque queremos que el Total se calcule solo cuando el carrito cambie:</p>
-      <pre><code class="language-js">
-        const isEmpty = useMemo( () => cart.length === 0, [cart])
-      </code></pre>
+                <p>Hacemos lo mismo con el state derivado carTotal, porque queremos que el Total se calcule solo cuando el carrito cambie:</p>
+                <pre><code class="language-js">
+                  const isEmpty = useMemo( () => cart.length === 0, [cart])
+                </code></pre>
 
-      <p>useMemo no es un Hook que vayamos a utilizar en todos sitios, es un Hook enfocado a performance pero por el hecho de que cachea esos resultados entre renders, <strong>a veces puede ser contraproducente cachear tanto. Hay que probar según el caso y vigilar nuestro state. Si no se actualiza como esperamos lo quitamos y/o valorar otras opciones apra trabajar con caché en nuestros componentes</strong>.</p>
+                <p>useMemo no es un Hook que vayamos a utilizar en todos sitios, es un Hook enfocado a performance pero por el hecho de que cachea esos resultados entre renders, <strong>a veces puede ser contraproducente cachear tanto. Hay que probar según el caso y vigilar nuestro state. Si no se actualiza como esperamos lo quitamos y/o valorar otras opciones apra trabajar con caché en nuestros componentes</strong>.</p>
 
-      <p class="naranja">Eliminando artículos del carrito</p>
+                <p class="naranja">Eliminando artículos del carrito</p>
 
-      <p>Lo primero que tenemos que hacer es crear una función. El carrito está en el componente <strong>App.jsx</strong> y el botón para eliminar está en el componente <strong>Header.jsx</strong>. Creemos la función en el componente principal y la pasaremos via <strong>props</strong>. Comprobemos de momento con un console.log() sin más que la comunicación entre nuestro botón eliminar del Header y la nueva función creada es correcta. <span class="destacado">Como ya hemos hecho antes, al pasar el prop lo nombramos igual que nuestra función así nos quitamos de tener que pensar en varios nombres (yo en un ejemplo anterior con el objeto guitar le puse al nombre del prop "propguitar" pero era mientras me acostumbraba  a todo esto para no perder la referencia de lo que estaba haciendo).</span></p>
+                <p>Lo primero que tenemos que hacer es crear una función. El carrito está en el componente <strong>App.jsx</strong> y el botón para eliminar está en el componente <strong>Header.jsx</strong>. Creemos la función en el componente principal y la pasaremos via <strong>props</strong>. Comprobemos de momento con un console.log() sin más que la comunicación entre nuestro botón eliminar del Header y la nueva función creada es correcta. <span class="destacado">Como ya hemos hecho antes, al pasar el prop lo nombramos igual que nuestra función así nos quitamos de tener que pensar en varios nombres (yo en un ejemplo anterior con el objeto guitar le puse al nombre del prop "propguitar" pero era mientras me acostumbraba  a todo esto para no perder la referencia de lo que estaba haciendo).</span></p>
 
-      <pre><code class="language-js">
-        //antes del return
-        function removeFromCart(){
-          console.log('Eliminando...')
-        }
-        
-        //en el return llamando a nuestro componente
-        &lt;Header
-        cart = &lcub;cart&rcub;
-        removeFromCart = &lcub;removeFromCart&rcub;
-      /&gt;      
-      </code></pre>
-
-      <p>Nos vamos ahora a nuestro componente Header.jsx y primero vamos a tomar esa función, aplicamos destructuring a esa función:</p>
-
-      <pre><code class="language-js">export default function Header({cart, removeFromCart}){</code></pre>
-
-      <p>la asociamos con el botón de eliminar. Vamos a esperar que el usuario presione en él por tanto colocamos en el un onClick y pasamos el nombre de la función: <code class="language-js"></code></p>
-
-      <pre><code class="language-html">
-        &lt;button
-          className=&quot;btn btn-danger&quot;
-          type=&quot;button&quot;
-          onClick=&lcub;removeFromCart&rcub;&gt;
-        X
-        &lt;/button&gt;
-      </code></pre>
-
-      <p>Si pulsamos ya vemos en la consola el mensaje que hemos puesto para verificar que hay comuniación. ¿Cçomo eliminamos elementos? Estamos almacenando todo en este arreglo de cart. <span class="destacado">Vamos a utilizar un array method que nos permita sacar elementos de ese arreglo y uno muy común que no muta nuestro state es .filter()</span> Nos va a permitir filtrar en base a una condición. Por ejemplo pensemos en los id. Para ello tenemos que pasarle un parámetro:</p>
-      <ul>
-        <li>le pasamos un parámetro a la función:
-          <pre><code class="language-js">
-            //antes del return
-            function removeFromCart(id){
-              console.log('Eliminando...', id)
-            }
-          </code></pre></li>
-        <li><span class="destacado">si le pasamos un parámetro en el onclick hay que ponerle un callback y le pasamos guitar.id, y de esa forma vamos a poder identificar qué elemento es el que estamos presionando para eliminarlo de nuestro carrito de compras.</span>
-          <pre><code class="language-html">
-            &lt;button
-              className=&quot;btn btn-danger&quot;
-              type=&quot;button&quot;
-              onClick=&lcub;() =&gt; removeFromCart(guitar.id)&rcub;
-            X
-            &lt;/button&gt;
-          </code></pre>          
-        </li>
-      </ul>
-
-      <p>podríamos crear una nueva variable con lo que nos retorna el filter() pero también podemos hacerlo en una sola función: si lo pasamos como callback aquí vamos a tener el valor previo de nuestro carrito. Le aplicamos el método filter() y le indicamos que nos filtre las guitarras cuo id sea diferente al que le pasamos; ello regresa el nuevo arreglo y lo setea en nuestra función.</p>
-
-      <pre><code class="language-js">
-        function removeFromCart(id){
-          //console.log('Eliminando...', id)      
-          setCart(prevCart => prevCart.filter(guitar => guitar.id !== id))
-      }
-      </code></pre>
-
-      <p>Si probamos a eliminar una guitarra vemos que se elimina del carrito y que además el total se actualiza. Recordemos que <strong>carTotal es un state derivado, tiene un useMemo y como dependencia el cart, también se vuelve a ejecutar y calcula el total a pagar de nuestro carrito de compra.</strong>. Si las eliminamos todas vemos que sale lo de que el carrito está vacío, porque también se ejecuta nuestro otro state derivado <strong>isEmpty</strong>.</p>
-
-      <p>Vemos lo sencillo que es con react mantener sincronizado nuestro state con nuestra interfaz, no hay que llamar a ninguna función para refrescar nuestra interfaz, automáticamente lo hace por nosotros.</p>
-
-      <p class="naranja">Creando una Función para Incrementar las cantidades y RETO 01</p>
-      <p>Creamos una nueva función intermedia desriptiva que nos sirva para manejar la lógica. toma un id porque requerimos identificar el elemento. Como está en el Header, la pasamos via prop usando el mismo nombre:</p>
-
-      <pre><code class="language-js">
-        function increaseQuantity(id)&lcub;
-        console.log(&apos;Incrementando...&apos;&comma; id)
-      &rcub;
-      
-      return (
-        &lt;&gt;   
-        &lt;Header
-          cart = &lcub;cart&rcub;
-          removeFromCart = &lcub;removeFromCart&rcub;
-          increaseQuantity = &lcub;increaseQuantity&rcub;
-        /&gt;
-      </code></pre>
-
-      <p>Extraemos la nueva prop en la declaración de la función de nuestro componente Header: <code class="language-js">export default function Header({cart, removeFromCart, increaseQuantity}){</code>. En el código del return donde está el botón "+" para incrementar le añadimos el onClick con su función de flecha que llama a ese prop pasándole como argumento el id de la guitarra que se pulsa:</p>
-
-      <pre><code class="language-js">
-        &lt;button
-        type=&quot;button&quot;
-        className=&quot;btn btn-dark&quot;
-        onClick=&lcub;() =&gt; increaseQuantity(guitar.id)&rcub;&gt;
-        &plus;
-      &lt;/button&gt;
-      </code></pre>
-
-      <p>Cada vez que agregábamos un elemento al carrito (ver en nuestro componente App.jsx la función addToCart) estábamos incrementando esta propiedad de cantidad "item.quantity". <strong>Actualicemos nuestra función teniendo esto en mente y que vamos a tener que actualizar esa propiedad de cantidad con cada agregado.</strong> Creamos una variable nueva "updatedCart" y usamos el .map() (recordemos que a diferencia de forEach(), nos va a devolver un array nuevo. Ambos sirven para iterar un arreglo pero .map() nos genera una copia nueva que va a estar en esta variable). Con cart.map( ) accedemos a cada elemento del carrito. También limitamos como número máximo 5 por guitarra. En este punto menciona el libro "Clean Code" y aconseja tanto seguir buenas prácticas ocmo tener preferencias personales; para este caso el es partidario de crear una constante con el valor máximo y es la que llamaremos en nuestra condición <strong>const MAX_ITEMS = 5</strong>:</p>
-
-      <pre><code class="language-js">
-        function increaseQuantity(id){
-          //console.log('Incrementando...', id)
-          const updatedCart = cart.map ( item => {
-              if(item.id === id &amp;&amp; item.quantity &lt; MAX&lowbar;ITEMS){
-                  return{
-                      ...item,//ponemos esto porque no queremos perder la referencia de loq ue ya tenemos en el cart
-                      quantity: item.quantity + 1 //si pusiéramos solo esto solo nos devolvería la cantidad
+                <pre><code class="language-js">
+                  //antes del return
+                  function removeFromCart(){
+                    console.log('Eliminando...')
                   }
-              }
-              return item //para que mantenga el reto de elementos sobre los que no dimos click en aumentar cantidad
-          })
-          setCart(updatedCart) //esa variable la seteamos al carrito
-      }
-      </code></pre>
+                  
+                  //en el return llamando a nuestro componente
+                  &lt;Header
+                  cart = &lcub;cart&rcub;
+                  removeFromCart = &lcub;removeFromCart&rcub;
+                /&gt;      
+                </code></pre>
 
-    </div>
-    <!-- Fin bloque desplegable interior-->
+                <p>Nos vamos ahora a nuestro componente Header.jsx y primero vamos a tomar esa función, aplicamos destructuring a esa función:</p>
+
+                <pre><code class="language-js">export default function Header({cart, removeFromCart}){</code></pre>
+
+                <p>la asociamos con el botón de eliminar. Vamos a esperar que el usuario presione en él por tanto colocamos en el un onClick y pasamos el nombre de la función: <code class="language-js"></code></p>
+
+                <pre><code class="language-html">
+                  &lt;button
+                    className=&quot;btn btn-danger&quot;
+                    type=&quot;button&quot;
+                    onClick=&lcub;removeFromCart&rcub;&gt;
+                  X
+                  &lt;/button&gt;
+                </code></pre>
+
+                <p>Si pulsamos ya vemos en la consola el mensaje que hemos puesto para verificar que hay comuniación. ¿Cçomo eliminamos elementos? Estamos almacenando todo en este arreglo de cart. <span class="destacado">Vamos a utilizar un array method que nos permita sacar elementos de ese arreglo y uno muy común que no muta nuestro state es .filter()</span> Nos va a permitir filtrar en base a una condición. Por ejemplo pensemos en los id. Para ello tenemos que pasarle un parámetro:</p>
+                <ul>
+                  <li>le pasamos un parámetro a la función:
+                    <pre><code class="language-js">
+                      //antes del return
+                      function removeFromCart(id){
+                        console.log('Eliminando...', id)
+                      }
+                    </code></pre></li>
+                  <li><span class="destacado">si le pasamos un parámetro en el onclick hay que ponerle un callback y le pasamos guitar.id, y de esa forma vamos a poder identificar qué elemento es el que estamos presionando para eliminarlo de nuestro carrito de compras.</span>
+                    <pre><code class="language-html">
+                      &lt;button
+                        className=&quot;btn btn-danger&quot;
+                        type=&quot;button&quot;
+                        onClick=&lcub;() =&gt; removeFromCart(guitar.id)&rcub;
+                      X
+                      &lt;/button&gt;
+                    </code></pre>          
+                  </li>
+                </ul>
+
+                <p>podríamos crear una nueva variable con lo que nos retorna el filter() pero también podemos hacerlo en una sola función: si lo pasamos como callback aquí vamos a tener el valor previo de nuestro carrito. Le aplicamos el método filter() y le indicamos que nos filtre las guitarras cuo id sea diferente al que le pasamos; ello regresa el nuevo arreglo y lo setea en nuestra función.</p>
+
+                <pre><code class="language-js">
+                  function removeFromCart(id){
+                    //console.log('Eliminando...', id)      
+                    setCart(prevCart => prevCart.filter(guitar => guitar.id !== id))
+                }
+                </code></pre>
+
+                <p>Si probamos a eliminar una guitarra vemos que se elimina del carrito y que además el total se actualiza. Recordemos que <strong>carTotal es un state derivado, tiene un useMemo y como dependencia el cart, también se vuelve a ejecutar y calcula el total a pagar de nuestro carrito de compra.</strong>. Si las eliminamos todas vemos que sale lo de que el carrito está vacío, porque también se ejecuta nuestro otro state derivado <strong>isEmpty</strong>.</p>
+
+                <p>Vemos lo sencillo que es con react mantener sincronizado nuestro state con nuestra interfaz, no hay que llamar a ninguna función para refrescar nuestra interfaz, automáticamente lo hace por nosotros.</p>
+
+                <p class="naranja">Creando una Función para Incrementar las cantidades y RETO 01</p>
+                <p>Creamos una nueva función intermedia desriptiva que nos sirva para manejar la lógica. toma un id porque requerimos identificar el elemento. Como está en el Header, la pasamos via prop usando el mismo nombre:</p>
+
+                <pre><code class="language-js">
+                  function increaseQuantity(id)&lcub;
+                  console.log(&apos;Incrementando...&apos;&comma; id)
+                &rcub;
+                
+                return (
+                  &lt;&gt;   
+                  &lt;Header
+                    cart = &lcub;cart&rcub;
+                    removeFromCart = &lcub;removeFromCart&rcub;
+                    increaseQuantity = &lcub;increaseQuantity&rcub;
+                  /&gt;
+                </code></pre>
+
+                <p>Extraemos la nueva prop en la declaración de la función de nuestro componente Header: <code class="language-js">export default function Header({cart, removeFromCart, increaseQuantity}){</code>. En el código del return donde está el botón "+" para incrementar le añadimos el onClick con su función de flecha que llama a ese prop pasándole como argumento el id de la guitarra que se pulsa:</p>
+
+                <pre><code class="language-js">
+                  &lt;button
+                  type=&quot;button&quot;
+                  className=&quot;btn btn-dark&quot;
+                  onClick=&lcub;() =&gt; increaseQuantity(guitar.id)&rcub;&gt;
+                  &plus;
+                &lt;/button&gt;
+                </code></pre>
+
+                <p>Cada vez que agregábamos un elemento al carrito (ver en nuestro componente App.jsx la función addToCart) estábamos incrementando esta propiedad de cantidad "item.quantity". <strong>Actualicemos nuestra función teniendo esto en mente y que vamos a tener que actualizar esa propiedad de cantidad con cada agregado.</strong> Creamos una variable nueva "updatedCart" y usamos el .map() (recordemos que a diferencia de forEach(), nos va a devolver un array nuevo. Ambos sirven para iterar un arreglo pero .map() nos genera una copia nueva que va a estar en esta variable). Con cart.map( ) accedemos a cada elemento del carrito. También limitamos como número máximo 5 por guitarra. En este punto menciona el libro "Clean Code" y aconseja tanto seguir buenas prácticas ocmo tener preferencias personales; para este caso el es partidario de crear una constante con el valor máximo y es la que llamaremos en nuestra condición <strong>const MAX_ITEMS = 5</strong>:</p>
+
+                <pre><code class="language-js">
+                  const &lsqb;data&comma; setData&rsqb; = useState(db)
+                  const &lsqb;cart&comma; setCart&rsqb; = useState(&lsqb;&rsqb;)
+                  const MAX&lowbar;ITEMS = 5
+                  const MIN&lowbar;ITEMS = 1
+
+                  function increaseQuantity(id){
+                    //console.log('Incrementando...', id)
+                    const updatedCart = cart.map ( item => {
+                        if(item.id === id &amp;&amp; item.quantity &lt; MAX&lowbar;ITEMS){
+                            return{
+                                ...item,//ponemos esto porque no queremos perder la referencia de loq ue ya tenemos en el cart
+                                quantity: item.quantity + 1 //si pusiéramos solo esto solo nos devolvería la cantidad
+                            }
+                        }
+                        return item //para que mantenga el reto de elementos sobre los que no dimos click en aumentar cantidad
+                    })
+                    setCart(updatedCart) //esa variable la seteamos al carrito
+                }
+                </code></pre>
+
+                <p class="naranja">Reto 01: Decrementar cantidades</p>
+
+                <ul>
+                  <li>Hacer funcional el botón de decrementar cantidades.</li>
+                  <li>Crear la función, pasarla via props, identificar el elemento a actualizar y añadirlo al state, así como añadir un límite para nunca seleccionar menos de un elemento.</li>
+                  <li>Seguir la convenciones de nombres de incrementar cantidad.</li>
+                </ul>
+
+                <pre><code class="language-js">
+                  const &lsqb;data&comma; setData&rsqb; = useState(db)
+                  const &lsqb;cart&comma; setCart&rsqb; = useState(&lsqb;&rsqb;)
+                  const MAX&lowbar;ITEMS = 5
+                  const MIN&lowbar;ITEMS = 1
+                  
+                  function decreaseQuantity(id){
+                    //console.log('Decrementando...', id)
+                    const updatedCart = cart.map( item => {
+                        if(item.id === id && item.quantity > MIN_ITEMS){
+                            return{
+                                ...item,//ponemos esto porque no queremos perder la referencia de lo que ya tenemos en el cart
+                                quantity: item.quantity -1 //si pusiéramos solo esto solo nos devolvería la cantidad
+                            }
+                        }
+                        return item //cuando no se cumple la condición: mantiene el resto de elementos sobre los que no dimos click en decrementar cantidad
+                    })
+                    setCart(updatedCart)
+                }
+                </code></pre>
+
+                <p>Si presiono rápidamente en agregar cualquier guitarra podemos ver que nos pasamos del límite máximo de 5 que tenemos establecido por la variable <strong>const MAX_ITEMS = 5</strong>. <span class="destacado">Añadamos una nueva condición a la función addToCart() para que, en caso de que la posición actual de cart su cantidad sea mayor que el límite establecido no ejecute nada</span>. Vemos que en caso de que existiera ejecutábamos el código en el que <strong></strong>creábamos una nueva variables const updatedCart en la que hacíamos copia del cart actual con el spread operator y a continuación incrementábamos la cantidad del item y lo seteábamos en nuestro state de cart</strong>. No queremos que haga eso si en la posición actual del cart la cantidad supera el límite establecido. Añadimos <code class="language-js">if(cart[itemExists].quantity >= MAX_ITEMS) return</code>:</p>
+
+                <pre><code class="language-js">
+                  function addToCart(item){
+                    const itemExists = cart.findIndex(guitar => guitar.id === item.id)
+                    if(itemExists >= 0){//existe en cart
+                        if(cart[itemExists].quantity >= MAX_ITEMS) return
+                        const updatedCart = [...cart] //copia nueva de mi state, no modifica mi carrito       
+                        updatedCart[itemExists].quantity++
+                        setCart(updatedCart)
+                    } else{//NO EXISTE en cart
+                        item.quantity = 1
+                        setCart(prevCart =>[...prevCart, item])
+                    }       
+                }
+                </code></pre>
+
+                <p class="naranja">Agregando la función de Limpiar Carrito</p>
+
+                <p>Pdríamos utilizar la función de nuestro state cart <strong>setCart()</strong> pero <span class="destacado">vamos a crear una función intermedia para borrar el carrito <span class="destacado">function clearCart(){}</span> en la que seteamos un arreglo vacío: setCart([])</span>. Esta es una de las grandes ventajas de los Hooks (por ejemplo para un usuario que se encontrara logado haríamos lo mismo seteando a false un supuesto state auth)</p>
+
+                <pre><code class="language-js">
+                  function clearCart(){
+                    setCart([]) //seteamos un arreglo vacío
+                }
+                </code></pre>
+                <p>como el botón donde vamos a llamar a esta función está en el componente Header.jsx, pasamos esa función vía props:</p>
+                <pre><code class="language-js">
+                  &lt;Header
+                  cart = &lcub;cart&rcub;
+                  removeFromCart = &lcub;removeFromCart&rcub;
+                  decreaseQuantity = &lcub;decreaseQuantity&rcub;
+                  increaseQuantity = &lcub;increaseQuantity&rcub;
+                  clearCart = &lcub;clearCart&rcub;           
+                /&gt;
+                </code></pre>
+
+
+              </div>
+              <!-- Fin bloque desplegable interior-->
+          
+        
+    
+              <!-- Bloque desplegable interior-->
+              <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion6-82').toggle();">	
+                <h3>82. Carrito persistente con LocalStorage - Almacenando</h3>			
+                <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+              </div>
+              <div id="seccion6-82">
+                <p class="naranja">Carrito persistente con LocalStorage - Almacenando</p>
+                <p>Tener un carrito persistente es un buen truco para mantener los mismos elementos en el carrito aunque recarguemos navegador.</p>
+
+
+                <p class="naranja">Carrito persistente con LocalStorage - Recuperar los productos y mostrarlos</p>
+                
+              </div>
+              <!-- Fin bloque desplegable interior-->
     
     
 
-    
-    
-    <!-- Bloque desplegable interior-->
-    <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion6-80').toggle();">	
-      <h3>80. SOLUCIÓN RETO 01</h3>			
-      <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
-    </div>
-    <div id="seccion6-X80" style="display:none">
-      <p></p>
-      
-    </div>
-    <!-- Fin bloque desplegable interior-->
-    
-    
-    <!-- Bloque desplegable interior-->
-    <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion6-81').toggle();">	
-      <h3>81. Agregando la función de Limpiar Carrito</h3>			
-      <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
-    </div>
-    <div id="seccion6-81" style="display:none">
-      <p></p>
-      
-    </div>
-    <!-- Fin bloque desplegable interior-->
-    
-    
-    <!-- Bloque desplegable interior-->
-    <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion6-82').toggle();">	
-      <h3>82. Carrito persistente con LocalStorage - Almacenando</h3>			
-      <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
-    </div>
-    <div id="seccion6-82" style="display:none">
-      <p></p>
-      
-    </div>
-    <!-- Fin bloque desplegable interior-->
-    
-    
-    <!-- Bloque desplegable interior-->
-    <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion6-83').toggle();">	
-      <h3>83. Carrito persistente con LocalStorage - Recuperar los productos y mostrarlos</h3>			
-      <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
-    </div>
-    <div id="seccion6-83" style="display:none">
-      <p></p>
-      
-    </div>
-    <!-- Fin bloque desplegable interior-->
-    
+
     
     <!-- Bloque desplegable interior-->
     <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion6-84').toggle();">	
