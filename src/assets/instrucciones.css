@@ -445,6 +445,11 @@ div.code-toolbar>.toolbar>.toolbar-item>a, div.code-toolbar>.toolbar>.toolbar-it
 .line-highlight[data-end]:after {
     content: none;
 }
+	@media screen and (max-width: 599px){
+		.line-highlight {
+			top: calc(100% - 53px)!important;
+		}
+	}
 /*fin*/
 
 .w-50 code[class*=language-], .w-50 pre[class*=language-]{
