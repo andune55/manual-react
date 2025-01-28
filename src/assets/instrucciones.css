@@ -1,8 +1,8 @@
 /* */
 /******************** Para ver fuentes en local  **********************/
-@font-face {font-family: "lato-regular"; src: local("./fonts/lato-regular.woff"), url("./lato-regular.woff") format("woff");}
-@font-face {font-family: "raleway-regular";   src: local("./fonts/raleway-regular.woff"), url("./fonts/raleway-regular.woff") format("woff");}
-@font-face {font-family: "raleway-bold";  src: local("./fonts/raleway-bold.woff"), url("./fonts/raleway-bold.woff") format("woff");}
+@font-face {font-family: "lato-regular"; src: local("./fonts/lato-regular.woff"), url("./fonts/lato-regular.woff") format("woff");}
+@font-face {font-family: "raleway-regular"; src: local("./fonts/raleway-regular.woff"), url("./fonts/raleway-regular.woff") format("woff");}
+@font-face {font-family: "raleway-bold"; src: local("./fonts/raleway-bold.woff"), url("./fonts/raleway-bold.woff") format("woff");}
 h1,h2{
 	margin-top: 0;
 	margin-bottom:5px;
@@ -20,6 +20,7 @@ h3{
     margin-top: 0;
 	margin-bottom: 0;
 }
+
 p, ul, li, a{
     font-family: raleway-regular, verdana, sans-serif;
     font-size: 14px;
@@ -439,7 +440,8 @@ div.code-toolbar>.toolbar>.toolbar-item>a, div.code-toolbar>.toolbar>.toolbar-it
     background: hsla(24, 20%, 50%, .08);
     /*background: linear-gradient(to right, hsla(239, 65%, 61%, 0.534) 20%, hsla(24, 20%, 50%, 0));   */
 	background: linear-gradient(to right, hsla(240, 20%, 99%, 0.473) 20%, hsla(24, 20%, 50%, 0));
-    white-space: pre
+    white-space: pre;
+	width: 100%!important;
 }
 .line-highlight:before,
 .line-highlight[data-end]:after {
@@ -447,9 +449,11 @@ div.code-toolbar>.toolbar>.toolbar-item>a, div.code-toolbar>.toolbar>.toolbar-it
 }
 	@media screen and (max-width: 599px){
 		.line-highlight {
-			top: calc(100% - 53px)!important;
+			/*top: calc(100% - 52px)!important;*/
 		}
 	}
+
+	
 /*fin*/
 
 .w-50 code[class*=language-], .w-50 pre[class*=language-]{
@@ -458,8 +462,11 @@ div.code-toolbar>.toolbar>.toolbar-item>a, div.code-toolbar>.toolbar>.toolbar-it
 
 /*mejora en viusalización de apuntes en móvil*/
 @media screen and (max-width: 599px){
+	.w-50 code[class*=language-], .w-50 pre[class*=language-]{
+		max-height:fit-content!important;
+	}
 	code[class*=language-], pre[class*=language-]{
-		white-space: break-spaces !important;
+		white-space: break-spaces!important;
 	}
 	.w-50 code[class*=language-], .w-50 pre[class*=language-]{
 		white-space: pre!important;

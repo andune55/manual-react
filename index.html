@@ -4,10 +4,10 @@
     <meta charset="UTF-8" />
     <title>Curso React</title>	
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">	
-    <script src="./src/assets/prism.js"></script>
+    <script src="./src/assets/prism.js" type="module"></script>
     <link rel="stylesheet" href="./src/assets/prism.css" >
     <link rel="stylesheet" href="./src/assets/instrucciones.css" >
-    <script src="./src/assets/jquery-2.1.4.min.js"></script>  	
+    <script src="./src/assets/jquery-2.1.4.min.js" type="module"></script>  	
   </head>
   <body>
     <div id="root"></div>
@@ -1326,9 +1326,7 @@
                   <li><strong>El state hay que definirlo en nuestro componente, ni fuera de él ni dentro del return() sino justo antes del return</strong>. Hay ciertas reglas para los Hooks que estaremos viendo a continuación. </li>
                   <li>lo más básico que nos da react es esto: <code class="language-js">const [] = useState()</code> pero <strong>nosotros tenemos que definir nombre del state, nombre de la función y su valor inicial.</strong>. Supongamos que vamos a crear un state para revisar si un usuario está autenticado o no, si lo está le mostramos un componente y si no lo llevamos al panel de iniciar sesión. <code class="language-js">const [auth, setAuth] = useState(false)</code>. Si sacamos un console.log del state lo vemos (y de hecho 2 veces, uno desde el Componente ppal App.jsx y otro desde el InstallHook.jsx, no nos preocupemos, React forzó en nuevas versiones este doble render para garantizar que se hace buen uso de React). Pero en vez de por consola usemos React developer tools.</li>
                   <li><strong><a href="https://chromewebstore.google.com/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi?hl=es&pli=1" target="_blank">React developer tools: </a></strong> una vez instalado y reiniciado chrome, en web developer tools tenemos una pestaña nueva llamada components, en la que vamos a ver intuitivamente el árbol de componentes de nuestro proyecto de React (App, Header, Guitar). Si pulsamos en App, vemos en el apartado de Hooks el state y su valor.</li>
-                </ul>
-    
-                
+                </ul>                    
     
                 <p class="naranja">Reglas de los Hooks</p>
     
@@ -2213,263 +2211,14 @@
               </div>
               <!-- Fin bloque desplegable interior-->
           
-<!-- BLOQUE CÓDIGO PROVISIONAL -->
-              <div>
-                <span class="rojo">App.jsx</span><br>
-                <script type="text/plain" class="language-js h-300">
-                  import { useState, useEffect } from "react"
-                  import Guitar from "../components/Guitar"
-                  import Header from "../components/Header"
-                  import { db } from "./data/db"
-                  
-                  function App() {
-                  
-                      //console.log(db)
-                      const [data, setData] = useState(db)
-                      const [cart, setCart] = useState([])
-                      const MAX_ITEMS = 5
-                      const MIN_ITEMS = 1
-                  
-                      // const [data, setData] = useState([])
-                      // useEffect( () => {
-                      //     setData(db)
-                      // },[])
-                  
-                      function addToCart(item){
-                          const itemExists = cart.findIndex(guitar => guitar.id === item.id)
-                          if(itemExists >= 0){//existe en cart
-                              if(cart[itemExists].quantity >= MAX_ITEMS) return
-                              const updatedCart = [...cart] //copia nueva de mi state, no modifica mi carrito       
-                              updatedCart[itemExists].quantity++
-                              setCart(updatedCart)
-                          } else{//NO EXISTE en cart
-                              item.quantity = 1
-                              setCart(prevCart =>[...prevCart, item])
-                          }       
-                      }
-                  
-                      function removeFromCart(id){
-                          //console.log('Eliminando...', id)      
-                          setCart(prevCart => prevCart.filter(guitar => guitar.id !== id))
-                      }    
-                  
-                      function decreaseQuantity(id){
-                          //console.log('Decrementando...', id)
-                          const updatedCart = cart.map( item => {
-                              if(item.id === id && item.quantity > MIN_ITEMS){
-                                  return{
-                                      ...item,//ponemos esto porque no queremos perder la referencia de lo que ya tenemos en el cart
-                                      quantity: item.quantity -1 //si pusiéramos solo esto solo nos devolvería la cantidad
-                                  }
-                              }
-                              return item //cuando no se cumple la condición: mantiene el resto de elementos sobre los que no dimos click en decrementar cantidad
-                          })
-                          setCart(updatedCart)
-                      }
-                  
-                      function increaseQuantity(id){
-                          //console.log('Incrementando...', id)
-                          const updatedCart = cart.map ( item => {
-                              if(item.id === id && item.quantity < MAX_ITEMS){
-                                  return{
-                                      ...item,//ponemos esto porque no queremos perder la referencia de lo que ya tenemos en el cart
-                                      quantity: item.quantity + 1 //si pusiéramos solo esto solo nos devolvería la cantidad
-                                  }
-                              }
-                              return item //cuando no se cumple la condición: mantiene el resto de elementos sobre los que no dimos click en aumentar cantidad
-                          })
-                          setCart(updatedCart) //esa variable la seteamos al carrito
-                      }
-                  
-                      function clearCart(){
-                          setCart([]) //seteamos un arreglo vacío
-                      }
-                  
-                      return (
-                          <>   
-                          <Header
-                              cart = {cart}
-                              removeFromCart = {removeFromCart}
-                              decreaseQuantity = {decreaseQuantity}
-                              increaseQuantity = {increaseQuantity}
-                              clearCart = {clearCart}           
-                          />
-                        
-                          <main className="container-xl mt-5">
-                              <h2 className="text-center">Nuestra Colección</h2>
-                  
-                              <div className="row mt-5">
-                                  {data.map((guitar) => (                    
-                                      <Guitar
-                                          key = {guitar.id} 
-                                          propguitar = {guitar} 
-                                          setCart = {setCart}    
-                                          addToCart = {addToCart}                     
-                                      />
-                                  )
-                                  )}         
-                              </div>
-                          </main>
-                  
-                          <footer className="bg-dark mt-5 py-5">
-                              <div className="container-xl">
-                                  <p className="text-white text-center fs-4 mt-4 m-md-0">GuitarLA - Todos los derechos Reservados</p>
-                              </div>
-                          </footer>        
-                          </>
-                      )
-                  }
-                  
-                  export default App
-                  
-                </script>
-              </div>
-
-              <div class="flex block-s">                 
-                <div class="w-50 w-100-s">
-                  <span class="rojo">Guitar.jsx</span><br>
-                  <script type="text/plain" class="language-js">
-                    export default function Guitar({propguitar, addToCart}){
-
-                      //console.log(propguitar)
-                      const { id, name, image, description, price } = propguitar
-                  
-                      const handleClick = (guitar) => {
-                          //setCart([...cart, guitar])
-                          
-                      }
-                  
-                      return(
-                          <div className="col-md-6 col-lg-4 my-4 row align-items-center">
-                              <div className="col-4">
-                                  <img className="img-fluid" src={`/img/${image}.jpg`} alt="imagen guitarra" />
-                              </div>
-                              <div className="col-8">
-                                  <h3 className="text-black fs-4 fw-bold text-uppercase">{name}</h3>
-                                  <p>{description}</p>
-                                  <p className="fw-black text-primary fs-3">${price}</p>
-                                  <button 
-                                      type="button"
-                                      className="btn btn-dark w-100"
-                                      onClick={() => addToCart(propguitar)}
-                                  >Agregar al Carrito</button>
-                              </div>
-                          </div>
-                      )
-                  }
-                  </script>
-                </div>
-
-                <div class="w-50 w-100-s">
-                  <span class="rojo">Header.jsx</span><br>
-                  <script type="text/plain" class="language-js">
-                    import { useMemo } from 'react'
-
-                    export default function Header({cart, removeFromCart, decreaseQuantity, increaseQuantity, clearCart}){
-                    
-                        //State derivado
-                        const isEmpty = useMemo( () => cart.length === 0, [cart])
-                        const cartTotal = useMemo( () => cart.reduce( (total, item) => total + (item.quantity * item.price), 0), [cart])
-                        
-                        return(
-                    
-                            <header className="py-5 header">
-                                <div className="container-xl">
-                                    <div className="row justify-content-center justify-content-md-between">
-                                        <div className="col-8 col-md-3">
-                                            <a href="index.html">
-                                                <img className="img-fluid" src="/img/logo.svg" alt="imagen logo" />
-                                            </a>
-                                        </div>
-                                        <nav className="col-md-6 a mt-5 d-flex align-items-start justify-content-end">
-                                            <div className="carrito">
-                                                <img className="img-fluid" src="/img/carrito.png" alt="imagen carrito" />
-                    
-                                                <div id="carrito" className="bg-white p-3">
-                                                    
-                                                    {isEmpty ? (
-                                                        <p className="text-center">El carrito esta vacio</p>                                            
-                                                    ):(    
-                                                        <>                          
-                                                        <table className="w-100 table">
-                                                            <thead>
-                                                                <tr>
-                                                                    <th>Imagen</th>
-                                                                    <th>Nombre</th>
-                                                                    <th>Precio</th>
-                                                                    <th>Cantidad</th>
-                                                                    <th></th>
-                                                                </tr>
-                                                            </thead>
-                                                        
-                                                            <tbody>
-                                                                {cart.map( guitar =>( 
-                                                                <tr key={guitar.id}>
-                                                                    <td>
-                                                                        <img className="img-fluid" src={`/img/${guitar.image}.jpg`} alt="imagen guitarra" />
-                                                                    </td>
-                                                                    <td>{guitar.name}</td>
-                                                                    <td className="fw-bold">
-                                                                            ${guitar.price}
-                                                                    </td>
-                                                                    <td className="flex align-items-start gap-4">
-                                                                        <button
-                                                                            type="button"
-                                                                            className="btn btn-dark"
-                                                                            onClick={() => decreaseQuantity(guitar.id)}>
-                                                                            -
-                                                                        </button>
-                                                                            {guitar.quantity}
-                                                                        <button
-                                                                            type="button"
-                                                                            className="btn btn-dark"
-                                                                            onClick={() => increaseQuantity(guitar.id)}>
-                                                                            +
-                                                                        </button>
-                                                                    </td>
-                                                                    <td>
-                                                                        <button
-                                                                            className="btn btn-danger"
-                                                                            type="button"
-                                                                            onClick={() => removeFromCart(guitar.id)}>
-                                                                            X
-                                                                        </button>
-                                                                    </td>
-                                                                </tr>
-                                                                ))}
-                                                            </tbody>
-                                                        </table>
-                                                        <p className="text-end">Total pagar: <span className="fw-bold">${cartTotal}</span></p>
-                                                        </>
-                                                    )}
-                    
-                                                    
-                                                    <button 
-                                                        className="btn btn-dark w-100 mt-3 p-2"
-                                                        onClick={clearCart}
-                                                    >Vaciar Carrito</button>
-                                                </div>
-                                            </div>
-                                        </nav>
-                                    </div>
-                                </div>
-                            </header>
-                    
-                        )
-                    
-                    }
-                  </script>
-                </div>
-              </div>
-<!-- FIN BLOQUE CÓDIGO PROVISIONAL -->
-        
+     
     
               <!-- Bloque desplegable interior-->
               <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion6-82').toggle();">	
                 <h3>82. Carrito persistente con LocalStorage - Almacenando</h3>			
                 <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
               </div>
-              <div id="seccion6-82">
+              <div id="seccion6-82" style="display:none">
                 <p class="naranja">Carrito persistente con LocalStorage - Almacenando</p>
                 <p>Tener un carrito persistente es un buen truco para mantener los mismos elementos en el carrito aunque recarguemos navegador. ¿Cómo hacemos para tener sincronizado nuestro carrito de compras <code class="language-js">const [cart, setCart] = useState([])</code> con localStorage</p>
                 
@@ -2481,7 +2230,7 @@
                 }
                 </code></pre>
 
-                <pre class="line-numbers" data-line="11"><code class="language-js">
+                <pre data-line="11"><code class="language-js">
                   function addToCart(item){
                     const itemExists = cart.findIndex(guitar => guitar.id === item.id)
                     if(itemExists >= 0){//existe en cart
@@ -2503,7 +2252,7 @@
                 
                 <p>El estado o state en React ¿es síncrono?¿o es asíncrono y por qué? Pos...es asíncrono, es decir, no se actualiza inmediatamente sino hasta algunos milisegundos después. ¿por qué es asíncrono? Si fuera síncrono (que todas las funciones se ejecuten en orden una tras otra) eso haría que no podríamos interaccionar con la pantalla hasta que no escriba ese estate, lo que nos dejaría sin respuesta en especial si es un state muy grande. <strong>Revisar:</strong> esa función saveLocalStorage() se manda llamar inmediatamente (mientras que el resto de nuestra función addToCart() es síncrona. Es decir cuadno la estamos llamando aún no ha sido escrito el cart por primera vez y es por eso que lo toma como un arreglo vacío</p>
 
-                <p>¿como lo solucionamos? usando el versátil <strong>Hook useEffect()</strong> (similar al watch en vue.js). Vimos su uso cuando el componente está listo pero también tiene el siguiente caso de uso (cuando cambie mi carrito ejecutar cierto código). Es muy útil para manejar los "efectos secundarios" de un cambio en nuestro state. <strong>Eliminamos la función que hemos creado y no obstante la usamos dentro del Hook que va a estar observando por nuestro state cart; cada vez que este cambie, ejecutará lo que le especificamos (lo que antes teníamos en la función).</strong>. React se va a encargar de actualizar el localStorage una vez que ese state haya completado su acción de actualizarse en base a las funciones que tneemos definidas para ese state en lo que llevamos hecho, no hemos de preocuparnos de crear una función. Abrimos chrome y limpiamos el local storage (boton derecho borrar) y podemos comprobar que si añadimos ahora elementos al carrito, ya desde la primera vez se actualiza el local storage.</p>
+                <p>¿como lo solucionamos? usando el versátil <strong>Hook useEffect()</strong> (similar al watch en vue.js). Vimos su uso cuando el componente está listo pero también tiene el siguiente caso de uso (cuando cambie mi carrito ejecutar cierto código). Es muy útil para manejar los "efectos secundarios" de un cambio en nuestro state. <strong>Eliminamos la función que hemos creado y no obstante la usamos dentro del Hook que va a estar observando por nuestro state cart; cada vez que este cambie, ejecutará lo que le especificamos (lo que antes teníamos en la función).</strong>. React se va a encargar de actualizar el localStorage una vez que ese state haya completado su acción de actualizarse en base a las funciones que teNemos definidas para ese state en lo que llevamos hecho, no hemos de preocuparnos de crear una función. Abrimos chrome y limpiamos el local storage (boton derecho borrar) y podemos comprobar que si añadimos ahora elementos al carrito, ya desde la primera vez se actualiza el local storage.</p>
 
                 <pre><code class="language-js">
                   import { useState, useEffect } from "react" // importamos el Hook useEffect
@@ -2511,17 +2260,283 @@
                   useEffect(() => {
                     localStorage.setItem('cart', JSON.stringify(cart))
                   }, [cart])
-                </code></pre>
-
-                <p>Si recargo me aparece el carrito vacío, veamos cómo hacemos que persista.</p>
-                
+                </code></pre>                               
 
                 <p class="naranja">Carrito persistente con LocalStorage - Recuperar los productos y mostrarlos</p>
+
+                <p>Si recargo me aparece el carrito vacío, veamos cómo hacemos que persista. Esto pasa porque el useEffect que empleo para el almacenamiento local cada vez que carrito cambie también se ejecuta por primera vez cuando el componente esta listo, es decir de manera similar a cuando no tiene ninguna dependencia. Debemos revisar si hay algo en localStorage ese va a ser nuestro valor inicial y si no colocamos un arreglo vacio. <strong>const inicialCart</strong> (en algunos ejemplos la nombran como inicialState pero no lo recomienda en caso de tener varios states)</p> 
+
+                <p>vamos a comprobar si hay algo en este elemento <strong>localStorageCart</strong>. (Si no hay nada devuelve un null) Si tiene algo lo convertimos de string a arreglo con JSON.parse()</p>
+
+                  <pre data-line="5"><code class="language-js">
+                    const initialCart = () => {
+                      const localStorageCart = localStorage.getItem('cart') // lo primero es recuperar de localStorage
+                      //a continuación comprobamos si hay algo en esa variable:
+                      return localStorageCart ? JSON.parse(localStorageCart): []
+                  }
+                  const [data, setData] = useState(db)    
+                  const [cart, setCart] = useState(initialCart)
+                  </code></pre>
                 
               </div>
               <!-- Fin bloque desplegable interior-->
     
-    
+<!-- BLOQUE CÓDIGO PROVISIONAL -->
+    <div>
+      <p class="rojo">App.jsx</p>
+      <script type="text/plain" class="language-js h-300">
+        import { useState, useEffect } from "react"
+        import Guitar from "../components/Guitar"
+        import Header from "../components/Header"
+        import { db } from "./data/db"
+        
+        function App() {
+            //console.log(db)
+            // const [data, setData] = useState([])
+            // useEffect( () => {
+            //     setData(db)
+            // },[])
+        
+            const initialCart = () => {
+                const localStorageCart = localStorage.getItem('cart') // lo primero es recuperar de localStorage
+                //a continuación comprobamos si hay algo en esa variable:
+                return localStorageCart ? JSON.parse(localStorageCart): []
+            }
+            const [data] = useState(db)    
+            const [cart, setCart] = useState(initialCart)
+            const MAX_ITEMS = 5
+            const MIN_ITEMS = 1
+        
+            useEffect(() => {
+                localStorage.setItem('cart', JSON.stringify(cart))
+            }, [cart])
+            
+        
+            function addToCart(item){
+                const itemExists = cart.findIndex(guitar => guitar.id === item.id)
+                if(itemExists >= 0){//existe en cart
+                    if(cart[itemExists].quantity >= MAX_ITEMS) return
+                    const updatedCart = [...cart] //copia nueva de mi state, no modifica mi carrito       
+                    updatedCart[itemExists].quantity++
+                    setCart(updatedCart)
+                } else{//NO EXISTE en cart
+                    item.quantity = 1
+                    setCart(prevCart =>[...prevCart, item])
+                }       
+            }
+        
+            function removeFromCart(id){
+                //console.log('Eliminando...', id)      
+                setCart(prevCart => prevCart.filter(guitar => guitar.id !== id))
+            }    
+        
+            function decreaseQuantity(id){
+                //console.log('Decrementando...', id)
+                const updatedCart = cart.map( item => {
+                    if(item.id === id && item.quantity > MIN_ITEMS){
+                        return{
+                            ...item,//ponemos esto porque no queremos perder la referencia de lo que ya tenemos en el cart
+                            quantity: item.quantity -1 //si pusiéramos solo esto solo nos devolvería la cantidad
+                        }
+                    }
+                    return item //cuando no se cumple la condición: mantiene el resto de elementos sobre los que no dimos click en decrementar cantidad
+                })
+                setCart(updatedCart)
+            }
+        
+            function increaseQuantity(id){
+                //console.log('Incrementando...', id)
+                const updatedCart = cart.map ( item => {
+                    if(item.id === id && item.quantity < MAX_ITEMS){
+                        return{
+                            ...item,//ponemos esto porque no queremos perder la referencia de lo que ya tenemos en el cart
+                            quantity: item.quantity + 1 //si pusiéramos solo esto solo nos devolvería la cantidad
+                        }
+                    }
+                    return item //cuando no se cumple la condición: mantiene el resto de elementos sobre los que no dimos click en aumentar cantidad
+                })
+                setCart(updatedCart) //esa variable la seteamos al carrito
+            }
+        
+            function clearCart(){
+                setCart([]) //seteamos un arreglo vacío
+            }
+        
+            return (
+                <>   
+                <Header
+                    cart = {cart}
+                    removeFromCart = {removeFromCart}
+                    decreaseQuantity = {decreaseQuantity}
+                    increaseQuantity = {increaseQuantity}
+                    clearCart = {clearCart}           
+                />
+               
+                <main className="container-xl mt-5">
+                    <h2 className="text-center">Nuestra Colección</h2>
+        
+                    <div className="row mt-5">
+                        {data.map((guitar) => (                    
+                            <Guitar
+                                key = {guitar.id} 
+                                propguitar = {guitar} 
+                                setCart = {setCart}    
+                                addToCart = {addToCart}                     
+                            />
+                        )
+                        )}         
+                    </div>
+                </main>
+        
+                <footer className="bg-dark mt-5 py-5">
+                    <div className="container-xl">
+                        <p className="text-white text-center fs-4 mt-4 m-md-0">GuitarLA - Todos los derechos Reservados</p>
+                    </div>
+                </footer>        
+                </>
+            )
+        }
+        
+        export default App                         
+      </script>
+    </div>
+
+    <div class="flex block-s">                 
+      <div class="w-50 w-100-s">
+        <p class="rojo">Guitar.jsx</p>
+        <script type="text/plain" class="language-js">
+          export default function Guitar({propguitar, addToCart}){
+
+            //console.log(propguitar)
+            const { id, name, image, description, price } = propguitar
+        
+            const handleClick = (guitar) => {
+                //setCart([...cart, guitar])
+                
+            }
+        
+            return(
+                <div className="col-md-6 col-lg-4 my-4 row align-items-center">
+                    <div className="col-4">
+                        <img className="img-fluid" src={`/img/${image}.jpg`} alt="imagen guitarra" />
+                    </div>
+                    <div className="col-8">
+                        <h3 className="text-black fs-4 fw-bold text-uppercase">{name}</h3>
+                        <p>{description}</p>
+                        <p className="fw-black text-primary fs-3">${price}</p>
+                        <button 
+                            type="button"
+                            className="btn btn-dark w-100"
+                            onClick={() => addToCart(propguitar)}
+                        >Agregar al Carrito</button>
+                    </div>
+                </div>
+            )
+        }       
+        </script>
+      </div>
+      <div class="w-50 w-100-s">
+        <p class="rojo">Header.jsx</p>
+        <script type="text/plain" class="language-js">
+          import { useMemo } from 'react'
+
+          export default function Header({cart, removeFromCart, decreaseQuantity, increaseQuantity, clearCart}){
+          
+              //State derivado
+              const isEmpty = useMemo( () => cart.length === 0, [cart])
+              const cartTotal = useMemo( () => cart.reduce( (total, item) => total + (item.quantity * item.price), 0), [cart])
+              
+              return(
+          
+                  <header className="py-5 header">
+                      <div className="container-xl">
+                          <div className="row justify-content-center justify-content-md-between">
+                              <div className="col-8 col-md-3">
+                                  <a href="index.html">
+                                      <img className="img-fluid" src="/img/logo.svg" alt="imagen logo" />
+                                  </a>
+                              </div>
+                              <nav className="col-md-6 a mt-5 d-flex align-items-start justify-content-end">
+                                  <div className="carrito">
+                                      <img className="img-fluid" src="/img/carrito.png" alt="imagen carrito" />
+          
+                                      <div id="carrito" className="bg-white p-3">
+                                          
+                                          {isEmpty ? (
+                                              <p className="text-center">El carrito esta vacio</p>                                            
+                                          ):(    
+                                              <>                          
+                                              <table className="w-100 table">
+                                                  <thead>
+                                                      <tr>
+                                                          <th>Imagen</th>
+                                                          <th>Nombre</th>
+                                                          <th>Precio</th>
+                                                          <th>Cantidad</th>
+                                                          <th></th>
+                                                      </tr>
+                                                  </thead>
+                                              
+                                                  <tbody>
+                                                      {cart.map( guitar =>( 
+                                                      <tr key={guitar.id}>
+                                                          <td>
+                                                              <img className="img-fluid" src={`/img/${guitar.image}.jpg`} alt="imagen guitarra" />
+                                                          </td>
+                                                          <td>{guitar.name}</td>
+                                                          <td className="fw-bold">
+                                                                  ${guitar.price}
+                                                          </td>
+                                                          <td className="flex align-items-start gap-4">
+                                                              <button
+                                                                  type="button"
+                                                                  className="btn btn-dark"
+                                                                  onClick={() => decreaseQuantity(guitar.id)}>
+                                                                  -
+                                                              </button>
+                                                                  {guitar.quantity}
+                                                              <button
+                                                                  type="button"
+                                                                  className="btn btn-dark"
+                                                                  onClick={() => increaseQuantity(guitar.id)}>
+                                                                  +
+                                                              </button>
+                                                          </td>
+                                                          <td>
+                                                              <button
+                                                                  className="btn btn-danger"
+                                                                  type="button"
+                                                                  onClick={() => removeFromCart(guitar.id)}>
+                                                                  X
+                                                              </button>
+                                                          </td>
+                                                      </tr>
+                                                      ))}
+                                                  </tbody>
+                                              </table>
+                                              <p className="text-end">Total pagar: <span className="fw-bold">${cartTotal}</span></p>
+                                              </>
+                                          )}
+          
+                                          
+                                          <button 
+                                              className="btn btn-dark w-100 mt-3 p-2"
+                                              onClick={clearCart}
+                                          >Vaciar Carrito</button>
+                                      </div>
+                                  </div>
+                              </nav>
+                          </div>
+                      </div>
+                  </header>
+          
+              )
+          
+          }       
+        </script>
+      </div>
+    </div>
+<!-- FIN BLOQUE CÓDIGO PROVISIONAL -->
 
 
     
@@ -2531,7 +2546,11 @@
       <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
     </div>
     <div id="seccion6-84" style="display:none">
-      <p></p>
+      <p>Veamos los últimos ajustes para realiszar el deployment de nuestro proyecto. Revismoas avisos en la terminal por si tenemos rutas a img mal puestas y también eliminamos funciones y/o variables que no se estén utilizando. En este caso como vemos, la función del state data "setData" no se está usando así que la podemos eliminar: <code class="language-js">const [data, setData] = useState(db) </code></p>
+
+      <img src="./src/assets/img/84.png" alt="">
+
+      <p>¿Como podemos subir este proyecto? <span class="destacado">Este tipo de proyectos de React.js Vue.js Angular.js se tienen que construir</span>. Si abrimos el <strong>package.json</strong> vemos la línea de "build": "vite build". Todo loque tenemos está en desarrollo pero cuando construimos, este comando se va a encargar de realizar una serie de mejoras, de performance (subir versiones minificadas, más ligera...). Vamos a la terminal y escribimos <span class="destacado">npm run build</span> nos genera la carpeta <span class="destacado">dist</span>.</p>
       
     </div>
     <!-- Fin bloque desplegable interior-->
