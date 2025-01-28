@@ -21,7 +21,7 @@ h3{
 	margin-bottom: 0;
 }
 
-p, ul, li, a{
+span.rojo, p, ul, li, a{
     font-family: raleway-regular, verdana, sans-serif;
     font-size: 14px;
     line-height: 18px;

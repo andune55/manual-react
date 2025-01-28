@@ -16,1061 +16,112 @@
 	
     <div class="contenedor-fluido">
       
-      <div class="contenedor w-80 w-96-s">
-            <h1>Curso React</h1>
-        <p>Aprende React con TypeScript paso a paso creando proyectos del mundo real.</p>
-    
-        <p>El único curso en Udemy que enseña React con proyectos del mundo real; Incluso si tus bases de JavaScript no son muy fuertes el curso tiene una introducción con todo lo que debes saber.</p>
-        <p>¿Quisiste aprender React y solo te aprendiste los nombres de los Pokemon? entonces este curso es para ti.</p>
-        <p>En este curso aprenderemos a crear proyectos reales abarcando todo el ecosistema de React: State, Hooks, crear tus propios hooks, hooks avanzados, estado global, componentes y eventos, consultar API's externas y crear tus propias API's.</p>
-        <p>Todos los Proyectos incluyen TypeScript desde el inicio.</p>		
-      </div>
+     
       
-    <!-- SECCION 1 -->
-      <div class="contenedor w-80 w-96-s background esp-5-bottom">		
-        <div class="row">
-          <div class="flex center-vertical esp-25-top pointer desplegable space-between pointer" onclick="$('#seccion1').toggle();">	
-            <h2>Sección 1: Introducción al Curso - Qué es React, Proyectos que Construiremos y más</h2>				
-                    <span class="cambiaicono ico_chevron_down esp-10-right" title=""></span>
-          </div>
-          
-          <div id="seccion1"  style="display:none">			
-            <div class="row">
-              <div class="col-12 padd-5-left">	
-                
-                <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion1-1').toggle();">	
-                  <h3>1. ¿Qué es React?</h3>			
-                  <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
-                </div>
-                
-                <div id="seccion1-1" style="display:none">	
-                  
-                  <p>Es una biblioteca de JS para construir interfaces de usuario</p>
-                  <ul>
-                    <li>Ayuda a crear UI interactivas de forma muy sencilla (tiene muchas funciones y eventos para disparar fcnes en base a las interacciones del usuario)</li>
-                    <li>Se encarga de actualizar y renderizar de manera eficiente los componentes de tu aplicación</li>
-                    <li>Esta basado en componentes: no son mas que fiunciones en JS utilizados para renderizar el diseño de tu aplicación o sitio web</li>
-                    <li>Creado por Meta (antiguo Facebook). También la empresa Versell apoya su desarrollo.</li>
-                  </ul>
+   
     
-                  <p class="titulo">Ventajas de React</p>			
-                  <ul>
-                    <li>Excelente documentación con muchos ejemplos</li>
-                    <li>Una gran comunidad y muchas librerias que puedes incorporar a tus proyectos</li>
-                    <li>Tecnología con mucha demanda: La mayoría de vacantes solicitan React, tanto para fornt end como para full stack</li>
-                  </ul>
-    
-                  <p class="titulo">¿Qué necesito para aprender React?</p>
-                  <ul>
-                    <li>Dominar HTML y CSS</li>
-                    <li>Conocer la sintaxis Moderna de Javascript (ES6(2015)EcmaScript6 y cada añao hay nuevas que añaden unas cuantas funciones más)</li>
-                    <li>Tener instalado Node.js para crear nuestros proyectos</li>
-                  </ul>
-                  
-                </div><!-- Fin seccion colapsable interior  -->
-                
-                
-              </div>			
-            </div><!--Fin row-->
-              
-            <div class="row">
-              <div class="col-12 padd-5-left">	
-                <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion1-2').toggle();">	
-                  <h3>2. Proyectos 01 a 04 del Curso - Fundamentos de React y TypeScript</h3>			
-                  <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
-                </div>						
-                
-                <div id="seccion1-2" style="display:none">	
-                  
-                  <p class="titulo">Proyecto carrito de compras GuitarLA</p>
-                   <p>En este proyecto estaremos aprendiendo los fundamentos de React: <span class="destacado">Componentes, Eventos y State</span>, mientras creas un carrito de compras real con cantidades, precios, y más, tomaremos este mismo carrito para mostrarte como crear tus propios Hooks y como transformarlo a código de TypeScript y cuales son sus beneficios. Carrito de compra persistente sincronizando con localStorage (aprenderemos todas esas acciones agregar elementos, cambiarlos, cambiar cantidades, vaciar carrito...)</p>							
-                  <img src="./src/assets/img/s1-01.jpg" width="" height="" alt=""/> 
-    
-                  <p class="titulo">Calculadora de propinas y consumos. Un proyecto ideal para restaurantes donde se podrá generar una orden con consumos y la persona podrá elegir la propina que desea dejar.</p>							
-                  <img src="./src/assets/img/s1-02.jpg" width="" height="" alt=""/> 
-    
-                  <p class="titulo">Contador de Calorías y Ejercicios</p>	
-                  <p> Una de las tareas que más vas a realizar en tu vida como Developer es procesar formularios; en este proyecto tendremos un formulario, leeremos sus datos, lo vamos a procesar y realizar algunas operaciones como validación y mucho más, además aprenderás que es <span class="destacado">useReducer</span> para manejar estados complejos en tus apps. Veremos cómo funciona este patrón, es un hook especial cuando tenemos un state un poco más complejo.</p>
-                  <img src="./src/assets/img/s1-03.jpg" width="" height="" alt=""/> 
-                  
-                  
-                  <p class="titulo">Control de Gastos y Presupuestos:</p>	
-                  <p>En este proyecto estaremos viendo que es <span class="destacado">Context API</span> para tener un estado global sin dependencias; Context API va a ayudarte a no pasar props por cada componente, completamos el curso con filtrar gastos por categoría, calendario de fechas de gastos, gráficas y mucho más! Por tanto también usaremos reducers, context Api para comenzar a trabajar con un estado global y un custom hook.</p>
-                  <img src="./src/assets/img/s1-04.jpg" width="" height="" alt=""/> 
-                  
-                </div><!-- Fin seccion colapsable interior  -->
-              </div>
-            </div><!--Fin row-->
-            
-            
-            
-            
-            <div class="row">
-              <div class="col-12 padd-5-left">	
-                <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion1-3').toggle();">	
-                  <h3>3. Proyectos 05 a 08 del Curso - React Intermedio y API's</h3>			
-                  <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
-                </div>						
-                
-                <div id="seccion1-3" style="display:none">	
-                  
-                  <p class="titulo">Administrador de pacientes de veterinaria</p>
-                  <p>Introduce dos herramientas nuevas: Este proyecto añade dos herramientas nuevas: <span class="destacado">Zustand</span> para manejar un estado global de forma muy simple y <span class="destacado">React Hook Form</span>, una librería para para la parte de validación y procesamiento de nuestros formularios de manera bastante sencilla.</p>														
-                  <img src="./src/assets/img/s1-05.jpg" width="" height="" alt=""/> 
-                  
-                  <p class="titulo">Buscador de clima</p>
-                  <p>Esta será nuestra primera aplicación que obtiene datos de una <span class="destacado">API externa</span>, como React Developer vas a trabajar en muchos proyectos que incluyen API's; estaremos viendo como validar y enviar peticiones hacia API, como leer las respuestas y como mostrar esa información. La parte de APIS es muy importante en el mundo de React.</p>							
-                  <img src="./src/assets/img/s1-06.jpg" width="" height="" alt=""/> 
-                  
-                  <p class="titulo">Cotizador de Criptomonedas</p>
-                  <p>Este proyecto al igual que el anterior se conecta a una API para obtener el precio de una Criptomoneda en dólares, pesos mexicanos y otras monedas; Este proyecto incluye Zustand y Zod para validar las respuestas que obtenemos de nuestra API.</p>							
-                  <!-- <img src="./src/assets/img/s1-07.jpg" width="" height="" alt=""/>  -->
-    
-                  <p>Proyecto 04: Migrar Carrito de Compras a useReducer: En este capítulo estaremos viendo como tomar el proyecto de carrito de compras y convertirlo hacia useReducer; cuando tomas un proyecto que conoces en una tecnología nueva es garantía que podrás entender mejor los conceptos.</p>
-                  <p>Proyecto 05: Migrar Calculadora de Propinas hacia useReducer: Veamos como migrar nuestro otro proyecto hacia useReducer.</p>
-    
-    
-                  <p>Proyecto 10: Buscador de Recetas: Este es nuestro primer proyecto que incluye múltiples páginas; lo estaremos realizando con React Router DOM la librería más popular para crear aplicaciones en React de múltiples página, este curso utiliza el Slice Pattern para tener múltiples Stores de Zustand!</p>
-                  <p>Proyecto 11: Administrador de Productos: Este es nuestro primer proyecto Full Stack donde estaremos creando tanto frontend como backend utilizando el PERN (PostgreSQL, Node.js, Express y React) este proyecto utiliza una REST API que conectaremos con React, añadiremos temas más avanzados como Testing y Documentación de API's.</p>
-                  <p>Proyecto 12: Administrador de Tareas y Proyectos: Este es el Proyecto más avanzado del curso, utiliza el MERN stack que es uno de los más populares hoy en día, este proyecto incluye un sistema robusto de autenticación y registro de usuarios con confirmación de cuentas y resetear el password en caso de olvidarlo; además incluye roles y los usuarios solo pueden realizar ciertas acciones. El curso incluye además una REST API bastante compleja y avanzada, El curso utiliza también React Query, Tailwindcss, React Router, Mongoose, Express, TypeScript y mucho más.</p>
-                  <p>Proyecto 13: Quiosco de Comida: Finalizaremos este curso con una introducción a Next.js, utilizaremos la versión 14 con App Router, Server Actions, Prisma, Zod, Zustand, Tailwind, y mucho más, el proyecto incluye subida de archivos, CRUD Completo, paginador, buscador y más.</p>
-    
-                  
-                </div><!-- Fin seccion colapsable interior  -->
-    
-              </div>
-            </div><!--Fin row-->
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            <!-- 
-            <div class="row">
-              <div class="col-12 padd-5-left">						
-                
-                <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccionX-X').toggle();">	
-                  <h3>XXXXXXXXXXXXXXXXXXXXXX</h3>			
-                  <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
-                </div>						
-                
-                <div id="seccionX-X" style="display:none">	
-                  
-                  <p class="titulo">XXXXXXXXXXXX</p>
-                  <p>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</p>							
-                  <img src="./src/assets/img/XXXX.jpg" width="" height="" alt=""/> 
-    
-                  
-                  
-                </div>
-    
-              </div> 
-            </div>
-            -->
-            
-            
-            
-            
-            
-            
-            
-              
-            <div class="row">
-              <div class="col-12">	
-    
-                
-    
-              </div>
-            </div>
-              
-            
-            
-          </div>
-          <!-- Fin div colapsable-->
-      
-      
-        </div>
-      </div>	
-    <!-- FIN SECCION 1 -->	
-    
-    
-    <!-- SECCION 2 -->
-    <div class="contenedor w-80 w-96-s background esp-5-bottom">		
+   	
+    <!-- SECCION 07 -->
+    <div class="contenedor w-80 w-96-s background esp-5-bottom">
       <div class="row">
-        <div class="flex center-vertical esp-25-top pointer desplegable space-between pointer" onclick="$('#seccion2').toggle();">	
-          <h2>Sección 2: Introducción a JavaScript para React</h2>				
-          <span class="cambiaicono ico_chevron_down esp-10-right" title=""></span>
+        <div class="flex center-vertical esp-25-top pointer desplegable space-between pointer" onclick="$('#seccion07').toggle();">
+          <h2>Sección 7: PROYECTO - Carrito de Compras - Crear tus propios Hooks</h2>
+          <span class="cambiaicono ico_chevron_up esp-10-right" title=""></span>
         </div>
-        
-        <div id="seccion2" style="display:none">
-    
+
+        <div id="seccion07">
           <div class="row">
-            <div class="col-12 padd-5-left">	
-    
-    <!-- Bloque desplegable interior -->
-              <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion2-31').toggle();">	
-                <h3>31. Ternarios</h3>			
+            <div class="col-12">
+
+              <!-- Bloque desplegable interior-->
+              <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion85-90').toggle();">
+                <h3>85. Ventajas y Como crear tus propios Hooks / 86. Instalando dependencias / 87. Creando el Hook de useCart</h3>
                 <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
               </div>
-              <div id="seccion2-31" style="display:none">
-                <p></p>
-                <pre>
-                  <code class="language-js">
-                    /*Ternarios --&gt; un if en una versión mas corta. En React se usa mucho porque en los templates no podemos escribir un if en la poarte que se muestra en pantalla
-                    pero sí un ternario*/
-                    
-                    const auth = true
-                    
-                    const saldo = 1000
-                    const pagar = 1200
-                    const tarjeta = false
-                    
-                    // if (auth){
-                    //     console.log('User autenticado..')
-                    // } else {
-                    //     console.log('No auntenticado, ir a Login')
-                    // }
-                    
-                    //con un operador ternario vamos a poder tener todo lo anterior en una línea. Sintaxis algo compleja
-                    
-                    auth ? 
-                      console.log('User autenticado..') : 
-                      console.log('No auntenticado, ir a Login')
-                    
-                    //otra manera combinando operadores que vimos antes
-                    
-                    saldo > pagar ?
-                      console.log('sí puedes pagar') :
-                      console.log('no, no puedes pagar')
-                    
-                    //ternario anidado (al igual que los if se ejecuta la primera condición que se cumpla). 
-                    saldo > pagar ?
-                      console.log('sí puedes pagar') :
-                      tarjeta ?
-                        console.log('puedes pagar con tarjeta') :
-                        console.log('no, no puedes pagar')
-                    
-                    //PERO MEJOR QUE TERNARIOS ANIDADOS ES HACER USO DE OPERADORES PARA MEJOR MANTENIMIENTO DE CÓDIGO
-                    saldo > pagar || tarjeta ?
-                      console.log('sí puedes pagar') :    
-                      console.log('no, no puedes pagar')
-                  </code>
-                </pre>						
-              </div>
-    <!-- Fin bloque desplegable interior -->
-    
-    <!-- Bloque desplegable interior -->
-              <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion2-32').toggle();">	
-                <h3>32. Optional chaining (?) y Nullish coolescing operator (??)</h3>			
-                <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
-              </div>
-              <div id="seccion2-32" style="display:none">
-                <p>Son un par de características de las más nuevas que han añadido a js</p>
-                <p><strong class="txt-primario">Optional chaining (?) :</strong></p> 
-                <ul>
-                  <li>permite llamar las propiedades de un objeto o llamar métodos sin tener que verificar si existen o no</li>
-                  <li>además de ahorrarnos código, se usa mucho en respuestas rest API o repsuestas de BBDD en las uqe mkuchas veces no está todo relleno como esperamos</li>
-                  
-                </ul>
-                <pre>
-                  <code class="language-js">								
-                    //Optional chaining (?) 
-                      
-                      const alumno = {
-                        nombre: 'Juan',
-                        clase: 'Programación 1',
-                        aprobado: true,
-                        examenes: {
-                          examen1: 9
-                        }
-                      }
-                      console.log(alumno)
-                      console.log('Despues de ALUMNO')
-    
-                      //si hiciera esto me daría error porque esa propiedad examen1 no está definida, y el resto de mi js deja de funcionar (no saca lo de 'después de ALUMNO'):
-                        //console.log(alumno.examenes.examen1)
-                      
-                      //para esto utilizamos el optional chaining, para ver si existe la propiedad examenes y entonces que nos imprima examen1 (evitamos usar ifs y más código)
-                        console.log(alumno.examenes?.examen1)
-                        console.log('Despues de ALUMNO')
-                    </code>
-                  </pre>
-                  <p><strong class="txt-primario">Nullish coolescing operator (??):</strong> operador lógico que devuelve el valor del lado dcho cuando el valor izdo es nulo o undefined</p> 
-                  <pre>
-                    <code class="language-js">	
-                    //Nullish coolescing operator (??) 
-                      // por ejemplo se usa mucho cuadno se trabaja con un paginador desde la url. Cuando en la urlpage no tenemos esto: "?page=1"
-                      const pagina = null ?? 1
-                      // si tuviéramos este ejemplo "?page=10" 
-                      // const pagina = 10 ?? 1 --&gt; este nos devolveria 10
-                      console.log(pagina)
-                    </code>
-                  </pre>
-              </div>
-    <!-- Fin bloque desplegable interior -->
-    
-              
-    <!-- Bloque desplegable interior -->
-              <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion2-34').toggle();">	
-                <h3>34-36. Introducción a ECMAScript Modules, más sobre módules y export default</h3>			
-                <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
-              </div>					
-              <div id="seccion2-34" style="display:none">						
-                <p>Se utilizan mucho en React y en el desarrollo web hoy en día ya que normalmente cuando instalas una dependencia/librería, esa dep. te permite importar ciertas funciones
-                  el mismo React te permite importar sus funciones para que puedas utilizarlas en tu código
-                  Supongamos que estamos creando un proyecto y vamos teniendo cada vez más y más funciones (pone el ejemplo de los tropecientos .js en nuestro html) --> eso se soluciona con los 
-                  módulos de ECMAScript, que nos permiten separar nuestro código.</p>
-      
-                <p>creamos un nuevo "funciones.js" donde metemos nuestras funciones y en nuestro html le indicamos al js que es de type module, y ello nos va a habilitar el poder importar.
-                dentro de nuestro .js de funciones le añadimos un "export" antes de cada función. En el .js donde queramos usar las funciones usamos un import</p>
-                
-                <pre>
-                  <code class="language-js">
-                    //ESTOS MODULOS ESTAN PRESENTES EN TODAS LAS TECNOLOGÍAS DE JS VUE, NODE, REACT... NOS PERMITEN SEPARAR NUESTRO CÓDIGO Y UN MEJOR MANTENIMIENTO
-                    // export function sumar (n1, n2){
-                      //     return n1 + n2
-                      // }
-                      // export function restar (n1, n2){
-                      //     return n1 - n2
-                      // }
-                      // export default function multiplicar (n1, n2){
-                      //     return n1 * n2
-                      // }
-                      // export function dividir (n1, n2){
-                      //     return n1 / n2
-                      // }
-                      
-                      export const sumar = ( n1, n2 ) => n1 + n2
-                      export const restar = ( n1, n2 ) => n1 - n2 
-                      
-                      const multiplicar = ( n1, n2 ) => n1 * n2 
-                      export default multiplicar
-                      
-                      export const dividir = ( n1, n2 ) => n1 / n2 
-    
-                      /* Ambos tipos de export requieren que al importarlos se llamen entre llaves y con el mismo nombre (salvo que usemos un alias)
-                      Como vamos a importar muchas funciones, variables... de muchas librerias ¿como hacemos para evitar la colisión de nombres? utilizamo "alias" --> import {sumar as funcionSumar} 
-    
-                      Existe otro export que es el export default: solo puede haber uno por archivo. Lo importas sin llaves y nombras como queramos
-    
-                      export default function multiplicar (n1, n2){
-                        return n1 * n2
-                      }
-                      */
-                  </code>
-                </pre>   
-                
-                <pre>
-                  <code class="language-js">
-                import agusmultiplica, { sumar, restar, dividir } from './funciones.js' // esta es la mejor manera de importar las funciones que nos ofrecen las dependencias/librerías
-    
-                const resultadoSumar = sumar(25, 30)
-                const resultadoRestar = restar(25, 30)
-                const resultadoMultiplicar = agusmultiplica(25, 30)
-                const resultadoDividir = dividir(100, 10)
-                console.log(resultadoSumar + '\n' + resultadoRestar + '\n' + resultadoMultiplicar + '\n' + resultadoDividir);
-                  </code>
-                </pre>   								
-              </div>
-    <!-- Fin bloque desplegable interior -->
-    
-    <!-- Bloque desplegable interior -->
-              <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion2-37').toggle();">	
-                <h3>37. Fetch API con Promises</h3>			
-                <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
-              </div>
-              <div id="seccion2-37" style="display:none">
-                <p>Proporciona una interfaz para poder recuperar recursos y obtener datos a través de la red. Es la versión moderna de las dos tecnologías 
-                  XMLHttpRequest(sintaxis muy difícil) y $.ajax. Usaremos esta herramienta {JSON Placeholder} 
-                  <a class="txt-rojo" href="https://jsonplaceholder.typicode.com" target="_blank">https://jsonplaceholder.typicode.com</a>. Podemos ver este ejemplo de uso en esa misma url:</p>
-                <pre>
-                  <code class="language-js">
-                    fetch('https://jsonplaceholder.typicode.com/todos/1')
-                    .then(response => response.json())
-                    .then(json => console.log(json))
-                  </code>
-                </pre>
-                
-                <p>Vamos a trabajar con el json de 'Comments' <a href="https://jsonplaceholder.typicode.com/comments" class="blank">https://jsonplaceholder.typicode.com/comments</a>. Un json es muy parecido a un XML nos da unos datos con una estructura que podemos renderizar en nuestras aplicaciones.</p>
-                <p>También con FetchAPI es posible obtener datos de un archivo .txt</p>
-                <p>Para usarlo tenemos dos opciones, o ponerlo directamente en el código o meterlo en una función y mandarla llamar.<br>
-                fetch() utiliza promises, que fueron agregados en la versión de js moderno ECMAScript6. Podemos pensar en los promises como un objeto que va a estar disponible a futuro o no. Los promises cuentan con varios pasos y también con varios estados. Esos pasos se representan por una sintaxis que es <span class="destacado">.then()</span> siendo la lectura algo como "quiero obtener los datos de esta url, entonces tengo mi respuesta...voy a hacer..." El .then toma automáticamente un callback, una función que podemos nombrar como queramos <strong>then((response) => {})</strong></p>
-                <pre>
-                  <code class="language-js">								
-                    fetch(url)
-                      .then((response) => {
-                        console.log(response)
-                      })
-                  </code>
-                </pre>
-                <p>En la respuesta de la consola vemos en el Response que el ok es true y el status 200 --> la url existe (si no existiera tendríamos false y 404). Type cors lo veremos mas adelante, es complicado. Podremos ver como personalizar nuestros estados. Las APIS se comunican entre sí con estados numéricos, también los veremos en detalle.</p>
-    
-                <img src="./src/assets/img/37-1.png" alt="">
-    
-                <p>Vemos qe no aparecen los datos por ningún sitio, pero si abrimos el prototype sí vemos los métodos <strong>json() y text()</strong>, que sirven apra decirle qué tipo de datos es el que estoy obteniendo (o un txt o un json). Como es un json le especificamos en el callback que retorne la respuesta como json <span class="destacado">return response.json()</span> lo cual nos dará acceso a otro promise con el que obtendremos los datos:</p>
-    
+              <div id="seccion85-90">
+                <p>Creamos carpeta hooks. Dentro creamos nuestro archivo hook personalizado que llamamos <strong>useCart.js</strong>. Los hooks son funciones de js con lo cual podemos definirlo como función normal o arrow function pero <span class="destacado">siempre el nombre tiene que tener la palabra use y así React "escanea" el código para posibles violaciones de las reglas de los hooks</span>:</p>
+                <span class="rojo">useCart.js</span><br>
                 <pre><code class="language-js">
-                  fetch(url)
-                    .then((response) => {									
-                      return response.json()
-                    })
-                    .then(data => {
-                      console.log(data)
-                    })							
-                </code></pre>
-                
-                <p>Como vemos tenemos un .then() y otro .then() y así funcionan los promises, estamos llamando a esa url y no sabemos si vamos a poder obtener los datos o no. En este caso esta url que estamos usando es pública para aprender pero no podemos obtener los datos de por ejemplo instagram, youtubbe... solo haciendo un llamado a una url, en esos casos va a fallar la petición. Como no sabemos el tipo de respuesta que vamos a tener por eso tenemos estos pasos: </p>
-                <ul>
-                  <li>trato de conectarme a un servidor</li>
-                  <li>entonces, si tengo respuesta la quiero como json y estos comentarios son 500 (el tiempo de respuesta no va a ser igual si tengo 2 respuestas que si tengo 500)</li>
-                  <li>una vez que finalice de ejecutarse el código del primer promise, tengo acceso a los datos con el segundo</li>
-                </ul>	
-    
-                <p>Si la url fuera incorrecta, recordemos que el ok saldrá a false, response 200 y tendremos un segundo objeto vacío (del 2º promise). Podemos añadir un catch para intentar especificar algo en caso de error, sin embargo como veremos en la consola no se ejecuta el console log del catch ¿por qué? porque con el fetch() así especificado, el catch solo se ejecuta cuando hay problemas de red (podemos forzarlo quitando la wifi).</p>
-    
-                <pre><code class="language-js">
-                  const url = 'https://jsonplaceholder.typicode.com/urlerronea'
-                  fetch(url)
-                    .then((response) => {	
-                      //console.log(response)								
-                      return response.json()
-                    })
-                    .then((data) => {
-                      console.log(data)
-                    })	
-                    .catch(error=>{
-                      console.log(error)
-                    })
-                </code></pre>
-    
-                <p>Hagamos lo siguiente mejor (if para cuando hay respuesta y un throw new Error para cuando falle) y como veremos, el nuevo error pasará al .catch(). Aprovechamos las funciones de flecha para simplificar la sintaxis del 2º promise y el catch:</p>
-    
-                <pre><code class="language-js">
-                  fetch(url)
-                    .then((response) => {	
-                      //console.log(response)
-                      if(response.ok){								
-                        return response.json()
-                      } 
-                      throw new Error('Hubo un error')
-                    })
-                    .then(data => console.log(data))	
-                    .catch(error=> console.log(error))								
-                </code></pre>
-    
-                <img src="./src/assets/img/37-2.png" alt="">
-    
-                <p>Como decíamos podemos usarlo sin función como acabamos de ver en el ejemplo anterior o también dentro de una función que mandaremos llamar. Funcionaría igual y este sería el código:</p>
-                <pre>
-                  <code class="language-js">
-                    const url = 'https://jsonplaceholder.typicode.com/comments'
-    
-                    const consultarAPI = () => {
-                      fetch(url)
-                        .then((response) => {	
-                          //console.log(response)
-                          if(response.ok){								
-                            return response.json()
-                          } 
-                          throw new Error('Hubo un error')
-                        })
-                        .then(data => console.log(data))	
-                        .catch(error=> console.log(error.message))
-                    }
-                    consultarAPI()
-                  </code>
-                </pre>
-    
-                <p>Fetch API con promises es una gran mejora pero Async Await lo hace aún más simple</p>						
-              </div>
-    <!-- Fin bloque desplegable interior -->
-    
-    
-    <!-- Bloque desplegable interior-->
-              <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion2-38').toggle();">	
-                <h3>38. Fetch API con Async / Await</h3>			
-                <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
-              </div>
-              <div id="seccion2-38" style="display:none">
-                <p class="titulo">Fetch con Async / Await <strong>sí requiere una función</strong>, que puede ser un arrow function o un function declaration. A continuación escribiremos código con ambas. En este caso ha de ser asíncrona (por eso requiere una función). Para el caso de función de flecha colocamos la palabra <span class="destacado">async</span> antes de los paréntesis, lo que convierte a la función en asíncrona y nos da acceso a la otra propiedad: <span class="destacado">await</span> que son los que reemplazan a los .then() del ejemplo anterior.</p>
-                
-                <p>El await (como antes los then) espera a que se realice la petición, ocurra una respuesta y vuelve a utilizar otro await para obtener los datos. Tengamos en cuenta que la conexión a una API externa dependerá del tipo de servidor (servidor gratis vs servidor de 1000$/mes) y la conexión que tengamos; y como decíamos leer los datos no va a ser lo mismo leer 2 registros que 500. Los await esperan que finalice de ejecutarse ese código para ir a la siguiente línea.</p>		
-    
-                <p>La sintaxis es un poco diferente y se lee más como "de derecha a izquierda"</p>
-    
-                <pre><code class="language-js">
-                  const url = 'https://jsonplaceholder.typicode.com/comments'
-                  /*
-                  fetch(url)
-                    .then((response) => {	
-                      //console.log(response)
-                      if(response.ok){								
-                        return response.json()
-                      } 
-                      throw new Error('Hubo un error')
-                    })
-                    .then(data => console.log(data))	
-                    .catch(error=> console.log(error.message))
-                  */
-                  const consultarAPI = async () => {
-                    const response = await fetch(url)
-                    const data = await response.json()
-                    console.log(data)
+                  function useCart(){
+                    
                   }
-                  consultarAPI()
                 </code></pre>
-    
-                <p>Estos dos códigos hacen lo mismo, pero hay un detalle. Con Async / Await no hay forma de catchear un posible error. Por lo que normalmente cuando usamos Async / Await se usa junto a algo llamado Try Catch. En el caso de que cualquiera de las acciones indicadas en el Try falle, ejecuta lo que especifiquemos en el catch:</p>
-    
                 <pre><code class="language-js">
-                  const url = 'https://jsonplaceholder.typicode.com/comments'
-                  const consultarAPI = async () => {
-                    try {
-                      const response = await fetch(url)
-                      if(!response.ok){
-                        throw new Error('Hubo un error')
-                      }
-                      const data = await response.json()
-                      console.log(data)
-                    } catch (error) {
-                      console.log(error)
-                    }
+                  const useCart = () => {
+
                   }
-                  consultarAPI()
-                </code></pre>						
-              </div>
-    <!-- Fin bloque desplegable interior-->
-    
-    
-    <!-- Bloque desplegable interior-->
-              <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion2-39').toggle();">	
-                <h3>39. Medir performance y cómo manejar múltiples consultas</h3>			
-                <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
-              </div>
-              <div id="seccion2-39" style="display:none">
-                <p>JS tiene una API para medir la performance de nuestro código. Más de una vez vamos a tener distintos códigos que hagan lo mismo y vamos a querer medir cual es la versión más rápida. Utilizamos para ello <span class="destacado">performance.now()</span>. Lo usamos al principio y al final de nuestro try y sacamos por consola la diferencia en ms. Veremos que en función de la url que usemos (que carga más o menos datos) ese rendimiento en ms varía.</p>
-                <pre>
-                  <code class="language-js">
-                    //Performance y múltiple Async Await
-                    const url = 'https://jsonplaceholder.typicode.com/comments'
-                    const url2 = 'https://jsonplaceholder.typicode.com/todos'
-                    const url3 = 'https://jsonplaceholder.typicode.com/photos'
-                    const consultarAPI = async () => {
-                      try {
-                        const inicio = performance.now()			
-                        const response = await fetch(url3)
-                        if(!response.ok){
-                          throw new Error('Hubo un error')
-                        }
-                        const data = await response.json()
-                        console.log(data)
-                    
-                        const fin = performance.now()			
-                        console.log(`El resultado es: ${fin - inicio} ms`)
-                      } catch (error) {
-                        console.log(error)
-                      }
-                    }
-                    consultarAPI()
-                  </code>
-                </pre>
-                <p>Una aplicación real obtiene datos de muchos sitios distintos. Tal vez nuestra empresa tenga un rp, crm, e-commerce, sistemas de facturación... tal vez estamos creando algo que consume datos de diferentes lugares. Un error muy común es hacer lo siguiente, supongamos que consumimos los 3 "endpoints" de esta manera, vemos la consola (izquierda):</p>
-                <pre>
-                  <code class="language-js">
-                    //Performance y múltiple Async Await
-                    const url = 'https://jsonplaceholder.typicode.com/comments'
-                    const url2 = 'https://jsonplaceholder.typicode.com/todos'
-                    const url3 = 'https://jsonplaceholder.typicode.com/photos'
-                    const consultarAPI = async () => {
-                      try {
-                        const inicio = performance.now()	
-    
-                        const response = await fetch(url)				
-                        const data = await response.json()
-                        console.log(data)
-                    
-                        const response2 = await fetch(url2)				
-                        const data2 = await response2.json()
-                        console.log(data2)
-                    
-                        const response3 = await fetch(url3)				
-                        const data3 = await response3.json()
-                        console.log(data3)
-                    
-                        const fin = performance.now()			
-                        console.log(`El resultado es: ${fin - inicio} ms`)
-                      } catch (error) {
-                        console.log(error)
-                      }
-                    }
-                    consultarAPI()
-                  </code>
-                </pre>
-                <p>usar así los awaits esperando a que cada llamada anterior se resuelva va a hacer que nuestras apps sean más lentas. <strong>¡OJO! va a a habver ocasiones en que realmente querramos llamarlas así secuencialmente porque el siguiente procesado necesite los datos anteriores</strong>. Pero veamos cómo hacerlo en caso de que queramos procesar a la vez todas las llamadas y no secuencialmente. Emplearemos <span class="destacado">Promise.all()</span>:</p>
-    
+                </code></pre>
+
+                <p>aquí es donde vamos a tener toda la lógica, todo lo que está antes de los return() del App.js y Header.jsx. Todo eso vamos a exportarlo para poder importarlo en otros componentes o donde sea que vamos a utilizar nuestro custom hook, pudiendo exportarlo de todas las maneras que se hacen exports en js:</p>
                 <pre><code class="language-js">
-                  const consultarAPI2 = async () =>{
-                    try {
-                      const inicio = performance.now()
-                  
-                      const [response, response2, response3] = await Promise.all([fetch(url),fetch(url2),fetch(url3)])
-                      const [data, data2, data3] = await Promise.all([response.json(),response2.json(),response3.json()])			  
-                      console.log(data)     
-                      console.log(data2)    
-                      console.log(data3)		
-                  
-                      const fin = performance.now()
-                  
-                      console.log(`El resultado de la SEGUNDA función es: ${fin - inicio} ms`)
-                    } catch (error) {
-                      console.log(error)
-                    }
+                  const useCart = () => {
+
                   }
-                  consultarAPI2()
+                  export default useCart
                 </code></pre>
-    
-                <p>Si vemos en la consola (derecha) el resultado de ejecutar las dos funciones <strong>(ver 39-performance.js)</strong> veremos que siempre en cada ejecución, la primera que termina (por tanto con mejor rendimiento, termina en menos ms) es la segunda función.</p>	
-                
-                <img src="./src/assets/img/39-1.png" alt="">
-    
-                
-              </div>
-    <!-- Fin bloque desplegable interior-->
-    
-    
-    <!-- Bloque desplegable interior-->
-              <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion2-40').toggle();">	
-        <h3>40. DOM - Selectores</h3>			
-        <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
-              </div>
-              <div id="seccion2-40" style="display:none">
-                <p>Va a ser corto porque de hecho la forma de escribir código de DOM en JS es un poco diferente a como React lo maneja porque tiene algo llamado JSX que simplifica mucho. Pero siempre viene bien aprender o refrescar. Abrimos el DOM.html y colocamos el script:</p>
-                <pre>
-                  <code class="language-html">
-                    &lt;script src=&quot;js/40-DOM-selectores.js&quot;&gt;&lt;/script&gt;
-                  </code>
-                </pre>
-    
-                <p><strong>Selectores</strong>. Todas las interacciones que haces en el DOM con js requieren un selector. Es como en CSS seleccionas un elemento y empiezas a aplicar propiedades css para cambiar apariencia. En JS vas a aseleccionar algún elemento de tu página y vas a regresar operaciones por medio de js para agregar, modificar o eliminar atributos.</p>		
-    
-                <p>queremos seleccionar este elemento del DOM.html:</p>
-    
-                <pre><code class="language-html">
-                  &lt;h1 class=&quot;text-4xl font-black heading&quot;&gt;JavaScript Intermedio - Manipulaci&oacute;n de DOM &lt;/h1&gt;
-                </code></pre>
-    
-                <p>iniciamos con <span class="destacado">document</span>(podemos poner en consola document y vemos que es el documento entero.) De hecho podemos poner en consola document.title y vemos que saca el título de la página. pero para otro tipo de elementos de dentro del html hemos de utilizar <span class="destacado">querySelector()</span>. También comenta los que conocemos <strong>.getElementById</strong>, <strong>.getElementsByTagName</strong>, etc... pero hoy día se recomienda utilizar más la sintaxis con querySelector() porque tenemos acceso a selectores muy similares a los de css (.clase, #id, :last-of-type, :nth-child(),...), y sabiendo css los mismos selectores aplican para seleccionar elementos en js. Como hay selectores muy complejos, podremos seleccionar prácticamente cualquier elemento.</p>
-    
-                <p>Si hacemos un console.log(heading), vemos que nos pone el elemento h1 como está con todo lo que contiene tanto el tag en sí como su contenido. Así seleccionado un elemento tenemos acceso a sus atributos, lo que conocemos como el DOM. El DOM podemos modificarlo y recorrerlo.</p>
-    
-                <div class="flex">
-                  <pre><code class="language-js">
-                    const heading = document.querySelector('.heading')
-                    console.log(heading)
-                    console.log(heading.tagName)
-                    console.log(heading.textContent)
-                    console.log(heading.classList)
-                  </code></pre>
-    
-                  <img src="./src/assets/img/40-1.png" alt="">
-                </div>
-    
-                <p>Veamos ahora el <span class="destacado">querySelectorAll()</span>. La principal diferencia es que trae <strong>TODOS</strong> los elementos que tengan correspondencia con ese selector, mientras que querySelector() solo trae uno (aunque haya más que correspondan con el selector indicado entre paréntesis, solo trae el primero que encuentra)</p> 
-                <pre><code class="language-html">
-                  &lt;nav class=&quot;navegacion my-5 flex gap-5&quot;&gt;
-                    &lt;a href=&quot;&num;&quot;&gt;Enlace 1&lt;/a&gt;
-                    &lt;a href=&quot;&num;&quot;&gt;Enlace 2&lt;/a&gt;
-                    &lt;a href=&quot;&num;&quot;&gt;Enlace 3&lt;/a&gt;
-                    &lt;a href=&quot;&num;&quot;&gt;Enlace 4&lt;/a&gt;
-                  &lt;/nav&gt;		
-                </code></pre>
-    
-                <div class="flex">
-                  <pre><code class="language-js">
-                    const enlaces = document.querySelectorAll('.navegacion a')
-                    console.log(enlaces)
-                  </code></pre>
-    
-                  <img src="./src/assets/img/40-2.png" alt="">
-                </div>
-    
-                
-              </div>
-    <!-- Fin bloque desplegable interior-->
-    
-    <!-- Bloque desplegable interior-->
-              <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion2-41').toggle();">	
-                <h3>41. Manipular elementos HTML con JS</h3>			
-                <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
-              </div>
-              <div id="seccion2-41" style="display:none">
-                <p>Veamos algunos ejemplos</p>
-                <pre>
-                  <code class="language-js">
-                    const heading = document.querySelector('.heading')
-                    const enlaces = document.querySelectorAll('.navegacion a')
-                    //console.log(heading.textContent)
+                <pre><code class="language-js">
+                  const useCart = () => {
                     
-                    heading.textContent = 'Un nuevo Heading'
-                    heading.id = 'Un nuevo id'
-                    heading.removeAttribute('id')
-                    heading.removeAttribute('class')
-                  </code>
-                </pre>
-    
-                <p>Es muy comun que muchos formularios tengan ya un value por default:</p>		
-    
-                <pre><code class="language-js">
-                  const inputNombre = document.querySelector('#nombre')
-    
-                  //normalmente los atributos de los tags HTML se llaman igual los atributos de JS
-                  inputNombre.value = 'Un nuevo valor'
-                  //aunque no siempre, por ejemplo las clases o los atributos personalizados data-nombre="input"
-                  console.log(inputNombre.classList)
-                  inputNombre.dataset.nombre = "input"
-                  
-                  //Veamos como manipular colecciones. hemos de pasarle la posición o iterar sobre los elementos
-                  console.log(enlaces)
-                  enlaces.forEach( enlace => enlace.textContent = 'Nuevo Enlace')
+                  }
+                  export {
+                    useCart//de esta forma cuando lo importemos tenemos que usar ese mismo nombre
+                  }
                 </code></pre>
+                <pre><code class="language-js">
+                  export const useCart = () => {
+                    
+                  }                 
+                </code></pre>
+
+                <p>Para usar el custom Hook en nuestra App.jsx hemos de importarlo <code class="language-js">import { useCart } from './hooks/useCart'</code></p>
               </div>
-    <!-- Fin bloque desplegable interior-->
-    
-    <!-- Bloque desplegable interior-->
-              <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion2-42').toggle();">	
-                <h3>42. DOM eventos con click - <a href="https://developer.mozilla.org/es/docs/Web/API/Element" class="txt-negro" target="blank">Enlace MDN Element</a></h3>			
+              <!-- Fin bloque desplegable interior-->
+
+
+              <!-- Bloque desplegable interior-->
+              <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion88').toggle();">
+                <h3>88. Definir Valores y extraerlos en el Hook / 89. Migrando el Código hacia useCart / 90. Finalizando el Hook y Consideraciones</h3>
                 <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
               </div>
-              <div id="seccion2-42" style="display:none">
-                <p>Una de las características ppales de JS es que podamos añadir interacción a nuestras aplicaciones/sitios web. Veamos algunos eventos que nos van a permitir eso.</p>
-                <pre>
-                  <code class="language-js">
-                  const heading = document.querySelector('.heading')
-                  //vimos como podemos cambiar por ejemplo el contenido del tag por un nuevo título
-                  heading.textContent = 'nuevo título'
-                  </code>
-                </pre>
-                <p>Supongamos que quiero esperar a que por ejemplo alguien presione en el titulo para modificarlo. <strong>Una vez que seleccionas un elemento tienes acceso a registrarle un evento con el evento <span class="destacado">addEventListener()</span></strong>. Veamos el siguiente link https://developer.mozilla.org/es/docs/Web/API/Element, en la parte derecha podemos ver los eventos. Los hay de todo tipo, del mouse, de animaciones, eventos cuando copias algo con el teclado,... </p>	
+              <div id="seccion88">
                 
-                <p>esto es lo que se conoce como un callback, espera que ocurra el evento del primer argumento y cuando ocurre se dispara la función indicada en el segundo argumento.</p>
-    
-                <pre><code class="language-js">
-                  heading.addEventListener('click', () => {
-                    heading.textContent = 'Al dar click'
-                  })
-                  heading.addEventListener('dblclick', () => {
-                    heading.textContent = 'Al dar doble click'
-                  })
-                  heading.addEventListener('mouseenter', () => {
-                    heading.textContent = 'Al entrar'
-                  })
-                  heading.addEventListener('mouseleave', () => {
-                    heading.textContent = 'Al salir'
-                  })
-                </code></pre>
-    
-                <p>Para añadir addEventListener a los integrantes de un document.querySelectorAll utilizamos el forEach:</p> 
-    
-                <pre><code class="language-js">
-                  const enlaces = document.querySelectorAll('.navegacion a')
-                  enlaces.forEach( enlace => {
-                    enlace.addEventListener('click', () => {
-                      console.log('diste click en un enlace')
-                    })
-                  })
-                </code></pre>	
-    
-                <p>Vemos que al pulsar cada link la página nos da un salto. El elemento enlace tiene una acción por default que es intentar ir la url indicada en el href pero en nuestro caso no hay nada tenemos un #. Veamos. A la función que se dispara al realizar el evento le podemos pasar un parámetro que llamamos <strong>e, evento, evt, ...</strong> como queramos, y si hacemos un console log de ello vemos que aparece una gran cantida de información sobre el evento que se está llevando a cabo. Si scrolleamos un poco hacia abajo llegamos al "target" que nos da la información de qué es lo que ha disparado ese evento. Hacemos un console.log de e.target y nos da información de qué es a lo que hemos dado click:</p>
-                <pre><code class="language-js">
-                  const enlaces = document.querySelectorAll('.navegacion a')
-                  enlaces.forEach( enlace => {
-                    enlace.addEventListener('click', (e) => {
-                      console.log(e.target)
-                      console.log('diste click en un enlace')
-                      e.preventDefault()
-                      e.target.textContent="diste click"
-                    })
-                  })
-                </code></pre>
-                <img src="./src/assets/img/42-1.png" alt="">
-    
-                <p>cuadno enviamos un formulario hay una acción por default, cuando haces click en un botón hay una acción por default, si presionas un heading o una imagen no hay una acción por default... pero los links es uno d elos elementos que sí tiene una acción por default. usamos <span class="destacado">e.preventDefault()</span> que básicamente le dice al link "ok, tú tines un comportamiento que es abrir una url. No lo hagas.</p>
-    
-                <p>Por tanto nosotros mediante código podemos modificar las acciones a realizar, por ejemplo en un formulario, que en vez de enviarse haga validaciones. Importante:</p>
-                <ul>
-                  <li><span class="destacado">e.preventDefault()</span> nos va a permitir <strong>prevenir la accion por defecto de algún elemento html que realiza algo</strong></li>
-                  <li>ese <span class="destacado">e</span> reporta <strong>el evento que se está registrando</strong>, en nuestro ejemplo el click </li>
-                  <li>el <span class="destacado">e.target</span> es <strong>lo que dispara ese evento</strong>, en nuestro ejemplo un enlace</li>
-                </ul>
-              </div>
-    <!-- Fin bloque desplegable interior-->
-    
-    <!-- Bloque desplegable interior-->
-              <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion2-43').toggle();">	
-                <h3>43. DOM eventos en inputs</h3>			
-                <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
-              </div>
-              <div id="seccion2-43" style="display:none">
-                <p>En nuestro DOM.html tenemos estos dos inputs:</p>
-                <pre>
-                  <code class="language-html">
-                    &lt;input type=&quot;text&quot; placeholder=&quot;Tu Nombre&quot; id=&quot;nombre&quot; class=&quot;p-2 rounded-lg text-sm&quot;&gt;
-    
-                    &lt;input type=&quot;password&quot; placeholder=&quot;Tu Password&quot; id=&quot;password&quot; class=&quot;p-2 rounded-lg text-sm&quot;&gt;
-                  </code>
-                </pre>
-    
-                <p>Queremos leer lo que el usuario va escribiendo en el input de nombre. registramos un addEventListener()</p>		
-                <pre>
-                  <code class="language-js">
-                    const inputNombre = document.querySelector('#nombre')
-                    inputNombre.addEventListener('input', (e) => {
-                      console.log('escribiendo')
-                      console.log(e.target)
-                      console.log(e.target.value)
-                      console.log(e.target.value.length)
-                    })		
-                  </code>
-                </pre>
-                <p>Por defecto en un input de tipo password el contenido sale ofuscado. Queremos ver lo que escribimos durante poco tiempo y luego que se vuelva a ofuscar.</p>
-                <pre>
-                  <code class="language-js">
-                    const inputPassword = document.querySelector('#password')
-                    inputPassword.addEventListener('input', functionPassword)
-                    function functionPassword() {
-                      inputPassword.type = "text"
-                      setTimeout(() => {
-                        inputPassword.type = "password"
-                      }, 500)
-                    }		
-                  </code>
-                </pre>
                 
               </div>
-    <!-- Fin bloque desplegable interior-->
-    
-    
-    <!-- Bloque desplegable interior-->
-              <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion2-43').toggle();">	
-                <h3>44. Eventos en Submit. 45. Validando formulario y mostrando alertas.</h3>			
+              <!-- Fin bloque desplegable interior-->
+
+              <!-- Bloque desplegable interior-->
+              <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion89').toggle();">
+                <h3>89. Migrando el Código hacia useCart / 90. Finalizando el Hook y Consideraciones</h3>
                 <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
               </div>
-              <div id="seccion2-43" style="display:none">
-                <p>En nuestro formulario tenemos este input de tipo submit. El evento de submit se llama cuando alguien presiona sobre el formulario para enviarlo:</p>
-                <pre>
-                  <code class="language-html">
-                    &lt;input type=&quot;submit&quot; value=&quot;Iniciar Sesi&oacute;n&quot;
-                    class=&quot;bg-cyan-500 hover:bg-cyan-600 text-sm uppercase p-2 font-black text-white cursor-pointer&quot;&gt;
-                  </code>
-                </pre>
-    
-                <p>Veamos un ejemplo de una validación sencilla:</p>
-                <pre>
-                  <code class="language-js">
-                    const formulario = document.querySelector('#formulario')
-                    formulario.addEventListener('submit', e => {
-                      e.preventDefault
-                    
-                      const nombre = document.querySelector('#nombre').value
-                      const password = document.querySelector('#password').value
-                    
-                      if(nombre === '' || password === ''){
-                        console.log('Todos los campos son obligatorios')
-                      } else {
-                        console.log('Todo bien, iniciando sesión')
-                      }
-                      // console.log('Enviando formulario')
-                      // console.log(nombre)
-                      // console.log(password)    
-                    })
-                  </code>
-                </pre>
-    
-                <p>Creamos con JS un elemento html div al que vamos a añadir unas clases de tailwindcss para darle formato.</p>
-    
-                <p>Hemos de seleccionar siempre un elemento de nuestro document en el que queremos renderizar lo que estamos creando. Como estamos creando un div de alerta de validación, tiene sentido que lo queramos mostrar en el formulario. Por tanto agregamos la alerta como un hijo del formulario <span class="destacado">formulario.appendChild(alerta)</span></p>
-                <pre>
-                  <code class="language-js">
-                    const formulario = document.querySelector('#formulario')
-                    formulario.addEventListener('submit', e => {
-                      e.preventDefault
-                      const nombre = document.querySelector('#nombre').value
-                      const password = document.querySelector('#password').value
-                      
-                      //Prevenir nuevas alertas
-                      const alertaPrevia = document.querySelector('.alerta')
-                      /*if (alertaPrevia){
-                        alertaPrevia.remove();
-                      }*/
-                      alertaPrevia?.remove(); //comprobamos si existe con el optional chaining
-    
-                      const alerta = document.createElement('DIV')
-                      //alerta.textContent = 'contenido de alerta'
-                      //alerta.classList = 'clase-1 clase-2' //se pueden añadir así clases de estilo pero se recomienda hacerlo usando .add()
-                      //alerta.classList.add('clase-1','clase-2','clase-3')
-                      //añadamos clases de Tailwind css
-                      alerta.classList.add('alerta','text-white','uppercase', 'text-sm', 'text-center', 'p-2', 'font-black')   
-                  
-                      if(nombre === '' || password === ''){
-                        alerta.textContent = 'Todos los campos son obligatorios'
-                        alerta.classList.add('bg-red-500')
-                      } else {
-                        alerta.textContent = 'Todo bien, iniciando sesión'
-                        alerta.classList.add('bg-green-500')
-                      }
-                      //para eliminar la alerta pasados 2sg
-                      setTimeout(() => {
-                        alerta.remove()
-                      }, 2000);
-                      //console.log(alerta)
-                      formulario.appendChild(alerta)
-                    })
-                  </code>
-                </pre>	
+              <div id="seccion89">
+                
+
               </div>
-    <!-- Fin bloque desplegable interior-->
-              
-            </div>			
+              <!-- Fin bloque desplegable interior-->
+              <!-- Bloque desplegable interior-->
+              <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion90').toggle();">
+                <h3>90. Migrando el Código hacia useCart / 90. Finalizando el Hook y Consideraciones</h3>
+                <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+              </div>
+              <div id="seccion90">
+                
+
+              </div>
+              <!-- Fin bloque desplegable interior-->
+
+
+            </div>
           </div><!--Fin row-->
-            
-            
-          
         </div>
         <!-- Fin div colapsable-->
-    
-    
+
       </div>
-    </div>	
-    <!-- SECCION 2 -->		
+    </div>
+    <!-- FIN SECCION XX -->
     
-    
-    <!-- SECCION 3 y 4-->
-    <div class="contenedor w-80 w-96-s background esp-5-bottom">		
-      <div class="row">
-        <div class="flex center-vertical esp-25-top pointer desplegable space-between pointer" onclick="$('#seccion3').toggle();">	
-          <h2>Sección 3 y 4: PROYECTO: Carrito de compras. Introducción / Herramientas / Creando el proyecto en Windows</h2>				
-          <span class="cambiaicono ico_chevron_down esp-10-right" title=""></span>
-        </div>
+   
         
-        <div id="seccion3" style="display: none">
-            
-          <div class="row">
-            <div class="col-12">	
-              
-              
-              
-              <!-- Bloque desplegable interior-->
-              <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion3-46').toggle();">	
-                <h3>46. Introducción. El proyecto a construir GuitarLA</h3>			
-                <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
-              </div>
-              <div id="seccion3-46" style="display:none">
-                <p class="titulo">Proyecto carrito de compras GuitarLA</p>
-    
-                <p>En este proyecto estaremos aprendiendo los fundamentos de React: <span class="destacado">Componentes, Eventos y State</span>, mientras creas un carrito de compras real con cantidades, precios, y más, tomaremos este mismo carrito para mostrarte como crear tus propios Hooks y como transformarlo a código de TypeScript y cuales son sus beneficios. Carrito de compra persistente sincronizando con localStorage (aprenderemos todas esas acciones agregar elementos, cambiarlos, cambiar cantidades, vaciar carrito...)</p>							
-                <img src="./src/assets/img/s1-01.jpg" width="" height="" alt=""/> 
-                
-              </div>
-              <!-- Fin bloque desplegable interior-->
-    
-    
-              <!-- Bloque desplegable interior-->
-              <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion3-47').toggle();">	
-                <h3>47. Herramientas para crear aplicaciones en React.js</h3>			
-                <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
-              </div>
-              <div id="seccion3-47" style="display: none;">
-                <p class="titulo">Tecnologías para crear aplicaciones en React</p>
-                <p>Permiten Crear una App En React en Minutos. Existen muchas formas de crear una app en React, incluso tu puedes crear tu propio ambiente de desarrollo con herramientas como Babel, Parcel, Webpack, Vite, etc</p>
-    
-                <p>Pero también existe una gran cantidad de herramientas ya disponibles para crear aplicaciones en React en minutos sin conocer esta configuración</p>
-                
-                
-                <p class="titulo">Ventajas de utilizar una herrmaienta ya existente: <strong>La mayoría de Herramientas ya existentes para crear aplicaciones en React son estables y siguen un enfoque muy claro: No tener que preocuparte por la configuración.</strong> Tú puedes crear tu propio ambiente de desarrollo pero tienes que asegurarte de que cada versión nueva de React, cada version de diferentes librerias sea compatible con tu proyecto y despues tienes que encontrar una forma de compilar código de css (sass etc) ...entonces vamos a gasta r más tiempo en solucionar este tipo de cosas que tirando código. Por eso se recomienda usar una herramienta ya existente</p>
-    
-                <p>Cada una de estas herramientas ya existentes va desde básicas hasta avanzadas. Requieren tener instalado <span class="destacado">Node.js (NPM) o YARN</span>. Existen otros entornos hoy día como <strong>¿bum?</strong> Node.js con npm es bastante estable y es la que estaremos usando</p>
-                
-                <p>Opciones modernas para crear Apps en React. Los más populares hoy en día son<span class="destacado">Vite</span> y <span class="destacado">Next.js</span>. También Remix Run y Astro (que usaba en versiones anteriores del curso. Remix Run fue adquirido recientemente por shopify y están haciendo muchos cambios y no está listo)</p>
-                
-                <p class="titulo">Recomendaciones del equipo de React</p>
-    
-                <p>En su documentación recomiendan comenzar por Next.js o Remix para nuevos proyectos. Entonces ¿ya no se deben crear proyectos von Vite? Cuando creas proyectos con Vite tendrás que instalar dependencias para Routing, Consultas HTTP y más (herramientas como Next.js y Remix ya lo tienen incluido)</p>
-    
-                <p><strong>Usualmente siempre hay que aprender primero la herramienta/lenguage de programación y después el framework por lo que esa recomendación es un poco rara, porque cuando estes creando un proyecto ya sea en Next.js o Remix tal vez estés escribiendo un código y no sabes si eso es React o si eso es Next. Y esa es la explicación de por qué los proyectos en este curso utilizan Vite y al final tendremos un proyecto con Next quedando más claro qué es React y qué es Next.js</strong></p>						
-              </div>
-              <!-- Fin bloque desplegable interior-->
-    
-              <!-- Bloque desplegable interior-->
-              <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion4-48').toggle();">	
-                <h3>48. Instalando node y npm</h3>			
-                <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
-              </div>
-              <div id="seccion4-48" style="display:none">
-                <p><a class="rojo" href="https://nodejs.org/es/" target="_blank">https://nodejs.org/es/</a> Requerimos node para crear nuestros proyectos pero también para instalar dependencias con npm</p>	
-              
-                <p>Una vez instalado abrimos la terminal y comprobamos las versiones del entorno(node.js) <span class="destacado">node -v</span> y de las dependencias(npm) <span class="destacado">npm -v</span></p>
-                
-              </div>
-              <!-- Fin bloque desplegable interior-->
-    
-    
-              <!-- Bloque desplegable interior-->
-              <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion4-49').toggle();">	
-                <h3>49. Creando el primer proyecto</h3>			
-                <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
-              </div>
-              <div id="seccion4-49" style="display:none">
-                <p>Abrimos terminal, vamos al escritorio (que es donde voy a crear los proyectos) y ponemos <span class="destacado">npm create vite@latest</span> (si es la primera vez nos pedirá instalar la dependencia de vite le decimos que "y"). A continuación nos pide nombre y lo llamamos <strong>guitarla</strong>. A continuación nos pide que elijamos framework (Vanilla, Vue, <strong>React</strong>, Preact, Lit, Svelte, Solid, Qwik, Others) y elegimos React. Nos pide elegir variante, normalmente y como él ha trabajado este curso es <strong>Typescript + SWC</strong>(SWC es un compilador nuevo de los de Vite basado en Ros, muy rápido)  pero al ser el primer proyecto elegiremos <strong>Javascript + SWC</strong>. Remix es una alternativa a Next.JS de los creadores de shopify pero este curso no incluye remix porque la compra fue hace poco y están modificando/agregando muchas cosas</p>
-              
-              <img src="./src/assets/img/49-1.png" alt="">
-    
-              <p>ejecutamos los 3 comandos que nos indica para situarnos en la nueva carpeta del proyecto <span class="destacado">cd guitarla</span>, instalar las dependencias <span class="destacado">npm install</span>y arrancar el proyecto <span class="destacado">npm run dev</span></p>
-    
-              <img src="./src/assets/img/49-2.png" alt="">
-    
-              <p>Cuando generamos un proyecto en React con Vite vemos que la estructura por defecto es muy simple:</p>					
-              <ul>
-                <li><strong>carpeta "node_modules":</strong> las dependencias del proyecto. Va creciendo conforme instalamos más dependencias</li>
-                <li><strong>carpeta public:</strong> colocaremos por ej imagenes que seran accesibles para los visitantes de nuestro sitio web o app</li>
-                <li><strong>carpeta src:</strong> colocaremos todo nuestro código. Si revisamos la página de inicio de nuestro proyecto <strong>http://localhost:5173/</strong> nos dice: <strong>Edit src/App.jsx and save to test HMR</strong>. Así que abramos ese jsx, que es la página de inicio. 
-                  <img src="./src/assets/img/49-3.png" alt=""><br>
-                  En esta carpeta <strong>src</strong> es donde vamos a pasar la mayor parte del tiempo escribiendo código (colocaremos nuestros customs hooks, librerías, componentes...).
-                </li>
-                <li>.gitignore: va a ignorar algunos archivos</li>
-                <li><strong>index.html:</strong> básicamente lo que hace es inyectar React en el div <code class="language-html">&lt;div id="root"&gt;&lt;/div&gt;</code>. Si abrimos el <strong>main.jsx</strong> vemos el siguiente código donde se busca ese div con id="root" donde monta toda la aplicación de React. En el index.html podemos poner algún background, agregar algunos tags mas de html que sean importantes para nuestro proyecto, pero no vamos a escribir código html ahí habitualmente.
-                <pre><code class="language-js">
-                  createRoot(document.getElementById(&apos;root&apos;)).render(
-                    &lt;StrictMode&gt;
-                      &lt;App /&gt;
-                    &lt;/StrictMode&gt;&comma;
-                    )						
-                </code></pre>
-                </li>
-                <li><strong>package.json:</strong> ahí está el comando de "dev" que ejecutamos para arrancar y tiene algunos comandos para construir proyecto, previsualizarlo, y es donde se instalan las dependencias del proyecto y las de desarrollo. Al tener esas dependencias y sus versiones indicadas nos aseguramos que el equipo de trabajo sepa qué depndencias hay que tener para funcionar correctamente.</li>
-              </ul>
-              
-                
-              </div>
-              <!-- Fin bloque desplegable interior-->
-    
-                  
-            </div>			
-          </div><!--Fin row-->
-    
-        </div>
-        <!-- Fin div colapsable-->
-    
-    
-      </div>
-    </div>	
-    <!-- FIN SECCION 3 y 4-->	
-    
-    
     
     <!-- SECCIÓN 6 -->
     <div class="contenedor w-80 w-96-s background esp-5-bottom">		
@@ -1080,7 +131,7 @@
           <span class="cambiaicono ico_chevron_down esp-10-right" title=""></span>
         </div>
         
-        <div id="seccion6">
+        <div id="seccion6" style="display:none">
             
           <div class="row">
             <div class="col-12">	
@@ -2572,9 +1623,1078 @@
       </div>
     </div>	
     <!-- FIN SECCIÓN 6 -->
+
+
+    <!-- SECCION 1 -->
+     <div class="contenedor w-80 w-96-s background esp-5-bottom">		
+      <div class="row">
+        <div class="flex center-vertical esp-25-top pointer desplegable space-between pointer" onclick="$('#seccion1').toggle();">	
+          <h2>Sección 1: Introducción al Curso - Qué es React, Proyectos que Construiremos y más</h2>				
+                  <span class="cambiaicono ico_chevron_down esp-10-right" title=""></span>
+        </div>
+        
+        <div id="seccion1"  style="display:none">			
+          <div class="row">
+            <div class="col-12 padd-5-left">	
+              
+              <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion1-1').toggle();">	
+                <h3>1. ¿Qué es React?</h3>			
+                <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+              </div>
+              
+              <div id="seccion1-1" style="display:none">	
+                
+                <p>Es una biblioteca de JS para construir interfaces de usuario</p>
+                <ul>
+                  <li>Ayuda a crear UI interactivas de forma muy sencilla (tiene muchas funciones y eventos para disparar fcnes en base a las interacciones del usuario)</li>
+                  <li>Se encarga de actualizar y renderizar de manera eficiente los componentes de tu aplicación</li>
+                  <li>Esta basado en componentes: no son mas que fiunciones en JS utilizados para renderizar el diseño de tu aplicación o sitio web</li>
+                  <li>Creado por Meta (antiguo Facebook). También la empresa Versell apoya su desarrollo.</li>
+                </ul>
+  
+                <p class="titulo">Ventajas de React</p>			
+                <ul>
+                  <li>Excelente documentación con muchos ejemplos</li>
+                  <li>Una gran comunidad y muchas librerias que puedes incorporar a tus proyectos</li>
+                  <li>Tecnología con mucha demanda: La mayoría de vacantes solicitan React, tanto para fornt end como para full stack</li>
+                </ul>
+  
+                <p class="titulo">¿Qué necesito para aprender React?</p>
+                <ul>
+                  <li>Dominar HTML y CSS</li>
+                  <li>Conocer la sintaxis Moderna de Javascript (ES6(2015)EcmaScript6 y cada añao hay nuevas que añaden unas cuantas funciones más)</li>
+                  <li>Tener instalado Node.js para crear nuestros proyectos</li>
+                </ul>
+                
+              </div><!-- Fin seccion colapsable interior  -->
+              
+              
+            </div>			
+          </div><!--Fin row-->
+            
+          <div class="row">
+            <div class="col-12 padd-5-left">	
+              <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion1-2').toggle();">	
+                <h3>2. Proyectos 01 a 04 del Curso - Fundamentos de React y TypeScript</h3>			
+                <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+              </div>						
+              
+              <div id="seccion1-2" style="display:none">	
+                
+                <p class="titulo">Proyecto carrito de compras GuitarLA</p>
+                 <p>En este proyecto estaremos aprendiendo los fundamentos de React: <span class="destacado">Componentes, Eventos y State</span>, mientras creas un carrito de compras real con cantidades, precios, y más, tomaremos este mismo carrito para mostrarte como crear tus propios Hooks y como transformarlo a código de TypeScript y cuales son sus beneficios. Carrito de compra persistente sincronizando con localStorage (aprenderemos todas esas acciones agregar elementos, cambiarlos, cambiar cantidades, vaciar carrito...)</p>							
+                <img src="./src/assets/img/s1-01.jpg" width="" height="" alt=""/> 
+  
+                <p class="titulo">Calculadora de propinas y consumos. Un proyecto ideal para restaurantes donde se podrá generar una orden con consumos y la persona podrá elegir la propina que desea dejar.</p>							
+                <img src="./src/assets/img/s1-02.jpg" width="" height="" alt=""/> 
+  
+                <p class="titulo">Contador de Calorías y Ejercicios</p>	
+                <p> Una de las tareas que más vas a realizar en tu vida como Developer es procesar formularios; en este proyecto tendremos un formulario, leeremos sus datos, lo vamos a procesar y realizar algunas operaciones como validación y mucho más, además aprenderás que es <span class="destacado">useReducer</span> para manejar estados complejos en tus apps. Veremos cómo funciona este patrón, es un hook especial cuando tenemos un state un poco más complejo.</p>
+                <img src="./src/assets/img/s1-03.jpg" width="" height="" alt=""/> 
+                
+                
+                <p class="titulo">Control de Gastos y Presupuestos:</p>	
+                <p>En este proyecto estaremos viendo que es <span class="destacado">Context API</span> para tener un estado global sin dependencias; Context API va a ayudarte a no pasar props por cada componente, completamos el curso con filtrar gastos por categoría, calendario de fechas de gastos, gráficas y mucho más! Por tanto también usaremos reducers, context Api para comenzar a trabajar con un estado global y un custom hook.</p>
+                <img src="./src/assets/img/s1-04.jpg" width="" height="" alt=""/> 
+                
+              </div><!-- Fin seccion colapsable interior  -->
+            </div>
+          </div><!--Fin row-->
+          
+          
+          
+          
+          <div class="row">
+            <div class="col-12 padd-5-left">	
+              <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion1-3').toggle();">	
+                <h3>3. Proyectos 05 a 08 del Curso - React Intermedio y API's</h3>			
+                <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+              </div>						
+              
+              <div id="seccion1-3" style="display:none">	
+                
+                <p class="titulo">Administrador de pacientes de veterinaria</p>
+                <p>Introduce dos herramientas nuevas: Este proyecto añade dos herramientas nuevas: <span class="destacado">Zustand</span> para manejar un estado global de forma muy simple y <span class="destacado">React Hook Form</span>, una librería para para la parte de validación y procesamiento de nuestros formularios de manera bastante sencilla.</p>														
+                <img src="./src/assets/img/s1-05.jpg" width="" height="" alt=""/> 
+                
+                <p class="titulo">Buscador de clima</p>
+                <p>Esta será nuestra primera aplicación que obtiene datos de una <span class="destacado">API externa</span>, como React Developer vas a trabajar en muchos proyectos que incluyen API's; estaremos viendo como validar y enviar peticiones hacia API, como leer las respuestas y como mostrar esa información. La parte de APIS es muy importante en el mundo de React.</p>							
+                <img src="./src/assets/img/s1-06.jpg" width="" height="" alt=""/> 
+                
+                <p class="titulo">Cotizador de Criptomonedas</p>
+                <p>Este proyecto al igual que el anterior se conecta a una API para obtener el precio de una Criptomoneda en dólares, pesos mexicanos y otras monedas; Este proyecto incluye Zustand y Zod para validar las respuestas que obtenemos de nuestra API.</p>							
+                <!-- <img src="./src/assets/img/s1-07.jpg" width="" height="" alt=""/>  -->
+  
+                <p>Proyecto 04: Migrar Carrito de Compras a useReducer: En este capítulo estaremos viendo como tomar el proyecto de carrito de compras y convertirlo hacia useReducer; cuando tomas un proyecto que conoces en una tecnología nueva es garantía que podrás entender mejor los conceptos.</p>
+                <p>Proyecto 05: Migrar Calculadora de Propinas hacia useReducer: Veamos como migrar nuestro otro proyecto hacia useReducer.</p>
+  
+  
+                <p>Proyecto 10: Buscador de Recetas: Este es nuestro primer proyecto que incluye múltiples páginas; lo estaremos realizando con React Router DOM la librería más popular para crear aplicaciones en React de múltiples página, este curso utiliza el Slice Pattern para tener múltiples Stores de Zustand!</p>
+                <p>Proyecto 11: Administrador de Productos: Este es nuestro primer proyecto Full Stack donde estaremos creando tanto frontend como backend utilizando el PERN (PostgreSQL, Node.js, Express y React) este proyecto utiliza una REST API que conectaremos con React, añadiremos temas más avanzados como Testing y Documentación de API's.</p>
+                <p>Proyecto 12: Administrador de Tareas y Proyectos: Este es el Proyecto más avanzado del curso, utiliza el MERN stack que es uno de los más populares hoy en día, este proyecto incluye un sistema robusto de autenticación y registro de usuarios con confirmación de cuentas y resetear el password en caso de olvidarlo; además incluye roles y los usuarios solo pueden realizar ciertas acciones. El curso incluye además una REST API bastante compleja y avanzada, El curso utiliza también React Query, Tailwindcss, React Router, Mongoose, Express, TypeScript y mucho más.</p>
+                <p>Proyecto 13: Quiosco de Comida: Finalizaremos este curso con una introducción a Next.js, utilizaremos la versión 14 con App Router, Server Actions, Prisma, Zod, Zustand, Tailwind, y mucho más, el proyecto incluye subida de archivos, CRUD Completo, paginador, buscador y más.</p>
+  
+                
+              </div><!-- Fin seccion colapsable interior  -->
+  
+            </div>
+          </div><!--Fin row-->
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          <!-- 
+          <div class="row">
+            <div class="col-12 padd-5-left">						
+              
+              <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccionX-X').toggle();">	
+                <h3>XXXXXXXXXXXXXXXXXXXXXX</h3>			
+                <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+              </div>						
+              
+              <div id="seccionX-X" style="display:none">	
+                
+                <p class="titulo">XXXXXXXXXXXX</p>
+                <p>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</p>							
+                <img src="./src/assets/img/XXXX.jpg" width="" height="" alt=""/> 
+  
+                
+                
+              </div>
+  
+            </div> 
+          </div>
+          -->
+          
+          
+          
+          
+          
+          
+          
+            
+          <div class="row">
+            <div class="col-12">	
+  
+              
+  
+            </div>
+          </div>
+            
+          
+          
+        </div>
+        <!-- Fin div colapsable-->
     
     
+      </div>
+    </div>	
+    <!-- FIN SECCION 1 -->	
+  
     
+    <!-- SECCION 2 -->
+    <div class="contenedor w-80 w-96-s background esp-5-bottom">		
+      <div class="row">
+        <div class="flex center-vertical esp-25-top pointer desplegable space-between pointer" onclick="$('#seccion2').toggle();">	
+          <h2>Sección 2: Introducción a JavaScript para React</h2>				
+          <span class="cambiaicono ico_chevron_down esp-10-right" title=""></span>
+        </div>
+        
+        <div id="seccion2" style="display:none">
+    
+          <div class="row">
+            <div class="col-12 padd-5-left">	
+    
+    <!-- Bloque desplegable interior -->
+              <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion2-31').toggle();">	
+                <h3>31. Ternarios</h3>			
+                <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+              </div>
+              <div id="seccion2-31" style="display:none">
+                <p></p>
+                <pre>
+                  <code class="language-js">
+                    /*Ternarios --&gt; un if en una versión mas corta. En React se usa mucho porque en los templates no podemos escribir un if en la poarte que se muestra en pantalla
+                    pero sí un ternario*/
+                    
+                    const auth = true
+                    
+                    const saldo = 1000
+                    const pagar = 1200
+                    const tarjeta = false
+                    
+                    // if (auth){
+                    //     console.log('User autenticado..')
+                    // } else {
+                    //     console.log('No auntenticado, ir a Login')
+                    // }
+                    
+                    //con un operador ternario vamos a poder tener todo lo anterior en una línea. Sintaxis algo compleja
+                    
+                    auth ? 
+                      console.log('User autenticado..') : 
+                      console.log('No auntenticado, ir a Login')
+                    
+                    //otra manera combinando operadores que vimos antes
+                    
+                    saldo > pagar ?
+                      console.log('sí puedes pagar') :
+                      console.log('no, no puedes pagar')
+                    
+                    //ternario anidado (al igual que los if se ejecuta la primera condición que se cumpla). 
+                    saldo > pagar ?
+                      console.log('sí puedes pagar') :
+                      tarjeta ?
+                        console.log('puedes pagar con tarjeta') :
+                        console.log('no, no puedes pagar')
+                    
+                    //PERO MEJOR QUE TERNARIOS ANIDADOS ES HACER USO DE OPERADORES PARA MEJOR MANTENIMIENTO DE CÓDIGO
+                    saldo > pagar || tarjeta ?
+                      console.log('sí puedes pagar') :    
+                      console.log('no, no puedes pagar')
+                  </code>
+                </pre>						
+              </div>
+    <!-- Fin bloque desplegable interior -->
+    
+    <!-- Bloque desplegable interior -->
+              <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion2-32').toggle();">	
+                <h3>32. Optional chaining (?) y Nullish coolescing operator (??)</h3>			
+                <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+              </div>
+              <div id="seccion2-32" style="display:none">
+                <p>Son un par de características de las más nuevas que han añadido a js</p>
+                <p><strong class="txt-primario">Optional chaining (?) :</strong></p> 
+                <ul>
+                  <li>permite llamar las propiedades de un objeto o llamar métodos sin tener que verificar si existen o no</li>
+                  <li>además de ahorrarnos código, se usa mucho en respuestas rest API o repsuestas de BBDD en las uqe mkuchas veces no está todo relleno como esperamos</li>
+                  
+                </ul>
+                <pre>
+                  <code class="language-js">								
+                    //Optional chaining (?) 
+                      
+                      const alumno = {
+                        nombre: 'Juan',
+                        clase: 'Programación 1',
+                        aprobado: true,
+                        examenes: {
+                          examen1: 9
+                        }
+                      }
+                      console.log(alumno)
+                      console.log('Despues de ALUMNO')
+    
+                      //si hiciera esto me daría error porque esa propiedad examen1 no está definida, y el resto de mi js deja de funcionar (no saca lo de 'después de ALUMNO'):
+                        //console.log(alumno.examenes.examen1)
+                      
+                      //para esto utilizamos el optional chaining, para ver si existe la propiedad examenes y entonces que nos imprima examen1 (evitamos usar ifs y más código)
+                        console.log(alumno.examenes?.examen1)
+                        console.log('Despues de ALUMNO')
+                    </code>
+                  </pre>
+                  <p><strong class="txt-primario">Nullish coolescing operator (??):</strong> operador lógico que devuelve el valor del lado dcho cuando el valor izdo es nulo o undefined</p> 
+                  <pre>
+                    <code class="language-js">	
+                    //Nullish coolescing operator (??) 
+                      // por ejemplo se usa mucho cuadno se trabaja con un paginador desde la url. Cuando en la urlpage no tenemos esto: "?page=1"
+                      const pagina = null ?? 1
+                      // si tuviéramos este ejemplo "?page=10" 
+                      // const pagina = 10 ?? 1 --&gt; este nos devolveria 10
+                      console.log(pagina)
+                    </code>
+                  </pre>
+              </div>
+    <!-- Fin bloque desplegable interior -->
+    
+              
+    <!-- Bloque desplegable interior -->
+              <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion2-34').toggle();">	
+                <h3>34-36. Introducción a ECMAScript Modules, más sobre módules y export default</h3>			
+                <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+              </div>					
+              <div id="seccion2-34" style="display:none">						
+                <p>Se utilizan mucho en React y en el desarrollo web hoy en día ya que normalmente cuando instalas una dependencia/librería, esa dep. te permite importar ciertas funciones
+                  el mismo React te permite importar sus funciones para que puedas utilizarlas en tu código
+                  Supongamos que estamos creando un proyecto y vamos teniendo cada vez más y más funciones (pone el ejemplo de los tropecientos .js en nuestro html) --> eso se soluciona con los 
+                  módulos de ECMAScript, que nos permiten separar nuestro código.</p>
+      
+                <p>creamos un nuevo "funciones.js" donde metemos nuestras funciones y en nuestro html le indicamos al js que es de type module, y ello nos va a habilitar el poder importar.
+                dentro de nuestro .js de funciones le añadimos un "export" antes de cada función. En el .js donde queramos usar las funciones usamos un import</p>
+                
+                <pre>
+                  <code class="language-js">
+                    //ESTOS MODULOS ESTAN PRESENTES EN TODAS LAS TECNOLOGÍAS DE JS VUE, NODE, REACT... NOS PERMITEN SEPARAR NUESTRO CÓDIGO Y UN MEJOR MANTENIMIENTO
+                    // export function sumar (n1, n2){
+                      //     return n1 + n2
+                      // }
+                      // export function restar (n1, n2){
+                      //     return n1 - n2
+                      // }
+                      // export default function multiplicar (n1, n2){
+                      //     return n1 * n2
+                      // }
+                      // export function dividir (n1, n2){
+                      //     return n1 / n2
+                      // }
+                      
+                      export const sumar = ( n1, n2 ) => n1 + n2
+                      export const restar = ( n1, n2 ) => n1 - n2 
+                      
+                      const multiplicar = ( n1, n2 ) => n1 * n2 
+                      export default multiplicar
+                      
+                      export const dividir = ( n1, n2 ) => n1 / n2 
+    
+                      /* Ambos tipos de export requieren que al importarlos se llamen entre llaves y con el mismo nombre (salvo que usemos un alias)
+                      Como vamos a importar muchas funciones, variables... de muchas librerias ¿como hacemos para evitar la colisión de nombres? utilizamo "alias" --> import {sumar as funcionSumar} 
+    
+                      Existe otro export que es el export default: solo puede haber uno por archivo. Lo importas sin llaves y nombras como queramos
+    
+                      export default function multiplicar (n1, n2){
+                        return n1 * n2
+                      }
+                      */
+                  </code>
+                </pre>   
+                
+                <pre>
+                  <code class="language-js">
+                import agusmultiplica, { sumar, restar, dividir } from './funciones.js' // esta es la mejor manera de importar las funciones que nos ofrecen las dependencias/librerías
+    
+                const resultadoSumar = sumar(25, 30)
+                const resultadoRestar = restar(25, 30)
+                const resultadoMultiplicar = agusmultiplica(25, 30)
+                const resultadoDividir = dividir(100, 10)
+                console.log(resultadoSumar + '\n' + resultadoRestar + '\n' + resultadoMultiplicar + '\n' + resultadoDividir);
+                  </code>
+                </pre>   								
+              </div>
+    <!-- Fin bloque desplegable interior -->
+    
+    <!-- Bloque desplegable interior -->
+              <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion2-37').toggle();">	
+                <h3>37. Fetch API con Promises</h3>			
+                <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+              </div>
+              <div id="seccion2-37" style="display:none">
+                <p>Proporciona una interfaz para poder recuperar recursos y obtener datos a través de la red. Es la versión moderna de las dos tecnologías 
+                  XMLHttpRequest(sintaxis muy difícil) y $.ajax. Usaremos esta herramienta {JSON Placeholder} 
+                  <a class="txt-rojo" href="https://jsonplaceholder.typicode.com" target="_blank">https://jsonplaceholder.typicode.com</a>. Podemos ver este ejemplo de uso en esa misma url:</p>
+                <pre>
+                  <code class="language-js">
+                    fetch('https://jsonplaceholder.typicode.com/todos/1')
+                    .then(response => response.json())
+                    .then(json => console.log(json))
+                  </code>
+                </pre>
+                
+                <p>Vamos a trabajar con el json de 'Comments' <a href="https://jsonplaceholder.typicode.com/comments" class="blank">https://jsonplaceholder.typicode.com/comments</a>. Un json es muy parecido a un XML nos da unos datos con una estructura que podemos renderizar en nuestras aplicaciones.</p>
+                <p>También con FetchAPI es posible obtener datos de un archivo .txt</p>
+                <p>Para usarlo tenemos dos opciones, o ponerlo directamente en el código o meterlo en una función y mandarla llamar.<br>
+                fetch() utiliza promises, que fueron agregados en la versión de js moderno ECMAScript6. Podemos pensar en los promises como un objeto que va a estar disponible a futuro o no. Los promises cuentan con varios pasos y también con varios estados. Esos pasos se representan por una sintaxis que es <span class="destacado">.then()</span> siendo la lectura algo como "quiero obtener los datos de esta url, entonces tengo mi respuesta...voy a hacer..." El .then toma automáticamente un callback, una función que podemos nombrar como queramos <strong>then((response) => {})</strong></p>
+                <pre>
+                  <code class="language-js">								
+                    fetch(url)
+                      .then((response) => {
+                        console.log(response)
+                      })
+                  </code>
+                </pre>
+                <p>En la respuesta de la consola vemos en el Response que el ok es true y el status 200 --> la url existe (si no existiera tendríamos false y 404). Type cors lo veremos mas adelante, es complicado. Podremos ver como personalizar nuestros estados. Las APIS se comunican entre sí con estados numéricos, también los veremos en detalle.</p>
+    
+                <img src="./src/assets/img/37-1.png" alt="">
+    
+                <p>Vemos qe no aparecen los datos por ningún sitio, pero si abrimos el prototype sí vemos los métodos <strong>json() y text()</strong>, que sirven apra decirle qué tipo de datos es el que estoy obteniendo (o un txt o un json). Como es un json le especificamos en el callback que retorne la respuesta como json <span class="destacado">return response.json()</span> lo cual nos dará acceso a otro promise con el que obtendremos los datos:</p>
+    
+                <pre><code class="language-js">
+                  fetch(url)
+                    .then((response) => {									
+                      return response.json()
+                    })
+                    .then(data => {
+                      console.log(data)
+                    })							
+                </code></pre>
+                
+                <p>Como vemos tenemos un .then() y otro .then() y así funcionan los promises, estamos llamando a esa url y no sabemos si vamos a poder obtener los datos o no. En este caso esta url que estamos usando es pública para aprender pero no podemos obtener los datos de por ejemplo instagram, youtubbe... solo haciendo un llamado a una url, en esos casos va a fallar la petición. Como no sabemos el tipo de respuesta que vamos a tener por eso tenemos estos pasos: </p>
+                <ul>
+                  <li>trato de conectarme a un servidor</li>
+                  <li>entonces, si tengo respuesta la quiero como json y estos comentarios son 500 (el tiempo de respuesta no va a ser igual si tengo 2 respuestas que si tengo 500)</li>
+                  <li>una vez que finalice de ejecutarse el código del primer promise, tengo acceso a los datos con el segundo</li>
+                </ul>	
+    
+                <p>Si la url fuera incorrecta, recordemos que el ok saldrá a false, response 200 y tendremos un segundo objeto vacío (del 2º promise). Podemos añadir un catch para intentar especificar algo en caso de error, sin embargo como veremos en la consola no se ejecuta el console log del catch ¿por qué? porque con el fetch() así especificado, el catch solo se ejecuta cuando hay problemas de red (podemos forzarlo quitando la wifi).</p>
+    
+                <pre><code class="language-js">
+                  const url = 'https://jsonplaceholder.typicode.com/urlerronea'
+                  fetch(url)
+                    .then((response) => {	
+                      //console.log(response)								
+                      return response.json()
+                    })
+                    .then((data) => {
+                      console.log(data)
+                    })	
+                    .catch(error=>{
+                      console.log(error)
+                    })
+                </code></pre>
+    
+                <p>Hagamos lo siguiente mejor (if para cuando hay respuesta y un throw new Error para cuando falle) y como veremos, el nuevo error pasará al .catch(). Aprovechamos las funciones de flecha para simplificar la sintaxis del 2º promise y el catch:</p>
+    
+                <pre><code class="language-js">
+                  fetch(url)
+                    .then((response) => {	
+                      //console.log(response)
+                      if(response.ok){								
+                        return response.json()
+                      } 
+                      throw new Error('Hubo un error')
+                    })
+                    .then(data => console.log(data))	
+                    .catch(error=> console.log(error))								
+                </code></pre>
+    
+                <img src="./src/assets/img/37-2.png" alt="">
+    
+                <p>Como decíamos podemos usarlo sin función como acabamos de ver en el ejemplo anterior o también dentro de una función que mandaremos llamar. Funcionaría igual y este sería el código:</p>
+                <pre>
+                  <code class="language-js">
+                    const url = 'https://jsonplaceholder.typicode.com/comments'
+    
+                    const consultarAPI = () => {
+                      fetch(url)
+                        .then((response) => {	
+                          //console.log(response)
+                          if(response.ok){								
+                            return response.json()
+                          } 
+                          throw new Error('Hubo un error')
+                        })
+                        .then(data => console.log(data))	
+                        .catch(error=> console.log(error.message))
+                    }
+                    consultarAPI()
+                  </code>
+                </pre>
+    
+                <p>Fetch API con promises es una gran mejora pero Async Await lo hace aún más simple</p>						
+              </div>
+    <!-- Fin bloque desplegable interior -->
+    
+    
+    <!-- Bloque desplegable interior-->
+              <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion2-38').toggle();">	
+                <h3>38. Fetch API con Async / Await</h3>			
+                <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+              </div>
+              <div id="seccion2-38" style="display:none">
+                <p class="titulo">Fetch con Async / Await <strong>sí requiere una función</strong>, que puede ser un arrow function o un function declaration. A continuación escribiremos código con ambas. En este caso ha de ser asíncrona (por eso requiere una función). Para el caso de función de flecha colocamos la palabra <span class="destacado">async</span> antes de los paréntesis, lo que convierte a la función en asíncrona y nos da acceso a la otra propiedad: <span class="destacado">await</span> que son los que reemplazan a los .then() del ejemplo anterior.</p>
+                
+                <p>El await (como antes los then) espera a que se realice la petición, ocurra una respuesta y vuelve a utilizar otro await para obtener los datos. Tengamos en cuenta que la conexión a una API externa dependerá del tipo de servidor (servidor gratis vs servidor de 1000$/mes) y la conexión que tengamos; y como decíamos leer los datos no va a ser lo mismo leer 2 registros que 500. Los await esperan que finalice de ejecutarse ese código para ir a la siguiente línea.</p>		
+    
+                <p>La sintaxis es un poco diferente y se lee más como "de derecha a izquierda"</p>
+    
+                <pre><code class="language-js">
+                  const url = 'https://jsonplaceholder.typicode.com/comments'
+                  /*
+                  fetch(url)
+                    .then((response) => {	
+                      //console.log(response)
+                      if(response.ok){								
+                        return response.json()
+                      } 
+                      throw new Error('Hubo un error')
+                    })
+                    .then(data => console.log(data))	
+                    .catch(error=> console.log(error.message))
+                  */
+                  const consultarAPI = async () => {
+                    const response = await fetch(url)
+                    const data = await response.json()
+                    console.log(data)
+                  }
+                  consultarAPI()
+                </code></pre>
+    
+                <p>Estos dos códigos hacen lo mismo, pero hay un detalle. Con Async / Await no hay forma de catchear un posible error. Por lo que normalmente cuando usamos Async / Await se usa junto a algo llamado Try Catch. En el caso de que cualquiera de las acciones indicadas en el Try falle, ejecuta lo que especifiquemos en el catch:</p>
+    
+                <pre><code class="language-js">
+                  const url = 'https://jsonplaceholder.typicode.com/comments'
+                  const consultarAPI = async () => {
+                    try {
+                      const response = await fetch(url)
+                      if(!response.ok){
+                        throw new Error('Hubo un error')
+                      }
+                      const data = await response.json()
+                      console.log(data)
+                    } catch (error) {
+                      console.log(error)
+                    }
+                  }
+                  consultarAPI()
+                </code></pre>						
+              </div>
+    <!-- Fin bloque desplegable interior-->
+    
+    
+    <!-- Bloque desplegable interior-->
+              <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion2-39').toggle();">	
+                <h3>39. Medir performance y cómo manejar múltiples consultas</h3>			
+                <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+              </div>
+              <div id="seccion2-39" style="display:none">
+                <p>JS tiene una API para medir la performance de nuestro código. Más de una vez vamos a tener distintos códigos que hagan lo mismo y vamos a querer medir cual es la versión más rápida. Utilizamos para ello <span class="destacado">performance.now()</span>. Lo usamos al principio y al final de nuestro try y sacamos por consola la diferencia en ms. Veremos que en función de la url que usemos (que carga más o menos datos) ese rendimiento en ms varía.</p>
+                <pre>
+                  <code class="language-js">
+                    //Performance y múltiple Async Await
+                    const url = 'https://jsonplaceholder.typicode.com/comments'
+                    const url2 = 'https://jsonplaceholder.typicode.com/todos'
+                    const url3 = 'https://jsonplaceholder.typicode.com/photos'
+                    const consultarAPI = async () => {
+                      try {
+                        const inicio = performance.now()			
+                        const response = await fetch(url3)
+                        if(!response.ok){
+                          throw new Error('Hubo un error')
+                        }
+                        const data = await response.json()
+                        console.log(data)
+                    
+                        const fin = performance.now()			
+                        console.log(`El resultado es: ${fin - inicio} ms`)
+                      } catch (error) {
+                        console.log(error)
+                      }
+                    }
+                    consultarAPI()
+                  </code>
+                </pre>
+                <p>Una aplicación real obtiene datos de muchos sitios distintos. Tal vez nuestra empresa tenga un rp, crm, e-commerce, sistemas de facturación... tal vez estamos creando algo que consume datos de diferentes lugares. Un error muy común es hacer lo siguiente, supongamos que consumimos los 3 "endpoints" de esta manera, vemos la consola (izquierda):</p>
+                <pre>
+                  <code class="language-js">
+                    //Performance y múltiple Async Await
+                    const url = 'https://jsonplaceholder.typicode.com/comments'
+                    const url2 = 'https://jsonplaceholder.typicode.com/todos'
+                    const url3 = 'https://jsonplaceholder.typicode.com/photos'
+                    const consultarAPI = async () => {
+                      try {
+                        const inicio = performance.now()	
+    
+                        const response = await fetch(url)				
+                        const data = await response.json()
+                        console.log(data)
+                    
+                        const response2 = await fetch(url2)				
+                        const data2 = await response2.json()
+                        console.log(data2)
+                    
+                        const response3 = await fetch(url3)				
+                        const data3 = await response3.json()
+                        console.log(data3)
+                    
+                        const fin = performance.now()			
+                        console.log(`El resultado es: ${fin - inicio} ms`)
+                      } catch (error) {
+                        console.log(error)
+                      }
+                    }
+                    consultarAPI()
+                  </code>
+                </pre>
+                <p>usar así los awaits esperando a que cada llamada anterior se resuelva va a hacer que nuestras apps sean más lentas. <strong>¡OJO! va a a habver ocasiones en que realmente querramos llamarlas así secuencialmente porque el siguiente procesado necesite los datos anteriores</strong>. Pero veamos cómo hacerlo en caso de que queramos procesar a la vez todas las llamadas y no secuencialmente. Emplearemos <span class="destacado">Promise.all()</span>:</p>
+    
+                <pre><code class="language-js">
+                  const consultarAPI2 = async () =>{
+                    try {
+                      const inicio = performance.now()
+                  
+                      const [response, response2, response3] = await Promise.all([fetch(url),fetch(url2),fetch(url3)])
+                      const [data, data2, data3] = await Promise.all([response.json(),response2.json(),response3.json()])			  
+                      console.log(data)     
+                      console.log(data2)    
+                      console.log(data3)		
+                  
+                      const fin = performance.now()
+                  
+                      console.log(`El resultado de la SEGUNDA función es: ${fin - inicio} ms`)
+                    } catch (error) {
+                      console.log(error)
+                    }
+                  }
+                  consultarAPI2()
+                </code></pre>
+    
+                <p>Si vemos en la consola (derecha) el resultado de ejecutar las dos funciones <strong>(ver 39-performance.js)</strong> veremos que siempre en cada ejecución, la primera que termina (por tanto con mejor rendimiento, termina en menos ms) es la segunda función.</p>	
+                
+                <img src="./src/assets/img/39-1.png" alt="">
+    
+                
+              </div>
+    <!-- Fin bloque desplegable interior-->
+    
+    
+    <!-- Bloque desplegable interior-->
+              <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion2-40').toggle();">	
+        <h3>40. DOM - Selectores</h3>			
+        <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+              </div>
+              <div id="seccion2-40" style="display:none">
+                <p>Va a ser corto porque de hecho la forma de escribir código de DOM en JS es un poco diferente a como React lo maneja porque tiene algo llamado JSX que simplifica mucho. Pero siempre viene bien aprender o refrescar. Abrimos el DOM.html y colocamos el script:</p>
+                <pre>
+                  <code class="language-html">
+                    &lt;script src=&quot;js/40-DOM-selectores.js&quot;&gt;&lt;/script&gt;
+                  </code>
+                </pre>
+    
+                <p><strong>Selectores</strong>. Todas las interacciones que haces en el DOM con js requieren un selector. Es como en CSS seleccionas un elemento y empiezas a aplicar propiedades css para cambiar apariencia. En JS vas a aseleccionar algún elemento de tu página y vas a regresar operaciones por medio de js para agregar, modificar o eliminar atributos.</p>		
+    
+                <p>queremos seleccionar este elemento del DOM.html:</p>
+    
+                <pre><code class="language-html">
+                  &lt;h1 class=&quot;text-4xl font-black heading&quot;&gt;JavaScript Intermedio - Manipulaci&oacute;n de DOM &lt;/h1&gt;
+                </code></pre>
+    
+                <p>iniciamos con <span class="destacado">document</span>(podemos poner en consola document y vemos que es el documento entero.) De hecho podemos poner en consola document.title y vemos que saca el título de la página. pero para otro tipo de elementos de dentro del html hemos de utilizar <span class="destacado">querySelector()</span>. También comenta los que conocemos <strong>.getElementById</strong>, <strong>.getElementsByTagName</strong>, etc... pero hoy día se recomienda utilizar más la sintaxis con querySelector() porque tenemos acceso a selectores muy similares a los de css (.clase, #id, :last-of-type, :nth-child(),...), y sabiendo css los mismos selectores aplican para seleccionar elementos en js. Como hay selectores muy complejos, podremos seleccionar prácticamente cualquier elemento.</p>
+    
+                <p>Si hacemos un console.log(heading), vemos que nos pone el elemento h1 como está con todo lo que contiene tanto el tag en sí como su contenido. Así seleccionado un elemento tenemos acceso a sus atributos, lo que conocemos como el DOM. El DOM podemos modificarlo y recorrerlo.</p>
+    
+                <div class="flex">
+                  <pre><code class="language-js">
+                    const heading = document.querySelector('.heading')
+                    console.log(heading)
+                    console.log(heading.tagName)
+                    console.log(heading.textContent)
+                    console.log(heading.classList)
+                  </code></pre>
+    
+                  <img src="./src/assets/img/40-1.png" alt="">
+                </div>
+    
+                <p>Veamos ahora el <span class="destacado">querySelectorAll()</span>. La principal diferencia es que trae <strong>TODOS</strong> los elementos que tengan correspondencia con ese selector, mientras que querySelector() solo trae uno (aunque haya más que correspondan con el selector indicado entre paréntesis, solo trae el primero que encuentra)</p> 
+                <pre><code class="language-html">
+                  &lt;nav class=&quot;navegacion my-5 flex gap-5&quot;&gt;
+                    &lt;a href=&quot;&num;&quot;&gt;Enlace 1&lt;/a&gt;
+                    &lt;a href=&quot;&num;&quot;&gt;Enlace 2&lt;/a&gt;
+                    &lt;a href=&quot;&num;&quot;&gt;Enlace 3&lt;/a&gt;
+                    &lt;a href=&quot;&num;&quot;&gt;Enlace 4&lt;/a&gt;
+                  &lt;/nav&gt;		
+                </code></pre>
+    
+                <div class="flex">
+                  <pre><code class="language-js">
+                    const enlaces = document.querySelectorAll('.navegacion a')
+                    console.log(enlaces)
+                  </code></pre>
+    
+                  <img src="./src/assets/img/40-2.png" alt="">
+                </div>
+    
+                
+              </div>
+    <!-- Fin bloque desplegable interior-->
+    
+    <!-- Bloque desplegable interior-->
+              <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion2-41').toggle();">	
+                <h3>41. Manipular elementos HTML con JS</h3>			
+                <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+              </div>
+              <div id="seccion2-41" style="display:none">
+                <p>Veamos algunos ejemplos</p>
+                <pre>
+                  <code class="language-js">
+                    const heading = document.querySelector('.heading')
+                    const enlaces = document.querySelectorAll('.navegacion a')
+                    //console.log(heading.textContent)
+                    
+                    heading.textContent = 'Un nuevo Heading'
+                    heading.id = 'Un nuevo id'
+                    heading.removeAttribute('id')
+                    heading.removeAttribute('class')
+                  </code>
+                </pre>
+    
+                <p>Es muy comun que muchos formularios tengan ya un value por default:</p>		
+    
+                <pre><code class="language-js">
+                  const inputNombre = document.querySelector('#nombre')
+    
+                  //normalmente los atributos de los tags HTML se llaman igual los atributos de JS
+                  inputNombre.value = 'Un nuevo valor'
+                  //aunque no siempre, por ejemplo las clases o los atributos personalizados data-nombre="input"
+                  console.log(inputNombre.classList)
+                  inputNombre.dataset.nombre = "input"
+                  
+                  //Veamos como manipular colecciones. hemos de pasarle la posición o iterar sobre los elementos
+                  console.log(enlaces)
+                  enlaces.forEach( enlace => enlace.textContent = 'Nuevo Enlace')
+                </code></pre>
+              </div>
+    <!-- Fin bloque desplegable interior-->
+    
+    <!-- Bloque desplegable interior-->
+              <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion2-42').toggle();">	
+                <h3>42. DOM eventos con click - <a href="https://developer.mozilla.org/es/docs/Web/API/Element" class="txt-negro" target="blank">Enlace MDN Element</a></h3>			
+                <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+              </div>
+              <div id="seccion2-42" style="display:none">
+                <p>Una de las características ppales de JS es que podamos añadir interacción a nuestras aplicaciones/sitios web. Veamos algunos eventos que nos van a permitir eso.</p>
+                <pre>
+                  <code class="language-js">
+                  const heading = document.querySelector('.heading')
+                  //vimos como podemos cambiar por ejemplo el contenido del tag por un nuevo título
+                  heading.textContent = 'nuevo título'
+                  </code>
+                </pre>
+                <p>Supongamos que quiero esperar a que por ejemplo alguien presione en el titulo para modificarlo. <strong>Una vez que seleccionas un elemento tienes acceso a registrarle un evento con el evento <span class="destacado">addEventListener()</span></strong>. Veamos el siguiente link https://developer.mozilla.org/es/docs/Web/API/Element, en la parte derecha podemos ver los eventos. Los hay de todo tipo, del mouse, de animaciones, eventos cuando copias algo con el teclado,... </p>	
+                
+                <p>esto es lo que se conoce como un callback, espera que ocurra el evento del primer argumento y cuando ocurre se dispara la función indicada en el segundo argumento.</p>
+    
+                <pre><code class="language-js">
+                  heading.addEventListener('click', () => {
+                    heading.textContent = 'Al dar click'
+                  })
+                  heading.addEventListener('dblclick', () => {
+                    heading.textContent = 'Al dar doble click'
+                  })
+                  heading.addEventListener('mouseenter', () => {
+                    heading.textContent = 'Al entrar'
+                  })
+                  heading.addEventListener('mouseleave', () => {
+                    heading.textContent = 'Al salir'
+                  })
+                </code></pre>
+    
+                <p>Para añadir addEventListener a los integrantes de un document.querySelectorAll utilizamos el forEach:</p> 
+    
+                <pre><code class="language-js">
+                  const enlaces = document.querySelectorAll('.navegacion a')
+                  enlaces.forEach( enlace => {
+                    enlace.addEventListener('click', () => {
+                      console.log('diste click en un enlace')
+                    })
+                  })
+                </code></pre>	
+    
+                <p>Vemos que al pulsar cada link la página nos da un salto. El elemento enlace tiene una acción por default que es intentar ir la url indicada en el href pero en nuestro caso no hay nada tenemos un #. Veamos. A la función que se dispara al realizar el evento le podemos pasar un parámetro que llamamos <strong>e, evento, evt, ...</strong> como queramos, y si hacemos un console log de ello vemos que aparece una gran cantida de información sobre el evento que se está llevando a cabo. Si scrolleamos un poco hacia abajo llegamos al "target" que nos da la información de qué es lo que ha disparado ese evento. Hacemos un console.log de e.target y nos da información de qué es a lo que hemos dado click:</p>
+                <pre><code class="language-js">
+                  const enlaces = document.querySelectorAll('.navegacion a')
+                  enlaces.forEach( enlace => {
+                    enlace.addEventListener('click', (e) => {
+                      console.log(e.target)
+                      console.log('diste click en un enlace')
+                      e.preventDefault()
+                      e.target.textContent="diste click"
+                    })
+                  })
+                </code></pre>
+                <img src="./src/assets/img/42-1.png" alt="">
+    
+                <p>cuadno enviamos un formulario hay una acción por default, cuando haces click en un botón hay una acción por default, si presionas un heading o una imagen no hay una acción por default... pero los links es uno d elos elementos que sí tiene una acción por default. usamos <span class="destacado">e.preventDefault()</span> que básicamente le dice al link "ok, tú tines un comportamiento que es abrir una url. No lo hagas.</p>
+    
+                <p>Por tanto nosotros mediante código podemos modificar las acciones a realizar, por ejemplo en un formulario, que en vez de enviarse haga validaciones. Importante:</p>
+                <ul>
+                  <li><span class="destacado">e.preventDefault()</span> nos va a permitir <strong>prevenir la accion por defecto de algún elemento html que realiza algo</strong></li>
+                  <li>ese <span class="destacado">e</span> reporta <strong>el evento que se está registrando</strong>, en nuestro ejemplo el click </li>
+                  <li>el <span class="destacado">e.target</span> es <strong>lo que dispara ese evento</strong>, en nuestro ejemplo un enlace</li>
+                </ul>
+              </div>
+    <!-- Fin bloque desplegable interior-->
+    
+    <!-- Bloque desplegable interior-->
+              <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion2-43').toggle();">	
+                <h3>43. DOM eventos en inputs</h3>			
+                <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+              </div>
+              <div id="seccion2-43" style="display:none">
+                <p>En nuestro DOM.html tenemos estos dos inputs:</p>
+                <pre>
+                  <code class="language-html">
+                    &lt;input type=&quot;text&quot; placeholder=&quot;Tu Nombre&quot; id=&quot;nombre&quot; class=&quot;p-2 rounded-lg text-sm&quot;&gt;
+    
+                    &lt;input type=&quot;password&quot; placeholder=&quot;Tu Password&quot; id=&quot;password&quot; class=&quot;p-2 rounded-lg text-sm&quot;&gt;
+                  </code>
+                </pre>
+    
+                <p>Queremos leer lo que el usuario va escribiendo en el input de nombre. registramos un addEventListener()</p>		
+                <pre>
+                  <code class="language-js">
+                    const inputNombre = document.querySelector('#nombre')
+                    inputNombre.addEventListener('input', (e) => {
+                      console.log('escribiendo')
+                      console.log(e.target)
+                      console.log(e.target.value)
+                      console.log(e.target.value.length)
+                    })		
+                  </code>
+                </pre>
+                <p>Por defecto en un input de tipo password el contenido sale ofuscado. Queremos ver lo que escribimos durante poco tiempo y luego que se vuelva a ofuscar.</p>
+                <pre>
+                  <code class="language-js">
+                    const inputPassword = document.querySelector('#password')
+                    inputPassword.addEventListener('input', functionPassword)
+                    function functionPassword() {
+                      inputPassword.type = "text"
+                      setTimeout(() => {
+                        inputPassword.type = "password"
+                      }, 500)
+                    }		
+                  </code>
+                </pre>
+                
+              </div>
+    <!-- Fin bloque desplegable interior-->
+    
+    
+    <!-- Bloque desplegable interior-->
+              <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion2-43').toggle();">	
+                <h3>44. Eventos en Submit. 45. Validando formulario y mostrando alertas.</h3>			
+                <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+              </div>
+              <div id="seccion2-43" style="display:none">
+                <p>En nuestro formulario tenemos este input de tipo submit. El evento de submit se llama cuando alguien presiona sobre el formulario para enviarlo:</p>
+                <pre>
+                  <code class="language-html">
+                    &lt;input type=&quot;submit&quot; value=&quot;Iniciar Sesi&oacute;n&quot;
+                    class=&quot;bg-cyan-500 hover:bg-cyan-600 text-sm uppercase p-2 font-black text-white cursor-pointer&quot;&gt;
+                  </code>
+                </pre>
+    
+                <p>Veamos un ejemplo de una validación sencilla:</p>
+                <pre>
+                  <code class="language-js">
+                    const formulario = document.querySelector('#formulario')
+                    formulario.addEventListener('submit', e => {
+                      e.preventDefault
+                    
+                      const nombre = document.querySelector('#nombre').value
+                      const password = document.querySelector('#password').value
+                    
+                      if(nombre === '' || password === ''){
+                        console.log('Todos los campos son obligatorios')
+                      } else {
+                        console.log('Todo bien, iniciando sesión')
+                      }
+                      // console.log('Enviando formulario')
+                      // console.log(nombre)
+                      // console.log(password)    
+                    })
+                  </code>
+                </pre>
+    
+                <p>Creamos con JS un elemento html div al que vamos a añadir unas clases de tailwindcss para darle formato.</p>
+    
+                <p>Hemos de seleccionar siempre un elemento de nuestro document en el que queremos renderizar lo que estamos creando. Como estamos creando un div de alerta de validación, tiene sentido que lo queramos mostrar en el formulario. Por tanto agregamos la alerta como un hijo del formulario <span class="destacado">formulario.appendChild(alerta)</span></p>
+                <pre>
+                  <code class="language-js">
+                    const formulario = document.querySelector('#formulario')
+                    formulario.addEventListener('submit', e => {
+                      e.preventDefault
+                      const nombre = document.querySelector('#nombre').value
+                      const password = document.querySelector('#password').value
+                      
+                      //Prevenir nuevas alertas
+                      const alertaPrevia = document.querySelector('.alerta')
+                      /*if (alertaPrevia){
+                        alertaPrevia.remove();
+                      }*/
+                      alertaPrevia?.remove(); //comprobamos si existe con el optional chaining
+    
+                      const alerta = document.createElement('DIV')
+                      //alerta.textContent = 'contenido de alerta'
+                      //alerta.classList = 'clase-1 clase-2' //se pueden añadir así clases de estilo pero se recomienda hacerlo usando .add()
+                      //alerta.classList.add('clase-1','clase-2','clase-3')
+                      //añadamos clases de Tailwind css
+                      alerta.classList.add('alerta','text-white','uppercase', 'text-sm', 'text-center', 'p-2', 'font-black')   
+                  
+                      if(nombre === '' || password === ''){
+                        alerta.textContent = 'Todos los campos son obligatorios'
+                        alerta.classList.add('bg-red-500')
+                      } else {
+                        alerta.textContent = 'Todo bien, iniciando sesión'
+                        alerta.classList.add('bg-green-500')
+                      }
+                      //para eliminar la alerta pasados 2sg
+                      setTimeout(() => {
+                        alerta.remove()
+                      }, 2000);
+                      //console.log(alerta)
+                      formulario.appendChild(alerta)
+                    })
+                  </code>
+                </pre>	
+              </div>
+    <!-- Fin bloque desplegable interior-->
+              
+            </div>			
+          </div><!--Fin row-->
+            
+            
+          
+        </div>
+        <!-- Fin div colapsable-->
+    
+    
+      </div>
+    </div>	
+    <!-- SECCION 2 -->	
+
+    <!-- SECCION 3 y 4-->
+    <div class="contenedor w-80 w-96-s background esp-5-bottom">		
+      <div class="row">
+        <div class="flex center-vertical esp-25-top pointer desplegable space-between pointer" onclick="$('#seccion3').toggle();">	
+          <h2>Sección 3 y 4: PROYECTO: Carrito de compras. Introducción / Herramientas / Creando el proyecto en Windows</h2>				
+          <span class="cambiaicono ico_chevron_down esp-10-right" title=""></span>
+        </div>
+        
+        <div id="seccion3" style="display: none">
+            
+          <div class="row">
+            <div class="col-12">	
+              
+              
+              
+              <!-- Bloque desplegable interior-->
+              <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion3-46').toggle();">	
+                <h3>46. Introducción. El proyecto a construir GuitarLA</h3>			
+                <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+              </div>
+              <div id="seccion3-46" style="display:none">
+                <p class="titulo">Proyecto carrito de compras GuitarLA</p>
+    
+                <p>En este proyecto estaremos aprendiendo los fundamentos de React: <span class="destacado">Componentes, Eventos y State</span>, mientras creas un carrito de compras real con cantidades, precios, y más, tomaremos este mismo carrito para mostrarte como crear tus propios Hooks y como transformarlo a código de TypeScript y cuales son sus beneficios. Carrito de compra persistente sincronizando con localStorage (aprenderemos todas esas acciones agregar elementos, cambiarlos, cambiar cantidades, vaciar carrito...)</p>							
+                <img src="./src/assets/img/s1-01.jpg" width="" height="" alt=""/> 
+                
+              </div>
+              <!-- Fin bloque desplegable interior-->
+    
+    
+              <!-- Bloque desplegable interior-->
+              <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion3-47').toggle();">	
+                <h3>47. Herramientas para crear aplicaciones en React.js</h3>			
+                <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+              </div>
+              <div id="seccion3-47" style="display: none;">
+                <p class="titulo">Tecnologías para crear aplicaciones en React</p>
+                <p>Permiten Crear una App En React en Minutos. Existen muchas formas de crear una app en React, incluso tu puedes crear tu propio ambiente de desarrollo con herramientas como Babel, Parcel, Webpack, Vite, etc</p>
+    
+                <p>Pero también existe una gran cantidad de herramientas ya disponibles para crear aplicaciones en React en minutos sin conocer esta configuración</p>
+                
+                
+                <p class="titulo">Ventajas de utilizar una herrmaienta ya existente: <strong>La mayoría de Herramientas ya existentes para crear aplicaciones en React son estables y siguen un enfoque muy claro: No tener que preocuparte por la configuración.</strong> Tú puedes crear tu propio ambiente de desarrollo pero tienes que asegurarte de que cada versión nueva de React, cada version de diferentes librerias sea compatible con tu proyecto y despues tienes que encontrar una forma de compilar código de css (sass etc) ...entonces vamos a gasta r más tiempo en solucionar este tipo de cosas que tirando código. Por eso se recomienda usar una herramienta ya existente</p>
+    
+                <p>Cada una de estas herramientas ya existentes va desde básicas hasta avanzadas. Requieren tener instalado <span class="destacado">Node.js (NPM) o YARN</span>. Existen otros entornos hoy día como <strong>¿bum?</strong> Node.js con npm es bastante estable y es la que estaremos usando</p>
+                
+                <p>Opciones modernas para crear Apps en React. Los más populares hoy en día son<span class="destacado">Vite</span> y <span class="destacado">Next.js</span>. También Remix Run y Astro (que usaba en versiones anteriores del curso. Remix Run fue adquirido recientemente por shopify y están haciendo muchos cambios y no está listo)</p>
+                
+                <p class="titulo">Recomendaciones del equipo de React</p>
+    
+                <p>En su documentación recomiendan comenzar por Next.js o Remix para nuevos proyectos. Entonces ¿ya no se deben crear proyectos von Vite? Cuando creas proyectos con Vite tendrás que instalar dependencias para Routing, Consultas HTTP y más (herramientas como Next.js y Remix ya lo tienen incluido)</p>
+    
+                <p><strong>Usualmente siempre hay que aprender primero la herramienta/lenguage de programación y después el framework por lo que esa recomendación es un poco rara, porque cuando estes creando un proyecto ya sea en Next.js o Remix tal vez estés escribiendo un código y no sabes si eso es React o si eso es Next. Y esa es la explicación de por qué los proyectos en este curso utilizan Vite y al final tendremos un proyecto con Next quedando más claro qué es React y qué es Next.js</strong></p>						
+              </div>
+              <!-- Fin bloque desplegable interior-->
+    
+              <!-- Bloque desplegable interior-->
+              <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion4-48').toggle();">	
+                <h3>48. Instalando node y npm</h3>			
+                <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+              </div>
+              <div id="seccion4-48" style="display:none">
+                <p><a class="rojo" href="https://nodejs.org/es/" target="_blank">https://nodejs.org/es/</a> Requerimos node para crear nuestros proyectos pero también para instalar dependencias con npm</p>	
+              
+                <p>Una vez instalado abrimos la terminal y comprobamos las versiones del entorno(node.js) <span class="destacado">node -v</span> y de las dependencias(npm) <span class="destacado">npm -v</span></p>
+                
+              </div>
+              <!-- Fin bloque desplegable interior-->
+    
+    
+              <!-- Bloque desplegable interior-->
+              <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion4-49').toggle();">	
+                <h3>49. Creando el primer proyecto</h3>			
+                <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+              </div>
+              <div id="seccion4-49" style="display:none">
+                <p>Abrimos terminal, vamos al escritorio (que es donde voy a crear los proyectos) y ponemos <span class="destacado">npm create vite@latest</span> (si es la primera vez nos pedirá instalar la dependencia de vite le decimos que "y"). A continuación nos pide nombre y lo llamamos <strong>guitarla</strong>. A continuación nos pide que elijamos framework (Vanilla, Vue, <strong>React</strong>, Preact, Lit, Svelte, Solid, Qwik, Others) y elegimos React. Nos pide elegir variante, normalmente y como él ha trabajado este curso es <strong>Typescript + SWC</strong>(SWC es un compilador nuevo de los de Vite basado en Ros, muy rápido)  pero al ser el primer proyecto elegiremos <strong>Javascript + SWC</strong>. Remix es una alternativa a Next.JS de los creadores de shopify pero este curso no incluye remix porque la compra fue hace poco y están modificando/agregando muchas cosas</p>
+              
+              <img src="./src/assets/img/49-1.png" alt="">
+    
+              <p>ejecutamos los 3 comandos que nos indica para situarnos en la nueva carpeta del proyecto <span class="destacado">cd guitarla</span>, instalar las dependencias <span class="destacado">npm install</span>y arrancar el proyecto <span class="destacado">npm run dev</span></p>
+    
+              <img src="./src/assets/img/49-2.png" alt="">
+    
+              <p>Cuando generamos un proyecto en React con Vite vemos que la estructura por defecto es muy simple:</p>					
+              <ul>
+                <li><strong>carpeta "node_modules":</strong> las dependencias del proyecto. Va creciendo conforme instalamos más dependencias</li>
+                <li><strong>carpeta public:</strong> colocaremos por ej imagenes que seran accesibles para los visitantes de nuestro sitio web o app</li>
+                <li><strong>carpeta src:</strong> colocaremos todo nuestro código. Si revisamos la página de inicio de nuestro proyecto <strong>http://localhost:5173/</strong> nos dice: <strong>Edit src/App.jsx and save to test HMR</strong>. Así que abramos ese jsx, que es la página de inicio. 
+                  <img src="./src/assets/img/49-3.png" alt=""><br>
+                  En esta carpeta <strong>src</strong> es donde vamos a pasar la mayor parte del tiempo escribiendo código (colocaremos nuestros customs hooks, librerías, componentes...).
+                </li>
+                <li>.gitignore: va a ignorar algunos archivos</li>
+                <li><strong>index.html:</strong> básicamente lo que hace es inyectar React en el div <code class="language-html">&lt;div id="root"&gt;&lt;/div&gt;</code>. Si abrimos el <strong>main.jsx</strong> vemos el siguiente código donde se busca ese div con id="root" donde monta toda la aplicación de React. En el index.html podemos poner algún background, agregar algunos tags mas de html que sean importantes para nuestro proyecto, pero no vamos a escribir código html ahí habitualmente.
+                <pre><code class="language-js">
+                  createRoot(document.getElementById(&apos;root&apos;)).render(
+                    &lt;StrictMode&gt;
+                      &lt;App /&gt;
+                    &lt;/StrictMode&gt;&comma;
+                    )						
+                </code></pre>
+                </li>
+                <li><strong>package.json:</strong> ahí está el comando de "dev" que ejecutamos para arrancar y tiene algunos comandos para construir proyecto, previsualizarlo, y es donde se instalan las dependencias del proyecto y las de desarrollo. Al tener esas dependencias y sus versiones indicadas nos aseguramos que el equipo de trabajo sepa qué depndencias hay que tener para funcionar correctamente.</li>
+              </ul>
+              
+                
+              </div>
+              <!-- Fin bloque desplegable interior-->
+    
+                  
+            </div>			
+          </div><!--Fin row-->
+    
+        </div>
+        <!-- Fin div colapsable-->
+    
+    
+      </div>
+    </div>	
+    <!-- FIN SECCION 3 y 4-->	
+    
+    
+    <!-- SECCION 00 -->
+    <div class="contenedor w-80 w-96-s background esp-5-bottom">
+      <div class="row">
+        <div class="flex center-vertical esp-25-top pointer desplegable space-between pointer" onclick="$('#seccion0').toggle();">
+          <h2>Apuntes curso React</h2>
+          <span class="cambiaicono ico_chevron_down esp-10-right" title=""></span>
+        </div>
+
+        <div id="seccion0" style="display:none">
+          <div class="row">
+            <div class="col-12">
+
+              <p>Aprende React con TypeScript paso a paso creando proyectos del mundo real.</p>
+        
+              <p>Aprende React con proyectos del mundo real; Incluso si tus bases de JavaScript no son muy fuertes el curso tiene una introducción con todo lo que debes saber.</p>
+              <p>En este curso aprenderemos a crear proyectos reales abarcando todo el ecosistema de React: State, Hooks, crear tus propios hooks, hooks avanzados, estado global, componentes y eventos, consultar API's externas y crear tus propias API's.</p>
+              <p>Todos los Proyectos incluyen TypeScript desde el inicio.</p>	
+
+            </div>
+          </div><!--Fin row-->
+        </div>
+        <!-- Fin div colapsable-->
+
+      </div>
+    </div>
+    <!-- FIN SECCION 00 -->
     
     
     

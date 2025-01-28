@@ -2,7 +2,7 @@ export default function Modalpanel(){
 
     return(
         <>        
-            <div id="ModalPanel" className="modal-object">
+            <div id="ModalPanel" className="modal-object" style="display:none">
                 <div className="modal-link-close" onclick="$('#ModalPanel').removeclassName('open');$('#ModalPanel-overlay').removeclassName('open');$('input#search').val('');$('ul#searchresults').html('');"></div>
                 <div id="ModalPanel-component" className="modal-content">
                     <div className="search-results">
