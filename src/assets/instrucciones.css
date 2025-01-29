@@ -28,7 +28,7 @@ span.rojo, p, ul, li, a{
     word-wrap: break-word;
 }
 ul{
-	padding-left: 18px;
+	padding-left: 12px;
 }
 
 p.titulo{
@@ -456,6 +456,7 @@ pre.verde .line-highlight {
 	@media screen and (max-width: 599px){
 		.line-highlight {
 			/*top: calc(100% - 52px)!important;*/
+			display: none;
 		}
 	}
 
