@@ -439,9 +439,15 @@ div.code-toolbar>.toolbar>.toolbar-item>a, div.code-toolbar>.toolbar>.toolbar-it
     margin-top: 1.4em;
     background: hsla(24, 20%, 50%, .08);
     /*background: linear-gradient(to right, hsla(239, 65%, 61%, 0.534) 20%, hsla(24, 20%, 50%, 0));   */
-	background: linear-gradient(to right, hsla(240, 20%, 99%, 0.473) 20%, hsla(24, 20%, 50%, 0));
+	background: linear-gradient(to right, hsla(61, 86%, 60%, 0.473) 20%, hsla(24, 20%, 50%, 0));
     white-space: pre;
 	width: 100%!important;
+}
+pre.borrar .line-highlight { 
+	background: linear-gradient(to right, hsla(14, 97%, 49%, 0.644) 20%, hsla(24, 20%, 50%, 0));
+}
+pre.verde .line-highlight { 
+	background: linear-gradient(to right, hsla(125, 97%, 49%, 0.644) 20%, hsla(24, 20%, 50%, 0));
 }
 .line-highlight:before,
 .line-highlight[data-end]:after {

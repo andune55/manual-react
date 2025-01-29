@@ -17,7 +17,240 @@
     <div class="contenedor-fluido">
       
      
-      
+<!-- SECCION 08 -->
+    <div class="contenedor w-80 w-96-s background esp-5-bottom">
+      <div class="row">
+        <div class="flex center-vertical esp-25-top pointer desplegable space-between pointer" onclick="$('#seccion08').toggle();">
+          <h2>Sección 8: PROYECTO - Carrito de Compras - Migrando a TypeScript paso a paso</h2>
+          <span class="cambiaicono ico_chevron_down esp-10-right" title=""></span>
+        </div>
+
+        <div id="seccion08">
+          <div class="row">
+            <div class="col-12">
+
+              <!-- Bloque desplegable interior-->
+              <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion8-91').toggle();">
+                <h3>91. ¿Qué es TypeScript y sus ventajas?</h3>
+                <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+              </div>
+              <div id="seccion8-91" style="display:none">
+                <p class="titulo">Typescript ¿qué es? y ventajas</p>
+                <ul>
+                  <li>Es un lenguaje de programación de código abierto. Sí, es un lenguaje completo, desarrollado y mantenido por Microsoft. También se le conoce como un superconjunto tipado para JavaScript, lo que significa que cualquier código de JavaScript válido es también código de TypeScript válido.</li>                    
+                  <li>La principal característica de TypeScript es que agrega un sistema de tipos estático a JavaScript, lo que permite detectar errores y proporcionar herramientas de desarrollo más sólidas.</li>
+                </ul>
+
+                <p class="titulo">¿Cuáles son las ventajas de implementar TypeScript?</p>
+                <ul>
+                  <li>El sistema de tipado de tipos de TypeScript permite al programador especificar los tipos de variable, parámetros de función, valores de retorno y más. Esto va a brindar la capacidad de realizar la comprobación de tipos durante la compilación (cuando estás escribiendo tu código) y detectar posibles errores antes de que el código sea ejecutado. --> Entonces su principal ventaja es que no necesitas que el proyecto esté en producción para revisar que todo esté bien. Con TypeScript puedes tener la garantía de que tu código va a funcionar correctamente.</li>
+                  <li>Mejora enormemente el autocompletado o Intellisense que vas a obtener con Visual Studio Code (<a href="file:///D:/angular%2017%20(2024)/presentaciones/10.htm">Ver presentación 10.html del curso de Angular</a> ).
+                  <img src="./src/assets/img/91.png" alt="">
+                  </li>
+                </ul>
+
+                <p class="titulo">Typescript y Javascript / React</p>
+
+                <ul>
+                  <li>Una vez que has escrito el código en TypeScript, este código siempre se compila a JavaScript. Como tal, el navegador no soporta TypeScript, por lo tanto se tiene que compilar siempre hacia código de JavaScript</li>
+                  <li>React y Vite incluyen soporte a TypeScript también, lo que ayuda bastante en el desarrollo de proyectos. Una vez que esté listo tu proyecto, lo construyes con build, se va a compilar a código de JavaScript y entonces puede ser publicado en Internet.</li>
+                  <li>Hoy en día, TypeScript se ha convertido en un estándar para crear aplicaciones React, Angular y View. Incluso se pide en vacantes de Junior Developer por lo que es el momento adecuado para comenzar a aprender TypeScript.</li>
+                </ul>
+                
+
+              </div>
+              <!-- Fin bloque desplegable interior-->
+
+              <!-- Bloque desplegable interior-->
+              <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion8-92').toggle();">
+                <h3>92. Creando el Proyecto con TypeScript</h3>
+                <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+              </div>
+              <div id="seccion8-92">
+                <p>Vamos a crear un proyecto nuevo <span class="destacado">npm create vite@latest</span> lo nombramos <strong>guitarla-ts</strong> que sea react con el nuevo compilador. Vamos a la carpeta e instalamos las dependencias con <span class="destacado">npm install</span>. Lanzamos el servidor de desarrollo con <strong>npm run dev</strong>.</p>
+
+                <p>Vemos que básicamente la estructura del proyecto es como la que hemos visto hasta ahora con algunas diferencias:</p>
+                <ul>
+                  <li>vemos que hay 3 ficheros de configuración de typescript con extensión .json: tsconfig.app.json,tsconfig.json y tsconfig.node.json. Normalmente no tocaremos nada en ellos.</li>
+                  <li>Si abrimos la carpeta src veremos que la extensión ya no es .jsx sino tsx.</li>                
+                </ul>
+
+                <p>Aunque el resto de proyectos los haremos desde cero con typescript, ahora vamos a convertir el proyecto de carrito de compras de guitarras <strong>guitarla-useCart</strong> a typescript. Copiamos entre proyectos de ese a este nuevo <strong>guitarla-ts</strong>:</p>
+
+                <ul>
+                  <li>borramos el archivo public/vite.svg</li>
+                  <li>copiamos y pegamos la carpeta public/img</li>
+                  <li>En la carpeta principal del proyecto, borro src del nuevo y copio src.</li>
+                  <li>Cambiamos todos los .jsx --> .tsx y los .js --> .ts. veremos que nos empieza a marcar en rojo en muchos archivos. Si abrimos el componente Header.tsx por ejemplo vemos que los errores los resalta en los parámetros que toma este componente. Ahí es "donde entra typescript" en los parámetros, objetos que vamos creando vamos a ir definiendo el tipo de dato que le estamos pasando a nuestras fucniones, componentes... Vamos a ir viéndolo paso a paso.</li>
+                  <li>Error del main.tsx --> document.getElementById('root'). Veamos la explicación de esto. Si creamos una variable en ese mismo <span class="rojo">main.tsx</span>y le asignamos eso <code class="language-js">const div = document.getElementById('root')</code>, vemos en el Intellisense que TypeScript <span class="destacado">INFIERE</span> que el tipo de dato de ese elemento es un HTMLElement o null.<br>
+                    
+                    <img src="./src/assets/img/92.png" alt="">
+
+                    <p>Es decir, <span class="destacado">TypeScript nos marca eso como error porque estamos utilizando un parámetro que puede ser null. Para eliminar esa posibilidad, fijamos el tipo de dato de esta manera:</span> <code class="language-js">const div = document.getElementById('root') as HTMLElement</code> y entonces podríamos quitar ese error como se hacía hasta no hace mucho aunque no se considera buena práctica porque con <code class="language-js">as HTMLElement</code> le estamos diciendo a typeScript "confia en mí, este va a ser el tipo de dato":</p>
+
+                    <pre class="verde" data-line="0"><code class="language-js">
+                      ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
+                        &lt;React.StrictMode&gt;
+                          &lt;App /&gt;
+                        &lt;/React.StrictMode&gt;&comma;
+                      )
+                    </code></pre>                      
+                      <p>Otra manera es utilizar el <strong>operador de Assertionnot null = non null assertion operator "!"</strong> que es una manera de asegurarle a TypeScript que ese elemento no va a ser null:</p>
+                      <pre class="verde" data-line="0"><code class="language-js">
+                        ReactDOM.createRoot(document.getElementById('root')!).render(
+                          &lt;React.StrictMode&gt;
+                            &lt;App /&gt;
+                          &lt;/React.StrictMode&gt;&comma;
+                        )
+                      </code></pre>
+                  </li>                 
+                </ul>
+
+                <p>Vamos a ir viendo como solucionar el resto de errores que nos aparecen en los ficheros.</p>
+              </div>
+              <!-- Fin bloque desplegable interior-->
+              
+
+              <!-- Bloque desplegable interior-->
+              <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion8-93').toggle();">
+                <h3>93. Introducción a TypeScript - Primitive Types</h3>
+                <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+              </div>
+              <div id="seccion8-93">
+                <p></p>
+
+              </div>
+              <!-- Fin bloque desplegable interior-->
+              
+
+              <!-- Bloque desplegable interior-->
+              <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion8-94').toggle();">
+                <h3>94. Introducción a TypeScript - Types e Interfaces</h3>
+                <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+              </div>
+              <div id="seccion8-94">
+                <p></p>
+
+              </div>
+              <!-- Fin bloque desplegable interior-->
+              
+
+              <!-- Bloque desplegable interior-->
+              <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion8-95').toggle();">
+                <h3>95. Asignar Types a tus Props - Inline Type</h3>
+                <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+              </div>
+              <div id="seccion8-95" >
+                <p></p>
+
+              </div>
+              <!-- Fin bloque desplegable interior-->
+              
+
+              <!-- Bloque desplegable interior-->
+              <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion8-96').toggle();">
+                <h3>96. Asignar Types a tus Props - Type Separado</h3>
+                <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+              </div>
+              <div id="seccion8-96">
+                <p></p>
+
+              </div>
+              <!-- Fin bloque desplegable interior-->
+              
+
+              <!-- Bloque desplegable interior-->
+              <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion8-97').toggle();">
+                <h3>97. Creando un Archivo de Types ¿Donde y como hacerlo?</h3>
+                <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+              </div>
+              <div id="seccion8-97">
+                <p></p>
+
+              </div>
+              <!-- Fin bloque desplegable interior-->
+              
+
+              <!-- Bloque desplegable interior-->
+              <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion8-98').toggle();">
+                <h3>98. Añadiendo un Type para los elementos del Carrito</h3>
+                <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+              </div>
+              <div id="seccion8-98">
+                <p></p>
+
+              </div>
+              <!-- Fin bloque desplegable interior-->
+              
+
+              <!-- Bloque desplegable interior-->
+              <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion8-99').toggle();">
+                <h3>99. Heredar y extender un Type</h3>
+                <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+              </div>
+              <div id="seccion8-99">
+                <p></p>
+
+              </div>
+              <!-- Fin bloque desplegable interior-->
+              
+
+              <!-- Bloque desplegable interior-->
+              <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion8-100').toggle();">
+                <h3>100. Utility Types en TypeScript</h3>
+                <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+              </div>
+              <div id="seccion8-100">
+                <p></p>
+
+              </div>
+              <!-- Fin bloque desplegable interior-->
+              
+
+              <!-- Bloque desplegable interior-->
+              <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion8-101').toggle();">
+                <h3>101. Agregando el Nuevo Type a nuestro código</h3>
+                <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+              </div>
+              <div id="seccion8-101">
+                <p></p>
+
+              </div>
+              <!-- Fin bloque desplegable interior-->
+              
+
+              <!-- Bloque desplegable interior-->
+              <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion8-102').toggle();">
+                <h3>102. Creando un Type para el ID de la guitarra</h3>
+                <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+              </div>
+              <div id="seccion8-102">
+                <p></p>
+
+              </div>
+              <!-- Fin bloque desplegable interior-->
+              
+
+              <!-- Bloque desplegable interior-->
+              <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion8-103').toggle();">
+                <h3>103. Typando los Props del Header y Building del proyecto</h3>
+                <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+              </div>
+              <div id="seccion8-103">
+                <p></p>
+
+              </div>
+              <!-- Fin bloque desplegable interior-->
+              
+
+            </div>
+          </div><!--Fin row-->
+        </div>
+        <!-- Fin div colapsable-->
+
+      </div>
+    </div>
+<!-- FIN SECCION XX -->  
    
     
    	
@@ -29,7 +262,7 @@
           <span class="cambiaicono ico_chevron_up esp-10-right" title=""></span>
         </div>
 
-        <div id="seccion07">
+        <div id="seccion07" style="display:none">
           <div class="row">
             <div class="col-12">
 
@@ -38,8 +271,31 @@
                 <h3>85. Ventajas y Como crear tus propios Hooks / 86. Instalando dependencias / 87. Creando el Hook de useCart</h3>
                 <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
               </div>
-              <div id="seccion85-90">
-                <p>Creamos carpeta hooks. Dentro creamos nuestro archivo hook personalizado que llamamos <strong>useCart.js</strong>. Los hooks son funciones de js con lo cual podemos definirlo como función normal o arrow function pero <span class="destacado">siempre el nombre tiene que tener la palabra use y así React "escanea" el código para posibles violaciones de las reglas de los hooks</span>:</p>
+              <div id="seccion85-90" style="display:none">
+                <p class="naranja">Ventajas y Como crear tus propios Hooks</p>
+                
+                <p class="titulo">Crear nuestro propios Hooks</p>
+                <ul>
+                  <li><strong>Existe una gran ventaja de crear tus propios hooks, y esta es la de incorporar state y otros hooks de React en tu propio código para poderlo reutilizar en otros proyectos:</strong> esta es una gran ventaja porque actualmente nuestro código reside en nuestros componentes y nuestros componentes tienen cierta presentación, lo que lo hace que nuestro código no sea muy reutilizable para otros proyectos. Sin embargo, con un hook personalizado podemos copiar y adaptar todo lo que requerimos.</li>
+                  <li><strong>Otra gran ventaja es la de organizar tu código:</strong> de esta forma el hook se va a encargar de toda la lógica, mientras que tu componente solamente se encarga de mostrar la información, la vista, solamente se encarga de mostrar la presentación y el código HTML.</li>
+                  <li><strong>Nuestro código personalizado tendrá todas las ventajasde React, como son tener su propio State, podremos agregar Effects, integrar otros hooks de React y el performance que esto incluye.</strong></li>
+                  <li><strong>Va a ser reutilizable con otros proyectos</strong></li>
+                  <li>va a ser fácil de escribir testing de escribir las pruebas para tu código.</li>
+                </ul>
+
+                <p class="titulo">¿Cómo vamos a crear nuestros propios hooks?</p>
+                <ul>
+                  <li>Los hooks son funciones de JavaScript, pero tienen algunas reglas como vimos anteriormente.</li>
+                  <li><strong>Nuestros hooks deben seguir la convención de nombrado que utiliza React, que es <span class="destacado">use</span> seguido del nombre de nuestro hook, como vimos anteriormente con los hooks <strong>Usestate, useEffect, etcétera</strong></strong> de esta forma React escanea tu código en búsqueda de posibles problemas con las reglas de los hooks y se segura de que nuestro código personalizado cumpla los estándares de React.</li>
+                  <li><span class="destacado">Importante!</span> un hook normalmente solo debe de tener lógica y no presentación, porque para la parte de presentación están los componentes.</li>
+                </ul>
+
+                <p class="naranja">Instalando dependencias y Creando el Hook de useCart</p>
+                <p>Vamos a convertir el proyecto que llevamos hasta ahora de guitarla para que use un <strong>custom hook</strong>. Descargamos la carpeta (guitarla-useCart), la agregamos al area de trabajo en VSC, boton derecho "abrir en terminal integrado" e instalamaos dependencias con <span class="destacado">npm install</span> que son en base al sistema operativo.</p>
+
+                <p>Vamos a estar moviendo todo el código de antes del return() del App.jsx que maneja bastante lógica a un custom Hoook, para dejar limpio nuestro componente y hacerlo más reutilizable</p>
+
+                <p><span class="destacado">Creamos carpeta hooks donde se colocan los custom hooks</span>. Dentro creamos nuestro archivo hook personalizado que llamamos <strong>useCart.js</strong> (recordar que no es .jsx porque eso tiene parte de vista es el template). Los hooks son funciones de js con lo cual podemos definirlo como función "normal" o función arrow function pero <span class="destacado">siempre el nombre tiene que tener la palabra use y así React "escanea" el código para posibles violaciones de las reglas de los hooks</span>:</p>
                 <span class="rojo">useCart.js</span><br>
                 <pre><code class="language-js">
                   function useCart(){
@@ -69,25 +325,75 @@
                 </code></pre>
                 <pre><code class="language-js">
                   export const useCart = () => {
-                    
+                    console.log('Desde useCart')  
                   }                 
                 </code></pre>
 
-                <p>Para usar el custom Hook en nuestra App.jsx hemos de importarlo <code class="language-js">import { useCart } from './hooks/useCart'</code></p>
+                <p>Para usar el custom Hook en nuestra App.jsx hemos de importarlo <code class="language-js">import { useCart } from './hooks/useCart'</code>. Si quisiéramos llamarlo dentro de nuestro componente principal de aplicación App.jsx hay que llamar a la función de igual manera que hacíamos con los otros hooks: <code class="language-js">useCart()</code></p>
               </div>
               <!-- Fin bloque desplegable interior-->
 
 
               <!-- Bloque desplegable interior-->
               <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion88').toggle();">
-                <h3>88. Definir Valores y extraerlos en el Hook / 89. Migrando el Código hacia useCart / 90. Finalizando el Hook y Consideraciones</h3>
+                <h3>88. Definir Valores y extraerlos en el Hook</h3>
                 <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
               </div>
-              <div id="seccion88">
+              <div id="seccion88" style="display:none">
+                <p>¿Como hacemos para que el comportamiento de nuestro custom hook sea mas similar digamos al useState en <code class="language-js">const[data] = useState(db)</code> devolviendo algo. Supongamos que creamos una variable <code class="language-js">const auth = true</code> ¿como hacemos para que esté disponible en nuestro App.jsx? <strong>tenemos que agregar un return a continuación, que puede ser un Array pero se recomienda que sea un objeto.</strong> <span class="destacado">La ventaja de que sea un objeto es, que el mismo nombre con el que nombremos nuestras variables, funciones o state va a ser el mismo nombre para usarlo en nuestro componente.</span> Si usáramos un arreglo los retorna por posición, pero como normalmente vamos a tener en nuestro hook personalizado diferentes funciones/variables/states personalizados, lo ideal es que podamos acceder a ellos por medio de su nombre específico.</p>
                 
+                <span class="rojo">useCart.js</span>
+                <pre><code class="language-js">
+                  export const useCart = () => {
+
+                    const auth = true
+                    return {
+                      auth //de esta forma esta variable estará disponible donde yo esté utilizando mi custom hook
+                    }
+                  }
+                </code></pre>
+
+                <p>Por tanto. Una vez creada mi variable llamada auth, y colocada en el return de mi custom hook, en mi componente accedo a ella de la siguiente manera:</p>
+
+                <span class="rojo">App.jsx</span>
+                <pre data-line="3"><code class="language-js">
+                  import { useCart } from './hooks/useCart'
+
+                  function App() {
+                    const { auth } = useCart()
+                    console.log(auth)
+                </code></pre>
+
+                <p>De hecho si hacemos la prueba en nuestro componente de extraer una nueva variable <strong>carrito</strong> que en mi custom hook sí he definido pero no he metido en el return, obtengo un <strong>Undefined</strong> porque no podemos acceder a ese valor. Hemos de meterla en el return, separada por coma del resto de variables/funciones. Es muy similar a un export de los módulos de ECMAScript.</p>
+
+                <span class="rojo">useCart.js</span>
+                <pre><code class="language-js">
+                  export const useCart = () => {
+
+                    const auth = true
+                    const carrito = []
+                    return {
+                      auth,
+                      carrito
+                    }
+                  }
+                </code></pre>
+                <span class="rojo">App.jsx</span>
+                <pre data-line="3"><code class="language-js">
+                  import { useCart } from './hooks/useCart'
+
+                  function App() {
+                    const { auth, carrito } = useCart()
+                    console.log(auth)
+                </code></pre>
+
+                <p>Por tanto si tenemos distintas variables/funciones/states en nuestro custom hook hemos de colocarlas separadas por "," en el return de nuestro custom hook y, en nuestro componente, vamos a acceder a todo ello en estas "{}" de aquí ¡con el mismo nombre que tienen! <code class="language-js">const { auth, carrito } = useCart()</code></p>
+
+                <p>Veamos como migrar la lógica de nuestro carrito para usar nuestro custom hook</p>
                 
               </div>
               <!-- Fin bloque desplegable interior-->
+
 
               <!-- Bloque desplegable interior-->
               <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion89').toggle();">
@@ -95,21 +401,116 @@
                 <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
               </div>
               <div id="seccion89">
+                <ul>
+                  <li>Tomamos toda la lógica de antes del return de nuestro componente principal App.jsx y nos la llevamos a nuestro custom kook useCart.js.</li>
+                  <li>Como los Hooks useState,useEffect y useMemo ya no se usan en los componentes sino en nuestro hook personalizado useCart.js, quitamos el import de nuestros componentes y nos llevamos ahí la importación. También hacemos lo mismo con los datos:
+                    <span class="rojo">useCart.js</span>
+                    <pre><code class="language-js">
+                      import { useState, useEffect, useMemo } from 'react'
+                      import { db } from '../data/db'
+
+                      //necesitamos exportar toda esa funcionalidad para hacerla disponible donde quiera que yo importe mi custom hook
+                      return {
+                        data,
+                        cart,
+                        addToCart,
+                        removeFromCart,
+                        decreaseQuantity,
+                        increaseQuantity,
+                        clearCart,
+                        isEmpty,
+                        cartTotal
+                    }
+                    </code></pre>
+                    </li>
+                    <li>
+                    <p>
+                      <span class="rojo">App.jsx</span> Esta sería la expresión total para usar nuestro custom Hook y las funciones que tiene disponibles:</p>
+                      <pre><code class="language-js">
+                        import { useCart } from './hooks/useCart'
+                      
+                        function App() {                      
+                          const { data, cart, addToCart, removeFromCart, decreaseQuantity, increaseQuantity, clearCart, isEmpty, cartTotal } = useCart()
+                      </code></pre>
+                      
+                      <p>También quitamos del tag Guitar el prop <strong>setCart={setCart}</strong> porque esa función <code class="language-js">const [cart, setCart] = useState(initialCart)</code>ya no está disponible al haberlo migrado a nuestro custom hook junto al resto de la funcionalidad:</p>
+                      <pre class="borrar" data-line="3"><code class="language-js">
+                        &lt;Guitar 
+                        key=&lcub;guitar.id&rcub;
+                        guitar=&lcub;guitar&rcub;
+                        setCart=&lcub;setCart&rcub;
+                        addToCart=&lcub;addToCart&rcub;
+                      /&gt;	
+                      </code></pre>
+                    <p>Como vemos nuestro Hook tiene todas estas funciones. Algunos Hooks tienen más funciones otros menos, por ejemplo useState nos devuelve dos valores (state y funcion) y useEffect no devuelve nada es más toma como parámetro un callback. Si probamos de nuevo nuestra app vemos como funciona todo correctamente.</p>
+                    
+                  </li>
+                  <li><p>Movamos también la lógica que tenemos presente en el componente que tiene la vista del carrito Header.jsx: tanto el import de useMemo como este código nos lo llevamos a nuestro custom Hook <code class="language-js">import { useMemo } from 'react'</code></p>
+                  <pre><code class="language-js">
+                    // State Derivado
+                    const isEmpty = useMemo( () => cart.length === 0, [cart])
+                    const cartTotal = useMemo( () => cart.reduce( (total, item ) => total + (item.quantity * item.price), 0), [cart] )
+                  </code></pre>
+                  </li>
+                  <p>Recordemos que también tenemos que hacer disponibles estas dos funciones, añadiéndolas a la "lista objeto" de exportación que aparece en el return de nuestro Hook</p>
+
+                  <p>Si probamos, vemos que tenemos muchos errores. Podríamos pensar en importar en nuestro componente Header.jsx el custom Hook y crear una nueva variable para usar las dos funciones isEmpty y cartTotal del custom Hook useCart(). Pero en ese caso vemos que no nos agrega guitarras al carrito ni funciona ¿por qué? <span class="destacado">Porque los custom Hooks funcionan como instancias de una clase, de esa manera con una variable en cada componente haciendo lo siguiente, en cada componente estaríamos creando un carrito distinto:</span></p>
+                  <span class="rojo">App.jsx</span><br>
+                  <pre data-line="2"><code class="language-js">
+                    import { useCart } from './hooks/useCart'
+                    function App() {                    
+                      const { data, cart, addToCart, removeFromCart, decreaseQuantity, increaseQuantity, clearCart} = useCart()
+                  </code></pre>
+                  <span class="rojo">Header.jsx</span><br>
+                  <pre data-line="2"><code class="language-js">
+                    import { useCart } from './hooks/useCart'
+                    function App() {                    
+                      const { sEmpty, cartTotal } = useCart()
+                  </code></pre>
+                  <p>Los carritos no saben de la existencia uno del otro, no están conectados, no están sincronizados. Sí, toda esa lógica está solo en nuestro custom Hook useCart.js que es único, pero cada vez que instanciamos (ver los dos códigos anteriores) estamos creando un nuevo data y un nuevo cart:</p>
+
+                  <span class="rojo">useCart.js</span>
+                  <pre><code class="language-js">
+                    const [data] = useState(db)
+                    const [cart, setCart] = useState(initialCart)
+                  </code></pre>
+
+                  <p>No funcionaría porque es como si estuviéramos creando nuevos objetos que siempre van a ser diferentes. <span class="destacado">Por tanto solo podemos tener una instacia de nuestro carrito de compras.</span> Eliminamos ese código de Header.jsx y extraemos en App.jsx esas dos nuevas funciones carTotal y isEmpty que acabamos de añadir en nuestro custom Hook, las pasamos via props y las extraemos en el Header:</p>
+                  
+                  <span class="rojo">App.jsx</span>
+                  <pre data-line="0,10-11"><code class="language-js">
+                    const &lcub; data&comma; cart&comma; addToCart&comma; removeFromCart&comma; decreaseQuantity&comma; increaseQuantity&comma; clearCart&comma; isEmpty&comma; cartTotal &rcub; = useCart()
+
+                    return (
+                    &lt;&gt;
+                      &lt;Header 
+                      cart=&lcub;cart&rcub;
+                      removeFromCart=&lcub;removeFromCart&rcub;
+                      decreaseQuantity=&lcub;decreaseQuantity&rcub;
+                      increaseQuantity=&lcub;increaseQuantity&rcub;
+                      clearCart=&lcub;clearCart&rcub;
+                      isEmpty=&lcub;isEmpty&rcub;
+                      cartTotal=&lcub;cartTotal&rcub;
+                      /&gt;
+                  </code></pre>
+
+                  <span class="rojo">Header.jsx</span>
+                  <pre><code class="language-js">
+                    export default function Header({cart, removeFromCart, decreaseQuantity, increaseQuantity, clearCart, isEmpty, cartTotal}) {
+                      return (
+                  </code></pre>
+
+                  <p>Y así finalmente no vamos a tener errores y va a estar sincronizado nuestro state con las funciones de nuestro custom Hook. Aquí comenta que para manejar múltiples instancias de un objeto se maneja con un administrador global del estado como puede ser Redux toolkit, sustance, context API que lo vamos a ver un poco mas adelante</p>
+
+                  <p>Como vemos nuestros componentes quedan limpios sin lógica, <strong>aún habrá ciertos casos donde necesitemos poner código antes del return de nuestro componente como apps con múltiples páginas usando React Router DOM o quieres ejecutar algún query una vez cargues en cierto componente.</strong></p>
+                </li>
+                </ul>
                 
 
               </div>
               <!-- Fin bloque desplegable interior-->
-              <!-- Bloque desplegable interior-->
-              <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion90').toggle();">
-                <h3>90. Migrando el Código hacia useCart / 90. Finalizando el Hook y Consideraciones</h3>
-                <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
-              </div>
-              <div id="seccion90">
-                
-
-              </div>
-              <!-- Fin bloque desplegable interior-->
-
+              
+            
 
             </div>
           </div><!--Fin row-->
