@@ -146,7 +146,7 @@
                 <h3>94. Introducción a TypeScript - Types e Interfaces</h3>
                 <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
               </div>
-              <div id="seccion8-94">
+              <div id="seccion8-94" style="display:none">
                 <p>Si nos colocamos en la variable db vemos un objeto que tiene diferentes propiedades. Cuando tenemos una estructura de este tipo lo mejor es crear lo que se conoce como un Type o Interface. Básicamente es lo mismo, pero veamos un poco más de información de este tema.</p>
 
                 <ul>
@@ -155,7 +155,7 @@
                   <li><strong>Es una forma de crear una estructura y definir qué tipo de dato tiene cada propiedad de un objeto o agrupar propiedades de un objeto</strong>.</li>                
                 </ul>
 
-                <p>Veamos algunos ejemplos. Creemos nuestro primer type para nuestras guitarras. <span class="rojo">db.ts</span>:</p>
+                <p>Veamos algunos ejemplos. Creemos nuestro primer type para nuestras guitarras. <span class="rojo">db.ts</span>: la convención de nombrado es con la primera mayúscula.</p>
 
                 <pre data-line="0-6,7"><code class="language-js">
                   type Guitar = {
@@ -215,7 +215,85 @@
                 <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
               </div>
               <div id="seccion8-95" style="display:none">
-                <p></p>
+                <p>Si nos llenamos de Any es como si no estuviéramos utilizando TS. Hemos de facilitar más información a TS. Vamos a <span class="rojo">Guitar.tsx</span> donde tenemos <code class="language-js">export default function Guitar({guitar, addToCart}) {</code> ese guitar que es un objeto y el addToCart que es una función. ¿Cómo convertimos esos props hacia TS? hay dos opciones:</p>
+
+                <ul>
+                  <li><strong>inline type</strong></li>
+                  <li><strong>separate type</strong></li>
+                </ul>
+
+                <p class="titulo">inline type:</p> en nuestro <span class="rojo">Guitar.tsx</span> <span class="destacado">añadimos el type</span></p> 
+                <pre><code class="language-js">
+                  type Guitar = {
+                    id: number
+                    name: string
+                    image: string
+                    description: string
+                    price: number
+                }
+                </code></pre>
+                <p><span class="destacado">y a continuación especificamos el tipado a esas dos props que toma como parámetro la función de nuestro componente (objeto "guitarra" y funcion "addToCart"). Para especificar el tipo de dato usamos la sintaxis con ":"</span></p>
+
+                <pre><code class="language-js">                    
+                export default function Guitar({guitar, addToCart} : {guitar : Guitar, addToCart: (item: Guitar) => void}) {
+                </code></pre>
+
+                <p><span class="destacado">El primer parámetro es un objeto de tipo Guitar</span> y en cuanto lo tipamos vemos que del parámetro ya nos desaparece el aviso/error (antes el IS nos lo marcaba como any y ya nos aparece que es de tipo Guitar); </p>
+                    
+                <img src="./src/assets/img/95-1.png" alt="">
+
+                <p>Fijémonos que todas las propiedades que definimos en nuestro type </p>
+                <pre><code class="language-js">
+                  type Guitar = {
+                    id: number
+                    name: string
+                    image: string
+                    description: string
+                    price: number
+                }                      
+                </code></pre>
+
+                <p>si en el return() de nuestro componente Guitarra (la parte de la vista) sustituyéramos por ejemplo <code class="language-js">{name}</code> por <code class="language-js">{guitar.}</code> vemos como en el IS solo me aparecen disponibles esas opciones (los tipos de datos que yo definí en ese objeto es lo que puedo imprimir ahí), no tenemos que enviarlo a la consola, ya lo tenemos disponible en VSC y eso va hacer que escribamos código más rápidamente:</p>
+
+                <img src="./src/assets/img/95-2.png" alt="">
+                
+                <p>Para definir el tipo del segundo parámetro (función addToCart que toma una guitarra), nos vamos al fichero <span class="rojo">App.tsx</span> e inspeccionamos el aviso del IS al ponernos encima del prop addToCart que aún no hemos tipado --&gt; <strong>item(any) =&gt; void</strong>.</p>
+                  
+                <img src="./src/assets/img/95-3.png" alt="">
+
+                <p>Copiamos ese código. "void" es algo muy común en java, se usa cuando una función no devuelve nada. El any vamos a quitarlo: cuando yo agrego un elemento con el onClick del botón, le paso una guitarra completa:</p> 
+
+                <script type="text/plain" class="language-js">
+                  <button 
+                    type="button"
+                    className="btn btn-dark w-100"
+                    onClick={() => addToCart(guitar)}
+                >Agregar al Carrito</button>
+                </script>
+
+                <p>así que cambiamos ese any por Guitar, le decimos así que el item que maneja esa función que agrega tiene que ser una guitarra de tipo Guitarra. <span class="destacado">Y en definitiva estamos tipando ese parámetro como una función que toma un objeto Guitarra y no retorna nada.</span></p>
+                    
+                <img src="./src/assets/img/95-1.png" alt="">
+
+                <p>Ya desaparecen los errores/avisos. Estamos tipando fuertemente. Si por ejemplo me voy a la <span class="rojo">App.tsx</span> y le quitamos la propiedad addToCart de aquí:</p>
+
+                <script type="text/plain" class="language-js">
+                  <div className="row mt-5">
+                    {data.map((guitar) => (
+                        <Guitar 
+                          key={guitar.id}
+                          guitar={guitar}
+                          addToCart={addToCart}
+                        />
+                    ))}              
+                </div>
+                </script>
+
+                <p>vemos que nos marca un error. Por tanto nos va a indicar si le falta algo, si escribimos algo mal, si le pasamos un valor de forma incorrecta</p>
+                  
+                <img src="./src/assets/img/95-4.png" alt="">
+
+                <p>Vamos a ver la otra sintasis de <strong>separate type</strong> que él indica que le gusta más.</p>
 
               </div>
               <!-- Fin bloque desplegable interior-->
@@ -226,7 +304,7 @@
                 <h3>96. Asignar Types a tus Props - Type Separado</h3>
                 <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
               </div>
-              <div id="seccion8-96" style="display:none">
+              <div id="seccion8-96">
                 <p></p>
 
               </div>
