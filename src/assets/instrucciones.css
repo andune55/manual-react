@@ -28,8 +28,10 @@ span.rojo, p, ul, li, a{
     line-height: 18px;
     word-wrap: break-word;
 }
-ul{
-	padding-left: 12px;
+@media screen and (max-width: 599px) {
+	ul{
+		padding-left: 12px;
+	}
 }
 
 p.titulo{
@@ -438,7 +440,7 @@ div.code-toolbar>.toolbar>.toolbar-item>button{
 div.code-toolbar>.toolbar>.toolbar-item>a, div.code-toolbar>.toolbar>.toolbar-item>button, div.code-toolbar>.toolbar>.toolbar-item>span{
 	font-family: monospace;
     font-size: 1.1em;
-	color: #ffffff;
+	color: #ffffff!important;
 }
 
 /*Formato a lineas seleccionadas*/

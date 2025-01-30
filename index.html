@@ -222,7 +222,9 @@
                   <li><strong>separate type</strong></li>
                 </ul>
 
-                <p class="titulo">inline type:</p> en nuestro <span class="rojo">Guitar.tsx</span> <span class="destacado">añadimos el type</span></p> 
+                <p class="titulo">inline type</p> 
+                
+                <p>en nuestro <span class="rojo">Guitar.tsx</span> <span class="destacado">añadimos el type</span></p> 
                 <pre><code class="language-js">
                   type Guitar = {
                     id: number
@@ -304,8 +306,26 @@
                 <h3>96. Asignar Types a tus Props - Type Separado</h3>
                 <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
               </div>
-              <div id="seccion8-96">
-                <p></p>
+              <div id="seccion8-96" style="display:none">
+                <p class="titulo">separate type</p> 
+                <p>Veamos esta otra sintaxis que es menos confusa: podríamos hacer salto de línea a lo que tenemos ahora mismo para que quedara un poco más ordenado:</p>
+
+                <pre><code class="language-js">
+                  export default function Guitar({guitar, addToCart} : {
+                    guitar : Guitar, 
+                    addToCart: (item: Guitar) => void
+                }) {
+                </code></pre>
+
+                <p>Sin embargo es mejor tener un type (o una interface) y tenerlo separado para minimizar la posibilidad de cometer errores:</p>
+
+                <pre><code class="language-js">
+                  type GuitarProps = {
+                    guitar : Guitar, 
+                    addToCart: (item: Guitar) => void
+                }                
+                export default function Guitar({guitar, addToCart} : GuitarProps) {
+                </code></pre>
 
               </div>
               <!-- Fin bloque desplegable interior-->
@@ -317,35 +337,152 @@
                 <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
               </div>
               <div id="seccion8-97" style="display:none">
-                <p></p>
+                <p>Vamos a crear un archivo que centralice los types que se van a compartir más de una vez. Si nos fijamos ahora mismo el type Guitar que hemos creado lo tenemos tanto en <span class="rojo">db.ts</span> como en <span class="rojo">Guitar.tsx</span>, si tuviéramos que modificarlo porque el proyecto por ejemplo crece, el mantenimiento se hace complicado. <span class="destacado">Cuando tenemos un type que se comparte en diferentes componentes o Hooks lo mejor es ponerlo en su propio archivo</span>, hay dos maneras de hacerlo.</p>
 
+                <p>Si en en src creamos un archivo nuevo <strong>types.d.ts</strong> y metemos ahí nuestro types, creado así con ese nombre no necesitaríamos importarlo. Sin embargo ¡¡el equipo de desarrollo de TS no recomienda hacerlo de esta forma!!!</p>
+
+                <p>Creamos carpeta y archivo <strong>types>types.ts</strong> (también se podría llamar index.ts). En el solo metemos el type Guitar al cual le ponemos delante la palabra export:</p>
+
+                <pre><code class="language-js">
+                  export type Guitar = {
+                    id: number
+                    name: string
+                    image: string
+                    description: string
+                    price: number
+                }
+                </code></pre>
+
+                <p>importamos ese type en los ficheros donde se va a utilizar: <span class="rojo">db.ts</span> y <span class="rojo">Guitar.tsx</span> </p>
+                
+                <ul>
+                  <li>si hemos nombrado el fichero como <strong>index.ts</strong> lo importaremos así: <code class="language-js">import type {Guitar} from '../types'</code></li>
+                  <li>si hemos nombrado el fichero como <strong>types.ts</strong> lo importaremos así: <code class="language-js">import type {Guitar} from '../types/types'</code></li>                  
+                </ul>
+                
+                <p>Como vemos no metemos en ese archivo exclusivo de types el otro type GuitarProps, porque no se trata de un type que vayamos a utilizar en diferentes componentes o diferentes Hooks; en este caso es un type exclusivo del componente <span class="rojo">Guitar.tsx</span>. <span class="destacado">Habitualmente así es como vamos a definir nuestros types, en el componente donde se requieren y en el caso de que se vaya a compartir en mas sitios (otros componentes y/o Hooks) entonces se mueve al archivo específico de types.</span></p>
+
+                <p>Como vemos, ya están completamente tipados nuestro <span class="rojo">db.ts</span> y nuestro componente de guitarra<span class="rojo">Guitar.tsx</span>. Migremos a continuación nuestro Hook personalizado para solucionar esos Any que aparecen en nuestro cart.</p>
               </div>
               <!-- Fin bloque desplegable interior-->
-              
+
 
               <!-- Bloque desplegable interior-->
               <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion8-98').toggle();">
-                <h3>98. Añadiendo un Type para los elementos del Carrito</h3>
+                <h3>98. Añadiendo un Type para los elementos del Carrito / 99. Heredar y extender un Type</h3>
                 <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
               </div>
               <div id="seccion8-98" style="display:none">
-                <p></p>
+                <p>Si miramos nuestro custom Hook <span class="rojo">useCart.ts</span> vemos que tenemos dos states: data tiene el type Guitar pero cart tiene un tipo Any.</p>
+                <pre><code class="language-js">
+                  const [data] = useState(db)
+                  const [cart, setCart] = useState(initialCart)
+                </code></pre>
+                <p><span class="destacado">Algo muy común en TS es que cuando obtenemos datos externos, sea de localStorage o de una consulta con FetchAPI, a TS se le hace muy complicado inferir el tipo de dato.</span> ¿Como hacemos para indicar que este const initialCart va a ser de tipo Guitar (o un tipo de elemento en un carrito)?</p>
+                <pre><code class="language-js">
+                  const initialCart = () => {
+                    const localStorageCart = localStorage.getItem('cart')
+                    return localStorageCart ? JSON.parse(localStorageCart) : []
+                }
+                </code></pre>
 
+                <p>Importamos nuestro type <code class="language-js">import type { Guitar } from '../types/types'</code> Le especificamos a ese initialCart que el tipo de dato va a ser Guitar[] (pero array, que es un carrito):</p>
+
+                <pre data-line="0"><code class="language-js">
+                  const initialCart = () : Guitar[] => {
+                    const localStorageCart = localStorage.getItem('cart')
+                    return localStorageCart ? JSON.parse(localStorageCart) : []
+                }
+                </code></pre>
+
+                <p>sin embargo inmediatamente vemos en nuestro código que TS se queja: <strong>"oye, estas diciendo que esto es un tipo Guitar, pero hasta en 3 funciones de tu Hook se intenta utilizar una propiedad "quantity" que no existe en ese tipo Guitar"</strong>. Cuando intentamos agregar una guitarra al carrito, sí es un objeto Guitar pero tiene una propiedad adicional llamada "quantity" que se requiere para estar en el carrito</p>
+                <img src="./src/assets/img/98.png" alt="">
+                
+                <p>Podríamos resolverlo, añadiendo un nuevo type en nuestro archivo <span class="red">types.ts</span>:</p>
+                <pre><code class="language-js">
+                  export type CartItem = {
+                    id: number
+                    name: string
+                    image: string
+                    description: string
+                    price: number
+                    quantity: number
+                  }
+                </code></pre>
+                <p>Importamos nuestro type <code class="language-js">import type { CartItem } from '../types/types'</code> Le especificamos a ese initialCart que el tipo de dato va a ser CartItem[] (pero array, que es un carrito):</p>
+                
+                <pre data-line="0"><code class="language-js">
+                  const initialCart = () : CartItem[] => {
+                    const localStorageCart = localStorage.getItem('cart')
+                    return localStorageCart ? JSON.parse(localStorageCart) : []
+                  }
+                </code></pre>
+                
+                <p>así ya nos desaparecen los errores con el quantity que teníamos en nuestras funciones (aunque aún quedan algunos errores en parámetros que los veremos). </p>
+                <img src="./src/assets/img/98-2.png" alt="">
+
+                <p>Este código funciona pero se puede mejorar porque los atributos id, name, image, description, price son exactamente iguales en los dos types Guitar y CartItem.</p>
+                
+                <pre data-line="1-5,8-12"><code class="language-js">
+                  export type Guitar = {
+                    id: number
+                    name: string
+                    image: string
+                    description: string
+                    price: number
+                }
+                export type CartItem = {
+                    id: number
+                    name: string
+                    image: string
+                    description: string
+                    price: number
+                    quantity: number
+                }
+                </code></pre>
+
+                <p>TypeScript nos permite heredar como si fuera de una clase a otra y podemos hacerlo heredando todos esos atributos dentro de cartItem</p>
+
+                <p class="naranja">Heredar y extender un Type</p>
+
+                <p>Ya hemos definido nuestro segundo tipo de dato. Teníamos <strong>Guitar</strong> pero como nuestro carrito de compras tiene una propiedad adicional "quantity" hemos creado un type llamado <strong>CartItem</strong>. Ambos comparten muchos atributos por lo que apliquemos herencia para simplicar el código, también para que si cambia alguno de ellos el mantenimiento sea más sencillo. Como es un poco diferente en types e interfaces veos ambos.</p>
+
+                <p class="titulo">herencia en types</p>
+
+                <p><span class="destacado">Borramos los atributos duplicados del type que hereda y en su declaración tras el "=" añadimos el nombre del type del que queremos que herede seguido de "&"</span></p>
+
+                <pre data-line="7"><code class="language-js">
+                  export type Guitar = {
+                    id: number
+                    name: string
+                    image: string
+                    description: string
+                    price: number
+                }
+                export type CartItem = Guitar & {
+                    quantity: number
+                }
+                </code></pre>
+
+                <p><strong>Podríamos perfectamente generar una interface y heredar de nuestro type:</strong> <span class="destacado">el "=" se cambia por la palabra "extends", de manera similar a lenguages como Java o php y se elimina el "&"</span></p>
+                <pre data-line="7"><code class="language-js">
+                  export type Guitar = {
+                    id: number
+                    name: string
+                    image: string
+                    description: string
+                    price: number
+                }
+                export interface CartItem extends Guitar {
+                    quantity: number
+                }
+                </code></pre>
+
+                <p>Existe otra forma de hacerlo, con los <span class="destacado">utility types</span>, solo se puede hacer con la sintaxis de type</p>
+              
               </div>
               <!-- Fin bloque desplegable interior-->
-              
 
-              <!-- Bloque desplegable interior-->
-              <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion8-99').toggle();">
-                <h3>99. Heredar y extender un Type</h3>
-                <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
-              </div>
-              <div id="seccion8-99" style="display:none">
-                <p></p>
-
-              </div>
-              <!-- Fin bloque desplegable interior-->
-              
 
               <!-- Bloque desplegable interior-->
               <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion8-100').toggle();">
@@ -353,19 +490,55 @@
                 <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
               </div>
               <div id="seccion8-100" style="display:none">
-                <p></p>
+                <p>Acabamos de ver como se aplica herencia utilizando types e interfaces pero eso hereda todo el tipo de dato y sus atributos completos. Si bien podríamos hacer algo como cambiarle el number por string al atributo id del type original (no lo tengo muy claro que haga lo que dice por lo que veo en el IS)</p>
 
+                <pre data-line="1,9"><code class="language-js">
+                  export type Guitar = {
+                    id: number
+                    name: string
+                    image: string
+                    description: string
+                    price: number
+                }
+                export type CartItem = Guitar & {
+                    quantity: number
+                    id: string
+                }
+                </code></pre>
+
+                <p>Otras veces lo que vamos a querer es, manteniendo los mismos tipos de datos simplemente tener algunos atributos de un type y/o omitir otros. Para eso es muy útil lo que se conoce como <span class="destacado"><a class="txt-blanco" href="https://www.typescriptlang.org/docs/handbook/utility-types.html" target="_blank">Utility Types</a></span>. Hay unos cuantos, en cada nueva versión se agregan más, va a hacer que nuestro código sea más corto y son muy útiles cuando comenzamos a tener varios  types interdependientes que comparten atributos. Pone como ejemplo estos dos para explicar sintaxis y como se utilizan <strong>Pick&lt;Type&comma; Keys&gt;</strong> y <strong>Omit&lt;Type&comma; Keys&gt;</strong></p>
+
+                <p>En el siguiente ejemplo el Utility Type Pick selecciona del type Guitar los atributos id, name y price y los coloca en este nuevo type CartItem:</p>
+                <script type="text/plain" class="language-js">
+                  export type CartItem = Pick<Guitar, 'id' | 'name' | 'price'>
+                </script>
+
+                <p>aquí le agregaríamos el atributo extra "quantity" que no existe en ese type Guitar:</p>
+                <script type="text/plain" class="language-js">
+                  export type CartItem = Pick<Guitar, 'id' | 'name' | 'price'> & {
+                    quantity: number
+                  }
+                </script>
+
+                <p>Omit es para lo contrario, excluir los atributos que se especifiquen:</p>
+                <script type="text/plain" class="language-js">
+                  export type CartItem = Omit<Guitar, 'id' | 'name' | 'price'> & {
+                    quantity: number
+                }
+                </script>
+
+                <p>Veamos a continuación como especificar type a los parámetros que aún nos marca en nuestro código como aviso/error</p>
               </div>
               <!-- Fin bloque desplegable interior-->
-              
+                        
 
-              <!-- Bloque desplegable interior-->
-              <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion8-101').toggle();">
-                <h3>101. Agregando el Nuevo Type a nuestro código</h3>
-                <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
-              </div>
-              <div id="seccion8-101" style="display:none">
-                <p></p>
+    <!-- Bloque desplegable interior-->
+    <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion8-101').toggle();">
+      <h3>101. Agregando el Nuevo Type a nuestro código</h3>
+      <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+    </div>
+    <div id="seccion8-101">
+      <p></p>
 
               </div>
               <!-- Fin bloque desplegable interior-->
