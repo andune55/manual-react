@@ -116,8 +116,26 @@
                 <h3>93. Introducción a TypeScript - Primitive Types</h3>
                 <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
               </div>
-              <div id="seccion8-93">
-                <p></p>
+              <div id="seccion8-93" style="display:none">
+                <p>Vamos a comenzar a solucionar los errores que encuentra Typescript en el código. Vemos que en App.tsx, Guitar.tsx, Header.tsx, useCard.ts se van pintando en rojo algunos de estos archivos. No es que el código esté mal escrito (si arrancamos el servidor de desarrollo y probamos vemos que todo funciona bien) sino que más bien tneemos que darle más información a TypeScript. esa información normalmente se la pasamos con algo llamado <span class="destacado">Primitive Type</span>.</p>
+
+                <ul>
+                  <li>Los Primitive Types son los tipos de datos que soporta TypeScript de forma nativa.</li>
+                  <li>Estos son number, string, boolean, null y undefined. Cuando creamos un objeto, hemos de especificar qué tipo de dato (primitive type) es el que tiene cada propiedad de ese objeto. De igual manera si creamos una variable o si le pasamos parámetros a una función.</li>
+                  <li>En el caso de arrays hay una sintaxis especial para crearlos</li>
+                </ul>
+
+                <p>Abrimos nuestro <span class="rojo">App.tsx</span> y tras importar state <code class="language-js">import { useCart } from './hooks/useCart'</code>, creamos un nuevo state para verificar si un usuario está autenticado, así es como lo hemos hecho hasta ahora poniendole como valor inicial que el usuario no está logado: <code class="language-js">const [auth, setAuth] = useState(false)</code>. Si nos ponemos encima de auth el intellisense nos muestra que TypeScript infiere que el tipo de auth va a ser boolean, pero si le cambiamos el valor inicial a '20' y volvemos a ponernos encima de auth el IS nos muestra que TS infiere que el valor es number. Si inmediatamente hago un <code class="language-js">setAuth(true)</code> nos lo marca como error y el IS nos indica algo como "no le puedes asignar un booleano porque tú dijiste que era un número". <span class="destacado">En este tipo de acciones es donde TypeScript nos va a proteger, el evitarnos que estemos asignando diferente tipo de dato nos va a permitir escribir un mejor código</span>.</p>
+
+                <img src="./src/assets/img/93.png" alt="">
+                
+
+                <p>Explica que hay algunos casos de uso para especificar el tipo entre tags <span class="destacado">&lt;&gt;</span> por ejemplo: <code class="language-js">const [auth, setAuth] = useState&lt;number&gt;(20)</code> Pero que no lo hacemos así porque es dar información redundante.</p>
+
+                <p>Si abrimos nuestro <span class="rojo">data&gt;db.ts</span> y nos ponemos encima de db vemos como TypeScript infiere el tipo de dato para cada elemento id, name,... Poría decirse que va a escanear nuestro código y va a ser nuestro mejor asistente. De hecho si al segundo elemento de nuestro array le dijeramos que el id es "2" y volviéramos a consultar el IS, veríamos lo que aparece a la derecha de la siguiente captura, que <strong>TS nos especifica que puede ser un number o un string</strong>:</p>
+                <img src="./src/assets/img/93-2.png" alt="">
+
+                <p>Sin embargo estas guitarras y loq ue tenemos en useCart.ts en nuestro carrito es básicament elo mismo, vamos agregando nosotros las guitarras salvo con algunas excepciones y <span class="destacado">cuando trabajas con objetos, la recomendación es no dejar que TypeScript infiera ese tipo de dato sino que nosotros crearemos nuestros propios grupos de tipo de dato que se les conoce como Types e Interfaces.</span></p>
 
               </div>
               <!-- Fin bloque desplegable interior-->
@@ -128,8 +146,64 @@
                 <h3>94. Introducción a TypeScript - Types e Interfaces</h3>
                 <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
               </div>
-              <div id="seccion8-94" style="display:none">
-                <p></p>
+              <div id="seccion8-94">
+                <p>Si nos colocamos en la variable db vemos un objeto que tiene diferentes propiedades. Cuando tenemos una estructura de este tipo lo mejor es crear lo que se conoce como un Type o Interface. Básicamente es lo mismo, pero veamos un poco más de información de este tema.</p>
+
+                <ul>
+                  <li>Types e Interfaces son dos de las características que más vamos a utilizar en TypeScript.</li>                  
+                  <li>Ambas pueden ser utilizadas incluso de forma intercambiable, hay muy pocas diferencias entre ambos y en la comunidad vas a encontrar ejemplos con ambos (La verdad es que la comunidad está dividida, unos dicen utilizar interfaces, otros types...) Cuál vas a utilizar en un proyecto? Bueno, el que ya estén utilizando.</li>
+                  <li><strong>Es una forma de crear una estructura y definir qué tipo de dato tiene cada propiedad de un objeto o agrupar propiedades de un objeto</strong>.</li>                
+                </ul>
+
+                <p>Veamos algunos ejemplos. Creemos nuestro primer type para nuestras guitarras. <span class="rojo">db.ts</span>:</p>
+
+                <pre data-line="0-6,7"><code class="language-js">
+                  type Guitar = {
+                    id: number
+                    name: string
+                    image: string
+                    description: string
+                    price: number
+                }
+                export const db : Guitar[] = [
+                    {
+                        id: 1,
+                        name: 'Lukather',
+                        image: 'guitarra_01',
+                        description: 'Morbi ornare augue nisl, vel elementum dui mollis vel. Curabitur non ex id eros fermentum hendrerit.',
+                        price: 299,
+                    },
+                </code></pre>
+
+                <p>Definimos nuestra estructura Types, la aplicamos a nuestra información y si el tipo de dato no es el correcto nos va a marcar el error. si cambiáramos el tipo de id a string veríamos que nos saca un error y ahí es donde TS nos va a yudar mucho, no vamos a necesitar compilar el proyecto para ver si tiene errores, desde le momento en que estamos escribiendo TS ya nos va marcando si tenemos algún error.</p>
+
+                <p>La sintaxis para definir nuestra interface es similar usando la palabra interface y sin el "="</p>
+
+                <pre data-line="0,7"><code class="language-js">
+                  interface Guitar {
+                    id: number
+                    name: string
+                    image: string
+                    description: string
+                    price: number
+                }
+                export const db : Guitar[] = [
+                    {
+                        id: 1,
+                        name: 'Lukather',
+                        image: 'guitarra_01',
+                        description: 'Morbi ornare augue nisl, vel elementum dui mollis vel. Curabitur non ex id eros fermentum hendrerit.',
+                        price: 299,
+                    },
+                </code></pre>
+
+                <p>La preferencia es types porque es mas corto de escribir pero ambos valen igual. <span class="destacado">Como hemos visto, a nuestra constante db le estamos añadiendo el type Guitar: <code class="language-js">export const db : Guitar[] = [</code> y de hecho si abrimos nuestro <span class="rojo">useCart.ts</span> vemos que ahí estamos seteando ese db <code class="language-js">const [data] = useState(db)</code>. Si nos ponemos encima de data el IS nos dice que tiene el type Guitar[] por tanto se propaga en nuestro código ese tipo de dato.</span></p>
+
+                <img src="./src/assets/img/93-3.png" alt="">
+
+                <p>Si nos ponemos encima de cart el IS nos dice tipo de dato any; en otros componentes como <span class="rojo">Guitar.jsx</span> vemos que si nos ponemos encima de addToCart el IS nos dice tipo de dato any implícito. <span class="destacado">any en TypeScript es veneno.</span> Veamos cómo solucionarlo.</p>
+
+                <img src="./src/assets/img/93-4.png" alt="">
 
               </div>
               <!-- Fin bloque desplegable interior-->

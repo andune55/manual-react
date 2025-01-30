@@ -19,6 +19,7 @@ h3{
     line-height: 20px;
     margin-top: 0;
 	margin-bottom: 0;
+	padding: 4px 0px;
 }
 
 span.rojo, p, ul, li, a{
@@ -368,12 +369,18 @@ p.titulo{
 div.oscuro{
 	/*color: #51d0f4;*/
 	color: #ffffff;
-    background-color: lightslategray;
+    background-color: #666666;
     padding-left: 3px;
     border-bottom: solid 3px #ffffff;
     width: Calc(100% - 10px);
     border-radius: 1px 7px 13px 2px;
 }
+@media screen and (max-width: 599px){
+	div.oscuro{
+		border-radius: 1px 3px 33px 2px;		
+	}
+}
+
 
 .txt-blanco{color: #ffffff;}
 .txt-negro{color: #000000;}
@@ -474,6 +481,12 @@ pre.verde .line-highlight {
 	}
 	code[class*=language-], pre[class*=language-]{
 		white-space: break-spaces!important;
+        width: auto;
+        max-width: -webkit-fill-available;
+        word-wrap: break-word;
+        display: block;
+        position: relative;
+        left: -6px !important;
 	}
 	.w-50 code[class*=language-], .w-50 pre[class*=language-]{
 		white-space: pre!important;
