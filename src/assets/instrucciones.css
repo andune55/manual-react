@@ -488,7 +488,7 @@ pre.verde .line-highlight {
         word-wrap: break-word;
         display: block;
         position: relative;
-        left: -6px !important;
+        /*left: -6px !important;*/
 	}
 	.w-50 code[class*=language-], .w-50 pre[class*=language-]{
 		white-space: pre!important;
