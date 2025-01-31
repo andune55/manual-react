@@ -17,569 +17,668 @@
     <div class="contenedor-fluido">
       
      
-<!-- SECCION 08 -->
-    <div class="contenedor w-80 w-96-s background esp-5-bottom">
-      <div class="row">
-        <div class="flex center-vertical esp-25-top pointer desplegable space-between pointer" onclick="$('#seccion08').toggle();">
-          <h2>Sección 8: PROYECTO - Carrito de Compras - Migrando a TypeScript paso a paso</h2>
-          <span class="cambiaicono ico_chevron_up esp-10-right" title=""></span>
-        </div>
-
-        <div id="seccion08">
+    <!-- SECCION 8 -->
+        <div class="contenedor w-80 w-96-s background esp-5-bottom">
           <div class="row">
-            <div class="col-12">
-
-              <!-- Bloque desplegable interior-->
-              <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion8-91').toggle();">
-                <h3>91. ¿Qué es TypeScript y sus ventajas?</h3>
-                <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
-              </div>
-              <div id="seccion8-91" style="display:none">
-                <p class="titulo">Typescript ¿qué es? y ventajas</p>
-                <ul>
-                  <li>Es un lenguaje de programación de código abierto. Sí, es un lenguaje completo, desarrollado y mantenido por Microsoft. También se le conoce como un <strong>superconjunto tipado para JavaScript, lo que significa que cualquier código de JavaScript válido es también código de TypeScript válido</strong>.</li>                    
-                  <li>La principal característica de TypeScript es que agrega un sistema de tipos estático a JavaScript, lo que permite detectar errores y proporcionar herramientas de desarrollo más sólidas.</li>
-                </ul>
-
-                <p class="titulo">¿Cuáles son las ventajas de implementar TypeScript?</p>
-                <ul>
-                  <li>El sistema de tipado de tipos de TypeScript permite al programador especificar los tipos de variable, parámetros de función, valores de retorno y más. Esto va a brindar la capacidad de realizar la comprobación de tipos durante la compilación (cuando estás escribiendo tu código) y detectar posibles errores antes de que el código sea ejecutado. --> Entonces su principal ventaja es que no necesitas que el proyecto esté en producción para revisar que todo esté bien. Con TypeScript puedes tener la garantía de que tu código va a funcionar correctamente.</li>
-                  <li>Mejora enormemente el autocompletado o Intellisense que vas a obtener con Visual Studio Code (Ver presentación 10.html del curso de Angular).
-                  <img src="./src/assets/img/91.png" alt="">
-                  </li>
-                </ul>
-
-                <p class="titulo">Typescript y Javascript / React</p>
-
-                <ul>
-                  <li>Una vez que has escrito el código en TypeScript, este código siempre se compila a JavaScript. Como tal, el navegador no soporta TypeScript, por lo tanto se tiene que compilar siempre hacia código de JavaScript</li>
-                  <li>React y Vite incluyen soporte a TypeScript también, lo que ayuda bastante en el desarrollo de proyectos. Una vez que esté listo tu proyecto, lo construyes con build, se va a compilar a código de JavaScript y entonces puede ser publicado en Internet.</li>
-                  <li>Hoy en día, TypeScript se ha convertido en un estándar para crear aplicaciones React, Angular y View. Incluso se pide en vacantes de Junior Developer por lo que es el momento adecuado para comenzar a aprender TypeScript.</li>
-                </ul>
-                
-
-              </div>
-              <!-- Fin bloque desplegable interior-->
-
-              <!-- Bloque desplegable interior-->
-              <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion8-92').toggle();">
-                <h3>92. Creando el Proyecto con TypeScript</h3>
-                <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
-              </div>
-              <div id="seccion8-92" style="display:none">
-                <p>Vamos a crear un proyecto nuevo <span class="destacado">npm create vite@latest</span> lo nombramos <strong>guitarla-ts</strong> que sea react con el nuevo compilador. Vamos a la carpeta e instalamos las dependencias con <span class="destacado">npm install</span>. Lanzamos el servidor de desarrollo con <strong>npm run dev</strong>.</p>
-
-                <p>Vemos que básicamente la estructura del proyecto es como la que hemos visto hasta ahora con algunas diferencias:</p>
-                <ul>
-                  <li>vemos que hay 3 ficheros de configuración de typescript con extensión .json: tsconfig.app.json,tsconfig.json y tsconfig.node.json. Normalmente no tocaremos nada en ellos.</li>
-                  <li>Si abrimos la carpeta src veremos que la extensión ya no es .jsx sino tsx.</li>                
-                </ul>
-
-                <p>Aunque el resto de proyectos los haremos desde cero con typescript, ahora vamos a convertir el proyecto de carrito de compras de guitarras <strong>guitarla-useCart</strong> a typescript. Copiamos entre proyectos de ese a este nuevo <strong>guitarla-ts</strong>:</p>
-
-                <ul>
-                  <li>borramos el archivo public/vite.svg</li>
-                  <li>copiamos y pegamos la carpeta public/img</li>
-                  <li>En la carpeta principal del proyecto, borro src del nuevo y copio src.</li>
-                  <li>Cambiamos todos los .jsx --> .tsx y los .js --> .ts. veremos que nos empieza a marcar en rojo en muchos archivos. Si abrimos el componente Header.tsx por ejemplo vemos que los errores los resalta en los parámetros que toma este componente. Ahí es "donde entra typescript" en los parámetros, objetos que vamos creando vamos a ir definiendo el tipo de dato que le estamos pasando a nuestras fucniones, componentes... Vamos a ir viéndolo paso a paso.</li>
-                  <li>Error del main.tsx --> document.getElementById('root'). Veamos la explicación de esto. Si creamos una variable en ese mismo <span class="rojo">main.tsx</span>y le asignamos eso <code class="language-js">const div = document.getElementById('root')</code>, vemos en el Intellisense que TypeScript <span class="destacado">INFIERE</span> que el tipo de dato de ese elemento es un HTMLElement o null.<br>
-                    
-                    <img src="./src/assets/img/92.png" alt="">
-
-                    <p>Es decir, <span class="destacado">TypeScript nos marca eso como error porque estamos utilizando un parámetro que puede ser null. Para eliminar esa posibilidad, fijamos el tipo de dato de esta manera:</span> <code class="language-js">const div = document.getElementById('root') as HTMLElement</code> y entonces podríamos quitar ese error como se hacía hasta no hace mucho aunque no se considera buena práctica porque con <code class="language-js">as HTMLElement</code> le estamos diciendo a typeScript "confia en mí, este va a ser el tipo de dato":</p>
-
-                    <pre class="verde" data-line="0"><code class="language-js">
-                      ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-                        &lt;React.StrictMode&gt;
-                          &lt;App /&gt;
-                        &lt;/React.StrictMode&gt;&comma;
-                      )
-                    </code></pre>                      
-                      <p>Otra manera es utilizar el <strong>operador de Assertionnot null = non null assertion operator "!"</strong> que es una manera de asegurarle a TypeScript que ese elemento no va a ser null:</p>
-                      <pre class="verde" data-line="0"><code class="language-js">
-                        ReactDOM.createRoot(document.getElementById('root')!).render(
-                          &lt;React.StrictMode&gt;
-                            &lt;App /&gt;
-                          &lt;/React.StrictMode&gt;&comma;
-                        )
-                      </code></pre>
-                  </li>                 
-                </ul>
-
-                <p>Vamos a ir viendo como solucionar el resto de errores que nos aparecen en los ficheros.</p>
-              </div>
-              <!-- Fin bloque desplegable interior-->
-              
-
-              <!-- Bloque desplegable interior-->
-              <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion8-93').toggle();">
-                <h3>93. Introducción a TypeScript - Primitive Types</h3>
-                <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
-              </div>
-              <div id="seccion8-93" style="display:none">
-                <p>Vamos a comenzar a solucionar los errores que encuentra Typescript en el código. Vemos que en App.tsx, Guitar.tsx, Header.tsx, useCard.ts se van pintando en rojo algunos de estos archivos. No es que el código esté mal escrito (si arrancamos el servidor de desarrollo y probamos vemos que todo funciona bien) sino que más bien tneemos que darle más información a TypeScript. esa información normalmente se la pasamos con algo llamado <span class="destacado">Primitive Type</span>.</p>
-
-                <ul>
-                  <li>Los Primitive Types son los tipos de datos que soporta TypeScript de forma nativa.</li>
-                  <li>Estos son number, string, boolean, null y undefined. Cuando creamos un objeto, hemos de especificar qué tipo de dato (primitive type) es el que tiene cada propiedad de ese objeto. De igual manera si creamos una variable o si le pasamos parámetros a una función.</li>
-                  <li>En el caso de arrays hay una sintaxis especial para crearlos</li>
-                </ul>
-
-                <p>Abrimos nuestro <span class="rojo">App.tsx</span> y tras importar state <code class="language-js">import { useCart } from './hooks/useCart'</code>, creamos un nuevo state para verificar si un usuario está autenticado, así es como lo hemos hecho hasta ahora poniendole como valor inicial que el usuario no está logado: <code class="language-js">const [auth, setAuth] = useState(false)</code>. Si nos ponemos encima de auth el intellisense nos muestra que TypeScript infiere que el tipo de auth va a ser boolean, pero si le cambiamos el valor inicial a '20' y volvemos a ponernos encima de auth el IS nos muestra que TS infiere que el valor es number. Si inmediatamente hago un <code class="language-js">setAuth(true)</code> nos lo marca como error y el IS nos indica algo como "no le puedes asignar un booleano porque tú dijiste que era un número". <span class="destacado">En este tipo de acciones es donde TypeScript nos va a proteger, el evitarnos que estemos asignando diferente tipo de dato nos va a permitir escribir un mejor código</span>.</p>
-
-                <img src="./src/assets/img/93.png" alt="">
-                
-
-                <p>Explica que hay algunos casos de uso para especificar el tipo entre tags <span class="destacado">&lt;&gt;</span> por ejemplo: <code class="language-js">const [auth, setAuth] = useState&lt;number&gt;(20)</code> Pero que no lo hacemos así porque es dar información redundante.</p>
-
-                <p>Si abrimos nuestro <span class="rojo">data&gt;db.ts</span> y nos ponemos encima de db vemos como TypeScript infiere el tipo de dato para cada elemento id, name,... Poría decirse que va a escanear nuestro código y va a ser nuestro mejor asistente. De hecho si al segundo elemento de nuestro array le dijeramos que el id es "2" y volviéramos a consultar el IS, veríamos lo que aparece a la derecha de la siguiente captura, que <strong>TS nos especifica que puede ser un number o un string</strong>:</p>
-                <img src="./src/assets/img/93-2.png" alt="">
-
-                <p>Sin embargo estas guitarras y loq ue tenemos en useCart.ts en nuestro carrito es básicament elo mismo, vamos agregando nosotros las guitarras salvo con algunas excepciones y <span class="destacado">cuando trabajas con objetos, la recomendación es no dejar que TypeScript infiera ese tipo de dato sino que nosotros crearemos nuestros propios grupos de tipo de dato que se les conoce como Types e Interfaces.</span></p>
-
-              </div>
-              <!-- Fin bloque desplegable interior-->
-              
-
-              <!-- Bloque desplegable interior-->
-              <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion8-94').toggle();">
-                <h3>94. Introducción a TypeScript - Types e Interfaces</h3>
-                <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
-              </div>
-              <div id="seccion8-94" style="display:none">
-                <p>Si nos colocamos en la variable db vemos un objeto que tiene diferentes propiedades. Cuando tenemos una estructura de este tipo lo mejor es crear lo que se conoce como un Type o Interface. Básicamente es lo mismo, pero veamos un poco más de información de este tema.</p>
-
-                <ul>
-                  <li>Types e Interfaces son dos de las características que más vamos a utilizar en TypeScript.</li>                  
-                  <li>Ambas pueden ser utilizadas incluso de forma intercambiable, hay muy pocas diferencias entre ambos y en la comunidad vas a encontrar ejemplos con ambos (La verdad es que la comunidad está dividida, unos dicen utilizar interfaces, otros types...) Cuál vas a utilizar en un proyecto? Bueno, el que ya estén utilizando.</li>
-                  <li><strong>Es una forma de crear una estructura y definir qué tipo de dato tiene cada propiedad de un objeto o agrupar propiedades de un objeto</strong>.</li>                
-                </ul>
-
-                <p>Veamos algunos ejemplos. Creemos nuestro primer type para nuestras guitarras. <span class="rojo">db.ts</span>: la convención de nombrado es con la primera mayúscula.</p>
-
-                <pre data-line="0-6,7"><code class="language-js">
-                  type Guitar = {
-                    id: number
-                    name: string
-                    image: string
-                    description: string
-                    price: number
-                }
-                export const db : Guitar[] = [
-                    {
-                        id: 1,
-                        name: 'Lukather',
-                        image: 'guitarra_01',
-                        description: 'Morbi ornare augue nisl, vel elementum dui mollis vel. Curabitur non ex id eros fermentum hendrerit.',
-                        price: 299,
-                    },
-                </code></pre>
-
-                <p>Definimos nuestra estructura Types, la aplicamos a nuestra información y si el tipo de dato no es el correcto nos va a marcar el error. si cambiáramos el tipo de id a string veríamos que nos saca un error y ahí es donde TS nos va a yudar mucho, no vamos a necesitar compilar el proyecto para ver si tiene errores, desde le momento en que estamos escribiendo TS ya nos va marcando si tenemos algún error.</p>
-
-                <p>La sintaxis para definir nuestra interface es similar usando la palabra interface y sin el "="</p>
-
-                <pre data-line="0,7"><code class="language-js">
-                  interface Guitar {
-                    id: number
-                    name: string
-                    image: string
-                    description: string
-                    price: number
-                }
-                export const db : Guitar[] = [
-                    {
-                        id: 1,
-                        name: 'Lukather',
-                        image: 'guitarra_01',
-                        description: 'Morbi ornare augue nisl, vel elementum dui mollis vel. Curabitur non ex id eros fermentum hendrerit.',
-                        price: 299,
-                    },
-                </code></pre>
-
-                <p>La preferencia es types porque es mas corto de escribir pero ambos valen igual. <span class="destacado">Como hemos visto, a nuestra constante db le estamos añadiendo el type Guitar: <code class="language-js">export const db : Guitar[] = [</code> y de hecho si abrimos nuestro <span class="rojo">useCart.ts</span> vemos que ahí estamos seteando ese db <code class="language-js">const [data] = useState(db)</code>. Si nos ponemos encima de data el IS nos dice que tiene el type Guitar[] por tanto se propaga en nuestro código ese tipo de dato.</span></p>
-
-                <img src="./src/assets/img/93-3.png" alt="">
-
-                <p>Si nos ponemos encima de cart el IS nos dice tipo de dato any; en otros componentes como <span class="rojo">Guitar.jsx</span> vemos que si nos ponemos encima de addToCart el IS nos dice tipo de dato any implícito. <span class="destacado">any en TypeScript es veneno.</span> Veamos cómo solucionarlo.</p>
-
-                <img src="./src/assets/img/93-4.png" alt="">
-
-              </div>
-              <!-- Fin bloque desplegable interior-->
-              
-
-              <!-- Bloque desplegable interior-->
-              <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion8-95').toggle();">
-                <h3>95. Asignar Types a tus Props - Inline Type</h3>
-                <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
-              </div>
-              <div id="seccion8-95" style="display:none">
-                <p>Si nos llenamos de Any es como si no estuviéramos utilizando TS. Hemos de facilitar más información a TS. Vamos a <span class="rojo">Guitar.tsx</span> donde tenemos <code class="language-js">export default function Guitar({guitar, addToCart}) {</code> ese guitar que es un objeto y el addToCart que es una función. ¿Cómo convertimos esos props hacia TS? hay dos opciones:</p>
-
-                <ul>
-                  <li><strong>inline type</strong></li>
-                  <li><strong>separate type</strong></li>
-                </ul>
-
-                <p class="titulo">inline type</p> 
-                
-                <p>en nuestro <span class="rojo">Guitar.tsx</span> <span class="destacado">añadimos el type</span></p> 
-                <pre><code class="language-js">
-                  type Guitar = {
-                    id: number
-                    name: string
-                    image: string
-                    description: string
-                    price: number
-                }
-                </code></pre>
-                <p><span class="destacado">y a continuación especificamos el tipado a esas dos props que toma como parámetro la función de nuestro componente (objeto "guitarra" y funcion "addToCart"). Para especificar el tipo de dato usamos la sintaxis con ":"</span></p>
-
-                <pre><code class="language-js">                    
-                export default function Guitar({guitar, addToCart} : {guitar : Guitar, addToCart: (item: Guitar) => void}) {
-                </code></pre>
-
-                <p><span class="destacado">El primer parámetro es un objeto de tipo Guitar</span> y en cuanto lo tipamos vemos que del parámetro ya nos desaparece el aviso/error (antes el IS nos lo marcaba como any y ya nos aparece que es de tipo Guitar); </p>
-                    
-                <img src="./src/assets/img/95-1.png" alt="">
-
-                <p>Fijémonos que todas las propiedades que definimos en nuestro type </p>
-                <pre><code class="language-js">
-                  type Guitar = {
-                    id: number
-                    name: string
-                    image: string
-                    description: string
-                    price: number
-                }                      
-                </code></pre>
-
-                <p>si en el return() de nuestro componente Guitarra (la parte de la vista) sustituyéramos por ejemplo <code class="language-js">{name}</code> por <code class="language-js">{guitar.}</code> vemos como en el IS solo me aparecen disponibles esas opciones (los tipos de datos que yo definí en ese objeto es lo que puedo imprimir ahí), no tenemos que enviarlo a la consola, ya lo tenemos disponible en VSC y eso va hacer que escribamos código más rápidamente:</p>
-
-                <img src="./src/assets/img/95-2.png" alt="">
-                
-                <p>Para definir el tipo del segundo parámetro (función addToCart que toma una guitarra), nos vamos al fichero <span class="rojo">App.tsx</span> e inspeccionamos el aviso del IS al ponernos encima del prop addToCart que aún no hemos tipado --&gt; <strong>item(any) =&gt; void</strong>.</p>
-                  
-                <img src="./src/assets/img/95-3.png" alt="">
-
-                <p>Copiamos ese código. "void" es algo muy común en java, se usa cuando una función no devuelve nada. El any vamos a quitarlo: cuando yo agrego un elemento con el onClick del botón, le paso una guitarra completa:</p> 
-
-                <script type="text/plain" class="language-js">
-                  <button 
-                    type="button"
-                    className="btn btn-dark w-100"
-                    onClick={() => addToCart(guitar)}
-                >Agregar al Carrito</button>
-                </script>
-
-                <p>así que cambiamos ese any por Guitar, le decimos así que el item que maneja esa función que agrega tiene que ser una guitarra de tipo Guitarra. <span class="destacado">Y en definitiva estamos tipando ese parámetro como una función que toma un objeto Guitarra y no retorna nada.</span></p>
-                    
-                <img src="./src/assets/img/95-1.png" alt="">
-
-                <p>Ya desaparecen los errores/avisos. Estamos tipando fuertemente. Si por ejemplo me voy a la <span class="rojo">App.tsx</span> y le quitamos la propiedad addToCart de aquí:</p>
-
-                <script type="text/plain" class="language-js">
-                  <div className="row mt-5">
-                    {data.map((guitar) => (
-                        <Guitar 
-                          key={guitar.id}
-                          guitar={guitar}
-                          addToCart={addToCart}
-                        />
-                    ))}              
-                </div>
-                </script>
-
-                <p>vemos que nos marca un error. Por tanto nos va a indicar si le falta algo, si escribimos algo mal, si le pasamos un valor de forma incorrecta</p>
-                  
-                <img src="./src/assets/img/95-4.png" alt="">
-
-                <p>Vamos a ver la otra sintasis de <strong>separate type</strong> que él indica que le gusta más.</p>
-
-              </div>
-              <!-- Fin bloque desplegable interior-->
-              
-
-              <!-- Bloque desplegable interior-->
-              <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion8-96').toggle();">
-                <h3>96. Asignar Types a tus Props - Type Separado</h3>
-                <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
-              </div>
-              <div id="seccion8-96" style="display:none">
-                <p class="titulo">separate type</p> 
-                <p>Veamos esta otra sintaxis que es menos confusa: podríamos hacer salto de línea a lo que tenemos ahora mismo para que quedara un poco más ordenado:</p>
-
-                <pre><code class="language-js">
-                  export default function Guitar({guitar, addToCart} : {
-                    guitar : Guitar, 
-                    addToCart: (item: Guitar) => void
-                }) {
-                </code></pre>
-
-                <p>Sin embargo es mejor tener un type (o una interface) y tenerlo separado para minimizar la posibilidad de cometer errores:</p>
-
-                <pre><code class="language-js">
-                  type GuitarProps = {
-                    guitar : Guitar, 
-                    addToCart: (item: Guitar) => void
-                }                
-                export default function Guitar({guitar, addToCart} : GuitarProps) {
-                </code></pre>
-
-              </div>
-              <!-- Fin bloque desplegable interior-->
-              
-
-              <!-- Bloque desplegable interior-->
-              <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion8-97').toggle();">
-                <h3>97. Creando un Archivo de Types ¿Donde y como hacerlo?</h3>
-                <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
-              </div>
-              <div id="seccion8-97" style="display:none">
-                <p>Vamos a crear un archivo que centralice los types que se van a compartir más de una vez. Si nos fijamos ahora mismo el type Guitar que hemos creado lo tenemos tanto en <span class="rojo">db.ts</span> como en <span class="rojo">Guitar.tsx</span>, si tuviéramos que modificarlo porque el proyecto por ejemplo crece, el mantenimiento se hace complicado. <span class="destacado">Cuando tenemos un type que se comparte en diferentes componentes o Hooks lo mejor es ponerlo en su propio archivo</span>, hay dos maneras de hacerlo.</p>
-
-                <p>Si en en src creamos un archivo nuevo <strong>types.d.ts</strong> y metemos ahí nuestro types, creado así con ese nombre no necesitaríamos importarlo. Sin embargo ¡¡el equipo de desarrollo de TS no recomienda hacerlo de esta forma!!!</p>
-
-                <p>Creamos carpeta y archivo <strong>types>types.ts</strong> (también se podría llamar index.ts). En el solo metemos el type Guitar al cual le ponemos delante la palabra export:</p>
-
-                <pre><code class="language-js">
-                  export type Guitar = {
-                    id: number
-                    name: string
-                    image: string
-                    description: string
-                    price: number
-                }
-                </code></pre>
-
-                <p>importamos ese type en los ficheros donde se va a utilizar: <span class="rojo">db.ts</span> y <span class="rojo">Guitar.tsx</span> </p>
-                
-                <ul>
-                  <li>si hemos nombrado el fichero como <strong>index.ts</strong> lo importaremos así: <code class="language-js">import type {Guitar} from '../types'</code></li>
-                  <li>si hemos nombrado el fichero como <strong>types.ts</strong> lo importaremos así: <code class="language-js">import type {Guitar} from '../types/types'</code></li>                  
-                </ul>
-                
-                <p>Como vemos no metemos en ese archivo exclusivo de types el otro type GuitarProps, porque no se trata de un type que vayamos a utilizar en diferentes componentes o diferentes Hooks; en este caso es un type exclusivo del componente <span class="rojo">Guitar.tsx</span>. <span class="destacado">Habitualmente así es como vamos a definir nuestros types, en el componente donde se requieren y en el caso de que se vaya a compartir en mas sitios (otros componentes y/o Hooks) entonces se mueve al archivo específico de types.</span></p>
-
-                <p>Como vemos, ya están completamente tipados nuestro <span class="rojo">db.ts</span> y nuestro componente de guitarra<span class="rojo">Guitar.tsx</span>. Migremos a continuación nuestro Hook personalizado para solucionar esos Any que aparecen en nuestro cart.</p>
-              </div>
-              <!-- Fin bloque desplegable interior-->
-
-
-              <!-- Bloque desplegable interior-->
-              <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion8-98').toggle();">
-                <h3>98. Añadiendo un Type para los elementos del Carrito / 99. Heredar y extender un Type</h3>
-                <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
-              </div>
-              <div id="seccion8-98" style="display:none">
-                <p>Si miramos nuestro custom Hook <span class="rojo">useCart.ts</span> vemos que tenemos dos states: data tiene el type Guitar pero cart tiene un tipo Any.</p>
-                <pre><code class="language-js">
-                  const [data] = useState(db)
-                  const [cart, setCart] = useState(initialCart)
-                </code></pre>
-                <p><span class="destacado">Algo muy común en TS es que cuando obtenemos datos externos, sea de localStorage o de una consulta con FetchAPI, a TS se le hace muy complicado inferir el tipo de dato.</span> ¿Como hacemos para indicar que este const initialCart va a ser de tipo Guitar (o un tipo de elemento en un carrito)?</p>
-                <pre><code class="language-js">
-                  const initialCart = () => {
-                    const localStorageCart = localStorage.getItem('cart')
-                    return localStorageCart ? JSON.parse(localStorageCart) : []
-                }
-                </code></pre>
-
-                <p>Importamos nuestro type <code class="language-js">import type { Guitar } from '../types/types'</code> Le especificamos a ese initialCart que el tipo de dato va a ser Guitar[] (pero array, que es un carrito):</p>
-
-                <pre data-line="0"><code class="language-js">
-                  const initialCart = () : Guitar[] => {
-                    const localStorageCart = localStorage.getItem('cart')
-                    return localStorageCart ? JSON.parse(localStorageCart) : []
-                }
-                </code></pre>
-
-                <p>sin embargo inmediatamente vemos en nuestro código que TS se queja: <strong>"oye, estas diciendo que esto es un tipo Guitar, pero hasta en 3 funciones de tu Hook se intenta utilizar una propiedad "quantity" que no existe en ese tipo Guitar"</strong>. Cuando intentamos agregar una guitarra al carrito, sí es un objeto Guitar pero tiene una propiedad adicional llamada "quantity" que se requiere para estar en el carrito</p>
-                <img src="./src/assets/img/98.png" alt="">
-                
-                <p>Podríamos resolverlo, añadiendo un nuevo type en nuestro archivo <span class="red">types.ts</span>:</p>
-                <pre><code class="language-js">
-                  export type CartItem = {
-                    id: number
-                    name: string
-                    image: string
-                    description: string
-                    price: number
-                    quantity: number
-                  }
-                </code></pre>
-                <p>Importamos nuestro type <code class="language-js">import type { CartItem } from '../types/types'</code> Le especificamos a ese initialCart que el tipo de dato va a ser CartItem[] (pero array, que es un carrito):</p>
-                
-                <pre data-line="0"><code class="language-js">
-                  const initialCart = () : CartItem[] => {
-                    const localStorageCart = localStorage.getItem('cart')
-                    return localStorageCart ? JSON.parse(localStorageCart) : []
-                  }
-                </code></pre>
-                
-                <p>así ya nos desaparecen los errores con el quantity que teníamos en nuestras funciones (aunque aún quedan algunos errores en parámetros que los veremos). </p>
-                <img src="./src/assets/img/98-2.png" alt="">
-
-                <p>Este código funciona pero se puede mejorar porque los atributos id, name, image, description, price son exactamente iguales en los dos types Guitar y CartItem.</p>
-                
-                <pre data-line="1-5,8-12"><code class="language-js">
-                  export type Guitar = {
-                    id: number
-                    name: string
-                    image: string
-                    description: string
-                    price: number
-                }
-                export type CartItem = {
-                    id: number
-                    name: string
-                    image: string
-                    description: string
-                    price: number
-                    quantity: number
-                }
-                </code></pre>
-
-                <p>TypeScript nos permite heredar como si fuera de una clase a otra y podemos hacerlo heredando todos esos atributos dentro de cartItem</p>
-
-                <p class="naranja">Heredar y extender un Type</p>
-
-                <p>Ya hemos definido nuestro segundo tipo de dato. Teníamos <strong>Guitar</strong> pero como nuestro carrito de compras tiene una propiedad adicional "quantity" hemos creado un type llamado <strong>CartItem</strong>. Ambos comparten muchos atributos por lo que apliquemos herencia para simplicar el código, también para que si cambia alguno de ellos el mantenimiento sea más sencillo. Como es un poco diferente en types e interfaces veos ambos.</p>
-
-                <p class="titulo">herencia en types</p>
-
-                <p><span class="destacado">Borramos los atributos duplicados del type que hereda y en su declaración tras el "=" añadimos el nombre del type del que queremos que herede seguido de "&"</span></p>
-
-                <pre data-line="7"><code class="language-js">
-                  export type Guitar = {
-                    id: number
-                    name: string
-                    image: string
-                    description: string
-                    price: number
-                }
-                export type CartItem = Guitar & {
-                    quantity: number
-                }
-                </code></pre>
-
-                <p><strong>Podríamos perfectamente generar una interface y heredar de nuestro type:</strong> <span class="destacado">el "=" se cambia por la palabra "extends", de manera similar a lenguages como Java o php y se elimina el "&"</span></p>
-                <pre data-line="7"><code class="language-js">
-                  export type Guitar = {
-                    id: number
-                    name: string
-                    image: string
-                    description: string
-                    price: number
-                }
-                export interface CartItem extends Guitar {
-                    quantity: number
-                }
-                </code></pre>
-
-                <p>Existe otra forma de hacerlo, con los <span class="destacado">utility types</span>, solo se puede hacer con la sintaxis de type</p>
-              
-              </div>
-              <!-- Fin bloque desplegable interior-->
-
-
-              <!-- Bloque desplegable interior-->
-              <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion8-100').toggle();">
-                <h3>100. Utility Types en TypeScript</h3>
-                <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
-              </div>
-              <div id="seccion8-100" style="display:none">
-                <p>Acabamos de ver como se aplica herencia utilizando types e interfaces pero eso hereda todo el tipo de dato y sus atributos completos. Si bien podríamos hacer algo como cambiarle el number por string al atributo id del type original (no lo tengo muy claro que haga lo que dice por lo que veo en el IS)</p>
-
-                <pre data-line="1,9"><code class="language-js">
-                  export type Guitar = {
-                    id: number
-                    name: string
-                    image: string
-                    description: string
-                    price: number
-                }
-                export type CartItem = Guitar & {
-                    quantity: number
-                    id: string
-                }
-                </code></pre>
-
-                <p>Otras veces lo que vamos a querer es, manteniendo los mismos tipos de datos simplemente tener algunos atributos de un type y/o omitir otros. Para eso es muy útil lo que se conoce como <span class="destacado"><a class="txt-blanco" href="https://www.typescriptlang.org/docs/handbook/utility-types.html" target="_blank">Utility Types</a></span>. Hay unos cuantos, en cada nueva versión se agregan más, va a hacer que nuestro código sea más corto y son muy útiles cuando comenzamos a tener varios  types interdependientes que comparten atributos. Pone como ejemplo estos dos para explicar sintaxis y como se utilizan <strong>Pick&lt;Type&comma; Keys&gt;</strong> y <strong>Omit&lt;Type&comma; Keys&gt;</strong></p>
-
-                <p>En el siguiente ejemplo el Utility Type Pick selecciona del type Guitar los atributos id, name y price y los coloca en este nuevo type CartItem:</p>
-                <script type="text/plain" class="language-js">
-                  export type CartItem = Pick<Guitar, 'id' | 'name' | 'price'>
-                </script>
-
-                <p>aquí le agregaríamos el atributo extra "quantity" que no existe en ese type Guitar:</p>
-                <script type="text/plain" class="language-js">
-                  export type CartItem = Pick<Guitar, 'id' | 'name' | 'price'> & {
-                    quantity: number
-                  }
-                </script>
-
-                <p>Omit es para lo contrario, excluir los atributos que se especifiquen:</p>
-                <script type="text/plain" class="language-js">
-                  export type CartItem = Omit<Guitar, 'id' | 'name' | 'price'> & {
-                    quantity: number
-                }
-                </script>
-
-                <p>Veamos a continuación como especificar type a los parámetros que aún nos marca en nuestro código como aviso/error</p>
-              </div>
-              <!-- Fin bloque desplegable interior-->
-                        
-
-    <!-- Bloque desplegable interior-->
-    <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion8-101').toggle();">
-      <h3>101. Agregando el Nuevo Type a nuestro código</h3>
-      <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
-    </div>
-    <div id="seccion8-101">
-      <p></p>
-
-              </div>
-              <!-- Fin bloque desplegable interior-->
-              
-
-              <!-- Bloque desplegable interior-->
-              <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion8-102').toggle();">
-                <h3>102. Creando un Type para el ID de la guitarra</h3>
-                <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
-              </div>
-              <div id="seccion8-102" style="display:none">
-                <p></p>
-
-              </div>
-              <!-- Fin bloque desplegable interior-->
-              
-
-              <!-- Bloque desplegable interior-->
-              <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion8-103').toggle();">
-                <h3>103. Typando los Props del Header y Building del proyecto</h3>
-                <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
-              </div>
-              <div id="seccion8-103" style="display:none">
-                <p></p>
-
-              </div>
-              <!-- Fin bloque desplegable interior-->
-              
-
+            <div class="flex center-vertical esp-25-top pointer desplegable space-between pointer" onclick="$('#seccion08').toggle();">
+              <h2>Sección 8: PROYECTO - Carrito de Compras - Migrando a TypeScript paso a paso</h2>
+              <span class="cambiaicono ico_chevron_up esp-10-right" title=""></span>
             </div>
-          </div><!--Fin row-->
-        </div>
-        <!-- Fin div colapsable-->
 
-      </div>
-    </div>
-<!-- FIN SECCION XX -->  
-   
-    
+            <div id="seccion08" style="display:none">
+              <div class="row">
+                <div class="col-12">
+
+                  <!-- Bloque desplegable interior-->
+                  <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion8-91').toggle();">
+                    <h3>91. ¿Qué es TypeScript y sus ventajas?</h3>
+                    <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+                  </div>
+                  <div id="seccion8-91" style="display:none">
+                    <p class="titulo">Typescript ¿qué es? y ventajas</p>
+                    <ul>
+                      <li>Es un lenguaje de programación de código abierto. Sí, es un lenguaje completo, desarrollado y mantenido por Microsoft. También se le conoce como un <strong>superconjunto tipado para JavaScript, lo que significa que cualquier código de JavaScript válido es también código de TypeScript válido</strong>.</li>                    
+                      <li>La principal característica de TypeScript es que agrega un sistema de tipos estático a JavaScript, lo que permite detectar errores y proporcionar herramientas de desarrollo más sólidas.</li>
+                    </ul>
+
+                    <p class="titulo">¿Cuáles son las ventajas de implementar TypeScript?</p>
+                    <ul>
+                      <li>El sistema de tipado de tipos de TypeScript permite al programador especificar los tipos de variable, parámetros de función, valores de retorno y más. Esto va a brindar la capacidad de realizar la comprobación de tipos durante la compilación (cuando estás escribiendo tu código) y detectar posibles errores antes de que el código sea ejecutado. --> Entonces su principal ventaja es que no necesitas que el proyecto esté en producción para revisar que todo esté bien. Con TypeScript puedes tener la garantía de que tu código va a funcionar correctamente.</li>
+                      <li>Mejora enormemente el autocompletado o Intellisense que vas a obtener con Visual Studio Code (Ver presentación 10.html del curso de Angular).
+                      <img src="./src/assets/img/91.png" alt="">
+                      </li>
+                    </ul>
+
+                    <p class="titulo">Typescript y Javascript / React</p>
+
+                    <ul>
+                      <li>Una vez que has escrito el código en TypeScript, este código siempre se compila a JavaScript. Como tal, el navegador no soporta TypeScript, por lo tanto se tiene que compilar siempre hacia código de JavaScript</li>
+                      <li>React y Vite incluyen soporte a TypeScript también, lo que ayuda bastante en el desarrollo de proyectos. Una vez que esté listo tu proyecto, lo construyes con build, se va a compilar a código de JavaScript y entonces puede ser publicado en Internet.</li>
+                      <li>Hoy en día, TypeScript se ha convertido en un estándar para crear aplicaciones React, Angular y View. Incluso se pide en vacantes de Junior Developer por lo que es el momento adecuado para comenzar a aprender TypeScript.</li>
+                    </ul>
+                    
+
+                  </div>
+                  <!-- Fin bloque desplegable interior-->
+
+                  <!-- Bloque desplegable interior-->
+                  <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion8-92').toggle();">
+                    <h3>92. Creando el Proyecto con TypeScript</h3>
+                    <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+                  </div>
+                  <div id="seccion8-92" style="display:none">
+                    <p>Vamos a crear un proyecto nuevo <span class="destacado">npm create vite@latest</span> lo nombramos <strong>guitarla-ts</strong> que sea <strong>react con el nuevo compilador</strong>. Vamos a la carpeta e instalamos las dependencias con <span class="destacado">npm install</span>. Lanzamos el servidor de desarrollo con <strong>npm run dev</strong>.</p>
+
+                    <p>Vemos que básicamente la estructura del proyecto es como la que hemos visto hasta ahora con algunas diferencias:</p>
+                    <ul>
+                      <li>vemos que hay 3 ficheros de configuración de typescript con extensión .json: tsconfig.app.json,tsconfig.json y tsconfig.node.json. Normalmente no tocaremos nada en ellos.</li>
+                      <li>Si abrimos la carpeta src veremos que la extensión ya no es .jsx sino tsx.</li>                
+                    </ul>
+
+                    <p>Aunque el resto de proyectos los haremos desde cero con typescript, ahora vamos a convertir el proyecto de carrito de compras de guitarras <strong>guitarla-useCart</strong> a typescript. Copiamos entre proyectos de ese a este nuevo <strong>guitarla-ts</strong>:</p>
+
+                    <ul>
+                      <li>borramos el archivo public/vite.svg</li>
+                      <li>copiamos y pegamos la carpeta public/img</li>
+                      <li>En la carpeta principal del proyecto, borro src del nuevo y copio src.</li>
+                      <li>Cambiamos todos los .jsx --> .tsx y los .js --> .ts. veremos que nos empieza a marcar en rojo en muchos archivos. Si abrimos el componente Header.tsx por ejemplo vemos que los errores los resalta en los parámetros que toma este componente. Ahí es "donde entra typescript" en los parámetros, objetos que vamos creando vamos a ir definiendo el tipo de dato que le estamos pasando a nuestras funciones, componentes... Vamos a ir viéndolo paso a paso.</li>
+                      <li>Error del main.tsx --> document.getElementById('root'). Veamos la explicación de esto. Si creamos una variable en ese mismo <span class="rojo">main.tsx</span>y le asignamos eso <code class="language-js">const div = document.getElementById('root')</code>, vemos en el Intellisense que TypeScript <span class="destacado">INFIERE</span> que el tipo de dato de ese elemento es un HTMLElement o null.<br>
+                        
+                        <img src="./src/assets/img/92.png" alt="">
+
+                        <p>Es decir, <span class="destacado">TypeScript nos marca eso como error porque estamos utilizando un parámetro que puede ser null. Para eliminar esa posibilidad, fijamos el tipo de dato de esta manera:</span> <code class="language-js">const div = document.getElementById('root') as HTMLElement</code> y entonces podríamos quitar ese error como se hacía hasta no hace mucho aunque no se considera buena práctica porque con <code class="language-js">as HTMLElement</code> le estamos diciendo a typeScript "confia en mí, este va a ser el tipo de dato":</p>
+
+                        <pre class="verde" data-line="0"><code class="language-js">
+                          ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
+                            &lt;React.StrictMode&gt;
+                              &lt;App /&gt;
+                            &lt;/React.StrictMode&gt;&comma;
+                          )
+                        </code></pre>                      
+                          <p><span class="verde">Otra manera es utilizar el <strong>operador de Assertionnot null = non null assertion operator "!"</strong> que es una manera de asegurarle a TypeScript que ese elemento no va a ser null:</span></p>
+                          <pre class="verde" data-line="0"><code class="language-js">
+                            ReactDOM.createRoot(document.getElementById('root')!).render(
+                              &lt;React.StrictMode&gt;
+                                &lt;App /&gt;
+                              &lt;/React.StrictMode&gt;&comma;
+                            )
+                          </code></pre>
+                      </li>                 
+                    </ul>
+
+                    <p>Vamos a ir viendo como solucionar el resto de errores que nos aparecen en los ficheros.</p>
+                  </div>
+                  <!-- Fin bloque desplegable interior-->
+                  
+
+                  <!-- Bloque desplegable interior-->
+                  <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion8-93').toggle();">
+                    <h3>93. Introducción a TypeScript - Primitive Types</h3>
+                    <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+                  </div>
+                  <div id="seccion8-93" style="display:none">
+                    <p>Vamos a comenzar a solucionar los errores que encuentra Typescript en el código. Vemos que en App.tsx, Guitar.tsx, Header.tsx, useCard.ts se van pintando en rojo algunos de estos archivos. No es que el código esté mal escrito (si arrancamos el servidor de desarrollo y probamos vemos que todo funciona bien) sino que más bien tneemos que darle más información a TypeScript. esa información normalmente se la pasamos con algo llamado <span class="destacado">Primitive Type</span>.</p>
+
+                    <ul>
+                      <li>Los Primitive Types son los tipos de datos que soporta TypeScript de forma nativa.</li>
+                      <li>Estos son number, string, boolean, null y undefined. Cuando creamos un objeto, hemos de especificar qué tipo de dato (primitive type) es el que tiene cada propiedad de ese objeto. De igual manera si creamos una variable o si le pasamos parámetros a una función.</li>
+                      <li>En el caso de arrays hay una sintaxis especial para crearlos</li>
+                    </ul>
+
+                    <p>Abrimos nuestro <span class="rojo">App.tsx</span> y tras importar state <code class="language-js">import { useCart } from './hooks/useCart'</code>, creamos un nuevo state para verificar si un usuario está autenticado, así es como lo hemos hecho hasta ahora poniendole como valor inicial que el usuario no está logado: <code class="language-js">const [auth, setAuth] = useState(false)</code>. Si nos ponemos encima de auth el intellisense nos muestra que TypeScript infiere que el tipo de auth va a ser boolean, pero si le cambiamos el valor inicial a '20' y volvemos a ponernos encima de auth el IS nos muestra que TS infiere que el valor es number. Si inmediatamente hago un <code class="language-js">setAuth(true)</code> nos lo marca como error y el IS nos indica algo como "no le puedes asignar un booleano porque tú dijiste que era un número". <span class="destacado">En este tipo de acciones es donde TypeScript nos va a proteger, el evitarnos que estemos asignando diferente tipo de dato nos va a permitir escribir un mejor código.</span></p>
+
+                    <img src="./src/assets/img/93.png" alt="">
+                    
+
+                    <p>Explica que hay algunos casos de uso para especificar el tipo entre tags <span class="destacado">&lt;&gt;</span> por ejemplo: <code class="language-js">const [auth, setAuth] = useState&lt;number&gt;(20)</code> Pero que no lo hacemos así porque es dar información redundante.</p>
+
+                    <p>Si abrimos nuestro <span class="rojo">data&gt;db.ts</span> y nos ponemos encima de db vemos como TypeScript infiere el tipo de dato para cada elemento id, name,... Poría decirse que va a escanear nuestro código y va a ser nuestro mejor asistente. De hecho si al segundo elemento de nuestro array le dijeramos que el id es "2" y volviéramos a consultar el IS, veríamos lo que aparece a la derecha de la siguiente captura, que <strong>TS nos especifica que puede ser un number o un string</strong>:</p>
+                    <img src="./src/assets/img/93-2.png" alt="">
+
+                    <p>Sin embargo estas guitarras y lo que tenemos en useCart.ts en nuestro carrito es básicamente lo mismo, vamos agregando nosotros las guitarras salvo con algunas excepciones y <span class="destacado">cuando trabajas con objetos, la recomendación es no dejar que TypeScript infiera ese tipo de dato sino que nosotros crearemos nuestros propios grupos de tipo de dato que se les conoce como Types e Interfaces.</span></p>
+
+                  </div>
+                  <!-- Fin bloque desplegable interior-->
+                  
+
+                  <!-- Bloque desplegable interior-->
+                  <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion8-94').toggle();">
+                    <h3>94. Introducción a TypeScript - Types e Interfaces</h3>
+                    <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+                  </div>
+                  <div id="seccion8-94" style="display:none">
+                    <p>Si nos colocamos en la variable db vemos un objeto que tiene diferentes propiedades. Cuando tenemos una estructura de este tipo lo mejor es crear lo que se conoce como un Type o Interface. Básicamente es lo mismo, pero veamos un poco más de información de este tema.</p>
+
+                    <ul>
+                      <li>Types e Interfaces son dos de las características que más vamos a utilizar en TypeScript.</li>                  
+                      <li>Ambas pueden ser utilizadas incluso de forma intercambiable, hay muy pocas diferencias entre ambos y en la comunidad vas a encontrar ejemplos con ambos (La verdad es que la comunidad está dividida, unos dicen utilizar interfaces, otros types...) Cuál vas a utilizar en un proyecto? Bueno, el que ya estén utilizando.</li>
+                      <li><strong>Es una forma de crear una estructura y definir qué tipo de dato tiene cada propiedad de un objeto o agrupar propiedades de un objeto</strong>.</li>                
+                    </ul>
+
+                    <p>Veamos algunos ejemplos. Creemos nuestro primer type para nuestras guitarras. <span class="rojo">db.ts</span>: la convención de nombrado es con la primera mayúscula.</p>
+
+                    <pre data-line="0-6,7"><code class="language-js">
+                      type Guitar = {
+                        id: number
+                        name: string
+                        image: string
+                        description: string
+                        price: number
+                    }
+                    export const db : Guitar[] = [
+                        {
+                            id: 1,
+                            name: 'Lukather',
+                            image: 'guitarra_01',
+                            description: 'Morbi ornare augue nisl, vel elementum dui mollis vel. Curabitur non ex id eros fermentum hendrerit.',
+                            price: 299,
+                        },
+                    </code></pre>
+
+                    <p>Definimos nuestra estructura Types, la aplicamos a nuestra información y si el tipo de dato no es el correcto nos va a marcar el error. si cambiáramos el tipo de id a string veríamos que nos saca un error y ahí es donde TS nos va a yudar mucho, no vamos a necesitar compilar el proyecto para ver si tiene errores, desde le momento en que estamos escribiendo TS ya nos va marcando si tenemos algún error.</p>
+
+                    <p>La sintaxis para definir nuestra interface es similar usando la palabra interface y sin el "="</p>
+
+                    <pre data-line="0,7"><code class="language-js">
+                      interface Guitar {
+                        id: number
+                        name: string
+                        image: string
+                        description: string
+                        price: number
+                    }
+                    export const db : Guitar[] = [
+                        {
+                            id: 1,
+                            name: 'Lukather',
+                            image: 'guitarra_01',
+                            description: 'Morbi ornare augue nisl, vel elementum dui mollis vel. Curabitur non ex id eros fermentum hendrerit.',
+                            price: 299,
+                        },
+                    </code></pre>
+
+                    <p>La preferencia es types porque es mas corto de escribir pero ambos valen igual. <span class="destacado">Como hemos visto, a nuestra constante db le estamos añadiendo el type Guitar: <code class="language-js">export const db : Guitar[] = [</code> y de hecho si abrimos nuestro <span class="rojo">useCart.ts</span> vemos que ahí estamos seteando ese db <code class="language-js">const [data] = useState(db)</code>. Si nos ponemos encima de data el IS nos dice que tiene el type Guitar[] por tanto se propaga en nuestro código ese tipo de dato.</span></p>
+
+                    <img src="./src/assets/img/93-3.png" alt="">
+
+                    <p>Si nos ponemos encima de cart el IS nos dice tipo de dato any; en otros componentes como <span class="rojo">Guitar.jsx</span> vemos que si nos ponemos encima de addToCart el IS nos dice tipo de dato any implícito. <span class="destacado">any en TypeScript es veneno.</span> Veamos cómo solucionarlo.</p>
+
+                    <img src="./src/assets/img/93-4.png" alt="">
+
+                  </div>
+                  <!-- Fin bloque desplegable interior-->
+                  
+
+                  <!-- Bloque desplegable interior-->
+                  <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion8-95').toggle();">
+                    <h3>95. Asignar Types a tus Props - Inline Type</h3>
+                    <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+                  </div>
+                  <div id="seccion8-95" style="display:none">
+                    <p>Si nos llenamos de Any es como si no estuviéramos utilizando TS. Hemos de facilitar más información a TS. Vamos a <span class="rojo">Guitar.tsx</span> donde tenemos <code class="language-js">export default function Guitar({guitar, addToCart}) {</code> ese guitar que es un objeto y el addToCart que es una función. ¿Cómo convertimos esos props hacia TS? hay dos opciones:</p>
+
+                    <ul>
+                      <li><strong>inline type</strong></li>
+                      <li><strong>separate type</strong></li>
+                    </ul>
+
+                    <p class="titulo">inline type</p> 
+                    
+                    <p>en nuestro <span class="rojo">Guitar.tsx</span> <span class="destacado">añadimos el type</span></p> 
+                    <pre><code class="language-js">
+                      type Guitar = {
+                        id: number
+                        name: string
+                        image: string
+                        description: string
+                        price: number
+                    }
+                    </code></pre>
+                    <p><span class="destacado">y a continuación especificamos el tipado a esas dos props que toma como parámetro la función de nuestro componente (objeto "guitarra" y funcion "addToCart"). Para especificar el tipo de dato usamos la sintaxis con ":"</span></p>
+
+                    <pre><code class="language-js">                    
+                    export default function Guitar({guitar, addToCart} : {guitar : Guitar, addToCart: (item: Guitar) => void}) {
+                    </code></pre>
+
+                    <p><span class="destacado">El primer parámetro es un objeto de tipo Guitar</span> y en cuanto lo tipamos vemos que del parámetro ya nos desaparece el aviso/error (antes el IS nos lo marcaba como any y ya nos aparece que es de tipo Guitar); </p>
+                        
+                    <img src="./src/assets/img/95-1.png" alt="">
+
+                    <p>Fijémonos que todas las propiedades que definimos en nuestro type </p>
+                    <pre><code class="language-js">
+                      type Guitar = {
+                        id: number
+                        name: string
+                        image: string
+                        description: string
+                        price: number
+                    }                      
+                    </code></pre>
+
+                    <p>si en el return() de nuestro componente Guitarra (la parte de la vista) sustituyéramos por ejemplo <code class="language-js">{name}</code> por <code class="language-js">{guitar.}</code> vemos como en el IS solo me aparecen disponibles esas opciones (los tipos de datos que yo definí en ese objeto es lo que puedo imprimir ahí), no tenemos que enviarlo a la consola, ya lo tenemos disponible en VSC y eso va hacer que escribamos código más rápidamente:</p>
+
+                    <img src="./src/assets/img/95-2.png" alt="">
+                    
+                    <p>Para definir el tipo del segundo parámetro (función addToCart que toma una guitarra), nos vamos al fichero <span class="rojo">App.tsx</span> e inspeccionamos el aviso del IS al ponernos encima del prop addToCart que aún no hemos tipado --&gt; <strong>item(any) =&gt; void</strong>.</p>
+                      
+                    <img src="./src/assets/img/95-3.png" alt="">
+
+                    <p>Copiamos ese código. "void" es algo muy común en java, se usa cuando una función no devuelve nada. El any vamos a quitarlo: cuando yo agrego un elemento con el onClick del botón, le paso una guitarra completa:</p> 
+
+                    <script type="text/plain" class="language-js">
+                      <button 
+                        type="button"
+                        className="btn btn-dark w-100"
+                        onClick={() => addToCart(guitar)}
+                    >Agregar al Carrito</button>
+                    </script>
+
+                    <p>así que cambiamos ese any por Guitar, le decimos así que el item que maneja esa función que agrega tiene que ser una guitarra de tipo Guitarra. <span class="destacado">Y en definitiva estamos tipando ese parámetro como una función que toma un objeto Guitarra y no retorna nada.</span></p>
+                        
+                    <img src="./src/assets/img/95-1.png" alt="">
+
+                    <p>Ya desaparecen los errores/avisos. Estamos tipando fuertemente. Si por ejemplo me voy a la <span class="rojo">App.tsx</span> y le quitamos la propiedad addToCart de aquí:</p>
+
+                    <script type="text/plain" class="language-js">
+                      <div className="row mt-5">
+                        {data.map((guitar) => (
+                            <Guitar 
+                              key={guitar.id}
+                              guitar={guitar}
+                              addToCart={addToCart}
+                            />
+                        ))}              
+                    </div>
+                    </script>
+
+                    <p>vemos que nos marca un error. Por tanto nos va a indicar si le falta algo, si escribimos algo mal, si le pasamos un valor de forma incorrecta</p>
+                      
+                    <img src="./src/assets/img/95-4.png" alt="">
+
+                    <p>Vamos a ver la otra sintasis de <strong>separate type</strong> que él indica que le gusta más.</p>
+
+                  </div>
+                  <!-- Fin bloque desplegable interior-->
+                  
+
+                  <!-- Bloque desplegable interior-->
+                  <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion8-96').toggle();">
+                    <h3>96. Asignar Types a tus Props - Type Separado</h3>
+                    <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+                  </div>
+                  <div id="seccion8-96" style="display:none">
+                    <p class="titulo">separate type</p> 
+                    <p>Veamos esta otra sintaxis que es menos confusa: podríamos hacer salto de línea a lo que tenemos ahora mismo para que quedara un poco más ordenado:</p>
+
+                    <pre><code class="language-js">
+                      export default function Guitar({guitar, addToCart} : {
+                        guitar : Guitar, 
+                        addToCart: (item: Guitar) => void
+                    }) {
+                    </code></pre>
+
+                    <p>Sin embargo es mejor tener un type (o una interface) y tenerlo separado para minimizar la posibilidad de cometer errores:</p>
+
+                    <pre><code class="language-js">
+                      type GuitarProps = {
+                        guitar : Guitar, 
+                        addToCart: (item: Guitar) => void
+                    }                
+                    export default function Guitar({guitar, addToCart} : GuitarProps) {
+                    </code></pre>
+
+                  </div>
+                  <!-- Fin bloque desplegable interior-->
+                  
+
+                  <!-- Bloque desplegable interior-->
+                  <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion8-97').toggle();">
+                    <h3>97. Creando un Archivo de Types ¿Donde y como hacerlo?</h3>
+                    <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+                  </div>
+                  <div id="seccion8-97" style="display:none">
+                    <p>Vamos a crear un archivo que centralice los types que se van a compartir más de una vez. Si nos fijamos ahora mismo el type Guitar que hemos creado lo tenemos tanto en <span class="rojo">db.ts</span> como en <span class="rojo">Guitar.tsx</span>, si tuviéramos que modificarlo porque el proyecto por ejemplo crece, el mantenimiento se hace complicado. <span class="destacado">Cuando tenemos un type que se comparte en diferentes componentes o Hooks lo mejor es ponerlo en su propio archivo</span>, hay dos maneras de hacerlo.</p>
+
+                    <p>Si en en src creamos un archivo nuevo <strong>types.d.ts</strong> y metemos ahí nuestro types, creado así con ese nombre no necesitaríamos importarlo. Sin embargo ¡¡el equipo de desarrollo de TS no recomienda hacerlo de esta forma!!!</p>
+
+                    <p>Creamos carpeta y archivo <strong>types>types.ts</strong> (también se podría llamar index.ts). En el solo metemos el type Guitar al cual le ponemos delante la palabra export:</p>
+
+                    <pre><code class="language-js">
+                      export type Guitar = {
+                        id: number
+                        name: string
+                        image: string
+                        description: string
+                        price: number
+                    }
+                    </code></pre>
+
+                    <p>importamos ese type en los ficheros donde se va a utilizar: <span class="rojo">db.ts</span> y <span class="rojo">Guitar.tsx</span> </p>
+                    
+                    <ul>
+                      <li>si hemos nombrado el fichero como <strong>index.ts</strong> lo importaremos así: <code class="language-js">import type {Guitar} from '../types'</code></li>
+                      <li>si hemos nombrado el fichero como <strong>types.ts</strong> lo importaremos así: <code class="language-js">import type {Guitar} from '../types/types'</code></li>                  
+                    </ul>
+                    
+                    <p>Como vemos no metemos en ese archivo exclusivo de types el otro type GuitarProps, porque no se trata de un type que vayamos a utilizar en diferentes componentes o diferentes Hooks; en este caso es un type exclusivo del componente <span class="rojo">Guitar.tsx</span>. <span class="destacado">Habitualmente así es como vamos a definir nuestros types, en el componente donde se requieren y en el caso de que se vaya a compartir en mas sitios (otros componentes y/o Hooks) entonces se mueve al archivo específico de types.</span></p>
+
+                    <p>Como vemos, ya están completamente tipados nuestro <span class="rojo">db.ts</span> y nuestro componente de guitarra<span class="rojo">Guitar.tsx</span>. Migremos a continuación nuestro Hook personalizado para solucionar esos Any que aparecen en nuestro cart.</p>
+                  </div>
+                  <!-- Fin bloque desplegable interior-->
+
+
+                  <!-- Bloque desplegable interior-->
+                  <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion8-98').toggle();">
+                    <h3>98. Añadiendo un Type para los elementos del Carrito / 99. Heredar y extender un Type</h3>
+                    <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+                  </div>
+                  <div id="seccion8-98" style="display:none">
+                    <p>Si miramos nuestro custom Hook <span class="rojo">useCart.ts</span> vemos que tenemos dos states: data tiene el type Guitar pero cart tiene un tipo Any.</p>
+                    <pre><code class="language-js">
+                      const [data] = useState(db)
+                      const [cart, setCart] = useState(initialCart)
+                    </code></pre>
+                    <p><span class="destacado">Algo muy común en TS es que cuando obtenemos datos externos, sea de localStorage o de una consulta con FetchAPI, a TS se le hace muy complicado inferir el tipo de dato.</span> ¿Como hacemos para indicar que este const initialCart va a ser de tipo Guitar (o un tipo de elemento en un carrito)?</p>
+                    <pre><code class="language-js">
+                      const initialCart = () => {
+                        const localStorageCart = localStorage.getItem('cart')
+                        return localStorageCart ? JSON.parse(localStorageCart) : []
+                    }
+                    </code></pre>
+
+                    <p>Importamos nuestro type <code class="language-js">import type { Guitar } from '../types/types'</code> Le especificamos a ese initialCart que el tipo de dato va a ser Guitar[] (pero array, que es un carrito):</p>
+
+                    <pre data-line="0"><code class="language-js">
+                      const initialCart = () : Guitar[] => {
+                        const localStorageCart = localStorage.getItem('cart')
+                        return localStorageCart ? JSON.parse(localStorageCart) : []
+                    }
+                    </code></pre>
+
+                    <p>sin embargo inmediatamente vemos en nuestro código que TS se queja: <strong>"oye, estas diciendo que esto es un tipo Guitar, pero hasta en 3 funciones de tu Hook se intenta utilizar una propiedad "quantity" que no existe en ese tipo Guitar"</strong>. Cuando intentamos agregar una guitarra al carrito, sí es un objeto Guitar pero tiene una propiedad adicional llamada "quantity" que se requiere para estar en el carrito</p>
+                    <img src="./src/assets/img/98.png" alt="">
+                    
+                    <p>Podríamos resolverlo, añadiendo un nuevo type en nuestro archivo <span class="red">types.ts</span>:</p>
+                    <pre><code class="language-js">
+                      export type CartItem = {
+                        id: number
+                        name: string
+                        image: string
+                        description: string
+                        price: number
+                        quantity: number
+                      }
+                    </code></pre>
+                    <p>Importamos nuestro type <code class="language-js">import type { CartItem } from '../types/types'</code> Le especificamos a ese initialCart que el tipo de dato va a ser CartItem[] (pero array, que es un carrito):</p>
+                    
+                    <pre data-line="0"><code class="language-js">
+                      const initialCart = () : CartItem[] => {
+                        const localStorageCart = localStorage.getItem('cart')
+                        return localStorageCart ? JSON.parse(localStorageCart) : []
+                      }
+                    </code></pre>
+                    
+                    <p>así ya nos desaparecen los errores con el quantity que teníamos en nuestras funciones (aunque aún quedan algunos errores en parámetros que los veremos). </p>
+                    <img src="./src/assets/img/98-2.png" alt="">
+
+                    <p>Este código funciona pero se puede mejorar porque los atributos id, name, image, description, price son exactamente iguales en los dos types Guitar y CartItem.</p>
+                    
+                    <pre data-line="1-5,8-12"><code class="language-js">
+                      export type Guitar = {
+                        id: number
+                        name: string
+                        image: string
+                        description: string
+                        price: number
+                    }
+                    export type CartItem = {
+                        id: number
+                        name: string
+                        image: string
+                        description: string
+                        price: number
+                        quantity: number
+                    }
+                    </code></pre>
+
+                    <p>TypeScript nos permite heredar como si fuera de una clase a otra y podemos hacerlo heredando todos esos atributos dentro de cartItem</p>
+
+                    <p class="naranja">Heredar y extender un Type</p>
+
+                    <p>Ya hemos definido nuestro segundo tipo de dato. Teníamos <strong>Guitar</strong> pero como nuestro carrito de compras tiene una propiedad adicional "quantity" hemos creado un type llamado <strong>CartItem</strong>. Ambos comparten muchos atributos por lo que apliquemos herencia para simplicar el código, también para que si cambia alguno de ellos el mantenimiento sea más sencillo. Como es un poco diferente en types e interfaces veos ambos.</p>
+
+                    <p class="titulo">herencia en types</p>
+
+                    <p><span class="destacado">Borramos los atributos duplicados del type que hereda y en su declaración tras el "=" añadimos el nombre del type del que queremos que herede seguido de "&"</span></p>
+
+                    <pre data-line="7"><code class="language-js">
+                      export type Guitar = {
+                        id: number
+                        name: string
+                        image: string
+                        description: string
+                        price: number
+                    }
+                    export type CartItem = Guitar & {
+                        quantity: number
+                    }
+                    </code></pre>
+
+                    <p><strong>Podríamos perfectamente generar una interface y heredar de nuestro type:</strong> <span class="destacado">el "=" se cambia por la palabra "extends", de manera similar a lenguages como Java o php y se elimina el "&"</span></p>
+                    <pre data-line="7"><code class="language-js">
+                      export type Guitar = {
+                        id: number
+                        name: string
+                        image: string
+                        description: string
+                        price: number
+                    }
+                    export interface CartItem extends Guitar {
+                        quantity: number
+                    }
+                    </code></pre>
+
+                    <p>Existe otra forma de hacerlo, con los <span class="destacado">utility types</span>, solo se puede hacer con la sintaxis de type</p>
+                  
+                  </div>
+                  <!-- Fin bloque desplegable interior-->
+
+
+                  <!-- Bloque desplegable interior-->
+                  <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion8-100').toggle();">
+                    <h3>100. Utility Types en TypeScript</h3>
+                    <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+                  </div>
+                  <div id="seccion8-100" style="display:none">
+                    <p>Acabamos de ver como se aplica herencia utilizando types e interfaces pero eso hereda todo el tipo de dato y sus atributos completos. Si bien podríamos hacer algo como cambiarle el number por string al atributo id del type original (no lo tengo muy claro que haga lo que dice por lo que veo en el IS)</p>
+
+                    <pre data-line="1,9"><code class="language-js">
+                      export type Guitar = {
+                        id: number
+                        name: string
+                        image: string
+                        description: string
+                        price: number
+                    }
+                    export type CartItem = Guitar & {
+                        quantity: number
+                        id: string
+                    }
+                    </code></pre>
+
+                    <p>Otras veces lo que vamos a querer es, manteniendo los mismos tipos de datos simplemente tener algunos atributos de un type y/o omitir otros. Para eso es muy útil lo que se conoce como <span class="destacado"><a class="txt-blanco" href="https://www.typescriptlang.org/docs/handbook/utility-types.html" target="_blank">Utility Types</a></span>. Hay unos cuantos, en cada nueva versión se agregan más, va a hacer que nuestro código sea más corto y son muy útiles cuando comenzamos a tener varios  types interdependientes que comparten atributos. Pone como ejemplo estos dos para explicar sintaxis y como se utilizan <strong>Pick&lt;Type&comma; Keys&gt;</strong> y <strong>Omit&lt;Type&comma; Keys&gt;</strong></p>
+
+                    <p>En el siguiente ejemplo el Utility Type Pick selecciona del type Guitar los atributos id, name y price y los coloca en este nuevo type CartItem:</p>
+                    <script type="text/plain" class="language-js">
+                      export type CartItem = Pick<Guitar, 'id' | 'name' | 'price'>
+                    </script>
+
+                    <p>aquí le agregaríamos el atributo extra "quantity" que no existe en ese type Guitar:</p>
+                    <script type="text/plain" class="language-js">
+                      export type CartItem = Pick<Guitar, 'id' | 'name' | 'price'> & {
+                        quantity: number
+                      }
+                    </script>
+
+                    <p>Omit es para lo contrario, excluir los atributos que se especifiquen:</p>
+                    <script type="text/plain" class="language-js">
+                      export type CartItem = Omit<Guitar, 'id' | 'name' | 'price'> & {
+                        quantity: number
+                    }
+                    </script>
+
+                    <p>Veamos a continuación como especificar type a los parámetros que aún nos marca en nuestro código como aviso/error</p>
+                  </div>
+                  <!-- Fin bloque desplegable interior-->
+                            
+
+                  <!-- Bloque desplegable interior-->
+                  <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion8-101').toggle();">
+                    <h3>101. Agregando el Nuevo Type a nuestro código / 102. Creando un Type para el ID de la guitarra</h3>
+                    <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+                  </div>
+                  <div id="seccion8-101" style="display:none">
+                    <p>Vamos a nuestro Hook <span class="rojo">useCart.ts</span>para "terminar de migrar a TS" nuestras funciones:</p>
+                    
+                    <p class="titulo">function addToCart(item){}</p>
+                    <p>Importamos nuestro type Guitar y le especificamos al parámetro de la fcn que es de tipo Guitar</p>
+                    <pre data-line="0"><code class="language-js">
+                      function addToCart(item : Guitar) {
+                        const itemExists = cart.findIndex(guitar => guitar.id === item.id)
+                        if(itemExists >= 0 ) { // existe en el carrito
+                            if(cart[itemExists].quantity >= MAX_ITEMS) return
+                            const updatedCart = [...cart]
+                            updatedCart[itemExists].quantity++
+                            setCart(updatedCart)
+                        } else {
+                            item.quantity = 1
+                            setCart([...cart, item])
+                        }
+                    }
+                    </code></pre>
+                    <p>Vemos que nos marca estos errores ¿por qué?</p>
+                    <img src="./src/assets/img/101-1.png" alt="">
+                    
+                    <p>Si miramos nuestro fichero de <span class="rojo">types.ts</span> vemos que el type Guitar no tiene ninguna propiedad quantity, sin embargo sí habíamos definido un nuevo type CartItem que heredaba del type Guitar al que le añadíamos esa propiedad:</p>          
+                    <pre><code class="language-js">
+                      export type Guitar = {
+                        id: number
+                        name: string
+                        image: string
+                        description: string
+                        price: number
+                      }
+                      export type CartItem = Guitar & {
+                        quantity: number
+                      }
+                    </code></pre>
+                    
+                    <p><span class="destacado">Vamos a castear: tomar un tipo de dato y convertirlo a otro:</span> <strong>creamos una nueva variable newItem de tipo CartItem que toma una copia de lo que le estamos pasando a esta función item (usamos el operador spread) y además tiene la nueva propiedad quantity</strong>:</p>
+                    
+                    <pre class="verde" data-line="8,9"><code class="language-js">
+                      function addToCart(item : Guitar) {
+                        const itemExists = cart.findIndex(guitar => guitar.id === item.id)
+                        if(itemExists >= 0 ) { // existe en el carrito
+                          if(cart[itemExists].quantity >= MAX_ITEMS) return
+                          const updatedCart = [...cart]
+                          updatedCart[itemExists].quantity++
+                          setCart(updatedCart)
+                        } else {
+                          const newItem : CartItem = {...item, quantity : 1}
+                          setCart([...cart, newItem])
+                        }
+                      }
+                    </code></pre>        
+                    
+                    <p class="naranja">Creando un Type para el ID de la guitarra</p>
+          
+                    <p>Si nos fijamos en nuestro archivo <span class="rojo">types.ts</span> vemos que el id de las guitarras es de tipo number con lo que podríamos solucionar fácilmente nuestro "problema" en las tres funciones que nos quedan por migrar de nuestro custom Hook <span class="rojo">useCart.ts</span> tipando como <strong>number</strong> los tres parámetros id de las funciones:</p>
+                    <pre><code class="language-js">
+                      function removeFromCart(id) { --> function removeFromCart(id : number) {
+                        function decreaseQuantity(id) { --> function decreaseQuantity(id : number) {
+                          function increaseQuantity(id) { --> function increaseQuantity(id : number) {
+                          </code></pre>
+
+                    <p>pero <strong>¿qué pasaría si a futuro migramos y digamos que ya dejamos de utilizar MySQL o PostgreSQL, que tienen los IDS como tipo number y nos vamos hacia MongoDB que utiliza strings?</strong> pues que tendríamos que tener cuidado de cambiar el tipo string en nuestro fichero de types y también en todos los lugares en donde en nuestro custom Hook usáramos esos ids. <strong>Normalmente queremos que los posibles cambios repercutan en los menores lugares posibles, buscamos un código sencillo con buen mantenimiento.</strong> Por ello podemos:</p>
+                    
+                    <ul>
+                      <li>Crear un nuevo type empleando el <span class="destacado">Utility Type Pick</span>, de manera que si eso cambia a futuro solo tenemos que tocar el type Guitar: <code class="language-js">export type GuitarID = Pick&lt;Guitar &comma; &apos;id&apos;&gt;</code></li>
+                      <li>Crear un nuevo type empleando algo que se conoce como <span class="destacado">Lookup:</span> <code class="language-js">export type GuitarID = Guitar['id']</code>. En vez de tenerlo en este archivo de types lo podemos utilizar tal cual en nuestro Hook:
+                      <pre><code class="language-js">
+                      function removeFromCart(id) { --> function removeFromCart(id : Guitar['id']) {
+                      function decreaseQuantity(id) { --> function decreaseQuantity(id : Guitar['id']) {
+                      function increaseQuantity(id) { --> function increaseQuantity(id : Guitar['id']) {
+                      </code></pre></li>
+                    </ul>
+                    
+                    <p>Este evento no es necesario porqeu se setea en automático así que lo quitamos (la e):</p>
+                    
+                    <img src="./src/assets/img/101-2.png" alt="">
+
+                    <p><strong>Los que vemos que TS infiere bien, como por ejemplo los states derivados isEmpty (retorna un boolean) y carTotal (devuelve un number), no hay que ser redundantes y no hacemos nada más.</strong> Si TS no lo puede inferir como era el caso con LocalStorage nosotros intervenimos, y de esa forma tenemos completamente tipado nuestro Hook.</p>
+
+                    <p>En el siguiente vídeo vamos a typar los props del Header, algunas son funciones y tienen una sintaxis particular.</p>              
+                  </div>
+                <!-- Fin bloque desplegable interior-->
+                
+
+                <!-- Bloque desplegable interior-->
+                <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion8-103').toggle();">
+                  <h3>103. Typando los Props del Header y Building del proyecto</h3>
+                  <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+                </div>
+                  <div id="seccion8-103" style="display: none">
+                    <p>Añadamos TS a nuestro <span class="rojo">Header.tsx</span> que tiene entre otras cosas nuestro cart y los states derivados. Vamos a crear el type no inline (que es mas complicado en cuanto a sintaxis) sino separado y además solo en este .tsx (no lo metemos en el fichero de definición de types) porque es exclusivo para Header:</p>
+
+                    <pre data-line="0,2,3,7"><code class="language-js">
+                      import type { CartItem, Guitar } from '../types/types'
+
+                      type HeaderProps = {                      
+                      }
+                      export default function Header({
+                        cart, removeFromCart, decreaseQuantity, 
+                        increaseQuantity, clearCart, isEmpty, cartTotal
+                    } : HeaderProps) {
+                    </code></pre>
+
+                    <p>Para el siguiente prop <strong>removeFromCart</strong>, que es una función miramos en App.tsx, en la parte de la vista donde el tag del componente Header que es donde se envía ese prop; el IS nos dice que es una función que envía un id de tipo number y no devuelve nada. Pues eso mismo es lo que vamos a especificar en la definición de nuestro type HeaderProps. Y hacemos lo mismo con las siguientes props funciones <strong>decreaseQuantity</strong> e <strong>increaseQuantity</strong></p>
+
+                    <pre><code class="language-js">
+                      type HeaderProps = {
+                          cart: CartItem[] //el carrito cart es de tipo CartItem como arreglo
+                          removeFromCart: (id: Guitar['id']) => void
+                          decreaseQuantity: (id: Guitar['id']) => void
+                          increaseQuantity: (id: Guitar['id']) => void
+                          clearCart: () => void
+                          isEmpty: boolean
+                          cartTotal: number
+                      }
+
+                      export default function Header({
+                        cart, removeFromCart, decreaseQuantity, 
+                        increaseQuantity, clearCart, isEmpty, cartTotal
+                    } : HeaderProps) {
+                    </code></pre>
+
+                    <p>Comenta que una vez que hemos agregado <code class="language-js">type HeaderProps = {}</code> que se le conoce como el <span class="destacado">function signature o firma</span> estamos mucho más protegidos por parte de TS para que no pasemos cosas indebidas a nuestros componentes etc. Vemos ese tipo de posibles errores desde el momento en que estamos escribiendo el código, sin necesidad de esperar a compilar.</p>
+
+                    <p>Compilamos nuestro proyecto. Vemos en el <span class="rojo">package.json</span> en el bloque de scripts>build que se llama a "tsc && vite build". <strong>tsc es el TypeScript Compiler</strong>. <span class="destacado">npm run build</span> construye nuestro proyecto haciendo todas las transformaciones de typescript hacia javascript. <span class="destacado">Ya con el build listo podemos subirlo a Netlify o Vercel o Github</span>.</p>
+
+                  </div>
+                  <!-- Fin bloque desplegable interior-->
+                  
+
+                </div>
+              </div><!--Fin row-->
+            </div>
+            <!-- Fin div colapsable-->
+
+          </div>
+        </div>
+    <!-- FIN SECCION 8 -->  
+       
    	
-    <!-- SECCION 07 -->
+    <!-- SECCION 7 -->
     <div class="contenedor w-80 w-96-s background esp-5-bottom">
       <div class="row">
         <div class="flex center-vertical esp-25-top pointer desplegable space-between pointer" onclick="$('#seccion07').toggle();">
@@ -844,10 +943,8 @@
 
       </div>
     </div>
-    <!-- FIN SECCION XX -->
-    
-   
-        
+    <!-- FIN SECCION 7 -->
+     
     
     <!-- SECCIÓN 6 -->
     <div class="contenedor w-80 w-96-s background esp-5-bottom">		
@@ -2351,179 +2448,130 @@
     <!-- FIN SECCIÓN 6 -->
 
 
-    <!-- SECCION 1 -->
-     <div class="contenedor w-80 w-96-s background esp-5-bottom">		
+    
+  
+    <!-- SECCION 3 y 4-->
+    <div class="contenedor w-80 w-96-s background esp-5-bottom">		
       <div class="row">
-        <div class="flex center-vertical esp-25-top pointer desplegable space-between pointer" onclick="$('#seccion1').toggle();">	
-          <h2>Sección 1: Introducción al Curso - Qué es React, Proyectos que Construiremos y más</h2>				
-                  <span class="cambiaicono ico_chevron_down esp-10-right" title=""></span>
+        <div class="flex center-vertical esp-25-top pointer desplegable space-between pointer" onclick="$('#seccion3').toggle();">	
+          <h2>Sección 3 y 4: PROYECTO: Carrito de compras. Introducción / Herramientas / Creando el proyecto en Windows</h2>				
+          <span class="cambiaicono ico_chevron_down esp-10-right" title=""></span>
         </div>
         
-        <div id="seccion1"  style="display:none">			
-          <div class="row">
-            <div class="col-12 padd-5-left">	
-              
-              <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion1-1').toggle();">	
-                <h3>1. ¿Qué es React?</h3>			
-                <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
-              </div>
-              
-              <div id="seccion1-1" style="display:none">	
-                
-                <p>Es una biblioteca de JS para construir interfaces de usuario</p>
-                <ul>
-                  <li>Ayuda a crear UI interactivas de forma muy sencilla (tiene muchas funciones y eventos para disparar fcnes en base a las interacciones del usuario)</li>
-                  <li>Se encarga de actualizar y renderizar de manera eficiente los componentes de tu aplicación</li>
-                  <li>Esta basado en componentes: no son mas que fiunciones en JS utilizados para renderizar el diseño de tu aplicación o sitio web</li>
-                  <li>Creado por Meta (antiguo Facebook). También la empresa Versell apoya su desarrollo.</li>
-                </ul>
-  
-                <p class="titulo">Ventajas de React</p>			
-                <ul>
-                  <li>Excelente documentación con muchos ejemplos</li>
-                  <li>Una gran comunidad y muchas librerias que puedes incorporar a tus proyectos</li>
-                  <li>Tecnología con mucha demanda: La mayoría de vacantes solicitan React, tanto para fornt end como para full stack</li>
-                </ul>
-  
-                <p class="titulo">¿Qué necesito para aprender React?</p>
-                <ul>
-                  <li>Dominar HTML y CSS</li>
-                  <li>Conocer la sintaxis Moderna de Javascript (ES6(2015)EcmaScript6 y cada añao hay nuevas que añaden unas cuantas funciones más)</li>
-                  <li>Tener instalado Node.js para crear nuestros proyectos</li>
-                </ul>
-                
-              </div><!-- Fin seccion colapsable interior  -->
-              
-              
-            </div>			
-          </div><!--Fin row-->
-            
-          <div class="row">
-            <div class="col-12 padd-5-left">	
-              <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion1-2').toggle();">	
-                <h3>2. Proyectos 01 a 04 del Curso - Fundamentos de React y TypeScript</h3>			
-                <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
-              </div>						
-              
-              <div id="seccion1-2" style="display:none">	
-                
-                <p class="titulo">Proyecto carrito de compras GuitarLA</p>
-                 <p>En este proyecto estaremos aprendiendo los fundamentos de React: <span class="destacado">Componentes, Eventos y State</span>, mientras creas un carrito de compras real con cantidades, precios, y más, tomaremos este mismo carrito para mostrarte como crear tus propios Hooks y como transformarlo a código de TypeScript y cuales son sus beneficios. Carrito de compra persistente sincronizando con localStorage (aprenderemos todas esas acciones agregar elementos, cambiarlos, cambiar cantidades, vaciar carrito...)</p>							
-                <img src="./src/assets/img/s1-01.jpg" width="" height="" alt=""/> 
-  
-                <p class="titulo">Calculadora de propinas y consumos. Un proyecto ideal para restaurantes donde se podrá generar una orden con consumos y la persona podrá elegir la propina que desea dejar.</p>							
-                <img src="./src/assets/img/s1-02.jpg" width="" height="" alt=""/> 
-  
-                <p class="titulo">Contador de Calorías y Ejercicios</p>	
-                <p> Una de las tareas que más vas a realizar en tu vida como Developer es procesar formularios; en este proyecto tendremos un formulario, leeremos sus datos, lo vamos a procesar y realizar algunas operaciones como validación y mucho más, además aprenderás que es <span class="destacado">useReducer</span> para manejar estados complejos en tus apps. Veremos cómo funciona este patrón, es un hook especial cuando tenemos un state un poco más complejo.</p>
-                <img src="./src/assets/img/s1-03.jpg" width="" height="" alt=""/> 
-                
-                
-                <p class="titulo">Control de Gastos y Presupuestos:</p>	
-                <p>En este proyecto estaremos viendo que es <span class="destacado">Context API</span> para tener un estado global sin dependencias; Context API va a ayudarte a no pasar props por cada componente, completamos el curso con filtrar gastos por categoría, calendario de fechas de gastos, gráficas y mucho más! Por tanto también usaremos reducers, context Api para comenzar a trabajar con un estado global y un custom hook.</p>
-                <img src="./src/assets/img/s1-04.jpg" width="" height="" alt=""/> 
-                
-              </div><!-- Fin seccion colapsable interior  -->
-            </div>
-          </div><!--Fin row-->
-          
-          
-          
-          
-          <div class="row">
-            <div class="col-12 padd-5-left">	
-              <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion1-3').toggle();">	
-                <h3>3. Proyectos 05 a 08 del Curso - React Intermedio y API's</h3>			
-                <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
-              </div>						
-              
-              <div id="seccion1-3" style="display:none">	
-                
-                <p class="titulo">Administrador de pacientes de veterinaria</p>
-                <p>Introduce dos herramientas nuevas: Este proyecto añade dos herramientas nuevas: <span class="destacado">Zustand</span> para manejar un estado global de forma muy simple y <span class="destacado">React Hook Form</span>, una librería para para la parte de validación y procesamiento de nuestros formularios de manera bastante sencilla.</p>														
-                <img src="./src/assets/img/s1-05.jpg" width="" height="" alt=""/> 
-                
-                <p class="titulo">Buscador de clima</p>
-                <p>Esta será nuestra primera aplicación que obtiene datos de una <span class="destacado">API externa</span>, como React Developer vas a trabajar en muchos proyectos que incluyen API's; estaremos viendo como validar y enviar peticiones hacia API, como leer las respuestas y como mostrar esa información. La parte de APIS es muy importante en el mundo de React.</p>							
-                <img src="./src/assets/img/s1-06.jpg" width="" height="" alt=""/> 
-                
-                <p class="titulo">Cotizador de Criptomonedas</p>
-                <p>Este proyecto al igual que el anterior se conecta a una API para obtener el precio de una Criptomoneda en dólares, pesos mexicanos y otras monedas; Este proyecto incluye Zustand y Zod para validar las respuestas que obtenemos de nuestra API.</p>							
-                <!-- <img src="./src/assets/img/s1-07.jpg" width="" height="" alt=""/>  -->
-  
-                <p>Proyecto 04: Migrar Carrito de Compras a useReducer: En este capítulo estaremos viendo como tomar el proyecto de carrito de compras y convertirlo hacia useReducer; cuando tomas un proyecto que conoces en una tecnología nueva es garantía que podrás entender mejor los conceptos.</p>
-                <p>Proyecto 05: Migrar Calculadora de Propinas hacia useReducer: Veamos como migrar nuestro otro proyecto hacia useReducer.</p>
-  
-  
-                <p>Proyecto 10: Buscador de Recetas: Este es nuestro primer proyecto que incluye múltiples páginas; lo estaremos realizando con React Router DOM la librería más popular para crear aplicaciones en React de múltiples página, este curso utiliza el Slice Pattern para tener múltiples Stores de Zustand!</p>
-                <p>Proyecto 11: Administrador de Productos: Este es nuestro primer proyecto Full Stack donde estaremos creando tanto frontend como backend utilizando el PERN (PostgreSQL, Node.js, Express y React) este proyecto utiliza una REST API que conectaremos con React, añadiremos temas más avanzados como Testing y Documentación de API's.</p>
-                <p>Proyecto 12: Administrador de Tareas y Proyectos: Este es el Proyecto más avanzado del curso, utiliza el MERN stack que es uno de los más populares hoy en día, este proyecto incluye un sistema robusto de autenticación y registro de usuarios con confirmación de cuentas y resetear el password en caso de olvidarlo; además incluye roles y los usuarios solo pueden realizar ciertas acciones. El curso incluye además una REST API bastante compleja y avanzada, El curso utiliza también React Query, Tailwindcss, React Router, Mongoose, Express, TypeScript y mucho más.</p>
-                <p>Proyecto 13: Quiosco de Comida: Finalizaremos este curso con una introducción a Next.js, utilizaremos la versión 14 con App Router, Server Actions, Prisma, Zod, Zustand, Tailwind, y mucho más, el proyecto incluye subida de archivos, CRUD Completo, paginador, buscador y más.</p>
-  
-                
-              </div><!-- Fin seccion colapsable interior  -->
-  
-            </div>
-          </div><!--Fin row-->
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          <!-- 
-          <div class="row">
-            <div class="col-12 padd-5-left">						
-              
-              <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccionX-X').toggle();">	
-                <h3>XXXXXXXXXXXXXXXXXXXXXX</h3>			
-                <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
-              </div>						
-              
-              <div id="seccionX-X" style="display:none">	
-                
-                <p class="titulo">XXXXXXXXXXXX</p>
-                <p>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</p>							
-                <img src="./src/assets/img/XXXX.jpg" width="" height="" alt=""/> 
-  
-                
-                
-              </div>
-  
-            </div> 
-          </div>
-          -->
-          
-          
-          
-          
-          
-          
-          
+        <div id="seccion3" style="display: none">
             
           <div class="row">
             <div class="col-12">	
-  
               
-  
-            </div>
-          </div>
-            
-          
-          
+              
+              
+              <!-- Bloque desplegable interior-->
+              <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion3-46').toggle();">	
+                <h3>46. Introducción. El proyecto a construir GuitarLA</h3>			
+                <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+              </div>
+              <div id="seccion3-46" style="display:none">
+                <p class="titulo">Proyecto carrito de compras GuitarLA</p>
+    
+                <p>En este proyecto estaremos aprendiendo los fundamentos de React: <span class="destacado">Componentes, Eventos y State</span>, mientras creas un carrito de compras real con cantidades, precios, y más, tomaremos este mismo carrito para mostrarte como crear tus propios Hooks y como transformarlo a código de TypeScript y cuales son sus beneficios. Carrito de compra persistente sincronizando con localStorage (aprenderemos todas esas acciones agregar elementos, cambiarlos, cambiar cantidades, vaciar carrito...)</p>							
+                <img src="./src/assets/img/s1-01.jpg" width="" height="" alt=""/> 
+                
+              </div>
+              <!-- Fin bloque desplegable interior-->
+    
+    
+              <!-- Bloque desplegable interior-->
+              <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion3-47').toggle();">	
+                <h3>47. Herramientas para crear aplicaciones en React.js</h3>			
+                <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+              </div>
+              <div id="seccion3-47" style="display: none;">
+                <p class="titulo">Tecnologías para crear aplicaciones en React</p>
+                <p>Permiten Crear una App En React en Minutos. Existen muchas formas de crear una app en React, incluso tu puedes crear tu propio ambiente de desarrollo con herramientas como Babel, Parcel, Webpack, Vite, etc</p>
+    
+                <p>Pero también existe una gran cantidad de herramientas ya disponibles para crear aplicaciones en React en minutos sin conocer esta configuración</p>
+                
+                
+                <p class="titulo">Ventajas de utilizar una herrmaienta ya existente: <strong>La mayoría de Herramientas ya existentes para crear aplicaciones en React son estables y siguen un enfoque muy claro: No tener que preocuparte por la configuración.</strong> Tú puedes crear tu propio ambiente de desarrollo pero tienes que asegurarte de que cada versión nueva de React, cada version de diferentes librerias sea compatible con tu proyecto y despues tienes que encontrar una forma de compilar código de css (sass etc) ...entonces vamos a gasta r más tiempo en solucionar este tipo de cosas que tirando código. Por eso se recomienda usar una herramienta ya existente</p>
+    
+                <p>Cada una de estas herramientas ya existentes va desde básicas hasta avanzadas. Requieren tener instalado <span class="destacado">Node.js (NPM) o YARN</span>. Existen otros entornos hoy día como <strong>¿bum?</strong> Node.js con npm es bastante estable y es la que estaremos usando</p>
+                
+                <p>Opciones modernas para crear Apps en React. Los más populares hoy en día son<span class="destacado">Vite</span> y <span class="destacado">Next.js</span>. También Remix Run y Astro (que usaba en versiones anteriores del curso. Remix Run fue adquirido recientemente por shopify y están haciendo muchos cambios y no está listo)</p>
+                
+                <p class="titulo">Recomendaciones del equipo de React</p>
+    
+                <p>En su documentación recomiendan comenzar por Next.js o Remix para nuevos proyectos. Entonces ¿ya no se deben crear proyectos von Vite? Cuando creas proyectos con Vite tendrás que instalar dependencias para Routing, Consultas HTTP y más (herramientas como Next.js y Remix ya lo tienen incluido)</p>
+    
+                <p><strong>Usualmente siempre hay que aprender primero la herramienta/lenguage de programación y después el framework por lo que esa recomendación es un poco rara, porque cuando estes creando un proyecto ya sea en Next.js o Remix tal vez estés escribiendo un código y no sabes si eso es React o si eso es Next. Y esa es la explicación de por qué los proyectos en este curso utilizan Vite y al final tendremos un proyecto con Next quedando más claro qué es React y qué es Next.js</strong></p>						
+              </div>
+              <!-- Fin bloque desplegable interior-->
+    
+              <!-- Bloque desplegable interior-->
+              <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion4-48').toggle();">	
+                <h3>48. Instalando node y npm</h3>			
+                <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+              </div>
+              <div id="seccion4-48" style="display:none">
+                <p><a class="rojo" href="https://nodejs.org/es/" target="_blank">https://nodejs.org/es/</a> Requerimos node para crear nuestros proyectos pero también para instalar dependencias con npm</p>	
+              
+                <p>Una vez instalado abrimos la terminal y comprobamos las versiones del entorno(node.js) <span class="destacado">node -v</span> y de las dependencias(npm) <span class="destacado">npm -v</span></p>
+                
+              </div>
+              <!-- Fin bloque desplegable interior-->
+    
+    
+              <!-- Bloque desplegable interior-->
+              <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion4-49').toggle();">	
+                <h3>49. Creando el primer proyecto</h3>			
+                <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+              </div>
+              <div id="seccion4-49" style="display:none">
+                <p>Abrimos terminal, vamos al escritorio (que es donde voy a crear los proyectos) y ponemos <span class="destacado">npm create vite@latest</span> (si es la primera vez nos pedirá instalar la dependencia de vite le decimos que "y"). A continuación nos pide nombre y lo llamamos <strong>guitarla</strong>. A continuación nos pide que elijamos framework (Vanilla, Vue, <strong>React</strong>, Preact, Lit, Svelte, Solid, Qwik, Others) y elegimos React. Nos pide elegir variante, normalmente y como él ha trabajado este curso es <strong>Typescript + SWC</strong>(SWC es un compilador nuevo de los de Vite basado en Ros, muy rápido)  pero al ser el primer proyecto elegiremos <strong>Javascript + SWC</strong>. Remix es una alternativa a Next.JS de los creadores de shopify pero este curso no incluye remix porque la compra fue hace poco y están modificando/agregando muchas cosas</p>
+              
+              <img src="./src/assets/img/49-1.png" alt="">
+    
+              <p>ejecutamos los 3 comandos que nos indica para situarnos en la nueva carpeta del proyecto <span class="destacado">cd guitarla</span>, instalar las dependencias <span class="destacado">npm install</span>y arrancar el proyecto <span class="destacado">npm run dev</span></p>
+    
+              <img src="./src/assets/img/49-2.png" alt="">
+    
+              <p>Cuando generamos un proyecto en React con Vite vemos que la estructura por defecto es muy simple:</p>					
+              <ul>
+                <li><strong>carpeta "node_modules":</strong> las dependencias del proyecto. Va creciendo conforme instalamos más dependencias</li>
+                <li><strong>carpeta public:</strong> colocaremos por ej imagenes que seran accesibles para los visitantes de nuestro sitio web o app</li>
+                <li><strong>carpeta src:</strong> colocaremos todo nuestro código. Si revisamos la página de inicio de nuestro proyecto <strong>http://localhost:5173/</strong> nos dice: <strong>Edit src/App.jsx and save to test HMR</strong>. Así que abramos ese jsx, que es la página de inicio. 
+                  <img src="./src/assets/img/49-3.png" alt=""><br>
+                  En esta carpeta <strong>src</strong> es donde vamos a pasar la mayor parte del tiempo escribiendo código (colocaremos nuestros customs hooks, librerías, componentes...).
+                </li>
+                <li>.gitignore: va a ignorar algunos archivos</li>
+                <li><strong>index.html:</strong> básicamente lo que hace es inyectar React en el div <code class="language-html">&lt;div id="root"&gt;&lt;/div&gt;</code>. Si abrimos el <strong>main.jsx</strong> vemos el siguiente código donde se busca ese div con id="root" donde monta toda la aplicación de React. En el index.html podemos poner algún background, agregar algunos tags mas de html que sean importantes para nuestro proyecto, pero no vamos a escribir código html ahí habitualmente.
+                <pre><code class="language-js">
+                  createRoot(document.getElementById(&apos;root&apos;)).render(
+                    &lt;StrictMode&gt;
+                      &lt;App /&gt;
+                    &lt;/StrictMode&gt;&comma;
+                    )						
+                </code></pre>
+                </li>
+                <li><strong>package.json:</strong> ahí está el comando de "dev" que ejecutamos para arrancar y tiene algunos comandos para construir proyecto, previsualizarlo, y es donde se instalan las dependencias del proyecto y las de desarrollo. Al tener esas dependencias y sus versiones indicadas nos aseguramos que el equipo de trabajo sepa qué depndencias hay que tener para funcionar correctamente.</li>
+              </ul>
+              
+                
+              </div>
+              <!-- Fin bloque desplegable interior-->
+    
+                  
+            </div>			
+          </div><!--Fin row-->
+    
         </div>
         <!-- Fin div colapsable-->
     
     
       </div>
     </div>	
-    <!-- FIN SECCION 1 -->	
-  
-    
+    <!-- FIN SECCION 3 y 4-->	
+
+
     <!-- SECCION 2 -->
     <div class="contenedor w-80 w-96-s background esp-5-bottom">		
       <div class="row">
@@ -2532,10 +2580,462 @@
           <span class="cambiaicono ico_chevron_down esp-10-right" title=""></span>
         </div>
         
-        <div id="seccion2" style="display:none">
+        <div id="seccion2">
     
           <div class="row">
             <div class="col-12 padd-5-left">	
+
+
+              <!-- Bloque desplegable interior-->
+              <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion2-9').toggle();">
+                <h3>9. Variables creadas con let / 10. Variables creadas con const</h3>
+                <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+              </div>
+              <div id="seccion2-9" style="display:none"> 
+
+                <p><span class="destacado">Los nombres de variables han de ser descriptivos y no pueden iniciar con * ni números ni caracteres especiales.</span></p>
+                <p>Podemos usar comillas dobles o simples para asignar valor string a una variable (pero no mezclar tipo de comillas, nos da error)</p>   
+                <p class="naranja">Variables creadas con let</p>               
+                               
+                <ul>
+                  <li>Pueden ser inicializadas con un valor o sin valor:
+                    <pre><code class="language-js">
+                      /*Podemos inicializarlas con un valor y después reasignarle otro valor. Con const no se puede hacer eso con otros lenguages no podríamos hacer esto pero Javascript es un lenguage de tipo dinámico donde el tipo de dato se asigna por su valor y no por la variable)*/
+                      let cliente ="Juan"
+                      cliente=30
+                    </code></pre>                  
+                    <pre><code class="language-js">
+                      //Podemos inicializarlas sin valor y asignarlo después
+                      let precio
+                      precio = 200
+                    </code></pre>
+                  </li>
+                </ul>             
+                
+                <p>Si la inicializamos y no le asignamos valor y hacemos un console.log vemos que sale <span class="destacado">"Undefined"</span> <strong>es un tipo de dato en Javascript que nos indica que la variable fue inicializada pero nunca tuvo ningún valor</strong></p>
+                <p><strong>si hacemos un console.log de una variable "cantidad" que no hemos definido</strong> nos da el error <span class="destacado">"cantidad is not defined"</span></p>                   
+                <pre><code class="language-js">
+                  var //(versiones anteriores, ya no se usan)
+                  let
+                  const
+
+                  console.log('Hola Mundo')
+                  console.log(2+2)
+                  
+                  let cliente = 30
+                  cliente="Juan"                  
+                  let calzado
+                  
+                  console.log(cliente)
+                  console.log(calzado)
+                  console.log(cantidad)                 
+                </code></pre>
+
+                <p class="naranja">variables creadas con const</p>
+                <ul>
+                  <li>Tienen que ser inicializadas con un valor</li>
+                  <li>No se pueden reasignar. si lo intentamos en la consola nos sale el error <span class="destacado">"Asignment to constant variable"</span></li>
+                </ul>
+                <p></p>
+                  <pre><code class="language-js">
+                    const cliente = 30 
+                    cliente="Juan" 
+                  </code></pre>
+                  
+                  <p>¿entonces let es mejor porque nos da mas flexibilidad de posibilidades? No.<br>
+                  <span class="destacado">
+                    Vamos a utilizar mas veces const que let. Lo normal es querer tener en nuestro código variables const
+                    y let será una "excepción" cuando queramos inicializar sin valor y/o reasignar
+                  </span></p>
+              </div>
+              <!-- Fin bloque desplegable interior-->
+              
+              <!-- Bloque desplegable interior-->
+              <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion2-11').toggle();">
+                <h3>11. Tipos de Datos en JavaScript</h3>
+                <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+              </div>
+              <div id="seccion2-11" style="display: none">
+                <pre><code class="language-js">
+                  /* Tipos de dato
+
+                  Javascript tiene pocos tipos de datos: string, number, 
+                  
+                  para saber el tipo de dato de una variable, operador typeof antes de la variable
+                  console.log (typeof cliente)
+                  
+                  si nos ponemos encima de esta variable let alumno = "Juan" con el IntelliSense (IS) de Visual Studio si te pones encima de la variable te dice el tipo de dato --&gt; string 
+                  (con let, con const no rula esto en Visual Studio code pero usamos el typeof)
+                  El Undefined lo marca como any (que es específico de Typescript. Lo veremos y veremos por qué hay que evitarlo)
+                  */
+                  
+                  //Undefined
+                  let cliente
+                  console.log (cliente)
+                  console.log (typeof cliente)
+                  
+                  //Strings o cadenas de texto. Sirven para representar el nombre de un producto, categoría, reviews....
+                  let alumno = "Juan"
+                  const producto = 'Monitor 49 pulgadas'
+                  console.log(alumno)
+                  console.log(typeof alumno)
+                  console.log(producto)
+                  
+                  //Numbers
+                  const numero = 40
+                  const numero2= 40.40
+                  const numero3 = -100
+                  console.log(numero)
+                  console.log(numero2)
+                  console.log(numero3)
+                  console.log(typeof numero3)
+                  
+                  //BigInt
+                  const numeroGrande = BigInt(1263472832934827342938427348274)
+                  console.log(numeroGrande)
+                  
+                  //Boolean (true o false) --&gt; El usuario está bloqueado o no / autenticado o no / producto agotado o no....
+                  const descuento = true;
+                  console.log(typeof descuento)
+                  
+                  //Null
+                  const descuento2 = null 
+                  console.log(descuento2) //lo estoy asignando pero no existe no es nada. Es probable que queramos asignar null a una variable
+                  
+                  let precio
+                  console.log(precio)     //--&gt; variable declarada pero no tiene valor
+                  
+                  //Symbol --&gt; son buenos para librerias. normlamente no los usaremos. Cada Symbol es distinto a otro no hay dos iguales. Son únicos, aunque los comparemos y tengamos el mismo valor, siem,pre son diferentes
+                  const primerSymbol = Symbol(30)
+                  const segundoSymbol = Symbol(30)
+                  console.log(primerSymbol)
+                  console.log(primerSymbol == segundoSymbol)
+                  
+                  //Objetos --&gt; veremos en su propio vídeo. La parte más importante en Javascript y una de las características que más vamos a trabajar sea con React, Node, Vue.js...
+                  //Arrays o Arreglos también terminan siendo objetos                  
+                </code></pre>
+
+              </div>
+              <!-- Fin bloque desplegable interior-->
+             
+              
+              <!-- Bloque desplegable interior-->
+              <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion2-12').toggle();">
+                <h3>12. Objetos y Destructuring / 13. Manipulación de objetos</h3>
+                <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+              </div>
+              <div id="seccion2-12" style="display: none;">
+                <p>Los <span class="destacado">Objetos</span> son la parte más importante en Javascript y una de las características con las que más vamos a trabajar sea con React, Node, Vue.js...  Los Arrays=Arreglos también terminan siendo objetos</p>
+                <ul>
+                  <li>Un objeto es una colección de propiedades; pueden tener múltiples propiedades SEPARADAS POR ","</li>
+                  <li>Una propiedad es una asociación entre un nombre=clave(key) y un valor(value)</li>
+                  <li>Sintaxis con llaves --&gt; <code class="language-js">let producto = {  }</code> / <code class="language-js">const producto = {}</code> /</li>
+                </ul>
+                <p>Por tanto siempre que veamos esta sintaxis estaremos viendo un objeto, una colección de propiedades (asociaciones key+value)</p>
+
+                <p class="esp-15-top esp-0-bottom"><span class="naranja">Generar Objetos:</span> cada <span class="destacado">propiedad</span> de un objeto está formada por una asociación <span class="destacado">clave/valor</span> o pareja key/value. Las propiedades van separadas por comas.</p>
+                <pre><code class="language-js">
+                  const producto = {
+                      nombre : "Tablet",   // Esto es una propiedad. nombre es "key", "Tablet" es el "value". 
+                      precio : 300,
+                      disponible : false
+                  }
+                  console.log(producto); //veamos en la consola como se ven los objetos. dandole al triangulito expandimos y vemos las propiedades del mismo
+                  console.log(typeof producto)
+                  console.table(producto) //para objetos muy grandes y también para arrays podemos usar console-table para verlos formateados en la consola
+                </code></pre>
+
+                <p class="esp-15-top esp-0-bottom"><span class="naranja">Acceder a Objetos:</span> Una de las características de los objetos es que podemos <span class="destacado">acceder a cada una de las propiedades de un objeto usando la sintaxis de "."</span> y vemos como nos aparece el autocompletado de VSCode y podemos elegir la propiedad (asociación key/value) que queramos. <strong>Si tratamos de acceder a una propiedad que no existe nos devuelve un Undefined</strong>.</p>
+                <pre><code class="language-js">                   
+                  console.log(producto.nombre)
+                  console.log(producto.precio)
+                  console.log(producto.autenticado) // si tratamos de acceder a una propiedad que no existe nos devuelve Undefined
+                </code></pre>
+              
+                <p class="esp-15-top esp-0-bottom"><span class="naranja">Destructuring:</span> en versiones recientes de JS desde ECMAS6 agregaron "Destructuring" lo que nos permite en una sola línea de código extraer un valor y generar una variable. Está pensado para reducir código y usarlo siempre que podamos. Antes, en versiones anteriores de JS era muy común crear una variable y asignarle la propiedad de un objeto, por ejemplo:</p>
+                <pre><code class="language-js">                     
+                  const nombre = producto.nombre
+                  const precio = producto.precio
+                  const disponible = producto.disponible
+                  console.log(nombre)
+                  console.log(precio)
+                  console.log(disponible)                  
+
+                  //Con "Destructuring" una sola línea de código extraemos un valor del objeto que hay tras el = y generamos variable.
+                  const {} = //lo que hay detrás del igual es el objeto sobre el cual queremos aplicar destructuring, extraer un valor
+                  const { nombre } = producto //nombre es la variable
+                  console.log(nombre)
+                </code></pre>
+                
+                <pre><code class="language-js">
+                  //La sintaxis del Destructuring
+                  const { nombre, precio, disponible } = producto // aquí lo estamos haciendo en una sola línea, extrayendo el valor y generando las variables 
+                  console.log(nombre)
+                  console.log(precio)
+                  console.log(disponible)
+                </code></pre> 
+
+                <p class="esp-15-top esp-0-bottom"><span class="naranja">Object Literal Enhacement:</span> también pensado para reducir código. Sirve para colocar dentro de un objeto. ¿En qué casos es util? cuando tenemos una función que realiza ciertas operaciones y en lugar de devolver un monton de variables, devuelves un objeto con todo agrupado. Supongamos que tenemos las dos variables siguientes:</p>
+                <pre><code class="language-js">
+                  const autenticado2 = true
+                  const usuario = "Juan"
+
+                  const nuevoObjeto = {
+                      autenticado2 : autenticado2,
+                      usuario: usuario
+                  }
+
+                  //si el key y el value se llaman igual puedo hacer esto
+                  const nuevoObjeto = {
+                      autenticado2 
+                      usuario
+                  }
+                  console.log(nuevoObjeto)
+                </code></pre> 
+
+                <p class="esp-15-top esp-0-bottom"><span class="naranja">Manipulación de objetos</span> El object de JS es muy grande y si abrimos la documentación de MDN vemos todos los métodos que podemos usar con el constructor de object <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" target="_blank">https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object</a>
+              </p>
+
+                <pre><code class="language-js">
+                  //¿Como evitamos que se pueda manipular un objeto? Con TS es fácil, con JS usemos un par de métodos
+                  Object.freeze(producto) //Evita que se manipule ninguna propiedad del objeto (ni ninguna existente, ni añadir una nueva ni eliminar ninguna)
+                  Object.seal(producto) //Permite modificar las existentes en el objeto pero ni añadir ni eliminar ninguna propiedad
+
+                  //Reescribir un valor
+                  producto.disponible = true
+
+                  //Si no existe la propiedad la va a añadir
+                  producto.imagen = 'image.jpg'
+
+                  //Eliminamos propiedad
+                  delete producto.precio
+
+                  console.log(producto)
+                 </code></pre>
+
+              </div>
+              <!-- Fin bloque desplegable interior-->
+             
+              
+              <!-- Bloque desplegable interior-->
+              <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion2-14').toggle();">
+                <h3>14. Destructuring de 2 o más objetos</h3>
+                <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+              </div>
+              <div id="seccion2-14" style="display:none">
+                <pre><code class="language-js">
+                  // OBJETOS Destructuring de dos o más objetos:
+                  const producto = {
+                      nombre : "Tablet",   // Esto es una propiedad. nombre es "key" "Tablet" es el "value". las propiedades van separadas por comas
+                      precio : 300,
+                      disponible : false
+                  }
+                  
+                  const cliente = {
+                      nombre: "Juan",
+                      premium: true,
+                      direccion: {
+                          calle: "Calle Nuevo Mexico"
+                      }
+                  }
+                  
+                  const { nombre } = producto
+                  //const { nombre } = cliente //-->esto nos daba error. veamos a continuación como renombramos ese valor para evitar colisión de nombres
+                  //const { nombre: nombreCliente, direccion: calle } = cliente
+                  const { nombre: nombreCliente, direccion: { calle } } = cliente
+                  
+                  /*analizando la notación anterior:
+                  
+                      nombre: nombreCliente --> renombra la variable
+                      direccion: { calle } --> entra a ese objeto y entra a calle
+                  */
+                  
+                  
+                  console.log(nombre)
+                  console.log(nombreCliente)
+                  console.log(calle)
+                  
+                  // Muchas veces instalaremos varias dependencias y cuando devuelven valores, resulta que las variables se llaman igual. Para evitar colisión de nombres 
+                  // Viene bien saber como poder renombrarlas de esta manera.
+                </code></pre>
+               
+
+              </div>
+              <!-- Fin bloque desplegable interior-->
+             
+              
+              <!-- Bloque desplegable interior-->
+              <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion2-15').toggle();">
+                <h3>15. Unir dos o más objetos</h3>
+                <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+              </div>
+              <div id="seccion2-15" style="display:none">
+                <pre><code class="language-js">
+                  // OBJETOS unir dos o mas objetos, técnicas y sintaxis que marca diferencia. Le dedica mucho tiempo a losobjetos porque es lo que más se utiliza en React:
+                  const producto = {
+                      nombre : "Tablet",   // Esto es una propiedad. nombre es "key" "Tablet" es el "value". las propiedades van separadas por comas
+                      precio : 300,
+                      disponible : false
+                  }
+                  
+                  const cliente = {
+                      nombre: "Juan",
+                      premium: true    
+                  }
+                  
+                  //supongamos que añadimos el objeto producto a un carrito
+                  const carrito = {
+                      cantidad: 1,
+                      //si lo hacemos así nos agrega el objeto producto DENTRO de este objeto carrito, pero queremos unirlo
+                      //producto 
+                      // para que las key del objeto producto sean key de este objeto carrito (que el objeto carrito sea plano) Usamos para ello el "spread operator":
+                      ...producto 
+                  }
+                  console.log(carrito)
+                  
+                  //este código tiene 2 objetos dentro (obtiene una copia)
+                  const nuevoObjeto = {
+                      producto: {...producto},
+                      cliente: {...cliente},
+                  }
+                  console.log(nuevoObjeto)
+                  
+                  //podríamos obtener exactamente lo mismo que antes simplificando la sintaxis usando el 'object literal enhancement' diciendo:
+                  // 'genérame un key de producto con el objeto producto y un key de cliente con el objeto cliente':
+                  const nuevoObjeto2 = {
+                      producto,
+                      cliente
+                  }
+                  console.log(nuevoObjeto2)
+                  
+                  //si hago esto va a ser completamente diferente, un objeto plano pero ¡OJO! el key nombre del objeto producto no está!!!! porque el key nombre del objeto cliente reescribe el anterior
+                  const nuevoObjeto3 = {
+                      ...producto,
+                      ...cliente
+                  }
+                  console.log(nuevoObjeto3)
+                  
+                  //lo anterior lo podemos hacer con menos código usando el Object.assign
+                  const nuevoObjeto4 = Object.assign(producto, cliente)
+                  console.log(nuevoObjeto4)
+                  
+                  //En react existe el término "inmutabilidad" es decir, no modificas directamente un objeto sino en base a ciertas funciones.
+                  //Es importante entender las diferentes funciones que nos ofrece para poder cambiar algunos valores. Eso nos va a quedar más claro con los proyectos de React.
+                </code></pre>
+
+              </div>
+              <!-- Fin bloque desplegable interior-->
+             
+              
+              <!-- Bloque desplegable interior-->
+              <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion2-16').toggle();">
+                <h3>16. Template Strings y Concatenación</h3>
+                <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+              </div>
+              <div id="seccion2-16" style="display:none">
+                <pre><code class="language-js">
+                  //Template Strings y Concatenación
+
+                  const producto = "Tablet de 12 pulgadas"
+                  const precio = 400
+                  const marca = "Orange"
+                  
+                  //como se hacía antes en js este tipo de concatenación (con + o ,)
+                  console.log('El producto es: ' + producto) 
+                  console.log(producto + "$" + precio + " Dolares, marca " + marca) 
+                  
+                  //hagamos este mismo código con los Template Strings como se hace ahora (con ``)
+                  console.log(`El producto es ${producto}`)
+                  console.log(`${producto} ${precio} Dolares, marca ${marca} `)
+                  
+                  //En React se utiliza básicamente así. Algo muy similar: "jsx" que nos permite mezclar html con js en React
+                </code></pre>
+
+              </div>
+              <!-- Fin bloque desplegable interior-->
+             
+              <!-- Bloque desplegable interior-->
+              <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion2-X').toggle();">
+                <h3>XXXXXXXXXXX</h3>
+                <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+              </div>
+              <div id="seccion2-X" style="display:none">
+                <p></p>
+
+              </div>
+              <!-- Fin bloque desplegable interior-->
+             
+              <!-- Bloque desplegable interior-->
+              <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion2-X').toggle();">
+                <h3>XXXXXXXXXXX</h3>
+                <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+              </div>
+              <div id="seccion2-X" style="display:none">
+                <p></p>
+
+              </div>
+              <!-- Fin bloque desplegable interior-->
+             
+              <!-- Bloque desplegable interior-->
+              <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion2-X').toggle();">
+                <h3>XXXXXXXXXXX</h3>
+                <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+              </div>
+              <div id="seccion2-X" style="display:none">
+                <p></p>
+
+              </div>
+              <!-- Fin bloque desplegable interior-->
+             
+              <!-- Bloque desplegable interior-->
+              <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion2-X').toggle();">
+                <h3>XXXXXXXXXXX</h3>
+                <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+              </div>
+              <div id="seccion2-X" style="display:none">
+                <p></p>
+
+              </div>
+              <!-- Fin bloque desplegable interior-->
+             
+              <!-- Bloque desplegable interior-->
+              <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion2-X').toggle();">
+                <h3>XXXXXXXXXXX</h3>
+                <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+              </div>
+              <div id="seccion2-X" style="display:none">
+                <p></p>
+
+              </div>
+              <!-- Fin bloque desplegable interior-->
+             
+              <!-- Bloque desplegable interior-->
+              <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion2-X').toggle();">
+                <h3>XXXXXXXXXXX</h3>
+                <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+              </div>
+              <div id="seccion2-X" style="display:none">
+                <p></p>
+
+              </div>
+              <!-- Fin bloque desplegable interior-->
+             
+              <!-- Bloque desplegable interior-->
+              <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion2-X').toggle();">
+                <h3>XXXXXXXXXXX</h3>
+                <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+              </div>
+              <div id="seccion2-X" style="display:none">
+                <p></p>
+
+              </div>
+              <!-- Fin bloque desplegable interior-->
+             
+              
+             
+
+
+
     
     <!-- Bloque desplegable interior -->
               <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion2-31').toggle();">	
@@ -3273,126 +3773,178 @@
     </div>	
     <!-- SECCION 2 -->	
 
-    <!-- SECCION 3 y 4-->
+
+    <!-- SECCION 1 -->
     <div class="contenedor w-80 w-96-s background esp-5-bottom">		
       <div class="row">
-        <div class="flex center-vertical esp-25-top pointer desplegable space-between pointer" onclick="$('#seccion3').toggle();">	
-          <h2>Sección 3 y 4: PROYECTO: Carrito de compras. Introducción / Herramientas / Creando el proyecto en Windows</h2>				
-          <span class="cambiaicono ico_chevron_down esp-10-right" title=""></span>
+        <div class="flex center-vertical esp-25-top pointer desplegable space-between pointer" onclick="$('#seccion1').toggle();">	
+          <h2>Sección 1: Introducción al Curso - Qué es React, Proyectos que Construiremos y más</h2>				
+                  <span class="cambiaicono ico_chevron_down esp-10-right" title=""></span>
         </div>
         
-        <div id="seccion3" style="display: none">
+        <div id="seccion1"  style="display:none">			
+          <div class="row">
+            <div class="col-12 padd-5-left">	
+              
+              <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion1-1').toggle();">	
+                <h3>1. ¿Qué es React?</h3>			
+                <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+              </div>
+              
+              <div id="seccion1-1" style="display:none">	
+                
+                <p>Es una biblioteca de JS para construir interfaces de usuario</p>
+                <ul>
+                  <li>Ayuda a crear UI interactivas de forma muy sencilla (tiene muchas funciones y eventos para disparar fcnes en base a las interacciones del usuario)</li>
+                  <li>Se encarga de actualizar y renderizar de manera eficiente los componentes de tu aplicación</li>
+                  <li>Esta basado en componentes: no son mas que fiunciones en JS utilizados para renderizar el diseño de tu aplicación o sitio web</li>
+                  <li>Creado por Meta (antiguo Facebook). También la empresa Versell apoya su desarrollo.</li>
+                </ul>
+  
+                <p class="titulo">Ventajas de React</p>			
+                <ul>
+                  <li>Excelente documentación con muchos ejemplos</li>
+                  <li>Una gran comunidad y muchas librerias que puedes incorporar a tus proyectos</li>
+                  <li>Tecnología con mucha demanda: La mayoría de vacantes solicitan React, tanto para fornt end como para full stack</li>
+                </ul>
+  
+                <p class="titulo">¿Qué necesito para aprender React?</p>
+                <ul>
+                  <li>Dominar HTML y CSS</li>
+                  <li>Conocer la sintaxis Moderna de Javascript (ES6(2015)EcmaScript6 y cada añao hay nuevas que añaden unas cuantas funciones más)</li>
+                  <li>Tener instalado Node.js para crear nuestros proyectos</li>
+                </ul>
+                
+              </div><!-- Fin seccion colapsable interior  -->
+              
+              
+            </div>			
+          </div><!--Fin row-->
+            
+          <div class="row">
+            <div class="col-12 padd-5-left">	
+              <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion1-2').toggle();">	
+                <h3>2. Proyectos 01 a 04 del Curso - Fundamentos de React y TypeScript</h3>			
+                <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+              </div>						
+              
+              <div id="seccion1-2" style="display:none">	
+                
+                <p class="titulo">Proyecto carrito de compras GuitarLA</p>
+                 <p>En este proyecto estaremos aprendiendo los fundamentos de React: <span class="destacado">Componentes, Eventos y State</span>, mientras creas un carrito de compras real con cantidades, precios, y más, tomaremos este mismo carrito para mostrarte como crear tus propios Hooks y como transformarlo a código de TypeScript y cuales son sus beneficios. Carrito de compra persistente sincronizando con localStorage (aprenderemos todas esas acciones agregar elementos, cambiarlos, cambiar cantidades, vaciar carrito...)</p>							
+                <img src="./src/assets/img/s1-01.jpg" width="" height="" alt=""/> 
+  
+                <p class="titulo">Calculadora de propinas y consumos. Un proyecto ideal para restaurantes donde se podrá generar una orden con consumos y la persona podrá elegir la propina que desea dejar.</p>							
+                <img src="./src/assets/img/s1-02.jpg" width="" height="" alt=""/> 
+  
+                <p class="titulo">Contador de Calorías y Ejercicios</p>	
+                <p> Una de las tareas que más vas a realizar en tu vida como Developer es procesar formularios; en este proyecto tendremos un formulario, leeremos sus datos, lo vamos a procesar y realizar algunas operaciones como validación y mucho más, además aprenderás que es <span class="destacado">useReducer</span> para manejar estados complejos en tus apps. Veremos cómo funciona este patrón, es un hook especial cuando tenemos un state un poco más complejo.</p>
+                <img src="./src/assets/img/s1-03.jpg" width="" height="" alt=""/> 
+                
+                
+                <p class="titulo">Control de Gastos y Presupuestos:</p>	
+                <p>En este proyecto estaremos viendo que es <span class="destacado">Context API</span> para tener un estado global sin dependencias; Context API va a ayudarte a no pasar props por cada componente, completamos el curso con filtrar gastos por categoría, calendario de fechas de gastos, gráficas y mucho más! Por tanto también usaremos reducers, context Api para comenzar a trabajar con un estado global y un custom hook.</p>
+                <img src="./src/assets/img/s1-04.jpg" width="" height="" alt=""/> 
+                
+              </div><!-- Fin seccion colapsable interior  -->
+            </div>
+          </div><!--Fin row-->
+          
+          
+          
+          
+          <div class="row">
+            <div class="col-12 padd-5-left">	
+              <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion1-3').toggle();">	
+                <h3>3. Proyectos 05 a 08 del Curso - React Intermedio y API's</h3>			
+                <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+              </div>						
+              
+              <div id="seccion1-3" style="display:none">	
+                
+                <p class="titulo">Administrador de pacientes de veterinaria</p>
+                <p>Introduce dos herramientas nuevas: Este proyecto añade dos herramientas nuevas: <span class="destacado">Zustand</span> para manejar un estado global de forma muy simple y <span class="destacado">React Hook Form</span>, una librería para para la parte de validación y procesamiento de nuestros formularios de manera bastante sencilla.</p>														
+                <img src="./src/assets/img/s1-05.jpg" width="" height="" alt=""/> 
+                
+                <p class="titulo">Buscador de clima</p>
+                <p>Esta será nuestra primera aplicación que obtiene datos de una <span class="destacado">API externa</span>, como React Developer vas a trabajar en muchos proyectos que incluyen API's; estaremos viendo como validar y enviar peticiones hacia API, como leer las respuestas y como mostrar esa información. La parte de APIS es muy importante en el mundo de React.</p>							
+                <img src="./src/assets/img/s1-06.jpg" width="" height="" alt=""/> 
+                
+                <p class="titulo">Cotizador de Criptomonedas</p>
+                <p>Este proyecto al igual que el anterior se conecta a una API para obtener el precio de una Criptomoneda en dólares, pesos mexicanos y otras monedas; Este proyecto incluye Zustand y Zod para validar las respuestas que obtenemos de nuestra API.</p>							
+                <!-- <img src="./src/assets/img/s1-07.jpg" width="" height="" alt=""/>  -->
+  
+                <p>Proyecto 04: Migrar Carrito de Compras a useReducer: En este capítulo estaremos viendo como tomar el proyecto de carrito de compras y convertirlo hacia useReducer; cuando tomas un proyecto que conoces en una tecnología nueva es garantía que podrás entender mejor los conceptos.</p>
+                <p>Proyecto 05: Migrar Calculadora de Propinas hacia useReducer: Veamos como migrar nuestro otro proyecto hacia useReducer.</p>
+  
+  
+                <p>Proyecto 10: Buscador de Recetas: Este es nuestro primer proyecto que incluye múltiples páginas; lo estaremos realizando con React Router DOM la librería más popular para crear aplicaciones en React de múltiples página, este curso utiliza el Slice Pattern para tener múltiples Stores de Zustand!</p>
+                <p>Proyecto 11: Administrador de Productos: Este es nuestro primer proyecto Full Stack donde estaremos creando tanto frontend como backend utilizando el PERN (PostgreSQL, Node.js, Express y React) este proyecto utiliza una REST API que conectaremos con React, añadiremos temas más avanzados como Testing y Documentación de API's.</p>
+                <p>Proyecto 12: Administrador de Tareas y Proyectos: Este es el Proyecto más avanzado del curso, utiliza el MERN stack que es uno de los más populares hoy en día, este proyecto incluye un sistema robusto de autenticación y registro de usuarios con confirmación de cuentas y resetear el password en caso de olvidarlo; además incluye roles y los usuarios solo pueden realizar ciertas acciones. El curso incluye además una REST API bastante compleja y avanzada, El curso utiliza también React Query, Tailwindcss, React Router, Mongoose, Express, TypeScript y mucho más.</p>
+                <p>Proyecto 13: Quiosco de Comida: Finalizaremos este curso con una introducción a Next.js, utilizaremos la versión 14 con App Router, Server Actions, Prisma, Zod, Zustand, Tailwind, y mucho más, el proyecto incluye subida de archivos, CRUD Completo, paginador, buscador y más.</p>
+  
+                
+              </div><!-- Fin seccion colapsable interior  -->
+  
+            </div>
+          </div><!--Fin row-->
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          <!-- 
+          <div class="row">
+            <div class="col-12 padd-5-left">						
+              
+              <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccionX-X').toggle();">	
+                <h3>XXXXXXXXXXXXXXXXXXXXXX</h3>			
+                <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+              </div>						
+              
+              <div id="seccionX-X" style="display:none">	
+                
+                <p class="titulo">XXXXXXXXXXXX</p>
+                <p>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</p>							
+                <img src="./src/assets/img/XXXX.jpg" width="" height="" alt=""/> 
+  
+                
+                
+              </div>
+  
+            </div> 
+          </div>
+          -->
+          
+          
+          
+          
+          
+          
+          
             
           <div class="row">
             <div class="col-12">	
+  
               
-              
-              
-              <!-- Bloque desplegable interior-->
-              <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion3-46').toggle();">	
-                <h3>46. Introducción. El proyecto a construir GuitarLA</h3>			
-                <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
-              </div>
-              <div id="seccion3-46" style="display:none">
-                <p class="titulo">Proyecto carrito de compras GuitarLA</p>
-    
-                <p>En este proyecto estaremos aprendiendo los fundamentos de React: <span class="destacado">Componentes, Eventos y State</span>, mientras creas un carrito de compras real con cantidades, precios, y más, tomaremos este mismo carrito para mostrarte como crear tus propios Hooks y como transformarlo a código de TypeScript y cuales son sus beneficios. Carrito de compra persistente sincronizando con localStorage (aprenderemos todas esas acciones agregar elementos, cambiarlos, cambiar cantidades, vaciar carrito...)</p>							
-                <img src="./src/assets/img/s1-01.jpg" width="" height="" alt=""/> 
-                
-              </div>
-              <!-- Fin bloque desplegable interior-->
-    
-    
-              <!-- Bloque desplegable interior-->
-              <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion3-47').toggle();">	
-                <h3>47. Herramientas para crear aplicaciones en React.js</h3>			
-                <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
-              </div>
-              <div id="seccion3-47" style="display: none;">
-                <p class="titulo">Tecnologías para crear aplicaciones en React</p>
-                <p>Permiten Crear una App En React en Minutos. Existen muchas formas de crear una app en React, incluso tu puedes crear tu propio ambiente de desarrollo con herramientas como Babel, Parcel, Webpack, Vite, etc</p>
-    
-                <p>Pero también existe una gran cantidad de herramientas ya disponibles para crear aplicaciones en React en minutos sin conocer esta configuración</p>
-                
-                
-                <p class="titulo">Ventajas de utilizar una herrmaienta ya existente: <strong>La mayoría de Herramientas ya existentes para crear aplicaciones en React son estables y siguen un enfoque muy claro: No tener que preocuparte por la configuración.</strong> Tú puedes crear tu propio ambiente de desarrollo pero tienes que asegurarte de que cada versión nueva de React, cada version de diferentes librerias sea compatible con tu proyecto y despues tienes que encontrar una forma de compilar código de css (sass etc) ...entonces vamos a gasta r más tiempo en solucionar este tipo de cosas que tirando código. Por eso se recomienda usar una herramienta ya existente</p>
-    
-                <p>Cada una de estas herramientas ya existentes va desde básicas hasta avanzadas. Requieren tener instalado <span class="destacado">Node.js (NPM) o YARN</span>. Existen otros entornos hoy día como <strong>¿bum?</strong> Node.js con npm es bastante estable y es la que estaremos usando</p>
-                
-                <p>Opciones modernas para crear Apps en React. Los más populares hoy en día son<span class="destacado">Vite</span> y <span class="destacado">Next.js</span>. También Remix Run y Astro (que usaba en versiones anteriores del curso. Remix Run fue adquirido recientemente por shopify y están haciendo muchos cambios y no está listo)</p>
-                
-                <p class="titulo">Recomendaciones del equipo de React</p>
-    
-                <p>En su documentación recomiendan comenzar por Next.js o Remix para nuevos proyectos. Entonces ¿ya no se deben crear proyectos von Vite? Cuando creas proyectos con Vite tendrás que instalar dependencias para Routing, Consultas HTTP y más (herramientas como Next.js y Remix ya lo tienen incluido)</p>
-    
-                <p><strong>Usualmente siempre hay que aprender primero la herramienta/lenguage de programación y después el framework por lo que esa recomendación es un poco rara, porque cuando estes creando un proyecto ya sea en Next.js o Remix tal vez estés escribiendo un código y no sabes si eso es React o si eso es Next. Y esa es la explicación de por qué los proyectos en este curso utilizan Vite y al final tendremos un proyecto con Next quedando más claro qué es React y qué es Next.js</strong></p>						
-              </div>
-              <!-- Fin bloque desplegable interior-->
-    
-              <!-- Bloque desplegable interior-->
-              <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion4-48').toggle();">	
-                <h3>48. Instalando node y npm</h3>			
-                <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
-              </div>
-              <div id="seccion4-48" style="display:none">
-                <p><a class="rojo" href="https://nodejs.org/es/" target="_blank">https://nodejs.org/es/</a> Requerimos node para crear nuestros proyectos pero también para instalar dependencias con npm</p>	
-              
-                <p>Una vez instalado abrimos la terminal y comprobamos las versiones del entorno(node.js) <span class="destacado">node -v</span> y de las dependencias(npm) <span class="destacado">npm -v</span></p>
-                
-              </div>
-              <!-- Fin bloque desplegable interior-->
-    
-    
-              <!-- Bloque desplegable interior-->
-              <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion4-49').toggle();">	
-                <h3>49. Creando el primer proyecto</h3>			
-                <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
-              </div>
-              <div id="seccion4-49" style="display:none">
-                <p>Abrimos terminal, vamos al escritorio (que es donde voy a crear los proyectos) y ponemos <span class="destacado">npm create vite@latest</span> (si es la primera vez nos pedirá instalar la dependencia de vite le decimos que "y"). A continuación nos pide nombre y lo llamamos <strong>guitarla</strong>. A continuación nos pide que elijamos framework (Vanilla, Vue, <strong>React</strong>, Preact, Lit, Svelte, Solid, Qwik, Others) y elegimos React. Nos pide elegir variante, normalmente y como él ha trabajado este curso es <strong>Typescript + SWC</strong>(SWC es un compilador nuevo de los de Vite basado en Ros, muy rápido)  pero al ser el primer proyecto elegiremos <strong>Javascript + SWC</strong>. Remix es una alternativa a Next.JS de los creadores de shopify pero este curso no incluye remix porque la compra fue hace poco y están modificando/agregando muchas cosas</p>
-              
-              <img src="./src/assets/img/49-1.png" alt="">
-    
-              <p>ejecutamos los 3 comandos que nos indica para situarnos en la nueva carpeta del proyecto <span class="destacado">cd guitarla</span>, instalar las dependencias <span class="destacado">npm install</span>y arrancar el proyecto <span class="destacado">npm run dev</span></p>
-    
-              <img src="./src/assets/img/49-2.png" alt="">
-    
-              <p>Cuando generamos un proyecto en React con Vite vemos que la estructura por defecto es muy simple:</p>					
-              <ul>
-                <li><strong>carpeta "node_modules":</strong> las dependencias del proyecto. Va creciendo conforme instalamos más dependencias</li>
-                <li><strong>carpeta public:</strong> colocaremos por ej imagenes que seran accesibles para los visitantes de nuestro sitio web o app</li>
-                <li><strong>carpeta src:</strong> colocaremos todo nuestro código. Si revisamos la página de inicio de nuestro proyecto <strong>http://localhost:5173/</strong> nos dice: <strong>Edit src/App.jsx and save to test HMR</strong>. Así que abramos ese jsx, que es la página de inicio. 
-                  <img src="./src/assets/img/49-3.png" alt=""><br>
-                  En esta carpeta <strong>src</strong> es donde vamos a pasar la mayor parte del tiempo escribiendo código (colocaremos nuestros customs hooks, librerías, componentes...).
-                </li>
-                <li>.gitignore: va a ignorar algunos archivos</li>
-                <li><strong>index.html:</strong> básicamente lo que hace es inyectar React en el div <code class="language-html">&lt;div id="root"&gt;&lt;/div&gt;</code>. Si abrimos el <strong>main.jsx</strong> vemos el siguiente código donde se busca ese div con id="root" donde monta toda la aplicación de React. En el index.html podemos poner algún background, agregar algunos tags mas de html que sean importantes para nuestro proyecto, pero no vamos a escribir código html ahí habitualmente.
-                <pre><code class="language-js">
-                  createRoot(document.getElementById(&apos;root&apos;)).render(
-                    &lt;StrictMode&gt;
-                      &lt;App /&gt;
-                    &lt;/StrictMode&gt;&comma;
-                    )						
-                </code></pre>
-                </li>
-                <li><strong>package.json:</strong> ahí está el comando de "dev" que ejecutamos para arrancar y tiene algunos comandos para construir proyecto, previsualizarlo, y es donde se instalan las dependencias del proyecto y las de desarrollo. Al tener esas dependencias y sus versiones indicadas nos aseguramos que el equipo de trabajo sepa qué depndencias hay que tener para funcionar correctamente.</li>
-              </ul>
-              
-                
-              </div>
-              <!-- Fin bloque desplegable interior-->
-    
-                  
-            </div>			
-          </div><!--Fin row-->
-    
+  
+            </div>
+          </div>
+            
+          
+          
         </div>
         <!-- Fin div colapsable-->
     
     
       </div>
     </div>	
-    <!-- FIN SECCION 3 y 4-->	
+    <!-- FIN SECCION 1 -->	
     
     
     <!-- SECCION 00 -->
@@ -3423,7 +3975,7 @@
     <!-- FIN SECCION 00 -->
     
     
-    
+
         
     
     
