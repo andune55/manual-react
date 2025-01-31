@@ -2955,78 +2955,519 @@
               <!-- Fin bloque desplegable interior-->
              
               <!-- Bloque desplegable interior-->
-              <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion2-X').toggle();">
-                <h3>XXXXXXXXXXX</h3>
+              <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion2-17-19').toggle();">
+                <h3>17. Arrays / 18. Modificar Arrays / 19. Destructuring de Arrays</h3>
                 <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
               </div>
-              <div id="seccion2-X" style="display:none">
-                <p></p>
+              <div id="seccion2-17-19" style="display:none">
+                <p>Los Arrays (Arreglos) junto con objetos es de lo que más se utiliza en nuestro código. Es un objeto similar a un listado que tiene métodos para realizar varias operaciones. Diferencias: </p>                
+                <ul>
+                  <li>corchetes en vez de llaves</li>
+                  <li>no tienen clave/valor sino solo valor</li>
+                  <li>su llave va a ser el índice que se asigna automáticamente en base a su posición en el arreglo</li>
+                </ul>
+                <p>Los arreglos pueden mezclar tipos de datos en su interior pero se recomienda que un arreglo contenga estructura y que sea acorde para tener un mejor orden en el código</p>
+
+                <pre><code class="language-js">
+                  const tecnologias = [20,30,40]
+
+                  console.log(tecnologias)
+                  console.table(tecnologias)
+                  
+                  console.log(tecnologias[1])                  
+                </code></pre>
+
+                <p class="esp-15-top esp-0-bottom"><span class="naranja">Modificar Arrays</span></p>
+
+                <pre><code class="language-js">
+                  const tecnologias = ['HTML','CSS','Javascript','React.js','Node.js']
+
+                  tecnologias[5] = 'Nest.js'
+                  tecnologias.push('Nest.js')
+                  console.log(`tecnologias:`)
+                  console.table(tecnologias)                  
+                </code></pre>
+
+                <p><strong>si vamos al navegador consola y desplegamos el [[prototype]] vemos todos los métodos disponibles para ese array</strong>. Cada tipo de datos tiene sus métodos. <span class="destacado">¡¡¡¡IMPORTANTE!!!!</span> En React siempre hemos de escribir nuestro código con funciones que no modifiquen directamente los valores de lo que se conoce como el "state". En esta página <a href="https://doesitmutate.xyz/" target="blank">https://doesitmutate.xyz/</a> podemos consultar si los métdos que nos aparecen en <strong>[[prototype]]</strong> de la consola del navegador modifican o no nuestro array. Como vemos si buscamos ahí por ejemplo el método "push()", sí modifica (mutates) nuestro arreglo por lo que no se recomienda utilizar push() con react. </p>
+
+                <p class="titulo">Alternativa a push</p>
+                <pre><code class="language-js">
+                  const nuevoArreglo = [...tecnologias, 'Nest.js'] // básicamente esos "..." copian tecnologías y a continuación indicamos optro valor más que es  'Nest.js'
+                  //si lo quisiéramos al inicio --&gt; const nuevoArreglo = ['Nest.js', ...tecnologias]
+                  console.log(`nuevoArreglo: alternativa a push() ${nuevoArreglo}`)                  
+                </code></pre>
+                
+                <p class="titulo">método shift() elimina el primer elemento de un array. Modifica el array</p>
+                <pre><code class="language-js">
+                  const tecnologias2 = ['HTML','CSS','Javascript','React.js','Node.js']
+                  tecnologias2.shift();
+                  console.table(`tecnologias2: usamos shift para eliminar primer valor ${tecnologias2}`)
+                </code></pre>  
+                
+                  <p class="titulo">alternativa a shift() --&gt; usamos filter() que no modifica nuestro arreglo</p>
+                  <pre><code class="language-js">
+                  console.log(`tecnologias3: alternativa a shift, uso de filter()`)
+                  const tecnologias3 = tecnologias.filter(function(tech){
+                      //console.log(tech)
+                      if(tech!=='HTML'){ 
+                          return tech 
+                      }
+                  })
+                  console.table(tecnologias3)
+                  </code></pre>
+                  
+                  <p class="titulo">map() que itera sobre TODOS los elementos de nuestra colección</p>
+
+                  <pre><code class="language-js">
+                  //veamos como modificar un valor sin cambiar el array original, por ejemplo tecnologias[5] = 'Nest.js'. 
+                  // Usamos map() que itera sobre TODOS los elementos de nuestra colección
+                  console.log(`tecnologias4: uso de map()`)
+                  const tecnologias4 = tecnologias.map(function(tech){
+                      //console.log(tech)
+                      //Queremos buscar el valor 'Node.js' para modificarlo por 'Nest.js' pero queremos mantener el resto
+                      if(tech === 'Node.js'){
+                          return 'Nest.js'
+                      } else { // si no ponemos este else, vemos en consola que cuando no se cumple la condición devuelve undefined
+                          return tech
+                      }
+                  })
+                  console.table(tecnologias4)
+                </code></pre>
 
               </div>
               <!-- Fin bloque desplegable interior-->
              
               <!-- Bloque desplegable interior-->
-              <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion2-X').toggle();">
-                <h3>XXXXXXXXXXX</h3>
+              <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion2-19').toggle();">
+                <h3>19. destructuring arrays</h3>
                 <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
               </div>
-              <div id="seccion2-X" style="display:none">
-                <p></p>
+              <div id="seccion2-19" style="display:none">
+                <pre><code class="language-js">
+                  const tecnologias = ['HTML','CSS','Javascript','React.js','Node.js']
+
+                  //variable con la posicion 3 del array
+                  
+                  const react = tecnologias[3]
+                  console.log(react)
+                  
+                  // El destructuring de arrays los va a ir extrayendo en base a la posición
+                  const [html, estilos, script] = tecnologias
+                  console.log(html) //--> HTML
+                  console.log(estilos) // --> CSS
+                  //si quisiéramos sacar el valor de una única posición, por ej 'React.js' usando esta sintaxis de destructuring hemos de usar comas dejando los espacios
+                  //(contar como en las tablas de colaboradores!!!! :D)
+                  
+                  const [ , , , reactjs] = tecnologias
+                  console.log(reactjs)
+                </code></pre>
 
               </div>
               <!-- Fin bloque desplegable interior-->
              
               <!-- Bloque desplegable interior-->
-              <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion2-X').toggle();">
-                <h3>XXXXXXXXXXX</h3>
+              <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion2-20').toggle();">
+                <h3>20. Recorriendo arrays con for / 21. Recorriendo arrays con forEach, map y for ... of</h3>
                 <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
               </div>
-              <div id="seccion2-X" style="display:none">
-                <p></p>
+              <div id="seccion2-20" style="display:none">
+                <pre><code class="language-js">
+                  //recorriendo/iterar arrays
+
+                  const tecnologias = ['HTML','CSS','Javascript','React.js','Node.js']
+                  
+                  // console.log(tecnologias[0])
+                  // console.log(tecnologias[1])
+                  // console.log(tecnologias[2])
+                  // console.log(tecnologias[3])
+                  // console.log(tecnologias[4])
+                  
+                  //igual que map() para iterar un array o filter() para sacar o mantener elementos de un arreglo existen métodos/funciones para iterar una array fácilmente
+                      // for(let i = 0; i &lt; 5; i++) { 
+                      //     //console.log(i) 
+                      //     console.log(tecnologias[i]) 
+                      // }
+                  
+                  /*si añadiéramos un nuevo valor al array sin modificar el bucle, por ejemplo al final vemos que no nos sale.
+                  un arreglo va a crecer o ser mas pequeño en fcn de lo que el usuario haga en nuestra App. por ejemplo un carrito de compras, que se inicia con un arreglo vacío,
+                  en función de lo que haga un usuario u otro se han podido añadir 3 elementos, 8, ninguno...
+                  por tanto SIEMPRE TENEMOS QUE ESCRIBIR NUESTRO CÓDIGO DE FORMA DINÁMICA, QUE SE ADPATE A TODOS LOS ESCENARIOS*/
+                  
+                  //revisemos cuántos elementos hay en el arreglo para que el iterador se ejecute esa cantidad de veces
+                  
+                      // for(let i = 0; i &lt; tecnologias.length; i++) { 
+                      //     //console.log(i) 
+                      //     console.log(tecnologias[i]) 
+                      // }
+                  
+                  //aunque un for (que se usa en C#, php, Java) no tiene nada de malo, js ha hecho 3 iteradores que son mas sencillos y claros de usar
+                  
+                  //forEach()  --&gt; MÉTODO QUE EJECUTA UNA FUNCIÓN INDICADA POR CADA ELEMENTO DEL ARREGLO
+                  
+                      // tecnologias.forEach(function(){
+                      //     console.log('Desde la función')
+                      // })
+                  
+                      //dentro de ese function podemos pasarle lo que queramos como parámetro, antes usamos 'tech' but podemos ponerle por ejemplo la letra 'a' y veremos que aparecen cada uno de esos valores
+                      // tecnologias.forEach(function(a){
+                      //     console.log(a)
+                      // })
+                  
+                      //normalmente el nombre del parámetro ha de ser descriptivo de los valores que contenga el array, por ejemplo array de automóviles--&gt;parámetro 'automovil'. 
+                      // Así que en este caso lo dejamos en 'tech'. Como vemos es mas sencillo que el bucle loop. Ya sabe cuantas veces ejecutarse porqeu ya sabe la extensión del
+                      //array sobre el que se está ejecutando
+                      // tecnologias.forEach(function(tech){
+                      //     console.log(tech)
+                      // })
+                  
+                  //map() --&gt; sirve para iterar pero su característica ppal es que CREA UN NUEVO ARREGLO, en base a las condiciones de la fcn. 
+                  
+                      // tecnologias.map(function(tech){
+                      //     console.log(tech)
+                      // })
+                  
+                      //Veamos esta característica diferencial con el siguiente código. El primer console.log (en el que intentamos return tech usandi forEach) nos dará un undefined
+                      const arrayforEach = tecnologias.forEach(function(tech){
+                          //return tech
+                          console.log(tech)
+                      })
+                      const arrayMap = tecnologias.map(function(tech){
+                          return tech
+                      })
+                  
+                      console.log(arrayforEach)
+                      console.log(arrayMap)
+                  
+                      // map() es el más utilizado con React. Por tanto DIFERENCIA:
+                      /*
+                      forEach() ejecuta una función dada tantas veces como valores  tiene un arreglo
+                      map() genera un array nuevo en base a la condicion/fcn que le estás pasando
+                      */
+                  
+                  // for ... of --&gt; EJECUTA UN BLOQUE DE CÓDIGO POR CADA ELEMENTO DE UN ARREGLO. Se parece mucho al for y tiene algo del forEach
+                  
+                  for(let tech of tecnologias){
+                      console.log(tech)
+                  }
+                  // for(let i = 0; i &lt; tecnologias.length; i++) { 
+                  //     console.log(tecnologias[i]) 
+                  // }
+                  
+                  //tecnologias.forEach(function(){
+                  //     console.log('Desde la función')
+                  // })//recorriendo/iterar arrays
+                </code></pre>
 
               </div>
               <!-- Fin bloque desplegable interior-->
              
               <!-- Bloque desplegable interior-->
-              <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion2-X').toggle();">
-                <h3>XXXXXXXXXXX</h3>
+              <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion2-22').toggle();">
+                <h3>22. Funciones: Function declaration / Function Expression / Arrow Functions</h3>
                 <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
               </div>
-              <div id="seccion2-X" style="display:none">
-                <p></p>
+              <div id="seccion2-22" style="display:none">
+                <p>Las funciones nos van a permitir escribir código reutilizable en js y en cualquier lenguage de programación. Vamos a separar el código en pequeñas funciones con su propósito. <strong>Ojo con los nombres (mismas restricciones que nombres de variables, no empezar por números, guiones...)</strong></p>
+                <p class="esp-15-top esp-0-bottom"><span class="naranja">Funciones - Function declaration:</span> </p>
+                <pre><code class="language-js">
+                   function sumar(){
+                        console.log(1+1)
+                    }
+                  //Llamamos a la fcn, y además como son reutilizables, tantas veces como queramos. Se la puede llamar antes de declararla.
+                    sumar()
+                    sumar()
+                  
+                    function sumar(){
+                        console.log(1+1)
+                    }
+                </code></pre>
+
+                <p>Hemos de escribir funciones "inteligentes" que manejen <span class="destacado">parámetros:</span> es una variable especial que se utiliza en una función y cuyo valor se refiere a valores que vienen del exterior. <span class="destacado">En el ejemplo siguiente: numero1 y numero2 es un parámetro mientras que '10' es un argumento</span></p>
+                <pre><code class="language-js">
+                  function sumar(numero1, numero2){   
+                    console.log(numero1)
+                    console.log(numero2)
+                    console.log(numero1+numero2)
+                  }
+                  sumar(10, 20)
+                  sumar(100, 131)
+                </code></pre>
+                <p>Hemos de saber qué tipo y cuantos argumentos mandarle a nuestra función (tanto conociendo la librería que importemos como haciedo uso del helper=Intellisense de Visual Studio) por ejemplo si a la fcn anterior le mandamos un único argumento numérico, como espera 2 números trata de sumar un número con NADA y devuelve 'NaN' (Not a Number). Para estos casos podríamos utilizar los <strong>parámetros por default</strong>, cuando un valor no está presente utilizar esos valores.</p> 
+                  <pre><code class="language-js">
+                    function sumar(numero1 = 0, numero2 = 0){
+                      console.log(numero1+numero2)
+                    }                   
+                  </code></pre>
+                
+                <p class="esp-15-top esp-0-bottom"><span class="naranja">Funciones - Function Expression:</span> Sintaxis similar, hacen lo mismo, but en este caso si intentamos llamar a la función antes de declararla nos devuelve error</p>
+
+                <pre><code class="language-js">
+                  sumar(10, 20)
+                  // sumar(300, 1)
+                  // sumar(100)
+
+                  const sumar = function (numero1 = 0, numero2 = 0){   
+                    console.log(numero1+numero2)
+                  }
+                </code></pre>
+                <pre><code class="language-js">
+                // En este caso podemos sí podemos llamar a la función antes de declararla. No están ni mucho menos deprecadas y se siguen utilizando mucho.
+                sumar(10, 20)
+                sumar(300, 1)
+                sumar(100)
+
+                function sumar(numero1 = 0, numero2 = 0){ 
+                  console.log(numero1+numero2)
+                }
+                </code></pre>
+
+                <p class="esp-15-top esp-0-bottom"><span class="naranja">Funciones - Arrow function:</span> Al igual que las function expressions si intentamos llamarla antes de declararla nos da error. La sintaxis es como las function expressions sin la palabra "function" y añadiendo "=>" entre el ")" y la "{"</p>
+
+                <pre><code class="language-js">
+                  //const sumar = function(numero1 = 0, numero2 = 0) {
+
+                  const sumar = (numero1 = 0, numero2 = 0) => {
+                      console.log(numero1 + numero2)
+                  }
+                
+                  sumar(10, 20)
+                  sumar(300, 1)
+                  sumar(100)
+                </code></pre>
+
+                <p>Si nuestras funciones solo tienen una línea, podemos eliminar las llaves:</p>
+                <pre><code class="language-js">
+                  const sumar = (numero1 = 0, numero2 = 0) => console.log(numero1 + numero2)
+                </code></pre>
+
+                <p><span class="destacado">Todas las fcnes que hemos visto devuelven valores</span>. A continuación veremos la otra característica que tienen las arrow functions y funciones que devuelven valores</p>
+              </div>
+              <!-- Fin bloque desplegable interior-->
+             
+              <!-- Bloque desplegable interior-->
+              <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion2-25').toggle();">
+                <h3>25. Funciones que retornan valores</h3>
+                <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+              </div>
+              <div id="seccion2-25" style="display:none">
+                <p>A continuación veremos la otra característica que tienen las arrow functions y funciones que devuelven valores</p>
+                <pre><code class="language-js">
+                  // Funciones que devuelven valores. Veámoslo con los 3 tipos de funciones
+                  const sumar = function (numero1 = 0, numero2 = 0){   
+                      //console.log(numero1 + numero2)
+                      return numero1 + numero2
+                  }
+              
+                  function sumar(numero1 = 0, numero2 = 0){ 
+                      //console.log(numero1+numero2)
+                      return numero1 + numero2
+                  }
+              
+                  //const sumar = (numero1 = 0, numero2 = 0) => console.log(numero1 + numero2)
+                  const sumar = (numero1 = 0, numero2 = 0) => numero1 + numero2 //cuando solo tienen una línea no hace falta que usemos "return"
+              
+                  /* si tenemos múltiples líneas en la arrow function usamos return 
+                  
+                  const sumar = (numero1 = 0, numero2 = 0) => {
+                      return numero1 + numero2
+                  }                  
+                  */              
+                  const resultado = sumar(10, 20)
+                  console.log(resultado)
+                </code></pre>
+              </div>
+              <!-- Fin bloque desplegable interior-->
+             
+              <!-- Bloque desplegable interior-->
+              <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion2-26').toggle();">
+                <h3>26. Array Methods</h3>
+                <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+              </div>
+              <div id="seccion2-26" style="display:none">
+              <pre><code class="language-js">
+                //Array methods
+                const tecnologias = ['HTML','CSS','Javascript','React.js','Node.js']
+                const numeros = [10, 20, 30]
+                
+                //Filter
+                    const nuevoArray = tecnologias.filter(function(tec) {
+                        console.log(tec)
+                    })
+                
+                    // const nuevoArray2 = numeros.filter(function (nume) {
+                    //     console.log(nume)
+                    // })
+                
+                    //también podríamos hacerlo así (sacando la función que va entre "()" fuera):
+                
+                    // function ejemploFilter(nume) {
+                    //     console.log(nume)
+                    // }
+                
+                    //esta sintaxis normalmente no se usa, no se crean funciones aparte
+                    // const ejemploFilter = (nume) => console.log(nume)    
+                    // const nuevoArray2 = numeros.filter(ejemploFilter)
+                
+                    //Estos array methods se utilizan mucho y lo que hacen es iterar sobre cada uno de los elementos del array. 
+                    //En base a ciertas condiciones podemos hacer algunas operaciones con ellos
+                
+                    //IMPORTANTE --&gt; ventajas de uso de arrow function:
+                    // (no usamos "function", como es una línea quitamos "{}", no usamos "return" porque se da por implícito que es return en base a la condición indicada
+                
+                        // const nuevoArray2 = tecnologias.filter((tech) => tech === 'HTML' )
+                        const nuevoArray2 = tecnologias.filter((tech) => tech !== 'HTML' )
+                        console.log(nuevoArray2)
+                
+                        //recuperando el ejemplo que vimos en 18.js, vemos que hacíamos lo miosmo sin arrow functions
+                        const tecnologias2 = tecnologias.filter(function(tech){
+                            //console.log(tech)
+                            if(tech!=='HTML'){ 
+                                return tech 
+                            }
+                        })
+                        console.log(tecnologias2)
+                
+                    //Otra característica de los arrow functions es que si solo es un parámetro podemos eliminar los "()"
+                    const nuevoArray3 = tecnologias.filter(tech => tech === 'HTML')
+                    console.log(nuevoArray3)
+                    //Filter también se puede usar para arrays de tipo numérico
+                    const resultado = numeros.filter( num => num !== 10 )
+                    console.log(resultado)
+                
+                //Includes --&gt; va a revisar si existe un elemento en un arreglo. En este caso como vemos la implementación es más sencilla, y en consola vemos que devuelve true
+                const resultado2 = tecnologias.includes('CSS')
+                console.log(resultado2)
+                
+                    //Podemos ver todos los que hay tanto en la documentación https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Global_Objects/Array
+                    //como en el prototype de la consola
+                
+                    //Veamos más array methods. Algunos de ellos tienen un "callback" (una función de order superior=higher order function)
+                
+                    //Some --&gt; devuelve si cumple la condición
+                    const resultado3 = numeros.some( num => num > 15 ) //revisa si al menos uno de los valores del array numeros cumple la condición. Tengo dos de hecho. decuelve true
+                    console.log(resultado3)
+                
+                    /*usando este método reducimos código si por ejemplo quisiéamos mostrar un texto cuando se cumple condición, frente a por ejemplo el código a usar si tiramos del método filter
+                            if(resultado.length>0){ 
+                                console.log('Si hay elementos')
+                        
+                            if(resultado3){ 
+                                console.log('Si hay elementos')
+                            }
+                    */
+                
+                //Find --&gt; devuelve el primer elemento que cumple una condición
+                    const resultado4 = numeros.find( num => num > 15 )
+                    console.log(resultado4)
+                    
+                //Every --&gt; devuelve true o false si todos cumplen la condición
+                    const resultado5 = numeros.every( num => num > 8 )
+                    const resultado6 = numeros.every( num => num > 15 )
+                    console.log(resultado5)
+                    console.log(resultado6)
+                
+                //Reduce --&gt; devuelve un acumulado del total. Es de los mas complejos. Toma 2 parámetros.
+                    //nos va a permitir hacer el cálculo en carritos de la compra de manera muy simple
+                   const resultado7 = numeros.reduce( (total, numero) => { // total y numero(numero actual). El total va a servir como un acumulado
+                        console.log('total iteracion: '+total) // solo con esta línea, en consola nos sale 0 y 2 undefined, porque tras el valor inicial no sabe que hacer la vez siguiente
+                        console.log('numero iteracion: '+numero) // añadiendo esta línea ya aparecen los números del array alternados con un undefined
+                
+                        //console.log(total) funciona como un acumulado. Hagamos por ejemplo que sume el primer valor del array a mi valor inicial 0, y a ese resultado le sume el siguiente valor....
+                        //útil si construimos un carrito de compra, para mostrarle al usuario cual es el total a pagar de todos los elementos que tiene en el carrito
+                        return total+numero // en 'total' va acumulando y 'numero' es el valor numérico actual del elemento del array numérico en cada iteración 
+                   }, 0) //entre las llaves y el paréntesis ponemos un valor inicial de 0
+                
+                   //También podríamos escribirla así: 
+                   const resultado8 = numeros.reduce( (total, numero) => total + numero, 0 )
+                
+                   console.log('resultado7: '+resultado7)     
+                   console.log('resultado8: '+resultado8)  
+                
+              </code></pre>
 
               </div>
               <!-- Fin bloque desplegable interior-->
              
               <!-- Bloque desplegable interior-->
-              <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion2-X').toggle();">
-                <h3>XXXXXXXXXXX</h3>
+              <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion2-28-30').toggle();">
+                <h3>28. Condicionales en JavaScript / 29. Comparando con Comprador Estricto / 30. Logical Or y Logical And</h3>
                 <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
               </div>
-              <div id="seccion2-X" style="display:none">
-                <p></p>
-
-              </div>
-              <!-- Fin bloque desplegable interior-->
-             
-              <!-- Bloque desplegable interior-->
-              <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion2-X').toggle();">
-                <h3>XXXXXXXXXXX</h3>
-                <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
-              </div>
-              <div id="seccion2-X" style="display:none">
-                <p></p>
-
-              </div>
-              <!-- Fin bloque desplegable interior-->
-             
-              <!-- Bloque desplegable interior-->
-              <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion2-X').toggle();">
-                <h3>XXXXXXXXXXX</h3>
-                <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
-              </div>
-              <div id="seccion2-X" style="display:none">
-                <p></p>
+              <div id="seccion2-28-30" style="display:none">
+              <pre><code class="language-js">
+                //Condicionales
+                const disponible = 4000
+                const retirar = 200
+                
+                const auth = true
+                
+                if (auth){
+                    //se cumple la condición
+                    console.log('Acceso al sistema..')
+                } else {
+                    //no se cumple la condición
+                    console.log('No tienes permiso, inicia sesión')
+                }
+                
+                /*
+                &gt; mayor&comma; &lt; menor&comma; &gt;= mayor o igual&comma; &lt;= menor o igual&comma; == igual&comma; === igual estricto&comma; !==diferente a 
+                */
+                
+                if (disponible > retirar){
+                    //se cumple la condición
+                    console.log('Puedes sacar dinero')
+                } else {
+                    //no se cumple la condición
+                    console.log('No puedes sacar dinero')
+                }
+                
+                const numero1 = 20
+                const numero2 = 20
+                const numero3 = "20"
+                
+                console.log(typeof numero1,typeof numero2)
+                if (numero1 == numero2){
+                    console.log('Son iguales')
+                } else {
+                    console.log('No son iguales')
+                }
+                
+                console.log(typeof numero1,typeof numero3)
+                if (numero1 == numero3){
+                    console.log('Son iguales')
+                } else {
+                    console.log('No son iguales')
+                }
+                
+                //SIEMPRE VAMOS A QUERER UTILIZAR EL OPERADOR TRIPLE --> el operador estricto revisa tanto el valor como el tipo de dato. 
+                //Como vemos en ambos casos devuelve que sí se cumple porque el operador que no es estricto revisa el valor 20 y 20
+                console.log(typeof numero1,typeof numero3)
+                if (numero1 === numero3){
+                    console.log('Son iguales')
+                } else {
+                    console.log('No son iguales')
+                }
+                
+                //Logical Or '||' y Logical And '&&'
+                const saldo = 1000
+                const pagar = 500
+                const tarjeta = false
+                
+                // if( saldo > pagar){ //si mi saldo es mayor
+                //     console.log('Puedes pagar')
+                // } else if (tarjeta) { //si llevo mi tarjeta
+                //     console.log('Puedes pagar')
+                // } else {
+                //     console.log('No puedes pagar')
+                // }
+                /*se ejecuta la primera que se cumpla*/
+                
+                if( saldo > pagar || tarjeta){ //si se cumple una de las dos
+                    console.log('Puedes pagar')
+                } else {
+                    console.log('No, no puedes pagar')
+                }                
+              </code></pre>
 
               </div>
               <!-- Fin bloque desplegable interior-->
