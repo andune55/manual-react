@@ -1,4 +1,4 @@
-export default function Modalpanel(){
+export default function ModalPanel(){
 
     return(
         <>        
