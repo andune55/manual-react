@@ -131,7 +131,7 @@
                         </code></pre>
                     </li>
                     <li><strong>Configurar el plugin de vite:</strong> añadimos el plugin '@tailwindcss/vite' a nuestra configuración de vite en <span class="file">vite.config.ts</span>
-                    <pre data-line="2,8"><code class="language-ts">
+                    <pre data-line="1,8"><code class="language-ts">
                       import { defineConfig } from 'vite'
                       import tailwindcss from '@tailwindcss/vite'
                       import react from '@vitejs/plugin-react-swc'
@@ -148,7 +148,7 @@
                     <li><strong>Importar Tailwind CSS en nuestra css:</strong> <span class="file">src&gt;index.css</span> <code class="language-css">@import "tailwindcss";</code></li>
                     <li><strong>Comenzar a utilizar las utility classes de Tailwind CSS para dar estilo a nuestro contenido</strong>
                     <script type="text/plain" class="language-html">
-                      <h1 class="text-3xl font-bold underline">
+                      <h1 className="text-3xl font-bold underline">
                         Hello world!
                       </h1>
                     </script>
@@ -222,7 +222,7 @@
 
                   <p class="esp-15-top esp-0-bottom"><span class="naranja">Agregando los contenedores principales:</span> acabamos de crear nuestro primer type (MenuItem) y se lo hemos agregado a nuestros datos. Vamos a ver como mostrar la información en pantalla, como renderizar lo que ahora mismo vemos en consola <code class="language-js">console.log(menuItems)</code>para que se vea en nuestra interfaz.</p>
 
-                  <p>En el return de nuestro <span class="file">App.tsx</span> agregamos el main pero simplemente como tag html5 semántico y seguimos practicando algo de Tailwind CSS <span class="destacado">revisar/empollar uso de Tailwind:</span> por ejemplo Mediaquerys en Tailwind: md, lg, 2xl. ¿Como funciona? queremos 2 columnas a partir del tamaño md: ponemos <strong>md:grid-cols-2</strong></p>
+                  <p>En el return de nuestro <span class="file">App.tsx</span> agregamos el main pero simplemente como tag html5 semántico y seguimos practicando algo de Tailwind CSS <span class="destacado">revisar/empollar uso de Tailwind: <a class="txt-blanco" href="https://certidevs.com/tutorial-tailwindcss-introduccion" target="_blank">Tutorial certidevs</a></span> por ejemplo Mediaquerys en Tailwind: las clases como <strong>sm:, md:, lg:, xl:, y 2xl:</strong> permiten aplicar estilos específicos basados en el tamaño de la pantalla. ¿Como funciona? queremos 2 columnas a partir del tamaño md: ponemos <strong>md:grid-cols-2</strong></p>
                     <pre><code class="language-html">
                       &lt;main className=&quot;max-w-7xl mx-auto py-20 grid grid-cols-2&quot;&gt;
                         &lt;div&gt;
@@ -360,25 +360,113 @@
 
                 <!-- Bloque desplegable interior-->
                 <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion9-113').toggle();">
-                  <h3>113. Creando un Hook para la orden</h3>
+                  <h3>113. Creando un Hook para la orden <span class="destacado">Generics en TS</span></h3>
                   <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
                 </div>
-                <div id="seccion9-113">
-                  <p></p>
+                <div id="seccion9-113" style="display:none">
+                  <p>Creamos nuestro <span class="file">useOrder.ts</span> <strong>hooks&gt;useOrder.ts</strong>
+                  <pre><code class="language-ts">
+                    export default function useOrder() {
 
+                      return{
+                         
+                      }
+                    }     
+                  </code></pre>
+                  </p>
+                  <p>Definimos un state en el que vamos colocando los elementos que forman parte de nuestra orden. Iniciamos como un arreglo vacío. Si vemos, así lo hicimos en el anterior proyecto de las guitarras pero con el IS vemos que nos da que order es de tipo Never por lo que lo ideal es aplicarle un tipo de dato en específico.</p>
+                  <pre><code class="language-ts">
+                    import { useState } from "react"
+
+                    export default function useOrder() {
+                      const [order, setOrder] = useState([])
+
+                      return{
+                        
+                      }
+                    }
+                  </code></pre>
+                  <p>En nuestro fichero de types vamos a crear uno nuevo para la orden <strong>OrderItem</strong> y, va a requerir lo mismo que el tipo MenuItem pero además tiene que tener cantidad por lo que lo declaramos así <span class="file">types&gt;index.ts</span>:</p>
+                  <pre data-line="5-7"><code class="language-ts">
+                    export type MenuItem = {
+                      id: number,
+                      name: string,
+                      price: number
+                    }
+                    export type OrderItem = MenuItem & {
+                      quantity: number
+                    }
+                  </code></pre>
+
+                  <p>Lo importamos en nuestro hook <span class="file">useOrder.ts</span> <code class="language-ts">import { OrderItem } from "../types"</code>. ¿Cómo hacemos para asignar a ese state 'order' nuestro type OrderITem y que tenga esos atributos definidos incluyendo quantity? <span class="destacado">Generics en TypeScript: es una característica que nos va a permitir escribir código más flexible y reutilizable</span>. Veamos estos 3 states para ver que,  en los casos en que nuestros tipos son un  poco más complejos (y no solo tenemos un valor inicial de state sencillo como puede ser un number/string/boolean..) viene bien especificarle con el generic nuestro type. Así todo lo que agreguemos a ese state order, React va a revisar que tenga la estructura del tipo definido:</p>
+                  <pre><code class="language-ts">
+                    const [order, setOrder] = useState&lt;OrderItem[]&gt;([]) //Nuestro tipo (OrderItem) es más complejo y queremos especificarle que sea ese, sí requiere generic
+                    const [total, setTotal] = useState&lt;number&gt;(0) //No sería necesario el generic es redundante porque con el valor inicial se infiere bien
+                    const [auth, setAuth] = useState&lt;boolean&gt;(false) //No sería necesario el generic es redundante porque con el valor inicial se infiere bien
+                  </code></pre>
+
+                  <p>Los generics por tanto son muy útiles cuando tenemos estructuras propias o más complejas porque TS no sabe qué queremos hacer y de esta manera le decimos "sí, esto va a ser un arreglo/objeto pero tiene que tener estas propiedades</p>     
                 </div>
                 <!-- Fin bloque desplegable interior-->
 
-<!-- Bloque desplegable interior-->
-<div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion9-114').toggle();">
-  <h3>114. Creando la función para Añadir articulos a la orden</h3>
-  <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
-</div>
-<div id="seccion9-114" style="display:none">
-  <p></p>
+                <!-- Bloque desplegable interior-->
+                <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion9-114').toggle();">
+                  <h3>114. Creando la función para Añadir articulos a la orden</h3>
+                  <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+                </div>
+                <div id="seccion9-114">
+                  <p>Creamos en nuestro hook un arrow function nueva para agregar items y la exportamos en el return. </p>
+                  <pre><code class="language-ts">
+                    export default function useOrder() {
+                      const [order, setOrder] = useState<OrderItem[]>([])
+                  
+                      const addItem = () => {
+                          console.log('Añadiendo item')
+                      }
+                  
+                          return{
+                             addItem
+                          }
+                  }
+                  </code></pre>                
+                  
+                  <p>La importamos en nuestra <span class="file">App.tsx</span>, vamos a ver como tener un estado global. Vemos a continuación como usando destructuring extraigo de nuestro custom hook useOrder la nueva función addItem, que a su vez hemos de pasar como prop a nuestro componente MenuItem.jsx (porque cada vez que presione uno de esos menús es una función con valores diferentes).</p>
+                  <pre><code class="language-ts">
+                    import useOrder from "./hooks/useOrder"
 
-</div>
-<!-- Fin bloque desplegable interior-->
+                    function App() {
+                    
+                       const { addItem } = useOrder() 
+                  </code></pre>
+                  <p>Si nos colocamos en el destructuring encima de ese addItem vemos con el IS que es un arrow function () => void. Usamos esa información para <strong>completar el type exclusivo que definimos en nuestro componente <span class="file">MenuItem.tsx</span></strong> y añadimos el segundo parámetro en la declaración de nuestra función de componente y el onClick con la llamada a la función.</p>
+                  <pre data-line="2,5,9"><code class="language-ts">
+                    type MenuItemProps = {
+                      item: MenuItem,
+                      addItem: () => void // muy común cuando pasamos una fcn vía props. VOid significa que no retorna nada. A veces sí tomará parámetro y a veces retornaraá un valor
+                  }
+                  
+                  export default function MenuItem({item, addItem}: MenuItemProps) {
+                    return (
+                      &lt;button 
+                        className=&quot;border-2 border-teal-400 hover:bg-teal-200 w-full p-3 flex justify-between&quot;
+                        onClick = {() =&gt; addItem()}
+                        &gt;
+                  </code></pre>
+
+                  <p>En <span class="file">App.tsx</span> tenemos que pasarle esa función a nuestro componente vía props</p>
+                  <pre data-line="5"><code class="language-ts">
+                    &lt;div className=&quot;space-y-2 mt-10&quot;&gt;
+                      {menuItems.map(item =&gt; (
+                        &lt;MenuItem
+                          key = {item.id} //siempre que iteramos, recordar añadir key único
+                          item = {item}
+                          addItem = {addItem}
+                        /&gt;
+                      ))}
+                    &lt;/div&gt;
+                  </code></pre>
+                </div>
+                <!-- Fin bloque desplegable interior-->
 
 <!-- Bloque desplegable interior-->
 <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion9-115').toggle();">
