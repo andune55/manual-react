@@ -161,13 +161,13 @@
                 <!-- Fin bloque desplegable interior-->
 
                 <!-- Bloque desplegable interior-->
-                <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion9-110').toggle();">
-                  <h3>108. Creando el Header / 109. Agregando los Productos / 110. Agregando los contenedores principales</h3>
+                <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion9-112').toggle();">
+                  <h3>108. Creando el Header / 109. Agregando los Productos / 110. Agregando los contenedores principales / 111. Extensiones par React / 112. Listano los productos del menú</h3>
                   <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
                 </div>
-                <div id="seccion9-110">
+                <div id="seccion9-112" style="display:none">
                   <p class="esp-15-top esp-0-bottom"><span class="naranja">Creamos el Header</span></p>
-                  <p>En el return de nuestro <span class="file">App.tsx</span> agregamos el Header pero simplemente como tag html5 semántico y practicamos algo de Tailwind CSS.</p>
+                  <p>En el return de nuestro <span class="file">App.tsx</span> agregamos el header pero simplemente como tag html5 semántico y practicamos algo de Tailwind CSS.</p>
                   <script type="text/plain" class="language-html">
                     <header className="bg-teal-400 py-5">
                       <h1 className="text-center text-4l font-black">Calculadora de propinas y consumo</h1>
@@ -217,37 +217,349 @@
                         <img src="./src/assets/img/109.png" alt="" />
                       </div>
                     </div>
-                    </li>
-                    <li></li>
-                    <li></li>
+                    </li>                    
                   </ul>
 
-                  <p>Veamos cómo iterar sobre ese arreglo para mostrar la información.</p>
+                  <p class="esp-15-top esp-0-bottom"><span class="naranja">Agregando los contenedores principales:</span> acabamos de crear nuestro primer type (MenuItem) y se lo hemos agregado a nuestros datos. Vamos a ver como mostrar la información en pantalla, como renderizar lo que ahora mismo vemos en consola <code class="language-js">console.log(menuItems)</code>para que se vea en nuestra interfaz.</p>
+
+                  <p>En el return de nuestro <span class="file">App.tsx</span> agregamos el main pero simplemente como tag html5 semántico y seguimos practicando algo de Tailwind CSS <span class="destacado">revisar/empollar uso de Tailwind:</span> por ejemplo Mediaquerys en Tailwind: md, lg, 2xl. ¿Como funciona? queremos 2 columnas a partir del tamaño md: ponemos <strong>md:grid-cols-2</strong></p>
+                    <pre><code class="language-html">
+                      &lt;main className=&quot;max-w-7xl mx-auto py-20 grid grid-cols-2&quot;&gt;
+                        &lt;div&gt;
+                          &lt;h2&gt;Menú&lt;/h2&gt;
+                        
+                        &lt;/div&gt;
+                
+                        &lt;div&gt;
+                          &lt;h2&gt;Consumo&lt;/h2&gt;
+                        
+                        &lt;/div&gt;
+                      &lt;/main&gt;
+                    </code></pre>
+                  
+                  <p>Ya con nuestro div para el menú vamos a renderizar lo que ahora vemos en la consola <code class="language-js">console.log(menuItems)</code> que es como una pequeña base de datos</p>
+
+                  <ul>
+                    <li>Creamos <strong>components&gt;MenuItem.tsx</strong></li>
+                    <li>Antes de empezar a picar recomienda instalar estas dos <span class="naranja">extensiones para React en VSCode: </span> <strong>ES7+ React/Redux/React-Native snippets</strong> y <strong>Simple React Snippets</strong>. Con esto por ejemplo si escribimos en <span class="file">MenuItem.jsx</span> <strong>rfc</strong> vemos que nos autocompleta la estructura básica de nuestro componente, tanto con el export default como con el return: (con <strong>rafc</strong> la crearía como arrow function). El import react no es necesario así que lo eliminamos
+                    <pre class="borrar" data-line="0"><code class="language-js">
+                      import React from 'react'
+
+                      export default function MenuItem() {
+                        return (
+                          <div>MenuItem</div>
+                        )
+                      }
+                    </code></pre>
+                    </li>
+                    <li> En nuestro <span class="file">App.tsx</span> renderizamos nuestro nuevo componente MenuItems una vez por cada elemento que tengamos en nuestro array que simula la base de datos:
+                    <pre><code class="language-ts">
+                      {menuItems.map(item =&gt; (
+
+                        &lt;MenuItem 
+                          key = {item.id} //siempre que iteramos, recordar añadir key único
+                        /&gt;            
+                      ))}
+                    </code></pre>
+                    <p>En este punto si miramos la renderización nos aparece "menuItem" 12 veces (porque es lo que ahora mismo nos renderiza el return del componente: &lt;div&gt;MenuItem&lt;/div&gt;</p>
+                    </li>
+                  </ul>
+
+                  <p class="esp-15-top esp-0-bottom"><span class="naranja">Listando los productos del menú:</span> Veamos como pasarle los props y escribir el type para este componente, hacerlo dinámico para que imprima la información de nuestra pequeña BBDD.</p>
+                  <p>En el tag de llamada al componente del return de nuestro <span class="file">App.tsx</span> creamos un prop llamado item y le pasamos el objeto de item <code class="language-ts">item={item}</code>. Nos da error porque el componente de momento no espera ninguna propiedad. Si, en nuestro <span class="file">MenuItem.tsx</span> aplicamos destructuring para que reciba ese item: <code class="language-ts">export default function MenuItem({item}) {</code> vamos a ver que es de tipo Any implícito, (mientras que ese item que pasamos como prop en App.tsx sí es de tipo item)<strong>, <span class="destacado">osea se pierde la referencia entre nuestros componentes App.tsx y MenuItem.tsx</strong> y nosotros tenemos que especificarle qué tipo de dato va a ser</span>. Para ello vamos a crear en el <span class="file">MenuItem.tsx</span> un type nuevo <strong>MenuItemProps</strong>(que solo va a usarse en este compo por lo que no tenemos que crearlo en archivo común de types):</p>
+
+                  <pre><code class="language-ts">
+                    import type { MenuItem } from &quot;../types&quot;
+
+                    export type MenuItemProps = {
+                        item: MenuItem
+                    }
+                    
+                    export default function MenuItem({item}: MenuItemProps) {
+                      return (
+                        &lt;&gt;
+                            &lt;p&gt;{item.name}&lt;/p&gt;
+                            &lt;p className=&quot;font-black&quot;&gt;{item.price}&lt;/p&gt;
+                        &lt;/&gt;
+                      )
+                    }
+                  </code></pre>
+
+                  <p>La idea es que al ir presionando en cada elemento se vaya colocando a la derecha. Para ello tenemos que agregarles un evento y por buenas prácticas no debemos hacerlo en el p así que convertimos el fragment &lt;&gt;&lt;/&gt; en un botón &lt;button&gt;&lt;/button&gt; que es donde vamos a tener un evento que veremos como registrarlo. Seguimos practicando algo de Tailwind CSS dándole estilos a nuestros contenedores <span class="destacado">revisar/empollar uso de Tailwind</span> Quedan de la siguiente manera: </p>
+
+                  <div class="flex block-m">
+                    <div class="w-50 w-100-s">
+                      <span class="file">App.tsx</span>
+                      <pre><code class="language-ts">
+                        import MenuItem from &quot;./components/MenuItem&quot;
+                        import { menuItems } from &quot;./data/db&quot;
+                        
+                        function App() {
+                       
+                          return (
+                            &lt;&gt;
+                              
+                              &lt;header className=&quot;bg-teal-400 py-5&quot;&gt;
+                                &lt;h1 className=&quot;text-center text-4l font-black&quot;&gt;Calculadora de propinas y consumo&lt;/h1&gt;
+                              &lt;/header&gt;
+                        
+                              &lt;main className=&quot;max-w-7xl mx-auto py-20 grid grid-cols-2&quot;&gt;
+                                &lt;div className=&quot;p-5&quot;&gt;
+                                  &lt;h2 className=&quot;text-4xl font-black&quot;&gt;Menú&lt;/h2&gt;
+                        
+                                  &lt;div className=&quot;space-y-2 mt-10&quot;&gt;
+                                    {menuItems.map(item =&gt; (
+                                      &lt;MenuItem
+                                        key = {item.id} //siempre que iteramos, recordar añadir key único
+                                        item = {item}
+                                      /&gt;
+                                    ))}
+                                  &lt;/div&gt;
+                                
+                                &lt;/div&gt;
+                        
+                                &lt;div&gt;
+                                  &lt;h2&gt;Consumo&lt;/h2&gt;
+                                
+                                &lt;/div&gt;
+                              &lt;/main&gt;
+                              
+                            &lt;/&gt;
+                          )
+                        }
+                        
+                        export default App
+                      </code></pre>
+                    </div>
+                    <div class="w-50 w-100-s">
+                      <span class="file">MenuItem.tsx</span>
+                      <pre><code class="language-ts">
+                        import type { MenuItem } from &quot;../types&quot;
+
+                        export type MenuItemProps = {
+                            item: MenuItem
+                        }
+                        
+                        export default function MenuItem({item}: MenuItemProps) {
+                          return (
+                            &lt;button className=&quot;border-2 border-teal-400 hover:bg-teal-200 w-full p-3 flex justify-between&quot;&gt;
+                                &lt;p&gt;{item.name}&lt;/p&gt;
+                                &lt;p className=&quot;font-black&quot;&gt;{item.price}&lt;/p&gt;
+                            &lt;/button&gt;
+                          )
+                        }                       
+                      </code></pre>
+                    </div>
+
+                  </div>
+
+                  <p>A continuación vamos a crear un custom Hook para ir almacenando nuestra orden.</p>
+
                 </div>
                 <!-- Fin bloque desplegable interior-->
 
                 <!-- Bloque desplegable interior-->
-                <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion9-XX').toggle();">
-                  <h3>XXXXXXXXXXXXX</h3>
+                <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion9-113').toggle();">
+                  <h3>113. Creando un Hook para la orden</h3>
                   <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
                 </div>
-                <div id="seccion9-XX" style="display:none">
+                <div id="seccion9-113">
                   <p></p>
 
                 </div>
                 <!-- Fin bloque desplegable interior-->
 
-                <!-- Bloque desplegable interior-->
-                <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion9-XX').toggle();">
-                  <h3>XXXXXXXXXXXXX</h3>
-                  <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
-                </div>
-                <div id="seccion9-XX" style="display:none">
-                  <p></p>
+<!-- Bloque desplegable interior-->
+<div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion9-114').toggle();">
+  <h3>114. Creando la función para Añadir articulos a la orden</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+</div>
+<div id="seccion9-114" style="display:none">
+  <p></p>
 
-                </div>
-                <!-- Fin bloque desplegable interior-->
+</div>
+<!-- Fin bloque desplegable interior-->
 
+<!-- Bloque desplegable interior-->
+<div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion9-115').toggle();">
+  <h3>115. Agregando el signature a la función de agregar articulo con TypeScript</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+</div>
+<div id="seccion9-115" style="display:none">
+  <p></p>
+
+</div>
+<!-- Fin bloque desplegable interior-->
+
+<!-- Bloque desplegable interior-->
+<div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion9-116').toggle();">
+  <h3>116. Añadiendo elementos al state de Orden</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+</div>
+<div id="seccion9-116" style="display:none">
+  <p></p>
+
+</div>
+<!-- Fin bloque desplegable interior-->
+
+
+<!-- Bloque desplegable interior-->
+<div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion9-117').toggle();">
+  <h3>117. Evitando duplicados</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+</div>
+<div id="seccion9-117" style="display:none">
+  <p></p>
+
+</div>
+<!-- Fin bloque desplegable interior-->
+
+
+<!-- Bloque desplegable interior-->
+<div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion9-118').toggle();">
+  <h3>118. Mostrando el Consumo de la orden</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+</div>
+<div id="seccion9-118" style="display:none">
+  <p></p>
+
+</div>
+<!-- Fin bloque desplegable interior-->
+
+
+<!-- Bloque desplegable interior-->
+<div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion9-119').toggle();">
+  <h3>119. Formateando el Consumo y mostrando cantidades</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+</div>
+<div id="seccion9-119" style="display:none">
+  <p></p>
+
+</div>
+<!-- Fin bloque desplegable interior-->
+
+
+<!-- Bloque desplegable interior-->
+<div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion9-120').toggle();">
+  <h3>120. Eliminando articulos de la orden</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+</div>
+<div id="seccion9-120  " style="display:none">
+  <p></p>
+
+</div>
+<!-- Fin bloque desplegable interior-->
+
+
+<!-- Bloque desplegable interior-->
+<div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion9-121').toggle();">
+  <h3>121. Creando el Componente con los totales</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+</div>
+<div id="seccion9-121" style="display:none">
+  <p></p>
+
+</div>
+<!-- Fin bloque desplegable interior-->
+
+
+<!-- Bloque desplegable interior-->
+<div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion9-122').toggle();">
+  <h3>122. Calculando el Consumo y más TypeScript</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+</div>
+<div id="seccion9-122" style="display:none">
+  <p></p>
+
+</div>
+<!-- Fin bloque desplegable interior-->
+
+
+<!-- Bloque desplegable interior-->
+<div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion9-123').toggle();">
+  <h3>123. Primeros pasos con las propinas</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+</div>
+<div id="seccion9-123" style="display:none">
+  <p></p>
+
+</div>
+<!-- Fin bloque desplegable interior-->
+
+
+<!-- Bloque desplegable interior-->
+<div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion9-124').toggle();">
+  <h3>124. Añadiendo la cantidad seleccionada de Propina</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+</div>
+<div id="seccion9-124" style="display:none">
+  <p></p>
+
+</div>
+<!-- Fin bloque desplegable interior-->
+
+
+<!-- Bloque desplegable interior-->
+<div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion9-125').toggle();">
+  <h3>125. Calculando el Total de la propina</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+</div>
+<div id="seccion9-125" style="display:none">
+  <p></p>
+
+</div>
+<!-- Fin bloque desplegable interior-->
+
+
+<!-- Bloque desplegable interior-->
+<div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion9-126').toggle();">
+  <h3>126. Calculando el Total a pagar</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+</div>
+<div id="seccion9-126" style="display:none">
+  <p></p>
+
+</div>
+<!-- Fin bloque desplegable interior-->
+
+
+<!-- Bloque desplegable interior-->
+<div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion9-127').toggle();">
+  <h3>127. Diferencia entre useMemo y useCallback</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+</div>
+<div id="seccion9-127" style="display:none">
+  <p></p>
+
+</div>
+<!-- Fin bloque desplegable interior-->
+
+
+<!-- Bloque desplegable interior-->
+<div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion9-128').toggle();">
+  <h3>128. Reiniciando la Orden</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+</div>
+<div id="seccion9-128" style="display:none">
+  <p></p>
+
+</div>
+<!-- Fin bloque desplegable interior-->
+
+
+<!-- Bloque desplegable interior-->
+<div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion9-129').toggle();">
+  <h3>129. Deployment del Proyecto</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+</div>
+<div id="seccion9-129" style="display:none">
+  <p></p>
+
+</div>
+<!-- Fin bloque desplegable interior-->
+
+                
+                
 
               </div>
             </div><!--Fin row-->

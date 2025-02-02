@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react"
-import Modalpanel from "../components/ModalPanel"
+import ModalPanel from "../components/ModalPanel"
 
 function App() {
 
 
   return (
     <>
-      <Modalpanel/>
+      <ModalPanel/>
       
     </>
   )
