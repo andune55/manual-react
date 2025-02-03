@@ -102,6 +102,7 @@
                 </div>
                 <!-- Fin bloque desplegable interior-->
 
+
                 <!-- Bloque desplegable interior-->
                 <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion9-106107').toggle();">
                   <h3>106. Introducción a TailwindCSS / 107. Instalando TailwindCSS y extensión para VSCode</h3>
@@ -159,6 +160,7 @@
                   <p><strong>Le veo de momento un par de inconvenientes: no cubren todas las casuísticas de tamaños (por cuenta ajena si el diseño viene marcado desde agencia o Dpto con tamaños no contemplados en este FW estamos haciendo un pan con unas tortas. Además ¡OJO! hay nombres de clases que PARA NADA son descriptivos de lo que hacen como por ejemplo font-black que lo que hace es actuar sobre un font-weight!!!)</strong></p>
                 </div>
                 <!-- Fin bloque desplegable interior-->
+
 
                 <!-- Bloque desplegable interior-->
                 <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion9-112').toggle();">
@@ -358,6 +360,7 @@
                 </div>
                 <!-- Fin bloque desplegable interior-->
 
+
                 <!-- Bloque desplegable interior-->
                 <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion9-113').toggle();">
                   <h3>113. Creando un Hook para la orden <span class="destacado">Generics en TS</span></h3>
@@ -409,12 +412,13 @@
                 </div>
                 <!-- Fin bloque desplegable interior-->
 
+
                 <!-- Bloque desplegable interior-->
                 <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion9-114').toggle();">
                   <h3>114. Creando la función para Añadir articulos a la orden</h3>
                   <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
                 </div>
-                <div id="seccion9-114">
+                <div id="seccion9-114" style="display:none">
                   <p>Creamos en nuestro hook un arrow function nueva para agregar items y la exportamos en el return. </p>
                   <pre><code class="language-ts">
                     export default function useOrder() {
@@ -438,7 +442,7 @@
                     
                        const { addItem } = useOrder() 
                   </code></pre>
-                  <p>Si nos colocamos en el destructuring encima de ese addItem vemos con el IS que es un arrow function () => void. Usamos esa información para <strong>completar el type exclusivo que definimos en nuestro componente <span class="file">MenuItem.tsx</span></strong> y añadimos el segundo parámetro en la declaración de nuestra función de componente y el onClick con la llamada a la función.</p>
+                  <p>Si nos colocamos en el destructuring encima de ese addItem vemos con el IS que es un arrow function () => void. Usamos esa información para <strong>completar el type exclusivo que definimos en nuestro componente <span class="file">MenuItem.tsx</span></strong> y añadimos el segundo parámetro en la declaración de nuestra función de componente y el onClick con la llamada a la función, como callback porque tengo que pasarle qué es lo que quiero agregar.</p>
                   <pre data-line="2,5,9"><code class="language-ts">
                     type MenuItemProps = {
                       item: MenuItem,
@@ -465,33 +469,155 @@
                       ))}
                     &lt;/div&gt;
                   </code></pre>
+
+                  <p>Una vez que presionemos en ese botón queremos añadir ese elemento con el nombre, con el id y con el precio.</p>
                 </div>
                 <!-- Fin bloque desplegable interior-->
 
-<!-- Bloque desplegable interior-->
-<div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion9-115').toggle();">
-  <h3>115. Agregando el signature a la función de agregar articulo con TypeScript</h3>
-  <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
-</div>
-<div id="seccion9-115" style="display:none">
-  <p></p>
 
-</div>
-<!-- Fin bloque desplegable interior-->
+                <!-- Bloque desplegable interior-->
+                <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion9-115').toggle();">
+                  <h3>115. Agregando el signature a la función de agregar articulo con TypeScript</h3>
+                  <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+                </div>
+                <div id="seccion9-115" style="display:none">
+                  <p>Vamos a ver como escribir en el state de useOrder, ahora mismo solo estamos sacando un mensaje en consola al pulsar. Tenemos que pasarle un argumento desde la llamada del onClick en el componente hasta nuestro custom hook. Para ello en nuestro hook tenemos que decirle que la función addItem va a tomar un elemento, le ponemos como parámetro 'item' y vemos que se nos pone en color rojo, si vamos a la App.tsx vemos que también en rojo nos indica el IS "bueno tú le estás pasando un item que actualmente tiene el tipo de dato Any y tu firma, lo que tú has colocado, es una función que no toma nada y que no retorna nada (la firma nos dice que tiene muy pocos argumentos)": </p>
 
-<!-- Bloque desplegable interior-->
-<div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion9-116').toggle();">
-  <h3>116. Añadiendo elementos al state de Orden</h3>
-  <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
-</div>
-<div id="seccion9-116" style="display:none">
-  <p></p>
+                  <img src="./src/assets/img/115.png" alt="">
+                  
+                  <p>Vamos a nuestro componente <span class="file">MenuItem.tsx</span> y en el type <span class="type">MenuItemProps</span> también le añadimos el parámetro item al definir el tipo de la función, se pone inmediatamente en rojo y el IS nos indica que es un any y hemos de corregirlo, además en el arrow function del onclick nos marca en rojo también la llamada a la función porque, habiendo especificado que le pasamos algo como argumento aún no lo hemos indicado:</p>
+                  
+                  <img src="./src/assets/img/115-2.png" alt="">
 
-</div>
-<!-- Fin bloque desplegable interior-->
+                  <p><span class="destacado">Vayamos siguiendo los errores para corregirlos:</span> indicamos en nuestro type <span class="type">MenuItemProps</span> que el parámetro item que pasamos como argumento es de tipo <span class="type">MenuItem</span> y en la arrow function del onClick le especificamos el parámetro item.</p>
+
+                  <pre data-line="4,11"><code class="language-ts">
+                    import type { MenuItem } from &quot;../types&quot;
+
+                    type MenuItemProps = {
+                        item: MenuItem,
+                        addItem: (item: MenuItem) =&gt; void
+                    }
+                    
+                    export default function MenuItem({item, addItem}: MenuItemProps) {
+                      return (
+                        &lt;button 
+                          className=&quot;border-2 border-teal-400 hover:bg-teal-200 w-full p-3 flex justify-between&quot;
+                          onClick = {() =&gt; addItem(item)}
+                          &gt;
+                            &lt;p&gt;{item.name}&lt;/p&gt;
+                            &lt;p className=&quot;font-black&quot;&gt;{item.price}&lt;/p&gt;
+                        &lt;/button&gt;
+                      )
+                    }
+                  </code></pre>
+
+                  <p><span class="destacado">Hemos de irle diciendo siempre <span class="type">qué tipo de dato vamos a tener tanto</span> en nuestras funciones como en los parámetros que le vamos pasando</span>. En <span class="file">useOrder.ts</span> nos queda por corregir especificar el tipo de dato de item (<strong>Vemos que al declararlo como type <span class="type">MenuItem</span> al no estar importado en el fichero, el IS nos da la opción de corregirlo y automáticamente aparece en las importaciones de arriba</strong>). Ya en el console logo podemos indicarle {item}</p>
+
+                  <pre data-line="1,6"><code class="language-ts">
+                    import { useState } from &quot;react&quot;
+                    import { MenuItem, OrderItem } from &quot;../types&quot;
+                    
+                    export default function useOrder() {
+                        const [order, setOrder] = useState&lt;OrderItem[]&gt;([])
+                    
+                        const addItem = (item: MenuItem) =&gt; {
+                            console.log({item})
+                        }
+                    
+                            return{
+                              addItem
+                            }
+                    }
+                  </code></pre>
+
+                  <p><span class="destacado">Importante:</span> nuestra función del custom hook <span class="file">useOrder.ts</span> <code class="language-ts">export default function useOrder() {</code>: </p>
+                  <pre><code class="language-ts">
+                    const addItem = (item: MenuItem) => {
+                      console.log({item})
+                    } 
+                  </code></pre>
+                  <p>toma un item de tipo MenuItem, sin embargo cuando desde nuestra <span class="file">App.tsx</span> pasa como prop al componente <span class="file">MenuItem.tsx</span> se pierde esa referencia y nosotros tenemos que, digamos, recuperar o reasignar esa referencia para que TS sepa que tiene que hacer y sobre todo qué atributos de ese type es a los uqe va a tener acceso. Si probamos la App veremos que cada vez que presionamos un producto nos aparece en consola el item correspondiente con lo que la comunicación es correcta. A continuación vamos a empezar a escribir en nuestro state de nuestro hook de useOrder().</p>
 
 
-<!-- Bloque desplegable interior-->
+                </div>
+                <!-- Fin bloque desplegable interior-->
+
+
+                <!-- Bloque desplegable interior-->
+                <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion9-116').toggle();">
+                  <h3>116. Añadiendo elementos al state de Orden</h3>
+                  <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+                </div>
+                <div id="seccion9-116">
+                  <p>Vamos a escribir en nuestro state de órdenes pero recordemos que <span class="file">useOrder.ts</span> este estate order <code class="language-ts">const [order, setOrder] = useState&lt;OrderItem[]&gt;([])</code> lo definimos con un <strong>generic</strong> como un array de tipo <span class="type">OrderItem</span>, y ese tipo tenía una cantidad 'quantity'.</p> 
+
+                  <pre><code class="language-ts">
+                    export type OrderItem = MenuItem & {
+                      quantity: number
+                  }
+                  </code></pre>
+
+                  <p>Entonces lo que tenemos que hacer es castear o cambiar el valor pero tenemos que agregarle una cantidad así que veamos como hacerlo.</p>
+
+                  <p>Quitamos el console.log y llamamos a la función del state para, como es un arreglo, tomar una copia de lo previo y le pasamos el item, pero podemos ver que en seguida nos saca error. ¿por qué?</p>
+
+                  <img src="./src/assets/img/116.png" alt="">
+                  
+                  <p>Estamos intentando pasar como argumento un 'item' que es de tipo <span class="type">MenuItem</span> que tiene estos atributos:</p>
+                  
+                  <pre><code class="language-ts">
+                    export type MenuItem = {
+                      id: number,
+                      name: string,
+                      price: number
+                    }
+                  </code></pre>
+
+                  <p>mientras que nuestro state de order es de tipo <span class="type">OrderItem</span> que, recordemos tiene los atributos de <span class="type">MenuItem</span> más la cantidad 'quantity'</p>
+
+                  <pre><code class="language-ts">
+                    export type MenuItem = {
+                      id: number,
+                      name: string,
+                      price: number
+                  }
+                  export type OrderItem = MenuItem & {
+                    quantity: number
+                  }
+                </code></pre>
+                
+                <p>Lo resolvemos creando una variable nueva <strong>newItem</strong> que va a ser un objeto y en el que incluyo una copia del item que paso + quantity inicializada a 1 para la primera vez que añado una orden (más adelante iremos ajustando esta cantidad según casuística). Le pasamos ese newItem a la función del state y ya no tenemos errores. Si nos ponemos encima de esta nueva variable vemos con el IS que tiene los atributos de <span class="type">OrderItem</span> más no es como tal un OrderItem, podríamos castearlo especificando el tipo: <code class="language-ts">const newItem: OrderItem = {...item, quantity: 1}</code> aunque  no es necesario y él no lo hace porque en la declaración de nuestro state ya especificamos con el generic que las órdenes van a tener ese tipo de dato.</p>
+                
+                <pre><code class="language-ts">
+                  import { useState } from &quot;react&quot;
+                    import { MenuItem, OrderItem } from &quot;../types&quot;
+                    
+                    export default function useOrder() {
+                      const [order, setOrder] = useState&lt;OrderItem[]&gt;([])
+                      
+                      const addItem = (item: MenuItem) =&gt; {
+                        //console.log({item})
+                        const newItem = {...item, quantity: 1}
+                        setOrder([...order, newItem])
+                      }
+                      console.log(order)
+                      
+                      return{
+                        addItem
+                      }
+                    }
+                  </code></pre>
+
+                  <p>Añadimos un console.log de order para ver que si repetimos en alguna orden se añade varias veces.</p>
+                  <img src="./src/assets/img/116-2.png" alt="">
+                  <p>Lo ideal es que no se repita sino controlar eso con la cantidad. Por la inmutabilidad de React es un poco más complicado así que vemos como hacerlo a continuación</p>
+
+                </div>
+                <!-- Fin bloque desplegable interior-->
+                
+
+                <!-- Bloque desplegable interior-->
 <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion9-117').toggle();">
   <h3>117. Evitando duplicados</h3>
   <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
