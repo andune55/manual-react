@@ -389,7 +389,7 @@
                       }
                     }
                   </code></pre>
-                  <p>En nuestro fichero de types vamos a crear uno nuevo para la orden <strong>OrderItem</strong> y, va a requerir lo mismo que el tipo MenuItem pero además tiene que tener cantidad por lo que lo declaramos así <span class="file">types&gt;index.ts</span>:</p>
+                  <p>En nuestro fichero de types vamos a crear un tipe nuevo <span class="type">OrderItem</span> para la orden y va a requerir lo mismo que el tipo <span class="type">MenuItem</span> pero además tiene que tener cantidad por lo que lo declaramos así <span class="file">types&gt;index.ts</span>:</p>
                   <pre data-line="5-7"><code class="language-ts">
                     export type MenuItem = {
                       id: number,
@@ -401,7 +401,7 @@
                     }
                   </code></pre>
 
-                  <p>Lo importamos en nuestro hook <span class="file">useOrder.ts</span> <code class="language-ts">import { OrderItem } from "../types"</code>. ¿Cómo hacemos para asignar a ese state 'order' nuestro type OrderITem y que tenga esos atributos definidos incluyendo quantity? <span class="destacado">Generics en TypeScript: es una característica que nos va a permitir escribir código más flexible y reutilizable</span>. Veamos estos 3 states para ver que,  en los casos en que nuestros tipos son un  poco más complejos (y no solo tenemos un valor inicial de state sencillo como puede ser un number/string/boolean..) viene bien especificarle con el generic nuestro type. Así todo lo que agreguemos a ese state order, React va a revisar que tenga la estructura del tipo definido:</p>
+                  <p>Lo importamos en nuestro hook <span class="file">useOrder.ts</span> <code class="language-ts">import { OrderItem } from "../types"</code>. ¿Cómo hacemos para asignar a ese state 'order' nuestro type OrderITem y que tenga esos atributos definidos incluyendo quantity? <span class="destacado">Generics en TypeScript: es una característica que nos va a permitir escribir código más flexible y reutilizable</span>. Veamos estos 3 states para ver que, en los casos en que nuestros tipos son un  poco más complejos (y no solo tenemos un valor inicial de state sencillo como puede ser un number/string/boolean..) viene bien especificarle con el generic nuestro type. Así todo lo que agreguemos a ese state order, React va a revisar que tenga la estructura del tipo definido. En el caso de los que tienen un valor inicial más sencillo que TS puede inferir bien, no es necesario el generic:</p>
                   <pre><code class="language-ts">
                     const [order, setOrder] = useState&lt;OrderItem[]&gt;([]) //Nuestro tipo (OrderItem) es más complejo y queremos especificarle que sea ese, sí requiere generic
                     const [total, setTotal] = useState&lt;number&gt;(0) //No sería necesario el generic es redundante porque con el valor inicial se infiere bien
@@ -549,7 +549,7 @@
                   <h3>116. Añadiendo elementos al state de Orden</h3>
                   <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
                 </div>
-                <div id="seccion9-116">
+                <div id="seccion9-116" style="display:none">
                   <p>Vamos a escribir en nuestro state de órdenes pero recordemos que <span class="file">useOrder.ts</span> este estate order <code class="language-ts">const [order, setOrder] = useState&lt;OrderItem[]&gt;([])</code> lo definimos con un <strong>generic</strong> como un array de tipo <span class="type">OrderItem</span>, y ese tipo tenía una cantidad 'quantity'.</p> 
 
                   <pre><code class="language-ts">
@@ -622,8 +622,64 @@
   <h3>117. Evitando duplicados</h3>
   <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
 </div>
-<div id="seccion9-117" style="display:none">
-  <p></p>
+<div id="seccion9-117">
+  <p>Vamso a revisar si una orden existe en el arreglo:</p>
+  <ul>
+    <li><strong>¿No existe?:</strong> este código está bien:
+      <pre><code class="language-ts">
+        const newItem: OrderItem = {...item, quantity: 1}
+        setOrder([...order, newItem])
+      </code></pre>  
+    </li>
+    <li><strong>¿Existe?:</strong> hemos de revisar cantidad</li>
+  </ul>
+
+  <p>Usamos el array method <strong>.find()</strong> para encontrar un elemento de un array en base a una condición y empleamos dentro del find un arrow function <strong>(recordar que el parámetro aquí usado (una variable temporal en la ejecución de este find) lo llamamos COMO QUERAMOS en este ejemplo 'orderItem' y hace referencia a cada uno de los objetos que AHORA MISMO HAY en nuestro state array order)</strong>. <span class="destacado">Nota al escribir el código de la comprobación cómo funciona el autocompletado de VSC para cada uno de los 2 objetos implicados (el que hace referencia a cada uno de los elementos del state order actual 'orderItem' y el que hace referencia al item que la pasamos al clickar).</span> Así es como queda nuestro código de momento con un console.log que nos avise si pulsamos en una orden que ya existe:</p>
+
+  <pre><code class="language-ts">
+    const addItem = (item: MenuItem) => {
+        
+      const itemExist = order.find(orderItem => orderItem.id === item.id) // buscamos en el state order el elemento cuyo id sea igual al id del item que estamos pasando
+      if (itemExist) {
+         console.log('El item ya existe') 
+      } else {
+          const newItem: OrderItem = {...item, quantity: 1}
+          setOrder([...order, newItem])
+      }
+      
+  }
+  </code></pre>
+
+  <p>Si existe el elemento que intentamos agregar, hay que encontrar cual es, incrementar su cantidad pero siempre sin mutar el state. Para ello utilizamos el <strong>.map() y algunos spreads</strong></p>
+
+  <pre><code class="language-ts">
+    export default function useOrder() {
+      const [order, setOrder] = useState&lt;OrderItem[]&gt;([])
+  
+      const addItem = (item: MenuItem) =&gt; {
+          
+          const itemExist = order.find( orderItem =&gt; orderItem.id === item.id )
+          if (itemExist) { //El item ya existe         
+             const updatedOrder = order.map( orderItem =&gt; orderItem.id === item.id ? // identificamos el elemento duplicado, busca el elemento de la orden cuyo id sea igual al id del elemento que viene en item (click)
+              {...orderItem, quantity: orderItem.quantity + 1} : //toma una copia de lo que tenemos en nuestra orden e incrementa la cantidad en 1
+              orderItem)//contiene el resto de artículos de la orden que no cumplen el condicional del ternario (los no duplicados)
+              //gracias al .map() nos retorna un arreglo nuevo y podemos setear nuestra orden
+              setOrder(updatedOrder)
+          } else { // El item no existe
+              const newItem: OrderItem = {...item, quantity: 1}
+              setOrder([...order, newItem])
+          }
+          
+      }
+      console.log(order)
+  
+          return{
+             addItem
+          }
+    }
+  </code></pre>
+
+  <p>Veamos cómo mostrar el state order en pantalla (ahora solo podemos verlo en consola o en React Developer tools)</p>
 
 </div>
 <!-- Fin bloque desplegable interior-->
