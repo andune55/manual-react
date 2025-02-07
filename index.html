@@ -4,29 +4,22 @@
     <meta charset="UTF-8" />
     <title>Curso React</title>	
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">	
-    <script src="./src/assets/prism.js" type="module"></script>
-    <link rel="stylesheet" href="./src/assets/prism.css" >
-    <link rel="stylesheet" href="./src/assets/instrucciones.css" >
-    <script src="./src/assets/jquery-2.1.4.min.js" type="module"></script>  	
-    
     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
   </head>
   <body>
     <div id="root"></div>
     <script type="module" src="./src/main.jsx"></script>
-
 	
-    <div class="contenedor-fluido">
-    
+    <div>    
       
       <!-- SECCION 9-->
-      <div class="contenedor w-80 w-96-s background esp-5-bottom">
+      <div class="contenedor w-80 w-96-s bg-gray-200 mb-1.25 py-0.75 pr-0 pl-2.5">
         <div class="row">
-          <div class="flex center-vertical esp-25-top pointer desplegable space-between pointer" onclick="$('#seccion9').toggle();">
+          <div class="flex items-center mt-1.25 cursor-pointer desplegable justify-between pointer" onclick="$('#seccion9').toggle();">
             <h2>Sección 9: PROYECTO - Calculadora de propinas con TypeScript</h2>
-            <span class="cambiaicono ico_chevron_down esp-10-right" title=""></span>
+            <span class="cambiaicono ico_chevron_down mr-2.5" title=""></span>
           </div>
 
           <div id="seccion9">
@@ -35,14 +28,14 @@
               <div class="col-12">
 
                 <!-- Bloque desplegable interior-->
-                <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion9-104105').toggle();">
+                <div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between cursor-pointer oscuro" onclick="$('#seccion9-104105').toggle();">
                   <h3>104. El Proyecto que vamos a construir / 105. Creando el proyecto</h3>
-                  <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+                  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
                 </div>
-                <div id="seccion9-104105" style="display:none">
+                <div id="seccion9-104105" class="hidden">
 
-                  <div class="flex block-m">
-                    <img class="w-50 w-100-m esp-5-right" src="./src/assets/img/s1-02.jpg" alt="Calculadora de proyectos">
+                  <div class="block md:flex">
+                    <img class="w-50 w-100-m mr-1.25" src="./src/assets/img/s1-02.jpg" alt="Calculadora de proyectos">
                     <div class="w-50 w-100-m">
                       <p >Esta calculadora de propinas y consumos es un proyecto 100% TS, con nuestra carpeta de Data, algunos Helpers, Hook personalizado, archivo de Types. Todos los proyectos de ahora en adelante.</p>
                       <p>Vemos un botón de Guardar orden, para que el restaruante tenga un control de las ventas diarias (como aún no hemos visto APIS simularemos que lo almacena en algún sitio.</p>
@@ -50,7 +43,7 @@
                     </div>
                   </div>
                   
-                  <p class="esp-15-top esp-0-bottom"><span class="naranja">Creamos proyecto nuevo:</span></p>
+                  <p class="mt-1.25 mb-0"><span class="naranja">Creamos proyecto nuevo:</span></p>
                       <ul>
                         <li>Tengo todos mis proyectos de React dentro de <strong>Curso React</strong> así que me ubico ahí y para crearlo</li>
                         <li><span class="destacado">npm create vite@latest</span> crea el proyecto con la última versión de vite</li>
@@ -104,11 +97,11 @@
 
 
                 <!-- Bloque desplegable interior-->
-                <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion9-106107').toggle();">
+                <div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between cursor-pointer oscuro" onclick="$('#seccion9-106107').toggle();">
                   <h3>106. Introducción a TailwindCSS / 107. Instalando TailwindCSS y extensión para VSCode</h3>
-                  <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+                  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
                 </div>
-                <div id="seccion9-106107" style="display:none">
+                <div id="seccion9-106107" class="hidden">
                   <p>Es un framework de CSS pero está basado en utilidades</p>
                   <ul>
                     <li><strong>Tailwind CSS es lo que se conoce como un framework de CSS, pero está basado en utilidades</strong></li>
@@ -120,8 +113,8 @@
                     <li>La extensión de Visual Studio Code también es excelente. El autocompletado es muy bueno y también te dice qué valor o cuánto se está aplicando en ciertas propiedades de CSS enfocadas a tamaño, por ejemplo el font size, etcétera.</li>
                   </ul>
                   
-                  <p class="esp-15-top esp-0-bottom"><span class="naranja">Instalando TailwindCSS y extensión para VSCode: </span> 
-                  Vamos al link de <strong><a href="https://tailwindcss.com/" target="blank" class="txt-negro">https://tailwindcss.com/</a> > docs > installation > Framework guides:</strong> contiene guías específicas de framework para instalar TailwindCSS en un gran número distinto de entornos Vite / Next.js / Angular / Ruby on Rails / Parcel / Symfony / Astro / ... nosotros elegimos Vite. A partir de aquí los pasos varían con respecto a lo que indica en el vídeo porque la versión es más nueva, ver <a class="txt-negro" href="https://tailwindcss.com/docs/installation/using-vite" target="_blank">https://tailwindcss.com/docs/installation/using-vite</a>:
+                  <p class="mt-1.25 mb-0"><span class="naranja">Instalando TailwindCSS y extensión para VSCode: </span> 
+                  Vamos al link de <strong><a href="https://tailwindcss.com/" target="blank" class="text-[#000000]">https://tailwindcss.com/</a> > docs > installation > Framework guides:</strong> contiene guías específicas de framework para instalar TailwindCSS en un gran número distinto de entornos Vite / Next.js / Angular / Ruby on Rails / Parcel / Symfony / Astro / ... nosotros elegimos Vite. A partir de aquí los pasos varían con respecto a lo que indica en el vídeo porque la versión es más nueva, ver <a class="text-[#000000]" href="https://tailwindcss.com/docs/installation/using-vite" target="_blank">https://tailwindcss.com/docs/installation/using-vite</a>:
                   </p>
 
                   <ul>
@@ -163,12 +156,12 @@
 
 
                 <!-- Bloque desplegable interior-->
-                <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion9-112').toggle();">
+                <div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between cursor-pointer oscuro" onclick="$('#seccion9-112').toggle();">
                   <h3>108. Creando el Header / 109. Agregando los Productos / 110. Agregando los contenedores principales / 111. Extensiones par React / 112. Listano los productos del menú</h3>
-                  <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+                  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
                 </div>
-                <div id="seccion9-112" style="display:none">
-                  <p class="esp-15-top esp-0-bottom"><span class="naranja">Creamos el Header</span></p>
+                <div id="seccion9-112" class="hidden">
+                  <p class="mt-1.25 mb-0"><span class="naranja">Creamos el Header</span></p>
                   <p>En el return de nuestro <span class="file">App.tsx</span> agregamos el header pero simplemente como tag html5 semántico y practicamos algo de Tailwind CSS.</p>
                   <script type="text/plain" class="language-html">
                     <header className="bg-teal-400 py-5">
@@ -176,12 +169,12 @@
                     </header>
                   </script>
 
-                  <p class="esp-15-top esp-0-bottom"><span class="naranja">Agregando los productos</span> - <a class="txt-negro" href="https://gist.github.com/codigoconjuan/7ff5b34a0a0773f8c48fd13b51a508aa" target="blank">Gist de Productos</a></p>
+                  <p class="mt-1.25 mb-0"><span class="naranja">Agregando los productos</span> - <a class="text-[#000000]" href="https://gist.github.com/codigoconjuan/7ff5b34a0a0773f8c48fd13b51a508aa" target="blank">Gist de Productos</a></p>
                   <p>Aún no hemos visto como consumir una API, consultar una BBDD, todo eso lo veremos más adelante. Así que de momento vamos a trabajar como el proyecto anterior, <strong>con un archivo plano que tiene un arreglo de productos</strong>. Vamos a consumirlo y mostrarlo.</p>
 
                   <p>Vamos a crear 2 archivos .ts (no .tsx que tienen código html y/o eventos de React:</p>
                   <ul>
-                    <li>Creamos <strong>src&gt;db&gt;<span class="file">db.ts</span></strong>: metemos en su interior lo que copiamos en formato raw del <a class="txt-negro" href="https://gist.github.com/codigoconjuan/7ff5b34a0a0773f8c48fd13b51a508aa" target="blank">Gist de Productos</a>. Con el IS vemos que TS infiere cual es el tipo de dato de cada propiedad así que tenemos un array de objetos y eso está bien, pero <strong>está aún mejor crear un type personalizado "MenuItem" y asignárselo  para tener un mejor autocompletado y para que, en caso de que alguna de mis propiedades no cumpla con lo tipado, nos lo marque como error</strong>.
+                    <li>Creamos <strong>src&gt;db&gt;<span class="file">db.ts</span></strong>: metemos en su interior lo que copiamos en formato raw del <a class="text-[#000000]" href="https://gist.github.com/codigoconjuan/7ff5b34a0a0773f8c48fd13b51a508aa" target="blank">Gist de Productos</a>. Con el IS vemos que TS infiere cual es el tipo de dato de cada propiedad así que tenemos un array de objetos y eso está bien, pero <strong>está aún mejor crear un type personalizado "MenuItem" y asignárselo  para tener un mejor autocompletado y para que, en caso de que alguna de mis propiedades no cumpla con lo tipado, nos lo marque como error</strong>.
                     <pre data-line="0,2"><code class="language-ts">
                       import type { MenuItem } from "../types" 
 
@@ -222,9 +215,9 @@
                     </li>                    
                   </ul>
 
-                  <p class="esp-15-top esp-0-bottom"><span class="naranja">Agregando los contenedores principales:</span> acabamos de crear nuestro primer type (MenuItem) y se lo hemos agregado a nuestros datos. Vamos a ver como mostrar la información en pantalla, como renderizar lo que ahora mismo vemos en consola <code class="language-js">console.log(menuItems)</code>para que se vea en nuestra interfaz.</p>
+                  <p class="mt-1.25 mb-0"><span class="naranja">Agregando los contenedores principales:</span> acabamos de crear nuestro primer type (MenuItem) y se lo hemos agregado a nuestros datos. Vamos a ver como mostrar la información en pantalla, como renderizar lo que ahora mismo vemos en consola <code class="language-js">console.log(menuItems)</code>para que se vea en nuestra interfaz.</p>
 
-                  <p>En el return de nuestro <span class="file">App.tsx</span> agregamos el main pero simplemente como tag html5 semántico y seguimos practicando algo de Tailwind CSS <span class="destacado">revisar/empollar uso de Tailwind: <a class="txt-blanco" href="https://certidevs.com/tutorial-tailwindcss-introduccion" target="_blank">Tutorial certidevs</a></span> por ejemplo Mediaquerys en Tailwind: las clases como <strong>sm:, md:, lg:, xl:, y 2xl:</strong> permiten aplicar estilos específicos basados en el tamaño de la pantalla. ¿Como funciona? queremos 2 columnas a partir del tamaño md: ponemos <strong>md:grid-cols-2</strong></p>
+                  <p>En el return de nuestro <span class="file">App.tsx</span> agregamos el main pero simplemente como tag html5 semántico y seguimos practicando algo de Tailwind CSS <span class="destacado">revisar/empollar uso de Tailwind: <a class="text-[#ffffff]" href="https://certidevs.com/tutorial-tailwindcss-introduccion" target="_blank">Tutorial certidevs</a></span> por ejemplo Mediaquerys en Tailwind: las clases como <strong>sm:, md:, lg:, xl:, y 2xl:</strong> permiten aplicar estilos específicos basados en el tamaño de la pantalla. ¿Como funciona? queremos 2 columnas a partir del tamaño md: ponemos <strong>md:grid-cols-2</strong></p>
                     <pre><code class="language-html">
                       &lt;main className=&quot;max-w-7xl mx-auto py-20 grid grid-cols-2&quot;&gt;
                         &lt;div&gt;
@@ -244,7 +237,7 @@
                   <ul>
                     <li>Creamos <strong>components&gt;MenuItem.tsx</strong></li>
                     <li>Antes de empezar a picar recomienda instalar estas dos <span class="naranja">extensiones para React en VSCode: </span> <strong>ES7+ React/Redux/React-Native snippets</strong> y <strong>Simple React Snippets</strong>. Con esto por ejemplo si escribimos en <span class="file">MenuItem.jsx</span> <strong>rfc</strong> vemos que nos autocompleta la estructura básica de nuestro componente, tanto con el export default como con el return: (con <strong>rafc</strong> la crearía como arrow function). El import react no es necesario así que lo eliminamos
-                    <pre class="borrar" data-line="0"><code class="language-js">
+                    <pre class="error" data-line="0"><code class="language-js">
                       import React from 'react'
 
                       export default function MenuItem() {
@@ -267,7 +260,7 @@
                     </li>
                   </ul>
 
-                  <p class="esp-15-top esp-0-bottom"><span class="naranja">Listando los productos del menú:</span> Veamos como pasarle los props y escribir el type para este componente, hacerlo dinámico para que imprima la información de nuestra pequeña BBDD.</p>
+                  <p class="mt-1.25 mb-0"><span class="naranja">Listando los productos del menú:</span> Veamos como pasarle los props y escribir el type para este componente, hacerlo dinámico para que imprima la información de nuestra pequeña BBDD.</p>
                   <p>En el tag de llamada al componente del return de nuestro <span class="file">App.tsx</span> creamos un prop llamado item y le pasamos el objeto de item <code class="language-ts">item={item}</code>. Nos da error porque el componente de momento no espera ninguna propiedad. Si, en nuestro <span class="file">MenuItem.tsx</span> aplicamos destructuring para que reciba ese item: <code class="language-ts">export default function MenuItem({item}) {</code> vamos a ver que es de tipo Any implícito, (mientras que ese item que pasamos como prop en App.tsx sí es de tipo item)<strong>, <span class="destacado">osea se pierde la referencia entre nuestros componentes App.tsx y MenuItem.tsx</strong> y nosotros tenemos que especificarle qué tipo de dato va a ser</span>. Para ello vamos a crear en el <span class="file">MenuItem.tsx</span> un type nuevo <strong>MenuItemProps</strong>(que solo va a usarse en este compo por lo que no tenemos que crearlo en archivo común de types):</p>
 
                   <pre><code class="language-ts">
@@ -362,11 +355,11 @@
 
 
                 <!-- Bloque desplegable interior-->
-                <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion9-113').toggle();">
+                <div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between cursor-pointer oscuro" onclick="$('#seccion9-113').toggle();">
                   <h3>113. Creando un Hook para la orden <span class="destacado">Generics en TS</span></h3>
-                  <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+                  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
                 </div>
-                <div id="seccion9-113" style="display:none">
+                <div id="seccion9-113" class="hidden">
                   <p>Creamos nuestro <span class="file">useOrder.ts</span> <strong>hooks&gt;useOrder.ts</strong>
                   <pre><code class="language-ts">
                     export default function useOrder() {
@@ -414,11 +407,11 @@
 
 
                 <!-- Bloque desplegable interior-->
-                <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion9-114').toggle();">
+                <div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between cursor-pointer oscuro" onclick="$('#seccion9-114').toggle();">
                   <h3>114. Creando la función para Añadir articulos a la orden</h3>
-                  <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+                  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
                 </div>
-                <div id="seccion9-114" style="display:none">
+                <div id="seccion9-114" class="hidden">
                   <p>Creamos en nuestro hook un arrow function nueva para agregar items y la exportamos en el return. </p>
                   <pre><code class="language-ts">
                     export default function useOrder() {
@@ -476,11 +469,11 @@
 
 
                 <!-- Bloque desplegable interior-->
-                <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion9-115').toggle();">
+                <div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between cursor-pointer oscuro" onclick="$('#seccion9-115').toggle();">
                   <h3>115. Agregando el signature a la función de agregar articulo con TypeScript</h3>
-                  <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+                  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
                 </div>
-                <div id="seccion9-115" style="display:none">
+                <div id="seccion9-115" class="hidden">
                   <p>Vamos a ver como escribir en el state de useOrder, ahora mismo solo estamos sacando un mensaje en consola al pulsar. Tenemos que pasarle un argumento desde la llamada del onClick en el componente hasta nuestro custom hook. Para ello en nuestro hook tenemos que decirle que la función addItem va a tomar un elemento, le ponemos como parámetro 'item' y vemos que se nos pone en color rojo, si vamos a la App.tsx vemos que también en rojo nos indica el IS "bueno tú le estás pasando un item que actualmente tiene el tipo de dato Any y tu firma, lo que tú has colocado, es una función que no toma nada y que no retorna nada (la firma nos dice que tiene muy pocos argumentos)": </p>
 
                   <img src="./src/assets/img/115.png" alt="">
@@ -545,11 +538,11 @@
 
 
                 <!-- Bloque desplegable interior-->
-                <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion9-116').toggle();">
+                <div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between cursor-pointer oscuro" onclick="$('#seccion9-116').toggle();">
                   <h3>116. Añadiendo elementos al state de Orden</h3>
-                  <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+                  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
                 </div>
-                <div id="seccion9-116" style="display:none">
+                <div id="seccion9-116" class="hidden">
                   <p>Vamos a escribir en nuestro state de órdenes pero recordemos que <span class="file">useOrder.ts</span> este estate order <code class="language-ts">const [order, setOrder] = useState&lt;OrderItem[]&gt;([])</code> lo definimos con un <strong>generic</strong> como un array de tipo <span class="type">OrderItem</span>, y ese tipo tenía una cantidad 'quantity'.</p> 
 
                   <pre><code class="language-ts">
@@ -618,91 +611,233 @@
                 
 
                 <!-- Bloque desplegable interior-->
-<div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion9-117').toggle();">
-  <h3>117. Evitando duplicados</h3>
-  <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+                <div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between cursor-pointer oscuro" onclick="$('#seccion9-117').toggle();">
+                  <h3>117. Evitando duplicados</h3>
+                  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+                </div>
+                <div id="seccion9-117" class="hidden">
+                  <p>Vamos a revisar si una orden existe en el arreglo:</p>
+                  <ul>
+                    <li><strong>¿No existe?:</strong> este código está bien:
+                      <pre><code class="language-ts">
+                        const newItem: OrderItem = {...item, quantity: 1}
+                        setOrder([...order, newItem])
+                      </code></pre>  
+                    </li>
+                    <li><strong>¿Existe?:</strong> hemos de revisar cantidad</li>
+                  </ul>
+
+                  <p>Usamos el array method <strong>.find()</strong> para encontrar un elemento de un array en base a una condición y empleamos dentro del find un arrow function <strong>(recordar que el parámetro aquí usado (una variable temporal en la ejecución de este find) lo llamamos COMO QUERAMOS en este ejemplo 'orderItem' y hace referencia a cada uno de los objetos que AHORA MISMO HAY en nuestro state array order)</strong>. <span class="destacado">Ojo al escribir el código de la comprobación, cómo funciona el autocompletado de VSC para cada uno de los 2 objetos implicados (el que hace referencia a cada uno de los elementos del state order actual 'orderItem' y el que hace referencia al item que la pasamos al clickar).</span> Así es como queda nuestro código de momento con un console.log que nos avise si pulsamos en una orden que ya existe:</p>
+
+                  <pre><code class="language-ts">
+                    const addItem = (item: MenuItem) => {
+                        
+                      const itemExist = order.find(orderItem => orderItem.id === item.id) // buscamos en el state order el elemento cuyo id sea igual al id del item que estamos pasando
+                      if (itemExist) {
+                        console.log('El item ya existe') 
+                      } else {
+                          const newItem: OrderItem = {...item, quantity: 1}
+                          setOrder([...order, newItem])
+                      }
+                      
+                  }
+                  </code></pre>
+
+                  <p>Si existe el elemento que intentamos agregar, hay que encontrar cual es, incrementar su cantidad pero siempre sin mutar el state. Para ello utilizamos el <strong>.map() y algunos spreads</strong></p>
+
+                  <pre><code class="language-ts">
+                    export default function useOrder() {
+                      const [order, setOrder] = useState&lt;OrderItem[]&gt;([])
+                  
+                      const addItem = (item: MenuItem) =&gt; {
+                          
+                          const itemExist = order.find( orderItem =&gt; orderItem.id === item.id )
+                          if (itemExist) { //El item ya existe         
+                            const updatedOrder = order.map( orderItem =&gt; orderItem.id === item.id ? // identificamos el elemento duplicado, busca el elemento de la orden cuyo id sea igual al id del elemento que viene en item (click)
+                              {...orderItem, quantity: orderItem.quantity + 1} : //toma una copia de lo que tenemos en nuestra orden e incrementa la cantidad en 1
+                              orderItem)//contiene el resto de artículos de la orden que no cumplen el condicional del ternario (los no duplicados)
+                              //gracias al .map() nos retorna un arreglo nuevo y podemos setear nuestra orden
+                              setOrder(updatedOrder)
+                          } else { // El item no existe
+                              const newItem: OrderItem = {...item, quantity: 1}
+                              setOrder([...order, newItem])
+                          }
+                          
+                      }
+                      console.log(order)
+                  
+                          return{
+                            addItem
+                          }
+                    }
+                  </code></pre>
+
+                  <p>Veamos cómo mostrar el state order en pantalla (ahora solo podemos verlo en consola o en React Developer tools)</p>
+
+                </div>
+                <!-- Fin bloque desplegable interior-->
+
+
+<!-- Bloque desplegable interior-->
+<div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between cursor-pointer oscuro" onclick="$('#seccion9-118').toggle();">
+  <h3>118. Mostrando el Consumo de la orden</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
 </div>
-<div id="seccion9-117">
-  <p>Vamso a revisar si una orden existe en el arreglo:</p>
-  <ul>
-    <li><strong>¿No existe?:</strong> este código está bien:
-      <pre><code class="language-ts">
-        const newItem: OrderItem = {...item, quantity: 1}
-        setOrder([...order, newItem])
-      </code></pre>  
-    </li>
-    <li><strong>¿Existe?:</strong> hemos de revisar cantidad</li>
-  </ul>
-
-  <p>Usamos el array method <strong>.find()</strong> para encontrar un elemento de un array en base a una condición y empleamos dentro del find un arrow function <strong>(recordar que el parámetro aquí usado (una variable temporal en la ejecución de este find) lo llamamos COMO QUERAMOS en este ejemplo 'orderItem' y hace referencia a cada uno de los objetos que AHORA MISMO HAY en nuestro state array order)</strong>. <span class="destacado">Nota al escribir el código de la comprobación cómo funciona el autocompletado de VSC para cada uno de los 2 objetos implicados (el que hace referencia a cada uno de los elementos del state order actual 'orderItem' y el que hace referencia al item que la pasamos al clickar).</span> Así es como queda nuestro código de momento con un console.log que nos avise si pulsamos en una orden que ya existe:</p>
-
+<div id="seccion9-118">
+  <p>Estamos escribiendo en nuestro state de órdenes, ahora queremos ir mostrando a la derecha todo lo que yo pulso a la izquierda. Vamos así a comunicar distintos componentes con las interacciones del usuario para crear apps que sean más dinámicas. Vamos al <span class="file">App.tsx</span> y creamos un div con estas propiedades de estilo usando tailwindcss (dentro de él llamamos al nuevo componente que creamos a continuación): </p>
   <pre><code class="language-ts">
-    const addItem = (item: MenuItem) => {
-        
-      const itemExist = order.find(orderItem => orderItem.id === item.id) // buscamos en el state order el elemento cuyo id sea igual al id del item que estamos pasando
-      if (itemExist) {
-         console.log('El item ya existe') 
-      } else {
-          const newItem: OrderItem = {...item, quantity: 1}
-          setOrder([...order, newItem])
-      }
-      
-  }
+    import OrderContents from "./components/OrderContents"
+
+    &lt;div className=&quot;border border-dashed border-slate-300 p-5 rounded-lg space-y10&quot;&gt; 
+      &lt;OrderContents /&gt;
+    &lt;/div&gt;
+  </code></pre>
+  <p>Creamos un componente nuevo <span class="file">OrderContents.tsx</span> en el cual creamos el componente con el snippet <strong>rfc</strong> le ponemos un título y en él iteraremos sobre nuestra orden:</p>
+  <pre><code class="language-ts">
+    export default function OrderContents() {
+      return (
+        &lt;div&gt;
+            &lt;h2 className=&quot;font-black text-4xl&quot;&gt;Consumo&lt;/h2&gt;
+    
+        &lt;/div&gt;
+      )
+    }
+  </code></pre>
+  <p>y lo llamamos desde nuestra App.tsx</p>
+  <p>A continuación exportamos "order" desde nuestro Hook <span class="file">useOrder.ts</span>:</p>
+  <pre data-line="23"><code class="language-ts">
+    //useOrder.ts
+    import { useState } from &quot;react&quot;
+    import { MenuItem, OrderItem } from &quot;../types&quot;
+    
+    export default function useOrder() {
+        const [order, setOrder] = useState&lt;OrderItem[]&gt;([])
+        const addItem = (item: MenuItem) =&gt; {
+            
+            const itemExist = order.find( orderItem =&gt; orderItem.id === item.id )
+            if (itemExist) { //El item ya existe         
+               const updatedOrder = order.map( orderItem =&gt; orderItem.id === item.id ? // identificamos el elemento duplicado, busca el elemento de la orden cuyo id sea igual al id del elemento que viene en item (click)
+                {...orderItem, quantity: orderItem.quantity + 1} : //toma una copia de lo que tenemos en nuestra orden e incrementa la cantidad en 1
+                orderItem)//contiene el resto de artículos de la orden que no cumplen el condicional del ternario (los no duplicados)
+                //gracias al .map() nos retorna un arreglo nuevo y podemos setear nuestra orden
+                setOrder(updatedOrder)
+            } else { // El item no existe
+                const newItem: OrderItem = {...item, quantity: 1}
+                setOrder([...order, newItem])
+            }
+            
+        }
+        console.log(order)    
+            return{
+               order,
+               addItem
+            }
+    }
   </code></pre>
 
-  <p>Si existe el elemento que intentamos agregar, hay que encontrar cual es, incrementar su cantidad pero siempre sin mutar el state. Para ello utilizamos el <strong>.map() y algunos spreads</strong></p>
+  <p><span class="destacado">Aún no hemos visto como tener un estado global (¿en al App.tsx?)</span> así que no lo podemos importar directamente  en nuestro <strong>OrderContents.tsx</strong> porque es como tener una clase nueva entonces pierde la referencia??. En <span class="file">App.tsx</span>, que importamos nuestro Hook, en el destructuring de nuestro hook <strong>useOrder</strong> <span class="destacado">extraemos también la orden que vamos a pasar como prop al nuevo componente</span>:</p> 
+    <pre data-line="6"><code class="language-ts">
+      //App.tsx
+      import useOrder from "./hooks/useOrder"
+      import OrderContents from "./components/OrderContents"
 
-  <pre><code class="language-ts">
+      function App() {
+
+        const { order, addItem } = useOrder()
+    </code></pre>
+        
+    <p>Si somos limpios usando el mismo orden que usamos en el Hook para declarar y retornar las variables será más fácil tenerlo todo controlado; si vemos nuestro hook:</p>
+  <pre data-line="2,3,8,9"><code class="language-ts">
+    //useOrder.ts
     export default function useOrder() {
       const [order, setOrder] = useState&lt;OrderItem[]&gt;([])
-  
-      const addItem = (item: MenuItem) =&gt; {
-          
-          const itemExist = order.find( orderItem =&gt; orderItem.id === item.id )
-          if (itemExist) { //El item ya existe         
-             const updatedOrder = order.map( orderItem =&gt; orderItem.id === item.id ? // identificamos el elemento duplicado, busca el elemento de la orden cuyo id sea igual al id del elemento que viene en item (click)
-              {...orderItem, quantity: orderItem.quantity + 1} : //toma una copia de lo que tenemos en nuestra orden e incrementa la cantidad en 1
-              orderItem)//contiene el resto de artículos de la orden que no cumplen el condicional del ternario (los no duplicados)
-              //gracias al .map() nos retorna un arreglo nuevo y podemos setear nuestra orden
-              setOrder(updatedOrder)
-          } else { // El item no existe
-              const newItem: OrderItem = {...item, quantity: 1}
-              setOrder([...order, newItem])
-          }
-          
-      }
-      console.log(order)
+      const addItem = (item: MenuItem) =&gt; {      
+
+          ....
   
           return{
+             order,
              addItem
           }
     }
   </code></pre>
 
-  <p>Veamos cómo mostrar el state order en pantalla (ahora solo podemos verlo en consola o en React Developer tools)</p>
+  <p>Al asignarle la prop: </p>
+
+  <pre class="error" data-line="2"><code class="language-ts">
+    //App.tsx
+    &lt;OrderContents 
+    order = { order }
+   /&gt;
+  </code></pre>
+
+  <p>me marca un error porque, esa propiedad que enviamos desde App.tsx hacia OrderContents.tsx hemos de tiparla, no tenemos ningún type asociado. <strong>En nuestro nuevo componente OrderContents.tsx creamos un nuevo type específico y en su definición indicamos que la order es del tipo array OrderItem (hemos de importar ese tipo)</strong>.</p>
+
+  <div class="flex">
+    <div class="w-50">
+      <pre><code class="language-ts">
+        //OrderContents.tsx
+        export default function OrderContents() {
+          return (
+            &lt;div&gt;
+                &lt;h2 className=&quot;font-black text-4xl&quot;&gt;Consumo&lt;/h2&gt;
+        
+            &lt;/div&gt;
+          )
+        }
+      </code></pre>
+    </div>
+    <div class="w-50">
+      <pre><code class="language-ts">
+        //OrderContents.tsx
+        import { OrderItem } from &quot;../types&quot;
+
+        type OrderContentsProps = {
+            order: OrderItem[]
+        }
+        
+        export default function OrderContents({order}: OrderContentsProps) {
+          return (
+            &lt;div&gt;
+                &lt;h2 className=&quot;font-black text-4xl&quot;&gt;Consumo&lt;/h2&gt;
+        
+            &lt;/div&gt;
+          )
+        }
+      </code></pre>
+    </div>
+  </div>
+
+  <p>Comentamos el console.log(order) de nuestro hook para comenzar a mostrarlo en nuestro componente. Añadimos este contenedor con esta comprobación:</p>
+
+  <pre><code class="language-ts">
+    //OrderContents.tsx
+    &lt;div className=&quot;space-y-3 mt-5&quot;&gt;
+      { order.length === 0 ? 
+          &lt;p className=&quot;text-center&quot;&gt;La orden está vacía&lt;/p&gt;
+          : 
+          //&lt;p className=&quot;text-center&quot;&gt;La orden tiene algo&lt;/p&gt;
+          ( order.map( item =&gt; (
+              &lt;div key={item.id}&gt;
+                  &lt;p&gt;{item.name}&lt;/p&gt;
+              &lt;/div&gt;
+              )
+          ))
+      }
+    &lt;/div&gt;
+  </code></pre>
+
 
 </div>
 <!-- Fin bloque desplegable interior-->
 
 
 <!-- Bloque desplegable interior-->
-<div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion9-118').toggle();">
-  <h3>118. Mostrando el Consumo de la orden</h3>
-  <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
-</div>
-<div id="seccion9-118" style="display:none">
-  <p></p>
-
-</div>
-<!-- Fin bloque desplegable interior-->
-
-
-<!-- Bloque desplegable interior-->
-<div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion9-119').toggle();">
+<div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between cursor-pointer oscuro" onclick="$('#seccion9-119').toggle();">
   <h3>119. Formateando el Consumo y mostrando cantidades</h3>
-  <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
 </div>
-<div id="seccion9-119" style="display:none">
+<div id="seccion9-119" class="hidden">
   <p></p>
 
 </div>
@@ -710,11 +845,11 @@
 
 
 <!-- Bloque desplegable interior-->
-<div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion9-120').toggle();">
+<div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between cursor-pointer oscuro" onclick="$('#seccion9-120').toggle();">
   <h3>120. Eliminando articulos de la orden</h3>
-  <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
 </div>
-<div id="seccion9-120  " style="display:none">
+<div id="seccion9-120  " class="hidden">
   <p></p>
 
 </div>
@@ -722,11 +857,11 @@
 
 
 <!-- Bloque desplegable interior-->
-<div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion9-121').toggle();">
+<div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between cursor-pointer oscuro" onclick="$('#seccion9-121').toggle();">
   <h3>121. Creando el Componente con los totales</h3>
-  <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
 </div>
-<div id="seccion9-121" style="display:none">
+<div id="seccion9-121" class="hidden">
   <p></p>
 
 </div>
@@ -734,11 +869,11 @@
 
 
 <!-- Bloque desplegable interior-->
-<div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion9-122').toggle();">
+<div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between cursor-pointer oscuro" onclick="$('#seccion9-122').toggle();">
   <h3>122. Calculando el Consumo y más TypeScript</h3>
-  <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
 </div>
-<div id="seccion9-122" style="display:none">
+<div id="seccion9-122" class="hidden">
   <p></p>
 
 </div>
@@ -746,11 +881,11 @@
 
 
 <!-- Bloque desplegable interior-->
-<div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion9-123').toggle();">
+<div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between cursor-pointer oscuro" onclick="$('#seccion9-123').toggle();">
   <h3>123. Primeros pasos con las propinas</h3>
-  <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
 </div>
-<div id="seccion9-123" style="display:none">
+<div id="seccion9-123" class="hidden">
   <p></p>
 
 </div>
@@ -758,11 +893,11 @@
 
 
 <!-- Bloque desplegable interior-->
-<div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion9-124').toggle();">
+<div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between cursor-pointer oscuro" onclick="$('#seccion9-124').toggle();">
   <h3>124. Añadiendo la cantidad seleccionada de Propina</h3>
-  <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
 </div>
-<div id="seccion9-124" style="display:none">
+<div id="seccion9-124" class="hidden">
   <p></p>
 
 </div>
@@ -770,11 +905,11 @@
 
 
 <!-- Bloque desplegable interior-->
-<div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion9-125').toggle();">
+<div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between cursor-pointer oscuro" onclick="$('#seccion9-125').toggle();">
   <h3>125. Calculando el Total de la propina</h3>
-  <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
 </div>
-<div id="seccion9-125" style="display:none">
+<div id="seccion9-125" class="hidden">
   <p></p>
 
 </div>
@@ -782,11 +917,11 @@
 
 
 <!-- Bloque desplegable interior-->
-<div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion9-126').toggle();">
+<div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between cursor-pointer oscuro" onclick="$('#seccion9-126').toggle();">
   <h3>126. Calculando el Total a pagar</h3>
-  <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
 </div>
-<div id="seccion9-126" style="display:none">
+<div id="seccion9-126" class="hidden">
   <p></p>
 
 </div>
@@ -794,11 +929,11 @@
 
 
 <!-- Bloque desplegable interior-->
-<div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion9-127').toggle();">
+<div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between cursor-pointer oscuro" onclick="$('#seccion9-127').toggle();">
   <h3>127. Diferencia entre useMemo y useCallback</h3>
-  <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
 </div>
-<div id="seccion9-127" style="display:none">
+<div id="seccion9-127" class="hidden">
   <p></p>
 
 </div>
@@ -806,11 +941,11 @@
 
 
 <!-- Bloque desplegable interior-->
-<div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion9-128').toggle();">
+<div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between cursor-pointer oscuro" onclick="$('#seccion9-128').toggle();">
   <h3>128. Reiniciando la Orden</h3>
-  <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
 </div>
-<div id="seccion9-128" style="display:none">
+<div id="seccion9-128" class="hidden">
   <p></p>
 
 </div>
@@ -818,11 +953,11 @@
 
 
 <!-- Bloque desplegable interior-->
-<div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion9-129').toggle();">
+<div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between cursor-pointer oscuro" onclick="$('#seccion9-129').toggle();">
   <h3>129. Deployment del Proyecto</h3>
-  <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
 </div>
-<div id="seccion9-129" style="display:none">
+<div id="seccion9-129" class="hidden">
   <p></p>
 
 </div>
@@ -843,30 +978,30 @@
 
      
       <!-- SECCION 8 -->
-      <div class="contenedor w-80 w-96-s background esp-5-bottom">
+      <div class="contenedor w-80 w-96-s bg-gray-200 mb-1.25 py-0.75 pr-0 pl-2.5">
         <div class="row">
-          <div class="flex center-vertical esp-25-top pointer desplegable space-between pointer" onclick="$('#seccion08').toggle();">
+          <div class="flex items-center mt-1.25 cursor-pointer desplegable justify-between pointer" onclick="$('#seccion08').toggle();">
             <h2>Sección 8: PROYECTO - Carrito de Compras - Migrando a TypeScript paso a paso</h2>
-            <span class="cambiaicono ico_chevron_up esp-10-right" title=""></span>
+            <span class="cambiaicono ico_chevron_down mr-2.5" title=""></span>
           </div>
 
-          <div id="seccion08" style="display:none">
+          <div id="seccion08" class="hidden">
             <div class="row">
               <div class="col-12">
 
                 <!-- Bloque desplegable interior-->
-                <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion8-91').toggle();">
+                <div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between cursor-pointer oscuro" onclick="$('#seccion8-91').toggle();">
                   <h3>91. ¿Qué es TypeScript y sus ventajas?</h3>
-                  <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+                  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
                 </div>
-                <div id="seccion8-91" style="display:none">
-                  <p class="titulo">Typescript ¿qué es? y ventajas</p>
+                <div id="seccion8-91" class="hidden">
+                  <p class="font-bold">Typescript ¿qué es? y ventajas</p>
                   <ul>
                     <li>Es un lenguaje de programación de código abierto. Sí, es un lenguaje completo, desarrollado y mantenido por Microsoft. También se le conoce como un <strong>superconjunto tipado para JavaScript, lo que significa que cualquier código de JavaScript válido es también código de TypeScript válido</strong>.</li>                    
                     <li>La principal característica de TypeScript es que agrega un sistema de tipos estático a JavaScript, lo que permite detectar errores y proporcionar herramientas de desarrollo más sólidas.</li>
                   </ul>
 
-                  <p class="titulo">¿Cuáles son las ventajas de implementar TypeScript?</p>
+                  <p class="font-bold">¿Cuáles son las ventajas de implementar TypeScript?</p>
                   <ul>
                     <li>El sistema de tipado de tipos de TypeScript permite al programador especificar los tipos de variable, parámetros de función, valores de retorno y más. Esto va a brindar la capacidad de realizar la comprobación de tipos durante la compilación (cuando estás escribiendo tu código) y detectar posibles errores antes de que el código sea ejecutado. --> Entonces su principal ventaja es que no necesitas que el proyecto esté en producción para revisar que todo esté bien. Con TypeScript puedes tener la garantía de que tu código va a funcionar correctamente.</li>
                     <li>Mejora enormemente el autocompletado o Intellisense que vas a obtener con Visual Studio Code (Ver presentación 10.html del curso de Angular).
@@ -874,7 +1009,7 @@
                     </li>
                   </ul>
 
-                  <p class="titulo">Typescript y Javascript / React</p>
+                  <p class="font-bold">Typescript y Javascript / React</p>
 
                   <ul>
                     <li>Una vez que has escrito el código en TypeScript, este código siempre se compila a JavaScript. Como tal, el navegador no soporta TypeScript, por lo tanto se tiene que compilar siempre hacia código de JavaScript</li>
@@ -887,11 +1022,11 @@
                 <!-- Fin bloque desplegable interior-->
 
                 <!-- Bloque desplegable interior-->
-                <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion8-92').toggle();">
+                <div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between cursor-pointer oscuro" onclick="$('#seccion8-92').toggle();">
                   <h3>92. Creando el Proyecto con TypeScript</h3>
-                  <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+                  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
                 </div>
-                <div id="seccion8-92" style="display:none">
+                <div id="seccion8-92" class="hidden">
                   <p>Vamos a crear un proyecto nuevo <span class="destacado">npm create vite@latest</span> lo nombramos <strong>guitarla-ts</strong> que sea <strong>react con el nuevo compilador</strong>. Vamos a la carpeta e instalamos las dependencias con <span class="destacado">npm install</span>. Lanzamos el servidor de desarrollo con <strong>npm run dev</strong>.</p>
 
                   <p>Vemos que básicamente la estructura del proyecto es como la que hemos visto hasta ahora con algunas diferencias:</p>
@@ -937,11 +1072,11 @@
                 
 
                 <!-- Bloque desplegable interior-->
-                <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion8-93').toggle();">
+                <div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between cursor-pointer oscuro" onclick="$('#seccion8-93').toggle();">
                   <h3>93. Introducción a TypeScript - Primitive Types</h3>
-                  <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+                  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
                 </div>
-                <div id="seccion8-93" style="display:none">
+                <div id="seccion8-93" class="hidden">
                   <p>Vamos a comenzar a solucionar los errores que encuentra Typescript en el código. Vemos que en App.tsx, Guitar.tsx, Header.tsx, useCard.ts se van pintando en rojo algunos de estos archivos. No es que el código esté mal escrito (si arrancamos el servidor de desarrollo y probamos vemos que todo funciona bien) sino que más bien tneemos que darle más información a TypeScript. esa información normalmente se la pasamos con algo llamado <span class="destacado">Primitive Type</span>.</p>
 
                   <ul>
@@ -967,11 +1102,11 @@
                 
 
                 <!-- Bloque desplegable interior-->
-                <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion8-94').toggle();">
+                <div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between cursor-pointer oscuro" onclick="$('#seccion8-94').toggle();">
                   <h3>94. Introducción a TypeScript - Types e Interfaces</h3>
-                  <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+                  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
                 </div>
-                <div id="seccion8-94" style="display:none">
+                <div id="seccion8-94" class="hidden">
                   <p>Si nos colocamos en la variable db vemos un objeto que tiene diferentes propiedades. Cuando tenemos una estructura de este tipo lo mejor es crear lo que se conoce como un Type o Interface. Básicamente es lo mismo, pero veamos un poco más de información de este tema.</p>
 
                   <ul>
@@ -1035,11 +1170,11 @@
                 
 
                 <!-- Bloque desplegable interior-->
-                <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion8-95').toggle();">
+                <div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between cursor-pointer oscuro" onclick="$('#seccion8-95').toggle();">
                   <h3>95. Asignar Types a tus Props - Inline Type</h3>
-                  <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+                  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
                 </div>
-                <div id="seccion8-95" style="display:none">
+                <div id="seccion8-95" class="hidden">
                   <p>Si nos llenamos de Any es como si no estuviéramos utilizando TS. Hemos de facilitar más información a TS. Vamos a <span class="file">Guitar.tsx</span> donde tenemos <code class="language-js">export default function Guitar({guitar, addToCart}) {</code> ese guitar que es un objeto y el addToCart que es una función. ¿Cómo convertimos esos props hacia TS? hay dos opciones:</p>
 
                   <ul>
@@ -1047,7 +1182,7 @@
                     <li><strong>separate type</strong></li>
                   </ul>
 
-                  <p class="titulo">inline type</p> 
+                  <p class="font-bold">inline type</p> 
                   
                   <p>en nuestro <span class="file">Guitar.tsx</span> <span class="destacado">añadimos el type</span></p> 
                   <pre><code class="language-js">
@@ -1127,12 +1262,12 @@
                 
 
                 <!-- Bloque desplegable interior-->
-                <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion8-96').toggle();">
+                <div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between cursor-pointer oscuro" onclick="$('#seccion8-96').toggle();">
                   <h3>96. Asignar Types a tus Props - Type Separado</h3>
-                  <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+                  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
                 </div>
-                <div id="seccion8-96" style="display:none">
-                  <p class="titulo">separate type</p> 
+                <div id="seccion8-96" class="hidden">
+                  <p class="font-bold">separate type</p> 
                   <p>Veamos esta otra sintaxis que es menos confusa: podríamos hacer salto de línea a lo que tenemos ahora mismo para que quedara un poco más ordenado:</p>
 
                   <pre><code class="language-js">
@@ -1157,11 +1292,11 @@
                 
 
                 <!-- Bloque desplegable interior-->
-                <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion8-97').toggle();">
+                <div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between cursor-pointer oscuro" onclick="$('#seccion8-97').toggle();">
                   <h3>97. Creando un Archivo de Types ¿Donde y como hacerlo?</h3>
-                  <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+                  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
                 </div>
-                <div id="seccion8-97" style="display:none">
+                <div id="seccion8-97" class="hidden">
                   <p>Vamos a crear un archivo que centralice los types que se van a compartir más de una vez. Si nos fijamos ahora mismo el type Guitar que hemos creado lo tenemos tanto en <span class="file">db.ts</span> como en <span class="file">Guitar.tsx</span>, si tuviéramos que modificarlo porque el proyecto por ejemplo crece, el mantenimiento se hace complicado. <span class="destacado">Cuando tenemos un type que se comparte en diferentes componentes o Hooks lo mejor es ponerlo en su propio archivo</span>, hay dos maneras de hacerlo.</p>
 
                   <p>Si en en src creamos un archivo nuevo <strong>types.d.ts</strong> y metemos ahí nuestro types, creado así con ese nombre no necesitaríamos importarlo. Sin embargo ¡¡el equipo de desarrollo de TS no recomienda hacerlo de esta forma!!!</p>
@@ -1193,11 +1328,11 @@
 
 
                 <!-- Bloque desplegable interior-->
-                <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion8-98').toggle();">
+                <div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between cursor-pointer oscuro" onclick="$('#seccion8-98').toggle();">
                   <h3>98. Añadiendo un Type para los elementos del Carrito / 99. Heredar y extender un Type</h3>
-                  <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+                  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
                 </div>
-                <div id="seccion8-98" style="display:none">
+                <div id="seccion8-98" class="hidden">
                   <p>Si miramos nuestro custom Hook <span class="file">useCart.ts</span> vemos que tenemos dos states: data tiene el type Guitar pero cart tiene un tipo Any.</p>
                   <pre><code class="language-js">
                     const [data] = useState(db)
@@ -1272,7 +1407,7 @@
 
                   <p>Ya hemos definido nuestro segundo tipo de dato. Teníamos <strong>Guitar</strong> pero como nuestro carrito de compras tiene una propiedad adicional "quantity" hemos creado un type llamado <strong>CartItem</strong>. Ambos comparten muchos atributos por lo que apliquemos herencia para simplicar el código, también para que si cambia alguno de ellos el mantenimiento sea más sencillo. Como es un poco diferente en types e interfaces veos ambos.</p>
 
-                  <p class="titulo">herencia en types</p>
+                  <p class="font-bold">herencia en types</p>
 
                   <p><span class="destacado">Borramos los atributos duplicados del type que hereda y en su declaración tras el "=" añadimos el nombre del type del que queremos que herede seguido de "&"</span></p>
 
@@ -1310,11 +1445,11 @@
 
 
                 <!-- Bloque desplegable interior-->
-                <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion8-100').toggle();">
+                <div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between cursor-pointer oscuro" onclick="$('#seccion8-100').toggle();">
                   <h3>100. Utility Types en TypeScript</h3>
-                  <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+                  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
                 </div>
-                <div id="seccion8-100" style="display:none">
+                <div id="seccion8-100" class="hidden">
                   <p>Acabamos de ver como se aplica herencia utilizando types e interfaces pero eso hereda todo el tipo de dato y sus atributos completos. Si bien podríamos hacer algo como cambiarle el number por string al atributo id del type original (no lo tengo muy claro que haga lo que dice por lo que veo en el IS)</p>
 
                   <pre data-line="1,9"><code class="language-js">
@@ -1331,7 +1466,7 @@
                   }
                   </code></pre>
 
-                  <p>Otras veces lo que vamos a querer es, manteniendo los mismos tipos de datos simplemente tener algunos atributos de un type y/o omitir otros. Para eso es muy útil lo que se conoce como <span class="destacado"><a class="txt-blanco" href="https://www.typescriptlang.org/docs/handbook/utility-types.html" target="_blank">Utility Types</a></span>. Hay unos cuantos, en cada nueva versión se agregan más, va a hacer que nuestro código sea más corto y son muy útiles cuando comenzamos a tener varios  types interdependientes que comparten atributos. Pone como ejemplo estos dos para explicar sintaxis y como se utilizan <strong>Pick&lt;Type&comma; Keys&gt;</strong> y <strong>Omit&lt;Type&comma; Keys&gt;</strong></p>
+                  <p>Otras veces lo que vamos a querer es, manteniendo los mismos tipos de datos simplemente tener algunos atributos de un type y/o omitir otros. Para eso es muy útil lo que se conoce como <span class="destacado"><a class="text-[#ffffff]" href="https://www.typescriptlang.org/docs/handbook/utility-types.html" target="_blank">Utility Types</a></span>. Hay unos cuantos, en cada nueva versión se agregan más, va a hacer que nuestro código sea más corto y son muy útiles cuando comenzamos a tener varios  types interdependientes que comparten atributos. Pone como ejemplo estos dos para explicar sintaxis y como se utilizan <strong>Pick&lt;Type&comma; Keys&gt;</strong> y <strong>Omit&lt;Type&comma; Keys&gt;</strong></p>
 
                   <p>En el siguiente ejemplo el Utility Type Pick selecciona del type Guitar los atributos id, name y price y los coloca en este nuevo type CartItem:</p>
                   <script type="text/plain" class="language-js">
@@ -1358,14 +1493,14 @@
                           
 
                 <!-- Bloque desplegable interior-->
-                <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion8-101').toggle();">
+                <div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between cursor-pointer oscuro" onclick="$('#seccion8-101').toggle();">
                   <h3>101. Agregando el Nuevo Type a nuestro código / 102. Creando un Type para el ID de la guitarra</h3>
-                  <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+                  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
                 </div>
-                <div id="seccion8-101" style="display:none">
+                <div id="seccion8-101" class="hidden">
                   <p>Vamos a nuestro Hook <span class="file">useCart.ts</span>para "terminar de migrar a TS" nuestras funciones:</p>
                   
-                  <p class="titulo">function addToCart(item){}</p>
+                  <p class="font-bold">function addToCart(item){}</p>
                   <p>Importamos nuestro type Guitar y le especificamos al parámetro de la fcn que es de tipo Guitar</p>
                   <pre data-line="0"><code class="language-js">
                     function addToCart(item : Guitar) {
@@ -1448,11 +1583,11 @@
               
 
               <!-- Bloque desplegable interior-->
-              <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion8-103').toggle();">
+              <div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between cursor-pointer oscuro" onclick="$('#seccion8-103').toggle();">
                 <h3>103. Typando los Props del Header y Building del proyecto</h3>
-                <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+                <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
               </div>
-                <div id="seccion8-103" style="display: none">
+                <div id="seccion8-103" class="hidden">
                   <p>Añadamos TS a nuestro <span class="file">Header.tsx</span> que tiene entre otras cosas nuestro cart y los states derivados. Vamos a crear el type no inline (que es mas complicado en cuanto a sintaxis) sino separado y además solo en este .tsx (no lo metemos en el fichero de definición de types) porque es exclusivo para Header:</p>
 
                   <pre data-line="0,2,3,7"><code class="language-js">
@@ -1504,26 +1639,26 @@
        
    	
       <!-- SECCION 7 -->
-      <div class="contenedor w-80 w-96-s background esp-5-bottom">
+      <div class="contenedor w-80 w-96-s bg-gray-200 mb-1.25 py-0.75 pr-0 pl-2.5">
         <div class="row">
-          <div class="flex center-vertical esp-25-top pointer desplegable space-between pointer" onclick="$('#seccion07').toggle();">
+          <div class="flex items-center mt-1.25 cursor-pointer desplegable justify-between pointer" onclick="$('#seccion07').toggle();">
             <h2>Sección 7: PROYECTO - Carrito de Compras - Crear tus propios Hooks</h2>
-            <span class="cambiaicono ico_chevron_down esp-10-right" title=""></span>
+            <span class="cambiaicono ico_chevron_down mr-2.5" title=""></span>
           </div>
 
-          <div id="seccion07" style="display:none">
+          <div id="seccion07" class="hidden">
             <div class="row">
               <div class="col-12">
 
                 <!-- Bloque desplegable interior-->
-                <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion85-90').toggle();">
+                <div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between cursor-pointer oscuro" onclick="$('#seccion85-90').toggle();">
                   <h3>85. Ventajas y Como crear tus propios Hooks / 86. Instalando dependencias / 87. Creando el Hook de useCart</h3>
-                  <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+                  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
                 </div>
-                <div id="seccion85-90" style="display:none">
+                <div id="seccion85-90" class="hidden">
                   <p class="naranja">Ventajas y Como crear tus propios Hooks</p>
                   
-                  <p class="titulo">Crear nuestro propios Hooks</p>
+                  <p class="font-bold">Crear nuestro propios Hooks</p>
                   <ul>
                     <li><strong>Existe una gran ventaja de crear tus propios hooks, y esta es la de incorporar state y otros hooks de React en tu propio código para poderlo reutilizar en otros proyectos:</strong> esta es una gran ventaja porque actualmente nuestro código reside en nuestros componentes y nuestros componentes tienen cierta presentación, lo que lo hace que nuestro código no sea muy reutilizable para otros proyectos. Sin embargo, con un hook personalizado podemos copiar y adaptar todo lo que requerimos.</li>
                     <li><strong>Otra gran ventaja es la de organizar tu código:</strong> de esta forma el hook se va a encargar de toda la lógica, mientras que tu componente solamente se encarga de mostrar la información, la vista, solamente se encarga de mostrar la presentación y el código HTML.</li>
@@ -1532,7 +1667,7 @@
                     <li>va a ser fácil de escribir testing de escribir las pruebas para tu código.</li>
                   </ul>
 
-                  <p class="titulo">¿Cómo vamos a crear nuestros propios hooks?</p>
+                  <p class="font-bold">¿Cómo vamos a crear nuestros propios hooks?</p>
                   <ul>
                     <li>Los hooks son funciones de JavaScript, pero tienen algunas reglas como vimos anteriormente.</li>
                     <li><strong>Nuestros hooks deben seguir la convención de nombrado que utiliza React, que es <span class="destacado">use</span> seguido del nombre de nuestro hook, como vimos anteriormente con los hooks <strong>Usestate, useEffect, etcétera</strong></strong> de esta forma React escanea tu código en búsqueda de posibles problemas con las reglas de los hooks y se segura de que nuestro código personalizado cumpla los estándares de React.</li>
@@ -1584,11 +1719,11 @@
 
 
                 <!-- Bloque desplegable interior-->
-                <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion88').toggle();">
+                <div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between cursor-pointer oscuro" onclick="$('#seccion88').toggle();">
                   <h3>88. Definir Valores y extraerlos en el Hook</h3>
-                  <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+                  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
                 </div>
-                <div id="seccion88" style="display:none">
+                <div id="seccion88" class="hidden">
                   <p>¿Como hacemos para que el comportamiento de nuestro custom hook sea mas similar digamos al useState en <code class="language-js">const[data] = useState(db)</code> devolviendo algo. Supongamos que creamos una variable <code class="language-js">const auth = true</code> ¿como hacemos para que esté disponible en nuestro App.jsx? <strong>tenemos que agregar un return a continuación, que puede ser un Array pero se recomienda que sea un objeto.</strong> <span class="destacado">La ventaja de que sea un objeto es, que el mismo nombre con el que nombremos nuestras variables, funciones o state va a ser el mismo nombre para usarlo en nuestro componente.</span> Si usáramos un arreglo los retorna por posición, pero como normalmente vamos a tener en nuestro hook personalizado diferentes funciones/variables/states personalizados, lo ideal es que podamos acceder a ellos por medio de su nombre específico.</p>
                   
                   <span class="file">useCart.js</span>
@@ -1645,9 +1780,9 @@
 
 
                 <!-- Bloque desplegable interior-->
-                <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion89').toggle();">
+                <div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between cursor-pointer oscuro" onclick="$('#seccion89').toggle();">
                   <h3>89. Migrando el Código hacia useCart / 90. Finalizando el Hook y Consideraciones</h3>
-                  <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+                  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
                 </div>
                 <div id="seccion89">
                   <ul>
@@ -1683,7 +1818,7 @@
                         </code></pre>
                         
                         <p>También quitamos del tag Guitar el prop <strong>setCart={setCart}</strong> porque esa función <code class="language-js">const [cart, setCart] = useState(initialCart)</code>ya no está disponible al haberlo migrado a nuestro custom hook junto al resto de la funcionalidad:</p>
-                        <pre class="borrar" data-line="3"><code class="language-js">
+                        <pre class="error" data-line="3"><code class="language-js">
                           &lt;Guitar 
                           key=&lcub;guitar.id&rcub;
                           guitar=&lcub;guitar&rcub;
@@ -1772,24 +1907,24 @@
       
       
       <!-- SECCIÓN 6 -->
-      <div class="contenedor w-80 w-96-s background esp-5-bottom">		
+      <div class="contenedor w-80 w-96-s bg-gray-200 mb-1.25 py-0.75 pr-0 pl-2.5">		
         <div class="row">
-          <div class="flex center-vertical esp-25-top pointer desplegable space-between pointer" onclick="$('#seccion6').toggle();">	
+          <div class="flex items-center mt-1.25 cursor-pointer desplegable justify-between pointer" onclick="$('#seccion6').toggle();">	
             <h2>Sección 6: PROYECTO: Carrito de Compras - Creando el Carrito, introducción a Hooks y más</h2>				
-            <span class="cambiaicono ico_chevron_down esp-10-right" title=""></span>
+            <span class="cambiaicono ico_chevron_down mr-2.5" title=""></span>
           </div>
           
-          <div id="seccion6" style="display:none">
+          <div id="seccion6" class="hidden">
               
             <div class="row">
               <div class="col-12">	
                 
                 <!-- Bloque desplegable interior-->
-                <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion6-52').toggle();">	
+                <div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between cursor-pointer oscuro" onclick="$('#seccion6-52').toggle();">	
                   <h3>52. La estructura de archivos de React</h3>			
-                  <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+                  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
                 </div>
-                <div id="seccion6-52" style="display:none">
+                <div id="seccion6-52" class="hidden">
                   <p><strong>index.html:</strong> Archivo html sobre el cual se monta la app de React. </p>	
                   <p><strong>App.jsx:</strong> nuestro componente principal de aplicación. Es donde estaremos agregando nuestros componentes.</p>	
                   <p><strong>index.css:</strong> para código css que aplique en toda la app</p>	
@@ -1857,11 +1992,11 @@
                 <!-- Fin bloque desplegable interior-->
       
       <!-- Bloque desplegable interior-->
-      <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion6-53').toggle();">	
+      <div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between cursor-pointer oscuro" onclick="$('#seccion6-53').toggle();">	
         <h3>53. Copiando el código HTML estatico a React</h3>			
-        <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+        <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
       </div>
-      <div id="seccion6-53" style="display:none">
+      <div id="seccion6-53" class="hidden">
         <p></p>
         
       </div>
@@ -1869,11 +2004,11 @@
       
       
       <!-- Bloque desplegable interior-->
-      <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion6-54').toggle();">	
+      <div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between cursor-pointer oscuro" onclick="$('#seccion6-54').toggle();">	
         <h3>54. Como Escribir código CSS en React</h3>			
-        <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+        <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
       </div>
-      <div id="seccion6-54" style="display:none">
+      <div id="seccion6-54" class="hidden">
         <p></p>
         
       </div>
@@ -1881,11 +2016,11 @@
       
       
                 <!-- Bloque desplegable interior-->
-                <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion6-55').toggle();">	
+                <div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between cursor-pointer oscuro" onclick="$('#seccion6-55').toggle();">	
                   <h3>55. ¿Qué son los Componentes en React?</h3>			
-                  <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+                  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
                 </div>
-                <div id="seccion6-55" style="display:none">
+                <div id="seccion6-55" class="hidden">
                   <p>Una vez copiado (estructurado) el código estático de guitarras que descargamos, sigue siendo estático. Este App.jsx ya es un componente:</p>
                   <ul>
                     <li>Es una función y su nombre empieza por mayúsculas (para evitar problemas en la compilación). Lo que esté entre las llaves es el contenido de ese componente pero podemos pasarlo a otros por medio de algo llamado props (lo veremos mas adelante)</li>
@@ -1925,11 +2060,11 @@
       
       
                 <!-- Bloque desplegable interior-->
-                <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion6-56').toggle();">	
+                <div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between cursor-pointer oscuro" onclick="$('#seccion6-56').toggle();">	
                   <h3>56. ¿Qué es JSX? / 57. Renombrando class a className de nuestro proyecto / 58. Creando un Componente para cada Guitarra </h3>			
-                  <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+                  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
                 </div>
-                <div id="seccion6-56" style="display:none">
+                <div id="seccion6-56" class="hidden">
       
                   <ul>
                     <li><span class="destacado">JSX</span> <strong>Javascript Syntax Extension:</strong> es una extensión del lenguage desarrollada también por META (Facebook) para React y es una sintaxis especial para poder agregar HTML y JS en un solo lugar. Al ppio parece un poco complicado pero se ven los beneficios conforme comenzamos a trabajar con ella.</li>
@@ -1970,11 +2105,11 @@
       
       
                 <!-- Bloque desplegable interior-->
-                <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion6-59').toggle();">	
+                <div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between cursor-pointer oscuro" onclick="$('#seccion6-59').toggle();">	
                   <h3>59. Introducción a los React Hooks / 60. ¿Qué es el State en React? y useState / 61. Reglas de los Hooks / 62. ¿Qué es useEffect?</h3>			
-                  <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+                  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
                 </div>
-                <div id="seccion6-59" style="display:none">
+                <div id="seccion6-59" class="hidden">
                   <p>Los <span class="destacado">React Hooks</span> son la base de React. Nos van a permitir Integrar toda las funcionalidades de React con nuestra interfaz.</p>
                   <ul>
                     <li><strong>Los Hooks permiten usar las diferentes funciones de React en nuestros componentes. React tiene una serie de Hooks pero también podemos crear los nuestros.</strong></li>
@@ -1988,7 +2123,7 @@
       
                   <p>Comenzamos utilizando el más común de todos <span class="destacado">useState</span>. Tiene un <a href="https://gist.github.com/codigoconjuan/f333ee8422b0b8c4fde227e81e626cce" target="_blank">Gist con todas las guitarras</a> preparado para utilizarlo en nuestra App simulando una base de datos, pero primero hemos de ver el Hook más común de todos <strong>useState()</strong> y ello nos lleva a ver qué es el <span class="destacado">state en React</span> que es la pieza central de React.</p>
       
-                  <p class="titulo naranja">¿Qué es el State en React?</p>
+                  <p class="font-bold naranja">¿Qué es el State en React?</p>
                   <ul>
                     <li><strong>El Estado o State en React es una variable con información relevante en nuestra aplicación de React</strong>, algunas veces el state pertenece a un componente en específico y otras veces quieres que sea compartido a lo largo de diferentes componentes.</li>
                     <li><strong>Pensemos en el state como el resultado de alguna interacción en el sitio o aplicación web: el listado de clientes, la imagen a mostrar en una galería, si un usuario está autenticado o no,...</strong></li>
@@ -2003,7 +2138,7 @@
                     const [modal, setModal] = useState(false)	
                   </code></pre>
       
-                  <p class="titulo">Anatomía de useState: state, función y valor inicial</p>
+                  <p class="font-bold">Anatomía de useState: state, función y valor inicial</p>
                   <p><code class="language-js">
                     const [customer, setCustomer] = useState({});</code></p>
                   <ul>
@@ -2013,7 +2148,7 @@
                     <li>el objeto vacío <strong>({})</strong> es el valor inicial</li>	
                   </ul>
       
-                  <p class="titulo">React reacciona en base al state</p>
+                  <p class="font-bold">React reacciona en base al state</p>
                   <ul>
                     <li>Cada vez que el state cambia, la aplicación de React va a renderizar y actualizarse con esos cambios, no es necesario hacer nada más (recargar página o actualizar el DOM) y nuestra interfaz siempre va a estar sincronizada con el state.</li>
                     <li>Para modificar el state, se utiliza la función que extraemos cuando declaramos el state en nuestro componente.</li>
@@ -2036,7 +2171,7 @@
                     const [cart, setCart] = useState([])
                   </code></pre>
       
-                  <p class="titulo">Reglas de los Hooks en React</p>
+                  <p class="font-bold">Reglas de los Hooks en React</p>
                   <ul>
                     <li><strong>Los Hooks se colocan en la parte superior de los componentes de React.</strong> ni dentro de bucles/interacciones, ni dentro de funciones.</li>
                     <li><strong>No se deben colocar dentro de condicionales ni después de un return:</strong> los Hooks no se pueden registrar en base a una condición porque esa condición puede cambiar en algún momento y entonces tendremos un error.</li>
@@ -2056,7 +2191,7 @@
                     }, [])	
                   </code></pre>
       
-                  <p class="titulo">Usos de useEffect()</p>
+                  <p class="font-bold">Usos de useEffect()</p>
                   <ul>
                     <li>Al ejecutarse automáticamente cuando el componente está listo, es un buen lugar para colocar código para consultar una API o para obtener datos del LocalStorage.</li>
                     <li>Debido a que le podemos pasar una dependencia (que usualmente va a ser un state) va a estar escuchando por los cambios que suceden en una variable, pudiendo actualizar el componente (o ejecutar ciertas funciones) cuando ese cambio ocurra (podemos estar sincronizando con LocalStorage por ejemplo).</li>
@@ -2105,12 +2240,12 @@
       
       
                 <!-- Bloque desplegable interior-->
-                <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion6-63').toggle();">	
+                <div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between cursor-pointer oscuro" onclick="$('#seccion6-63').toggle();">	
                   <h3>63. Añadiendo los Productos al State / 64. Iterando sobre los productos en React / 65. Props / 66. Mostrando la Información de cada Guitarra- 
-                    <a class="txt-negro" href="https://gist.github.com/codigoconjuan/f333ee8422b0b8c4fde227e81e626cce" target="_blank">Gist Guitarras</a></h3>			
-                  <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+                    <a class="text-[#000000]" href="https://gist.github.com/codigoconjuan/f333ee8422b0b8c4fde227e81e626cce" target="_blank">Gist Guitarras</a></h3>			
+                  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
                 </div>
-                <div id="seccion6-63" style="display:none">
+                <div id="seccion6-63" class="hidden">
                   <p>Veamos como incorporar este <a href="https://gist.github.com/codigoconjuan/f333ee8422b0b8c4fde227e81e626cce" target="_blank">listado de Gist que simula ser una pequeña base de datos de guitarras</a> para hacer nuestra interfaz dinámica y no mostrar una única guitarra. Sobre todo también hacer el componente <strong>Guitar</strong> más inteligente.</p>
       
                   <p>Creamos en src una carpeta para los datos y un .js con los datos de ese git copiados en raw: <strong>data/db.js</strong>. Es una pequeña base de datos con 12 guitarras cada una con un id, descripción y precio; las imágenes están mapeadas con nuestra carpeta de imágenes. Vamos a nuestro componente principal <strong>App.jsx</strong> e importamos esta base de datos ayudándonos del autocompletado: <code class="language-ts">import { db } from "./data/db"</code>. Si hacemos un console.log(db) podemos ver esa bbdd local. Hagámoslo al estilo de React. Se puede hacer de dos formas:</p>
@@ -2283,17 +2418,17 @@
       
       
                 <!-- Bloque desplegable interior-->
-                <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion6-67').toggle();">	
+                <div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between cursor-pointer oscuro" onclick="$('#seccion6-67').toggle();">	
                   <h3>67. Eventos en JSX / 68. Creando un State de Carrito / 69. Agregando Guitarras al Carrito / 70. Detectar si un elemento existe en el carrito / 71. Agregando guitarras al Carrito con Cantidad / 72. Incrementando cantidad si un articulo ya estaba agregado</h3>			
-                  <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+                  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
                 </div>
-                <div id="seccion6-67" style="display:none">
+                <div id="seccion6-67" class="hidden">
       
                   <p class="naranja">Eventos en JSX</p>
       
                   <p>Cuando presione en cada guitarra se tienen que ir listando en el carrito. En ese carrito tenemos que poder ajustar la cantidad y eliminar los que queramos. Si tienes exp en js eso se hace con un addEventListener</p>
       
-                  <p class="titulo">Sobre los eventos en React</p>
+                  <p class="font-bold">Sobre los eventos en React</p>
                   <ul>
                     <li>La forma en que React maneja los eventos es muy similar a como lo hace JavaScript de forma nativa con algunos cambios.</li>
                     <li><strong>Los eventos son camelCase</strong>, es decir en lugar de <strong>onclick</strong> <span class="destacado">onClick</span>, en lugar de <strong>onchange</strong>, <span class="destacado">onChange</span></li>
@@ -2316,7 +2451,7 @@
                       </li>
                   </ul>
       
-                  <p class="titulo">Vamos a registrar un evento en nuestras guitarras</p>
+                  <p class="font-bold">Vamos a registrar un evento en nuestras guitarras</p>
                   <p>Como cuando yo presione en agregar al carrito quiero realizar una acción, <strong>vamos a agregarle/registrarle a nuestro botón el evento de onClick</strong>:</p>
       
                   <pre><code class="language-js">
@@ -2408,7 +2543,7 @@
                               &lt;/div&gt;
                             &lt;/main&gt;
                         
-                            &lt;footer className=&quot;bg-dark mt-5 py-5&quot;&gt;
+                            &lt;footer className=&quot;bg-gray-300 mt-5 py-5&quot;&gt;
                               &lt;div className=&quot;container-xl&quot;&gt;
                                 &lt;p className=&quot;text-white text-center fs-4 mt-4 m-md-0&quot;&gt;GuitarLA - Todos los derechos Reservados&lt;/p&gt;
                               &lt;/div&gt;
@@ -2491,7 +2626,7 @@
       
                     <p class="naranja">Detectar si un elemento existe en el carrito</p>
       
-                    <p>No queremos tener registros duplicados en un carrito de compras ¿como lo evitamos? antes de setear al carrito de compras hemos de verificar si ese elemento ya existe en el Array, si existe actualizaremos la cantidad y si no existe lo agregamos. Esto nos lleva a un tema que es muy importante en React <span class="destacado">¿Qué significa la inmutabilidad en React?</span> ¿qué significa que un state es inmutable? Si vemos la función que acabamos de crear. setCart(prevCart =>[...prevCart, item]) <strong>no estamos modificando el state, tomamos una copia del state y agregamos el nuevo elemento</strong>. Otros array methods que nos permiten añadir elementos a un array serían por ejemplo <strong>cart.push(item): sin embargo esto modifica el state original</strong>. Y nuestro state tiene que ser inmutable. Por eso siempre se utiliza la función asociada al state. Incluso si utilizáramos la función e hiciéramos algo como setCart(prevCart => cart.push(item) estaríamos modificando el state original. Para saber qué array methods de js mutan el state original y cuales no consultamos: <a href="https://doesitmutate.xyz/" class="txt-negro" target="blank">https://doesitmutate.xyz/</a>
+                    <p>No queremos tener registros duplicados en un carrito de compras ¿como lo evitamos? antes de setear al carrito de compras hemos de verificar si ese elemento ya existe en el Array, si existe actualizaremos la cantidad y si no existe lo agregamos. Esto nos lleva a un tema que es muy importante en React <span class="destacado">¿Qué significa la inmutabilidad en React?</span> ¿qué significa que un state es inmutable? Si vemos la función que acabamos de crear. setCart(prevCart =>[...prevCart, item]) <strong>no estamos modificando el state, tomamos una copia del state y agregamos el nuevo elemento</strong>. Otros array methods que nos permiten añadir elementos a un array serían por ejemplo <strong>cart.push(item): sin embargo esto modifica el state original</strong>. Y nuestro state tiene que ser inmutable. Por eso siempre se utiliza la función asociada al state. Incluso si utilizáramos la función e hiciéramos algo como setCart(prevCart => cart.push(item) estaríamos modificando el state original. Para saber qué array methods de js mutan el state original y cuales no consultamos: <a href="https://doesitmutate.xyz/" class="text-[#000000]" target="blank">https://doesitmutate.xyz/</a>
                     </p>
       
                     <p>Para saber si ya existe un elemento en un array vamos a usar el método de arrays <span class="destacado">.findIndex()</span> que no provoca mutación; va a iterar sobre nuestro carrito de compras cart y va ir creando un objeto temporal que por ejemplo llamamos "guitar" (no lo llamamos item porque nuestra función ya tiene un parámetro que se llama así y provocaríamos confusión). En la parte derecha del arrow function añadimos la comprobación de si el elemento nuevo que estamos añadiendo es el mismo que ya existe en mi state. <strong>Si el elemento está presente en el array devuelve el índice que ocupa en el array y si no lo encuentra devuelve -1</strong>. En este punto nuestra función va así y hagamos un console.log() para entenderlo.</p>
@@ -2562,11 +2697,11 @@
       
                 
                 <!-- Bloque desplegable interior-->
-                <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion6-81').toggle();">	
+                <div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between cursor-pointer oscuro" onclick="$('#seccion6-81').toggle();">	
                   <h3>73. Mostrando los Contenidos del carrito / 74. Detectando si el carrito está vacío / 75. State derivado / 76. Calculando el Total a pagar / 77. useMemo para mejorar el performance de nuestro código / 78. Eliminando artículos del carrito / 79/80. Creando una Función para Incrementar las cantidades y RETO 01 / 81. Función limpiar carrito</h3>			
-                  <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+                  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
                 </div>
-                <div id="seccion6-81" style="display:none">
+                <div id="seccion6-81" class="hidden">
                   <p>Vamos a empezar a hacer dinámica la sección del carrito de compra. Está en nuestro Header.jsx, vamos a hacer dinámica esta parte y sincronizarla con nuestro state. En nuestro componente App.jsx, al Header le vamos a pasar el carrito <strong>el prop se va a llamar cart y el valor también cart, para no tener que pensar en nombres diferentes es recomendable ponerl el mismo que tiene ese state</strong>.</p>
                   <pre><code class="language-js">
                     &lt;Header
@@ -2913,11 +3048,11 @@
       
       
                 <!-- Bloque desplegable interior-->
-                <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion6-82').toggle();">	
+                <div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between cursor-pointer oscuro" onclick="$('#seccion6-82').toggle();">	
                   <h3>82. Carrito persistente con LocalStorage - Almacenando</h3>			
-                  <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+                  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
                 </div>
-                <div id="seccion6-82" style="display:none">
+                <div id="seccion6-82" class="hidden">
                   <p class="naranja">Carrito persistente con LocalStorage - Almacenando</p>
                   <p>Tener un carrito persistente es un buen truco para mantener los mismos elementos en el carrito aunque recarguemos navegador. ¿Cómo hacemos para tener sincronizado nuestro carrito de compras <code class="language-js">const [cart, setCart] = useState([])</code> con localStorage</p>
                   
@@ -2982,11 +3117,11 @@
       
       
       <!-- Bloque desplegable interior-->
-      <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion6-84').toggle();">	
+      <div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between cursor-pointer oscuro" onclick="$('#seccion6-84').toggle();">	
         <h3>84. Últimos Ajustes y Deployment</h3>			
-        <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+        <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
       </div>
-      <div id="seccion6-84" style="display:none">
+      <div id="seccion6-84" class="hidden">
         <p>Veamos los últimos ajustes para realiszar el deployment de nuestro proyecto. Revismoas avisos en la terminal por si tenemos rutas a img mal puestas y también eliminamos funciones y/o variables que no se estén utilizando. En este caso como vemos, la función del state data "setData" no se está usando así que la podemos eliminar: <code class="language-js">const [data, setData] = useState(db) </code></p>
 
         <img src="./src/assets/img/84.png" alt="" />
@@ -3106,7 +3241,7 @@
                       </div>
                   </main>
           
-                  <footer className="bg-dark mt-5 py-5">
+                  <footer className="bg-gray-300 mt-5 py-5">
                       <div className="container-xl">
                           <p className="text-white text-center fs-4 mt-4 m-md-0">GuitarLA - Todos los derechos Reservados</p>
                       </div>
@@ -3274,14 +3409,14 @@
     
   
         <!-- SECCION 3 y 4-->
-        <div class="contenedor w-80 w-96-s background esp-5-bottom">		
+        <div class="contenedor w-80 w-96-s bg-gray-200 mb-1.25 py-0.75 pr-0 pl-2.5">		
           <div class="row">
-            <div class="flex center-vertical esp-25-top pointer desplegable space-between pointer" onclick="$('#seccion3').toggle();">	
+            <div class="flex items-center mt-1.25 cursor-pointer desplegable justify-between pointer" onclick="$('#seccion3').toggle();">	
               <h2>Sección 3 y 4: PROYECTO: Carrito de compras. Introducción / Herramientas / Creando el proyecto en Windows</h2>				
-              <span class="cambiaicono ico_chevron_down esp-10-right" title=""></span>
+              <span class="cambiaicono ico_chevron_down mr-2.5" title=""></span>
             </div>
             
-            <div id="seccion3" style="display: none">
+            <div id="seccion3" class="hidden">
                 
               <div class="row">
                 <div class="col-12">	
@@ -3289,12 +3424,12 @@
                   
                   
                   <!-- Bloque desplegable interior-->
-                  <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion3-46').toggle();">	
+                  <div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between cursor-pointer oscuro" onclick="$('#seccion3-46').toggle();">	
                     <h3>46. Introducción. El proyecto a construir GuitarLA</h3>			
-                    <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+                    <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
                   </div>
-                  <div id="seccion3-46" style="display:none">
-                    <p class="titulo">Proyecto carrito de compras GuitarLA</p>
+                  <div id="seccion3-46" class="hidden">
+                    <p class="font-bold">Proyecto carrito de compras GuitarLA</p>
         
                     <p>En este proyecto estaremos aprendiendo los fundamentos de React: <span class="destacado">Componentes, Eventos y State</span>, mientras creas un carrito de compras real con cantidades, precios, y más, tomaremos este mismo carrito para mostrarte como crear tus propios Hooks y como transformarlo a código de TypeScript y cuales son sus beneficios. Carrito de compra persistente sincronizando con localStorage (aprenderemos todas esas acciones agregar elementos, cambiarlos, cambiar cantidades, vaciar carrito...)</p>							
                     <img src="./src/assets/img/s1-01.jpg" width="" height="" alt=""/> 
@@ -3304,24 +3439,24 @@
         
         
                   <!-- Bloque desplegable interior-->
-                  <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion3-47').toggle();">	
+                  <div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between cursor-pointer oscuro" onclick="$('#seccion3-47').toggle();">	
                     <h3>47. Herramientas para crear aplicaciones en React.js</h3>			
-                    <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+                    <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
                   </div>
-                  <div id="seccion3-47" style="display: none;">
-                    <p class="titulo">Tecnologías para crear aplicaciones en React</p>
+                  <div id="seccion3-47" class="hidden">
+                    <p class="font-bold">Tecnologías para crear aplicaciones en React</p>
                     <p>Permiten Crear una App En React en Minutos. Existen muchas formas de crear una app en React, incluso tu puedes crear tu propio ambiente de desarrollo con herramientas como Babel, Parcel, Webpack, Vite, etc</p>
         
                     <p>Pero también existe una gran cantidad de herramientas ya disponibles para crear aplicaciones en React en minutos sin conocer esta configuración</p>
                     
                     
-                    <p class="titulo">Ventajas de utilizar una herrmaienta ya existente: <strong>La mayoría de Herramientas ya existentes para crear aplicaciones en React son estables y siguen un enfoque muy claro: No tener que preocuparte por la configuración.</strong> Tú puedes crear tu propio ambiente de desarrollo pero tienes que asegurarte de que cada versión nueva de React, cada version de diferentes librerias sea compatible con tu proyecto y despues tienes que encontrar una forma de compilar código de css (sass etc) ...entonces vamos a gasta r más tiempo en solucionar este tipo de cosas que tirando código. Por eso se recomienda usar una herramienta ya existente</p>
+                    <p class="font-bold">Ventajas de utilizar una herrmaienta ya existente: <strong>La mayoría de Herramientas ya existentes para crear aplicaciones en React son estables y siguen un enfoque muy claro: No tener que preocuparte por la configuración.</strong> Tú puedes crear tu propio ambiente de desarrollo pero tienes que asegurarte de que cada versión nueva de React, cada version de diferentes librerias sea compatible con tu proyecto y despues tienes que encontrar una forma de compilar código de css (sass etc) ...entonces vamos a gasta r más tiempo en solucionar este tipo de cosas que tirando código. Por eso se recomienda usar una herramienta ya existente</p>
         
                     <p>Cada una de estas herramientas ya existentes va desde básicas hasta avanzadas. Requieren tener instalado <span class="destacado">Node.js (NPM) o YARN</span>. Existen otros entornos hoy día como <strong>¿bum?</strong> Node.js con npm es bastante estable y es la que estaremos usando</p>
                     
                     <p>Opciones modernas para crear Apps en React. Los más populares hoy en día son<span class="destacado">Vite</span> y <span class="destacado">Next.js</span>. También Remix Run y Astro (que usaba en versiones anteriores del curso. Remix Run fue adquirido recientemente por shopify y están haciendo muchos cambios y no está listo)</p>
                     
-                    <p class="titulo">Recomendaciones del equipo de React</p>
+                    <p class="font-bold">Recomendaciones del equipo de React</p>
         
                     <p>En su documentación recomiendan comenzar por Next.js o Remix para nuevos proyectos. Entonces ¿ya no se deben crear proyectos von Vite? Cuando creas proyectos con Vite tendrás que instalar dependencias para Routing, Consultas HTTP y más (herramientas como Next.js y Remix ya lo tienen incluido)</p>
         
@@ -3330,11 +3465,11 @@
                   <!-- Fin bloque desplegable interior-->
         
                   <!-- Bloque desplegable interior-->
-                  <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion4-48').toggle();">	
+                  <div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between cursor-pointer oscuro" onclick="$('#seccion4-48').toggle();">	
                     <h3>48. Instalando node y npm</h3>			
-                    <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+                    <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
                   </div>
-                  <div id="seccion4-48" style="display:none">
+                  <div id="seccion4-48" class="hidden">
                     <p><a class="rojo" href="https://nodejs.org/es/" target="_blank">https://nodejs.org/es/</a> Requerimos node para crear nuestros proyectos pero también para instalar dependencias con npm</p>	
                   
                     <p>Una vez instalado abrimos la terminal y comprobamos las versiones del entorno(node.js) <span class="destacado">node -v</span> y de las dependencias(npm) <span class="destacado">npm -v</span></p>
@@ -3344,11 +3479,11 @@
         
         
                   <!-- Bloque desplegable interior-->
-                  <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion4-49').toggle();">	
+                  <div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between cursor-pointer oscuro" onclick="$('#seccion4-49').toggle();">	
                     <h3>49. Creando el primer proyecto</h3>			
-                    <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+                    <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
                   </div>
-                  <div id="seccion4-49" style="display:none">
+                  <div id="seccion4-49" class="hidden">
                     <p>Abrimos terminal, vamos al escritorio (que es donde voy a crear los proyectos) y ponemos <span class="destacado">npm create vite@latest</span> (si es la primera vez nos pedirá instalar la dependencia de vite le decimos que "y"). A continuación nos pide nombre y lo llamamos <strong>guitarla</strong>. A continuación nos pide que elijamos framework (Vanilla, Vue, <strong>React</strong>, Preact, Lit, Svelte, Solid, Qwik, Others) y elegimos React. Nos pide elegir variante, normalmente y como él ha trabajado este curso es <strong>Typescript + SWC</strong>(SWC es un compilador nuevo de los de Vite basado en Ros, muy rápido)  pero al ser el primer proyecto elegiremos <strong>Javascript + SWC</strong>. Remix es una alternativa a Next.JS de los creadores de shopify pero este curso no incluye remix porque la compra fue hace poco y están modificando/agregando muchas cosas</p>
                   
                   <img src="./src/assets/img/49-1.png" alt="" />
@@ -3366,7 +3501,7 @@
                       En esta carpeta <strong>src</strong> es donde vamos a pasar la mayor parte del tiempo escribiendo código (colocaremos nuestros customs hooks, librerías, componentes...).
                     </li>
                     <li>.gitignore: va a ignorar algunos archivos</li>
-                    <li><strong>index.html:</strong> básicamente lo que hace es inyectar React en el div <code class="language-html">&lt;div id="root"&gt;&lt;/div&gt;</code>. Si abrimos el <strong>main.jsx</strong> vemos el siguiente código donde se busca ese div con id="root" donde monta toda la aplicación de React. En el index.html podemos poner algún background, agregar algunos tags mas de html que sean importantes para nuestro proyecto, pero no vamos a escribir código html ahí habitualmente.
+                    <li><strong>index.html:</strong> básicamente lo que hace es inyectar React en el div <code class="language-html">&lt;div id="root"&gt;&lt;/div&gt;</code>. Si abrimos el <strong>main.jsx</strong> vemos el siguiente código donde se busca ese div con id="root" donde monta toda la aplicación de React. En el index.html podemos poner algún bg-gray-200, agregar algunos tags mas de html que sean importantes para nuestro proyecto, pero no vamos a escribir código html ahí habitualmente.
                     <pre><code class="language-js">
                       createRoot(document.getElementById(&apos;root&apos;)).render(
                         &lt;StrictMode&gt;
@@ -3396,25 +3531,25 @@
 
 
         <!-- SECCION 2 -->
-        <div class="contenedor w-80 w-96-s background esp-5-bottom">		
+        <div class="contenedor w-80 w-96-s bg-gray-200 mb-1.25 py-0.75 pr-0 pl-2.5">		
           <div class="row">
-            <div class="flex center-vertical esp-25-top pointer desplegable space-between pointer" onclick="$('#seccion2').toggle();">	
+            <div class="flex items-center mt-1.25 cursor-pointer desplegable justify-between pointer" onclick="$('#seccion2').toggle();">	
               <h2>Sección 2: Introducción a JavaScript para React</h2>				
-              <span class="cambiaicono ico_chevron_down esp-10-right" title=""></span>
+              <span class="cambiaicono ico_chevron_down mr-2.5" title=""></span>
             </div>
             
-            <div id="seccion2" style="display: none">
+            <div id="seccion2" class="hidden">
         
               <div class="row">
-                <div class="col-12 padd-5-left">	
+                <div class="col-12 pl-1.25">	
 
 
                   <!-- Bloque desplegable interior-->
-                  <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion2-9').toggle();">
+                  <div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between cursor-pointer oscuro" onclick="$('#seccion2-9').toggle();">
                     <h3>9. Variables creadas con let / 10. Variables creadas con const</h3>
-                    <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+                    <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
                   </div>
-                  <div id="seccion2-9" style="display:none"> 
+                  <div id="seccion2-9" class="hidden"> 
 
                     <p><span class="destacado">Los nombres de variables han de ser descriptivos y no pueden iniciar con * ni números ni caracteres especiales.</span></p>
                     <p>Podemos usar comillas dobles o simples para asignar valor string a una variable (pero no mezclar tipo de comillas, nos da error)</p>   
@@ -3474,11 +3609,11 @@
                   <!-- Fin bloque desplegable interior-->
                   
                   <!-- Bloque desplegable interior-->
-                  <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion2-11').toggle();">
+                  <div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between cursor-pointer oscuro" onclick="$('#seccion2-11').toggle();">
                     <h3>11. Tipos de Datos en JavaScript</h3>
-                    <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+                    <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
                   </div>
-                  <div id="seccion2-11" style="display: none">
+                  <div id="seccion2-11" class="hidden">
                     <pre><code class="language-js">
                       /* Tipos de dato
 
@@ -3543,11 +3678,11 @@
                 
                   
                   <!-- Bloque desplegable interior-->
-                  <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion2-12').toggle();">
+                  <div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between cursor-pointer oscuro" onclick="$('#seccion2-12').toggle();">
                     <h3>12. Objetos y Destructuring / 13. Manipulación de objetos</h3>
-                    <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+                    <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
                   </div>
-                  <div id="seccion2-12" style="display: none;">
+                  <div id="seccion2-12" class="hidden">
                     <p>Los <span class="destacado">Objetos</span> son la parte más importante en Javascript y una de las características con las que más vamos a trabajar sea con React, Node, Vue.js...  Los Arrays=Arreglos también terminan siendo objetos</p>
                     <ul>
                       <li>Un objeto es una colección de propiedades; pueden tener múltiples propiedades SEPARADAS POR ","</li>
@@ -3556,7 +3691,7 @@
                     </ul>
                     <p>Por tanto siempre que veamos esta sintaxis estaremos viendo un objeto, una colección de propiedades (asociaciones key+value)</p>
 
-                    <p class="esp-15-top esp-0-bottom"><span class="naranja">Generar Objetos:</span> cada <span class="destacado">propiedad</span> de un objeto está formada por una asociación <span class="destacado">clave/valor</span> o pareja key/value. Las propiedades van separadas por comas.</p>
+                    <p class="mt-1.25 mb-0"><span class="naranja">Generar Objetos:</span> cada <span class="destacado">propiedad</span> de un objeto está formada por una asociación <span class="destacado">clave/valor</span> o pareja key/value. Las propiedades van separadas por comas.</p>
                     <pre><code class="language-js">
                       const producto = {
                           nombre : "Tablet",   // Esto es una propiedad. nombre es "key", "Tablet" es el "value". 
@@ -3568,14 +3703,14 @@
                       console.table(producto) //para objetos muy grandes y también para arrays podemos usar console-table para verlos formateados en la consola
                     </code></pre>
 
-                    <p class="esp-15-top esp-0-bottom"><span class="naranja">Acceder a Objetos:</span> Una de las características de los objetos es que podemos <span class="destacado">acceder a cada una de las propiedades de un objeto usando la sintaxis de "."</span> y vemos como nos aparece el autocompletado de VSCode y podemos elegir la propiedad (asociación key/value) que queramos. <strong>Si tratamos de acceder a una propiedad que no existe nos devuelve un Undefined</strong>.</p>
+                    <p class="mt-1.25 mb-0"><span class="naranja">Acceder a Objetos:</span> Una de las características de los objetos es que podemos <span class="destacado">acceder a cada una de las propiedades de un objeto usando la sintaxis de "."</span> y vemos como nos aparece el autocompletado de VSCode y podemos elegir la propiedad (asociación key/value) que queramos. <strong>Si tratamos de acceder a una propiedad que no existe nos devuelve un Undefined</strong>.</p>
                     <pre><code class="language-js">                   
                       console.log(producto.nombre)
                       console.log(producto.precio)
                       console.log(producto.autenticado) // si tratamos de acceder a una propiedad que no existe nos devuelve Undefined
                     </code></pre>
                   
-                    <p class="esp-15-top esp-0-bottom"><span class="naranja">Destructuring:</span> en versiones recientes de JS desde ECMAS6 agregaron "Destructuring" lo que nos permite en una sola línea de código extraer un valor y generar una variable. Está pensado para reducir código y usarlo siempre que podamos. Antes, en versiones anteriores de JS era muy común crear una variable y asignarle la propiedad de un objeto, por ejemplo:</p>
+                    <p class="mt-1.25 mb-0"><span class="naranja">Destructuring:</span> en versiones recientes de JS desde ECMAS6 agregaron "Destructuring" lo que nos permite en una sola línea de código extraer un valor y generar una variable. Está pensado para reducir código y usarlo siempre que podamos. Antes, en versiones anteriores de JS era muy común crear una variable y asignarle la propiedad de un objeto, por ejemplo:</p>
                     <pre><code class="language-js">                     
                       const nombre = producto.nombre
                       const precio = producto.precio
@@ -3598,7 +3733,7 @@
                       console.log(disponible)
                     </code></pre> 
 
-                    <p class="esp-15-top esp-0-bottom"><span class="naranja">Object Literal Enhacement:</span> también pensado para reducir código. Sirve para colocar dentro de un objeto. ¿En qué casos es util? cuando tenemos una función que realiza ciertas operaciones y en lugar de devolver un monton de variables, devuelves un objeto con todo agrupado. Supongamos que tenemos las dos variables siguientes:</p>
+                    <p class="mt-1.25 mb-0"><span class="naranja">Object Literal Enhacement:</span> también pensado para reducir código. Sirve para colocar dentro de un objeto. ¿En qué casos es util? cuando tenemos una función que realiza ciertas operaciones y en lugar de devolver un monton de variables, devuelves un objeto con todo agrupado. Supongamos que tenemos las dos variables siguientes:</p>
                     <pre><code class="language-js">
                       const autenticado2 = true
                       const usuario = "Juan"
@@ -3616,7 +3751,7 @@
                       console.log(nuevoObjeto)
                     </code></pre> 
 
-                    <p class="esp-15-top esp-0-bottom"><span class="naranja">Manipulación de objetos</span> El object de JS es muy grande y si abrimos la documentación de MDN vemos todos los métodos que podemos usar con el constructor de object <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" target="_blank">https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object</a>
+                    <p class="mt-1.25 mb-0"><span class="naranja">Manipulación de objetos</span> El object de JS es muy grande y si abrimos la documentación de MDN vemos todos los métodos que podemos usar con el constructor de object <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" target="_blank">https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object</a>
                   </p>
 
                     <pre><code class="language-js">
@@ -3641,11 +3776,11 @@
                 
                   
                   <!-- Bloque desplegable interior-->
-                  <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion2-14').toggle();">
+                  <div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between cursor-pointer oscuro" onclick="$('#seccion2-14').toggle();">
                     <h3>14. Destructuring de 2 o más objetos</h3>
-                    <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+                    <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
                   </div>
-                  <div id="seccion2-14" style="display:none">
+                  <div id="seccion2-14" class="hidden">
                     <pre><code class="language-js">
                       // OBJETOS Destructuring de dos o más objetos:
                       const producto = {
@@ -3688,11 +3823,11 @@
                 
                   
                   <!-- Bloque desplegable interior-->
-                  <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion2-15').toggle();">
+                  <div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between cursor-pointer oscuro" onclick="$('#seccion2-15').toggle();">
                     <h3>15. Unir dos o más objetos</h3>
-                    <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+                    <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
                   </div>
-                  <div id="seccion2-15" style="display:none">
+                  <div id="seccion2-15" class="hidden">
                     <pre><code class="language-js">
                       // OBJETOS unir dos o mas objetos, técnicas y sintaxis que marca diferencia. Le dedica mucho tiempo a losobjetos porque es lo que más se utiliza en React:
                       const producto = {
@@ -3751,11 +3886,11 @@
                 
                   
                   <!-- Bloque desplegable interior-->
-                  <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion2-16').toggle();">
+                  <div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between cursor-pointer oscuro" onclick="$('#seccion2-16').toggle();">
                     <h3>16. Template Strings y Concatenación</h3>
-                    <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+                    <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
                   </div>
-                  <div id="seccion2-16" style="display:none">
+                  <div id="seccion2-16" class="hidden">
                     <pre><code class="language-js">
                       //Template Strings y Concatenación
 
@@ -3778,11 +3913,11 @@
                   <!-- Fin bloque desplegable interior-->
                 
                   <!-- Bloque desplegable interior-->
-                  <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion2-17-19').toggle();">
+                  <div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between cursor-pointer oscuro" onclick="$('#seccion2-17-19').toggle();">
                     <h3>17. Arrays / 18. Modificar Arrays / 19. Destructuring de Arrays</h3>
-                    <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+                    <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
                   </div>
-                  <div id="seccion2-17-19" style="display:none">
+                  <div id="seccion2-17-19" class="hidden">
                     <p>Los Arrays (Arreglos) junto con objetos es de lo que más se utiliza en nuestro código. Es un objeto similar a un listado que tiene métodos para realizar varias operaciones. Diferencias: </p>                
                     <ul>
                       <li>corchetes en vez de llaves</li>
@@ -3800,7 +3935,7 @@
                       console.log(tecnologias[1])                  
                     </code></pre>
 
-                    <p class="esp-15-top esp-0-bottom"><span class="naranja">Modificar Arrays</span></p>
+                    <p class="mt-1.25 mb-0"><span class="naranja">Modificar Arrays</span></p>
 
                     <pre><code class="language-js">
                       const tecnologias = ['HTML','CSS','Javascript','React.js','Node.js']
@@ -3813,21 +3948,21 @@
 
                     <p><strong>si vamos al navegador consola y desplegamos el [[prototype]] vemos todos los métodos disponibles para ese array</strong>. Cada tipo de datos tiene sus métodos. <span class="destacado">¡¡¡¡IMPORTANTE!!!!</span> En React siempre hemos de escribir nuestro código con funciones que no modifiquen directamente los valores de lo que se conoce como el "state". En esta página <a href="https://doesitmutate.xyz/" target="blank">https://doesitmutate.xyz/</a> podemos consultar si los métdos que nos aparecen en <strong>[[prototype]]</strong> de la consola del navegador modifican o no nuestro array. Como vemos si buscamos ahí por ejemplo el método "push()", sí modifica (mutates) nuestro arreglo por lo que no se recomienda utilizar push() con react. </p>
 
-                    <p class="titulo">Alternativa a push</p>
+                    <p class="font-bold">Alternativa a push</p>
                     <pre><code class="language-js">
                       const nuevoArreglo = [...tecnologias, 'Nest.js'] // básicamente esos "..." copian tecnologías y a continuación indicamos optro valor más que es  'Nest.js'
                       //si lo quisiéramos al inicio --&gt; const nuevoArreglo = ['Nest.js', ...tecnologias]
                       console.log(`nuevoArreglo: alternativa a push() ${nuevoArreglo}`)                  
                     </code></pre>
                     
-                    <p class="titulo">método shift() elimina el primer elemento de un array. Modifica el array</p>
+                    <p class="font-bold">método shift() elimina el primer elemento de un array. Modifica el array</p>
                     <pre><code class="language-js">
                       const tecnologias2 = ['HTML','CSS','Javascript','React.js','Node.js']
                       tecnologias2.shift();
                       console.table(`tecnologias2: usamos shift para eliminar primer valor ${tecnologias2}`)
                     </code></pre>  
                     
-                      <p class="titulo">alternativa a shift() --&gt; usamos filter() que no modifica nuestro arreglo</p>
+                      <p class="font-bold">alternativa a shift() --&gt; usamos filter() que no modifica nuestro arreglo</p>
                       <pre><code class="language-js">
                       console.log(`tecnologias3: alternativa a shift, uso de filter()`)
                       const tecnologias3 = tecnologias.filter(function(tech){
@@ -3839,7 +3974,7 @@
                       console.table(tecnologias3)
                       </code></pre>
                       
-                      <p class="titulo">map() que itera sobre TODOS los elementos de nuestra colección</p>
+                      <p class="font-bold">map() que itera sobre TODOS los elementos de nuestra colección</p>
 
                       <pre><code class="language-js">
                       //veamos como modificar un valor sin cambiar el array original, por ejemplo tecnologias[5] = 'Nest.js'. 
@@ -3861,11 +3996,11 @@
                   <!-- Fin bloque desplegable interior-->
                 
                   <!-- Bloque desplegable interior-->
-                  <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion2-19').toggle();">
+                  <div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between cursor-pointer oscuro" onclick="$('#seccion2-19').toggle();">
                     <h3>19. destructuring arrays</h3>
-                    <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+                    <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
                   </div>
-                  <div id="seccion2-19" style="display:none">
+                  <div id="seccion2-19" class="hidden">
                     <pre><code class="language-js">
                       const tecnologias = ['HTML','CSS','Javascript','React.js','Node.js']
 
@@ -3889,11 +4024,11 @@
                   <!-- Fin bloque desplegable interior-->
                 
                   <!-- Bloque desplegable interior-->
-                  <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion2-20').toggle();">
+                  <div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between cursor-pointer oscuro" onclick="$('#seccion2-20').toggle();">
                     <h3>20. Recorriendo arrays con for / 21. Recorriendo arrays con forEach, map y for ... of</h3>
-                    <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+                    <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
                   </div>
-                  <div id="seccion2-20" style="display:none">
+                  <div id="seccion2-20" class="hidden">
                     <pre><code class="language-js">
                       //recorriendo/iterar arrays
 
@@ -3985,13 +4120,13 @@
                   <!-- Fin bloque desplegable interior-->
                 
                   <!-- Bloque desplegable interior-->
-                  <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion2-22').toggle();">
+                  <div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between cursor-pointer oscuro" onclick="$('#seccion2-22').toggle();">
                     <h3>22. Funciones: Function declaration / Function Expression / Arrow Functions</h3>
-                    <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+                    <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
                   </div>
-                  <div id="seccion2-22" style="display:none">
+                  <div id="seccion2-22" class="hidden">
                     <p>Las funciones nos van a permitir escribir código reutilizable en js y en cualquier lenguage de programación. Vamos a separar el código en pequeñas funciones con su propósito. <strong>Ojo con los nombres (mismas restricciones que nombres de variables, no empezar por números, guiones...)</strong></p>
-                    <p class="esp-15-top esp-0-bottom"><span class="naranja">Funciones - Function declaration:</span> </p>
+                    <p class="mt-1.25 mb-0"><span class="naranja">Funciones - Function declaration:</span> </p>
                     <pre><code class="language-js">
                       function sumar(){
                             console.log(1+1)
@@ -4022,7 +4157,7 @@
                         }                   
                       </code></pre>
                     
-                    <p class="esp-15-top esp-0-bottom"><span class="naranja">Funciones - Function Expression:</span> Sintaxis similar, hacen lo mismo, but en este caso si intentamos llamar a la función antes de declararla nos devuelve error</p>
+                    <p class="mt-1.25 mb-0"><span class="naranja">Funciones - Function Expression:</span> Sintaxis similar, hacen lo mismo, but en este caso si intentamos llamar a la función antes de declararla nos devuelve error</p>
 
                     <pre><code class="language-js">
                       sumar(10, 20)
@@ -4044,7 +4179,7 @@
                     }
                     </code></pre>
 
-                    <p class="esp-15-top esp-0-bottom"><span class="naranja">Funciones - Arrow function:</span> Al igual que las function expressions si intentamos llamarla antes de declararla nos da error. La sintaxis es como las function expressions sin la palabra "function" y añadiendo "=>" entre el ")" y la "{"</p>
+                    <p class="mt-1.25 mb-0"><span class="naranja">Funciones - Arrow function:</span> Al igual que las function expressions si intentamos llamarla antes de declararla nos da error. La sintaxis es como las function expressions sin la palabra "function" y añadiendo "=>" entre el ")" y la "{"</p>
 
                     <pre><code class="language-js">
                       //const sumar = function(numero1 = 0, numero2 = 0) {
@@ -4068,11 +4203,11 @@
                   <!-- Fin bloque desplegable interior-->
                 
                   <!-- Bloque desplegable interior-->
-                  <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion2-25').toggle();">
+                  <div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between cursor-pointer oscuro" onclick="$('#seccion2-25').toggle();">
                     <h3>25. Funciones que retornan valores</h3>
-                    <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+                    <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
                   </div>
-                  <div id="seccion2-25" style="display:none">
+                  <div id="seccion2-25" class="hidden">
                     <p>A continuación veremos la otra característica que tienen las arrow functions y funciones que devuelven valores</p>
                     <pre><code class="language-js">
                       // Funciones que devuelven valores. Veámoslo con los 3 tipos de funciones
@@ -4102,11 +4237,11 @@
                   <!-- Fin bloque desplegable interior-->
                 
                   <!-- Bloque desplegable interior-->
-                  <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion2-26').toggle();">
+                  <div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between cursor-pointer oscuro" onclick="$('#seccion2-26').toggle();">
                     <h3>26. Array Methods</h3>
-                    <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+                    <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
                   </div>
-                  <div id="seccion2-26" style="display:none">
+                  <div id="seccion2-26" class="hidden">
                   <pre><code class="language-js">
                     //Array methods
                     const tecnologias = ['HTML','CSS','Javascript','React.js','Node.js']
@@ -4212,11 +4347,11 @@
                   <!-- Fin bloque desplegable interior-->
                 
                   <!-- Bloque desplegable interior-->
-                  <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion2-28-30').toggle();">
+                  <div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between cursor-pointer oscuro" onclick="$('#seccion2-28-30').toggle();">
                     <h3>28. Condicionales en JavaScript / 29. Comparando con Comprador Estricto / 30. Logical Or y Logical And</h3>
-                    <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+                    <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
                   </div>
-                  <div id="seccion2-28-30" style="display:none">
+                  <div id="seccion2-28-30" class="hidden">
                   <pre><code class="language-js">
                     //Condicionales
                     const disponible = 4000
@@ -4302,11 +4437,11 @@
 
         
         <!-- Bloque desplegable interior -->
-                  <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion2-31').toggle();">	
+                  <div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between cursor-pointer oscuro" onclick="$('#seccion2-31').toggle();">	
                     <h3>31. Ternarios</h3>			
-                    <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+                    <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
                   </div>
-                  <div id="seccion2-31" style="display:none">
+                  <div id="seccion2-31" class="hidden">
                     <p></p>
                     <pre>
                       <code class="language-js">
@@ -4354,13 +4489,13 @@
         <!-- Fin bloque desplegable interior -->
         
         <!-- Bloque desplegable interior -->
-                  <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion2-32').toggle();">	
+                  <div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between cursor-pointer oscuro" onclick="$('#seccion2-32').toggle();">	
                     <h3>32. Optional chaining (?) y Nullish coolescing operator (??)</h3>			
-                    <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+                    <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
                   </div>
-                  <div id="seccion2-32" style="display:none">
+                  <div id="seccion2-32" class="hidden">
                     <p>Son un par de características de las más nuevas que han añadido a js</p>
-                    <p><strong class="txt-primario">Optional chaining (?) :</strong></p> 
+                    <p><strong class="text-[#609ad2]">Optional chaining (?) :</strong></p> 
                     <ul>
                       <li>permite llamar las propiedades de un objeto o llamar métodos sin tener que verificar si existen o no</li>
                       <li>además de ahorrarnos código, se usa mucho en respuestas rest API o repsuestas de BBDD en las uqe mkuchas veces no está todo relleno como esperamos</li>
@@ -4389,7 +4524,7 @@
                             console.log('Despues de ALUMNO')
                         </code>
                       </pre>
-                      <p><strong class="txt-primario">Nullish coolescing operator (??):</strong> operador lógico que devuelve el valor del lado dcho cuando el valor izdo es nulo o undefined</p> 
+                      <p><strong class="text-[#609ad2]">Nullish coolescing operator (??):</strong> operador lógico que devuelve el valor del lado dcho cuando el valor izdo es nulo o undefined</p> 
                       <pre>
                         <code class="language-js">	
                         //Nullish coolescing operator (??) 
@@ -4405,11 +4540,11 @@
         
                   
         <!-- Bloque desplegable interior -->
-                  <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion2-34').toggle();">	
+                  <div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between cursor-pointer oscuro" onclick="$('#seccion2-34').toggle();">	
                     <h3>34-36. Introducción a ECMAScript Modules, más sobre módules y export default</h3>			
-                    <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+                    <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
                   </div>					
-                  <div id="seccion2-34" style="display:none">						
+                  <div id="seccion2-34" class="hidden">						
                     <p>Se utilizan mucho en React y en el desarrollo web hoy en día ya que normalmente cuando instalas una dependencia/librería, esa dep. te permite importar ciertas funciones
                       el mismo React te permite importar sus funciones para que puedas utilizarlas en tu código
                       Supongamos que estamos creando un proyecto y vamos teniendo cada vez más y más funciones (pone el ejemplo de los tropecientos .js en nuestro html) --> eso se soluciona con los 
@@ -4469,14 +4604,14 @@
         <!-- Fin bloque desplegable interior -->
         
         <!-- Bloque desplegable interior -->
-                  <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion2-37').toggle();">	
+                  <div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between cursor-pointer oscuro" onclick="$('#seccion2-37').toggle();">	
                     <h3>37. Fetch API con Promises</h3>			
-                    <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+                    <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
                   </div>
-                  <div id="seccion2-37" style="display:none">
+                  <div id="seccion2-37" class="hidden">
                     <p>Proporciona una interfaz para poder recuperar recursos y obtener datos a través de la red. Es la versión moderna de las dos tecnologías 
                       XMLHttpRequest(sintaxis muy difícil) y $.ajax. Usaremos esta herramienta {JSON Placeholder} 
-                      <a class="txt-rojo" href="https://jsonplaceholder.typicode.com" target="_blank">https://jsonplaceholder.typicode.com</a>. Podemos ver este ejemplo de uso en esa misma url:</p>
+                      <a class="text-[#cc3333]" href="https://jsonplaceholder.typicode.com" target="_blank">https://jsonplaceholder.typicode.com</a>. Podemos ver este ejemplo de uso en esa misma url:</p>
                     <pre>
                       <code class="language-js">
                         fetch('https://jsonplaceholder.typicode.com/todos/1')
@@ -4581,12 +4716,12 @@
         
         
         <!-- Bloque desplegable interior-->
-                  <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion2-38').toggle();">	
+                  <div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between cursor-pointer oscuro" onclick="$('#seccion2-38').toggle();">	
                     <h3>38. Fetch API con Async / Await</h3>			
-                    <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+                    <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
                   </div>
-                  <div id="seccion2-38" style="display:none">
-                    <p class="titulo">Fetch con Async / Await <strong>sí requiere una función</strong>, que puede ser un arrow function o un function declaration. A continuación escribiremos código con ambas. En este caso ha de ser asíncrona (por eso requiere una función). Para el caso de función de flecha colocamos la palabra <span class="destacado">async</span> antes de los paréntesis, lo que convierte a la función en asíncrona y nos da acceso a la otra propiedad: <span class="destacado">await</span> que son los que reemplazan a los .then() del ejemplo anterior.</p>
+                  <div id="seccion2-38" class="hidden">
+                    <p class="font-bold">Fetch con Async / Await <strong>sí requiere una función</strong>, que puede ser un arrow function o un function declaration. A continuación escribiremos código con ambas. En este caso ha de ser asíncrona (por eso requiere una función). Para el caso de función de flecha colocamos la palabra <span class="destacado">async</span> antes de los paréntesis, lo que convierte a la función en asíncrona y nos da acceso a la otra propiedad: <span class="destacado">await</span> que son los que reemplazan a los .then() del ejemplo anterior.</p>
                     
                     <p>El await (como antes los then) espera a que se realice la petición, ocurra una respuesta y vuelve a utilizar otro await para obtener los datos. Tengamos en cuenta que la conexión a una API externa dependerá del tipo de servidor (servidor gratis vs servidor de 1000$/mes) y la conexión que tengamos; y como decíamos leer los datos no va a ser lo mismo leer 2 registros que 500. Los await esperan que finalice de ejecutarse ese código para ir a la siguiente línea.</p>		
         
@@ -4637,11 +4772,11 @@
         
         
         <!-- Bloque desplegable interior-->
-                  <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion2-39').toggle();">	
+                  <div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between cursor-pointer oscuro" onclick="$('#seccion2-39').toggle();">	
                     <h3>39. Medir performance y cómo manejar múltiples consultas</h3>			
-                    <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+                    <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
                   </div>
-                  <div id="seccion2-39" style="display:none">
+                  <div id="seccion2-39" class="hidden">
                     <p>JS tiene una API para medir la performance de nuestro código. Más de una vez vamos a tener distintos códigos que hagan lo mismo y vamos a querer medir cual es la versión más rápida. Utilizamos para ello <span class="destacado">performance.now()</span>. Lo usamos al principio y al final de nuestro try y sacamos por consola la diferencia en ms. Veremos que en función de la url que usemos (que carga más o menos datos) ese rendimiento en ms varía.</p>
                     <pre>
                       <code class="language-js">
@@ -4733,11 +4868,11 @@
         
         
         <!-- Bloque desplegable interior-->
-                  <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion2-40').toggle();">	
+                  <div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between cursor-pointer oscuro" onclick="$('#seccion2-40').toggle();">	
             <h3>40. DOM - Selectores</h3>			
-            <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+            <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
                   </div>
-                  <div id="seccion2-40" style="display:none">
+                  <div id="seccion2-40" class="hidden">
                     <p>Va a ser corto porque de hecho la forma de escribir código de DOM en JS es un poco diferente a como React lo maneja porque tiene algo llamado JSX que simplifica mucho. Pero siempre viene bien aprender o refrescar. Abrimos el DOM.html y colocamos el script:</p>
                     <pre>
                       <code class="language-html">
@@ -4793,11 +4928,11 @@
         <!-- Fin bloque desplegable interior-->
         
         <!-- Bloque desplegable interior-->
-                  <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion2-41').toggle();">	
+                  <div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between cursor-pointer oscuro" onclick="$('#seccion2-41').toggle();">	
                     <h3>41. Manipular elementos HTML con JS</h3>			
-                    <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+                    <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
                   </div>
-                  <div id="seccion2-41" style="display:none">
+                  <div id="seccion2-41" class="hidden">
                     <p>Veamos algunos ejemplos</p>
                     <pre>
                       <code class="language-js">
@@ -4831,11 +4966,11 @@
         <!-- Fin bloque desplegable interior-->
         
         <!-- Bloque desplegable interior-->
-                  <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion2-42').toggle();">	
-                    <h3>42. DOM eventos con click - <a href="https://developer.mozilla.org/es/docs/Web/API/Element" class="txt-negro" target="blank">Enlace MDN Element</a></h3>			
-                    <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+                  <div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between cursor-pointer oscuro" onclick="$('#seccion2-42').toggle();">	
+                    <h3>42. DOM eventos con click - <a href="https://developer.mozilla.org/es/docs/Web/API/Element" class="text-[#000000]" target="blank">Enlace MDN Element</a></h3>			
+                    <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
                   </div>
-                  <div id="seccion2-42" style="display:none">
+                  <div id="seccion2-42" class="hidden">
                     <p>Una de las características ppales de JS es que podamos añadir interacción a nuestras aplicaciones/sitios web. Veamos algunos eventos que nos van a permitir eso.</p>
                     <pre>
                       <code class="language-js">
@@ -4900,11 +5035,11 @@
         <!-- Fin bloque desplegable interior-->
         
         <!-- Bloque desplegable interior-->
-                  <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion2-43').toggle();">	
+                  <div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between cursor-pointer oscuro" onclick="$('#seccion2-43').toggle();">	
                     <h3>43. DOM eventos en inputs</h3>			
-                    <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+                    <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
                   </div>
-                  <div id="seccion2-43" style="display:none">
+                  <div id="seccion2-43" class="hidden">
                     <p>En nuestro DOM.html tenemos estos dos inputs:</p>
                     <pre>
                       <code class="language-html">
@@ -4945,11 +5080,11 @@
         
         
         <!-- Bloque desplegable interior-->
-                  <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion2-43').toggle();">	
+                  <div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between cursor-pointer oscuro" onclick="$('#seccion2-43').toggle();">	
                     <h3>44. Eventos en Submit. 45. Validando formulario y mostrando alertas.</h3>			
-                    <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+                    <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
                   </div>
-                  <div id="seccion2-43" style="display:none">
+                  <div id="seccion2-43" class="hidden">
                     <p>En nuestro formulario tenemos este input de tipo submit. El evento de submit se llama cuando alguien presiona sobre el formulario para enviarlo:</p>
                     <pre>
                       <code class="language-html">
@@ -5039,23 +5174,23 @@
 
 
         <!-- SECCION 1 -->
-        <div class="contenedor w-80 w-96-s background esp-5-bottom">		
+        <div class="contenedor w-80 w-96-s bg-gray-200 mb-1.25 py-0.75 pr-0 pl-2.5">		
           <div class="row">
-            <div class="flex center-vertical esp-25-top pointer desplegable space-between pointer" onclick="$('#seccion1').toggle();">	
+            <div class="flex items-center mt-1.25 cursor-pointer desplegable justify-between pointer" onclick="$('#seccion1').toggle();">	
               <h2>Sección 1: Introducción al Curso - Qué es React, Proyectos que Construiremos y más</h2>				
-                      <span class="cambiaicono ico_chevron_down esp-10-right" title=""></span>
+                      <span class="cambiaicono ico_chevron_down mr-2.5" title=""></span>
             </div>
             
-            <div id="seccion1"  style="display:none">			
+            <div id="seccion1"  class="hidden">			
               <div class="row">
-                <div class="col-12 padd-5-left">	
+                <div class="col-12 pl-1.25">	
                   
-                  <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion1-1').toggle();">	
+                  <div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between cursor-pointer oscuro" onclick="$('#seccion1-1').toggle();">	
                     <h3>1. ¿Qué es React?</h3>			
-                    <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+                    <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
                   </div>
                   
-                  <div id="seccion1-1" style="display:none">	
+                  <div id="seccion1-1" class="hidden">	
                     
                     <p>Es una biblioteca de JS para construir interfaces de usuario</p>
                     <ul>
@@ -5065,14 +5200,14 @@
                       <li>Creado por Meta (antiguo Facebook). También la empresa Versell apoya su desarrollo.</li>
                     </ul>
       
-                    <p class="titulo">Ventajas de React</p>			
+                    <p class="font-bold">Ventajas de React</p>			
                     <ul>
                       <li>Excelente documentación con muchos ejemplos</li>
                       <li>Una gran comunidad y muchas librerias que puedes incorporar a tus proyectos</li>
                       <li>Tecnología con mucha demanda: La mayoría de vacantes solicitan React, tanto para fornt end como para full stack</li>
                     </ul>
       
-                    <p class="titulo">¿Qué necesito para aprender React?</p>
+                    <p class="font-bold">¿Qué necesito para aprender React?</p>
                     <ul>
                       <li>Dominar HTML y CSS</li>
                       <li>Conocer la sintaxis Moderna de Javascript (ES6(2015)EcmaScript6 y cada añao hay nuevas que añaden unas cuantas funciones más)</li>
@@ -5086,27 +5221,27 @@
               </div><!--Fin row-->
                 
               <div class="row">
-                <div class="col-12 padd-5-left">	
-                  <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion1-2').toggle();">	
+                <div class="col-12 pl-1.25">	
+                  <div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between cursor-pointer oscuro" onclick="$('#seccion1-2').toggle();">	
                     <h3>2. Proyectos 01 a 04 del Curso - Fundamentos de React y TypeScript</h3>			
-                    <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+                    <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
                   </div>						
                   
-                  <div id="seccion1-2" style="display:none">	
+                  <div id="seccion1-2" class="hidden">	
                     
-                    <p class="titulo">Proyecto carrito de compras GuitarLA</p>
+                    <p class="font-bold">Proyecto carrito de compras GuitarLA</p>
                     <p>En este proyecto estaremos aprendiendo los fundamentos de React: <span class="destacado">Componentes, Eventos y State</span>, mientras creas un carrito de compras real con cantidades, precios, y más, tomaremos este mismo carrito para mostrarte como crear tus propios Hooks y como transformarlo a código de TypeScript y cuales son sus beneficios. Carrito de compra persistente sincronizando con localStorage (aprenderemos todas esas acciones agregar elementos, cambiarlos, cambiar cantidades, vaciar carrito...)</p>							
                     <img src="./src/assets/img/s1-01.jpg" width="" height="" alt=""/> 
       
-                    <p class="titulo">Calculadora de propinas y consumos. Un proyecto ideal para restaurantes donde se podrá generar una orden con consumos y la persona podrá elegir la propina que desea dejar.</p>							
+                    <p class="font-bold">Calculadora de propinas y consumos. Un proyecto ideal para restaurantes donde se podrá generar una orden con consumos y la persona podrá elegir la propina que desea dejar.</p>							
                     <img src="./src/assets/img/s1-02.jpg" width="" height="" alt=""/> 
       
-                    <p class="titulo">Contador de Calorías y Ejercicios</p>	
+                    <p class="font-bold">Contador de Calorías y Ejercicios</p>	
                     <p> Una de las tareas que más vas a realizar en tu vida como Developer es procesar formularios; en este proyecto tendremos un formulario, leeremos sus datos, lo vamos a procesar y realizar algunas operaciones como validación y mucho más, además aprenderás que es <span class="destacado">useReducer</span> para manejar estados complejos en tus apps. Veremos cómo funciona este patrón, es un hook especial cuando tenemos un state un poco más complejo.</p>
                     <img src="./src/assets/img/s1-03.jpg" width="" height="" alt=""/> 
                     
                     
-                    <p class="titulo">Control de Gastos y Presupuestos:</p>	
+                    <p class="font-bold">Control de Gastos y Presupuestos:</p>	
                     <p>En este proyecto estaremos viendo que es <span class="destacado">Context API</span> para tener un estado global sin dependencias; Context API va a ayudarte a no pasar props por cada componente, completamos el curso con filtrar gastos por categoría, calendario de fechas de gastos, gráficas y mucho más! Por tanto también usaremos reducers, context Api para comenzar a trabajar con un estado global y un custom hook.</p>
                     <img src="./src/assets/img/s1-04.jpg" width="" height="" alt=""/> 
                     
@@ -5118,23 +5253,23 @@
               
               
               <div class="row">
-                <div class="col-12 padd-5-left">	
-                  <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccion1-3').toggle();">	
+                <div class="col-12 pl-1.25">	
+                  <div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between cursor-pointer oscuro" onclick="$('#seccion1-3').toggle();">	
                     <h3>3. Proyectos 05 a 08 del Curso - React Intermedio y API's</h3>			
-                    <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+                    <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
                   </div>						
                   
-                  <div id="seccion1-3" style="display:none">	
+                  <div id="seccion1-3" class="hidden">	
                     
-                    <p class="titulo">Administrador de pacientes de veterinaria</p>
+                    <p class="font-bold">Administrador de pacientes de veterinaria</p>
                     <p>Introduce dos herramientas nuevas: Este proyecto añade dos herramientas nuevas: <span class="destacado">Zustand</span> para manejar un estado global de forma muy simple y <span class="destacado">React Hook Form</span>, una librería para para la parte de validación y procesamiento de nuestros formularios de manera bastante sencilla.</p>														
                     <img src="./src/assets/img/s1-05.jpg" width="" height="" alt=""/> 
                     
-                    <p class="titulo">Buscador de clima</p>
+                    <p class="font-bold">Buscador de clima</p>
                     <p>Esta será nuestra primera aplicación que obtiene datos de una <span class="destacado">API externa</span>, como React Developer vas a trabajar en muchos proyectos que incluyen API's; estaremos viendo como validar y enviar peticiones hacia API, como leer las respuestas y como mostrar esa información. La parte de APIS es muy importante en el mundo de React.</p>							
                     <img src="./src/assets/img/s1-06.jpg" width="" height="" alt=""/> 
                     
-                    <p class="titulo">Cotizador de Criptomonedas</p>
+                    <p class="font-bold">Cotizador de Criptomonedas</p>
                     <p>Este proyecto al igual que el anterior se conecta a una API para obtener el precio de una Criptomoneda en dólares, pesos mexicanos y otras monedas; Este proyecto incluye Zustand y Zod para validar las respuestas que obtenemos de nuestra API.</p>							
                     <!-- <img src="./src/assets/img/s1-07.jpg" width="" height="" alt=""/>  -->
       
@@ -5164,16 +5299,16 @@
               
               <!-- 
               <div class="row">
-                <div class="col-12 padd-5-left">						
+                <div class="col-12 pl-1.25">						
                   
-                  <div class="flex center-vertical esp-25-top pointer desplegable-interior space-between pointer oscuro" onclick="$('#seccionX-X').toggle();">	
+                  <div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between cursor-pointer oscuro" onclick="$('#seccionX-X').toggle();">	
                     <h3>XXXXXXXXXXXXXXXXXXXXXX</h3>			
-                    <span class="cambiaicono ico_chevron_down_blanco ico20 esp-5-right" title=""></span>
+                    <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
                   </div>						
                   
-                  <div id="seccionX-X" style="display:none">	
+                  <div id="seccionX-X" class="hidden">	
                     
-                    <p class="titulo">XXXXXXXXXXXX</p>
+                    <p class="font-bold">XXXXXXXXXXXX</p>
                     <p>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</p>							
                     <img src="./src/assets/img/XXXX.jpg" width="" height="" alt=""/> 
       
@@ -5212,14 +5347,14 @@
     
     
         <!-- SECCION 00 -->
-        <div class="contenedor w-80 w-96-s background esp-5-bottom">
+        <div class="contenedor w-80 w-96-s bg-gray-200 mb-1.25 py-0.75 pr-0 pl-2.5">
           <div class="row">
-            <div class="flex center-vertical esp-25-top pointer desplegable space-between pointer" onclick="$('#seccion0').toggle();">
+            <div class="flex items-center mt-1.25 cursor-pointer desplegable justify-between pointer" onclick="$('#seccion0').toggle();">
               <h2>Apuntes curso React</h2>
-              <span class="cambiaicono ico_chevron_down esp-10-right" title=""></span>
+              <span class="cambiaicono ico_chevron_down mr-2.5" title=""></span>
             </div>
 
-            <div id="seccion0" style="display:none">
+            <div id="seccion0" class="hidden">
               <div class="row">
                 <div class="col-12">
 
