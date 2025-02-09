@@ -680,7 +680,7 @@
 
 <!-- Bloque desplegable interior-->
 <div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between cursor-pointer oscuro" onclick="$('#seccion9-118').toggle();">
-  <h3>118. Mostrando el Consumo de la orden</h3>
+  <h3>118. Mostrando el Consumo de la orden / 119. Formateando el Consumo y mostrando cantidades</h3>
   <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
 </div>
 <div id="seccion9-118">
@@ -762,7 +762,7 @@
     }
   </code></pre>
 
-  <p>Al asignarle la prop: </p>
+  <p>Al asignarle la prop me marca un error porque, esa propiedad que enviamos desde App.tsx hacia OrderContents.tsx hemos de tiparla, no tenemos ningún type asociado.</p>
 
   <pre class="error" data-line="2"><code class="language-ts">
     //App.tsx
@@ -771,7 +771,7 @@
    /&gt;
   </code></pre>
 
-  <p>me marca un error porque, esa propiedad que enviamos desde App.tsx hacia OrderContents.tsx hemos de tiparla, no tenemos ningún type asociado. <strong>En nuestro nuevo componente OrderContents.tsx creamos un nuevo type específico y en su definición indicamos que la order es del tipo array OrderItem (hemos de importar ese tipo)</strong>.</p>
+  <p><strong>En nuestro nuevo componente OrderContents.tsx creamos un nuevo type específico y en su definición indicamos que la order es del tipo array OrderItem (hemos de importar ese tipo)</strong>.</p>
 
   <div class="flex">
     <div class="w-50">
@@ -827,18 +827,41 @@
     &lt;/div&gt;
   </code></pre>
 
+  <p class="naranja">Formateando el Consumo y mostrando cantidades</p>
 
-</div>
-<!-- Fin bloque desplegable interior-->
+  <p>Sigamos con nuestro html, vamos a mostrar nombre, precio, cantidad y un botón para eliminar los elementos. Añadimos el precio y en vez de poner a pelo el signo del $, crea carpeta y fichero <span class="file">helpers&gt;index.ts</span> donde mete la función '<strong>formatCurrency()</strong>':</p>
+  <pre><code class="language-ts">
+    //helpers>index.ts
+    export default function formatCurrency(quantity: number){
+      return new Intl.NumberFormat('en-US', {
+          style: 'currency', currency: 'USD'
+      }).format(quantity)
+  }
+  </code></pre>
+  <pre><code class="language-ts">
+    //OrderContents.tsx
+    (order.map( item =&gt; (
+      &lt;div 
+          className=&quot;flex justify-between items-center border-t border-gray-200 py-5 last-of-type:border-b&quot;
+          key={item.id}
+      &gt;
+          &lt;div&gt;
+              &lt;p className=&quot;text-lg&quot;&gt;
+                  {item.name} - {formatCurrency(item.price)}
+              &lt;/p&gt;
+              &lt;p className=&quot;font-black&quot;&gt;
+                  Cantidad: {item.quantity} - {formatCurrency(item.price * item.quantity)}
+              &lt;/p&gt;
+          &lt;/div&gt;
+          &lt;button className=&quot;bg-red-600 h-8 w-8 rounded-full text-white font-black&quot;&gt;X&lt;/button&gt;
+      &lt;/div&gt;
+      )
+    ))
+  </code></pre>
 
+  <img src="./src/assets/img/119.png" alt="Imagen 119">
 
-<!-- Bloque desplegable interior-->
-<div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between cursor-pointer oscuro" onclick="$('#seccion9-119').toggle();">
-  <h3>119. Formateando el Consumo y mostrando cantidades</h3>
-  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
-</div>
-<div id="seccion9-119" class="hidden">
-  <p></p>
+  
 
 </div>
 <!-- Fin bloque desplegable interior-->
