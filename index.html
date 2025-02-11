@@ -18,8 +18,7 @@
   </head>
   <body>
     <div id="root"></div>
-    <script type="module" src="./src/main.jsx"></script>
-	
+    <script type="module" src="./src/main.jsx"></script>	
     <div>    
       
       <!-- SECCION 9-->
@@ -974,120 +973,300 @@
 
                 </div>
 
+                <!-- Bloque desplegable interior-->
+                <div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between oscuro" onclick="$('#seccion9-122').toggle();">
+                  <h3>122. Calculando el Consumo y más TypeScript</h3>
+                  <span class="cambiaicono ico_chevron_up_blanco ico20 mr-1.25" title=""></span>
+                </div>
+                <div id="seccion9-122" class="hidden">
+                  <p><strong>Calculemos el subtotal a pagar en base al precio de los artículos y sus cantidades.</strong> Si agregamos varios elementos, vemos que el subtotal tiene que ser el resultado de sumar cada precio por la cantidad. Eso antes era más complejo hacerlo pero <strong>gracias a las "nuevos"(2015) array methods como <strong>useMemo() o reduce() </strong>es más sencillo simplifican el código, evitando tener que tener renders adicionales</strong>. Como ese cálculo viene desde <strong>order</strong> vamos a nuestro App.tsx</p>
+                  <pre><code class="language-ts">
+                    //App.tsx
+                    //- en el tag de nuestro nuevo componente &lt;OrderTotals/&gt; le pasamos como propiedad la order para que esté conectado y sepa cuáles son los contenidos de nuestra orden (lo podemos hacer en el hook o en el componente, con react tenemos siempre distintas formas)
+                      &lt;OrderTotals 
+                      order = { order }/&gt;
+                  </code></pre>
 
-<!-- Bloque desplegable interior-->
-<div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between oscuro" onclick="$('#seccion9-122').toggle();">
-  <h3>122. Calculando el Consumo y más TypeScript</h3>
-  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
-</div>
-<div id="seccion9-122">
-  <p><strong>Calculemos el subtotal a pagar en base al precio de los artículos y sus cantidades.</strong> Si agregamos varios elementos, vemos que el subtotal tiene que ser el resultado de sumar cada precio por la cantidad. Eso antes era más complejo hacerlo pero <strong>gracias a las "nuevos"(2015) array methods como <strong>useMemo() o reduce()</strong>es más sencillo simplifican el código, evitando tener que tener renders adicionales</strong>. Como ese cálculo viene desde <strong>order</strong> vamos a nuestro App.tsx</p>
-  <pre><code class="language-ts">
-    //App.tsx
-    //- en el tag de nuestro nuevo componente &lt;OrderTotals/&gt; le pasamos como propiedad la order para que esté conectado y sepa cuáles son los contenidos de nuestra orden (lo podemos hacer en el hook o en el componente, con react tenemos siempre distintas formas)
-      &lt;OrderTotals 
-      order = { order }/&gt;
-  </code></pre>
+                    <pre><code class="language-ts">
+                  //OrderTotals.tsx  
+                  //- importamos useMemo y nuestra función formatCurrency() de helpers que los vamos a usar
+                    import { useMemo } from "react"
+                    import formatCurrency from "../helpers"
 
-    <pre><code class="language-ts">
-  //OrderTotals.tsx  
-  //- importamos useMemo y nuestra función formatCurrency() de helpers que los vamos a usar
-     import { useMemo } from "react"
-     import formatCurrency from "../helpers"
+                  //- como esa prop 'order' va a ser de tipo array OrderItem, importamos ese type
+                  //- nuestro componente va a recibir como parámetro esa prop así que creamos type personalizado para este componente
+                    import {OrderItem} from &quot;../types&quot;
+                    type OrderTotalsProps = {
+                      order: OrderItem[]
+                    }
 
-  //- como esa prop 'order' va a ser de tipo array OrderItem, importamos ese type
-  //- nuestro componente va a recibir como parámetro esa prop así que creamos type personalizado para este componente
-    import {OrderItem} from &quot;../types&quot;
-    type OrderTotalsProps = {
-      order: OrderItem[]
-    }
+                    export default function OrderTotals({order}: OrderTotalsProps) {
 
-    export default function OrderTotals({order}: OrderTotalsProps) {
+                    //- creamos función nueva 'subtotalAmount' para calcular el subtotal a pagar en base al precio de los artículos y sus cantidades:
+                      const subtotalAmount = useMemo(() => order.reduce( (total, item) => total + (item.quantity * item.price), 0), [order])
 
-    //- creamos función nueva 'subtotalAmount' para calcular el subtotal a pagar en base al precio e los artículos y sus cantidades:
-      const subtotalAmount = useMemo(() => order.reduce( (total, item) => total + (item.quantity * item.price), 0), [order])
+                      //- usamos useMemo; va a ser siempre un callback y la dependencia es lo que hay tras la coma --&gt; useMemo(()=&gt; ,[]order).
+                      // nos permite que el código se renderice o se ejecute cada vez que cambia la dependencia (en nuestro caso cada vez que cambia la orden).
+                      //- usamos el array method .reduce() que es uno de los pocos que toma dos parámetros (acumulado temporal y el item sobre el  que iteramos): 
+                        // total(temporal) es un acumulado, en cada iteración que se va dando va almacenando en memoria (en nuestro caso la suma del total temporal con (menuItems.quantity * item*price))
+                        // item(elemento sobre el que estamos iterando) --&gt; tras la coma, 0 es el valor inicial de la iteracion
+                  
+                    //- usando en el return{} nuestra función formatCurrency() de helper, ya podemos ver el subtotal:
+                      return (
+                        &lt;&gt;
+                          &lt;p&gt;Subtotal a pagar:
+                            &lt;span className=&quot;font-bold&quot;&gt;{ formatCurrency(subtotalAmount) }&lt;/span&gt;
+                          &lt;/p&gt;
 
-      //- usamos useMemo; va a ser siempre un callback y la dependencia es lo que hay tras la coma --&gt; useMemo(()=&gt; ,[]order).
-      // nos permite que el código se renderice o se ejecute cada vez que cambia la dependencia (en nuestro caso cada vez que cambia la orden).
-      //- usamos el array method .reduce() que es uno de los pocos que toma dos parámetros (acumulado temporal y el item sobre el  que iteramos): 
-        // total(temporal) es un acumulado, en cada iteración que se va dando va almacenando en memoria (en nuestro caso la suma del total temporal con (menuItems.quantity * item*price))
-        // item(elemento sobre el que estamos iterando) --&gt; tras la coma, 0 es el valor inicial de la iteracion
-  
-    //- usando en el return{} nuestra función formatCurrency() de helper, ya podemos ver el subtotal:
-      return (
-        &lt;&gt;
-          &lt;p&gt;Subtotal a pagar:
-            &lt;span className=&quot;font-bold&quot;&gt;{ formatCurrency(subtotalAmoun) }&lt;/span&gt;
-          &lt;/p&gt;
+                    
 
-    
+                    
+                    
+                    
 
-    
-    
-    
+                      
+                      
 
-      
-      
+                  </code></pre>
 
-  </code></pre>
+                </div>
 
-</div>
+                <!-- Bloque desplegable interior-->
+                <div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between oscuro" onclick="$('#seccion9-123').toggle();">
+                  <h3>123. Primeros pasos con las propinas / 124. Añadiendo la cantidad seleccionada de Propina</h3>
+                  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+                </div>
+                <div id="seccion9-123" class="hidden">
+                  <p>Vamos a tener un formulario en el que vamos a indicar cuánto queremos dejar de propina. Creamos componente nuevo <span class="file">TipPercentageForm.tsx</span> en el que usamos como const <a href="https://gist.github.com/codigoconjuan/93fd42da96258357fc9f78eb1d17a6b3" class="underline" target="_blank">Gist Arreglo con objetos (id, value, label) para iterarlo y mostrarlo en el formulario</a></p>
+                  <pre><code class="language-ts">
+                    //App.tsx
+                    import TipPercentageForm from "./components/tipPercentageForm"
 
+                    &lt;TipPercentageForm /&gt;
+                  </code></pre>
+                  <pre><code class="language-ts">
+                    //TipPercentageForm.tsx
+                    const tipOptions = [
+                    {
+                      id: &#39;tip-10&#39;,
+                      value: .10,
+                      label: &#39;10%&#39;
+                    },
+                    {
+                      id: &#39;tip-20&#39;,
+                      value: .20,
+                      label: &#39;20%&#39;
+                    },
+                    {
+                      id: &#39;tip-50&#39;,
+                      value: .50,
+                      label: &#39;50%&#39;
+                    },
+                  ]
 
+                  export default function TipPercentageForm() {
+                    return (
+                      &lt;&gt;
+                          &lt;h3 className=&quot;font-black text-2xl&quot;&gt;Propina:&lt;/h3&gt;
 
-<!-- Bloque desplegable interior-->
-<div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between oscuro" onclick="$('#seccion9-123').toggle();">
-  <h3>123. Primeros pasos con las propinas</h3>
-  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
-</div>
-<div id="seccion9-123" class="hidden">
-  <p></p>
+                          &lt;form&gt;
+                              {tipOptions.map( tipOption =&gt; (
+                                  &lt;div
+                                      key={tipOption.id}
+                                      className=&quot;flex gap-2&quot;
+                                  &gt;
+                                      &lt;label htmlFor={tipOption.id}&gt;{tipOption.label}&lt;/label&gt;
+                                      &lt;input 
+                                          id={tipOption.id} 
+                                          type=&quot;radio&quot;
+                                          name=&quot;tipOption&quot;
+                                          value={tipOption.value}
+                                      /&gt;
+                                  &lt;/div&gt;
+                              ))}  
+                          &lt;/form&gt;
+                      &lt;/&gt; 
+                    )
+                  }
+                  </code></pre>
+                  
+                  <p class="naranja">Añadiendo la cantidad seleccionada de Propina</p>
 
-</div>
+                  <p>vamos a colocar el state de propina en nuestro hook useOrder():</p>
+                  <pre><code class="language-ts">
+                    //useOrder.ts 
+                    export default function useOrder() {
+                        const [order, setOrder] = useState<OrderItem[]>([])
+                        const [tip, setTip] = useState(0)
 
+                        return{
+                          order,
+                          tip,
+                          setTip,
+                          addItem,
+                          removeItem
+                      }
 
-<!-- Bloque desplegable interior-->
-<div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between oscuro" onclick="$('#seccion9-124').toggle();">
-  <h3>124. Añadiendo la cantidad seleccionada de Propina</h3>
-  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
-</div>
-<div id="seccion9-124" class="hidden">
-  <p></p>
+                    //App.tsx
+                    - extraigo ambos: tip y setTip para tenerlos disponibles Y
+                    - pasarlos como propiedades del componente 
 
-</div>
+                      const { order, addItem, removeItem, tip, setTip } = useOrder()
 
+                        &lt;TipPercentageForm 
+                          setTip = {setTip}
+                        /&gt;
+                      
+                    //TipPercentageForm.tsx
+                    //- definimos type nuevo específico para la función setTip que estamos pasando ¿donde lo miramos? dejamos que VSC nos lo infiera
+                    //y con el Intellisense de VSC lo copiamos 'setTip: React.Dispatch&lt;React.SetStateAction&lt;number&gt;&gt;' 
+                    // significa funcion que dispara la accion de modificar el state de tipo number
+                    
 
-<!-- Bloque desplegable interior-->
-<div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between oscuro" onclick="$('#seccion9-125').toggle();">
-  <h3>125. Calculando el Total de la propina</h3>
-  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
-</div>
-<div id="seccion9-125" class="hidden">
-  <p></p>
+                        type TipPercentageFormProps = {
+                          setTip: React.Dispatch&lt;React.SetStateAction&lt;number&gt;&gt;
+                        }
+                        
+                        export default function TipPercentageForm({setTip}:TipPercentageFormProps) {
 
-</div>
+                    //También podríamos reducir un poco nuestro código del nuevo type para esta propor importando de react los dos types:
+                        import type { Dispatch, SetStateAction } from "react"
 
+                        type TipPercentageFormProps = {
+                          setTip: Dispatch<SetStateAction<number>>
+                      }
 
-<!-- Bloque desplegable interior-->
-<div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between oscuro" onclick="$('#seccion9-126').toggle();">
-  <h3>126. Calculando el Total a pagar</h3>
-  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
-</div>
-<div id="seccion9-126" class="hidden">
-  <p></p>
+                    // - usamos setTip en nuestro input, en el onChange modificamos el value, sin embargo vemos que al escribir onChange={ e =&gt; setTip(e.target.value)}
+                    // nos marca en rojo, TS escanea nuestro código y setTip es number y el value de un input es string. Lo podemos solucionar de dos manera:
+                    //  * signo + antes de lo que lee como string, lo convierte a number  onChange={ e =&gt; setTip(+e.target.value)}
+                    //  * añadirle el sufijo AsNumber onChange={ e =&gt; setTip(e.target.valueAsNumber)} PERO ESTO NO FUNCIONA CON LAS INPUT RADIO!!!
+                      &lt;form&gt;
+                        {tipOptions.map( tipOption =&gt; (
+                            &lt;div
+                                key={tipOption.id}
+                                className=&quot;flex gap-2&quot;
+                            &gt;
+                                &lt;label htmlFor={tipOption.id}&gt;{tipOption.label}&lt;/label&gt;
+                                &lt;input 
+                                    id={tipOption.id} 
+                                    type=&quot;radio&quot;
+                                    name=&quot;tipOption&quot;
+                                    value={tipOption.value}
+                                    //onChange={ e =&gt; setTip(e.target.value)}
+                                    onChange={ e =&gt; setTip(+e.target.value)}
+                                /&gt;
+                            &lt;/div&gt;
+                        ))}  
+                      &lt;/form&gt;
+                  </code></pre>
+                  <img src="./src/assets/img/124.png" alt="imagen 124">
 
-</div>
+                  <p>Veamos como pasar ese tip o el porcentaje hacia OrderTotals.tsx para hacer los dos últimos cálculos, propinas y total a pagar.</p>
 
+                </div>
 
-<!-- Bloque desplegable interior-->
-<div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between oscuro" onclick="$('#seccion9-127').toggle();">
-  <h3>127. Diferencia entre useMemo y useCallback</h3>
-  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
-</div>
-<div id="seccion9-127" class="hidden">
-  <p></p>
+                <!-- Bloque desplegable interior-->
+                <div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between oscuro" onclick="$('#seccion9-125').toggle();">
+                  <h3>125. Calculando el Total de la propina / 126. Calculando el Total a pagar</h3>
+                  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+                </div>
+                <div id="seccion9-125" class="hidden">
+                  <pre><code class="language-ts">
+                    //App.tsx
+                      &lt;OrderTotals 
+                        order = {order}
+                        tip = {tip}
+                      &gt;
+                  </code></pre>
+                  <pre><code class="language-ts">
+                    //OrderTotals.tsx
+                    //- completamos el type de propiedades de ese componente con la nueva que pasamos, tip que es de tipo number
+                    //- la extraemos
+                    //- como tip solo tiene el % (0.1 para 10% y así...) creamos variable nueva para formatearlo: 'tipAmount' y usamos useMemo() porque esa propina puede cambiar:
+                    //  * cuando cambiemos la propina marcada 'tip'
+                    //  * cuadno cambie nuestra orden 'order'
+                    // por tanto empleamos esas dos dependencias para que, tanto cuando cambiemos el radio de la propina como cuando añadamos o eliminemos de nuestra orden, todo se Actualicemos
+                    // - creamos nueva variable para el total 'totalAmount' y también usamos useMemo()
+                      import { useMemo } from "react"
+                      import { OrderItem } from &quot;../types&quot;
+                      import formatCurrency from &quot;../helpers&quot;
 
-</div>
+                      type OrderTotalsProps = {
+                        order: OrderItem[]
+                        tip: number
+                      }
+
+                      export default function OrderTotals({order, tip}: OrderTotalsProps) {
+
+                        const subtotalAmount = useMemo(() =&gt; order.reduce( (total, item) =&gt; total + (item.quantity * item.price), 0), [order])
+                        const tipAmount = useMemo(() =&gt; subtotalAmount * tip, [tip, order])
+                        const totalAmount = useMemo(()=&gt; subtotalAmount + tipAmount, [tip, order])
+
+                        return (
+                          &lt;&gt;
+
+                            &lt;div className=&quot;space-y-3&quot;&gt;
+                              &lt;h2 className=&quot;font-black text-2xl&quot;&gt;Totales y propina:&lt;/h2&gt;
+                              &lt;p&gt;Subtotal a pagar:
+                                &lt;span className=&quot;font-bold&quot;&gt; {formatCurrency( subtotalAmount )}&lt;/span&gt;
+                              &lt;/p&gt;
+                              &lt;p&gt;Propina:
+                                &lt;span className=&quot;font-bold&quot;&gt; {formatCurrency( tipAmount )}&lt;/span&gt;
+                              &lt;/p&gt;
+                              &lt;p&gt;Total a pagar: 
+                                &lt;span className=&quot;font-bold&quot;&gt; {formatCurrency( totalAmount )}&lt;/span&gt;
+                              &lt;/p&gt;
+                            &lt;/div&gt;
+                            &lt;button&gt;&lt;/button&gt;
+
+                          &lt;/&gt;
+                        )
+                      }
+                  </code></pre>
+
+                </div>
+
+                <!-- Bloque desplegable interior-->
+                <div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between oscuro" onclick="$('#seccion9-127').toggle();">
+                  <h3>127. Diferencia entre useMemo y useCallback</h3>
+                  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+                </div>
+                <div id="seccion9-127" class="hidden">  
+                  <p>Existe otra funcíón que es exactamente igual que useMemo() pero su sintaxis es diferente: useCallback() <strong>simplemente es añadir los () en cada llamada que se haga a las distintas funciones. El código anterior de nuestro componente OrderTotals.tsx quedaría así: </strong></p>
+
+                  <pre><code class="language-ts">
+                    //OrderTotals.tsx
+                      import { useMemo, useCallback } from "react"
+
+                      export default function OrderTotals({order, tip}: OrderTotalsProps) {
+
+                        const subtotalAmount = useCallback(() =&gt; order.reduce( (total, item) =&gt; total + (item.quantity * item.price), 0), [order])
+                        const tipAmount = useCallback(() =&gt; subtotalAmount() * tip, [tip, order])
+                        const totalAmount = useCallback(()=&gt; subtotalAmount() + tipAmount(), [tip, order])
+                      
+                        return (
+                          &lt;&gt;
+                      
+                            &lt;div className=&quot;space-y-3&quot;&gt;
+                              &lt;h2 className=&quot;font-black text-2xl&quot;&gt;Totales y propina:&lt;/h2&gt;
+                              &lt;p&gt;Subtotal a pagar:
+                                &lt;span className=&quot;font-bold&quot;&gt; {formatCurrency( subtotalAmount() )}&lt;/span&gt;
+                              &lt;/p&gt;
+                              &lt;p&gt;Propina:
+                                &lt;span className=&quot;font-bold&quot;&gt; {formatCurrency( tipAmount() )}&lt;/span&gt;
+                              &lt;/p&gt;
+                              &lt;p&gt;Total a pagar: 
+                                &lt;span className=&quot;font-bold&quot;&gt; {formatCurrency( totalAmount() )}&lt;/span&gt;
+                              &lt;/p&gt;
+                            &lt;/div&gt;
+                            &lt;button&gt;&lt;/button&gt;
+                      
+                          &lt;/&gt;
+                        )
+                      }
+                  </code></pre>
+
+                </div>
 
 
 <!-- Bloque desplegable interior-->
@@ -1095,8 +1274,172 @@
   <h3>128. Reiniciando la Orden</h3>
   <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
 </div>
-<div id="seccion9-128" class="hidden">
-  <p></p>
+<div id="seccion9-128">
+  <p>Vamos a trabajar con e botón del final de nuestro componente OrderTotals.tsx</p>
+  <pre><code class="language-ts">
+    // OrderTotals.tsx
+    // - le damos estilos y lo deshabilitamos si el total es 0. 
+    // - aprovehamos las clases de tailwind para formatear aspecto cuando esté deshabilitado
+    &lt;button 
+      className=&quot;w-full bg-black p-3 uppercase text-white font-bold mt-10 rounded-sm cursor-pointer disabled:opacity-10 disabled:cursor-auto&quot;
+      disabled={totalAmount === 0 }
+      &gt; 
+      Guardar Orden
+    &lt;/button&gt;
+  </code></pre>
+
+  <p>Creamos función nueva de tipo arrow 'placeOrder' y recordar el orden de propagación: <br>
+    <span class="destacado">hook</span> <strong>useOrder.ts</strong> -> <span class="destacado">compo ppal</span> <strong>App.tsx</strong> -> <span class="destacado">compo donde se utiliza</span> <strong>OrderTotal.tsx</strong> </p>
+
+  <pre><code class="language-ts">
+    //useOrder.ts
+        const placeOrder = () => {
+          console.log('guardando...')
+      }
+      return{
+          order,
+          tip,
+          setTip,
+          addItem,
+          removeItem,
+          placeOrder
+      }
+
+    //App.tsx
+      function App() {
+
+        const { order, tip, setTip, addItem, removeItem, placeOrder } = useOrder()
+      
+        return (
+          &lt;&gt;
+          &lt;OrderTotals 
+            order = {order}
+            tip = {tip}
+            placeOrder = {placeOrder}
+          /&gt;
+
+    //OrderTotals.tsx
+      type OrderTotalsProps = {
+        order: OrderItem[]
+        tip: number,
+        placeOrder: ()=>void
+      }
+      
+      export default function OrderTotals({order, tip, placeOrder}: OrderTotalsProps) {   
+        
+        &lt;button 
+          className=&quot;w-full bg-black p-3 uppercase text-white font-bold mt-10 rounded-sm cursor-pointer disabled:opacity-10 disabled:cursor-auto&quot;
+          disabled={totalAmount === 0 }
+          onClick={placeOrder}
+          &gt; 
+          Guardar Orden
+        &lt;/button&gt;
+  </code></pre>
+
+  <p>Si probamos se restablece todo, pero el radio queda marcado ¿como conseguimos que no queda marcado? Hemos de pasarle al componente TipPercentageForm.tsx como propiedad desde App.tsx la propina tip para poder añadirle al input esta comprobación: <code class="language-ts">checked={tipOption.value === tip}</code>. <strong>Cuando restablecemos la orden el state tip cambia porque tiene las dos dependencias mencionadas antes con lo cual deja de cumplirse la condición para que permanezca marcado</strong></p>
+
+  <pre><code class="language-ts">
+    //App.tsx
+    &lt;TipPercentageForm 
+      tip = {tip}
+      setTip = {setTip}
+      &gt;
+
+    //TipPercentageForm.tsx
+      type TipPercentageFormProps = {
+        tip: number,
+        setTip: Dispatch&lt;SetStateAction&lt;number&gt;&gt;
+      }
+      export default function TipPercentageForm({tip, setTip}:TipPercentageFormProps) {
+        return (
+          &lt;&gt;
+              &lt;h3 className=&quot;font-black text-2xl&quot;&gt;Propina:&lt;/h3&gt;
+      
+              &lt;form&gt;
+                  {tipOptions.map( tipOption =&gt; (
+                      &lt;div
+                          key={tipOption.id}
+                          className=&quot;flex gap-2&quot;
+                      &gt;
+                          &lt;label htmlFor={tipOption.id}&gt;{tipOption.label}&lt;/label&gt;
+                          &lt;input 
+                              id={tipOption.id} 
+                              type=&quot;radio&quot;
+                              name=&quot;tip&quot;
+                              value={tipOption.value}
+                              onChange={ e =&gt; setTip(+e.target.value)}
+                              checked={tipOption.value === tip}
+                          /&gt;
+                      &lt;/div&gt;
+                  ))}  
+              &lt;/form&gt;
+          &lt;/&gt; 
+        )
+      }    
+  </code></pre>
+
+  <p>Cuando le damos a "Guardar Orden" (simulando ese envío a BBDD) y se restablece... si la orden está vacía, probablemente no tenga sentido cargar nada de esto:</p>
+  <img src="./src/assets/img/128.png" alt="">
+  
+  <p>Vemos que en OrderContents.tsx. teníamos un ternario para mostrar "La orden está vacía" o en caso de que bo lo estuviera el/los elementos agregados:</p>
+  <pre><code class="language-ts">
+    //OrderContents.tsx
+      &lt;div className=&quot;space-y-3 mt-10&quot;&gt;
+        //{ order.length === 0 ? 
+          //&lt;p className=&quot;text-center&quot;&gt;La orden está vacía&lt;/p&gt;
+          //: 
+            {order.map( item =&gt; (
+              &lt;div 
+                  className=&quot;flex justify-between items-center border-t border-gray-200 py-5 last-of-type:border-b&quot;
+                  key={item.id}
+              &gt;
+                &lt;div&gt;
+                    &lt;p className=&quot;text-lg&quot;&gt;
+                        {item.name} - {formatCurrency(item.price)}
+                    &lt;/p&gt;
+                    &lt;p className=&quot;font-black&quot;&gt;
+                        Cantidad: {item.quantity} - {formatCurrency(item.price * item.quantity)}
+                    &lt;/p&gt;
+                &lt;/div&gt;
+                &lt;button 
+                    className=&quot;bg-red-600 h-8 w-8 rounded-full text-white font-black cursor-pointer&quot;
+                    onClick={() =&gt; removeItem(item.id)}
+                &gt;X&lt;/button&gt;
+              &lt;/div&gt;
+            )}
+          ///))}
+        //}
+        
+        &lt;/div&gt;
+  </code></pre>
+
+  <p>Cambiemos el compo ppal App.tsx para meter aquí la comprobación, mejorando así el rendimiento porque en caso de que la orden esté vacía no se renderiza ninguno de los 3 componentes:</p>
+  <pre><code class="language-ts">
+    &lt;div className=&quot;border border-dashed border-slate-300 p-5 rounded-lg space-y10&quot;&gt;    
+      &lt;h2 className=&quot;font-black text-4xl&quot;&gt;Consumo&lt;/h2&gt;
+      {order.length &gt; 0  ? (
+        &lt;&gt;
+          &lt;OrderContents 
+            order = { order }
+            removeItem = {removeItem}
+          /&gt;            
+          &lt;TipPercentageForm 
+            tip = {tip}
+            setTip = {setTip}
+          /&gt;
+          &lt;OrderTotals 
+            order = {order}
+            tip = {tip}
+            placeOrder = {placeOrder}
+          /&gt;
+        &lt;/&gt;
+      ) : (
+        &lt;p className=&quot;text-center&quot;&gt;La orden está vacía&lt;/p&gt;
+      )}  
+    &lt;/div&gt;
+  </code></pre>
+
+  <p>Hemos estado viendo performance (useMemo, useCallback) tips sobre cómo inferir el tipo de dato. Más adelante retomaremos este proyecto para ver cómo almacenarlo en una BBDD, y así poder incluirlo en nuestro portfolio.</p>
 
 </div>
 
