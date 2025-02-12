@@ -10,8 +10,8 @@
     
     <!-- <script src="https://unpkg.com/@tailwindcss/browser@4"></script> -->
   
-    <script type="module" crossorigin src="https://andune55.github.io/manual-react/assets/index-PJOWTeLQ.js"></script>
-    <link rel="stylesheet" crossorigin href="https://andune55.github.io/manual-react/assets/index-fHERVaYc.css">
+    <script type="module" crossorigin src="https://andune55.github.io/manual-react/assets/index-CYyoylPn.js"></script>
+    <link rel="stylesheet" crossorigin href="https://andune55.github.io/manual-react/assets/index-WOoGq_Cv.css">
   </head>
   <body>
     <div id="root"></div>	
@@ -32,14 +32,16 @@
             <h3>130. El Proyecto que vamos a construir / 131. Creando el Proyecto / 132. Instalando Tailwindcss</h3>
             <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
           </div>
-          <div id="seccion10-130">            
+          <div id="seccion10-130" class="hidden">            
 
-            <p class="mb-3.25">Este proyecto es un contador de calorías para contar las calorías de lo que consumimos y las que quemamos haciendo actividades. Va a ser un poco más complejo pues va a tener <strong>formularios (una de las tareas que más vamos a realizar como Developer)</strong>; leeremos sus datos, lo vamos a procesar y realizar algunas operaciones como validación y mucho más. También tendrá <strong>localStorage</strong>. Va a ser desarrollado con <strong>UseState</strong> pero también veremos el hook <strong>useReducer</strong> que es un hook especial para manejar states complejos en nuestras apps, como es el caso de este proyecto.</p>   
+            <p class="mb-3.25">Este proyecto es un contador de calorías para contar las calorías de lo que consumimos y las que quemamos haciendo actividades. Va a ser un poco más complejo pues va a tener <strong>formularios (una de las tareas que más vamos a realizar como Developer)</strong>; leeremos sus datos, lo vamos a procesar y realizar algunas operaciones como validación y mucho más. <strong>Trabajar con formularios en React es complicado. Existen distintas librerías que lo simplifican bastante, y es probable que en el grupo de trabajo se use una librería pero <span class="destacado">nosotros debemos saber trabajar con elementos de formulario, leer y colocar en el state lo que el usuario va metiendo y es la razón de este proyecto</span>.</strong>
+              
+            <p>También tendrá <strong>localStorage</strong>. Va a ser desarrollado con <strong>UseState</strong> pero también veremos el hook <strong>useReducer</strong> que es un hook especial para manejar states complejos en nuestras apps, como es el caso de este proyecto.</p>   
             
             <ul>
               <li><span>Vamos al directorio donde queremos crearlo</span></li>
               <li><span><span class="destacado">npm create vite@latest</span> > <strong>calorie-tracker</strong> > <strong>react TypeScript + SWC</strong> > <span class="destacado">npm install</span></span></li>
-              <li><span>arrancamos el servidor de desarrollo <span class="destacado">npm run dev</span> y hacemos limpieza: eliminamos carpeta src>assets, eliminamos src>App.css, borramos el contenido de index.css, en index.html cambiamos el title y eliminamos icono <code class="language-ts">&lt;link rel=&quot;icon&quot; type=&quot;image/svg+xml&quot; href=&quot;/vite.svg&quot; /&gt;</code> y limpiamos el compo ppal App.tsx.</span></li>
+              <li><span>arrancamos el servidor de desarrollo <span class="destacado">npm run dev</span> y hacemos limpieza: eliminamos carpeta src>assets, eliminamos src>App.css, borramos el contenido de index.css, en index.html cambiamos el title y eliminamos icono <code class="language-ts">&lt;link rel=&quot;icon&quot; type=&quot;image/svg+xml&quot; href=&quot;/vite.svg&quot; /&gt;</code> (borramos también el icono vite.svg de la carpeta public) y limpiamos el compo ppal App.tsx.</span></li>
               <li>instalamos tailwind: <a class="underline" href="https://tailwindcss.com/docs/installation/using-vite" target="_blank">https://tailwindcss.com/docs/installation/using-vite</a> 
                 <ul>
                   <li><span class="destacado">npm install tailwindcss @tailwindcss/vite</span></li>
@@ -72,27 +74,463 @@
             <h3>133. Creando los Contenedores Principales</h3>
             <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
           </div>
-          <div id="seccion10-133">
-                          
+          <div id="seccion10-133" class="hidden">
+            <p>Agregamos header donde irá nuestro título y el botón para restablecer app y content donde irá nuestro formulario:</p> 
+            <p>Creamos nuestro primer componente <strong>Form.tsx</strong> y en nuestro compo ppal App.tsx lo importamos y llamamos a su tag en la sección que acabamos de crear.</p> 
+            
+            
+            <div class="flex max-sm:flex-col">
+              <div class="w-[50%] max-sm:w-[100%]">                
+                <pre><code class="language-ts">
+                  //App.tsx
+                  import Form from "./components/Form"
+                  function App() {  
+    
+                    return (
+                      &lt;&gt;
+                  
+                        &lt;header className=&quot;bg-lime-600&quot;&gt;
+                          &lt;div className=&quot;flex justify-between max-w-4xl mx-auto&quot;&gt;
+                            &lt;h1 className=&quot;text-center text-lg font-bold text-white uppercase&quot;&gt;
+                              Contador de calorías 
+                            &lt;/h1&gt;
+                          &lt;/div&gt;
+                        &lt;/header&gt;
+                  
+                        &lt;section className=&quot;bg-lime-500 py-20 px-5&quot;&gt;
+                          &lt;div className=&quot;max-w-4xl mx-auto&quot;&gt;
+                            &lt;Form /&lt;
+                          &lt;/div&gt;
+                        &lt;/section&gt;
+                        
+                      &lt;/&gt;
+                    )
+                  }
+                  
+                  export default App
+                </code></pre> 
+              </div>
+              <div class="w-[50%] max-sm:w-[100%] max-sm:mt-1.25">
+                <pre><code class="language-ts">
+                  //Form.tsx
+                  export default function Form() {
+                    return (
+                      &lt;div&gt;Form&lt;/div&gt;
+                    )
+                  }
+                </code></pre>
+                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAA8gAAADoCAMAAAAEyD2bAAAAA3NCSVQICAjb4U/gAAAAolBMVEX//////////+/1/////9b5+vvl////+b3/8dbV+f/s8fjl+b3p7vX/8Zzn6/LA8f/16L3V6O/l6L316HPd3+Sn6O/l3QDVzZzVzXOnzb1e3dbVzQBezb18zwBezXNszwDApZxYzwCnpXPApQCnpQB8sgBepZxepXNEsgBepQB8kABYkAAskABscAAUcABYSwAASwBEJAAAJAAsAAAUAAAAAAA8AMpOAAAANnRSTlMA//////////////////////////////////////////////////////////////////////8QiasuAAAACXBIWXMAAA50AAAOdAFrJLPWAAAAH3RFWHRTb2Z0d2FyZQBNYWNyb21lZGlhIEZpcmV3b3JrcyA4tWjSeAAAABZ0RVh0Q3JlYXRpb24gVGltZQAwMi8xMi8yNVx3gX8AAAbzSURBVHic7dtrc9vGAYZR0U3jOo7KpAzVlqnqJlGSyrnKKf//Xyuwi8uC0uRDSdvF63M0Q0EksWRm8nCBBX31CbB6V+/7DQDnEzIEEDIEuPoUWL2rTz/x48fP2n/MyBBAyBBAyBBAyBDg6s/A6gkZAlx9Aaze1T2wekKGAEKGAEKGAELeb559+b7fA5zpgw/5sHl+977fA5zrQw/5H3/46Jv3/R7gbB96yP80HZPgIiEfNr1dv7ntt67vh81y1Prdx93vcn9x00+DzXN606y43H3+ow6zefTo7n758PiCw/Fy90LT/vPQ40g39Rl1jP1wR71vHArW4QIhj13sxgQ2dfloO6TxOOT91O50dyns0e5tUOPL1EFPQ942Tz6MQzQht0NPI+3mkL9/MX1G7JevCytwfsh9Fn0Bh12ppXbaZ7odci0h3zdVlWjq9LctZR3mj4F29+6hfvCb6XX6YbY1xu1yrXk7vNTLu/sh6pLn9JKLoetIh7I9hlxCLx8u3Vap/aWQWY/zQ97O8+J2yrO/azyWfRRyt/GXYXvosUZ1unsN9iTk/p7r05AP7QTaPfGz05dcDF1H6m6bkPebjz6vzzk0h/OwEmeHXHtYbnZ1dKVshzYehbzfPPvbi/rUocd+jr55tPvTIXePlujbkOdn3ZcSb4aHx5dcDv1EyN0beP73+uTDxoVlVufskGt142YttTbShfyvj6du5of7aO7246lujaafKR/t3j10WJwjj0tZ3QPb+XS5jNi0173uN4d6mDAOuRy6jrRtz5H7X9/XD5dy4C9l1uXskJsj0WlzLrEP6jTk0s7wxxhy1/Xu0e7LNadxmFrtIuTmqKD8cT0+eXzJ5dDN6twYcvl6135anGsX0mEF3nLI/c1fT0Iu9w/TXzMj3zwZ8jw1NjPy6aH1IuSaY338d0Me39RuHHuxNGbVmjW5xKH1GNG02Zzkdon8aRny4jLSfI787Msndm8Gb8+RpzPoQTnFbrbbi0vXj99ZGWlf264hH8Z9mv+U5qwb/t+dHXIfzm7eLP/375tl50M7+Q2LSfO143nV+vndU7vv5/m+WbXena5a7zftifp8Abo5LW+GLiMNd9WQF1e5i62QWZPzLz8NF4GX15HrFd++tTJDtiFvpzPR6Qh5vxkPhE93b+baGnJ/xzz4aPwu13cv7+qnwHAm/cR15LpeXSMfV63HQ/NyBH4YJmrrXazIBb7ZtZ8PZcfZtr201DfUhDydz5agt4uZ8IndD9Ph7nRIPjy6WAob5+HnX79ols+mu28WQ89fLbmuIR/m726WBe/xeAHW4hLfta6npdMF4fFQu1mRbkKe1p3KxskXqp/YfdusUzUHv6dr2sPHyW66GlY25pDboYeQy7fGSsjbZtSb+jrmY1blQ//XTxBByBBAyBBAyBBAyBBAyBBAyBDg6hZYPSFDACFDACFDACFDACFDACFDACFDACFDACFDACFDACFDACFDACFDACFDACFDACFDACFDACFDACFDACFDACFDACFDACFDACFDACFDACFDACFDACFDACFDACFDACFDACFDACFDACFDACFDACFDACFDACFDACFDACFDACFDACFDACFDACFDACFDACFDACFDACFDACFDACFDACFDACFDACFDACFDACFDACFDACFDACFDACFDACFDACFDACFDACFDACFDACFDACFDACFDACFDACFDACFDACFDACFDACFDACFDACFDACFDACFDACFDACFDACFDACFDACFDACFDACFDACFDACFDgPND/unY+/cF3gvwP7pAyG9eXeB9AGcQMgS4YMj9Mfav3e/Xxx+Ob149/PxwPP54+1t/A7xdlwv5l+NXt7cP3R+vS84P3WnzT8dy89XZrwH8rgstdr159e1/+vWu/vZ1Wfl6+Lm7+a3cmJLhLbvYjPy6/nr4sQu5n4IfpoaFDG+bkCHAxUJuD62FDO/WpRe7fr0VMrxzF7z89MvxeOzrFTK8a75rDQGEDAGEDAGEDAGEDAGEDAGEDAGEDAGEDAGEDAGEDAGEDAGEDAGEDAGEDAGEDAGEDAGEDAGEDAGEDAGEDAGEDAGEDAGEDAGEDAGEDAGEDAGEDAGEDAGEDAGEDAGEDAGEDAGEDAGEDAGEDAGEDAGEDAGEDAGEDAGEDAGEDAGEDAGEDAGEDAGEDAGEDAGEDAGEDAGEDAGEDAGEDAGEDAGEDAGEDAGEDAGEDAGEDAGEDAGEDAGEDAGEDAGEDAGEDAGEDAGEDAGEDAGEDAGEDAGEDAGEDAGEDAGEDAGEDAGEDAGEDAGEDAGEDAGEDAGEDAGEDAGEDAGEDAGEDAGEDAGEDAGu/gisnpAhgJAhgJAhgJAhgJAhgJAhwH8BA8DgF18rczIAAAAASUVORK5CYII=" alt="img 133">
+              </div>      
+            </div>
+
+
           </div>
            
           <!-- Bloque desplegable interior-->
-          <div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between oscuro" onclick="$('#seccion10-XX').toggle();">
+          <div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between oscuro" onclick="$('#seccion10-134').toggle();">
             <h3>134. Agregando el Formulario de Entrada de datos</h3>
             <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
           </div>
-          <div id="seccion10-XX" class="hidden">
-                          
+          <div id="seccion10-134" class="hidden">
+            <p>Trabajar con formularios en React es complicado. Existen distintas librerías que lo simplifican bastante, y es probable que en el grupo de trabajo se use una librería <strong>pero nosotros debemos saber leer y colocar en el state lo que el usuario va metiendo y es la razón de este proyecto</strong>.</p> 
+            
+            <ul>
+              <li>Comenzamos a maquetar y darle contenido al componente <span class="file">Form.tsx</span>.</li>
+              <li>Para las categorías del select iteramos desde un array de objetos que nos traemos de este <a href="https://gist.github.com/codigoconjuan/d84931241e93bebac46fccc28d096123" class="underline">Gist de categorias</a>. Creamos <strong>data>categories.ts</strong> y el type que van a tener lo vamos a reutilizar así que lo metemos en un archivo genérico de types <strong>types>index.ts</strong></li>
+              <li>
+                <div class="flex max-sm:flex-col">
+                  <div class="w-[50%] max-sm:w-[100%]">
+                    <pre><code class="language-ts">
+                      //type>index.ts
+                      export type Category = {
+                        id: number,
+                        name: string
+                      }
+                    </code></pre>
+                    <pre class="mt-1.25"><code class="language-ts">
+                      //data>categories.ts
+                      import type { Category } from "../types"
+
+                      export const categories: Category[] = [
+                          { id: 1, name: 'Comida'},
+                          { id: 2, name: 'Ejercicio'}
+                      ]                
+                    </code></pre>
+
+                    <img src="https://andune55.github.io/manual-react/assets/134-klmm-c6f.png" alt="">
+                  </div>
+                  <div class="w-[50%] max-sm:w-[100%] max-sm:mt-1.25">
+                    <pre><code class="language-ts">
+                      //App.tsx
+                      import Form from &quot;./components/Form&quot;
+                      function App() {  
+
+                        return (
+                          &lt;&gt;
+
+                            &lt;header className=&quot;bg-lime-600&quot;&gt;
+                              &lt;div className=&quot;flex justify-between max-w-4xl mx-auto&quot;&gt;
+                                &lt;h1 className=&quot;text-center text-lg font-bold text-white uppercase&quot;&gt;
+                                  Contador de calorías 
+                                &lt;/h1&gt;
+                              &lt;/div&gt;
+                            &lt;/header&gt;
+
+                            &lt;section className=&quot;bg-lime-500 py-20 px-5&quot;&gt;
+                              &lt;div className=&quot;max-w-4xl mx-auto&quot;&gt;
+                                &lt;Form /&gt;
+                              &lt;/div&gt;
+                            &lt;/section&gt;
+                            
+                          &lt;/&gt;
+                        )
+                      }
+
+                      export default App
+                    </code></pre>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <pre><code class="language-ts">
+                  //Form.tsx
+                  import { categories } from &quot;../data/categories&quot;
+
+                  export default function Form() {
+                    return (    
+                      &lt;form
+                          className=&quot;space-y-5 bg-white shadow p-10 rounded-lg&quot;
+                      &gt;
+                  
+                          &lt;div className=&quot;gris grid-cols-1 gap-3&quot;&gt;
+                              &lt;label htmlFor=&quot;category&quot; className=&quot;font-bold&quot;&gt;Categoría:&lt;/label&gt;
+                              &lt;select 
+                                  id=&quot;category&quot;
+                                  className=&quot;border border-slate-300 p-2 rounded-lg w-full bg-white&quot;
+                              &gt;
+                                  {categories.map(category =&gt; (
+                                      &lt;option
+                                          key={category.id}
+                                          value={category.id}
+                                      &gt;{category.name}&lt;/option&gt;
+                                  ))}
+                              &lt;/select&gt;
+                          &lt;/div&gt;
+                  
+                          &lt;div className=&quot;gris grid-cols-1 gap-3&quot;&gt;
+                              &lt;label htmlFor=&quot;activity&quot; className=&quot;font-bold&quot;&gt;Actividad:&lt;/label&gt;
+                              &lt;input 
+                                  id=&quot;activity&quot;
+                                  type=&quot;text&quot; 
+                                  className=&quot;w-full border border-slate-300 p-2 rounded-lg&quot;
+                                  placeholder=&quot;Por ej: Comida, zumo de naranja, ensalada, Ejercicio, Pesas, Bicicleta&quot;
+                                  /&gt;
+                          &lt;/div&gt;
+                  
+                          &lt;div className=&quot;gris grid-cols-1 gap-3&quot;&gt;
+                              &lt;label htmlFor=&quot;calories&quot; className=&quot;font-bold&quot;&gt;Calorías:&lt;/label&gt;
+                              &lt;input 
+                                  id=&quot;calories&quot;
+                                  type=&quot;number&quot; 
+                                  className=&quot;w-full border border-slate-300 p-2 rounded-lg&quot;
+                                  placeholder=&quot;Calorías Por ej: 300, 500&quot;
+                                  /&gt;
+                          &lt;/div&gt;
+                  
+                          &lt;input 
+                              type=&quot;submit&quot; 
+                              className=&quot;bg-gray-800 hover:bg-gray-900 w-full p-2 font-bold uppercase text-white cursor-pointer&quot;
+                              value=&quot;Guardar Comida o guardar Ejercicio&quot;
+                          /&gt;
+                      &lt;/form&gt;  
+                    )
+                  }                  
+                </code></pre>
+              </li>
+              <li></li>
+            </ul>
+            
           </div>
            
-          <!-- Bloque desplegable interior-->
-          <div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between oscuro" onclick="$('#seccion10-XX').toggle();">
-            <h3>XXXXXXXXXXXXXXX</h3>
-            <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
-          </div>
-          <div id="seccion10-XX" class="hidden">
-                          
-          </div>
+<!-- Bloque desplegable interior-->
+<div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between oscuro" onclick="$('#seccion10-135').toggle();">
+  <h3>135. Creando el State para las Actividades</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion10-135">
+  <p>Vamos a ir almacenando en el state todo lo que el usuario elija/escriba en nuestro formulario.</p>
+                
+</div>
+           
+<!-- Bloque desplegable interior-->
+<div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between oscuro" onclick="$('#seccion10-XX').toggle();">
+  <h3>XXXXXXXXXXXXXXX</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion10-XX" class="hidden">
+                
+</div>
+           
+<!-- Bloque desplegable interior-->
+<div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between oscuro" onclick="$('#seccion10-XX').toggle();">
+  <h3>XXXXXXXXXXXXXXX</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion10-XX" class="hidden">
+                
+</div>
+           
+<!-- Bloque desplegable interior-->
+<div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between oscuro" onclick="$('#seccion10-XX').toggle();">
+  <h3>XXXXXXXXXXXXXXX</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion10-XX" class="hidden">
+                
+</div>
+           
+<!-- Bloque desplegable interior-->
+<div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between oscuro" onclick="$('#seccion10-XX').toggle();">
+  <h3>XXXXXXXXXXXXXXX</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion10-XX" class="hidden">
+                
+</div>
+           
+<!-- Bloque desplegable interior-->
+<div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between oscuro" onclick="$('#seccion10-XX').toggle();">
+  <h3>XXXXXXXXXXXXXXX</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion10-XX" class="hidden">
+                
+</div>
+           
+<!-- Bloque desplegable interior-->
+<div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between oscuro" onclick="$('#seccion10-XX').toggle();">
+  <h3>XXXXXXXXXXXXXXX</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion10-XX" class="hidden">
+                
+</div>
+           
+<!-- Bloque desplegable interior-->
+<div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between oscuro" onclick="$('#seccion10-XX').toggle();">
+  <h3>XXXXXXXXXXXXXXX</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion10-XX" class="hidden">
+                
+</div>
+           
+<!-- Bloque desplegable interior-->
+<div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between oscuro" onclick="$('#seccion10-XX').toggle();">
+  <h3>XXXXXXXXXXXXXXX</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion10-XX" class="hidden">
+                
+</div>
+           
+<!-- Bloque desplegable interior-->
+<div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between oscuro" onclick="$('#seccion10-XX').toggle();">
+  <h3>XXXXXXXXXXXXXXX</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion10-XX" class="hidden">
+                
+</div>
+           
+<!-- Bloque desplegable interior-->
+<div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between oscuro" onclick="$('#seccion10-XX').toggle();">
+  <h3>XXXXXXXXXXXXXXX</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion10-XX" class="hidden">
+                
+</div>
+           
+<!-- Bloque desplegable interior-->
+<div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between oscuro" onclick="$('#seccion10-XX').toggle();">
+  <h3>XXXXXXXXXXXXXXX</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion10-XX" class="hidden">
+                
+</div>
+           
+<!-- Bloque desplegable interior-->
+<div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between oscuro" onclick="$('#seccion10-XX').toggle();">
+  <h3>XXXXXXXXXXXXXXX</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion10-XX" class="hidden">
+                
+</div>
+           
+<!-- Bloque desplegable interior-->
+<div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between oscuro" onclick="$('#seccion10-XX').toggle();">
+  <h3>XXXXXXXXXXXXXXX</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion10-XX" class="hidden">
+                
+</div>
+           
+<!-- Bloque desplegable interior-->
+<div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between oscuro" onclick="$('#seccion10-XX').toggle();">
+  <h3>XXXXXXXXXXXXXXX</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion10-XX" class="hidden">
+                
+</div>
+           
+<!-- Bloque desplegable interior-->
+<div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between oscuro" onclick="$('#seccion10-XX').toggle();">
+  <h3>XXXXXXXXXXXXXXX</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion10-XX" class="hidden">
+                
+</div>
+           
+<!-- Bloque desplegable interior-->
+<div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between oscuro" onclick="$('#seccion10-XX').toggle();">
+  <h3>XXXXXXXXXXXXXXX</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion10-XX" class="hidden">
+                
+</div>
+           
+<!-- Bloque desplegable interior-->
+<div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between oscuro" onclick="$('#seccion10-XX').toggle();">
+  <h3>XXXXXXXXXXXXXXX</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion10-XX" class="hidden">
+                
+</div>
+           
+<!-- Bloque desplegable interior-->
+<div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between oscuro" onclick="$('#seccion10-XX').toggle();">
+  <h3>XXXXXXXXXXXXXXX</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion10-XX" class="hidden">
+                
+</div>
+           
+<!-- Bloque desplegable interior-->
+<div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between oscuro" onclick="$('#seccion10-XX').toggle();">
+  <h3>XXXXXXXXXXXXXXX</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion10-XX" class="hidden">
+                
+</div>
+           
+<!-- Bloque desplegable interior-->
+<div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between oscuro" onclick="$('#seccion10-XX').toggle();">
+  <h3>XXXXXXXXXXXXXXX</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion10-XX" class="hidden">
+                
+</div>
+           
+<!-- Bloque desplegable interior-->
+<div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between oscuro" onclick="$('#seccion10-XX').toggle();">
+  <h3>XXXXXXXXXXXXXXX</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion10-XX" class="hidden">
+                
+</div>
+           
+<!-- Bloque desplegable interior-->
+<div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between oscuro" onclick="$('#seccion10-XX').toggle();">
+  <h3>XXXXXXXXXXXXXXX</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion10-XX" class="hidden">
+                
+</div>
+           
+<!-- Bloque desplegable interior-->
+<div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between oscuro" onclick="$('#seccion10-XX').toggle();">
+  <h3>XXXXXXXXXXXXXXX</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion10-XX" class="hidden">
+                
+</div>
+           
+<!-- Bloque desplegable interior-->
+<div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between oscuro" onclick="$('#seccion10-XX').toggle();">
+  <h3>XXXXXXXXXXXXXXX</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion10-XX" class="hidden">
+                
+</div>
+           
+<!-- Bloque desplegable interior-->
+<div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between oscuro" onclick="$('#seccion10-XX').toggle();">
+  <h3>XXXXXXXXXXXXXXX</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion10-XX" class="hidden">
+                
+</div>
+           
+<!-- Bloque desplegable interior-->
+<div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between oscuro" onclick="$('#seccion10-XX').toggle();">
+  <h3>XXXXXXXXXXXXXXX</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion10-XX" class="hidden">
+                
+</div>
+           
+<!-- Bloque desplegable interior-->
+<div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between oscuro" onclick="$('#seccion10-XX').toggle();">
+  <h3>XXXXXXXXXXXXXXX</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion10-XX" class="hidden">
+                
+</div>
+           
+<!-- Bloque desplegable interior-->
+<div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between oscuro" onclick="$('#seccion10-XX').toggle();">
+  <h3>XXXXXXXXXXXXXXX</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion10-XX" class="hidden">
+                
+</div>
+           
+<!-- Bloque desplegable interior-->
+<div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between oscuro" onclick="$('#seccion10-XX').toggle();">
+  <h3>XXXXXXXXXXXXXXX</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion10-XX" class="hidden">
+                
+</div>
+           
+<!-- Bloque desplegable interior-->
+<div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between oscuro" onclick="$('#seccion10-XX').toggle();">
+  <h3>XXXXXXXXXXXXXXX</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion10-XX" class="hidden">
+                
+</div>
            
             
         </div>
@@ -450,69 +888,68 @@
                 class="destacado">revisar/empollar uso de Tailwind</span> Quedan de la siguiente manera: </p>
       
             <div class="flex max-sm:flex-col">
-              <div class="w-[50%] max-sm:w-[100%]">
-                <span class="file">App.tsx</span>
+              <div class="w-[50%] max-sm:w-[100%]">                
                 <pre><code class="language-ts">
-                        import MenuItem from &quot;./components/MenuItem&quot;
-                        import { menuItems } from &quot;./data/db&quot;
+                  //App.tsx
+                  import MenuItem from &quot;./components/MenuItem&quot;
+                  import { menuItems } from &quot;./data/db&quot;
+                  
+                  function App() {
+                  
+                    return (
+                      &lt;&gt;
                         
-                        function App() {
+                        &lt;header className=&quot;bg-teal-400 py-5&quot;&gt;
+                          &lt;h1 className=&quot;text-center text-4l font-black&quot;&gt;Calculadora de propinas y consumo&lt;/h1&gt;
+                        &lt;/header&gt;
+                  
+                        &lt;main className=&quot;max-w-7xl mx-auto py-20 grid grid-cols-2&quot;&gt;
+                          &lt;div className=&quot;p-5&quot;&gt;
+                            &lt;h2 className=&quot;text-4xl font-black&quot;&gt;Menú&lt;/h2&gt;
+                  
+                            &lt;div className=&quot;space-y-2 mt-10&quot;&gt;
+                              {menuItems.map(item =&gt; (
+                                &lt;MenuItem
+                                  key = {item.id} //siempre que iteramos, recordar añadir key único
+                                  item = {item}
+                                /&gt;
+                              ))}
+                            &lt;/div&gt;
+                          
+                          &lt;/div&gt;
+                  
+                          &lt;div&gt;
+                            &lt;h2&gt;Consumo&lt;/h2&gt;
+                          
+                          &lt;/div&gt;
+                        &lt;/main&gt;
                         
-                          return (
-                            &lt;&gt;
-                              
-                              &lt;header className=&quot;bg-teal-400 py-5&quot;&gt;
-                                &lt;h1 className=&quot;text-center text-4l font-black&quot;&gt;Calculadora de propinas y consumo&lt;/h1&gt;
-                              &lt;/header&gt;
-                        
-                              &lt;main className=&quot;max-w-7xl mx-auto py-20 grid grid-cols-2&quot;&gt;
-                                &lt;div className=&quot;p-5&quot;&gt;
-                                  &lt;h2 className=&quot;text-4xl font-black&quot;&gt;Menú&lt;/h2&gt;
-                        
-                                  &lt;div className=&quot;space-y-2 mt-10&quot;&gt;
-                                    {menuItems.map(item =&gt; (
-                                      &lt;MenuItem
-                                        key = {item.id} //siempre que iteramos, recordar añadir key único
-                                        item = {item}
-                                      /&gt;
-                                    ))}
-                                  &lt;/div&gt;
-                                
-                                &lt;/div&gt;
-                        
-                                &lt;div&gt;
-                                  &lt;h2&gt;Consumo&lt;/h2&gt;
-                                
-                                &lt;/div&gt;
-                              &lt;/main&gt;
-                              
-                            &lt;/&gt;
-                          )
-                        }
-                        
-                        export default App
-                      </code></pre>
+                      &lt;/&gt;
+                    )
+                  }
+                  
+                  export default App
+                </code></pre>
               </div>
               <div class="w-[50%] max-sm:w-[100%]">
-                <span class="file">MenuItem.tsx</span>
                 <pre><code class="language-ts">
-                        import type { MenuItem } from &quot;../types&quot;
-      
-                        export type MenuItemProps = {
-                            item: MenuItem
-                        }
-                        
-                        export default function MenuItem({item}: MenuItemProps) {
-                          return (
-                            &lt;button className=&quot;border-2 border-teal-400 hover:bg-teal-200 w-full p-3 flex justify-between&quot;&gt;
-                                &lt;p&gt;{item.name}&lt;/p&gt;
-                                &lt;p className=&quot;font-black&quot;&gt;{item.price}&lt;/p&gt;
-                            &lt;/button&gt;
-                          )
-                        }                       
-                      </code></pre>
-              </div>
-      
+                  //MenuItem.tsx
+                  import type { MenuItem } from &quot;../types&quot;
+
+                  export type MenuItemProps = {
+                      item: MenuItem
+                  }
+                  
+                  export default function MenuItem({item}: MenuItemProps) {
+                    return (
+                      &lt;button className=&quot;border-2 border-teal-400 hover:bg-teal-200 w-full p-3 flex justify-between&quot;&gt;
+                          &lt;p&gt;{item.name}&lt;/p&gt;
+                          &lt;p className=&quot;font-black&quot;&gt;{item.price}&lt;/p&gt;
+                      &lt;/button&gt;
+                    )
+                  }                       
+                </code></pre>
+              </div>      
             </div>
       
             <p>A continuación vamos a crear un custom Hook para ir almacenando nuestra orden.</p>
