@@ -407,7 +407,7 @@
                 onChange={handleChange} // en cada campo del formulario
             </code></pre>
             
-            <p>Sin embargo vemos que de momento nada cambia en la vist, y es porque el value del select y los inputs es lo que está en el state y de momento no lo estamos actualizando. Hemos de ir escribiendo en el state para que se vaya actualizando esos values de nuestros campos de formulario ¿como lo hacemos?. <strong>Estamos usando la misma función para un select y dos inputs y hemos de leer lo que el usuario haya metido</strong>. Una técnica muy común es pasarle (e) y hacer un console.log(e.target.id) para, como vemos en la siguiente captura, identificar sobre qué estamos intentando escribir o hacer cambio: </p>     
+            <p>Sin embargo vemos que de momento nada cambia en la vista, y es porque el value del select y los inputs es lo que está en el state y de momento no lo estamos actualizando. Hemos de ir escribiendo en el state para que se vayan actualizando esos values de nuestros campos de formulario ¿como lo hacemos?. <strong>Estamos usando la misma función para un select y dos inputs y hemos de leer lo que el usuario haya metido</strong>. Una técnica muy común es pasarle (e) y hacer un console.log(e.target) para, como vemos en la siguiente captura, identificar sobre qué estamos intentando escribir o hacer cambio: </p>     
 
             <div class="flex max-sm:flex-col">
               <div class="w-[50%] max-sm:w-[100%]">
@@ -438,7 +438,7 @@
               </div>
             </div>
             
-            <p><span class="destacado">NOMBRAR LOS ID DE NUESTROS ELEMENTOS DE FOMULARIO CON EL MISMO NOMBRE QUE LAS PROPIEDADES DE NUESTRO STATE.</span> <br>Así es más sencillo es como "ir mapeando los datos"</p>
+            <p><span class="destacado">SI NOMBRAMOS LOS ID DE NUESTROS ELEMENTOS DE FORMULARIO CON EL MISMO NOMBRE QUE LAS PROPIEDADES DE NUESTRO STATE...</span> <br>es más sencillo, es como "ir mapeando los datos"</p>
             
             <div class="flex max-sm:flex-col">
               <div class="w-[25%] max-sm:w-[100%]">
