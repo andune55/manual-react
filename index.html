@@ -41,12 +41,12 @@
             <ul class="my-3.75">
               <li><span>Vamos al directorio donde queremos crearlo</span></li>
               <li><span><span class="destacado">npm create vite@latest</span> > <strong>calorie-tracker</strong> > <strong>react TypeScript + SWC</strong> > <span class="destacado">npm install</span></span></li>
-              <li><span>arrancamos el servidor de desarrollo <span class="destacado">npm run dev</span> y hacemos limpieza: eliminamos carpeta src>assets, eliminamos src>App.css, borramos el contenido de index.css, en index.html cambiamos el title y eliminamos icono <code class="language-ts">&lt;link rel=&quot;icon&quot; type=&quot;image/svg+xml&quot; href=&quot;/vite.svg&quot; /&gt;</code> (borramos también el icono vite.svg de la carpeta public) y limpiamos el compo ppal App.tsx.</span></li>
+              <li><span>arrancamos el servidor de desarrollo <span class="destacado">npm run dev</span> y hacemos limpieza: eliminamos carpeta src>assets, eliminamos src>App.css, borramos el contenido de index.css, en index.html cambiamos el title y eliminamos icono <code class="language-js">&lt;link rel=&quot;icon&quot; type=&quot;image/svg+xml&quot; href=&quot;/vite.svg&quot; /&gt;</code> (borramos también el icono vite.svg de la carpeta public) y limpiamos el compo ppal App.tsx.</span></li>
               <li>instalamos tailwind: <a class="underline" href="https://tailwindcss.com/docs/installation/using-vite" target="_blank">https://tailwindcss.com/docs/installation/using-vite</a> 
                 <ul class="my-3.75">
                   <li><span class="destacado">npm install tailwindcss @tailwindcss/vite</span></li>
                   <li>configurar el plugin: 
-                    <pre><code class="language-ts">
+                    <pre><code class="language-js">
                       //vite.config.ts
                       import tailwindcss from '@tailwindcss/vite'
                       export default defineConfig({
@@ -57,7 +57,7 @@
                     </code></pre>
                   </li>
                   <li>importar tailwindcss en nuestra css principal: 
-                    <pre><code class="language-ts">
+                    <pre><code class="language-js">
                       //src>index.css
                       @import "tailwindcss";
                     </code></pre>
@@ -81,7 +81,7 @@
             
             <div class="flex max-sm:flex-col">
               <div class="w-[50%] max-sm:w-[100%]">                
-                <pre><code class="language-ts">
+                <pre><code class="language-js">
                   //App.tsx
                   import Form from "./components/Form"
                   function App() {  
@@ -111,7 +111,7 @@
                 </code></pre> 
               </div>
               <div class="w-[50%] max-sm:w-[100%] max-sm:mt-1.25">
-                <pre><code class="language-ts">
+                <pre><code class="language-js">
                   //Form.tsx
                   export default function Form() {
                     return (
@@ -140,14 +140,14 @@
               <li>
                 <div class="flex max-sm:flex-col">
                   <div class="w-[50%] max-sm:w-[100%]">
-                    <pre><code class="language-ts">
+                    <pre><code class="language-js">
                       //type>index.ts
                       export type Category = {
                         id: number,
                         name: string
                       }
                     </code></pre>
-                    <pre class="mt-1.25"><code class="language-ts">
+                    <pre class="mt-1.25"><code class="language-js">
                       //data>categories.ts
                       import type { Category } from "../types"
 
@@ -160,7 +160,7 @@
                     <img class="my-2.5" src="https://andune55.github.io/manual-react/assets/134-klmm-c6f.png" alt="">
                   </div>
                   <div class="w-[50%] max-sm:w-[100%] max-sm:mt-1.25">
-                    <pre><code class="language-ts">
+                    <pre><code class="language-js">
                       //App.tsx
                       import Form from &quot;./components/Form&quot;
                       function App() {  
@@ -192,7 +192,7 @@
                 </div>
               </li>
               <li>
-                <pre><code class="language-ts">
+                <pre><code class="language-js">
                   //Form.tsx
                   import { categories } from &quot;../data/categories&quot;
 
@@ -261,7 +261,7 @@
             <ul class="my-3.75">
               <li><strong>Importamos useState en nuestro componente Form.tsx.</strong></li>
               <li><strong>Definimos nuestro state.</strong> Como tenemos Categoría, actividad y calorías, normalmente crearíamos un state para cada uno:
-                <pre class="border-5 border-red-700"><code class="language-ts">
+                <pre class="border-5 border-red-700"><code class="language-js">
                   //Form.tsx
                   import { useState } from "react"
 
@@ -270,7 +270,7 @@
                   const[calories, setCalories] = useState(0)
                 </code></pre>
                   pero como están relacionados entre sí podemos tenerlos en un objeto. <strong>Hagamos un state más genérico que vamos a nombrar como activity</strong>. Inicia como arreglo y vamos a ir definiendo sus propiedades:
-                  <pre class="border-5 border-emerald-600"><code class="language-ts">
+                  <pre class="border-5 border-emerald-600"><code class="language-js">
                     //Form.tsx
                     import { useState } from "react"
 
@@ -284,11 +284,11 @@
               <li><strong>Vamos a conectar las propiedades de nuestro state array 'activity' con los inputs del formulario</strong>:
               
                 <ul class="my-3.75">
-                  <li>En el select de category, le añadimos como value<code class="language-ts">value={activity.category}</code>
+                  <li>En el select de category, le añadimos como value<code class="language-js">value={activity.category}</code>
                     
                     <div class="flex max-sm:flex-col">
                       <div class="w-[30%] max-sm:w-[100%]">
-                        <pre><code class="language-ts">
+                        <pre><code class="language-js">
                           //data>categories.ts
                           export const categories: Category[] = [
                             { id: 1, name: 'Comida'},
@@ -297,7 +297,7 @@
                         </code></pre>
                       </div>
                       <div class="w-[70%] max-sm:w-[100%] max-sm:mt-1.25">
-                        <pre data-line="4"><code class="language-ts">
+                        <pre data-line="4"><code class="language-js">
                           //Form.tsx
                           &lt;select 
                               id=&quot;category&quot;
@@ -311,13 +311,13 @@
                     </div> 
                   </li>         
                     
-                  <li>El input de actividad (#name --> le hemos dado ese id porque coincidia con el nombre del nuevo state), le añadimos como value <code class="language-ts">value={activity.name}</code></li>
-                  <li>El input de calorias #calories, le añadimos como value <code class="language-ts">value={activity.calories}</code></li>        
+                  <li>El input de actividad (#name --> le hemos dado ese id porque coincidia con el nombre del nuevo state), le añadimos como value <code class="language-js">value={activity.name}</code></li>
+                  <li>El input de calorias #calories, le añadimos como value <code class="language-js">value={activity.calories}</code></li>        
                 </ul>
               </li>
             </ul>
                 
-            <pre><code class="language-ts">
+            <pre><code class="language-js">
               //Form.tsx
               import { useState } from &quot;react&quot;
               import { categories } from &quot;../data/categories&quot;
@@ -397,7 +397,7 @@
           </div>
           <div id="seccion10-136" class="hidden">
             <p>Hemos definido nuestro state y lo hemos conectado con los campos de nuestro formulario (1 select y dos inputs) pero como vimos tenemos en la consola advertencias. Le estamos pasando un value pero <strong>también tenemos que especificarle un onChange (básicamente es como un addEventListener y escuchar por el evento change)</strong>, que se ejecutará cada vez que cambiemos de opción en el select o cada vez que intentemos escribir en los inputs. Podemos hacerlo en el mismo input o tener una función aparte que lo gestione y llamaremos <strong>handleChange</strong>. La llamamos desde cada campo de formulario y ya no tendremos errores:</p>
-            <pre><code class="language-ts">
+            <pre><code class="language-js">
               //Form.tsx
               const handleChange = () =>{
                 console.log ('algo cambió')
@@ -411,7 +411,7 @@
 
             <div class="flex max-sm:flex-col">
               <div class="w-[50%] max-sm:w-[100%]">
-                <pre><code class="language-ts">
+                <pre><code class="language-js">
                   //Form.tsx
                   const handleChange = (e) =>{
                     console.log (e.target)          
@@ -424,7 +424,7 @@
                 <img class="my-2.5" src="https://andune55.github.io/manual-react/assets/136-1-DCb1kRK2.png" alt="">
               </div>
               <div class="w-[50%] max-sm:w-[100%] max-sm:mt-1.25">
-                <pre><code class="language-ts">
+                <pre><code class="language-js">
                   //Form.tsx
                   const handleChange = (e) =>{
                     console.log (e.target.id)
@@ -442,7 +442,7 @@
             
             <div class="flex max-sm:flex-col">
               <div class="w-[25%] max-sm:w-[100%]">
-                <pre class="verde" data-line="4-6"><code class="language-ts">
+                <pre class="verde" data-line="4-6"><code class="language-js">
                   //Form.tsx
                   export default function Form() {
                     
@@ -459,7 +459,7 @@
                     </code></pre>
                   </div>
                   <div class="w-[25%] max-sm:w-[100%] max-sm:mt-1.25">
-                    <pre class="verde" data-line="2"><code class="language-ts">
+                    <pre class="verde" data-line="2"><code class="language-js">
                       //Form.tsx
                       &lt;select 
                       id=&quot;category&quot;
@@ -478,7 +478,7 @@
                     </div>
                     
                     <div class="w-[25%] max-sm:w-[100%]">
-                      <pre class="verde" data-line="2"><code class="language-ts">
+                      <pre class="verde" data-line="2"><code class="language-js">
                   //Form.tsx
                   &lt;input 
                   id=&quot;name&quot;
@@ -491,7 +491,7 @@
                 </code></pre>
               </div>
               <div class="w-[25%] max-sm:w-[100%] max-sm:mt-1.25">
-                <pre class="verde" data-line="2"><code class="language-ts">
+                <pre class="verde" data-line="2"><code class="language-js">
                   //Form.tsx
                   &lt;input 
                   id=&quot;calories&quot;
@@ -505,12 +505,12 @@
               </div>
             </div>
             
-            <p><code class="language-ts">e.target.id</code> ¿qué es lo que estoy intentando modificar?¿sobre qué intento actuar?</p>
-            <p><code class="language-ts">e.target.value</code> ¿qué es lo que estoy escribiendo/cambiando? </p>
+            <p><code class="language-js">e.target.id</code> ¿qué es lo que estoy intentando modificar?¿sobre qué intento actuar?</p>
+            <p><code class="language-js">e.target.value</code> ¿qué es lo que estoy escribiendo/cambiando? </p>
             
             <p>La función de nuestro state, 'setActivity' es un objeto así que la llamamos, abrimos corchetes y, usamos el spread operator para que con cada cambio que hagamos en el state al modificar el value de CADA elemento de formulario, siempre mantenga el state que había antes de ese cambio (podemos ver en React Developer tools cómo se comporta el state si no hacemos esto, se cambia con cada intento de cambio en algún elemento del formulario) --> escribe correctamente y no pierde la referencia gracias a que tomamos una copia de lo que tenemos en nuestro state antes de escribir un nuevo state</p>
             
-            <pre><code class="language-ts">
+            <pre><code class="language-js">
               //Form.tsx
               const handleChange = (e) =>{        
                 setActivity({
@@ -534,7 +534,7 @@
             
             <p>Usando un pipe "|" en la definición del tipo de ese parámetro, vamos a indicar que nuestra función handleChange se puede utilizar tanto en un elemento select como en un elemento input. Podemos incluir 'ChangeEvent' en la importación de react y así reducimos la sintaxis del tipado de parámetro</p>
             
-            <pre><code class="language-ts">
+            <pre><code class="language-js">
               //Form.tsx
               import { useState, ChangeEvent } from "react"
               
@@ -556,7 +556,7 @@
 
             <p>Vamos a agregar un type nuevo para el state de activity en nuestro fichero de types, lo importamos en nuestro componente Form.tsx y se lo asignamos vía generic a nuestro state:</p>
 
-            <pre data-line="8,13"><code class="language-ts">
+            <pre data-line="8,13"><code class="language-js">
               //types>index.ts
                 export type Activity = {
                   category: number,
@@ -579,9 +579,9 @@
 
             <p>Una vez hecho lo anterior VSC no nos marca errores, porque TS está funcionando bien en esta parte de nuestro compo, en nuestro código, pero no sabe qué es lo que vamos a agregar en ese formulario. <strong>Nosotros hemos de mantener esa integridad de nuestro state activity ¿Como podemos hacer para convertirlos a números antes de setearlos a nuestro state?</strong></p>
             <ul class="my-3.75">
-              <li>Identifiquemos los que queremos que sean números. Creamos una variable de tipo array llamada 'isNumberField' que va a comprobar si donde estoy escribiendo es categoría o calorías: <code class="language-ts">const isNumberField = ['category','calories'].includes(e.target.id)</code> --&gt; en caso de que esté escribiendo en category o calories me retorna true</li>
-              <li>Teniendo en cuenta la comprobación que hacemos con esta nueva variable, añadimos un ternario a nuestra expresión anterior <code class="language-ts">[e.target.id]: e.target.value</code> de manera que si es true convertimos a número con <span class="destacado">+</span> y si no lo dejamos como estaba, que setea string:
-              <pre><code class="language-ts">
+              <li>Identifiquemos los que queremos que sean números. Creamos una variable de tipo array llamada 'isNumberField' que va a comprobar si donde estoy escribiendo es categoría o calorías: <code class="language-js">const isNumberField = ['category','calories'].includes(e.target.id)</code> --&gt; en caso de que esté escribiendo en category o calories me retorna true</li>
+              <li>Teniendo en cuenta la comprobación que hacemos con esta nueva variable, añadimos un ternario a nuestra expresión anterior <code class="language-js">[e.target.id]: e.target.value</code> de manera que si es true convertimos a número con <span class="destacado">+</span> y si no lo dejamos como estaba, que setea string:
+              <pre><code class="language-js">
                 //Forms.tsx
                 const handleChange = (e: ChangeEvent<HTMLSelectElement> | ChangeEvent<HTMLInputElement> ) =>{   
                   const isNumberField = ['category','calories'].includes(e.target.id)
@@ -596,7 +596,7 @@
 
             <div class="flex max-sm:flex-col">
               <div class="w-[50%] max-sm:w-[100%]">
-                <pre><code class="language-ts">
+                <pre><code class="language-js">
                   //types>index.ts
                     export type Category = {
                       id: number,
@@ -610,7 +610,7 @@
                 </code></pre>
               </div>
               <div class="w-[50%] max-sm:w-[100%] max-sm:mt-1.25">
-                <pre><code class="language-ts">
+                <pre><code class="language-js">
                   //data>categories.ts
                   import type { Category } from "../types"
 
@@ -622,7 +622,7 @@
               </div>
             </div>
 
-            <pre><code class="language-ts">
+            <pre><code class="language-js">
               import { useState, ChangeEvent } from &quot;react&quot;
               import { Activity } from &quot;../types&quot;
               import { categories } from &quot;../data/categories&quot;
@@ -869,7 +869,7 @@
               </li>
               <li><strong>Configurar el plugin de vite:</strong> añadimos el plugin '@tailwindcss/vite' a nuestra
                 configuración de vite en <span class="file">vite.config.ts</span>
-                <pre data-line="1,8"><code class="language-ts">
+                <pre data-line="1,8"><code class="language-js">
                       import { defineConfig } from 'vite'
                       import tailwindcss from '@tailwindcss/vite'
                       import react from '@vitejs/plugin-react-swc'
@@ -934,7 +934,7 @@
                 array de objetos y eso está bien, pero <strong>está aún mejor crear un type personalizado "MenuItem" y
                   asignárselo para tener un mejor autocompletado y para que, en caso de que alguna de mis propiedades no
                   cumpla con lo tipado, nos lo marque como error</strong>.
-                <pre data-line="0,2"><code class="language-ts">
+                <pre data-line="0,2"><code class="language-js">
                       import type { MenuItem } from "../types" 
       
                       export const menuItems : MenuItem[] = [
@@ -947,7 +947,7 @@
               </li>
               <li>Creamos <strong>src&gt;types&gt;<span class="file">index.ts</span> en donde creamos este primer type
                   MenuItem</strong>
-                <pre><code class="language-ts">
+                <pre><code class="language-js">
                   //src>types>index.ts
                       export type MenuItem = {
                         id: number,
@@ -960,7 +960,7 @@
                 que tenemos disponibles esos datos.
                 <div class="flex max-sm:flex-col">
                   <div class="w-[50%] max-sm:w-[100%]">
-                    <pre><code class="language-ts">
+                    <pre><code class="language-js">
                       //App.tsx
                         import { menuItems } from "./data/db"
       
@@ -1027,7 +1027,7 @@
               </li>
               <li> En nuestro <span class="file">App.tsx</span> renderizamos nuestro nuevo componente MenuItems una vez por
                 cada elemento que tengamos en nuestro array que simula la base de datos:
-                <pre><code class="language-ts">
+                <pre><code class="language-js">
                       {menuItems.map(item =&gt; (
       
                         &lt;MenuItem 
@@ -1044,7 +1044,7 @@
               props y escribir el type para este componente, hacerlo dinámico para que imprima la información de nuestra
               pequeña BBDD.</p>
             <p>En el tag de llamada al componente del return de nuestro <span class="file">App.tsx</span> creamos un prop
-              llamado item y le pasamos el objeto de item <code class="language-ts">item={item}</code>. Nos da error porque el
+              llamado item y le pasamos el objeto de item <code class="language-js">item={item}</code>. Nos da error porque el
               componente de momento no espera ninguna propiedad. Si, en nuestro <span class="file">MenuItem.tsx</span>
               aplicamos destructuring para que reciba ese item: <code
                 class="language-ts">export default function MenuItem({item}) {</code> vamos a ver que es de tipo Any
@@ -1054,7 +1054,7 @@
                 class="file">MenuItem.tsx</span> un type nuevo <strong>MenuItemProps</strong>(que solo va a usarse en este
               compo por lo que no tenemos que crearlo en archivo común de types):</p>
       
-            <pre><code class="language-ts">
+            <pre><code class="language-js">
                     import type { MenuItem } from &quot;../types&quot;
       
                     export type MenuItemProps = {
@@ -1079,7 +1079,7 @@
       
             <div class="flex max-sm:flex-col">
               <div class="w-[50%] max-sm:w-[100%]">                
-                <pre><code class="language-ts">
+                <pre><code class="language-js">
                   //App.tsx
                   import MenuItem from &quot;./components/MenuItem&quot;
                   import { menuItems } from &quot;./data/db&quot;
@@ -1122,7 +1122,7 @@
                 </code></pre>
               </div>
               <div class="w-[50%] max-sm:w-[100%]">
-                <pre><code class="language-ts">
+                <pre><code class="language-js">
                   //MenuItem.tsx
                   import type { MenuItem } from &quot;../types&quot;
 
@@ -1154,7 +1154,7 @@
           </div>
           <div id="seccion9-113" class="hidden">
             <p>Creamos nuestro <span class="file">useOrder.ts</span> <strong>hooks&gt;useOrder.ts</strong>
-            <pre><code class="language-ts">
+            <pre><code class="language-js">
                     export default function useOrder() {
       
                       return{
@@ -1166,7 +1166,7 @@
             <p>Definimos un state en el que vamos colocando los elementos que forman parte de nuestra orden. Iniciamos como un
               arreglo vacío. Si vemos, así lo hicimos en el anterior proyecto de las guitarras pero con el IS vemos que nos da
               que order es de tipo Never por lo que lo ideal es aplicarle un tipo de dato en específico.</p>
-            <pre><code class="language-ts">
+            <pre><code class="language-js">
                     import { useState } from "react"
       
                     export default function useOrder() {
@@ -1180,7 +1180,7 @@
             <p>En nuestro fichero de types vamos a crear un tipe nuevo <span class="type">OrderItem</span> para la orden y va
               a requerir lo mismo que el tipo <span class="type">MenuItem</span> pero además tiene que tener cantidad por lo
               que lo declaramos así <span class="file">types&gt;index.ts</span>:</p>
-            <pre data-line="5-7"><code class="language-ts">
+            <pre data-line="5-7"><code class="language-js">
                     export type MenuItem = {
                       id: number,
                       name: string,
@@ -1200,7 +1200,7 @@
               number/string/boolean..) viene bien especificarle con el generic nuestro type. Así todo lo que agreguemos a ese
               state order, React va a revisar que tenga la estructura del tipo definido. En el caso de los que tienen un valor
               inicial más sencillo que TS puede inferir bien, no es necesario el generic:</p>
-            <pre><code class="language-ts">
+            <pre><code class="language-js">
                     const [order, setOrder] = useState&lt;OrderItem[]&gt;([]) //Nuestro tipo (OrderItem) es más complejo y queremos especificarle que sea ese, sí requiere generic
                     const [total, setTotal] = useState&lt;number&gt;(0) //No sería necesario el generic es redundante porque con el valor inicial se infiere bien
                     const [auth, setAuth] = useState&lt;boolean&gt;(false) //No sería necesario el generic es redundante porque con el valor inicial se infiere bien
@@ -1219,7 +1219,7 @@
           </div>
           <div id="seccion9-114" class="hidden">
             <p>Creamos en nuestro hook un arrow function nueva para agregar items y la exportamos en el return. </p>
-            <pre><code class="language-ts">
+            <pre><code class="language-js">
                     export default function useOrder() {
                       const [order, setOrder] = useState<OrderItem[]>([])
                   
@@ -1237,7 +1237,7 @@
               continuación como usando destructuring extraigo de nuestro custom hook useOrder la nueva función addItem, que a
               su vez hemos de pasar como prop a nuestro componente MenuItem.jsx (porque cada vez que presione uno de esos
               menús es una función con valores diferentes).</p>
-            <pre><code class="language-ts">
+            <pre><code class="language-js">
                     import useOrder from "./hooks/useOrder"
       
                     function App() {
@@ -1249,7 +1249,7 @@
                   class="file">MenuItem.tsx</span></strong> y añadimos el segundo parámetro en la declaración de nuestra
               función de componente y el onClick con la llamada a la función, como callback porque tengo que pasarle qué es lo
               que quiero agregar.</p>
-            <pre data-line="2,5,9"><code class="language-ts">
+            <pre data-line="2,5,9"><code class="language-js">
                     type MenuItemProps = {
                       item: MenuItem,
                       addItem: () => void // muy común cuando pasamos una fcn vía props. VOid significa que no retorna nada. A veces sí tomará parámetro y a veces retornaraá un valor
@@ -1264,7 +1264,7 @@
                   </code></pre>
       
             <p>En <span class="file">App.tsx</span> tenemos que pasarle esa función a nuestro componente vía props</p>
-            <pre data-line="5"><code class="language-ts">
+            <pre data-line="5"><code class="language-js">
                     &lt;div className=&quot;space-y-2 mt-10&quot;&gt;
                       {menuItems.map(item =&gt; (
                         &lt;MenuItem
@@ -1308,7 +1308,7 @@
                 class="type">MenuItemProps</span> que el parámetro item que pasamos como argumento es de tipo <span
                 class="type">MenuItem</span> y en la arrow function del onClick le especificamos el parámetro item.</p>
       
-            <pre data-line="4,11"><code class="language-ts">
+            <pre data-line="4,11"><code class="language-js">
                     import type { MenuItem } from &quot;../types&quot;
       
                     type MenuItemProps = {
@@ -1336,7 +1336,7 @@
                 la opción de corregirlo y automáticamente aparece en las importaciones de arriba</strong>). Ya en el console
               logo podemos indicarle {item}</p>
       
-            <pre data-line="1,6"><code class="language-ts">
+            <pre data-line="1,6"><code class="language-js">
                     import { useState } from &quot;react&quot;
                     import { MenuItem, OrderItem } from &quot;../types&quot;
                     
@@ -1354,8 +1354,8 @@
                   </code></pre>
       
             <p><span class="destacado">Importante:</span> nuestra función del custom hook <span
-                class="file">useOrder.ts</span> <code class="language-ts">export default function useOrder() {</code>: </p>
-            <pre><code class="language-ts">
+                class="file">useOrder.ts</span> <code class="language-js">export default function useOrder() {</code>: </p>
+            <pre><code class="language-js">
                     const addItem = (item: MenuItem) => {
                       console.log({item})
                     } 
@@ -1378,11 +1378,11 @@
           </div>
           <div id="seccion9-116" class="hidden">
             <p>Vamos a escribir en nuestro state de órdenes pero recordemos que <span class="file">useOrder.ts</span> este
-              estate order <code class="language-ts">const [order, setOrder] = useState&lt;OrderItem[]&gt;([])</code> lo
+              estate order <code class="language-js">const [order, setOrder] = useState&lt;OrderItem[]&gt;([])</code> lo
               definimos con un <strong>generic</strong> como un array de tipo <span class="type">OrderItem</span>, y ese tipo
               tenía una cantidad 'quantity'.</p>
       
-            <pre><code class="language-ts">
+            <pre><code class="language-js">
                     export type OrderItem = MenuItem & {
                       quantity: number
                   }
@@ -1399,7 +1399,7 @@
             <p>Estamos intentando pasar como argumento un 'item' que es de tipo <span class="type">MenuItem</span> que tiene
               estos atributos:</p>
       
-            <pre><code class="language-ts">
+            <pre><code class="language-js">
                     export type MenuItem = {
                       id: number,
                       name: string,
@@ -1410,7 +1410,7 @@
             <p>mientras que nuestro state de order es de tipo <span class="type">OrderItem</span> que, recordemos tiene los
               atributos de <span class="type">MenuItem</span> más la cantidad 'quantity'</p>
       
-            <pre><code class="language-ts">
+            <pre><code class="language-js">
                     export type MenuItem = {
                       id: number,
                       name: string,
@@ -1426,11 +1426,11 @@
               iremos ajustando esta cantidad según casuística). Le pasamos ese newItem a la función del state y ya no tenemos
               errores. Si nos ponemos encima de esta nueva variable vemos con el IS que tiene los atributos de <span
                 class="type">OrderItem</span> más no es como tal un OrderItem, podríamos castearlo especificando el tipo:
-              <code class="language-ts">const newItem: OrderItem = {...item, quantity: 1}</code> aunque no es necesario y él
+              <code class="language-js">const newItem: OrderItem = {...item, quantity: 1}</code> aunque no es necesario y él
               no lo hace porque en la declaración de nuestro state ya especificamos con el generic que las órdenes van a tener
               ese tipo de dato.</p>
       
-            <pre><code class="language-ts">
+            <pre><code class="language-js">
                   import { useState } from &quot;react&quot;
                     import { MenuItem, OrderItem } from &quot;../types&quot;
                     
@@ -1467,7 +1467,7 @@
             <p>Vamos a revisar si una orden existe en el arreglo:</p>
             <ul>
               <li><strong>¿No existe?:</strong> este código está bien:
-                <pre><code class="language-ts">
+                <pre><code class="language-js">
                         const newItem: OrderItem = {...item, quantity: 1}
                         setOrder([...order, newItem])
                       </code></pre>
@@ -1484,7 +1484,7 @@
                 actual 'orderItem' y el que hace referencia al item que la pasamos al clickar).</span> Así es como queda
               nuestro código de momento con un console.log que nos avise si pulsamos en una orden que ya existe:</p>
       
-            <pre><code class="language-ts">
+            <pre><code class="language-js">
                     const addItem = (item: MenuItem) => {
                         
                       const itemExist = order.find(orderItem => orderItem.id === item.id) // buscamos en el state order el elemento cuyo id sea igual al id del item que estamos pasando
@@ -1501,7 +1501,7 @@
             <p>Si existe el elemento que intentamos agregar, hay que encontrar cual es, incrementar su cantidad pero siempre
               sin mutar el state. Para ello utilizamos el <strong>.map() y algunos spreads</strong></p>
       
-            <pre><code class="language-ts">
+            <pre><code class="language-js">
                     export default function useOrder() {
                       const [order, setOrder] = useState&lt;OrderItem[]&gt;([])
                   
@@ -1544,7 +1544,7 @@
               a la izquierda. Vamos así a comunicar distintos componentes con las interacciones del usuario para crear apps
               que sean más dinámicas. Vamos al <span class="file">App.tsx</span> y creamos un div con estas propiedades de
               estilo usando tailwindcss (dentro de él llamamos al nuevo componente que creamos a continuación): </p>
-            <pre><code class="language-ts">
+            <pre><code class="language-js">
                     import OrderContents from "./components/OrderContents"
       
                     &lt;div className=&quot;border border-dashed border-slate-300 p-5 rounded-lg space-y10&quot;&gt; 
@@ -1553,7 +1553,7 @@
                   </code></pre>
             <p>Creamos un componente nuevo <span class="file">OrderContents.tsx</span> en el cual creamos el componente con el
               snippet <strong>rfc</strong> le ponemos un título y en él iteraremos sobre nuestra orden:</p>
-            <pre><code class="language-ts">
+            <pre><code class="language-js">
                     export default function OrderContents() {
                       return (
                         &lt;div&gt;
@@ -1565,7 +1565,7 @@
                   </code></pre>
             <p>y lo llamamos desde nuestra App.tsx</p>
             <p>A continuación exportamos "order" desde nuestro Hook <span class="file">useOrder.ts</span>:</p>
-            <pre data-line="23"><code class="language-ts">
+            <pre data-line="23"><code class="language-js">
                     //useOrder.ts
                     import { useState } from &quot;react&quot;
                     import { MenuItem, OrderItem } from &quot;../types&quot;
@@ -1600,7 +1600,7 @@
               entonces pierde la referencia??. En <span class="file">App.tsx</span>, que importamos nuestro Hook, en el
               destructuring de nuestro hook <strong>useOrder</strong> <span class="destacado">extraemos también la orden que
                 vamos a pasar como prop al nuevo componente</span>:</p>
-            <pre data-line="5"><code class="language-ts">
+            <pre data-line="5"><code class="language-js">
                       //App.tsx
                       import useOrder from "./hooks/useOrder"
                       import OrderContents from "./components/OrderContents"
@@ -1612,7 +1612,7 @@
       
             <p>Si somos limpios usando el mismo orden que usamos en el Hook para declarar y retornar las variables será más
               fácil tenerlo todo controlado; si vemos nuestro hook:</p>
-            <pre data-line="2,3,8,9"><code class="language-ts">
+            <pre data-line="2,3,8,9"><code class="language-js">
                     //useOrder.ts
                     export default function useOrder() {
                       const [order, setOrder] = useState&lt;OrderItem[]&gt;([])
@@ -1630,7 +1630,7 @@
             <p>Al asignarle la prop me marca un error porque, esa propiedad que enviamos desde App.tsx hacia OrderContents.tsx
               hemos de tiparla, no tenemos ningún type asociado.</p>
       
-            <pre class="error" data-line="2"><code class="language-ts">
+            <pre class="error" data-line="2"><code class="language-js">
                     //App.tsx
                     &lt;OrderContents 
                     order = { order }
@@ -1642,7 +1642,7 @@
       
             <div class="flex">
               <div class="w-50">
-                <pre><code class="language-ts">
+                <pre><code class="language-js">
                         //OrderContents.tsx
                         export default function OrderContents() {
                           return (
@@ -1655,7 +1655,7 @@
                       </code></pre>
               </div>
               <div class="w-50">
-                <pre><code class="language-ts">
+                <pre><code class="language-js">
                         //OrderContents.tsx
                         import { OrderItem } from &quot;../types&quot;
       
@@ -1678,7 +1678,7 @@
             <p>Comentamos el console.log(order) de nuestro hook para comenzar a mostrarlo en nuestro componente. Añadimos este
               contenedor con esta comprobación:</p>
       
-            <pre><code class="language-ts">
+            <pre><code class="language-js">
                     //OrderContents.tsx
                     &lt;div className=&quot;space-y-3 mt-5&quot;&gt;
                       { order.length === 0 ? 
@@ -1708,7 +1708,7 @@
             <p>Sigamos con nuestro html, vamos a mostrar nombre, precio, cantidad y un botón para eliminar los elementos.
               Añadimos el precio y en vez de poner a pelo el signo del $, crea carpeta y fichero <span
                 class="file">helpers&gt;index.ts</span> donde mete la función '<strong>formatCurrency()</strong>':</p>
-            <pre><code class="language-ts">
+            <pre><code class="language-js">
                     //helpers>index.ts
                     export default function formatCurrency(quantity: number){
                       return new Intl.NumberFormat('en-US', {
@@ -1716,7 +1716,7 @@
                       }).format(quantity)
                   }
                   </code></pre>
-            <pre><code class="language-ts">
+            <pre><code class="language-js">
                     //OrderContents.tsx
                     (order.map( item =&gt; (
                       &lt;div 
@@ -1752,7 +1752,7 @@
           <div id="seccion9-120" class="hidden">
             <p>Creamos función nueva para eliminar items de la orden y vemos todos los cambios necesarios en App.tsx, nuestro
               custom hook y el componente implicado.</p>
-            <pre><code class="language-ts">
+            <pre><code class="language-js">
                     //useOrder.ts 
                     // - creamos una nueva función para borrar items
                     // - le ponemos como parámetro id y lo tipamos como MenuItem con un lookup para id 
@@ -1817,7 +1817,7 @@
               hook, dado que en este caso solo se va a requerir su uso en el componente totales la vamos a especificar ahí.
             </p>
       
-            <pre><code class="language-ts">
+            <pre><code class="language-js">
                     //OrderTotals.tsx (nuevo componente para totales)
       
                     //App.tsx
@@ -1871,14 +1871,14 @@
               cantidad. Eso antes era más complejo hacerlo pero <strong>gracias a las "nuevos"(2015) array methods como
                 <strong>useMemo() o reduce() </strong>es más sencillo simplifican el código, evitando tener que tener renders
                 adicionales</strong>. Como ese cálculo viene desde <strong>order</strong> vamos a nuestro App.tsx</p>
-            <pre><code class="language-ts">
+            <pre><code class="language-js">
                     //App.tsx
                     //- en el tag de nuestro nuevo componente &lt;OrderTotals/&gt; le pasamos como propiedad la order para que esté conectado y sepa cuáles son los contenidos de nuestra orden (lo podemos hacer en el hook o en el componente, con react tenemos siempre distintas formas)
                       &lt;OrderTotals 
                       order = { order }/&gt;
                   </code></pre>
       
-            <pre><code class="language-ts">
+            <pre><code class="language-js">
                   //OrderTotals.tsx  
                   //- importamos useMemo y nuestra función formatCurrency() de helpers que los vamos a usar
                     import { useMemo } from "react"
@@ -1933,13 +1933,13 @@
               nuevo <span class="file">TipPercentageForm.tsx</span> en el que usamos como const <a
                 href="https://gist.github.com/codigoconjuan/93fd42da96258357fc9f78eb1d17a6b3" class="underline"
                 target="_blank">Gist Arreglo con objetos (id, value, label) para iterarlo y mostrarlo en el formulario</a></p>
-            <pre><code class="language-ts">
+            <pre><code class="language-js">
                     //App.tsx
                     import TipPercentageForm from "./components/tipPercentageForm"
       
                     &lt;TipPercentageForm /&gt;
                   </code></pre>
-            <pre><code class="language-ts">
+            <pre><code class="language-js">
                     //TipPercentageForm.tsx
                     const tipOptions = [
                     {
@@ -1988,7 +1988,7 @@
             <p class="naranja">Añadiendo la cantidad seleccionada de Propina</p>
       
             <p>vamos a colocar el state de propina en nuestro hook useOrder():</p>
-            <pre><code class="language-ts">
+            <pre><code class="language-js">
                     //useOrder.ts 
                     export default function useOrder() {
                         const [order, setOrder] = useState<OrderItem[]>([])
@@ -2068,14 +2068,14 @@
             <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
           </div>
           <div id="seccion9-125" class="hidden">
-            <pre><code class="language-ts">
+            <pre><code class="language-js">
                     //App.tsx
                       &lt;OrderTotals 
                         order = {order}
                         tip = {tip}
                       &gt;
                   </code></pre>
-            <pre><code class="language-ts">
+            <pre><code class="language-js">
                     //OrderTotals.tsx
                     //- completamos el type de propiedades de ese componente con la nueva que pasamos, tip que es de tipo number
                     //- la extraemos
@@ -2134,7 +2134,7 @@
               <strong>simplemente es añadir los () en cada llamada que se haga a las distintas funciones. El código anterior
                 de nuestro componente OrderTotals.tsx quedaría así: </strong></p>
       
-            <pre><code class="language-ts">
+            <pre><code class="language-js">
                     //OrderTotals.tsx
                       import { useMemo, useCallback } from "react"
       
@@ -2177,7 +2177,7 @@
           </div>
           <div id="seccion9-128" class="hidden">
             <p>Vamos a trabajar con e botón del final de nuestro componente OrderTotals.tsx</p>
-            <pre><code class="language-ts">
+            <pre><code class="language-js">
                     // OrderTotals.tsx
                     // - le damos estilos y lo deshabilitamos si el total es 0. 
                     // - aprovehamos las clases de tailwind para formatear aspecto cuando esté deshabilitado
@@ -2195,7 +2195,7 @@
               <strong>OrderTotal.tsx</strong>
             </p>
       
-            <pre><code class="language-ts">
+            <pre><code class="language-js">
                     //useOrder.ts
                         const placeOrder = () => {
                           console.log('guardando...')
@@ -2242,11 +2242,11 @@
       
             <p>Si probamos se restablece todo, pero el radio queda marcado ¿como conseguimos que no queda marcado? Hemos de
               pasarle al componente TipPercentageForm.tsx como propiedad desde App.tsx la propina tip para poder añadirle al
-              input esta comprobación: <code class="language-ts">checked={tipOption.value === tip}</code>. <strong>Cuando
+              input esta comprobación: <code class="language-js">checked={tipOption.value === tip}</code>. <strong>Cuando
                 restablecemos la orden el state tip cambia porque tiene las dos dependencias mencionadas antes con lo cual
                 deja de cumplirse la condición para que permanezca marcado</strong></p>
       
-            <pre><code class="language-ts">
+            <pre><code class="language-js">
                     //App.tsx
                     &lt;TipPercentageForm 
                       tip = {tip}
@@ -2292,7 +2292,7 @@
       
             <p>Vemos que en OrderContents.tsx. teníamos un ternario para mostrar "La orden está vacía" o en caso de que bo lo
               estuviera el/los elementos agregados:</p>
-            <pre><code class="language-ts">
+            <pre><code class="language-js">
                     //OrderContents.tsx
                       &lt;div className=&quot;space-y-3 mt-10&quot;&gt;
                         //{ order.length === 0 ? 
@@ -2325,7 +2325,7 @@
       
             <p>Cambiemos el compo ppal App.tsx para meter aquí la comprobación, mejorando así el rendimiento porque en caso de
               que la orden esté vacía no se renderiza ninguno de los 3 componentes:</p>
-            <pre><code class="language-ts">
+            <pre><code class="language-js">
                     &lt;div className=&quot;border border-dashed border-slate-300 p-5 rounded-lg space-y10&quot;&gt;    
                       &lt;h2 className=&quot;font-black text-4xl&quot;&gt;Consumo&lt;/h2&gt;
                       {order.length &gt; 0  ? (
@@ -3604,7 +3604,7 @@
                       
                       <p>De esta forma, podemos tener funciones que se ejecuten cuando cambie algún state en nuestra aplicación, para eso es el useEffect(). Es muy útil.</p>
                       <p>¿podríamos hacer lo siguiente? meter un condicional para ejecutar un código solo en el caso de que el usuario esté autenticado? (comenta que hay gente que dice que no se puede usar eso dentro de un useEffect, pero él afirma que se utiliza muchas veces y que es correcto)</p>
-                      <pre><code class="language-ts">
+                      <pre><code class="language-js">
                         const [auth, setAuth] = useState(false)
                       
                         useEffect ( () => {
@@ -3633,7 +3633,7 @@
                 <div id="seccion6-63" class="hidden">
                   <p>Veamos como incorporar este <a href="https://gist.github.com/codigoconjuan/f333ee8422b0b8c4fde227e81e626cce" target="_blank">listado de Gist que simula ser una pequeña base de datos de guitarras</a> para hacer nuestra interfaz dinámica y no mostrar una única guitarra. Sobre todo también hacer el componente <strong>Guitar</strong> más inteligente.</p>
       
-                  <p>Creamos en src una carpeta para los datos y un .js con los datos de ese git copiados en raw: <strong>data/db.js</strong>. Es una pequeña base de datos con 12 guitarras cada una con un id, descripción y precio; las imágenes están mapeadas con nuestra carpeta de imágenes. Vamos a nuestro componente principal <strong>App.jsx</strong> e importamos esta base de datos ayudándonos del autocompletado: <code class="language-ts">import { db } from "./data/db"</code>. Si hacemos un console.log(db) podemos ver esa bbdd local. Hagámoslo al estilo de React. Se puede hacer de dos formas:</p>
+                  <p>Creamos en src una carpeta para los datos y un .js con los datos de ese git copiados en raw: <strong>data/db.js</strong>. Es una pequeña base de datos con 12 guitarras cada una con un id, descripción y precio; las imágenes están mapeadas con nuestra carpeta de imágenes. Vamos a nuestro componente principal <strong>App.jsx</strong> e importamos esta base de datos ayudándonos del autocompletado: <code class="language-js">import { db } from "./data/db"</code>. Si hacemos un console.log(db) podemos ver esa bbdd local. Hagámoslo al estilo de React. Se puede hacer de dos formas:</p>
       
                   <ul>
                     <li>Como es un archivo local, podemos ponerle que el valor inicial del state data es lo que tengamos en db
