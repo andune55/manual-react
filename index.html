@@ -10,8 +10,8 @@
     
     <!-- <script src="https://unpkg.com/@tailwindcss/browser@4"></script> -->
   
-    <script type="module" crossorigin src="https://andune55.github.io/manual-react/assets/index-DL9YDZaB.js"></script>
-    <link rel="stylesheet" crossorigin href="https://andune55.github.io/manual-react/assets/index-BN8tun0J.css">
+    <script type="module" crossorigin src="https://andune55.github.io/manual-react/assets/index-BVWg7osX.js"></script>
+    <link rel="stylesheet" crossorigin href="https://andune55.github.io/manual-react/assets/index-BQcgRXk-.css">
   </head>
   <body>
     <div id="root"></div>	
@@ -522,7 +522,7 @@
             
             <p>Podemos hacer así uso de nuestro state en otros lugares como por ejemplo en una validación, una vez que yo presione en guardar comida o guardar ejercicio, validamos eso que tenemos en el state antes de guardarlo.</p>
             
-            <p class="naranja">Inferir el Type de un evento</p>
+            <p class="esp-15-top esp-0-bottom"><span class="naranja">Inferir el Type de un evento</span></p>           
             
             <p>Si vemos, llevamos arrastrando esta advertencia de que <strong>el parámetro e/evt/event tiene un tipo any implícitamente</strong>.</p>
             
@@ -697,12 +697,48 @@
                   &lt;/form&gt;  
                 )
               }    
+            </code></pre>           
+          </div>
+
+          <!-- Bloque desplegable interior-->
+          <div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between oscuro" onclick="$('#seccion10-139').toggle();">
+            <h3>139. Validando el Formulario</h3>
+            <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+          </div>
+          <div id="seccion10-139" class="hidden">
+            <p>Veamos como deshabilitar visualmente este formulario, este input de tipo submit</p>              
+            <p>Creamos un arrow function, vamos debugeando lo siguiente con console.log y para ello la llamamos en el disabled del button submit:</p>
+            <ul>
+              <li><strong>name.trim() != ''</strong> el name(de actividad) al recortar espacio de inicio y fin es distinto de 0 <strong>true cuando está relleno</strong></li>
+              <li>calories > 0 true cuando calorías es mayor que 0</li> 
+              <li>Queremos que el botón esté deshabilitado si esta condición no se cumple, por tanto: <code class="language-js">disabled={!isValidActivity()}</code></li>
+            </ul>
+            <pre data-line="10"><code class="language-js">
+              //Form.tsx
+              const isValidActivity = () =>{
+                const { name, calories } = activity
+                return name.trim() != '' && calories > 0 // devuelve true cuando ambas se cumplen
+              }
+              ...
+              &lt;input 
+                  type=&quot;submit&quot; 
+                  className=&quot;bg-gray-800 hover:bg-gray-900 w-full p-2 font-bold uppercase text-white cursor-pointer&quot;
+                  value=&quot;Guardar Comida o guardar Ejercicio&quot;
+                  disabled={!isValidActivity()}
+              /&gt;
             </code></pre>
 
-
+            <p>Con ello aseguramos tener deshabilitado el botón, no pasando esa validación hasta qeu no complete los dos campos qyue he especificado en mi función de validación 'isValidActivity' (si rellenáramos con espacios el campo name de actividad no vale por la comprobación que hace el trim()</p>
+            <pre><code class="language-js">
+              const str = "   foo  ";
+              console.log(str.trim()); // 'foo'
+            </code></pre>
+            
+            <p><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/trim" class="underline" target="_blank">mdn web docs js referency</a> <span class="border-1 border-b-black bg-[#e6f4ea] px-1.5 py-0.5 italic leading-[24px]">El método trim() de valores tipo string elimina los espacios en blanco de ambos extremos de la cadena y devuelve una nueva cadena, sin modificar la cadena original. Para devolver una nueva cadena con espacios recortados solo en un extremo, usamos trimStart() o trimEnd()</span></p>
             
           </div>
 
+           
 <!-- Bloque desplegable interior-->
 <div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between oscuro" onclick="$('#seccion10-XX').toggle();">
   <h3>XXXXXXXXXXXXXXX</h3>
@@ -711,7 +747,16 @@
 <div id="seccion10-XX" class="hidden">
                 
 </div>
-           
+  
+<!-- Bloque desplegable interior-->
+<div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between oscuro" onclick="$('#seccion10-XX').toggle();">
+  <h3>XXXXXXXXXXXXXXX</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion10-XX" class="hidden">
+                
+</div>
+  
 <!-- Bloque desplegable interior-->
 <div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between oscuro" onclick="$('#seccion10-XX').toggle();">
   <h3>XXXXXXXXXXXXXXX</h3>
