@@ -10,8 +10,8 @@
     
     <!-- <script src="https://unpkg.com/@tailwindcss/browser@4"></script> -->
   
-    <script type="module" crossorigin src="https://andune55.github.io/manual-react/assets/index-BVWg7osX.js"></script>
-    <link rel="stylesheet" crossorigin href="https://andune55.github.io/manual-react/assets/index-BQcgRXk-.css">
+    <script type="module" crossorigin src="https://andune55.github.io/manual-react/assets/index-Dldc0SdE.js"></script>
+    <link rel="stylesheet" crossorigin href="https://andune55.github.io/manual-react/assets/index-Dr01fAyi.css">
   </head>
   <body>
     <div id="root"></div>	
@@ -702,13 +702,13 @@
 
           <!-- Bloque desplegable interior-->
           <div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between oscuro" onclick="$('#seccion10-139').toggle();">
-            <h3>139. Validando el Formulario</h3>
+            <h3>139. Validando el Formulario / 140. Mostrar de forma condicional el Texto si es Ejercicio o comida al guardar / 141. Trabajando con el evento de Submit</h3>
             <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
           </div>
           <div id="seccion10-139" class="hidden">
             <p>Veamos como deshabilitar visualmente este formulario, este input de tipo submit</p>              
             <p>Creamos un arrow function, vamos debugeando lo siguiente con console.log y para ello la llamamos en el disabled del button submit:</p>
-            <ul>
+            <ul class="my-3.75">
               <li><strong>name.trim() != ''</strong> el name(de actividad) al recortar espacio de inicio y fin es distinto de 0 <strong>true cuando está relleno</strong></li>
               <li>calories > 0 true cuando calorías es mayor que 0</li> 
               <li>Queremos que el botón esté deshabilitado si esta condición no se cumple, por tanto: <code class="language-js">disabled={!isValidActivity()}</code></li>
@@ -734,17 +734,109 @@
               console.log(str.trim()); // 'foo'
             </code></pre>
             
-            <p><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/trim" class="underline" target="_blank">mdn web docs js referency</a> <span class="border-1 border-b-black bg-[#e6f4ea] px-1.5 py-0.5 italic leading-[24px]">El método trim() de valores tipo string elimina los espacios en blanco de ambos extremos de la cadena y devuelve una nueva cadena, sin modificar la cadena original. Para devolver una nueva cadena con espacios recortados solo en un extremo, usamos trimStart() o trimEnd()</span></p>
+             
+            <div class="mt-3 mb-2 ml-1.5 pl-2.5 pt-0.5 pb-2  border-l-2 border-dashed border-l-stone-600 rounded-tl-2xl rounded-bl-2xl bg-neutral-50 shadow-lg">
+              <a class="block underline ml-1.5 mb-1.5" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/trim" target="_blank">mdn web docs js referency</a>
+              <div class="flex">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 shrink-0">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3" />
+                </svg>
+                <span class="bg-neutral-200 px-1.5 py-0.5 italic leading-[24px]">El método trim() de valores tipo string elimina los espacios en blanco de ambos extremos de la cadena y devuelve una nueva cadena, sin modificar la cadena original. Para devolver una nueva cadena con espacios recortados solo en un extremo, usamos trimStart() o trimEnd()</span>
+              </div>
+            </div>
+
+
+            <p class="esp-15-top esp-0-bottom"><span class="naranja">Mostrar de forma condicional el Texto del botón si es Ejercicio o comida al guardar</span></p>
+
+            <p>Con el siguiente código que ponemos en el botón, React hace un nuevo render cada vez que cambia el state:</p>
+
+            <div class="flex max-sm:flex-col">
+              <div class="w-[33%] max-sm:w-[100%]">
+                <pre data-line="2"><code class="language-js">
+                  //categories.ts --&gt; los datos
+                  import type { Category } from "../types"
+                  export const categories: Category[] = [
+                      { id: 1, name: 'Comida'},
+                      { id: 2, name: 'Ejercicio'}
+                  ]
+                </code></pre>
+              </div>
+              <div class="w-[33%] max-sm:w-[100%]">
+                <pre data-line="3,11"><code class="language-js">
+                  //Form.tsx --&gt; el select categoría
+                  &lt;label htmlFor=&quot;category&quot; className=&quot;font-bold&quot;&gt;Categoría:&lt;/label&gt;
+                  &lt;select 
+                      id=&quot;category&quot;
+                      className=&quot;border border-slate-300 p-2 rounded-lg w-full bg-white&quot;
+                      value={activity.category}
+                      onChange={handleChange}
+                  &gt;
+                      {categories.map(category =&gt; (
+                          &lt;option
+                              key={category.id}
+                              value={category.id}
+                          &gt;{category.name}&lt;/option&gt;
+                      ))}
+                  &lt;/select&gt;                  
+                </code></pre>
+              </div>
+              <div class="w-[33%] max-sm:w-[100%]">
+                <pre data-line="2"><code class="language-js">
+                  //Form.tsx --&gt; state de actividad
+                  const[activity, setActivity] = useState&lt;Activity&gt;({
+                    category: 1,
+                    name: '',
+                    calories: 0
+                  }) 
+                </code></pre>
+              </div>
+            </div>            
+
+            <pre data-line="4"><code class="language-js">
+            //Form.tsx
+              &lt;input 
+                type=&quot;submit&quot; 
+                className=&quot;bg-gray-800 hover:bg-gray-900 w-full p-2 font-bold uppercase text-white cursor-pointer disabled:opacity-10&quot;
+                value={activity.category === 1 ? &quot;Guardar Comida&quot; : &quot;Guardar Ejercicio&quot;}
+                disabled={!isValidActivity()}
+            /&gt;
+            </code></pre>            
+
+            <p class="esp-15-top esp-0-bottom"><span class="naranja">Trabajando con el evento de Submit</span></p>
+
+            <p>Vamos a empezar a trabajar con el submit de nuestro formulario.<p>
             
+              <ul class="my-3.75">
+                <li>Añadimos al tag form onSubmit y llamamos a una nueva arrow function 'handleSubmit' que recibe parámetro e.</li>
+                <li>Como nos avisa que es un 'any' buscamos el type con la ayuda del IS de VSC (cambiamos en el submit la llamada a nuestra nueva función por <strong>e = &gt;</strong> y nos indica que <code class="language-js">(parameter) e: React.FormEvent&lt;HTMLFormElement&gt;</code> así que importamos FormEvent y así reducimos la sintaxis en el tipado pudiendo quitar el 'react.' previo
+                  <pre data-line="1,3-6,11"><code class="language-js">
+                    //Form.tsx
+                    import { useState, ChangeEvent, FormEvent } from "react"
+                    ...
+                    const handleSubmit = (e:FormEvent&lt;HTMLFormElement&gt;) =&gt;{
+                      e.preventDefault()
+                      console.log(&#39;Submit...&#39;)
+                    }
+                
+                    return (    
+                        &lt;form
+                            className=&quot;space-y-5 bg-white shadow p-10 rounded-lg&quot;
+                            onSubmit={handleSubmit}
+                        &gt;
+                        ...
+                  </code></pre>
+                </li>
+              </ul>
           </div>
 
            
 <!-- Bloque desplegable interior-->
-<div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between oscuro" onclick="$('#seccion10-XX').toggle();">
-  <h3>XXXXXXXXXXXXXXX</h3>
+<div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between oscuro" onclick="$('#seccion10-142').toggle();">
+  <h3>142. Introducción a useReducer</h3>
   <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
 </div>
-<div id="seccion10-XX" class="hidden">
+<div id="seccion10-142">
+  <p>Hasta ahora hemos estado usando un custom hook, pero cuando tenemos states más complejos podemos ir almacenando en algo conocido como <span class="destacado">reducers</span>. Es una forma de almacenar nuestro state, no de manera global digamos, es un archivo a parte y usamos un hook llamado useReducer. Veamos qué es eso.</p>
                 
 </div>
   
