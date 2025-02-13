@@ -10,8 +10,8 @@
     
     <!-- <script src="https://unpkg.com/@tailwindcss/browser@4"></script> -->
   
-    <script type="module" crossorigin src="https://andune55.github.io/manual-react/assets/index-Dldc0SdE.js"></script>
-    <link rel="stylesheet" crossorigin href="https://andune55.github.io/manual-react/assets/index-Dr01fAyi.css">
+    <script type="module" crossorigin src="https://andune55.github.io/manual-react/assets/index-CLZPpfgf.js"></script>
+    <link rel="stylesheet" crossorigin href="https://andune55.github.io/manual-react/assets/index-DRvd3nq1.css">
   </head>
   <body>
     <div id="root"></div>	
@@ -38,12 +38,12 @@
               
             <p>También tendrá <strong>localStorage</strong>. Va a ser desarrollado con <strong>UseState</strong> pero también veremos el hook <strong>useReducer</strong> que es un hook especial para manejar states complejos en nuestras apps, como es el caso de este proyecto.</p>   
             
-            <ul class="my-3.75">
+            <ul class="mb-3.75">
               <li><span>Vamos al directorio donde queremos crearlo</span></li>
               <li><span><span class="destacado">npm create vite@latest</span> > <strong>calorie-tracker</strong> > <strong>react TypeScript + SWC</strong> > <span class="destacado">npm install</span></span></li>
               <li><span>arrancamos el servidor de desarrollo <span class="destacado">npm run dev</span> y hacemos limpieza: eliminamos carpeta src>assets, eliminamos src>App.css, borramos el contenido de index.css, en index.html cambiamos el title y eliminamos icono <code class="language-js">&lt;link rel=&quot;icon&quot; type=&quot;image/svg+xml&quot; href=&quot;/vite.svg&quot; /&gt;</code> (borramos también el icono vite.svg de la carpeta public) y limpiamos el compo ppal App.tsx.</span></li>
               <li>instalamos tailwind: <a class="underline" href="https://tailwindcss.com/docs/installation/using-vite" target="_blank">https://tailwindcss.com/docs/installation/using-vite</a> 
-                <ul class="my-3.75">
+                <ul class="mb-3.75">
                   <li><span class="destacado">npm install tailwindcss @tailwindcss/vite</span></li>
                   <li>configurar el plugin: 
                     <pre><code class="language-js">
@@ -134,7 +134,7 @@
           <div id="seccion10-134" class="hidden">
             <p>Trabajar con formularios en React es complicado. Existen distintas librerías que lo simplifican bastante, y es probable que en el grupo de trabajo se use una librería <strong>pero nosotros debemos saber leer y colocar en el state lo que el usuario va metiendo y es la razón de este proyecto</strong>.</p> 
             
-            <ul class="my-3.75">
+            <ul class="mb-3.75">
               <li>Comenzamos a maquetar y darle contenido al componente <span class="file">Form.tsx</span>.</li>
               <li>Para las categorías del select iteramos desde un array de objetos que nos traemos de este <a href="https://gist.github.com/codigoconjuan/d84931241e93bebac46fccc28d096123" class="underline">Gist de categorias</a>. Creamos <strong>data>categories.ts</strong> y el type que van a tener lo vamos a reutilizar así que lo metemos en un archivo genérico de types <strong>types>index.ts</strong></li>
               <li>
@@ -258,7 +258,7 @@
           </div>
           <div id="seccion10-135" class="hidden">
             <p>Vamos a ir almacenando en el state todo lo que el usuario elija/escriba en nuestro formulario. Al tener todo eso en nuestro state va a ser más fácil hacer validaciones.</p>
-            <ul class="my-3.75">
+            <ul class="mb-3.75">
               <li><strong>Importamos useState en nuestro componente Form.tsx.</strong></li>
               <li><strong>Definimos nuestro state.</strong> Como tenemos Categoría, actividad y calorías, normalmente crearíamos un state para cada uno:
                 <pre class="border-5 border-red-700"><code class="language-js">
@@ -283,7 +283,7 @@
               </li>
               <li><strong>Vamos a conectar las propiedades de nuestro state array 'activity' con los inputs del formulario</strong>:
               
-                <ul class="my-3.75">
+                <ul class="mb-3.75">
                   <li>En el select de category, le añadimos como value<code class="language-js">value={activity.category}</code>
                     
                     <div class="flex max-sm:flex-col">
@@ -578,7 +578,7 @@
             </code></pre>
 
             <p>Una vez hecho lo anterior VSC no nos marca errores, porque TS está funcionando bien en esta parte de nuestro compo, en nuestro código, pero no sabe qué es lo que vamos a agregar en ese formulario. <strong>Nosotros hemos de mantener esa integridad de nuestro state activity ¿Como podemos hacer para convertirlos a números antes de setearlos a nuestro state?</strong></p>
-            <ul class="my-3.75">
+            <ul class="mb-3.75">
               <li>Identifiquemos los que queremos que sean números. Creamos una variable de tipo array llamada 'isNumberField' que va a comprobar si donde estoy escribiendo es categoría o calorías: <code class="language-js">const isNumberField = ['category','calories'].includes(e.target.id)</code> --&gt; en caso de que esté escribiendo en category o calories me retorna true</li>
               <li>Teniendo en cuenta la comprobación que hacemos con esta nueva variable, añadimos un ternario a nuestra expresión anterior <code class="language-js">[e.target.id]: e.target.value</code> de manera que si es true convertimos a número con <span class="destacado">+</span> y si no lo dejamos como estaba, que setea string:
               <pre><code class="language-js">
@@ -708,7 +708,7 @@
           <div id="seccion10-139" class="hidden">
             <p>Veamos como deshabilitar visualmente este formulario, este input de tipo submit</p>              
             <p>Creamos un arrow function, vamos debugeando lo siguiente con console.log y para ello la llamamos en el disabled del button submit:</p>
-            <ul class="my-3.75">
+            <ul class="mb-3.75">
               <li><strong>name.trim() != ''</strong> el name(de actividad) al recortar espacio de inicio y fin es distinto de 0 <strong>true cuando está relleno</strong></li>
               <li>calories > 0 true cuando calorías es mayor que 0</li> 
               <li>Queremos que el botón esté deshabilitado si esta condición no se cumple, por tanto: <code class="language-js">disabled={!isValidActivity()}</code></li>
@@ -806,7 +806,7 @@
 
             <p>Vamos a empezar a trabajar con el submit de nuestro formulario.<p>
             
-              <ul class="my-3.75">
+              <ul class="mb-3.75">
                 <li>Añadimos al tag form onSubmit y llamamos a una nueva arrow function 'handleSubmit' que recibe parámetro e.</li>
                 <li>Como nos avisa que es un 'any' buscamos el type con la ayuda del IS de VSC (cambiamos en el submit la llamada a nuestra nueva función por <strong>e = &gt;</strong> y nos indica que <code class="language-js">(parameter) e: React.FormEvent&lt;HTMLFormElement&gt;</code> así que importamos FormEvent y así reducimos la sintaxis en el tipado pudiendo quitar el 'react.' previo
                   <pre data-line="1,3-6,11"><code class="language-js">
@@ -828,24 +828,236 @@
                 </li>
               </ul>
           </div>
-
            
-<!-- Bloque desplegable interior-->
-<div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between oscuro" onclick="$('#seccion10-142').toggle();">
-  <h3>142. Introducción a useReducer</h3>
-  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
-</div>
-<div id="seccion10-142">
-  <p>Hasta ahora hemos estado usando un custom hook, pero cuando tenemos states más complejos podemos ir almacenando en algo conocido como <span class="destacado">reducers</span>. Es una forma de almacenar nuestro state, no de manera global digamos, es un archivo a parte y usamos un hook llamado useReducer. Veamos qué es eso.</p>
+          <!-- Bloque desplegable interior-->
+          <div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between oscuro" onclick="$('#seccion10-142').toggle();">
+            <h3>142. Introducción a useReducer</h3>
+            <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+          </div>
+          <div id="seccion10-142" class="hidden">
+            <p>Hasta ahora hemos estado usando un custom hook, pero cuando tenemos states más complejos podemos ir almacenando en algo conocido como <span class="destacado">reducers</span>. Es una forma de almacenar nuestro state, no de manera global digamos, es un archivo a parte y usamos un hook llamado useReducer. Veamos qué es eso.</p>
+
+            <p>Ya tenemos todo listo para empezar a almacenar nuestras actividades, pero vamos a utilizar un enfoque diferente para almacenar el state de nuestra app, vamos a hacerlo por medio de algo llamado <strong>reducers</strong>. Vamos a ver el <strong>hook useReducer y la terminología nueva que vamos a encontrar trabajando con reducers</strong>. Este hook es la base de herramientas como <span class="destacado">Zustand</span> y <span class="destacado">Redux toolkit</span> asíq ue todo lo qeu aprendamos ahora y con los proyectos que vienen nos vendrá bien para el trabajo posterior con ese tipo de herramientas que son más avanzadas.</p>
+
+            <div class="mt-3 mb-2 ml-1.5 pl-2.5 pt-0.5 pb-2  border-l-2 border-dashed border-l-stone-600 rounded-tl-2xl rounded-bl-2xl bg-neutral-50 shadow-lg">
+              <p class="destacado">useReducer, un Hook para manejar state</p>
+              <div class="flex">
+                <svg class="size-6 shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3"></path>
+                </svg>
+                <div class="bg-neutral-200 px-1.5 py-0.5 italic leading-[24px]">
+                  <ul>
+                    <li>useReducer es una alternativa de useState. Es un hook para manejar el state</li>
+                    <li>useReducer es un Hook de React que te permite agregar un reducer a tu componente. es una sintaxis un poco diferente pero una vez entendida hace muy sencillo administrar el state de las apps</li>
+                    <li>El hook  useReducer en React es una alternativa a Usestate que se utiliza para manejar estados más complejos y transiciones de estado que involucran lógica más complicada (que lo que encontrarías en Usestate). Mientras que useState es perfecto para el manejo de estados simples, useReducer es más adecuado para situaciones donde el nuevo estado depende del estado anterior o cuando hay múltiples sub-valores o lógica condicional a considerar (como múltiples states que se actualizan enbase a ciertas acciones).</li>
+                    <li></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-3 mb-2 ml-1.5 pl-2.5 pt-0.5 pb-2  border-l-2 border-dashed border-l-stone-600 rounded-tl-2xl rounded-bl-2xl bg-neutral-50 shadow-lg">
+              <p class="destacado">Composición de useReducer</p>
+              <div class="flex">
+                <svg class="size-6 shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3"></path>
+                </svg>
+                <div>
+                  <pre><code class="language-js">
+                    const [state, dispatch] = useReducer(reducer, initialState)
+                  </code></pre>
+                  <div>
+                    <p class="bg-neutral-200 px-1.5 py-0.5 italic leading-[24px]">Se utiliza el Hook useReducer y podemos ver que la estructura es similar a useState con algunas pequeñas diferencias:</p>
+                    <ul class="mb-3.75">
+                      
+                      <li>El Hook useReducer toma dos argumentos
+                          <ul class="list-disc">
+                            <li><strong>Reducer:</strong> es una función que toma el estado actual y una acción, y devuelve un nuevo estado.</li>
+                            <li><strong>Estado inicial:</strong> es el estado inicial de nuestro reducer. Podemos pensar en ello nn nuestro ejemplo del formulario del proyecto actual como:
+                              <!-- <pre><code class="language-js">
+                                const[activity, setActivity] = useState<Activity>({
+                                  category: 1,
+                                  name: '',
+                                  calories: 0
+                              }) 
+                              </code></pre> -->
+                            </li>
+                          </ul>
+                      </li>
+
+                      <li class="mt-2.5">Algunos términos cuando trabajamos con useReducer
+                        <ul class="list-disc">
+                          <li><strong>state:</strong> es el valor del estado cuya lógica se maneja dentro del reducer</li>
+                          <li><strong>inicial state:</strong> es el state inicial con el que es creado el reducer, es similar a los valores de inicio de useState</li>
+                          <li><strong>Actions:</strong> las acciones o funciones que manejan toda la lógica para modificar nuestro state. Básicamente es una función que desde fuera, desde el componente, llega y modifica nuestro state, muy similar a las fcnoies que exportábamos en nuestro custom Hooks</li>
+                          <li><strong>Payload: </strong> es la información que modifica nuestro state. Similar a la parte de nuestros custom hooks donde teníamos una función y le pasábamos un id o un objeto con la información, eso modifica el state, eso es lo que se conoce como un Payload cuando trabajamos con Reducers</li>
+                          <li><strong>Dispatch:</strong></li> es la función que manda llamar la acción copn al payload. Las acciones las vamos a definir en nuestro reducer, sin embargo el Dispatch es el que las manda llamar.
+                        </ul>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            
+                          
+          </div>
+  
+          <!-- Bloque desplegable interior-->
+          <div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between oscuro" onclick="$('#seccion10-143').toggle();">
+            <h3>143. Definiendo nuestro reducer</h3>
+            <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+          </div>
+          <div id="seccion10-143" class="hidden">
+            <p>Vamos a crear nuestro primer reducer. Creamos src la carpeta nueva "reducers" y un fichero que podemos nombrar de estas dos maneras:</p>
+            <ul>
+              <li>src&gt;reducer&gt;<strong>activityReducers.ts</strong></li>
+              <li>src&gt;reducer&gt;<strong>activity-reducer.ts</strong></li>
+            </ul>
+
+            <p><strong>Nuestro reducer va a constar de varias partes:</strong></p>
+            <ul>
+              <li>Acciones que describen lo que está pasando en la aplicación</li>
+              <li>El state inicial</li>
+              <li>Nuestro reducer que conecta tanto el state inicial como nuestras acciones</li>
+            </ul>
+
+            <p><strong>HASTA AHORA TENÍAMOS</strong> en nuestro Form.tsx y en nuestro fichero de types>index.ts: (<span class="destacado">él indica crear este type pero YA LO TENÍAMOS y además en este vídeo el actual state de Form.tsx no lo muestra tipado con generic como había hecho hasta ahora. Lo vuelve a hacer, pero nosotros de momento no hemos cambiado nada ni de types>index.ts ni de Forms.tsx</span>)</p>
+            <pre><code class="language-js">
+              //types>index.ts
+                export type Activity = {
+                  category: number,
+                  name: string,
+                  calories: number
+                }
+              
+              //Form.tsx
+                const[activity, setActivity] = useState&lt;Activity&gt;({
+                    category: 1,
+                    name: &#39;&#39;,
+                    calories: 0
+                }) 
+            </code></pre>
+
+            <p>Lo importante, así es como queda de momento nuestro reducer <span class="file">activity-reducers.ts</span> recién creado:</p>
+            <pre><code class="language-js">
+              //activity-reducers.ts
+              import { Activity } from "../types"
+
+              //ACCIONES - type que va a describir lo que va a pasar en nuestro reducer
+              export type ActivityActions = {
+              
+              }
+              
+              type ActivityState = {
+                  activities : Activity[] //el state de este reducer se va a llamar activities y va a ser de tipo Activity[](ya lo teníamos definido en types)
+              }
+              
+              //STATE - nuestro state inicial que es un objeto necesita un type (definimos arriba 'ActivityState'). En nuestro state de actividades vamos a tener un arreglo.
+              export const initialState: ActivityState = {
+                  activities: [] //inicia como arreglo vacío
+              }
+              
+              //REDUCER - que conecta a ambos, nuestras acciones y el state
+              export const activityReducer = (
+                      state : ActivityState = initialState,
+                      action: ActivityActions
+                  ) => {
+                      
+              
+              }
+            </code></pre>
+          </div>
+
+  
+          <!-- Bloque desplegable interior-->
+          <div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between oscuro" onclick="$('#seccion10-144').toggle();">
+            <h3>144. Definiendo acciones en el Reducer</h3>
+            <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+          </div>
+          <div id="seccion10-144">
+            <p><strong>Las acciones nos van a ayudar a describir qué es lo que está pasando y qué información es la que va a modificar qué parte de nuestro state.</strong> Aunque suena complicado, básicamente una acción consta de dos partes: el type que es la descripción y el Payload que es la información que modifica o que vamos a agregar a nuestro state. <strong>Dejémonos llevar y veamos las diferentes acciones y funciones de nuestro reducer para que vaya quedando todo más claro.</strong></p> 
+            
+            <p>Una vez que rellenemos el formulario vamos a tener una categoría, una actividad y las calorías. <strong>Cuando presionemos el botón de Guardar (lo que sea) estaremos creando una nueva actividad, ya sea ejercicio o comida.</strong> 
+              <pre><code class="language-js">  
+                //Form.tsx 
+                const handleSubmit = (e:FormEvent&lt;HTMLFormElement&gt;) =&gt;{
+                  e.preventDefault()
+                  //console.log(&#39;Submit...&#39;)
+                }
+                  return (    
+                    &lt;form
+                        className=&quot;space-y-5 bg-white shadow p-10 rounded-lg&quot;
+                        onSubmit={handleSubmit}
+                    &gt;  
                 
-</div>
+              </code></pre>
+
+              <p>y lo vamos a conectar con esta otra parte, el reducer, para que ejecute cierta parte de nuestro código:</p>
+            <pre><code class="language-js">
+              //activity-reducers.ts
+              //REDUCER - que conecta a ambos, nuestras acciones y el state
+              export const activityReducer = (
+                  state : ActivityState = initialState,
+                  action: ActivityActions
+                ) => {
+                  
+              }
+            </code></pre>
+              
+              
+              <p>Así que en la parte de acciones de nuestro reducer, preparemos nuestro primer action definiendo:
+                
+              <ul>
+                <li>El <strong>type</strong>, que es lo que describe, lo que está sucediendo, lo que va a pasar en nuestro reducer. Una vez que hayamos enviado el formulario vamos a decirle a nuestro reducer <strong>"ejecuta el type 'save-activity'"</strong></li>
+                <li>El <strong>payload</strong>; cuando yo genere esta actividad nueva 'save-activity', tenemos que pasarle cierta información, lo que el usuario ingresó en el formulario. Eso es lo que se conoce como el payload, y podemos pensar en ello como <strong>los datos que se van a agregar a nuestro state (actualmente está vacío)</strong>.</li>
+              </ul>
+
+              <pre><code class="language-js">
+                //ACCIONES - type que va a describir lo que va a pasar en nuestro reducer
+                export type ActivityActions = 
+                    { type: 'save-activity', payload: { newActivity: Activity} } 
+              </code></pre>
+
+              <p>Usando el pipe como unión "|" podemos ener múltiples actions, todos los que requiramos en  nuestra aplicación:</p>
+          
+              <pre><code class="language-js">
+                //ACCIONES - type que va a describir lo que va a pasar en nuestro reducer
+                export type ActivityActions = 
+                    { type: 'save-activity', payload: { newActivity: Activity} } |
+                    { type: 'save-activity', payload: { newActivity: Activity} } |
+                    { type: 'save-activity', payload: { newActivity: Activity} } 
+              </code></pre>
+            
+
+            <p>en la parte del reducer antes se trabajaba con switch, (nunca le han gustado) pero prefiere usar if. Y explica que, desde el momento en que tenemos 'conectado' aquí el state y el action, el autocompletado de VSC nos sugiere las posibles opciones en cuanto usamos la notación del .:</p>
+
+            <img src="https://andune55.github.io/manual-react/assets/144-C1cFxySk.png" loading="lazy" alt="img 144">
+
+            <pre><code class="language-js">
+              //activity-reducers.ts
+              //REDUCER - que conecta a ambos, nuestras acciones y el state
+              export const activityReducer = (
+                      state : ActivityState = initialState,
+                      action: ActivityActions
+                  ) => {
+                  
+                  if(action.type === 'save-activity'){
+                      //Este código maneja la lógica para actualizar el state
+                      console.log('desde el type de save-activity')
+                  }
+
+              }
+            </code></pre>
+          </div>
   
 <!-- Bloque desplegable interior-->
-<div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between oscuro" onclick="$('#seccion10-XX').toggle();">
-  <h3>XXXXXXXXXXXXXXX</h3>
+<div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between oscuro" onclick="$('#seccion10-145').toggle();">
+  <h3>145. Ejecutando las acciones con dispatch</h3>
   <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
 </div>
-<div id="seccion10-XX" class="hidden">
+<div id="seccion10-145">
                 
 </div>
   
@@ -899,7 +1111,7 @@
             </div>
       
             <p class="mt-1.25 mb-0"><span class="naranja">Creamos proyecto nuevo:</span></p>
-            <ul>
+            <ul class="mb-3.75">
               <li>Tengo todos mis proyectos de React dentro de <strong>Curso React</strong> así que me ubico ahí y para
                 crearlo</li>
               <li><span class="destacado">npm create vite@latest</span> crea el proyecto con la última versión de vite</li>
@@ -918,7 +1130,7 @@
             <img class="my-2.5" src="https://andune55.github.io/manual-react/assets/105-C58O_uYT.png" alt="" />
       
             <p><span class="destacado">Hagamos limpieza de algunos archivos</span>:</p>
-            <ul>
+            <ul class="mb-3.75">
               <li>Eliminamos el .svg: public&gt;<strong>vite.svg</strong></li>
               <li>Eliminamos la carpeta entera assets: src&gt;<strong>assets</strong></li>
               <li>Eliminamos la css: src&gt;<strong>App.css</strong></li>
@@ -964,7 +1176,7 @@
           </div>
           <div id="seccion9-106107" class="hidden">
             <p>Es un framework de CSS pero está basado en utilidades</p>
-            <ul>
+            <ul class="mb-3.75">
               <li><strong>Tailwind CSS es lo que se conoce como un framework de CSS, pero está basado en utilidades</strong>
               </li>
               <li><strong>A diferencia de Bootstrap, que es otro framework de CSS donde una clase contiene diferentes
@@ -997,7 +1209,7 @@
                 target="_blank">https://tailwindcss.com/docs/installation/using-vite</a>:
             </p>
       
-            <ul>
+            <ul class="mb-3.75">
               <li>Creación del proyecto y ubicarse en la carpeta ya lo hicimos</li>
               <li>Instalamos Tailwind CSS: instalamos las dependencias 'tailwindcss' y '@tailwindcss/vite' via npm:
                 <pre><code class="language-js">
@@ -1063,7 +1275,7 @@
                 productos</strong>. Vamos a consumirlo y mostrarlo.</p>
       
             <p>Vamos a crear 2 archivos .ts (no .tsx que tienen código html y/o eventos de React:</p>
-            <ul>
+            <ul class="mb-3.75">
               <li>Creamos <strong>src&gt;db&gt;<span class="file">db.ts</span></strong>: metemos en su interior lo que
                 copiamos en formato raw del <a class="text-[#000000]"
                   href="https://gist.github.com/codigoconjuan/7ff5b34a0a0773f8c48fd13b51a508aa" target="blank">Gist de
@@ -1144,7 +1356,7 @@
             <p>Ya con nuestro div para el menú vamos a renderizar lo que ahora vemos en la consola <code
                 class="language-js">console.log(menuItems)</code> que es como una pequeña base de datos</p>
       
-            <ul>
+            <ul class="mb-3.75">
               <li>Creamos <strong>components&gt;MenuItem.tsx</strong></li>
               <li>Antes de empezar a picar recomienda instalar estas dos <span class="naranja">extensiones para React en
                   VSCode: </span> <strong>ES7+ React/Redux/React-Native snippets</strong> y <strong>Simple React
@@ -1602,7 +1814,7 @@
           </div>
           <div id="seccion9-117" class="hidden">
             <p>Vamos a revisar si una orden existe en el arreglo:</p>
-            <ul>
+            <ul class="mb-3.75">
               <li><strong>¿No existe?:</strong> este código está bien:
                 <pre><code class="language-js">
                         const newItem: OrderItem = {...item, quantity: 1}
@@ -2519,13 +2731,13 @@
                 </div>
                 <div id="seccion8-91" class="hidden">
                   <p class="font-bold">Typescript ¿qué es? y ventajas</p>
-                  <ul>
+                  <ul class="mb-3.75">
                     <li>Es un lenguaje de programación de código abierto. Sí, es un lenguaje completo, desarrollado y mantenido por Microsoft. También se le conoce como un <strong>superconjunto tipado para JavaScript, lo que significa que cualquier código de JavaScript válido es también código de TypeScript válido</strong>.</li>                    
                     <li>La principal característica de TypeScript es que agrega un sistema de tipos estático a JavaScript, lo que permite detectar errores y proporcionar herramientas de desarrollo más sólidas.</li>
                   </ul>
 
                   <p class="font-bold">¿Cuáles son las ventajas de implementar TypeScript?</p>
-                  <ul>
+                  <ul class="mb-3.75">
                     <li>El sistema de tipado de tipos de TypeScript permite al programador especificar los tipos de variable, parámetros de función, valores de retorno y más. Esto va a brindar la capacidad de realizar la comprobación de tipos durante la compilación (cuando estás escribiendo tu código) y detectar posibles errores antes de que el código sea ejecutado. --&gt; Entonces su principal ventaja es que no necesitas que el proyecto esté en producción para revisar que todo esté bien. Con TypeScript puedes tener la garantía de que tu código va a funcionar correctamente.</li>
                     <li>Mejora enormemente el autocompletado o Intellisense que vas a obtener con Visual Studio Code (Ver presentación 10.html del curso de Angular).
                     <img class="my-2.5" src="https://andune55.github.io/manual-react/assets/91-DzMAaQSY.png" alt="" />
@@ -2534,7 +2746,7 @@
 
                   <p class="font-bold">Typescript y Javascript / React</p>
 
-                  <ul>
+                  <ul class="mb-3.75">
                     <li>Una vez que has escrito el código en TypeScript, este código siempre se compila a JavaScript. Como tal, el navegador no soporta TypeScript, por lo tanto se tiene que compilar siempre hacia código de JavaScript</li>
                     <li>React y Vite incluyen soporte a TypeScript también, lo que ayuda bastante en el desarrollo de proyectos. Una vez que esté listo tu proyecto, lo construyes con build, se va a compilar a código de JavaScript y entonces puede ser publicado en Internet.</li>
                     <li>Hoy en día, TypeScript se ha convertido en un estándar para crear aplicaciones React, Angular y View. Incluso se pide en vacantes de Junior Developer por lo que es el momento adecuado para comenzar a aprender TypeScript.</li>
@@ -2553,14 +2765,14 @@
                   <p>Vamos a crear un proyecto nuevo <span class="destacado">npm create vite@latest</span> lo nombramos <strong>guitarla-ts</strong> que sea <strong>react con el nuevo compilador</strong>. Vamos a la carpeta e instalamos las dependencias con <span class="destacado">npm install</span>. Lanzamos el servidor de desarrollo con <strong>npm run dev</strong>.</p>
 
                   <p>Vemos que básicamente la estructura del proyecto es como la que hemos visto hasta ahora con algunas diferencias:</p>
-                  <ul>
+                  <ul class="mb-3.75">
                     <li>vemos que hay 3 ficheros de configuración de typescript con extensión .json: tsconfig.app.json,tsconfig.json y tsconfig.node.json. Normalmente no tocaremos nada en ellos.</li>
                     <li>Si abrimos la carpeta src veremos que la extensión ya no es .jsx sino tsx.</li>                
                   </ul>
 
                   <p>Aunque el resto de proyectos los haremos desde cero con typescript, ahora vamos a convertir el proyecto de carrito de compras de guitarras <strong>guitarla-useCart</strong> a typescript. Copiamos entre proyectos de ese a este nuevo <strong>guitarla-ts</strong>:</p>
 
-                  <ul>
+                  <ul class="mb-3.75">
                     <li>borramos el archivo public/vite.svg</li>
                     <li>copiamos y pegamos la carpeta public/img</li>
                     <li>En la carpeta principal del proyecto, borro src del nuevo y copio src.</li>
@@ -2602,7 +2814,7 @@
                 <div id="seccion8-93" class="hidden">
                   <p>Vamos a comenzar a solucionar los errores que encuentra Typescript en el código. Vemos que en App.tsx, Guitar.tsx, Header.tsx, useCard.ts se van pintando en rojo algunos de estos archivos. No es que el código esté mal escrito (si arrancamos el servidor de desarrollo y probamos vemos que todo funciona bien) sino que más bien tneemos que darle más información a TypeScript. esa información normalmente se la pasamos con algo llamado <span class="destacado">Primitive Type</span>.</p>
 
-                  <ul>
+                  <ul class="mb-3.75">
                     <li>Los Primitive Types son los tipos de datos que soporta TypeScript de forma nativa.</li>
                     <li>Estos son number, string, boolean, null y undefined. Cuando creamos un objeto, hemos de especificar qué tipo de dato (primitive type) es el que tiene cada propiedad de ese objeto. De igual manera si creamos una variable o si le pasamos parámetros a una función.</li>
                     <li>En el caso de arrays hay una sintaxis especial para crearlos</li>
@@ -2632,7 +2844,7 @@
                 <div id="seccion8-94" class="hidden">
                   <p>Si nos colocamos en la variable db vemos un objeto que tiene diferentes propiedades. Cuando tenemos una estructura de este tipo lo mejor es crear lo que se conoce como un Type o Interface. Básicamente es lo mismo, pero veamos un poco más de información de este tema.</p>
 
-                  <ul>
+                  <ul class="mb-3.75">
                     <li>Types e Interfaces son dos de las características que más vamos a utilizar en TypeScript.</li>                  
                     <li>Ambas pueden ser utilizadas incluso de forma intercambiable, hay muy pocas diferencias entre ambos y en la comunidad vas a encontrar ejemplos con ambos (La verdad es que la comunidad está dividida, unos dicen utilizar interfaces, otros types...) Cuál vas a utilizar en un proyecto? Bueno, el que ya estén utilizando.</li>
                     <li><strong>Es una forma de crear una estructura y definir qué tipo de dato tiene cada propiedad de un objeto o agrupar propiedades de un objeto</strong>.</li>                
@@ -2700,7 +2912,7 @@
                 <div id="seccion8-95" class="hidden">
                   <p>Si nos llenamos de Any es como si no estuviéramos utilizando TS. Hemos de facilitar más información a TS. Vamos a <span class="file">Guitar.tsx</span> donde tenemos <code class="language-js">export default function Guitar({guitar, addToCart}) {</code> ese guitar que es un objeto y el addToCart que es una función. ¿Cómo convertimos esos props hacia TS? hay dos opciones:</p>
 
-                  <ul>
+                  <ul class="mb-3.75">
                     <li><strong>inline type</strong></li>
                     <li><strong>separate type</strong></li>
                   </ul>
@@ -2838,7 +3050,7 @@
 
                   <p>importamos ese type en los ficheros donde se va a utilizar: <span class="file">db.ts</span> y <span class="file">Guitar.tsx</span> </p>
                   
-                  <ul>
+                  <ul class="mb-3.75">
                     <li>si hemos nombrado el fichero como <strong>index.ts</strong> lo importaremos así: <code class="language-js">import type {Guitar} from '../types'</code></li>
                     <li>si hemos nombrado el fichero como <strong>types.ts</strong> lo importaremos así: <code class="language-js">import type {Guitar} from '../types/types'</code></li>                  
                   </ul>
@@ -3084,7 +3296,7 @@
 
                   <p>pero <strong>¿qué pasaría si a futuro migramos y digamos que ya dejamos de utilizar MySQL o PostgreSQL, que tienen los IDS como tipo number y nos vamos hacia MongoDB que utiliza strings?</strong> pues que tendríamos que tener cuidado de cambiar el tipo string en nuestro fichero de types y también en todos los lugares en donde en nuestro custom Hook usáramos esos ids. <strong>Normalmente queremos que los posibles cambios repercutan en los menores lugares posibles, buscamos un código sencillo con buen mantenimiento.</strong> Por ello podemos:</p>
                   
-                  <ul>
+                  <ul class="mb-3.75">
                     <li>Crear un nuevo type empleando el <span class="destacado">Utility Type Pick</span>, de manera que si eso cambia a futuro solo tenemos que tocar el type Guitar: <code class="language-js">export type GuitarID = Pick&lt;Guitar &comma; &apos;id&apos;&gt;</code></li>
                     <li>Crear un nuevo type empleando algo que se conoce como <span class="destacado">Lookup:</span> <code class="language-js">export type GuitarID = Guitar['id']</code>. En vez de tenerlo en este archivo de types lo podemos utilizar tal cual en nuestro Hook:
                     <pre><code class="language-js">
@@ -3181,7 +3393,7 @@
                   <p class="naranja">Ventajas y Como crear tus propios Hooks</p>
                   
                   <p class="font-bold">Crear nuestro propios Hooks</p>
-                  <ul>
+                  <ul class="mb-3.75">
                     <li><strong>Existe una gran ventaja de crear tus propios hooks, y esta es la de incorporar state y otros hooks de React en tu propio código para poderlo reutilizar en otros proyectos:</strong> esta es una gran ventaja porque actualmente nuestro código reside en nuestros componentes y nuestros componentes tienen cierta presentación, lo que lo hace que nuestro código no sea muy reutilizable para otros proyectos. Sin embargo, con un hook personalizado podemos copiar y adaptar todo lo que requerimos.</li>
                     <li><strong>Otra gran ventaja es la de organizar tu código:</strong> de esta forma el hook se va a encargar de toda la lógica, mientras que tu componente solamente se encarga de mostrar la información, la vista, solamente se encarga de mostrar la presentación y el código HTML.</li>
                     <li><strong>Nuestro código personalizado tendrá todas las ventajasde React, como son tener su propio State, podremos agregar Effects, integrar otros hooks de React y el performance que esto incluye.</strong></li>
@@ -3190,7 +3402,7 @@
                   </ul>
 
                   <p class="font-bold">¿Cómo vamos a crear nuestros propios hooks?</p>
-                  <ul>
+                  <ul class="mb-3.75">
                     <li>Los hooks son funciones de JavaScript, pero tienen algunas reglas como vimos anteriormente.</li>
                     <li><strong>Nuestros hooks deben seguir la convención de nombrado que utiliza React, que es <span class="destacado">use</span> seguido del nombre de nuestro hook, como vimos anteriormente con los hooks <strong>Usestate, useEffect, etcétera</strong></strong> de esta forma React escanea tu código en búsqueda de posibles problemas con las reglas de los hooks y se segura de que nuestro código personalizado cumpla los estándares de React.</li>
                     <li><span class="destacado">Importante!</span> un hook normalmente solo debe de tener lógica y no presentación, porque para la parte de presentación están los componentes.</li>
@@ -3307,7 +3519,7 @@
                   <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
                 </div>
                 <div id="seccion89">
-                  <ul>
+                  <ul class="mb-3.75">
                     <li>Tomamos toda la lógica de antes del return de nuestro componente principal App.jsx y nos la llevamos a nuestro custom kook useCart.js.</li>
                     <li>Como los Hooks useState,useEffect y useMemo ya no se usan en los componentes sino en nuestro hook personalizado useCart.js, quitamos el import de nuestros componentes y nos llevamos ahí la importación. También hacemos lo mismo con los datos:
                       <span class="file">useCart.js</span>
@@ -3544,7 +3756,7 @@
                 </div>
                 <div id="seccion6-55" class="hidden">
                   <p>Una vez copiado (estructurado) el código estático de guitarras que descargamos, sigue siendo estático. Este App.jsx ya es un componente:</p>
-                  <ul>
+                  <ul class="mb-3.75">
                     <li>Es una función y su nombre empieza por mayúsculas (para evitar problemas en la compilación). Lo que esté entre las llaves es el contenido de ese componente pero podemos pasarlo a otros por medio de algo llamado props (lo veremos mas adelante)</li>
                     <li>Tiene un return que devuelve lo que se ve en pantalla</li>
                     <li>Lo que está antes del return se utiliza para algo</li>
@@ -3588,7 +3800,7 @@
                 </div>
                 <div id="seccion6-56" class="hidden">
       
-                  <ul>
+                  <ul class="mb-3.75">
                     <li><span class="destacado">JSX</span> <strong>Javascript Syntax Extension:</strong> es una extensión del lenguage desarrollada también por META (Facebook) para React y es una sintaxis especial para poder agregar HTML y JS en un solo lugar. Al ppio parece un poco complicado pero se ven los beneficios conforme comenzamos a trabajar con ella.</li>
                     <li>Parece JS (los componentes son funciones) pero muestra código HTML. Básicamente <strong>es un lenguage de Templates/Vistas</strong> que muestra HTML pero tiene todas las funciones de Javascript (todo js puede usarse en los archivos .jsx)</li>
                     <li><strong>Una vez compilado son archivos JS con funciones y objetos</strong></li>
@@ -3596,11 +3808,11 @@
       
                   <p>En la parte anterior del return() podemos colocar código js, probemos con una variable const = name. Para comunicar esto en nuestra vista (dentro del return) <span class="destacado">hay que hacerlo entre llaves {}</span>. <br><span class="rojo">Ojo!</span> si intentamos poner solo {name} sin ningún tag nos da error. También si pongo dos o mas tags html seguidos!!!! Veamos las reglas de JSX y evitar estos errores</p>
       
-                  <ul>
+                  <ul class="mb-3.75">
                     <li>A diferencia de HTML, <strong>en JSX si un elemento HTML tiene tag de apertura ha de tener también el de cierre (los tag &lt;link&gt; &lt;img&gt;A o &lt;input&gt; habr&aacute; que cerrarlas con /&gt;)</strong></li>
                     <li><strong>Cada componente debe tener un return</strong></li>
                     <li><strong>En el return solo puede haber un elemento (un tag) en el nivel superior=máximo</strong> --&gt; podría tener un &lt;div&gt; padre englobando todo en el return pero al final cargaríamos nuestro código con divs innecesarios. Para evitar eso usamos los <span class="destacado">Fragment</span>. esta sintaxis que vemos en el ejemplo de nuestro componente principal de aplicación App.jsx es una de las 3 maneras de usar Fragment: <strong>&lt;&gt;</strong>
-                      <ul>
+                      <ul class="mb-3.75">
                         <li><code class="language-js">import { Fragment } from "react"</code> <code class="language-html">&lt;Fragment&gt;&lt;/Fragment&gt;</code></li>
                         <li><code class="language-js">import React from "react"</code> <code class="language-html">&lt;React.Fragment&gt;&lt;/React.Fragment&gt;</code></li>
                         <li>Sin hacer ninguna importación simplemente usamos: <code class="language-html">&lt;&gt;&lt;/&gt;</code></li>
@@ -3633,7 +3845,7 @@
                 </div>
                 <div id="seccion6-59" class="hidden">
                   <p>Los <span class="destacado">React Hooks</span> son la base de React. Nos van a permitir Integrar toda las funcionalidades de React con nuestra interfaz.</p>
-                  <ul>
+                  <ul class="mb-3.75">
                     <li><strong>Los Hooks permiten usar las diferentes funciones de React en nuestros componentes. React tiene una serie de Hooks pero también podemos crear los nuestros.</strong></li>
                     <li><strong>Los Hooks están disponibles desde la versión 16.8 de React, previo a ello se tenían que crear Classes para crear y modificar el state, con los Hooks no es necesario.</strong></li>
                     <li><strong>Existen muchos y se dividen entre Básicos y adicionales</strong></li>
@@ -3646,7 +3858,7 @@
                   <p>Comenzamos utilizando el más común de todos <span class="destacado">useState</span>. Tiene un <a href="https://gist.github.com/codigoconjuan/f333ee8422b0b8c4fde227e81e626cce" target="_blank">Gist con todas las guitarras</a> preparado para utilizarlo en nuestra App simulando una base de datos, pero primero hemos de ver el Hook más común de todos <strong>useState()</strong> y ello nos lleva a ver qué es el <span class="destacado">state en React</span> que es la pieza central de React.</p>
       
                   <p class="font-bold naranja">¿Qué es el State en React?</p>
-                  <ul>
+                  <ul class="mb-3.75">
                     <li><strong>El Estado o State en React es una variable con información relevante en nuestra aplicación de React</strong>, algunas veces el state pertenece a un componente en específico y otras veces quieres que sea compartido a lo largo de diferentes componentes.</li>
                     <li><strong>Pensemos en el state como el resultado de alguna interacción en el sitio o aplicación web: el listado de clientes, la imagen a mostrar en una galería, si un usuario está autenticado o no,...</strong></li>
                     <li><strong>El state es creado con el Hook useState()</strong>. Veamos un ejemplo:</li>
@@ -3663,7 +3875,7 @@
                   <p class="font-bold">Anatomía de useState: state, función y valor inicial</p>
                   <p><code class="language-js">
                     const [customer, setCustomer] = useState({});</code></p>
-                  <ul>
+                  <ul class="mb-3.75">
                     <li><strong>customer</strong> es el state, la variable que va a tener toda la información</li>
                     <li><strong>setCustomer</strong> es la función que modifica el state, es la fcn que siempre vamos a usar cuando queramos realizar cambios en nuestro state (en este ejemplo customer)</li>
                     <li><strong>useState</strong> es el Hook que nos da React</li>
@@ -3671,13 +3883,13 @@
                   </ul>
       
                   <p class="font-bold">React reacciona en base al state</p>
-                  <ul>
+                  <ul class="mb-3.75">
                     <li>Cada vez que el state cambia, la aplicación de React va a renderizar y actualizarse con esos cambios, no es necesario hacer nada más (recargar página o actualizar el DOM) y nuestra interfaz siempre va a estar sincronizada con el state.</li>
                     <li>Para modificar el state, se utiliza la función que extraemos cuando declaramos el state en nuestro componente.</li>
                   </ul>
       
                   <p>Para implementar useState en nuestra App Guitarlab, cerramos todo y dejamos abierto únicamente el componente principal de App, <strong>App.jsx</strong>.</p>
-                  <ul>
+                  <ul class="mb-3.75">
                     <li><code class="language-js">import { useState } from "react"</code></li>
                     <li><strong>El state hay que definirlo en nuestro componente, ni fuera de él ni dentro del return() sino justo antes del return</strong>. Hay ciertas reglas para los Hooks que estaremos viendo a continuación. </li>
                     <li>lo más básico que nos da react es esto: <code class="language-js">const [] = useState()</code> pero <strong>nosotros tenemos que definir nombre del state, nombre de la función y su valor inicial.</strong>. Supongamos que vamos a crear un state para revisar si un usuario está autenticado o no, si lo está le mostramos un componente y si no lo llevamos al panel de iniciar sesión. <code class="language-js">const [auth, setAuth] = useState(false)</code>. Si sacamos un console.log del state lo vemos (y de hecho 2 veces, uno desde el Componente ppal App.jsx y otro desde el InstallHook.jsx, no nos preocupemos, React forzó en nuevas versiones este doble render para garantizar que se hace buen uso de React). Pero en vez de por consola usemos React developer tools.</li>
@@ -3694,13 +3906,13 @@
                   </code></pre>
       
                   <p class="font-bold">Reglas de los Hooks en React</p>
-                  <ul>
+                  <ul class="mb-3.75">
                     <li><strong>Los Hooks se colocan en la parte superior de los componentes de React.</strong> ni dentro de bucles/interacciones, ni dentro de funciones.</li>
                     <li><strong>No se deben colocar dentro de condicionales ni después de un return:</strong> los Hooks no se pueden registrar en base a una condición porque esa condición puede cambiar en algún momento y entonces tendremos un error.</li>
                   </ul>
       
                   <p class="naranja">¿Qué es el Hook useEffect?</p>
-                  <ul>
+                  <ul class="mb-3.75">
                   <li>Tras el useState, <strong>useEffect es el segundo Hook más común que vamos a usar, es muy versátil y lo usaremos mucho</strong>. </li>
                   <li><strong>useEffect siempre es un callback</strong> que, dependiendo como lo declares, va a realizar diferentes acciones.</li>
                   <li>Es el Hook más versátil, sustituto de lo que, en versiones previas de React donde había Clases y métodos del ciclo de vida, era conocido como <strong>componentDidMount()</strong> y <strong>componentDidUpdate()</strong></li>
@@ -3714,11 +3926,11 @@
                   </code></pre>
       
                   <p class="font-bold">Usos de useEffect()</p>
-                  <ul>
+                  <ul class="mb-3.75">
                     <li>Al ejecutarse automáticamente cuando el componente está listo, es un buen lugar para colocar código para consultar una API o para obtener datos del LocalStorage.</li>
                     <li>Debido a que le podemos pasar una dependencia (que usualmente va a ser un state) va a estar escuchando por los cambios que suceden en una variable, pudiendo actualizar el componente (o ejecutar ciertas funciones) cuando ese cambio ocurra (podemos estar sincronizando con LocalStorage por ejemplo).</li>
                     <li>Dependiendo del valor que pasemos en el array de dependencias (o si no pasamos nada) el Hook userEffect va a hacer algo diferente:
-                      <ul>
+                      <ul class="mb-3.75">
                         <li>Si dejamos el arreglo de dependencias vacío (significa que no tiene dependencias) el código especificado en el Hook solo se ejecuta una vez, y lo hace cuando el componente esté listo. Si sacamos un console.log por consola veremos que solo sale 1 vez (sale 2 pero por loq ue decíamos de la comprobación del modo estricto en el main incluido por el equipo de React en versiones recientes)
                           <pre><code class="language-js">					
                             useEffect ( () => {
@@ -3772,7 +3984,7 @@
       
                   <p>Creamos en src una carpeta para los datos y un .js con los datos de ese git copiados en raw: <strong>data/db.js</strong>. Es una pequeña base de datos con 12 guitarras cada una con un id, descripción y precio; las imágenes están mapeadas con nuestra carpeta de imágenes. Vamos a nuestro componente principal <strong>App.jsx</strong> e importamos esta base de datos ayudándonos del autocompletado: <code class="language-js">import { db } from "./data/db"</code>. Si hacemos un console.log(db) podemos ver esa bbdd local. Hagámoslo al estilo de React. Se puede hacer de dos formas:</p>
       
-                  <ul>
+                  <ul class="mb-3.75">
                     <li>Como es un archivo local, podemos ponerle que el valor inicial del state data es lo que tengamos en db
                       <pre><code class="language-js">const [data, setData] = useState(db)</code></pre>. Vemos en la pestaña de componentes, en el compo App > hooks toda la información de nuestro state. Está bien porque es un archivo local, lo va a leer, importar montar y después montar nuestro componente.</li>
                     <li>Si trabajáramos con una API usualmente usaremos un useEffect, esto en caso de hacerlo sin dependencias (hay muchas dependencias enfocadas a consumir APIS que se integran bastante bien con React y que lo hacen con un rendimiento excelente aunque es más para grandes proyectos, pero no es nuestro caso). <span class="destacado">Con mi arreglo de dependencias vacío, una vez el componente esté listo especificamos setData(db), es decir seteo en mi state mi base de datos que tenemos en el archivo indicado en la importación.</span>
@@ -3794,7 +4006,7 @@
       
                   <p>¿Como sabemos cual es el valor inicial de nuestro state? En nuestro caso es un arreglo y tenemos dos elementos. Hay muchas formas de iterar un arreglo, un for, un forEach. <span class="destacado">Es importante mencionar que antes de nuestro return() podemos escribir lo que se conoce como statements o expresiones, sin embargo dentro del return solo podemos escribir expresiones</span></p>
       
-                  <ul>
+                  <ul class="mb-3.75">
                     <li><strong>Statement</strong> Una app de js es una serie de statements. Cada statement es una instrucción para hacer algo. Algunos statements muy comunes son <strong>creación de variables</strong>, <strong>códigos condicionales con if</strong>, <strong>lanzar errores con throw new Error()</strong>, <strong>Iterar con While o For</strong></li>
                     <li><strong>Expressions</strong> Una expresión es algo que produce un valor. Algunos ejemplos de Expressions son <strong>ternarios</strong>, <strong>utilizar un Array method que genere un nuevo array</strong>, <strong>map() que genera un nuevo array a diferencia de forEach</strong></li>
                   </ul>
@@ -3818,11 +4030,11 @@
                   <p class="naranja">¿Qué son los Props en React?</p>
       
                   <p><strong>Props en React:</strong> es una forma de compartir inofrmación entre componentes</p>
-                  <ul>
+                  <ul class="mb-3.75">
                     <li><strong>Los componentes de React utilizan Props para comunicarse entre ellos</strong>. Puedes pasarle información de un componente padre al hijo por medio de estos props. </li>
                     <li><strong>Los props se parecen mucho a los atributos HTML, la sintaxis es muy similar, pero puedes pasarle arrays, objetos o funciones</strong></li>
                     <li><strong>Los Props de pasan del padre al hijo, nunca se pueden pasar del hijo al padre</strong>
-                      <ul>
+                      <ul class="mb-3.75">
                         <li>Si tenemos un state que se va a pasar por diferentes componentes, lo mejor es colocarlo en el archivo principal</li>
                         <li>Cada Nivel de Componentes deberá tomar y pasar el Prop hacia otros componentes. Tecnologías como Redux, Zustand, Jotai o Context evitan tener que hacerlo de esta forma (aunque implementar estas tecnologías para algo tan simple no es recomendado. Algunas las estaremos viendo en este curso)</li>
                         <li></li>
@@ -3951,7 +4163,7 @@
                   <p>Cuando presione en cada guitarra se tienen que ir listando en el carrito. En ese carrito tenemos que poder ajustar la cantidad y eliminar los que queramos. Si tienes exp en js eso se hace con un addEventListener</p>
       
                   <p class="font-bold">Sobre los eventos en React</p>
-                  <ul>
+                  <ul class="mb-3.75">
                     <li>La forma en que React maneja los eventos es muy similar a como lo hace JavaScript de forma nativa con algunos cambios.</li>
                     <li><strong>Los eventos son camelCase</strong>, es decir en lugar de <strong>onclick</strong> <span class="destacado">onClick</span>, en lugar de <strong>onchange</strong>, <span class="destacado">onChange</span></li>
                     <li>A diferencia de JS y HTML en los que se coloca el nombre de la función en un string, <strong>en React (JSX) se utiliza la función entre llaves <span class="destacado">{}</span></strong></li>
@@ -4087,7 +4299,7 @@
       
                   <p>¿Cómo agregamos elementos a nuestro carrito? tenemos varias formas de hacerlo:</p>
       
-                  <ul>
+                  <ul class="mb-3.75">
                     <li>la más simple: para agregar elementos a nuestro state "cart" vamos a tener que utilizar simepre la función "setCart". El evento de agregarlos se está presentando en el componente Guitar.jsx. Recordemos que podemos pasar vía props desde el componente padre App.jsx strings, objetos y <strong>funciones</strong>, así que pasamos nuestra función setCart del state cart <span class="verde">App.jsx:</span>
                       <pre><code class="language-js">
                         &lcub;data.map((guitar) =&gt; (                    
@@ -4362,7 +4574,7 @@
                   <p class="naranja">useMemo para mejorar el performance de nuestro código</p>
 
                   <p>Si tenemos experiencia con Vue.js sabremos que hay algo que se llama compute properties y useMemo hace algo bastante similar:</p>
-                  <ul>
+                  <ul class="mb-3.75">
                     <li>Simplifica los templates un poco</li>
                     <li>Es un Hook enfocado al performance porqeu evita que este código se ejecute (los 2 states derivados vistos) si alguna de las dependencias que vamos a deifnir en ese useMemo no ha cambiado.</li>
                   </ul>
@@ -4414,7 +4626,7 @@
                   </code></pre>
 
                   <p>Si pulsamos ya vemos en la consola el mensaje que hemos puesto para verificar que hay comuniación. ¿Cçomo eliminamos elementos? Estamos almacenando todo en este arreglo de cart. <span class="destacado">Vamos a utilizar un array method que nos permita sacar elementos de ese arreglo y uno muy común que no muta nuestro state es .filter()</span> Nos va a permitir filtrar en base a una condición. Por ejemplo pensemos en los id. Para ello tenemos que pasarle un parámetro:</p>
-                  <ul>
+                  <ul class="mb-3.75">
                     <li>le pasamos un parámetro a la función:
                       <pre><code class="language-js">
                         //antes del return
@@ -4500,7 +4712,7 @@
 
                   <p class="naranja">Reto 01: Decrementar cantidades</p>
 
-                  <ul>
+                  <ul class="mb-3.75">
                     <li>Hacer funcional el botón de decrementar cantidades.</li>
                     <li>Crear la función, pasarla via props, identificar el elemento a actualizar y añadirlo al state, así como añadir un límite para nunca seleccionar menos de un elemento.</li>
                     <li>Seguir la convenciones de nombres de incrementar cantidad.</li>
@@ -5015,7 +5227,7 @@
                 <img class="my-2.5" src="https://andune55.github.io/manual-react/assets/49-2-DvNo3u2x.png" alt="" />
       
                 <p>Cuando generamos un proyecto en React con Vite vemos que la estructura por defecto es muy simple:</p>					
-                <ul>
+                <ul class="mb-3.75">
                   <li><strong>carpeta "node_modules":</strong> las dependencias del proyecto. Va creciendo conforme instalamos más dependencias</li>
                   <li><strong>carpeta public:</strong> colocaremos por ej imagenes que seran accesibles para los visitantes de nuestro sitio web o app</li>
                   <li><strong>carpeta src:</strong> colocaremos todo nuestro código. Si revisamos la página de inicio de nuestro proyecto <strong>http://localhost:5173/</strong> nos dice: <strong>Edit src/App.jsx and save to test HMR</strong>. Así que abramos ese jsx, que es la página de inicio. 
@@ -5077,7 +5289,7 @@
                   <p>Podemos usar comillas dobles o simples para asignar valor string a una variable (pero no mezclar tipo de comillas, nos da error)</p>   
                   <p class="naranja">Variables creadas con let</p>               
                                 
-                  <ul>
+                  <ul class="mb-3.75">
                     <li>Pueden ser inicializadas con un valor o sin valor:
                       <pre><code class="language-js">
                         /*Podemos inicializarlas con un valor y después reasignarle otro valor. Con const no se puede hacer eso con otros lenguages no podríamos hacer esto pero Javascript es un lenguage de tipo dinámico donde el tipo de dato se asigna por su valor y no por la variable)*/
@@ -5112,7 +5324,7 @@
                   </code></pre>
 
                   <p class="naranja">variables creadas con const</p>
-                  <ul>
+                  <ul class="mb-3.75">
                     <li>Tienen que ser inicializadas con un valor</li>
                     <li>No se pueden reasignar. si lo intentamos en la consola nos sale el error <span class="destacado">"Asignment to constant variable"</span></li>
                   </ul>
@@ -5206,7 +5418,7 @@
                 </div>
                 <div id="seccion2-12" class="hidden">
                   <p>Los <span class="destacado">Objetos</span> son la parte más importante en Javascript y una de las características con las que más vamos a trabajar sea con React, Node, Vue.js...  Los Arrays=Arreglos también terminan siendo objetos</p>
-                  <ul>
+                  <ul class="mb-3.75">
                     <li>Un objeto es una colección de propiedades; pueden tener múltiples propiedades SEPARADAS POR ","</li>
                     <li>Una propiedad es una asociación entre un nombre=clave(key) y un valor(value)</li>
                     <li>Sintaxis con llaves --&gt; <code class="language-js">let producto = {  }</code> / <code class="language-js">const producto = {}</code> /</li>
@@ -5441,7 +5653,7 @@
                 </div>
                 <div id="seccion2-17-19" class="hidden">
                   <p>Los Arrays (Arreglos) junto con objetos es de lo que más se utiliza en nuestro código. Es un objeto similar a un listado que tiene métodos para realizar varias operaciones. Diferencias: </p>                
-                  <ul>
+                  <ul class="mb-3.75">
                     <li>corchetes en vez de llaves</li>
                     <li>no tienen clave/valor sino solo valor</li>
                     <li>su llave va a ser el índice que se asigna automáticamente en base a su posición en el arreglo</li>
@@ -6018,7 +6230,7 @@
                 <div id="seccion2-32" class="hidden">
                   <p>Son un par de características de las más nuevas que han añadido a js</p>
                   <p><strong class="text-[#609ad2]">Optional chaining (?) :</strong></p> 
-                  <ul>
+                  <ul class="mb-3.75">
                     <li>permite llamar las propiedades de un objeto o llamar métodos sin tener que verificar si existen o no</li>
                     <li>además de ahorrarnos código, se usa mucho en respuestas rest API o repsuestas de BBDD en las uqe mkuchas veces no está todo relleno como esperamos</li>
                     
@@ -6171,7 +6383,7 @@
                   </code></pre>
                   
                   <p>Como vemos tenemos un .then() y otro .then() y así funcionan los promises, estamos llamando a esa url y no sabemos si vamos a poder obtener los datos o no. En este caso esta url que estamos usando es pública para aprender pero no podemos obtener los datos de por ejemplo instagram, youtubbe... solo haciendo un llamado a una url, en esos casos va a fallar la petición. Como no sabemos el tipo de respuesta que vamos a tener por eso tenemos estos pasos: </p>
-                  <ul>
+                  <ul class="mb-3.75">
                     <li>trato de conectarme a un servidor</li>
                     <li>entonces, si tengo respuesta la quiero como json y estos comentarios son 500 (el tiempo de respuesta no va a ser igual si tengo 2 respuestas que si tengo 500)</li>
                     <li>una vez que finalice de ejecutarse el código del primer promise, tengo acceso a los datos con el segundo</li>
@@ -6548,7 +6760,7 @@
                   <p>cuadno enviamos un formulario hay una acción por default, cuando haces click en un botón hay una acción por default, si presionas un heading o una imagen no hay una acción por default... pero los links es uno d elos elementos que sí tiene una acción por default. usamos <span class="destacado">e.preventDefault()</span> que básicamente le dice al link "ok, tú tines un comportamiento que es abrir una url. No lo hagas.</p>
       
                   <p>Por tanto nosotros mediante código podemos modificar las acciones a realizar, por ejemplo en un formulario, que en vez de enviarse haga validaciones. Importante:</p>
-                  <ul>
+                  <ul class="mb-3.75">
                     <li><span class="destacado">e.preventDefault()</span> nos va a permitir <strong>prevenir la accion por defecto de algún elemento html que realiza algo</strong></li>
                     <li>ese <span class="destacado">e</span> reporta <strong>el evento que se está registrando</strong>, en nuestro ejemplo el click </li>
                     <li>el <span class="destacado">e.target</span> es <strong>lo que dispara ese evento</strong>, en nuestro ejemplo un enlace</li>
@@ -6715,7 +6927,7 @@
                 <div id="seccion1-1" class="hidden">	
                   
                   <p>Es una biblioteca de JS para construir interfaces de usuario</p>
-                  <ul>
+                  <ul class="mb-3.75">
                     <li>Ayuda a crear UI interactivas de forma muy sencilla (tiene muchas funciones y eventos para disparar fcnes en base a las interacciones del usuario)</li>
                     <li>Se encarga de actualizar y renderizar de manera eficiente los componentes de tu aplicación</li>
                     <li>Esta basado en componentes: no son mas que fiunciones en JS utilizados para renderizar el diseño de tu aplicación o sitio web</li>
@@ -6723,14 +6935,14 @@
                   </ul>
     
                   <p class="font-bold">Ventajas de React</p>			
-                  <ul>
+                  <ul class="mb-3.75">
                     <li>Excelente documentación con muchos ejemplos</li>
                     <li>Una gran comunidad y muchas librerias que puedes incorporar a tus proyectos</li>
                     <li>Tecnología con mucha demanda: La mayoría de vacantes solicitan React, tanto para fornt end como para full stack</li>
                   </ul>
     
                   <p class="font-bold">¿Qué necesito para aprender React?</p>
-                  <ul>
+                  <ul class="mb-3.75">
                     <li>Dominar HTML y CSS</li>
                     <li>Conocer la sintaxis Moderna de Javascript (ES6(2015)EcmaScript6 y cada añao hay nuevas que añaden unas cuantas funciones más)</li>
                     <li>Tener instalado Node.js para crear nuestros proyectos</li>
