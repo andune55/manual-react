@@ -10,8 +10,8 @@
     
     <!-- <script src="https://unpkg.com/@tailwindcss/browser@4"></script> -->
   
-    <script type="module" crossorigin src="https://andune55.github.io/manual-react/assets/index-Bqf1tnFW.js"></script>
-    <link rel="stylesheet" crossorigin href="https://andune55.github.io/manual-react/assets/index-KclOOfsK.css">
+    <script type="module" crossorigin src="https://andune55.github.io/manual-react/assets/index-CUrmdJrm.js"></script>
+    <link rel="stylesheet" crossorigin href="https://andune55.github.io/manual-react/assets/index-C-b_3SlI.css">
   </head>
   <body>
     <div id="root"></div>	
@@ -847,10 +847,9 @@
                 </svg>
                 <div class="bg-neutral-200 px-1.5 py-0.5 italic leading-[24px]">
                   <ul>
-                    <li>useReducer es una alternativa de useState. Es un hook para manejar el state</li>
-                    <li>useReducer es un Hook de React que te permite agregar un reducer a tu componente. es una sintaxis un poco diferente pero una vez entendida hace muy sencillo administrar el state de las apps</li>
-                    <li>El hook  useReducer en React es una alternativa a Usestate que se utiliza para manejar estados más complejos y transiciones de estado que involucran lógica más complicada (que lo que encontrarías en Usestate). Mientras que useState es perfecto para el manejo de estados simples, useReducer es más adecuado para situaciones donde el nuevo estado depende del estado anterior o cuando hay múltiples sub-valores o lógica condicional a considerar (como múltiples states que se actualizan enbase a ciertas acciones).</li>
-                    <li></li>
+                    <li>useReducer es una alternativa de useState. Es un hook para manejar el state.</li>
+                    <li><strong>useReducer es un Hook de React que te permite agregar un reducer a tu componente</strong>. Es una sintaxis un poco diferente pero una vez entendida hace muy sencillo administrar el state de las apps.</li>
+                    <li>El hook  useReducer en React es una alternativa a Usestate que se utiliza para manejar estados más complejos y transiciones de estado que involucran lógica más complicada (que lo que encontrarías en Usestate). Mientras que useState es perfecto para el manejo de estados simples, useReducer es más adecuado para situaciones donde el nuevo estado depende del estado anterior o cuando hay múltiples sub-valores o lógica condicional a considerar (como múltiples states que se actualizan en base a ciertas acciones).</li>
                   </ul>
                 </div>
               </div>
@@ -870,12 +869,12 @@
                     <p class="bg-neutral-200 px-1.5 py-0.5 italic leading-[24px]">Se utiliza el Hook useReducer y podemos ver que la estructura es similar a useState con algunas pequeñas diferencias:</p>
                     <ul class="mb-3.75">
                       
-                      <li>El Hook useReducer toma dos argumentos
+                      <li>El Hook useReducer toma dos argumentos:
                           <ul class="list-disc">
-                            <li><strong>Reducer:</strong> es una función que toma el estado actual y una acción, y devuelve un nuevo estado.</li>
-                            <li><strong>Estado inicial:</strong> es el estado inicial de nuestro reducer. Podemos pensar en ello nn nuestro ejemplo del formulario del proyecto actual como:
+                            <li><strong>reducer:</strong> es una función que toma el estado actual y una acción, y devuelve un nuevo estado.</li>
+                            <li><strong>initialState:</strong> es el estado inicial de nuestro reducer. Podemos pensar en ello como lo que tenemos actualmente en nuestro ejemplo del formulario del proyecto actual (la categoría 1 el name de actividad como string vacío y las calorías en 0)
                               <!-- <pre><code class="language-js">
-                                const[activity, setActivity] = useState<Activity>({
+                                const[activity, setActivity] = useState&lt;Activity&gt;({
                                   category: 1,
                                   name: '',
                                   calories: 0
@@ -887,20 +886,18 @@
 
                       <li class="mt-2.5">Algunos términos cuando trabajamos con useReducer
                         <ul class="list-disc">
-                          <li><strong>state:</strong> es el valor del estado cuya lógica se maneja dentro del reducer</li>
-                          <li><strong>inicial state:</strong> es el state inicial con el que es creado el reducer, es similar a los valores de inicio de useState</li>
-                          <li><strong>Actions:</strong> las acciones o funciones que manejan toda la lógica para modificar nuestro state. Básicamente es una función que desde fuera, desde el componente, llega y modifica nuestro state, muy similar a las fcnoies que exportábamos en nuestro custom Hooks</li>
-                          <li><strong>Payload: </strong> es la información que modifica nuestro state. Similar a la parte de nuestros custom hooks donde teníamos una función y le pasábamos un id o un objeto con la información, eso modifica el state, eso es lo que se conoce como un Payload cuando trabajamos con Reducers</li>
-                          <li><strong>Dispatch:</strong></li> es la función que manda llamar la acción copn al payload. Las acciones las vamos a definir en nuestro reducer, sin embargo el Dispatch es el que las manda llamar.
+                          <li><strong>state:</strong> es el valor del estado cuya lógica se maneja dentro del reducer.</li>
+                          <li><strong>initialState:</strong> es el estado inicial con el que es creado el reducer, es similar a los valores de inicio de useState.</li>
+                          <li><strong>Actions:</strong> las acciones o funciones que manejan toda la lógica para modificar nuestro state. Básicamente es una función que desde fuera, desde el componente, llega y modifica nuestro state, muy similar a las funciones que exportábamos en nuestro custom Hooks.</li>
+                          <li><strong>Payload: </strong> es la información que modifica nuestro state. Similar a la parte de nuestros custom hooks donde teníamos una función y le pasábamos un id o un objeto con la información, eso modifica el state, eso es lo que se conoce como un Payload cuando trabajamos con Reducers.</li>
+                          <li><strong>Dispatch:</strong> es la función que manda llamar la acción con el payload. Las acciones las vamos a definir en nuestro reducer, sin embargo el Dispatch es el que las manda llamar.</li>
                         </ul>
                       </li>
                     </ul>
                   </div>
                 </div>
               </div>
-            </div>
-
-            
+            </div>           
                           
           </div>
   
@@ -916,12 +913,19 @@
               <li>src&gt;reducer&gt;<strong>activity-reducer.ts</strong></li>
             </ul>
 
-            <p><strong>Nuestro reducer va a constar de varias partes:</strong></p>
-            <ul>
-              <li>Acciones que describen lo que está pasando en la aplicación</li>
-              <li>El state inicial</li>
-              <li>Nuestro reducer que conecta tanto el state inicial como nuestras acciones</li>
-            </ul>
+            <div class="mt-3 mb-2 ml-1.5 pl-2.5 pt-0.5 pb-2  border-l-2 border-dashed border-l-stone-600 rounded-tl-2xl rounded-bl-2xl bg-neutral-50 shadow-lg">
+              <div class="flex">
+                <svg class="size-6 shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3"></path>
+                </svg>             
+                <p class="bg-neutral-200 px-1.5 py-0.5 italic leading-[24px]">Nuestro reducer va a constar de varias partes:</p>
+                <ul>
+                  <li>Acciones que describen lo que está pasando en la aplicación</li>
+                  <li>El state inicial</li>
+                  <li>Nuestro reducer que conecta tanto el state inicial como nuestras acciones</li>
+                </ul>
+              </div>
+            </div>           
 
             <p><strong>HASTA AHORA TENÍAMOS</strong> en nuestro Form.tsx y en nuestro fichero de types>index.ts: (<span class="destacado">él indica crear este type pero YA LO TENÍAMOS y además en este vídeo el actual state de Form.tsx no lo muestra tipado con generic como había hecho hasta ahora. Lo vuelve a hacer, pero nosotros de momento no hemos cambiado nada ni de types>index.ts ni de Forms.tsx</span>)</p>
             <pre><code class="language-js">
@@ -945,15 +949,14 @@
               //activity-reducers.ts
               import { Activity } from "../types"
 
-              //ACCIONES - type que va a describir lo que va a pasar en nuestro reducer
+              //ACCIONES - type que va a contener las acciones, lo que va a pasar en nuestro reducer
               export type ActivityActions = {
               
               }
               
               type ActivityState = {
                   activities : Activity[] //el state de este reducer se va a llamar activities y va a ser de tipo Activity[](ya lo teníamos definido en types)
-              }
-              
+              }              
               //STATE - nuestro state inicial que es un objeto necesita un type (definimos arriba 'ActivityState'). En nuestro state de actividades vamos a tener un arreglo.
               export const initialState: ActivityState = {
                   activities: [] //inicia como arreglo vacío
@@ -976,7 +979,17 @@
             <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
           </div>
           <div id="seccion10-144" class="hidden">
-            <p><strong>Las acciones nos van a ayudar a describir qué es lo que está pasando y qué información es la que va a modificar qué parte de nuestro state.</strong> Aunque suena complicado, básicamente una acción consta de dos partes: el type que es la descripción y el Payload que es la información que modifica o que vamos a agregar a nuestro state. <strong>Dejémonos llevar y veamos las diferentes acciones y funciones de nuestro reducer para que vaya quedando todo más claro.</strong></p> 
+
+            <div class="mt-3 mb-2 ml-1.5 pl-2.5 pt-0.5 pb-2  border-l-2 border-dashed border-l-stone-600 rounded-tl-2xl rounded-bl-2xl bg-neutral-50 shadow-lg">
+              <p><strong>Las acciones nos van a ayudar a describir qué es lo que está pasando y qué información es la que va a modificar qué parte de nuestro state.</strong></p>
+              <div class="flex">
+                <svg class="size-6 shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3"></path>
+                </svg>
+                <span class="bg-neutral-200 px-1.5 py-0.5 italic leading-[24px]">Aunque suena complicado, básicamente una acción consta de dos partes: el type que es la descripción y el Payload que es la información que vamos a agregar a nuestro state (o que lo modifica). <strong>Dejémonos llevar y veamos las diferentes acciones y funciones de nuestro reducer para que vaya quedando todo más claro.</strong></span>
+              </div>
+            </div>
+           
             
             <p>Una vez que rellenemos el formulario vamos a tener una categoría, una actividad y las calorías. <strong>Cuando presionemos el botón de Guardar (lo que sea) estaremos creando una nueva actividad, ya sea ejercicio o comida.</strong> 
               <pre><code class="language-js">  
@@ -994,64 +1007,69 @@
               </code></pre>
 
               <p>y lo vamos a conectar con esta otra parte, el reducer, para que ejecute cierta parte de nuestro código:</p>
-            <pre><code class="language-js">
-              //activity-reducers.ts
-              //REDUCER - que conecta a ambos, nuestras acciones y el state
-              export const activityReducer = (
-                  state : ActivityState = initialState,
-                  action: ActivityActions
-                ) => {
-                
-                return state  
-              }
-            </code></pre>
-              
+              <pre><code class="language-js">
+                //activity-reducers.ts
+                //REDUCER - que conecta a ambos, nuestras acciones y el state
+                export const activityReducer = (
+                    state : ActivityState = initialState,
+                    action: ActivityActions
+                  ) => {
+                  
+                  return state  
+                }
+              </code></pre>              
               
               <p>Así que en la parte de acciones de nuestro reducer, preparemos nuestro primer action definiendo:
                 
               <ul>
-                <li>El <strong>type</strong>, que es lo que describe, lo que está sucediendo, lo que va a pasar en nuestro reducer. Una vez que hayamos enviado el formulario vamos a decirle a nuestro reducer <strong>"ejecuta el type 'save-activity'"</strong></li>
-                <li>El <strong>payload</strong>; cuando yo genere esta actividad nueva 'save-activity', tenemos que pasarle cierta información, lo que el usuario ingresó en el formulario. Eso es lo que se conoce como el payload, y podemos pensar en ello como <strong>los datos que se van a agregar a nuestro state (actualmente está vacío)</strong>.</li>
+                <li>El <strong>type</strong>, que es lo que describe lo que está sucediendo/lo que va a pasar en nuestro reducer. Una vez que hayamos enviado el formulario vamos a decirle a nuestro reducer <strong>"ejecuta el type 'save-activity'"</strong>
+                  <pre><code class="language-js">
+                    //ACCIONES - type que va a contener las acciones, lo que va a pasar en nuestro reducer
+                    export type ActivityActions = 
+                        { type: 'save-activity', payload: { newActivity: Activity} } 
+                  </code></pre>
+    
+                  <p>Usando el pipe como unión "|" podríamos tener múltiples actions, todos los que requiramos en  nuestra aplicación:</p>
+              
+                  <pre><code class="language-js">
+                    //ACCIONES - type que va a contener las acciones, lo que va a pasar en nuestro reducer
+                    export type ActivityActions = 
+                        { type: 'save-activity', payload: { newActivity: Activity} } |
+                        { type: 'save-activity', payload: { newActivity: Activity} } |
+                        { type: 'save-activity', payload: { newActivity: Activity} } 
+                  </code></pre>                
+                </li>
+                <li>
+                  <p>El <strong>payload</strong>; cuando yo genere esta actividad nueva 'save-activity', tenemos que pasarle cierta información, lo que el usuario ingresó en el formulario. Eso es lo que se conoce como el payload, y podemos pensar en ello como <strong>los datos que se van a agregar a nuestro state (actualmente está vacío)</strong>.</p>
+
+                  <p>en la parte del reducer antes se trabajaba con switch, (nunca le han gustado) pero prefiere usar if. Y explica que, desde el momento en que tenemos 'conectado' aquí el state y el action, el autocompletado de VSC nos sugiere las posibles opciones en cuanto comenzamos a trabajr con ello:</p>
+
+                  <img src="https://andune55.github.io/manual-react/assets/144-BwlqqBZP.png" loading="lazy" alt="img 144">
+      
+                  <pre data-line="0"><code class="language-js">
+                    //activity-reducers.ts
+                    //REDUCER - que conecta a ambos, nuestras acciones y el state
+                    export const activityReducer = (
+                            state : ActivityState = initialState,
+                            action: ActivityActions
+                        ) => {
+                        
+                        if(action.type === 'save-activity'){
+                            //Este código maneja la lógica para actualizar el state
+                            console.log('desde el type de save-activity')
+                        }
+      
+                        return state
+      
+                    }
+                  </code></pre>
+                
+                </li>
               </ul>
 
-              <pre><code class="language-js">
-                //ACCIONES - type que va a describir lo que va a pasar en nuestro reducer
-                export type ActivityActions = 
-                    { type: 'save-activity', payload: { newActivity: Activity} } 
-              </code></pre>
+             
 
-              <p>Usando el pipe como unión "|" podemos ener múltiples actions, todos los que requiramos en  nuestra aplicación:</p>
-          
-              <pre><code class="language-js">
-                //ACCIONES - type que va a describir lo que va a pasar en nuestro reducer
-                export type ActivityActions = 
-                    { type: 'save-activity', payload: { newActivity: Activity} } |
-                    { type: 'save-activity', payload: { newActivity: Activity} } |
-                    { type: 'save-activity', payload: { newActivity: Activity} } 
-              </code></pre>
-            
-
-            <p>en la parte del reducer antes se trabajaba con switch, (nunca le han gustado) pero prefiere usar if. Y explica que, desde el momento en que tenemos 'conectado' aquí el state y el action, el autocompletado de VSC nos sugiere las posibles opciones en cuanto usamos la notación del .:</p>
-
-            <img src="https://andune55.github.io/manual-react/assets/144-BwlqqBZP.png" loading="lazy" alt="img 144">
-
-            <pre><code class="language-js">
-              //activity-reducers.ts
-              //REDUCER - que conecta a ambos, nuestras acciones y el state
-              export const activityReducer = (
-                      state : ActivityState = initialState,
-                      action: ActivityActions
-                  ) => {
-                  
-                  if(action.type === 'save-activity'){
-                      //Este código maneja la lógica para actualizar el state
-                      console.log('desde el type de save-activity')
-                  }
-
-                  return state
-
-              }
-            </code></pre>
+           
           </div>
   
           <!-- Bloque desplegable interior-->
@@ -1061,152 +1079,34 @@
           </div>
           <div id="seccion10-145" class="hidden">
             <p><strong>Vamos a llamar nuestra primera acción de nuestro reducer</strong> y en el siguiente apartado veremos como actualizar nuestro state.</p> 
-            <p>Abrimos nuestro <span class="file">App.tsx</span> porque aún no tenemos un estado global así que tenemos que importarlo y pasarlo vía props las funciones que requerimos en nuestros componentes. Para poder usar nuestro reducer tenemos que importar el Hook useReducer. A continuación lo usamos antes de nuestro return. Si recordamos useReducer toma dos parámetros, el reducer y el state inicial. Eso lo tenemos en nuestro <span class="file">activity-reducers.ts</span>:</p>
+            <p>Abrimos nuestro <span class="file">App.tsx</span> porque aún no tenemos un estado global así que para poder usar nuestro reducer tenemos que importar el Hook useReducer y pasarlo vía props (mientras no tengamos un estado global, tenemos que hacer esto con todas las funciones que requerimos en nuestros componentes). A continuación lo usamos antes de nuestro return. Si recordamos, useReducer toma dos parámetros, el reducer y el state inicial (que también tenemos que importar). Eso lo tenemos en nuestro: <span class="file">activity-reducers.ts</span>:</p>
             
             <img src="https://andune55.github.io/manual-react/assets/145-DNefik53.png" alt="">
 
-          <pre data-line="1,3,7"><code class="language-js">
-            //App.tsx
-            import { useReducer } from "react"
-            import Form from "./components/Form"
-            import { activityReducer, initialState } from "./reducers/activity-reducers"
-            
-            function App() {  
-            
-              const [state, dispatch] = useReducer(activityReducer, initialState)
-          </code></pre>
-
-          <p>este arreglo <code class="language-js">const [state, dispatch] =...</code>nos retorna <strong>el state de ese reducer</strong> (puede ser vacío o conforme se vaya actualizando) y <strong>dispatch que es una función especial que nos va a permitir ejecutar nuestras acciones</strong>. Nuestro proyecto no sabe en qué momento queremos ejecutar esas acciones, pero cuando yo presione en Guardar comida y una vez pase toda la validación descrita en Form.tsx, entonces puedo disparar/ejecutar esas acciones en el momento en que yo las necesite. 
-            
-          <div class="mt-3 mb-2 ml-1.5 pl-2.5 pt-0.5 pb-2  border-l-2 border-dashed border-l-stone-600 rounded-tl-2xl rounded-bl-2xl bg-neutral-50 shadow-lg">
-            
-            <div class="flex">
-              <svg class="size-6 shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3"></path>
-              </svg>
-              <span class="bg-neutral-200 px-1.5 py-0.5 italic leading-[24px]"> Supongamos que vamos a utilizar este reducer para consumir una API y queremos mostrar un listado de clientes tan pronto como cargue el componente. Podríamos colocar un useEffect y entonces utilizar dispatch para traernos la acción que hemos definido para que se traiga los resultados de una API, entonces como no sabe exactamente en qué momento queremos utilizarlo nos da esta función especial para nosotros mandarlo llamar con nuestro código.</span>
-            </div>
-          </div>  
-            </p>
-
-          <p>Como no tenemos un estado global, tenemos que pasar como prop este dispatch hacia mi componente Form.tsx. </p>
-          <pre data-line="10"><code class="language-js">
-            //App.tsx
-            import { useReducer } from "react"
-            import Form from "./components/Form"
-            import { activityReducer, initialState } from "./reducers/activity-reducers"
-
-            function App() {  
-
-              const [state, dispatch] = useReducer(activityReducer, initialState)
-              ...
-              &lt;Form 
-              dispatch = {dispatch}
-              /&gt;
-          </code></pre>
-            
-          Sale en rojo, <strong>nosotros queremos asignarle nuestras acciones para que el autocompletado de VSC sugiera las acciones que retorna al utilizar el activityReducer del primer parámetro.</strong> En nuestro componente Form.tsx definimos un type nuevo para las props que le pasamos (en este caso dispatch). 
-          
-          <pre data-line="1,4,6-8"><code class="language-js">
-            //Form.tsx
-            import { useState, ChangeEvent, FormEvent, Dispatch } from "react"
-            import { categories } from "../data/categories"
-            import { Activity } from "../types"
-            import { ActivityActions } from "../reducers/activity-reducers"
-
-            type FormProps = {
-                dispatch: Dispatch&lt;ActivityActions&gt;
-            }
-          </code></pre>
-          En nuestro nuevo type de props para el Form.tsx le indicamos que ese dispatch es <strong>de tipo Dispatch (se importa automáticamente en la importación de react superior)</strong> y con un generic le vamos a pasar las acciones que tenemos en nuestro reducer (ponemos ActivityActions y automáticamente aparece arriba importado). De esta manera, este dispatch <code class="language-js">type FormProps = { dispatch: ...</code> que se está creando con este useReducer <code class="language-js">... = useReducer(activityReducer,...</code> que viene desde activity-reducer.ts, tiene la información sobre qué acciones tiene el reducer que lo ha creado:</p>
-
-  
-          <pre data-line="2"><code class="language-js">
-            //activity.reducers.ts
-            //ACCIONES - type que va a describir lo que va a pasar en nuestro reducer
-            export type ActivityActions = 
-                { type: 'save-activity', payload: { newActivity: Activity} } 
-          </code></pre>
-            
-
-         <p>Una vez extraemos y tipamos ese prop en la llamada de la fcn de nuestro componente, ya tenemos acceso a ese dispatch:</p>
-         <pre data-line="3"><code class="language-js">  
-          type FormProps = {
-              dispatch: Dispatch&lt;ActivityActions&gt;
-          }
-          export default function Form({dispatch}: FormProps) {
-          </code></pre>
-
-          <p>¿Cuando disparamos esa acción? Cuando presionemos en el botón, validación + submit de nuestro formulario:</p>
-
-          <div class="flex max-sm:flex-col">
-            <div class="w-[50%] max-sm:w-[100%]">
-              <p>Así que <strong>como argumento del dispatch (y aprovechando el autocompletado) le pasamos la acción que queremos disparar de las que están definidas en nuestro reducer (de momento solo tenemos una)</strong>.</p>
-              <pre data-line="4"><code class="language-js">
-                //Form.tsx
-                const handleSubmit = (e:FormEvent&lt;HTMLFormElement&gt;) =>{
-                  e.preventDefault()
-                  //console.log('Submit...')
-                  dispatch({ type: 'save-activity', payload: {newActivity: activity} })
-              }
-              </code></pre>
-            </div>
-            <div class="w-[50%] max-sm:w-[100%]">
-              <p>como vemos coincide con la acción que tenemos definida en nuestro reducer</p>
-              <pre data-line="2"><code class="language-js">
-                //activity-reducers.ts                
-                export type ActivityActions = 
-                    { type: 'save-activity', payload: { newActivity: Activity} } 
-              </code></pre>
-            </div>
-          </div>
-
-          <p class="destacado">Recapitulemos:</p>
-          
-          <ul class="my-3.5">
-            <li><span class="file">activity-reducers.ts</span> 
-              <svg class="size-6 shrink-0 inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3"></path>
-              </svg>
-              Definimos nuestro reducer y tenemos nuestras acciones (en nuestro caso solo una, 'save-activity', que toma un payload=la información (es básicamente el parámetro que le estaríamos pasando hacia este reducer) y le decimos que va a tomar una nueva actividad de tipo actividad. Y <strong>en la parte inferior del archivo 'activity-reducers.ts' (an la 3º parte, la del reducer que conecta ambos, las acciones y el state) evaluamos que si el action es de tipo 'save-activity' ejecute el código que está en ese if</strong>.
-              <pre data-line="5,21-24"><code class="language-js">
-                //activity-reducers.ts
-                import { Activity } from "../types"
-    
-                //ACCIONES - type que va a describir lo que va a pasar en nuestro reducer
-                export type ActivityActions = 
-                    { type: 'save-activity', payload: { newActivity: Activity} } 
-                
-                type ActivityState = {
-                    activities : Activity[] //el state de este reducer se va a llamar activities y va a ser de tipo Activity[](ya lo teníamos definido en types)
-                }
-                //STATE - nuestro state inicial que es un objeto necesita un type (definimos arriba 'ActivityState'). En nuestro state de actividades vamos a tener un arreglo.
-                export const initialState: ActivityState = {
-                    activities: [] //inicia como arreglo vacío
-                }
-                
-                //REDUCER - que conecta a ambos, nuestras acciones y el state
-                export const activityReducer = (
-                        state : ActivityState = initialState,
-                        action: ActivityActions
-                    ) => {
-                    
-                    if(action.type === 'save-activity'){
-                        //Este código maneja la lógica para actualizar el state
-                        console.log('desde el type de save-activity')
-                    }
-                
-                    return state
-                }
-              </code></pre>
-            </li>
-
-             <li><span class="file">App.tsx</span> 
-              <svg class="size-6 shrink-0 inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3"></path>
-              </svg>
-              Para usar este reducer hemos de importar el Hook useReducer de react. Como podemos tener múltiples reducers hemos de pasarle en qué reducer queremos utilizarlo (lo que nos va a dar acceso al state de ese reducer y las funciones de ese type) y un estado inicial
             <pre data-line="1,3,7"><code class="language-js">
+              //App.tsx
+              import { useReducer } from "react"
+              import Form from "./components/Form"
+              import { activityReducer, initialState } from "./reducers/activity-reducers"
+              
+              function App() {  
+              
+                const [state, dispatch] = useReducer(activityReducer, initialState)
+            </code></pre>
+
+            <p>este arreglo <code class="language-js">const [state, dispatch] =...</code> nos retorna <strong>el state de ese reducer</strong> (puede ser vacío o conforme se vaya actualizando) y <strong>dispatch que es una función especial que nos va a permitir ejecutar las acciones que tengamos en nuestro reducer</strong>. Nuestro proyecto no sabe en qué momento queremos ejecutar esas acciones, pero cuando yo presione en Guardar comida y una vez pase toda la validación descrita en Form.tsx, entonces puedo disparar/ejecutar esas acciones en el momento en que yo las necesite.</p>
+              
+            <div class="mt-3 mb-2 ml-1.5 pl-2.5 pt-0.5 pb-2  border-l-2 border-dashed border-l-stone-600 rounded-tl-2xl rounded-bl-2xl bg-neutral-50 shadow-lg">              
+              <div class="flex">
+                <svg class="size-6 shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3"></path>
+                </svg>
+                <span class="bg-neutral-200 px-1.5 py-0.5 italic leading-[24px]"> Supongamos que vamos a utilizar este reducer para consumir una API y queremos mostrar un listado de clientes tan pronto como cargue el componente. Podríamos colocar un useEffect y entonces utilizar dispatch para traernos una acción que hubiéramos definido para traer resultados de una API; entonces como no sabe exactamente en qué momento queremos utilizarlo nos da esta función especial para nosotros mandarlo llamar con nuestro código.</span>
+              </div>
+            </div>
+
+            <p>Como no tenemos un estado global, tenemos que pasar como prop este dispatch hacia mi componente Form.tsx. </p>
+            <pre data-line="10"><code class="language-js">
               //App.tsx
               import { useReducer } from "react"
               import Form from "./components/Form"
@@ -1214,208 +1114,586 @@
 
               function App() {  
 
-                const [state, dispatch] = useReducer(activityReducer, initialState)  
+                const [state, dispatch] = useReducer(activityReducer, initialState)
+                ...
+                &lt;Form 
+                dispatch = {dispatch}
+                /&gt;
             </code></pre>
-            Así ya tenemos acceso al estado:
-              <pre data-line="1-3"><code class="language-js">
-                //activity-reducers.ts
-                export const initialState: ActivityState = {
-                  activities: [] //inicia como arreglo vacío
-                }
-              </code></pre>
               
-            ..y al dispatch, que son estas acciones que están conectadas con nuestras acciones:
-              <pre data-line="5-8"><code class="language-js">
-                //activity-reducers.ts              
-                export const activityReducer = (
-                        state : ActivityState = initialState,
-                        action: ActivityActions
-                    ) => {                    
-                    if(action.type === 'save-activity'){
-                        //Este código maneja la lógica para actualizar el state
-                        console.log('desde el type de save-activity')
-                    }
-                }
-              </code></pre>
-            </li>
-            <li><span class="file">Form.tsx</span>
-              <svg class="size-6 shrink-0 inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3"></path>
-              </svg>
-              Como esas acciones se pueden ejecutar en diferentes momentos de nuestra App (no especificados), tenemos acceso a esa función de dispatch que la pasamos como prop hacia nuestro Form.tsx, donde la extraemos y, tras validar nuestro formulario entonces mandamos llamar ese dispatch, diciéndole que queremos ejecutar ese save-activity.
-             
-            <pre data-line="6-8,10,15"><code class="language-js">
+            <p>Sale en rojo, <strong>nosotros queremos asignarle nuestras acciones para que el autocompletado de VSC sugiera las acciones que retorna al utilizar el activityReducer del primer parámetro.</strong></p>
+            
+            <pre data-line="2"><code class="language-js">
+              //activity.reducers.ts
+              //ACCIONES - type que va a contener las acciones, lo que va a pasar en nuestro reducer
+              export type ActivityActions = 
+                  { type: 'save-activity', payload: { newActivity: Activity} } 
+            </code></pre>
+            
+            <p>En nuestro componente Form.tsx definimos un type nuevo para las props que le pasamos (en este caso dispatch) en el que le indicamos que ese dispatch es <strong>de tipo Dispatch (se importa automáticamente en la importación de react superior)</strong> y con un generic le vamos a pasar las acciones que tenemos en nuestro reducer (ponemos ActivityActions y automáticamente aparece arriba importado). De esta manera, este dispatch <code class="language-js">type FormProps = { dispatch: ...</code> que se está creando con este useReducer <code class="language-js">... = useReducer(activityReducer,...</code> que viene desde activity-reducer.ts, tiene la información sobre qué acciones tiene el reducer que lo ha creado:</p>
+            
+            <pre data-line="1,4,6-8"><code class="language-js">
               //Form.tsx
               import { useState, ChangeEvent, FormEvent, Dispatch } from "react"
               import { categories } from "../data/categories"
               import { Activity } from "../types"
               import { ActivityActions } from "../reducers/activity-reducers"
-              
+
               type FormProps = {
                   dispatch: Dispatch&lt;ActivityActions&gt;
               }
+            </code></pre>          
               
-              export default function Form({dispatch}: FormProps) {
-                ...
-                const handleSubmit = (e:FormEvent&lt;HTMLFormElement&gt;) =>{
-                  e.preventDefault()
-                  //console.log('Submit...')
-                  dispatch({ type: 'save-activity', payload: {newActivity: activity} })
-                } 
-            </code></pre>
-              
-              Por lo tanto este dispatch manda llamar de nuevo a mi reducer y evalúa ¿qué código tiene el action.type de 'save-activity' y entonces ejecuta ese código y por eso aparece el console log que dice 'desde el type de save.activity'</li>
-          </ul>
 
-          <p>Sí, son muschas cosas a tener en cuenta pero:</p>
-          <ul class="my-3.5">
-            <li>Tenemos un autocompletado muy bueno que facilita escribir código y evitar errores</li>
-            <li>La forma en la que vamos a manejar el state y nuestras acciones va a hacer que tengmaos un código muy bueno, que sea muy sencillo mantener o agregar más acciones</li>
-            <li>Una forma muy escalable de escribir código</li>
-          </ul>
-
-          </div>
-        
-    
-
-  
-        <!-- Bloque desplegable interior-->
-        <div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between oscuro" onclick="$('#seccion10-146').toggle();">
-          <h3>146. Escribiendo en el reducer / 147. Reiniciando el Formulario después de añadir una actividad</h3>
-          <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
-        </div>
-        <div id="seccion10-146" class="hidden">
-          <p>Ya estamos disparando las acciones de nuestro reducer (aparece el console.log('desde el type de save.activity'). Nuestro estate es muy sencillo, pero es un objeto y podríamos tener múltiples elementos (simplemente tendríamos que sincronizarlo con lo definido en su correspondiente type):</p>
-          <pre><code class="language-js">
-            //activity-reducers-ts
-            type ActivityState = {
-              activities : Activity[] //el state de este reducer se va a llamar activities y va a ser de tipo Activity[](ya lo teníamos definido en types)
-            }
-            //STATE - nuestro state inicial que es un objeto necesita un type (definimos arriba 'ActivityState').
-            export const initialState: ActivityState = {
-                activities: [], //inicia como arreglo vacío
-                activities: [], 
-                activities: [], 
-                activities: [], 
-                activities: [], 
-            }
-          </code></pre>
-          <p>Estamos utilizando un dispatch y le estamos pasando la actividad ¿como le hago para poder obtener la información que el usuario está ingresando en el formulario? . La acción de 'save-activity' va a tomar un payload (un payload son los datos) de newActivity que tiene que tener la forma de Activity:</p>
-          <pre><code class="language-js">
-            //activity-reducers.ts
-            //ACCIONES - type que va a describir lo que va a pasar en nuestro reducer
-            export type ActivityActions = 
-            { type: 'save-activity', payload: { newActivity: Activity } } 
-          </code></pre>
-
-          <p>Vamos a cambiar el console.log por <code class="language-js">console.log(action.payload.newActivity)</code> y, en cuanto pulsamos el boton, vamos a ver en la consola los datos que hemos ingresado en el formulario:</p>
-          <img src="https://andune55.github.io/manual-react/assets/146-1-DLlFcMGy.png" alt="">
-          <p>le estamos pasando la información desde nuestro dispatch con el payload:
-            <div class="mt-3 mb-2 ml-1.5 pl-2.5 pt-0.5 pb-2  border-l-2 border-dashed border-l-stone-600 rounded-tl-2xl rounded-bl-2xl bg-neutral-50 shadow-lg">
-              <div class="flex">
-                <svg class="size-6 shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3"></path>
-                </svg>
-                <span class="bg-neutral-200 px-1.5 py-0.5 italic leading-[24px]">El payload son los datos que le pasamos junto a la acción. La forma en que lo recuperamos es con action.payload y el nombre del payload que le hemos dado en unestro archivo de reducer <code class="language-js">action.payload.newActivity</code></span>
-              </div>
-            </div>
-          </p>
-          
-          <p>Escribamos en nuestro state. En estos if siempre hemos de tener un return que va adevolver el estado actualizado, y antes de ese return manejamos toda la lógica de evitar registros duplicados o lo que considremos que sea necesario para tener nuestro state. También de manera habitual al principio del return vamos a tener una copia de lo que ya tenemos en el state porque este tpo de patrones en los reducers nos permiten modificar múltiples propiedades de nuestro state (ahora solo tenemos una) y con la copia <strong>...state</strong> no perdemos nada de lo que ya tuviéramos almacenado) <strong>las líneas marcadas, las vamos a tener en todas las acciones de nuestros reducers:</strong></p>
-          <pre data-line="2,4,5"><code class="language-js">
-            //activity-reducers.ts
-            ...
-            if(action.type === 'save-activity'){
-              //Este código maneja la lógica para actualizar el state             
-              return{
-                ...state,
-                activities: [...state.activities, action.payload.newActivity]
+            <p>Una vez extraemos y tipamos ese prop en la llamada de la fcn de nuestro componente, ya tenemos acceso a ese dispatch:</p>
+            <pre data-line="3"><code class="language-js">  
+              type FormProps = {
+                  dispatch: Dispatch&lt;ActivityActions&gt;
               }
-            }
-            ...
-          </code></pre>
-          
-          <p>Probémoslo viendo con el RDT el componente donde usamos el reduce (App.tsx) y como vemos cada vez que agregamos, se añade a nuestro state una actividad:</p>
-          
-          <img src="https://andune55.github.io/manual-react/assets/146-2-zEEE558r.png" alt="">
-          
-          <p class="naranja">Reiniciando el Formulario después de añadir una actividad</p>
+              export default function Form({dispatch}: FormProps) {
+              </code></pre>
 
-          <p>Lo ideal es que el formulario se reinice una vez hayamos añadido una actividad al state (para partir de la situación inicial). Vayamos a nuestro Form.tsx y después del dispatch vamos a reiniciar nuestro state 'activity', podemos hacerlo así:</p>
-          <pre><code class="language-js">
-            //Form.tsx
-            const handleSubmit = (e:FormEvent&lt;HTMLFormElement&gt;) =&gt;{
-              e.preventDefault()
-              dispatch({ type: &#39;save-activity&#39;, payload: {newActivity: activity} })
-              setActivity({
+              <p>¿Cuando disparamos esa acción? Cuando presionemos en el botón, validación + submit de nuestro formulario:</p>
+
+              <div class="flex max-sm:flex-col">
+                <div class="w-[50%] max-sm:w-[100%]">
+                  <p>Así que <strong>como argumento del dispatch (y aprovechando el autocompletado) le pasamos la acción que queremos disparar de las que están definidas en nuestro reducer (de momento solo tenemos una)</strong>.</p>
+                  <pre data-line="4"><code class="language-js">
+                    //Form.tsx
+                    const handleSubmit = (e:FormEvent&lt;HTMLFormElement&gt;) =>{
+                      e.preventDefault()
+                      //console.log('Submit...')
+                      dispatch({ type: 'save-activity', payload: {newActivity: activity} })
+                  }
+                  </code></pre>
+                </div>
+                <div class="w-[50%] max-sm:w-[100%]">
+                  <p>como vemos coincide (copy-pasteamos) con la acción que tenemos definida en nuestro reducer</p>
+                  <pre data-line="2"><code class="language-js">
+                    //activity-reducers.ts                
+                    export type ActivityActions = 
+                        { type: 'save-activity', payload: { newActivity: Activity} } 
+                  </code></pre>
+                </div>
+              </div>
+
+              <p class="destacado">Recapitulemos:</p>
+              
+              <ul class="my-3.5">
+                <li><span class="file">activity-reducers.ts</span> 
+                  <svg class="size-6 shrink-0 inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3"></path>
+                  </svg>
+                  Definimos nuestro reducer y tenemos nuestras acciones (en nuestro caso solo una, 'save-activity', que toma un payload=la información (es básicamente el parámetro que le estaríamos pasando hacia este reducer) y le decimos que va a tomar una nueva actividad de tipo actividad. Y <strong>en la parte inferior del archivo 'activity-reducers.ts' (en la 3º parte, la del reducer que conecta ambos, las acciones y el state) evaluamos que si el action es de tipo 'save-activity' ejecute el código que está en ese if</strong>.
+                  <pre data-line="5,21-24"><code class="language-js">
+                    //activity-reducers.ts
+                    import { Activity } from "../types"
+        
+                    //ACCIONES - type que va a contener las acciones, lo que va a pasar en nuestro reducer
+                    export type ActivityActions = 
+                        { type: 'save-activity', payload: { newActivity: Activity} } 
+                    
+                    type ActivityState = {
+                        activities : Activity[] //el state de este reducer se va a llamar activities y va a ser de tipo Activity[](ya lo teníamos definido en types)
+                    }
+                    //STATE - nuestro state inicial que es un objeto necesita un type (definimos arriba 'ActivityState'). En nuestro state de actividades vamos a tener un arreglo.
+                    export const initialState: ActivityState = {
+                        activities: [] //inicia como arreglo vacío
+                    }
+                    
+                    //REDUCER - que conecta a ambos, nuestras acciones y el state
+                    export const activityReducer = (
+                            state : ActivityState = initialState,
+                            action: ActivityActions
+                        ) => {
+                        
+                        if(action.type === 'save-activity'){
+                            //Este código maneja la lógica para actualizar el state
+                            console.log('desde el type de save-activity')
+                        }
+                    
+                        return state
+                    }
+                  </code></pre>
+                </li>
+
+                <li><span class="file">App.tsx</span> 
+                  <svg class="size-6 shrink-0 inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3"></path>
+                  </svg>
+                  Para usar este reducer hemos de importar el Hook useReducer de react. Como podemos tener múltiples reducers hemos de pasarle en qué reducer queremos utilizarlo (lo que nos va a dar acceso al state de ese reducer y las funciones de ese type) y un estado inicial
+                <pre data-line="1,3,7"><code class="language-js">
+                  //App.tsx
+                  import { useReducer } from "react"
+                  import Form from "./components/Form"
+                  import { activityReducer, initialState } from "./reducers/activity-reducers"
+
+                  function App() {  
+
+                    const [state, dispatch] = useReducer(activityReducer, initialState)  
+                </code></pre>
+                Así ya tenemos acceso al estado:
+                  <pre data-line="1-3"><code class="language-js">
+                    //activity-reducers.ts
+                    export const initialState: ActivityState = {
+                      activities: [] //inicia como arreglo vacío
+                    }
+                  </code></pre>
+                  
+                ..y al dispatch, que son estas acciones que están conectadas con nuestras acciones:
+                  <pre data-line="5-8"><code class="language-js">
+                    //activity-reducers.ts              
+                    export const activityReducer = (
+                            state : ActivityState = initialState,
+                            action: ActivityActions
+                        ) => {                    
+                        if(action.type === 'save-activity'){
+                            //Este código maneja la lógica para actualizar el state
+                            console.log('desde el type de save-activity')
+                        }
+                    }
+                  </code></pre>
+                </li>
+                <li><span class="file">Form.tsx</span>
+                  <svg class="size-6 shrink-0 inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3"></path>
+                  </svg>
+                  Como esas acciones se pueden ejecutar en diferentes momentos de nuestra App (no especificados), tenemos acceso a esa función de dispatch que la pasamos como prop hacia nuestro Form.tsx, donde la extraemos y, tras validar nuestro formulario entonces mandamos llamar ese dispatch, diciéndole que queremos ejecutar ese save-activity.
+                
+                <pre data-line="6-8,10,15"><code class="language-js">
+                  //Form.tsx
+                  import { useState, ChangeEvent, FormEvent, Dispatch } from "react"
+                  import { categories } from "../data/categories"
+                  import { Activity } from "../types"
+                  import { ActivityActions } from "../reducers/activity-reducers"
+                  
+                  type FormProps = {
+                      dispatch: Dispatch&lt;ActivityActions&gt;
+                  }
+                  
+                  export default function Form({dispatch}: FormProps) {
+                    ...
+                    const handleSubmit = (e:FormEvent&lt;HTMLFormElement&gt;) =>{
+                      e.preventDefault()
+                      //console.log('Submit...')
+                      dispatch({ type: 'save-activity', payload: {newActivity: activity} })
+                    } 
+                </code></pre>
+                  
+                  Por lo tanto este dispatch manda llamar de nuevo a mi reducer y evalúa ¿qué código tiene el action.type de 'save-activity' y entonces ejecuta ese código y por eso aparece el console log que dice 'desde el type de save.activity'</li>
+              </ul>
+
+              <p>Sí, son muchas cosas a tener en cuenta pero:</p>
+              <ul class="my-3.5">
+                <li>Tenemos un autocompletado muy bueno que facilita escribir código y evitar errores.</li>
+                <li>La forma en la que vamos a manejar el state y nuestras acciones va a hacer que tengamos un código muy bueno, que sea muy sencillo de mantener o agregar más acciones.</li>
+                <li>Una forma muy escalable de escribir código.</li>
+              </ul>
+          </div>
+      
+          <!-- Bloque desplegable interior-->
+          <div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between oscuro" onclick="$('#seccion10-146').toggle();">
+            <h3>146. Escribiendo en el reducer / 147. Reiniciando el Formulario después de añadir una actividad</h3>
+            <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+          </div>
+          <div id="seccion10-146" class="hidden">
+            <p>Ya estamos disparando las acciones de nuestro reducer (aparece el console.log('desde el type de save.activity'). Nuestro estate es muy sencillo, pero es un objeto y podríamos tener múltiples elementos (simplemente tendríamos que sincronizarlo con lo definido en su correspondiente type):</p>
+            <pre><code class="language-js">
+              //activity-reducers-ts
+              type ActivityState = {
+                activities : Activity[] //el state de este reducer se va a llamar activities y va a ser de tipo Activity[](ya lo teníamos definido en types)
+              }
+              //STATE - nuestro state inicial que es un objeto necesita un type (definimos arriba 'ActivityState').
+              export const initialState: ActivityState = {
+                  activities: [], //inicia como arreglo vacío
+                  activities: [], 
+                  activities: [], 
+                  activities: [], 
+                  activities: [], 
+              }
+            </code></pre>
+            <p>Estamos utilizando un dispatch y le estamos pasando la actividad ¿como le hago para poder obtener la información que el usuario está ingresando en el formulario? . La acción de 'save-activity' va a tomar un payload (un payload son los datos) de newActivity que tiene que tener la forma de Activity:</p>
+            <pre><code class="language-js">
+              //activity-reducers.ts
+              //ACCIONES - type que va a contener las acciones, lo que va a pasar en nuestro reducer
+              export type ActivityActions = 
+              { type: 'save-activity', payload: { newActivity: Activity } } 
+            </code></pre>
+
+            <p>Vamos a cambiar el console.log por <code class="language-js">console.log(action.payload.newActivity)</code> y, en cuanto pulsamos el boton, vamos a ver en la consola los datos que hemos ingresado en el formulario:</p>
+            <img src="https://andune55.github.io/manual-react/assets/146-1-DLlFcMGy.png" alt="">
+            <p>le estamos pasando la información desde nuestro dispatch con el payload:
+              <div class="mt-3 mb-2 ml-1.5 pl-2.5 pt-0.5 pb-2  border-l-2 border-dashed border-l-stone-600 rounded-tl-2xl rounded-bl-2xl bg-neutral-50 shadow-lg">
+                <div class="flex">
+                  <svg class="size-6 shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3"></path>
+                  </svg>
+                  <span class="bg-neutral-200 px-1.5 py-0.5 italic leading-[24px]">El payload son los datos que le pasamos junto a la acción. La forma en que lo recuperamos es con action.payload y el nombre del payload que le hemos dado en unestro archivo de reducer <code class="language-js">action.payload.newActivity</code></span>
+                </div>
+              </div>
+            </p>
+            
+            <p>Escribamos en nuestro state. En estos if siempre hemos de tener un return que va adevolver el estado actualizado, y antes de ese return manejamos toda la lógica de evitar registros duplicados o lo que considremos que sea necesario para tener nuestro state. También de manera habitual al principio del return vamos a tener una copia de lo que ya tenemos en el state porque este tpo de patrones en los reducers nos permiten modificar múltiples propiedades de nuestro state (ahora solo tenemos una) y con la copia <strong>...state</strong> no perdemos nada de lo que ya tuviéramos almacenado) <strong>las líneas marcadas, las vamos a tener en todas las acciones de nuestros reducers:</strong></p>
+            <pre data-line="2,4,5"><code class="language-js">
+              //activity-reducers.ts
+              ...
+              if(action.type === 'save-activity'){
+                //Este código maneja la lógica para actualizar el state             
+                return{
+                  ...state,
+                  activities: [...state.activities, action.payload.newActivity]
+                }
+              }
+              ...
+            </code></pre>
+        
+            <p>Probémoslo viendo con el RDT el componente donde usamos el reduce (App.tsx) y como vemos cada vez que agregamos, se añade a nuestro state una actividad:</p>
+            
+            <img src="https://andune55.github.io/manual-react/assets/146-2-zEEE558r.png" alt="">
+            
+            <p class="naranja">Reiniciando el Formulario después de añadir una actividad</p>
+
+            <p>Lo ideal es que el formulario se reinice una vez hayamos añadido una actividad al state (para partir de la situación inicial). Vayamos a nuestro Form.tsx y después del dispatch vamos a reiniciar nuestro state 'activity', podemos hacerlo así:</p>
+            <pre><code class="language-js">
+              //Form.tsx
+              const handleSubmit = (e:FormEvent&lt;HTMLFormElement&gt;) =&gt;{
+                e.preventDefault()
+                dispatch({ type: &#39;save-activity&#39;, payload: {newActivity: activity} })
+                setActivity({
+                    category: 1,
+                    name: &#39;&#39;,
+                    calories: 0
+                })
+              }
+            </code></pre>
+
+            <p>mejoremos nuestro código definiendo una constante que tenga esos valores y la usamos tanto en el initial state como en este reinicio que hacemos tras el dispatch.</p>
+            
+            <div class="flex max-sm:flex-col">
+              <div class="w-[50%] max-sm:w-[100%]">
+                <pre data-line="3-7,12-16" class="error"><code class="language-js">
+                  //Form.tsx
+                  export default function Form({dispatch}: FormProps) {
+
+                    const[activity, setActivity] = useState&lt;Activity&gt;({
+                        category: 1,
+                        name: &#39;&#39;,
+                        calories: 0
+                    }) 
+                    ...
+                    const handleSubmit = (e:FormEvent&lt;HTMLFormElement&gt;) =&gt;{
+                      e.preventDefault()
+                      dispatch({ type: &#39;save-activity&#39;, payload: {newActivity: activity} })
+                      setActivity({
+                          category: 1,
+                          name: &#39;&#39;,
+                          calories: 0
+                      })
+                  }
+                </code></pre>
+              </div>
+              <div class="w-[50%] max-sm:w-[100%]">
+                <pre data-line="1-5,8,13" class="verde"><code class="language-js">
+                //Form.tsx
+                const initialState = {
                   category: 1,
                   name: &#39;&#39;,
                   calories: 0
-              })
-            }
-          </code></pre>
-
-          <p>mejoremos nuestro código definiendo una constante que tenga esos valores y la usamos tanto en el initial state como en este reinicio que hacemos tras el dispatch.</p>
-          
-          <div class="flex max-sm:flex-col">
-            <div class="w-[50%] max-sm:w-[100%]">
-              <pre data-line="3-7,12-16" class="error"><code class="language-js">
-                //Form.tsx
+                }              
                 export default function Form({dispatch}: FormProps) {
-
-                  const[activity, setActivity] = useState&lt;Activity&gt;({
-                      category: 1,
-                      name: &#39;&#39;,
-                      calories: 0
-                  }) 
+                
+                  const[activity, setActivity] = useState&lt;Activity&gt;(initialState) 
                   ...
                   const handleSubmit = (e:FormEvent&lt;HTMLFormElement&gt;) =&gt;{
                     e.preventDefault()
                     dispatch({ type: &#39;save-activity&#39;, payload: {newActivity: activity} })
-                    setActivity({
-                        category: 1,
-                        name: &#39;&#39;,
-                        calories: 0
-                    })
-                }
-              </code></pre>
+                    setActivity(initialState)
+                }  
+                </code></pre>
+              </div>
             </div>
-            <div class="w-[50%] max-sm:w-[100%]">
-              <pre data-line="1-5,8,13" class="verde"><code class="language-js">
-              //Form.tsx
-              const initialState = {
-                category: 1,
-                name: &#39;&#39;,
-                calories: 0
-              }              
-              export default function Form({dispatch}: FormProps) {
-              
-                const[activity, setActivity] = useState&lt;Activity&gt;(initialState) 
-                ...
-                const handleSubmit = (e:FormEvent&lt;HTMLFormElement&gt;) =&gt;{
-                  e.preventDefault()
-                  dispatch({ type: &#39;save-activity&#39;, payload: {newActivity: activity} })
-                  setActivity(initialState)
-              }  
-              </code></pre>
-            </div>
-          </div>
 
-          <p>A continuación veremos como listar loq ue tenemos en el state y también tenemos que poder diferenciaros de manera única, de momento no tenemos un identificador único para cada una de esas actividades almacenadas en nuestro state.</p>
-        </div>
+            <p>A continuación veremos como listar lo que tenemos en el state y también tenemos que poder diferenciaros de manera única, de momento no tenemos un identificador único para cada una de esas actividades almacenadas en nuestro state.</p>
+          </div>
           
 
 
         <!-- Bloque desplegable interior-->
-        <div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between oscuro" onclick="$('#seccion10-XX').toggle();">
-          <h3>XXXXXXXXXXXXXXX</h3>
+        <div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between oscuro" onclick="$('#seccion10-148').toggle();">
+          <h3>148. Generando ID's unicos</h3>
           <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
         </div>
-        <div id="seccion10-XX" class="hidden">
+        <div id="seccion10-148" class="hidden">
+          <p>Veamos como mostrar las actividades que vamos creando. Primero, vemos que no tenemos un id único que identifique cada actividad añadida (nos podemos comer una manzana por la mañana y otra por la tarde). Para generar un identificador único, vamos a instalar una dependencia <span class="destacado">npm i uuid</span> y en nuestro Form.tsx la importamos: <code class="language-js">import { v4 as uuidv4 } from 'uuid'</code>. Podríamos crear otro type para una actividad que no ha sido almacenada y entonces asignarle un id o también lo podemos hacer aquí en el state inicial:</p>
+
+          <div class="flex max-sm:flex-col">
+            <div class="w-[33%] max-sm:w-[100%]">
+              <pre><code class="language-js">
+                //Form.tsx
+                import { useState, ChangeEvent, FormEvent, Dispatch } from "react"
+                import { categories } from "../data/categories"
+                import { Activity } from "../types"
+                import { ActivityActions } from "../reducers/activity-reducers"
+    
+                type FormProps = {
+                    dispatch: Dispatch&lt;ActivityActions&gt;
+                }
+    
+                const initialState = {
+                  category: 1,
+                  name: '',
+                  calories: 0
+                }
+              </code></pre>
+            </div>
+            <div class="w-[33%] max-sm:w-[100%]">
+              <pre class="verde" data-line="2,11,12"><code class="language-js">
+                //Form.tsx
+                import { useState, ChangeEvent, FormEvent, Dispatch } from "react"
+                import { v4 as uuidv4 } from 'uuid'
+                import { categories } from "../data/categories"
+                import { Activity } from "../types"
+                import { ActivityActions } from "../reducers/activity-reducers"
+    
+                type FormProps = {
+                    dispatch: Dispatch&lt;ActivityActions&gt;
+                }
+    
+                const initialState : Activity = {
+                  id: uuidv4(),
+                  category: 1,
+                  name: '',
+                  calories: 0
+                }
+              </code></pre>
+            </div>
+          
+            <div class="w-[33%] max-sm:w-[100%]">
+              <p>Tenemos que añadirlo en la correspondiente definición de type:</p>
+              <pre class="verde" data-line="1"><code class="language-js">
+                //types&gt;index.tsc
+                export type Activity = {
+                  id: string
+                  category: number
+                  name: string
+                  calories: number
+                }
+              </code></pre>
+            </div>
+          </div>          
+           
+          <p>Si miramos en RDT nuestro componente App, vemos que todas las actividades añadidas tiene el mismo id:</p>
+          <img src="https://andune55.github.io/manual-react/assets/148-BIAeGFJd.png" alt="img 148">              
+              
+          <p>Para tener un id único por actividad aún tenemos que hacer esto en nuestro handleSubmit del Form.tsx: modificamos el setActivity para que tome una copia del acutal y le añada un id nuevo a la nueva actividad que estamos almacenando.</p>
+          
+          <div class="flex max-sm:flex-col">
+            <div class="w-[50%] max-sm:w-[100%]">
+              <pre><code class="language-js">
+                //Form.tsx
+                const handleSubmit = (e:FormEvent&lt;HTMLFormElement&gt;) =&gt;{
+                  e.preventDefault()
+                  dispatch({ type: &#39;save-activity&#39;, payload: {newActivity: activity} })
+                  setActivity(initialState)
+                }
+              </code></pre>
+            </div>
+            <div class="w-[50%] max-sm:w-[100%]">
+              <pre class="verde" data-line="4-7"><code class="language-js">
+                //Form.tsx
+                const handleSubmit = (e:FormEvent&lt;HTMLFormElement&gt;) =&gt;{
+                  e.preventDefault()
+                  dispatch({ type: &#39;save-activity&#39;, payload: {newActivity: activity} })
+                  setActivity({
+                    ...initialState,
+                    id: uuidv4()
+                  })
+                }
+              </code></pre>
+            </div>
+          </div>
+            
+          <img src="https://andune55.github.io/manual-react/assets/148-BIAeGFJd.png" alt="img 148">          
+          
+        </div>
+           
+        <!-- Bloque desplegable interior-->
+        <div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between oscuro" onclick="$('#seccion10-149').toggle();">
+          <h3>149. Creando el Componente para listar Actividades y Comidas / 150. Añadiendo más información al listado de Actividades</h3>
+          <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+        </div>
+        <div id="seccion10-149" class="hidden">
+          <p>Veamos cómo mostrar nuestras actividades. ¿Cómo hacemos para mostrar el state ya en nuestros componentes?. App.tsx nos retorna el state y el dispatch. Dispatch es para llamar las acciones de nuestro reducer y state nos devuelve el estado del reducer. Así que como ya lo tenemos coloquemos un console.log(state) y veremos en la consola las actividades que tenemos añadidas:</p>
+          <pre><code class="language-js">
+            //App.tsx
+            const [state, dispatch] = useReducer(activityReducer, initialState) 
+            console.log(state)
+          </code></pre>
+
+          <p>Así que teniéndolo en este state podemos iterar, crear componentes, etc... Creamos una sección nueva en nuestro App.tsx qeu contiene el tag del nuevo componente que creamos para listar las actividades: <strong>ActivityList</strong>. Le podríamos pasar como prop el state entero <code class="language-js">state={state}</code>, sin embargo como este componente solo va a renderizar la lista de actividades le pasamos como propsolo esas actividades <code class="language-js">activities={state.activities}</code>:</p>
+
+          <div class="flex max-sm:flex-col">
+            <div class="w-[50%] max-sm:w-[100%]">
+              <pre><code class="language-js">
+                //App.tsx
+                import ActivityList from "./components/ActivityList"
+                ...
+                &lt;section className=&quot;p-10 mx-auto max-w-4xl&quot;&gt;
+                  &lt;ActivityList 
+                    activities={state.activities}
+                  /&gt;
+                &lt;/section&gt;
+              </code></pre>
+            </div>
+            <div class="w-[50%] max-sm:w-[100%]">
+              <pre><code class="language-js">
+                //ActivityList.tsx
+                import { Activity } from &quot;../types&quot;
+
+                type ActivityListProps = {
+                    activities: Activity[]
+                }
+                
+                export default function ActivityList({activities}: ActivityListProps) {  
+                    //console.log(activities)
+                    return (
+                    &lt;&gt;
+                        &lt;h2 className=&quot;text-4xl font-bold text-slate-600 text-center&quot;&gt;Comida y Actividades&lt;/h2&gt;
+                
+                        {activities.map(activity =&gt; (
+                            &lt;div key={activity.id} className=&quot;px-5 py-10 bg-white mt-5 flex justify-between&quot;&gt;
+                                &lt;div className=&quot;space-y-2 relative&quot;&gt;
+                                    {/* Muestra actividad: categoría, nombre y calorías */}
+                                    &lt;p&gt;{activity.category}&lt;/p&gt;
+                                    &lt;p className=&quot;text-2xl font-bold pt-5&quot;&gt;{activity.name}&lt;/p&gt;
+                                    &lt;p className=&quot;font-black text-4xl text-lime-500&quot;&gt;
+                                        {activity.calories} {&#39;&#39;}
+                                        &lt;span&gt;Calorías&lt;/span&gt;
+                                    &lt;/p&gt;
+                                &lt;/div&gt;
+                                &lt;div&gt;
+                                    {/* Acciones para editar esa actividad o eliminarla */}
+                
+                                &lt;/div&gt;
+                                
+                            &lt;/div&gt;
+                        ))
+                        }
+                    &lt;/&gt;
+                    )
+                }
+              </code></pre>
+            </div>
+          </div>
+
+          <p class="naranja">Añadiendo más información al listado de Actividades</p>
+          
+          <p>Ahora mismo vemos que nuestra App nos muestra así las actividades que introducimos (usando el id de nuestros datos=diccionario de actividades) y queremos usar el name para que sea un poco más descriptivo:</p>
+
+          <img src="https://andune55.github.io/manual-react/assets/150-C8zpPLw7.png" alt="img 150">
+
+          <p>Con el id iteramos sobre nuestras categorías y muestro el label en vez del id. <span class="rojo">COMPLEJO, REPASAR</span></p>
+
+          <pre data-line="11-14,26"><code class="language-js">
+            //ActivityList.tsx
+            import { Activity } from &quot;../types&quot;
+            import { useMemo } from &quot;react&quot;
+            import { categories } from &quot;../data/categories&quot;
+            
+            type ActivityListProps = {
+                activities: Activity[]
+            }
+            
+            export default function ActivityList({activities}: ActivityListProps) {  
+                
+                const categoryName = useMemo(()=&gt; 
+                    (category:Activity[&#39;category&#39;]) =&gt; categories.map( cat =&gt; cat.id === category ? cat.name : &#39;&#39;)
+                , [activities]
+                )
+            
+                return (
+                &lt;&gt;
+                    &lt;h2 className=&quot;text-4xl font-bold text-slate-600 text-center&quot;&gt;Comida y Actividades&lt;/h2&gt;
+            
+                    {activities.map(activity =&gt; (
+                        &lt;div key={activity.id} className=&quot;px-5 py-10 bg-white mt-5 flex justify-between&quot;&gt;
+                            &lt;div className=&quot;space-y-2 relative&quot;&gt;
+                                {/* Muestra actividad: categoría, nombre y calorías */}
+                                &lt;p className={`absolute -top-8 -left-8 px-10 py-2 text-white uppercase font-bold ${activity.category === 1 ? &#39;bg-lime-500&#39; : &#39;bg-orange-500&#39;}`}&gt;
+                                    {/* {activity.category} */}
+                                    {categoryName(+activity.category)}
+                                    
+                                &lt;/p&gt;
+                                &lt;p className=&quot;text-2xl font-bold pt-5&quot;&gt;{activity.name}&lt;/p&gt;
+                                &lt;p className=&quot;font-black text-4xl text-lime-500&quot;&gt;
+                                    {activity.calories} {&#39;&#39;}
+                                    &lt;span&gt;Calorías&lt;/span&gt;
+                                &lt;/p&gt;
+                            &lt;/div&gt;
+                            &lt;div&gt;
+                                {/* Acciones para editar esa actividad o eliminarla */}
+            
+                            &lt;/div&gt;
+                            
+                        &lt;/div&gt;
+                    ))
+                    }
+                &lt;/&gt;
+                )
+            }
+          </code></pre>
+
+          <img src="https://andune55.github.io/manual-react/assets/150-2-Bg_A1aqz.png" alt="img 150-2">
+
+        </div>
+                  
+           
+        <!-- Bloque desplegable interior-->
+        <div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between oscuro" onclick="$('#seccion10-151').toggle();">
+          <h3>151. Agregando un Icono para Editar</h3>
+          <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+        </div>
+        <div id="seccion10-151" class="hidden">
+          <p>Veamos como editar una actividad que ya hemos metido en el state. Instalamos la dependencia de heroicons <span class="destacado">npm install @heroicons/react</span></p>
+        
+          <pre><code class="language-js">
+            //ActivityList.tsx
+            import { PencilSquareIcon } from '@heroicons/react/24/outline'
+            ...
+            &lt;div className=&quot;flex gap-5 items-center&quot;&gt;
+              {/* Acciones para editar esa actividad o eliminarla */}
+              &lt;button&gt;
+                  &lt;PencilSquareIcon 
+                      className=&quot;h-8 w-8 text-g&quot;
+                  /&gt;
+              &lt;/button&gt;
+          &lt;/div&gt;
+          </code></pre>
+          <p>Para poder editar vamos a tener que registrar un atributo nuevo en nuestro reducer. Ese va a ser el id activo en el cual yo estoy presionando para editar y de esa forma vamos a poder identificar en nuestro formulario qué es lo que estamos editando. De ahí tenemos que pasar las actividades para poder llenar el formulario en automático, es decir, se va a tener que llenar la categoría, la actividad y las calorías (más trabajo para el programador, pero menos para el usuario). Veamos a continuación como identificar a qué actividad le estamos dando click.</p>
+        </div>
+           
+        <!-- Bloque desplegable interior-->
+        <div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between oscuro" onclick="$('#seccion10-152').toggle();">
+          <h3>152. Creando la acción para seleccionar la actividad a editar</h3>
+          <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+        </div>
+        <div id="seccion10-152" >
         
         </div>
            
+<!-- Bloque desplegable interior-->
+<div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between oscuro" onclick="$('#seccion10-XX').toggle();">
+  <h3>XXXXXXXXXXXXXXX</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion10-XX" class="hidden">
+
+</div>
+           
             
+
+
+
       </div>
       <!-- Fin div colapsable-->  
 
@@ -7160,11 +7438,11 @@
       
       
       <!-- Bloque desplegable interior-->
-                <div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between oscuro" onclick="$('#seccion2-43').toggle();">	
+                <div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between oscuro" onclick="$('#seccion2-44').toggle();">	
                   <h3>44. Eventos en Submit. 45. Validando formulario y mostrando alertas.</h3>			
                   <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
                 </div>
-                <div id="seccion2-43" class="hidden">
+                <div id="seccion2-44" class="hidden">
                   <p>En nuestro formulario tenemos este input de tipo submit. El evento de submit se llama cuando alguien presiona sobre el formulario para enviarlo:</p>
                   <pre>
                     <code class="language-html">
