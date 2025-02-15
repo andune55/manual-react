@@ -1677,21 +1677,157 @@
           <h3>152. Creando la acción para seleccionar la actividad a editar</h3>
           <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
         </div>
-        <div id="seccion10-152" >
-        
+        <div id="seccion10-152" class="hidden">
+          <p><svg class="size-6 shrink-0 inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3"></path>
+          </svg> En nuestro reducer, <strong>en la parte de states vamos a crear un nuevo state para identificar cual es el activeId (el correspondiente al icono de editar que se pulsa)</strong> y si presiono en otra se va a ir actualizando así que siempre va a tener una. Lo iniciamos como string vacío y, al definirle arriba el tipo podemos ponerle estring o directamente como el state que ya existe, de tipo Activity pero con un lookup de id:</p>
+
+          <p><svg class="size-6 shrink-0 inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3"></path>
+          </svg> ¿Cómo vamos a establecer este elemento <code class="language-js">activeId: ''</code> como el id activo?. <strong>Al pulsar en el botón de editar lo primero que he de hacer es registrar una acción, con lo cual creo una acción nueva en laparte de las acciones de nuestro reducer</strong>. <strong>En esta acción vamos a setear qué elemento es el que está activo para luego editarlo, así que el payload simplemente es el id</strong>:</p>
+
+          <p><svg class="size-6 shrink-0 inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3"></path>
+          </svg> A continuación en la parte del reduce donde definimos los if según las acciones, añadimos el if correspondiente a esta nueva actividad (Fijémonos que el autocompletado en las comillas simples ya nos sugiere nuestro nueva action, no la que ya tenemos definida). ¿Cómo lo definimos? básicamente lo que le pasamos como Payload es lo que define ese state, así que en el return regresamos una copia del state <code class="language-js">...state</code> para que las diferentes actividades que ya estaban se mantengan, y además escribimos en activeId <strong>lo que le estoy pasando como payload <code class="language-js"></code></strong></p>  
+
+          <pre data-line="6,15,33-40"><code class="language-js">
+            //activity-reducers.ts
+            import { Activity } from "../types"
+
+            //ACCIONES - type que va a describir lo que va a pasar en nuestro reducer
+            export type ActivityActions = 
+                { type: 'save-activity', payload: { newActivity: Activity } } |
+                { type: 'set-activeId', payload: { id: Activity['id'] } } 
+
+            type ActivityState = {
+                activities : Activity[], //este state se va a llamar activities y va a ser de tipo Activity[]
+                activeId : Activity['id']
+            }
+            //STATE - nuestro state inicial que es un objeto necesita un type (definimos arriba 'ActivityState'). En nuestro state de actividades vamos a tener un arreglo.
+            export const initialState: ActivityState = {
+                activities: [],
+                activeId: ''
+            }
+
+            //REDUCER - que conecta a ambos, nuestras acciones y el state
+            export const activityReducer = (
+                    state : ActivityState = initialState,
+                    action: ActivityActions
+                ) => {
+                
+                if(action.type === 'save-activity'){
+                    //Este código maneja la lógica para actualizar el state activities
+                    //console.log('desde el type de save-activity') //console.log(action.payload.newActivity)         
+                    return{
+                        ...state,
+                        activities: [...state.activities, action.payload.newActivity]
+                    }
+                }
+                
+                if(action.type === 'set-activeId'){
+                    //Este código maneja la lógica para actualizar el state activeId
+                    //console.log('desde el type de set-activeId') //console.log(action.payload.id)         
+                    return{
+                        ...state,
+                        activeId: action.payload.id
+                    }
+                }
+
+                return state
+            }
+          </code></pre>
+              
+          <p>Veremos a continuación como disparar esta nueva acción, ya nuestros componentes usan el dispatch.</p>
+
+
         </div>
            
-<!-- Bloque desplegable interior-->
-<div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between oscuro" onclick="$('#seccion10-XX').toggle();">
-  <h3>XXXXXXXXXXXXXXX</h3>
-  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
-</div>
-<div id="seccion10-XX" class="hidden">
+        <!-- Bloque desplegable interior-->
+        <div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between oscuro" onclick="$('#seccion10-153').toggle();">
+          <h3>153. Almacenando el ID a editar</h3>
+          <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+        </div>
+        <div id="seccion10-153" class="hidden">
+          <p><span class="destacado">Nosotros tenemos las acciones que definen lo que va a pasar pero el dispatch es el momento exacto en el que se va a escribir ese state.</span> El dispatch siempre lo vamos a usar en nuestros componentes y en esta caso en concreto con el que estamos, va  a ser cuando el usuario presione el botón de editar. Veamos cómo se relacionan accion es, state y el dispatch de nuestras acciones.</p>
 
-</div>
-           
-            
+          <p>En el compo ppal App.tsx ya tenemos nuestro dispatch (es la misma función porque es el mismo state y las mismas acciones <code class="language-js">const [state, dispatch] = useReducer(activityReducer, initialState) </code> en otros proyectos podríamos tener múltiples reducers y cada uno tendrá su propio dispatch, pero no es el caso) así que lo vamos a pasar hacia el compo ActivityList.tsx como ya hemos hecho antes hacia el compo Form.tsx</p>
 
+          <p>Una vez lo pasamos como prop y lo extraemos y tipamos adecuadamente lo usamos en el onclick del botón para editar.</p>
+
+          <div class="flex max-sm:flex-col">
+            <div class="w-[50%] max-sm:w-[100%]">
+              <pre><code class="language-js">
+                //App.tsx
+                const [state, dispatch] = useReducer(activityReducer, initialState)  
+    
+                return (
+                ...
+                &lt;section className=&quot;p-10 mx-auto max-w-4xl&quot;&gt;
+                  &lt;ActivityList 
+                    activities={state.activities}
+                    dispatch={dispatch}
+                  /&gt;
+                &lt;/section&gt;
+              </code></pre>
+            </div>
+            <div class="w-[50%] max-sm:w-[100%]">
+              <pre data-line="1,5,9,,12,15"><code class="language-js">
+                //ActivityList.tsx
+                import { useMemo, Dispatch } from "react"
+                import { Activity } from "../types"
+                import { categories } from "../data/categories"
+                import { PencilSquareIcon } from '@heroicons/react/24/outline'
+                import { ActivityActions } from "../reducers/activity-reducers"
+
+                type ActivityListProps = {
+                    activities: Activity[]
+                    dispatch: Dispatch&lt;ActivityActions&gt;
+                }
+
+                export default function ActivityList({activities, dispatch}: ActivityListProps) {  
+                ...
+                &lt;button
+                  onClick={() =&gt; dispatch({type:&quot;set-activeId&quot;, payload: {id: activity.id}})}
+                &gt;
+                  &lt;PencilSquareIcon 
+                      className=&quot;h-8 w-8 text-g&quot;
+                  /&gt;
+                &lt;/button&gt;
+              </code></pre>
+            </div>
+          </div>
+
+          <p>Podemos probar tras añadir varias actividades que el active id que se almacena es el correspondiente al de la actividad desde donde pulsamos el lápiz</p>
+          
+          <img src="https://andune55.github.io/manual-react/assets/153-CTgyTVeD.png" alt="">
+
+
+
+
+
+          
+        </div>
+                   
+        <!-- Bloque desplegable interior-->
+        <div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between oscuro" onclick="$('#seccion10-XX').toggle();">
+          <h3>XXXXXXXXXXXXXXX</h3>
+          <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+        </div>
+        <div id="seccion10-XX" class="hidden">
+        
+        </div>
+                   
+        <!-- Bloque desplegable interior-->
+        <div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between oscuro" onclick="$('#seccion10-XX').toggle();">
+          <h3>XXXXXXXXXXXXXXX</h3>
+          <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+        </div>
+        <div id="seccion10-XX" class="hidden">
+        
+        </div>
+                   
+        
+        
 
 
       </div>
