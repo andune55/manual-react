@@ -10,8 +10,8 @@
     
     <!-- <script src="https://unpkg.com/@tailwindcss/browser@4"></script> -->
   
-    <script type="module" crossorigin src="https://andune55.github.io/manual-react/assets/index-CUrmdJrm.js"></script>
-    <link rel="stylesheet" crossorigin href="https://andune55.github.io/manual-react/assets/index-C-b_3SlI.css">
+    <script type="module" crossorigin src="https://andune55.github.io/manual-react/assets/index-BVu5wn9e.js"></script>
+    <link rel="stylesheet" crossorigin href="https://andune55.github.io/manual-react/assets/index-16ATgZAD.css">
   </head>
   <body>
     <div id="root"></div>	
@@ -954,7 +954,7 @@
               
               }
               
-              type ActivityState = {
+              export type ActivityState = {
                   activities : Activity[] //el state de este reducer se va a llamar activities y va a ser de tipo Activity[](ya lo teníamos definido en types)
               }              
               //STATE - nuestro state inicial que es un objeto necesita un type (definimos arriba 'ActivityState'). En nuestro state de actividades vamos a tener un arreglo.
@@ -1193,7 +1193,7 @@
                     export type ActivityActions = 
                         { type: 'save-activity', payload: { newActivity: Activity} } 
                     
-                    type ActivityState = {
+                    export type ActivityState = {
                         activities : Activity[] //el state de este reducer se va a llamar activities y va a ser de tipo Activity[](ya lo teníamos definido en types)
                     }
                     //STATE - nuestro state inicial que es un objeto necesita un type (definimos arriba 'ActivityState'). En nuestro state de actividades vamos a tener un arreglo.
@@ -1300,7 +1300,7 @@
             <p>Ya estamos disparando las acciones de nuestro reducer (aparece el console.log('desde el type de save.activity'). Nuestro estate es muy sencillo, pero es un objeto y podríamos tener múltiples elementos (simplemente tendríamos que sincronizarlo con lo definido en su correspondiente type):</p>
             <pre><code class="language-js">
               //activity-reducers-ts
-              type ActivityState = {
+              export type ActivityState = {
                 activities : Activity[] //el state de este reducer se va a llamar activities y va a ser de tipo Activity[](ya lo teníamos definido en types)
               }
               //STATE - nuestro state inicial que es un objeto necesita un type (definimos arriba 'ActivityState').
@@ -1414,417 +1414,696 @@
             </div>
 
             <p>A continuación veremos como listar lo que tenemos en el state y también tenemos que poder diferenciaros de manera única, de momento no tenemos un identificador único para cada una de esas actividades almacenadas en nuestro state.</p>
+          </div>         
+
+          <!-- Bloque desplegable interior-->
+          <div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between oscuro" onclick="$('#seccion10-148').toggle();">
+            <h3>148. Generando ID's unicos</h3>
+            <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
           </div>
-          
+          <div id="seccion10-148" class="hidden">
+            <p>Veamos como mostrar las actividades que vamos creando. Primero, vemos que no tenemos un id único que identifique cada actividad añadida (nos podemos comer una manzana por la mañana y otra por la tarde). Para generar un identificador único, vamos a instalar una dependencia <span class="destacado">npm i uuid</span> y en nuestro Form.tsx la importamos: <code class="language-js">import { v4 as uuidv4 } from 'uuid'</code>. Podríamos crear otro type para una actividad que no ha sido almacenada y entonces asignarle un id o también lo podemos hacer aquí en el state inicial:</p>
 
-
-        <!-- Bloque desplegable interior-->
-        <div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between oscuro" onclick="$('#seccion10-148').toggle();">
-          <h3>148. Generando ID's unicos</h3>
-          <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
-        </div>
-        <div id="seccion10-148" class="hidden">
-          <p>Veamos como mostrar las actividades que vamos creando. Primero, vemos que no tenemos un id único que identifique cada actividad añadida (nos podemos comer una manzana por la mañana y otra por la tarde). Para generar un identificador único, vamos a instalar una dependencia <span class="destacado">npm i uuid</span> y en nuestro Form.tsx la importamos: <code class="language-js">import { v4 as uuidv4 } from 'uuid'</code>. Podríamos crear otro type para una actividad que no ha sido almacenada y entonces asignarle un id o también lo podemos hacer aquí en el state inicial:</p>
-
-          <div class="flex max-sm:flex-col">
-            <div class="w-[33%] max-sm:w-[100%]">
-              <pre><code class="language-js">
-                //Form.tsx
-                import { useState, ChangeEvent, FormEvent, Dispatch } from "react"
-                import { categories } from "../data/categories"
-                import { Activity } from "../types"
-                import { ActivityActions } from "../reducers/activity-reducers"
-    
-                type FormProps = {
-                    dispatch: Dispatch&lt;ActivityActions&gt;
-                }
-    
-                const initialState = {
-                  category: 1,
-                  name: '',
-                  calories: 0
-                }
-              </code></pre>
+            <div class="flex max-sm:flex-col">
+              <div class="w-[33%] max-sm:w-[100%]">
+                <pre><code class="language-js">
+                  //Form.tsx
+                  import { useState, ChangeEvent, FormEvent, Dispatch } from "react"
+                  import { categories } from "../data/categories"
+                  import { Activity } from "../types"
+                  import { ActivityActions } from "../reducers/activity-reducers"
+      
+                  type FormProps = {
+                      dispatch: Dispatch&lt;ActivityActions&gt;
+                  }
+      
+                  const initialState = {
+                    category: 1,
+                    name: '',
+                    calories: 0
+                  }
+                </code></pre>
+              </div>
+              <div class="w-[33%] max-sm:w-[100%]">
+                <pre class="verde" data-line="2,11,12"><code class="language-js">
+                  //Form.tsx
+                  import { useState, ChangeEvent, FormEvent, Dispatch } from "react"
+                  import { v4 as uuidv4 } from 'uuid'
+                  import { categories } from "../data/categories"
+                  import { Activity } from "../types"
+                  import { ActivityActions } from "../reducers/activity-reducers"
+      
+                  type FormProps = {
+                      dispatch: Dispatch&lt;ActivityActions&gt;
+                  }
+      
+                  const initialState : Activity = {
+                    id: uuidv4(),
+                    category: 1,
+                    name: '',
+                    calories: 0
+                  }
+                </code></pre>
+              </div>
+            
+              <div class="w-[33%] max-sm:w-[100%]">
+                <p>Tenemos que añadirlo en la correspondiente definición de type:</p>
+                <pre class="verde" data-line="1"><code class="language-js">
+                  //types&gt;index.tsc
+                  export type Activity = {
+                    id: string
+                    category: number
+                    name: string
+                    calories: number
+                  }
+                </code></pre>
+              </div>
+            </div>          
+            
+            <p>Si miramos en RDT nuestro componente App, vemos que todas las actividades añadidas tiene el mismo id:</p>
+            <img src="https://andune55.github.io/manual-react/assets/148-BIAeGFJd.png" alt="img 148">              
+                
+            <p>Para tener un id único por actividad aún tenemos que hacer esto en nuestro handleSubmit del Form.tsx: modificamos el setActivity para que tome una copia del acutal y le añada un id nuevo a la nueva actividad que estamos almacenando.</p>
+            
+            <div class="flex max-sm:flex-col">
+              <div class="w-[50%] max-sm:w-[100%]">
+                <pre><code class="language-js">
+                  //Form.tsx
+                  const handleSubmit = (e:FormEvent&lt;HTMLFormElement&gt;) =&gt;{
+                    e.preventDefault()
+                    dispatch({ type: &#39;save-activity&#39;, payload: {newActivity: activity} })
+                    setActivity(initialState)
+                  }
+                </code></pre>
+              </div>
+              <div class="w-[50%] max-sm:w-[100%]">
+                <pre class="verde" data-line="4-7"><code class="language-js">
+                  //Form.tsx
+                  const handleSubmit = (e:FormEvent&lt;HTMLFormElement&gt;) =&gt;{
+                    e.preventDefault()
+                    dispatch({ type: &#39;save-activity&#39;, payload: {newActivity: activity} })
+                    setActivity({
+                      ...initialState,
+                      id: uuidv4()
+                    })
+                  }
+                </code></pre>
+              </div>
             </div>
-            <div class="w-[33%] max-sm:w-[100%]">
-              <pre class="verde" data-line="2,11,12"><code class="language-js">
-                //Form.tsx
-                import { useState, ChangeEvent, FormEvent, Dispatch } from "react"
-                import { v4 as uuidv4 } from 'uuid'
-                import { categories } from "../data/categories"
-                import { Activity } from "../types"
-                import { ActivityActions } from "../reducers/activity-reducers"
-    
-                type FormProps = {
-                    dispatch: Dispatch&lt;ActivityActions&gt;
-                }
-    
-                const initialState : Activity = {
-                  id: uuidv4(),
-                  category: 1,
-                  name: '',
-                  calories: 0
-                }
-              </code></pre>
-            </div>
-          
-            <div class="w-[33%] max-sm:w-[100%]">
-              <p>Tenemos que añadirlo en la correspondiente definición de type:</p>
-              <pre class="verde" data-line="1"><code class="language-js">
-                //types&gt;index.tsc
-                export type Activity = {
-                  id: string
-                  category: number
-                  name: string
-                  calories: number
-                }
-              </code></pre>
-            </div>
-          </div>          
-           
-          <p>Si miramos en RDT nuestro componente App, vemos que todas las actividades añadidas tiene el mismo id:</p>
-          <img src="https://andune55.github.io/manual-react/assets/148-BIAeGFJd.png" alt="img 148">              
               
-          <p>Para tener un id único por actividad aún tenemos que hacer esto en nuestro handleSubmit del Form.tsx: modificamos el setActivity para que tome una copia del acutal y le añada un id nuevo a la nueva actividad que estamos almacenando.</p>
-          
-          <div class="flex max-sm:flex-col">
-            <div class="w-[50%] max-sm:w-[100%]">
-              <pre><code class="language-js">
-                //Form.tsx
-                const handleSubmit = (e:FormEvent&lt;HTMLFormElement&gt;) =&gt;{
-                  e.preventDefault()
-                  dispatch({ type: &#39;save-activity&#39;, payload: {newActivity: activity} })
-                  setActivity(initialState)
-                }
-              </code></pre>
-            </div>
-            <div class="w-[50%] max-sm:w-[100%]">
-              <pre class="verde" data-line="4-7"><code class="language-js">
-                //Form.tsx
-                const handleSubmit = (e:FormEvent&lt;HTMLFormElement&gt;) =&gt;{
-                  e.preventDefault()
-                  dispatch({ type: &#39;save-activity&#39;, payload: {newActivity: activity} })
-                  setActivity({
-                    ...initialState,
-                    id: uuidv4()
-                  })
-                }
-              </code></pre>
-            </div>
-          </div>
+            <img src="https://andune55.github.io/manual-react/assets/148-BIAeGFJd.png" alt="img 148">          
             
-          <img src="https://andune55.github.io/manual-react/assets/148-BIAeGFJd.png" alt="img 148">          
-          
-        </div>
+          </div>
            
-        <!-- Bloque desplegable interior-->
-        <div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between oscuro" onclick="$('#seccion10-149').toggle();">
-          <h3>149. Creando el Componente para listar Actividades y Comidas / 150. Añadiendo más información al listado de Actividades</h3>
-          <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
-        </div>
-        <div id="seccion10-149" class="hidden">
-          <p>Veamos cómo mostrar nuestras actividades. ¿Cómo hacemos para mostrar el state ya en nuestros componentes?. App.tsx nos retorna el state y el dispatch. Dispatch es para llamar las acciones de nuestro reducer y state nos devuelve el estado del reducer. Así que como ya lo tenemos coloquemos un console.log(state) y veremos en la consola las actividades que tenemos añadidas:</p>
-          <pre><code class="language-js">
-            //App.tsx
-            const [state, dispatch] = useReducer(activityReducer, initialState) 
-            console.log(state)
-          </code></pre>
-
-          <p>Así que teniéndolo en este state podemos iterar, crear componentes, etc... Creamos una sección nueva en nuestro App.tsx qeu contiene el tag del nuevo componente que creamos para listar las actividades: <strong>ActivityList</strong>. Le podríamos pasar como prop el state entero <code class="language-js">state={state}</code>, sin embargo como este componente solo va a renderizar la lista de actividades le pasamos como propsolo esas actividades <code class="language-js">activities={state.activities}</code>:</p>
-
-          <div class="flex max-sm:flex-col">
-            <div class="w-[50%] max-sm:w-[100%]">
-              <pre><code class="language-js">
-                //App.tsx
-                import ActivityList from "./components/ActivityList"
-                ...
-                &lt;section className=&quot;p-10 mx-auto max-w-4xl&quot;&gt;
-                  &lt;ActivityList 
-                    activities={state.activities}
-                  /&gt;
-                &lt;/section&gt;
-              </code></pre>
-            </div>
-            <div class="w-[50%] max-sm:w-[100%]">
-              <pre><code class="language-js">
-                //ActivityList.tsx
-                import { Activity } from &quot;../types&quot;
-
-                type ActivityListProps = {
-                    activities: Activity[]
-                }
-                
-                export default function ActivityList({activities}: ActivityListProps) {  
-                    //console.log(activities)
-                    return (
-                    &lt;&gt;
-                        &lt;h2 className=&quot;text-4xl font-bold text-slate-600 text-center&quot;&gt;Comida y Actividades&lt;/h2&gt;
-                
-                        {activities.map(activity =&gt; (
-                            &lt;div key={activity.id} className=&quot;px-5 py-10 bg-white mt-5 flex justify-between&quot;&gt;
-                                &lt;div className=&quot;space-y-2 relative&quot;&gt;
-                                    {/* Muestra actividad: categoría, nombre y calorías */}
-                                    &lt;p&gt;{activity.category}&lt;/p&gt;
-                                    &lt;p className=&quot;text-2xl font-bold pt-5&quot;&gt;{activity.name}&lt;/p&gt;
-                                    &lt;p className=&quot;font-black text-4xl text-lime-500&quot;&gt;
-                                        {activity.calories} {&#39;&#39;}
-                                        &lt;span&gt;Calorías&lt;/span&gt;
-                                    &lt;/p&gt;
-                                &lt;/div&gt;
-                                &lt;div&gt;
-                                    {/* Acciones para editar esa actividad o eliminarla */}
-                
-                                &lt;/div&gt;
-                                
-                            &lt;/div&gt;
-                        ))
-                        }
-                    &lt;/&gt;
-                    )
-                }
-              </code></pre>
-            </div>
+          <!-- Bloque desplegable interior-->
+          <div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between oscuro" onclick="$('#seccion10-149').toggle();">
+            <h3>149. Creando el Componente para listar Actividades y Comidas / 150. Añadiendo más información al listado de Actividades</h3>
+            <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
           </div>
+          <div id="seccion10-149" class="hidden">
+            <p>Veamos cómo mostrar nuestras actividades. ¿Cómo hacemos para mostrar el state ya en nuestros componentes?. App.tsx nos retorna el state y el dispatch. Dispatch es para llamar las acciones de nuestro reducer y state nos devuelve el estado del reducer. Así que como ya lo tenemos coloquemos un console.log(state) y veremos en la consola las actividades que tenemos añadidas:</p>
+            <pre><code class="language-js">
+              //App.tsx
+              const [state, dispatch] = useReducer(activityReducer, initialState) 
+              console.log(state)
+            </code></pre>
 
-          <p class="naranja">Añadiendo más información al listado de Actividades</p>
-          
-          <p>Ahora mismo vemos que nuestra App nos muestra así las actividades que introducimos (usando el id de nuestros datos=diccionario de actividades) y queremos usar el name para que sea un poco más descriptivo:</p>
+            <p>Así que teniéndolo en este state podemos iterar, crear componentes, etc... Creamos una sección nueva en nuestro App.tsx qeu contiene el tag del nuevo componente que creamos para listar las actividades: <strong>ActivityList</strong>. Le podríamos pasar como prop el state entero <code class="language-js">state={state}</code>, sin embargo como este componente solo va a renderizar la lista de actividades le pasamos como propsolo esas actividades <code class="language-js">activities={state.activities}</code>:</p>
 
-          <img src="https://andune55.github.io/manual-react/assets/150-C8zpPLw7.png" alt="img 150">
+            <div class="flex max-sm:flex-col">
+              <div class="w-[50%] max-sm:w-[100%]">
+                <pre><code class="language-js">
+                  //App.tsx
+                  import ActivityList from "./components/ActivityList"
+                  ...
+                  &lt;section className=&quot;p-10 mx-auto max-w-4xl&quot;&gt;
+                    &lt;ActivityList 
+                      activities={state.activities}
+                    /&gt;
+                  &lt;/section&gt;
+                </code></pre>
+              </div>
+              <div class="w-[50%] max-sm:w-[100%]">
+                <pre><code class="language-js">
+                  //ActivityList.tsx
+                  import { Activity } from &quot;../types&quot;
 
-          <p>Con el id iteramos sobre nuestras categorías y muestro el label en vez del id. <span class="rojo">COMPLEJO, REPASAR</span></p>
-
-          <pre data-line="11-14,26"><code class="language-js">
-            //ActivityList.tsx
-            import { Activity } from &quot;../types&quot;
-            import { useMemo } from &quot;react&quot;
-            import { categories } from &quot;../data/categories&quot;
-            
-            type ActivityListProps = {
-                activities: Activity[]
-            }
-            
-            export default function ActivityList({activities}: ActivityListProps) {  
-                
-                const categoryName = useMemo(()=&gt; 
-                    (category:Activity[&#39;category&#39;]) =&gt; categories.map( cat =&gt; cat.id === category ? cat.name : &#39;&#39;)
-                , [activities]
-                )
-            
-                return (
-                &lt;&gt;
-                    &lt;h2 className=&quot;text-4xl font-bold text-slate-600 text-center&quot;&gt;Comida y Actividades&lt;/h2&gt;
-            
-                    {activities.map(activity =&gt; (
-                        &lt;div key={activity.id} className=&quot;px-5 py-10 bg-white mt-5 flex justify-between&quot;&gt;
-                            &lt;div className=&quot;space-y-2 relative&quot;&gt;
-                                {/* Muestra actividad: categoría, nombre y calorías */}
-                                &lt;p className={`absolute -top-8 -left-8 px-10 py-2 text-white uppercase font-bold ${activity.category === 1 ? &#39;bg-lime-500&#39; : &#39;bg-orange-500&#39;}`}&gt;
-                                    {/* {activity.category} */}
-                                    {categoryName(+activity.category)}
-                                    
-                                &lt;/p&gt;
-                                &lt;p className=&quot;text-2xl font-bold pt-5&quot;&gt;{activity.name}&lt;/p&gt;
-                                &lt;p className=&quot;font-black text-4xl text-lime-500&quot;&gt;
-                                    {activity.calories} {&#39;&#39;}
-                                    &lt;span&gt;Calorías&lt;/span&gt;
-                                &lt;/p&gt;
-                            &lt;/div&gt;
-                            &lt;div&gt;
-                                {/* Acciones para editar esa actividad o eliminarla */}
-            
-                            &lt;/div&gt;
-                            
-                        &lt;/div&gt;
-                    ))
-                    }
-                &lt;/&gt;
-                )
-            }
-          </code></pre>
-
-          <img src="https://andune55.github.io/manual-react/assets/150-2-Bg_A1aqz.png" alt="img 150-2">
-
-        </div>
+                  type ActivityListProps = {
+                      activities: Activity[]
+                  }
                   
+                  export default function ActivityList({activities}: ActivityListProps) {  
+                      //console.log(activities)
+                      return (
+                      &lt;&gt;
+                          &lt;h2 className=&quot;text-4xl font-bold text-slate-600 text-center&quot;&gt;Comida y Actividades&lt;/h2&gt;
+                  
+                          {activities.map(activity =&gt; (
+                              &lt;div key={activity.id} className=&quot;px-5 py-10 bg-white mt-5 flex justify-between&quot;&gt;
+                                  &lt;div className=&quot;space-y-2 relative&quot;&gt;
+                                      {/* Muestra actividad: categoría, nombre y calorías */}
+                                      &lt;p&gt;{activity.category}&lt;/p&gt;
+                                      &lt;p className=&quot;text-2xl font-bold pt-5&quot;&gt;{activity.name}&lt;/p&gt;
+                                      &lt;p className=&quot;font-black text-4xl text-lime-500&quot;&gt;
+                                          {activity.calories} {&#39;&#39;}
+                                          &lt;span&gt;Calorías&lt;/span&gt;
+                                      &lt;/p&gt;
+                                  &lt;/div&gt;
+                                  &lt;div&gt;
+                                      {/* Acciones para editar esa actividad o eliminarla */}
+                  
+                                  &lt;/div&gt;
+                                  
+                              &lt;/div&gt;
+                          ))
+                          }
+                      &lt;/&gt;
+                      )
+                  }
+                </code></pre>
+              </div>
+            </div>
+
+            <p class="naranja">Añadiendo más información al listado de Actividades</p>
+            
+            <p>Ahora mismo vemos que nuestra App nos muestra así las actividades que introducimos (usando el id de nuestros datos=diccionario de actividades) y queremos usar el name para que sea un poco más descriptivo:</p>
+
+            <img src="https://andune55.github.io/manual-react/assets/150-C8zpPLw7.png" alt="img 150">
+
+            <p>Con el id iteramos sobre nuestras categorías y muestro el label en vez del id. <span class="rojo">COMPLEJO, REPASAR</span></p>
+
+            <pre data-line="11-14,26"><code class="language-js">
+              //ActivityList.tsx
+              import { Activity } from &quot;../types&quot;
+              import { useMemo } from &quot;react&quot;
+              import { categories } from &quot;../data/categories&quot;
+              
+              type ActivityListProps = {
+                  activities: Activity[]
+              }
+              
+              export default function ActivityList({activities}: ActivityListProps) {  
+                  
+                  const categoryName = useMemo(()=&gt; 
+                      (category:Activity[&#39;category&#39;]) =&gt; categories.map( cat =&gt; cat.id === category ? cat.name : &#39;&#39;)
+                  , [activities]
+                  )
+              
+                  return (
+                  &lt;&gt;
+                      &lt;h2 className=&quot;text-4xl font-bold text-slate-600 text-center&quot;&gt;Comida y Actividades&lt;/h2&gt;
+              
+                      {activities.map(activity =&gt; (
+                          &lt;div key={activity.id} className=&quot;px-5 py-10 bg-white mt-5 flex justify-between&quot;&gt;
+                              &lt;div className=&quot;space-y-2 relative&quot;&gt;
+                                  {/* Muestra actividad: categoría, nombre y calorías */}
+                                  &lt;p className={`absolute -top-8 -left-8 px-10 py-2 text-white uppercase font-bold ${activity.category === 1 ? &#39;bg-lime-500&#39; : &#39;bg-orange-500&#39;}`}&gt;
+                                      {/* {activity.category} */}
+                                      {categoryName(+activity.category)}
+                                      
+                                  &lt;/p&gt;
+                                  &lt;p className=&quot;text-2xl font-bold pt-5&quot;&gt;{activity.name}&lt;/p&gt;
+                                  &lt;p className=&quot;font-black text-4xl text-lime-500&quot;&gt;
+                                      {activity.calories} {&#39;&#39;}
+                                      &lt;span&gt;Calorías&lt;/span&gt;
+                                  &lt;/p&gt;
+                              &lt;/div&gt;
+                              &lt;div&gt;
+                                  {/* Acciones para editar esa actividad o eliminarla */}
+              
+                              &lt;/div&gt;
+                              
+                          &lt;/div&gt;
+                      ))
+                      }
+                  &lt;/&gt;
+                  )
+              }
+            </code></pre>
+
+            <img src="https://andune55.github.io/manual-react/assets/150-2-Bg_A1aqz.png" alt="img 150-2">
+
+          </div>                  
            
-        <!-- Bloque desplegable interior-->
-        <div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between oscuro" onclick="$('#seccion10-151').toggle();">
-          <h3>151. Agregando un Icono para Editar</h3>
-          <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
-        </div>
-        <div id="seccion10-151" class="hidden">
-          <p>Veamos como editar una actividad que ya hemos metido en el state. Instalamos la dependencia de heroicons <span class="destacado">npm install @heroicons/react</span></p>
+          <!-- Bloque desplegable interior-->
+          <div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between oscuro" onclick="$('#seccion10-151').toggle();">
+            <h3>151. Agregando un Icono para Editar</h3>
+            <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+          </div>
+          <div id="seccion10-151" class="hidden">
+            <p>Veamos como editar una actividad que ya hemos metido en el state. Instalamos la dependencia de heroicons <span class="destacado">npm install @heroicons/react</span></p>
+          
+            <pre><code class="language-js">
+              //ActivityList.tsx
+              import { PencilSquareIcon } from '@heroicons/react/24/outline'
+              ...
+              &lt;div className=&quot;flex gap-5 items-center&quot;&gt;
+                {/* Acciones para editar esa actividad o eliminarla */}
+                &lt;button&gt;
+                    &lt;PencilSquareIcon 
+                        className=&quot;h-8 w-8 text-g&quot;
+                    /&gt;
+                &lt;/button&gt;
+            &lt;/div&gt;
+            </code></pre>
+            <p>Para poder editar vamos a tener que registrar un atributo nuevo en nuestro reducer. Ese va a ser el id activo en el cual yo estoy presionando para editar y de esa forma vamos a poder identificar en nuestro formulario qué es lo que estamos editando. De ahí tenemos que pasar las actividades para poder llenar el formulario en automático, es decir, se va a tener que llenar la categoría, la actividad y las calorías (más trabajo para el programador, pero menos para el usuario). Veamos a continuación como identificar a qué actividad le estamos dando click.</p>
+          </div>
+           
+          <!-- Bloque desplegable interior-->
+          <div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between oscuro" onclick="$('#seccion10-152').toggle();">
+            <h3>152. Creando la acción para seleccionar la actividad a editar</h3>
+            <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+          </div>
+          <div id="seccion10-152" class="hidden">
+            <p><svg class="size-6 shrink-0 inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3"></path>
+            </svg> En nuestro reducer, <strong>en la parte de states vamos a crear un nuevo state para identificar cual es el activeId (el correspondiente al icono de editar que se pulsa)</strong> y si presiono en otra se va a ir actualizando así que siempre va a tener una. Lo iniciamos como string vacío y, al definirle arriba el tipo podemos ponerle estring o directamente como el state que ya existe, de tipo Activity pero con un lookup de id:</p>
+
+            <p><svg class="size-6 shrink-0 inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3"></path>
+            </svg> ¿Cómo vamos a establecer este elemento <code class="language-js">activeId: ''</code> como el id activo?. <strong>Al pulsar en el botón de editar lo primero que he de hacer es registrar una acción, con lo cual creo una acción nueva en laparte de las acciones de nuestro reducer</strong>. <strong>En esta acción vamos a setear qué elemento es el que está activo para luego editarlo, así que el payload simplemente es el id</strong>:</p>
+
+            <p><svg class="size-6 shrink-0 inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3"></path>
+            </svg> A continuación en la parte del reduce donde definimos los if según las acciones, añadimos el if correspondiente a esta nueva actividad (Fijémonos que el autocompletado en las comillas simples ya nos sugiere nuestro nueva action, no la que ya tenemos definida). ¿Cómo lo definimos? básicamente lo que le pasamos como Payload es lo que define ese state, así que en el return regresamos una copia del state <code class="language-js">...state</code> para que las diferentes actividades que ya estaban se mantengan, y además escribimos en activeId <strong>lo que le estoy pasando como payload <code class="language-js"></code></strong></p>  
+
+            <pre data-line="6,15,33-40"><code class="language-js">
+              //activity-reducers.ts
+              import { Activity } from "../types"
+
+              //ACCIONES - type que va a describir lo que va a pasar en nuestro reducer
+              export type ActivityActions = 
+                  { type: 'save-activity', payload: { newActivity: Activity } } |
+                  { type: 'set-activeId', payload: { id: Activity['id'] } } 
+
+              export type ActivityState = {
+                  activities : Activity[], //este state se va a llamar activities y va a ser de tipo Activity[]
+                  activeId : Activity['id']
+              }
+              //STATE - nuestro state inicial que es un objeto necesita un type (definimos arriba 'ActivityState'). En nuestro state de actividades vamos a tener un arreglo.
+              export const initialState: ActivityState = {
+                  activities: [],
+                  activeId: ''
+              }
+
+              //REDUCER - que conecta a ambos, nuestras acciones y el state
+              export const activityReducer = (
+                      state : ActivityState = initialState,
+                      action: ActivityActions
+                  ) => {
+                  
+                  if(action.type === 'save-activity'){
+                      //Este código maneja la lógica para actualizar el state activities
+                      //console.log('desde el type de save-activity') //console.log(action.payload.newActivity)         
+                      return{
+                          ...state,
+                          activities: [...state.activities, action.payload.newActivity]
+                      }
+                  }
+                  
+                  if(action.type === 'set-activeId'){
+                      //Este código maneja la lógica para actualizar el state activeId
+                      //console.log('desde el type de set-activeId') //console.log(action.payload.id)         
+                      return{
+                          ...state,
+                          activeId: action.payload.id
+                      }
+                  }
+
+                  return state
+              }
+            </code></pre>
+                
+            <p>Veremos a continuación como disparar esta nueva acción, ya nuestros componentes usan el dispatch.</p>
+
+
+          </div>
+           
+          <!-- Bloque desplegable interior-->
+          <div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between oscuro" onclick="$('#seccion10-153').toggle();">
+            <h3>153. Almacenando el ID a editar</h3>
+            <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+          </div>
+          <div id="seccion10-153" class="hidden">
+            <p><span class="destacado">Nosotros tenemos las acciones que definen lo que va a pasar pero el dispatch es el momento exacto en el que se va a escribir ese state.</span> El dispatch siempre lo vamos a usar en nuestros componentes y en esta caso en concreto con el que estamos, va  a ser cuando el usuario presione el botón de editar que tenemos en nuestro componente ActivityList.tsx. Veamos cómo se relacionan acciones, state y el dispatch de nuestras acciones.</p>
+
+            <p>En el compo ppal App.tsx ya tenemos nuestro dispatch. Es lo mismo, la misma función que pasamos como prop, porque es el mismo state y las mismas acciones <code class="language-js">const [state, dispatch] = useReducer(activityReducer, initialState)</code> (en otros proyectos podríamos tener múltiples reducers y cada uno tendrá su propio dispatch, pero no es el caso) así que lo vamos a pasar hacia el compo ActivityList.tsx como ya hemos hecho antes hacia el compo Form.tsx</p>
+
+            <p>Una vez lo pasamos como prop hacia nuestro compo ActivityList.tsx y lo extraemos y tipamos adecuadamente lo usamos en el onclick del botón para editar.</p>
+
+          
+                <pre><code class="language-js">
+                  //App.tsx
+                  const [state, dispatch] = useReducer(activityReducer, initialState)  
+      
+                  return (
+                  ...
+                  &lt;section className=&quot;p-10 mx-auto max-w-4xl&quot;&gt;
+                    &lt;ActivityList 
+                      activities={state.activities}
+                      dispatch={dispatch}
+                    /&gt;
+                  &lt;/section&gt;
+                </code></pre>
+              
+                <pre data-line="1,5,9,,12,15"><code class="language-js">
+                  //ActivityList.tsx
+                  import { useMemo, Dispatch } from "react"
+                  import { Activity } from "../types"
+                  import { categories } from "../data/categories"
+                  import { PencilSquareIcon } from '@heroicons/react/24/outline'
+                  import { ActivityActions } from "../reducers/activity-reducers"
+
+                  type ActivityListProps = {
+                      activities: Activity[]
+                      dispatch: Dispatch&lt;ActivityActions&gt;
+                  }
+
+                  export default function ActivityList({activities, dispatch}: ActivityListProps) {  
+                  ...
+                  &lt;button
+                    onClick={() =&gt; dispatch({type:&quot;set-activeId&quot;, payload: {id: activity.id}})}
+                  &gt;
+                    &lt;PencilSquareIcon 
+                        className=&quot;h-8 w-8 text-g&quot;
+                    /&gt;
+                  &lt;/button&gt;
+                </code></pre>
+              
+
+            <p>Podemos probar tras añadir varias actividades que el active id que se almacena es el correspondiente al de la actividad desde donde pulsamos el lápiz</p>
+            
+            <img src="https://andune55.github.io/manual-react/assets/153-CTgyTVeD.png" alt="">
+          
+          </div>
+                   
+          <!-- Bloque desplegable interior-->
+          <div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between oscuro" onclick="$('#seccion10-154').toggle();">
+            <h3>154. Llenando el Formulario cuando editamos una actividad</h3>
+            <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+          </div>
+          <div id="seccion10-154" class="hidden">
+            <p>Veamos cómo identificar y llenar nuestro formulario una vez que el usuario presione en una actividad para editarla. <strong>¿Cómo vamos a hacer para que nuestro componente Form.tsx sepa en qué momento nuestro reducer tiene un elemento en el state activeId? Suena complejo, son archivos completamente separados, siendo uno un componente y otro el reducer que maneja el state.</strong></p>
+
+            <p>En nuestro compo ppal App.tsx, en este <strong>state</strong> vamos a tener tanto activities[] como activeId</p>
+
+            <pre><code class="language-js">
+              //App.tsx
+                function App() {  
+                  const [state, dispatch] = useReducer(activityReducer, initialState)
+              
+              //activity-reducers.ts
+                export type ActivityState = {
+                    activities : Activity[], //activities va a ser de tipo Activity[](ya lo teníamos definido en types)
+                    activeId : Activity['id'] //para tipa este activeId que es un id, usamos el lookup for 'id' en Activity
+                }
+                //STATE - nuestro state inicial que es un objeto necesita un type (definimos arriba 'ActivityState'). 
+                export const initialState: ActivityState = {
+                    activities: [],
+                    activeId: ''
+                }
+            </code></pre>
+
+            <p>por lo tanto vamos a pasar como prop a nuestro compo Form.tsx nuestro state. Si abrimos el compo Form.tsx vemos que <span class="destacado">la firma (él se refiere así al type que define los props que le llegan a mi compo)</span> solo tiene el dispatch, pero podemos inferir qué tipo ha de tener el state que estamos pasando si nos colocamos con el IS en la declaración del state del compo ppal App.tsx y vemos que es <strong>ActivityState</strong>, así que usamos esa información para completar la firma y a continuación lo extraemos con destructuring en la declaración de la función ppal del compo para poder usarlo:<p>
+              <pre><code class="language-js">
+                //Form.tsx --&gt;no tenía exportado desde mi reducer el type ActivityState así que al escribirlo no se importaba automáticamente
+                //para que se importe automáticamente como vemos en esta línea de import, tengo que añadir la palabra 'export' al type ActivityState
+                //en el reducer (ver prism anterior donde ya lo he puesto)
+                import { ActivityActions, ActivityState } from "../reducers/activity-reducers"
+
+                type FormProps = {
+                    dispatch: Dispatch<ActivityActions>,
+                    state: ActivityState
+                }
+                ...
+                export default function Form({dispatch, state}: FormProps) {...}
+              </code></pre>
+
+              <p><span class="destacado">¿Como identificamos en qué momento nuestro state tiene un activeId? Lo podemos hacer con el versátil Hook useEffect</span> (similar al watch en vue.js) que como vimos en el punto 82 (almacenar carrito en localStorage), <span class="destacado">además de ser útil cuando el componente está listo, es muy útil para manejar los "efectos secundarios" de un cambio en nuestro state (cuando cambie mi state ejecutar cierto código).</span> Así que:</p>
+
+              <ul class="my-3.5 list-disc">
+                <li>lo importamos en nuestro compo Form.tsx</li>
+                <li>lo colocamos tras la declaración de nuestro useState (recordar que  siempre es un callback)</li>
+                <li>le indicamos que su dependencia sea el <strong>state.activeId</strong></li>
+                <li>se va a ejecutar primero una vez (cuando está listo el componente) y después siempre que esa dependencia cambie, así que comprobamos con un if si hay algo ya en ese activeId y qué:
+                <pre><code class="language-js">
+                  //Form.tsx
+                  export default function Form({dispatch, state}: FormProps) {
+
+                    const[activity, setActivity] = useState&lt;Activity&gt;(initialState) 
+                
+                    useEffect(() => {
+                      if(state.activeId){
+                        console.log(`ya hay algo en activeId: ${state.activeId}`)
+                      }
+                    }, [state.activeId])
+                </code></pre>
+                </li>
+                <li>Como en el state ya tengo también las activities además del activeId, recordar:
+                  <pre><code class="language-js">
+                    //activity-reducers.ts
+                    export type ActivityState = {
+                      activities : Activity[]
+                      activeId : Activity['id'] 
+                  }
+                  </code></pre>
+                  ¡puedo traérme la actividad y setearla! creo una variable para no hacerlo tdo en una sola línea, se va a llamar selectActivity y, usando el array method filter(), guardamos en esa nueva variable la actividad que tiene el mismo id que el que yo presioné en el lápiz. <strong>Como el .filter() retorna un arreglo, le añado posición 0 para que retorne un objeto [0]</strong>:
+                  <pre><code class="language-js">
+                    //Form.tsx
+                    useEffect(() => {
+                      if(state.activeId){
+                      //console.log(`ya hay algo en activeId: ${state.activeId}`)
+                      const selectActivity = state.activities.filter((actividad)=> actividad.id === state.activeId)[0]
+                      //console.log(selectActivity)
+                      setActivity(selectActivity)
+                      }
+                  }, [state.activeId])
+                  </code></pre>
+                </li>              
+              </ul>
+
+              <p>Si probamos a presionar ahora cada icono de editar en las actividades que hemos añadido y aparecen en la parte inferior vemos que se modifica la parte superior de la interfaz actualizando los campos... Otra cosa es que aún no hemos modificado la lógica para que al guardar se modifique la correspondiente (de momento nos añadiría una nueva). <strong>Tenemos que modificar un poco la lógica en el if de nuestro reducer correspondiente a la actividad "save-activity" --> si activeId tiene algo queremos identificar cual y agregarlo nuevo, mientras que si no hay activeId entonces sí es nueva actividad</strong></p>
+
+          </div>
+                   
+          <!-- Bloque desplegable interior-->
+          <div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between oscuro" onclick="$('#seccion10-155').toggle();">
+            <h3>155. Actualizando las actividades</h3>
+            <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+          </div>
+          <div id="seccion10-155" class="hidden">
+            <p>Lo ideal es que si estamos editando reescriba la actividad que ya tenemos y no genere una nueva. <strong>Va a ser el activeId de nuestro state, la bandera que utilicemos para identificar que ésta es la actividad que estamos editando</strong>. Vamos al <code>if(action.type === 'save-activity'){</code> de nuestro reducer y escribimos la lógica que necesitamos antes del return().</p>
+            
+            <p>Comenta que podríamos(que funciona) tener un return por cada casuística de "si existe el activeId"/"si no existe el activeID", pero que lo normal es solo tener un return() por acción por lo que, con esta nueva lógica hemos de modificar el return que teníamos hasta ahora. Generamos con let una variable 'updatedActivities' de tipo array Activity vacía que en base a una u otra acción se va a llenar:</p>
+            <pre data-line="2"><code class="language-js">
+              //activity-reducers.ts
+              if(action.type === 'save-activity'){
+                let updatedActivities : Activity[] = []
+                
+                if(state.activeId){
+                    //vamos a iterar sobre cada actividad porque hemos de identificar cual tiene el activeId y pasarle el nuevo payload
+                    updatedActivities = state.activities.map( actividad => actividad.id === state.activeId ? action.payload.newActivity : actividad)
         
-          <pre><code class="language-js">
-            //ActivityList.tsx
-            import { PencilSquareIcon } from '@heroicons/react/24/outline'
-            ...
-            &lt;div className=&quot;flex gap-5 items-center&quot;&gt;
-              {/* Acciones para editar esa actividad o eliminarla */}
-              &lt;button&gt;
-                  &lt;PencilSquareIcon 
-                      className=&quot;h-8 w-8 text-g&quot;
+                }else{
+                    updatedActivities = [...state.activities, action.payload.newActivity]
+                }
+                
+                return{
+                    ...state,
+                    //activities: [...state.activities, action.payload.newActivity]
+                    activities: updatedActivities
+                }
+              }
+            </code></pre>
+
+            <p>Si lo dejamos así y probamos, vemos que, en principio parece funcionar y cuando le damos a editar y guardamos la actividad de abajo se actualiza, sin embargo si justo a continuación añadiéramos otra actividad, nos reescribiría la editada porque <span class="destacado">el activeId sigue activo. ¡¡Tenemos que reiniciarlo después de cada llamada a esa acción <code class="language-js">'save-activity'</code>!! porque si no, sigue siendo el mismo activeId y va a reescribirlo cada vez. Por lo tanto, cada vez que haya una nueva actividad 'save-activity'</span> (sin meterme en problemas de comprobar si estoy agregando una nueva actividad o editando una previa)  voy a reiniciar <code class="language-js">activeId= ''</code></p>
+            
+            <pre data-line="15"><code class="language-js">
+              //activity-reducers.ts
+              if(action.type === 'save-activity'){
+                let updatedActivities : Activity[] = []
+                
+                if(state.activeId){
+                    //vamos a iterar sobre cada actividad porque hemos de identificar cual tiene el activeId y pasarle el nuevo payload
+                    updatedActivities = state.activities.map( actividad => actividad.id === state.activeId ? action.payload.newActivity : actividad)        
+                }else{
+                    updatedActivities = [...state.activities, action.payload.newActivity]
+                }
+                
+                return{
+                    ...state,
+                    //activities: [...state.activities, action.payload.newActivity]
+                    activities: updatedActivities,
+                    activeId= ''
+                }
+              }
+            </code></pre>
+
+            <p><span class="destacado">Gran ventaja de useReducer:</span> <strong>nos permite escribir múltiples states en una sola línea en un mismo return, a diferencia de useState en el cual hay que modificar la función que modifica el state por cada vez que queramos escribir en diferentes partes de nuestro state.</strong>. Algo importante es que justo antes del return de la acción es zona segura para escribir código de typescript que pueda manejar toda la lógica (revisar si un elemento existe, si es así actualizarlo y si es nuevo agregarlo a nuestro arreglo).</p>
+            
+            <p>Así ya tenemos la edición lista (que suele ser lo que más trabajo toma del <strong>CRUD</strong>: <strong>C</strong>reate <strong>R</strong>ead <strong>U</strong>ptade <strong>D</strong>elete</p>
+
+          </div>
+                    
+          <!-- Bloque desplegable interior-->
+          <div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between oscuro" onclick="$('#seccion10-156').toggle();">
+            <h3>156. Creando la acción para eliminar actividades / 157. Creando el botón para llamar la acción de eliminar / 158. Mostrando un mensaje cuando no hay actividades</h3>
+            <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+          </div>
+          <div id="seccion10-156" class="hidden">
+            <p class="naranja">Creando la acción para eliminar actividades</p>
+            <p>Veamos como se haría utilizando nuestro reducer. Creamos nueva acción que concatenamos con un pipe '|' la nombramos adecuadamente y para eliminar solo requerimos el id osea que el resto es igual que la anterior acción:</p>
+
+            <pre data-line="5"><code class="language-js">
+              //activity-reducers.ts
+              //ACCIONES - type que va a describir lo que va a pasar en nuestro reducer
+              export type ActivityActions = 
+                  { type: 'save-activity', payload: { newActivity: Activity } } |
+                  { type: 'set-activeId', payload: { id: Activity['id'] } } |
+                  { type: 'delete-activity', payload: { id: Activity['id'] } } 
+            </code></pre>
+
+            <p>Definámosla en el código de nuestro reducer, en su if correspondiente: (podemos crear una variable y aplicar un filter igual que en el ejemplo actual al editar una actividad, o podemos hacerlo directamente) Tomamos una copia del state actual (lo que sea que esté... puede ser que tengamos un elemento activo en el formulario y el usuario presiona en eliminar otro) y a continuación con el array method .filter() accedemos a cada actividad y nos vamos a traer las que sean diferentes a lo que le mandemos como payload:</p>
+            <pre><code class="language-js">
+              //activity-reducers.ts
+              if(action.type === 'delete-activity'){
+                return{
+                    ...state,
+                    activities: state.activities.filter( activity => activity.id !== action.payload.id)
+                }
+              }
+            </code></pre>
+
+            <p class="naranja">Creando el botón para llamar la acción de eliminar</p>
+
+            <p>Vamos a trabajar con el dispatch de la acción para eliminar actividad que acabamos de crear. Si recordamos, en nuestro compo ppal de App.tsx ya le estamos pasando como prop el dispatch al componente ActivityList.tsx que es el que lo utiliza. es el mismo dispatch que tenemos para editar solo que con una acción diferente, así que podemos copy-pastear el mismo button que tenemos para editar y modificarlo un poco:</p>
+
+            <pre><code class="language-js">
+              //ActivityList.tsx
+              import { PencilSquareIcon, XCircleIcon } from '@heroicons/react/24/outline'
+              ...
+              &lt;button
+                  onClick={() =&gt; dispatch({type:&quot;delete-activity&quot;, payload: {id: activity.id}})}
+              &gt;
+                  &lt;XCircleIcon 
+                      className=&quot;h-8 w-8 text-red-500&quot;
                   /&gt;
               &lt;/button&gt;
-          &lt;/div&gt;
-          </code></pre>
-          <p>Para poder editar vamos a tener que registrar un atributo nuevo en nuestro reducer. Ese va a ser el id activo en el cual yo estoy presionando para editar y de esa forma vamos a poder identificar en nuestro formulario qué es lo que estamos editando. De ahí tenemos que pasar las actividades para poder llenar el formulario en automático, es decir, se va a tener que llenar la categoría, la actividad y las calorías (más trabajo para el programador, pero menos para el usuario). Veamos a continuación como identificar a qué actividad le estamos dando click.</p>
-        </div>
-           
-        <!-- Bloque desplegable interior-->
-        <div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between oscuro" onclick="$('#seccion10-152').toggle();">
-          <h3>152. Creando la acción para seleccionar la actividad a editar</h3>
-          <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
-        </div>
-        <div id="seccion10-152" class="hidden">
-          <p><svg class="size-6 shrink-0 inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3"></path>
-          </svg> En nuestro reducer, <strong>en la parte de states vamos a crear un nuevo state para identificar cual es el activeId (el correspondiente al icono de editar que se pulsa)</strong> y si presiono en otra se va a ir actualizando así que siempre va a tener una. Lo iniciamos como string vacío y, al definirle arriba el tipo podemos ponerle estring o directamente como el state que ya existe, de tipo Activity pero con un lookup de id:</p>
+            </code></pre>
 
-          <p><svg class="size-6 shrink-0 inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3"></path>
-          </svg> ¿Cómo vamos a establecer este elemento <code class="language-js">activeId: ''</code> como el id activo?. <strong>Al pulsar en el botón de editar lo primero que he de hacer es registrar una acción, con lo cual creo una acción nueva en laparte de las acciones de nuestro reducer</strong>. <strong>En esta acción vamos a setear qué elemento es el que está activo para luego editarlo, así que el payload simplemente es el id</strong>:</p>
+            <p class="naranja">Mostrando un mensaje cuando no hay actividades</p>
 
-          <p><svg class="size-6 shrink-0 inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3"></path>
-          </svg> A continuación en la parte del reduce donde definimos los if según las acciones, añadimos el if correspondiente a esta nueva actividad (Fijémonos que el autocompletado en las comillas simples ya nos sugiere nuestro nueva action, no la que ya tenemos definida). ¿Cómo lo definimos? básicamente lo que le pasamos como Payload es lo que define ese state, así que en el return regresamos una copia del state <code class="language-js">...state</code> para que las diferentes actividades que ya estaban se mantengan, y además escribimos en activeId <strong>lo que le estoy pasando como payload <code class="language-js"></code></strong></p>  
+            <p>Vamos al componente de ActivityList.tsx y podemos hacerlo de dos maneras:</p>
 
-          <pre data-line="6,15,33-40"><code class="language-js">
-            //activity-reducers.ts
-            import { Activity } from "../types"
+            <div class="flex max-sm:flex-col">
+              <div class="w-[50%] max-sm:w-[100%]">
+                <p>directamente antes del mapeo de activities</p>
+                <pre data-line="3,4"><code class="language-js">
+                  //ActivityList.tsx
+                  return (
+                    ...
+                  {activities.length === 0 ? 
+                    &lt;p className=&quot;text-center my-5&quot;&gt;No hay actividades aún&lt;/p&gt; :
+        
+                    activities.map(activity =&gt; (
+                </code></pre>
+              </div>
+              <div class="w-[50%] max-sm:w-[100%]">
+                <p>Igual pero usando una variable que guarda y useMemo() con la dependencia de [activities]</p>
+                <pre data-line="1,5-6"><code class="language-js">
+                  //ActivityList.tsx
+                  const isEmptyActivities = useMemo(() =&gt; activities.length === 0, [activities])
 
-            //ACCIONES - type que va a describir lo que va a pasar en nuestro reducer
-            export type ActivityActions = 
-                { type: 'save-activity', payload: { newActivity: Activity } } |
-                { type: 'set-activeId', payload: { id: Activity['id'] } } 
-
-            type ActivityState = {
-                activities : Activity[], //este state se va a llamar activities y va a ser de tipo Activity[]
-                activeId : Activity['id']
-            }
-            //STATE - nuestro state inicial que es un objeto necesita un type (definimos arriba 'ActivityState'). En nuestro state de actividades vamos a tener un arreglo.
-            export const initialState: ActivityState = {
-                activities: [],
-                activeId: ''
-            }
-
-            //REDUCER - que conecta a ambos, nuestras acciones y el state
-            export const activityReducer = (
-                    state : ActivityState = initialState,
-                    action: ActivityActions
-                ) => {
-                
-                if(action.type === 'save-activity'){
-                    //Este código maneja la lógica para actualizar el state activities
-                    //console.log('desde el type de save-activity') //console.log(action.payload.newActivity)         
-                    return{
-                        ...state,
-                        activities: [...state.activities, action.payload.newActivity]
-                    }
-                }
-                
-                if(action.type === 'set-activeId'){
-                    //Este código maneja la lógica para actualizar el state activeId
-                    //console.log('desde el type de set-activeId') //console.log(action.payload.id)         
-                    return{
-                        ...state,
-                        activeId: action.payload.id
-                    }
-                }
-
-                return state
-            }
-          </code></pre>
-              
-          <p>Veremos a continuación como disparar esta nueva acción, ya nuestros componentes usan el dispatch.</p>
-
-
-        </div>
-           
-        <!-- Bloque desplegable interior-->
-        <div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between oscuro" onclick="$('#seccion10-153').toggle();">
-          <h3>153. Almacenando el ID a editar</h3>
-          <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
-        </div>
-        <div id="seccion10-153" class="hidden">
-          <p><span class="destacado">Nosotros tenemos las acciones que definen lo que va a pasar pero el dispatch es el momento exacto en el que se va a escribir ese state.</span> El dispatch siempre lo vamos a usar en nuestros componentes y en esta caso en concreto con el que estamos, va  a ser cuando el usuario presione el botón de editar. Veamos cómo se relacionan accion es, state y el dispatch de nuestras acciones.</p>
-
-          <p>En el compo ppal App.tsx ya tenemos nuestro dispatch (es la misma función porque es el mismo state y las mismas acciones <code class="language-js">const [state, dispatch] = useReducer(activityReducer, initialState) </code> en otros proyectos podríamos tener múltiples reducers y cada uno tendrá su propio dispatch, pero no es el caso) así que lo vamos a pasar hacia el compo ActivityList.tsx como ya hemos hecho antes hacia el compo Form.tsx</p>
-
-          <p>Una vez lo pasamos como prop y lo extraemos y tipamos adecuadamente lo usamos en el onclick del botón para editar.</p>
-
-          <div class="flex max-sm:flex-col">
-            <div class="w-[50%] max-sm:w-[100%]">
-              <pre><code class="language-js">
-                //App.tsx
-                const [state, dispatch] = useReducer(activityReducer, initialState)  
-    
-                return (
-                ...
-                &lt;section className=&quot;p-10 mx-auto max-w-4xl&quot;&gt;
-                  &lt;ActivityList 
-                    activities={state.activities}
-                    dispatch={dispatch}
-                  /&gt;
-                &lt;/section&gt;
-              </code></pre>
+                  return (
+                    ...
+                    {isEmptyActivities ? 
+                      &lt;p className=&quot;text-center my-5&quot;&gt;No hay actividades aún&lt;/p&gt; :
+        
+                      activities.map(activity =&gt; (
+                </code></pre>
+              </div>
             </div>
-            <div class="w-[50%] max-sm:w-[100%]">
-              <pre data-line="1,5,9,,12,15"><code class="language-js">
-                //ActivityList.tsx
-                import { useMemo, Dispatch } from "react"
-                import { Activity } from "../types"
-                import { categories } from "../data/categories"
-                import { PencilSquareIcon } from '@heroicons/react/24/outline'
-                import { ActivityActions } from "../reducers/activity-reducers"
 
-                type ActivityListProps = {
-                    activities: Activity[]
-                    dispatch: Dispatch&lt;ActivityActions&gt;
-                }
-
-                export default function ActivityList({activities, dispatch}: ActivityListProps) {  
-                ...
-                &lt;button
-                  onClick={() =&gt; dispatch({type:&quot;set-activeId&quot;, payload: {id: activity.id}})}
-                &gt;
-                  &lt;PencilSquareIcon 
-                      className=&quot;h-8 w-8 text-g&quot;
-                  /&gt;
-                &lt;/button&gt;
-              </code></pre>
-            </div>
+            <p>Vamos a incorporar localStorage a este proyecto</p>          
           </div>
-
-          <p>Podemos probar tras añadir varias actividades que el active id que se almacena es el correspondiente al de la actividad desde donde pulsamos el lápiz</p>
+                    
+         
           
-          <img src="https://andune55.github.io/manual-react/assets/153-CTgyTVeD.png" alt="">
-
-
-
-
-
+                    
           
-        </div>
-                   
-        <!-- Bloque desplegable interior-->
-        <div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between oscuro" onclick="$('#seccion10-XX').toggle();">
-          <h3>XXXXXXXXXXXXXXX</h3>
-          <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
-        </div>
-        <div id="seccion10-XX" class="hidden">
-        
-        </div>
-                   
-        <!-- Bloque desplegable interior-->
-        <div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between oscuro" onclick="$('#seccion10-XX').toggle();">
-          <h3>XXXXXXXXXXXXXXX</h3>
-          <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
-        </div>
-        <div id="seccion10-XX" class="hidden">
-        
-        </div>
+                    
+          <!-- Bloque desplegable interior-->
+          <div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between oscuro" onclick="$('#seccion10-159').toggle();">
+            <h3>159. Almacenando las actividades en LocalStorage</h3>
+            <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+          </div>
+          <div id="seccion10-159" class="">
+            <p>Una buena adición y muy simple de implementar para este proyecto es localStorage. Veamos cómo hacerlo.</p>
+          
+          </div>
+                    
+          <!-- Bloque desplegable interior-->
+          <div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between oscuro" onclick="$('#seccion10-160').toggle();">
+            <h3>160. Creando la acción para reiniciar la app</h3>
+            <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+          </div>
+          <div id="seccion10-160" class="">
+          
+          </div>
+                    
+          <!-- Bloque desplegable interior-->
+          <div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between oscuro" onclick="$('#seccion10-161').toggle();">
+            <h3>161. Creando un Componente para mostrar el total de Calorias</h3>
+            <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+          </div>
+          <div id="seccion10-161" class="">
+          
+          </div>
+                    
+          <!-- Bloque desplegable interior-->
+          <div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between oscuro" onclick="$('#seccion10-162').toggle();">
+            <h3>162. Mostrando las calorias consumidas</h3>
+            <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+          </div>
+          <div id="seccion10-162" class="">
+          
+          </div>
+                    
+          <!-- Bloque desplegable interior-->
+          <div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between oscuro" onclick="$('#seccion10-163').toggle();">
+            <h3>163. Mostrando las calorias quemadas</h3>
+            <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+          </div>
+          <div id="seccion10-163" class="">
+          
+          </div>
+                    
+          <!-- Bloque desplegable interior-->
+          <div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between oscuro" onclick="$('#seccion10-164').toggle();">
+            <h3>164. Creando un Componente para las cantidades</h3>
+            <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+          </div>
+          <div id="seccion10-164" class="">
+          
+          </div>
+                    
+          <!-- Bloque desplegable interior-->
+          <div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between oscuro" onclick="$('#seccion10-165').toggle();">
+            <h3>165. Mostrando el diferencial de Calorias</h3>
+            <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+          </div>
+          <div id="seccion10-165" class="">
+          
+          </div>
+                    
+          <!-- Bloque desplegable interior-->
+          <div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between oscuro" onclick="$('#seccion10-166').toggle();">
+            <h3>166. Build y Deployment de la App</h3>
+            <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+          </div>
+          <div id="seccion10-166" class="">
+          
+          </div>
                    
         
         
