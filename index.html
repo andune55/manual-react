@@ -10,8 +10,8 @@
     
     <!-- <script src="https://unpkg.com/@tailwindcss/browser@4"></script> -->
   
-    <script type="module" crossorigin src="https://andune55.github.io/manual-react/assets/index-BVu5wn9e.js"></script>
-    <link rel="stylesheet" crossorigin href="https://andune55.github.io/manual-react/assets/index-16ATgZAD.css">
+    <script type="module" crossorigin src="https://andune55.github.io/manual-react/assets/index-C--9nf7O.js"></script>
+    <link rel="stylesheet" crossorigin href="https://andune55.github.io/manual-react/assets/index-DlFFGueG.css">
   </head>
   <body>
     <div id="root"></div>	
@@ -2025,20 +2025,67 @@
             </div>
 
             <p>Vamos a incorporar localStorage a este proyecto</p>          
-          </div>
-                    
-         
-          
-                    
-          
+          </div>          
                     
           <!-- Bloque desplegable interior-->
           <div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between oscuro" onclick="$('#seccion10-159').toggle();">
             <h3>159. Almacenando las actividades en LocalStorage</h3>
             <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
           </div>
-          <div id="seccion10-159" class="">
-            <p>Una buena adición y muy simple de implementar para este proyecto es localStorage. Veamos cómo hacerlo.</p>
+          <div id="seccion10-159" class="hidden">
+            <p>Una buena adición y muy simple de implementar para este proyecto es localStorage. Veamos cómo hacerlo. ¿Donde podríamos colocar la función que escriba en localStorage? Mi reducer podría ser un buen lugar?¿dentro del if de 'save-activity' justo antes del return? sincronizando lo que esté en el state, sería una opción. Sin embargo también habría que agregarlo en el if de la acción 'delete-activity' y en más acciones si las agregara.<span class="destacado"> Otra opción, quizás la más sencilla, es hacerlo en el App.tsx y sincronizar únicamente el state de actividades y pasarlo como dependencia en un useEffect()</span>. <strong>La dependencia en el useEffect, lo que nos interesa que 'esté escuchando para actualizar las actividades guardadadas" es [state.activities]</strong></p>
+
+            <pre data-line="7-9"><code class="language-js">
+              //App.tsx
+              import { useReducer, useEffect } from "react"
+              ...
+              function App() {  
+
+                const [state, dispatch] = useReducer(activityReducer, initialState)  
+              
+                useEffect(() => {
+                  localStorage.setItem('activities',JSON.stringify(state.activities))
+                }, [state.activities])
+            </code></pre>
+
+            <div class="flex max-sm:flex-col">
+              <div class="w-[50%] max-sm:w-[100%]">
+                <p>Si miramos en la <strong>pestaña aplicación del WDT</strong> vemos que al añadir una actividad nueva se agrega ahí, y si la editamos se actualiza perfectamente porque está sincronizado con el state.</p>
+                <img src="https://andune55.github.io/manual-react/assets/159-1-CuqVLpzW.png" alt="img" loading="lazy">
+              </div>
+              <div class="w-[50%] max-sm:w-[100%]">
+                <p>Sin embargo si recargamos la página se pierde todo y eso es así porque en nuestro activity-reducers.ts estamos especificando que las actividades inicien como un arreglo vacío con lo que se ejecuta ese useEffect con el arreglo vacío y lo setea en el state.</p>
+                <pre data-line="2"><code class="language-js">
+                  //activity-reducers.ts --&gt; nuestro state de actividades se inicia como arreglo vacío.
+                  export const initialState: ActivityState = {
+                    activities: [],
+                    activeId: ''
+                  }
+                </code></pre>
+                <img src="https://andune55.github.io/manual-react/assets/159-2-5qtmLOsG.png" alt="img" loading="lazy">
+              </div>
+            </div>
+
+            <p class="my-3">Por tanto <span class="destacado">en vez de tener ese valor inicial de arreglo vacío <strong>[]</strong> hemos de tener algo que revise si tenemos algo en localStorage:</span></p>
+            
+            <ul class="my-3">
+              <li>Creamos variable nueva arrow function 'localStorageActivities' (como esto va a residir en localStorage no en nuestro código, TS no puede inferir, así que le especificamos que esta variable arrow function sea de tipo Activity[])</li>
+              <li>esta función contiene a su vez una variable 'activities' en la que recuperamos lo que haya en el item 'activities' de localStorage</li>
+              <li>return de esa variable; con un ternario especificamos que si tiene algo haga un JSON.parse() de ello y si no sea un arreglo vacío []</li>
+              <li>Llamamos a nuestra 'localStorageActivities()' como inicialización de nuestro state</li>
+            </ul>
+            <pre data-line="1-4,6"><code class="language-js">
+              //activity-reducers.ts --&gt; iniciamos nuestro state con esta comprobación de si hay algo en localStorage
+              const localStorageActivities = () : Activity[] =>{
+                const activities = localStorage.getItem('activities')
+                return activities ? JSON.parse(activities) : []
+              }
+              export const initialState: ActivityState = {
+                  activities: localStorageActivities(),
+                  activeId: ''
+              }
+            </code></pre>
+            
           
           </div>
                     
@@ -2047,36 +2094,132 @@
             <h3>160. Creando la acción para reiniciar la app</h3>
             <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
           </div>
-          <div id="seccion10-160" class="">
-          
+          <div id="seccion10-160" class="hidden">
+            <p>Vamos a agregar un botón en la parte superior para limpiar todas las actividades, para reiniciar la app:</p>
+            <ul class="my-3">
+              <li>Vamos a activity-reducer.ts y creamos una actividad nueva que llamamos 'restart-app y como va a ser un botón que uso para reiniciar (vamos a limpiar y reiniciar a sus valores iniciales tanto activities como activeId) no va a tomar ningún payload.
+                <pre data-line="5"><code class="language-js">
+                  //activity-reducers.ts
+                  export type ActivityActions = 
+                    { type: 'save-activity', payload: { newActivity: Activity } } |
+                    { type: 'set-activeId', payload: { id: Activity['id'] } } |
+                    { type: 'delete-activity', payload: { id: Activity['id'] } } |
+                    { type: 'restart-app' } 
+                </code></pre>
+              </li>
+              <li>después del action (el if) de 'delete-activity' vamos a definir con su propio if este nuevo action para resetear la app:
+                <pre><code class="language-js">
+                  //activity-reducers.ts
+                  if(action.type === 'restart-app'){
+                    return{
+                        activities: [],
+                        activeId: ''
+                    }
+                }
+                </code></pre>
+              </li>
+              <li>Vamos a nuestro App.tsx: <strong>creamos el botón y definimos una función para controlar que el botón esté deshabilitado si no hay actividades</strong>. Al botón le añadimos un onClick con el correspondiente dispatch (ojo que hay que poner el callback antes del dispatch, si no nos marca advertencia en el onClick) No toma payload, simplemente espera que ocurra ese evento:
+                <pre><code class="language-js">
+                  //App.tsx
+                  const canRestartApp = () => useMemo(() => state.activities.length > 0, [state.activities])
+
+                  return (
+                    ...
+                    &lt;button 
+                      className=&quot;bg-gray-800 hover:bg-gray-900 p-2 font-bold uppercase text-white cursor-pointer rounded-lg text-sm disabled:opacity-10&quot;
+                      disabled={!canRestartApp()}
+                      onClick={dispatch({type.})}
+                      &gt;Reiniciar App&lt;/button&gt;
+                </code></pre>
+              </li>
+            </ul>
+
+            <p>Es muy similar a un botón de cerrar sesión en el cual limpias todo el state de la aplicación del usuario.</p>
           </div>
                     
           <!-- Bloque desplegable interior-->
           <div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between oscuro" onclick="$('#seccion10-161').toggle();">
-            <h3>161. Creando un Componente para mostrar el total de Calorias</h3>
+            <h3>161. Creando un Componente para mostrar el total de Calorias / 162. Mostrando las calorias consumidas / 163. Mostrando las calorias quemadas</h3>
             <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
           </div>
-          <div id="seccion10-161" class="">
-          
+          <div id="seccion10-161" class="hidden">
+            <p>El siguiente paso de nuestro proyecto es crear una serie de estadísticas, vamos a ir sumando las calorías consumidas, las calorías quemadas haciendo ejercicio y un diferencial (si hemos consumido más de las uqe hemos quemado va a ser la tercera opción. Ya no vamos a hacer nada en el reducer, hemos definido todas nuestras acciones, simplemente vamos a hacr una serie de estadísticas).</p>
+            
+            <p>En nuestro compo ppal App.tsx creamos un nuevo section tras el form donde vamos a incluir el tag de nuestro nuevo componente <strong>CalorieTracker</strong> que es el que va a mostrar las calorías consumidas, las quemadas por los ejercicios y el balance. Este nuevo componente solo requiere el state de actividades así que se lo pasamos como prop <span class="destacado">TRUQUI: siempre que paso prop, cuando tipo la nueva prop en el compo nuevo para extraerla, se me suele olvidar si es de arreglo añadirle el [] así que FIJARSE EN EL ERROR/ADVERTENCIA DE VSC CUANDO AÑADO LA PROPO AL TAG DEL NUEVO COMPO EN App.tsx PARA INFERIR ESE TYPE CORRECTAMENTE EN EL COMPO SIN QUE SE ME OLVIDE</span>:</p>
+              
+
+              <div class="flex max-sm:flex-col">
+                <div class="w-[50%] max-sm:w-[100%]">
+                  <pre><code class="language-js">
+                    //App.tsx
+                    import CalorieTracker from "./components/CalorieTracker"
+                    ...
+                    &lt;section className=&quot;bg-gray-800 py-10&quot;&gt;
+                      &lt;div className=&quot;max-w-4xl mx-auto&quot;&gt;
+                        &lt;CalorieTracker 
+                          activities={state.activities}
+                        /&gt;
+                      &lt;/div&gt;
+                    &lt;/section&gt;
+                  </code></pre>
+                </div>
+                <div class="w-[50%] max-sm:w-[100%]">
+                  <pre><code class="language-js">
+                    //ActivityTracker.tsx
+                    import type { Activity } from "../types"
+
+                    type CalorieTrackerProps = {
+                        activities: Activity[]
+                    }
+                    export default function CalorieTracker({activities}: CalorieTrackerProps) {
+                      return (
+                        &lt;&gt;
+                            &lt;h2 className=&quot;text-4xl font-black text-white text-center&quot;&gt;Resumen de calorías&lt;/h2&gt;
+                        &lt;/&gt;
+                      )
+                    }
+                  </code></pre>
+                </div>
+              </div>
+
+              <p class="naranja">Mostrando las calorias consumidas y las calorias quemadas</p>
+              <p>Comencemos a calcular las calorías, una forma muy sencilla de hacerlo es con reduce()</p>
+              <p>En nuestro nuevo componente CalorieTracker.tsx, antes del return bajo el comentario <code class="language-js">//contadores</code> creamos las  variables para calcular las calorías consumidas 'caloriesConsumed' y las  calorías quemadas 'caloriesBurned' y voy a usar useMemo() pasándole como dependencia activities, para que cada vez que haya cambio en actividades el código especificado en cada una de esas variables se vuelva a ejecutar <code class="language-js">const caloriesConsumed = useMemo(() => , [activities])</code> <code class="language-js">const caloriesBurned = useMemo(() => , [activities])</code>. ¿Como lo vamos a calcular? tenemos el state de activities, y tenemos un arreglo y almacenamos la categoría; la categoría de calorías consumidas es la nº 1 y la de quemadas es la nº2 si recordamos nuestros datos en categories.ts:</p>
+              <pre data-line="1"><code class="language-js">
+                //categories.ts
+                export const categories: Category[] = [
+                    { id: 1, name: 'Comida'},
+                    { id: 2, name: 'Ejercicio'}
+                ]
+              </code></pre>
+
+              <p>así que calorías consumidas = actividades con categoría 1 y calorías quemadas =  actividades con categoría 2. Con el reduce en un solo paso revisamos la actividad actual en cada caso:</p>
+              <ul>
+                <li> ¿tiene el id nº1? ¿si? entonces ese sí lo sumo, en caso contrario paso el total como está al siguiente objeto para que lo sume y compruebe lo mismo, si pertenece a comida entonces lo suma y si no, pase al siguiente elemento...</li>
+                <li>¿tiene el id nº2? ¿si? entonces ese sí lo sumo, en caso contrario paso el total como está al siguiente objeto para que lo sume y compruebe lo mismo, si pertenece a comida entonces lo suma y si no, pase al siguiente elemento...</li>
+              </ul></p>
+              <pre><code class="language-js">
+                //Contadores
+                const caloriesConsumed = useMemo(() => activities.reduce((total, activity)=> activity.category === 1 ? total + activity.calories : total, 0), [activities])
+                const caloriesBurned = useMemo(() => activities.reduce((total, activity)=> activity.category === 2 ? total + activity.calories : total, 0), [activities])
+                ...
+                &lt;div className=&quot;flex flex-col-item-center md:flex-row md:justify-between gap-5 mt-10&quot;&gt;
+                  &lt;p className=&quot;text-white font-bold rounded-full grid grid-cols-1 gap-3 text-center&quot;&gt;
+                      &lt;span className=&quot;font-black text-6xl text-orange&quot;&gt;{caloriesConsumed}&lt;/span&gt; Consumidas
+                  &lt;/p&gt;
+                  &lt;p className=&quot;text-white font-bold rounded-full grid grid-cols-1 gap-3 text-center&quot;&gt;
+                      &lt;span className=&quot;font-black text-6xl text-orange&quot;&gt;{caloriesBurned}&lt;/span&gt; Quemadas
+                  &lt;/p&gt;
+                &lt;/div&gt;
+              </code></pre>
+              
+              <img class="max-sm:mx-auto" src="https://andune55.github.io/manual-react/assets/162-0wiFJNyk.png" alt="img" loading="lazy">
+
+              <p>Como vemos tenemos 2 textos y 2 cantidades, si nos pidieran cambiar cualquiera de esos texto habríamos de cambiarlo en dos lugares...veamos como construir un componente reutilizable para consumnidas, quemadas y también el balance...</p>
+              
           </div>
-                    
-          <!-- Bloque desplegable interior-->
-          <div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between oscuro" onclick="$('#seccion10-162').toggle();">
-            <h3>162. Mostrando las calorias consumidas</h3>
-            <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
-          </div>
-          <div id="seccion10-162" class="">
-          
-          </div>
-                    
-          <!-- Bloque desplegable interior-->
-          <div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between oscuro" onclick="$('#seccion10-163').toggle();">
-            <h3>163. Mostrando las calorias quemadas</h3>
-            <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
-          </div>
-          <div id="seccion10-163" class="">
-          
-          </div>
+
+      
                     
           <!-- Bloque desplegable interior-->
           <div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between oscuro" onclick="$('#seccion10-164').toggle();">
