@@ -10,13 +10,352 @@
     
     <!-- <script src="https://unpkg.com/@tailwindcss/browser@4"></script> -->
   
-    <script type="module" crossorigin src="https://andune55.github.io/manual-react/assets/index--p3s2MLK.js"></script>
-    <link rel="stylesheet" crossorigin href="https://andune55.github.io/manual-react/assets/index-CsNE3F-a.css">
+    <script type="module" crossorigin src="https://andune55.github.io/manual-react/assets/index-BItac3ko.js"></script>
+    <link rel="stylesheet" crossorigin href="https://andune55.github.io/manual-react/assets/index-BeGXdgIG.css">
   </head>
   <body>
     <div id="root"></div>	
     <div>   
       
+
+      <!-- SECCION 11 -->
+      <div class="w-[80%] max-sm:w-[96%] mx-auto bg-gray-200 my-1.25 py-0.75 pr-0 pl-2.5 rounded-xl">
+
+        <div class="flex items-center mt-1.25 cursor-pointer desplegable justify-between" onclick="$('#seccionXX').toggle();">
+          <h2>Sección 11: PROYECTO - Migrar el Carrito de Compras de Guitarras a useReducer</h2>
+          <span class="cambiaicono ico_chevron_up mr-2.5" title=""></span>
+        </div>
+
+        <div id="seccion11">
+
+            <!-- Bloque desplegable interior-->
+            <div class="flex justify-between items-center mt-1.25 cursor-pointer oscuro" onclick="$('#seccion11-167').toggle();">
+              <h3>167. Primeros pasos</h3>
+              <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+            </div>
+            <div id="seccion11-167" class="hidden">
+              <p>Bajamos el .zip de Recursos <strong>06-guitarla-ts-usereducer.zip</strong> y descomprimimos y nos quedamos con el de windows. Yo lo renombro a <span class="file">guitarla-ur</span> e instalamos dependencias <span class="destacado">npm install</span></p>
+              <p>Gran parte de nuestro trabajo va a ser abrir nuestro fichero de hooks>useCart.ts y llevar todo ello hacia useReducer:</p>
+              <pre><code class="language-js">
+                //hooks>useCart.ts
+                import { useState, useEffect, useMemo } from &#39;react&#39;
+                import { db } from &#39;../data/db&#39;
+                import type { Guitar, CartItem } from &#39;../types&#39;
+                
+                export const useCart = () =&gt; {
+                
+                    const initialCart = () : CartItem[] =&gt; {
+                        const localStorageCart = localStorage.getItem(&#39;cart&#39;)
+                        return localStorageCart ? JSON.parse(localStorageCart) : []
+                    }
+                
+                    const [data] = useState(db)
+                    const [cart, setCart] = useState(initialCart)
+                
+                    const MIN_ITEMS = 1
+                    const MAX_ITEMS = 5
+                
+                    useEffect(() =&gt; {
+                        localStorage.setItem(&#39;cart&#39;, JSON.stringify(cart))
+                    }, [cart])
+                
+                    function addToCart(item : Guitar) {
+                        const itemExists = cart.findIndex(guitar =&gt; guitar.id === item.id)
+                        if(itemExists &gt;= 0 ) { // existe en el carrito
+                            if(cart[itemExists].quantity &gt;= MAX_ITEMS) return
+                            const updatedCart = [...cart]
+                            updatedCart[itemExists].quantity++
+                            setCart(updatedCart)
+                        } else {
+                            const newItem : CartItem = {...item, quantity : 1}
+                            setCart([...cart, newItem])
+                        }
+                    }
+                
+                    function removeFromCart(id : Guitar[&#39;id&#39;]) {
+                        setCart(prevCart =&gt; prevCart.filter(guitar =&gt; guitar.id !== id))
+                    }
+                
+                    function decreaseQuantity(id : Guitar[&#39;id&#39;]) {
+                        const updatedCart = cart.map( item =&gt; {
+                            if(item.id === id &amp;&amp; item.quantity &gt; MIN_ITEMS) {
+                                return {
+                                    ...item,
+                                    quantity: item.quantity - 1
+                                }
+                            }
+                            return item
+                        })
+                        setCart(updatedCart)
+                    }
+                
+                    function increaseQuantity(id : Guitar[&#39;id&#39;]) {
+                        const updatedCart = cart.map( item =&gt; {
+                            if(item.id === id &amp;&amp; item.quantity &lt; MAX_ITEMS) {
+                                return {
+                                    ...item,
+                                    quantity: item.quantity + 1
+                                }
+                            }
+                            return item
+                        })
+                        setCart(updatedCart)
+                    }
+                
+                    function clearCart() {
+                        setCart([])
+                    }
+                
+                    // State Derivado
+                    const isEmpty = useMemo( () =&gt; cart.length === 0, [cart])
+                    const cartTotal = useMemo( () =&gt; cart.reduce( (total, item ) =&gt; total + (item.quantity * item.price), 0), [cart] )
+                
+                    return {
+                        data,
+                        cart,
+                        addToCart,
+                        removeFromCart,
+                        decreaseQuantity,
+                        increaseQuantity,
+                        clearCart,
+                        isEmpty,
+                        cartTotal
+                    }
+                }
+              </code></pre>
+
+            </div>
+
+            <!-- Bloque desplegable interior-->
+            <div class="flex justify-between items-center mt-1.25 cursor-pointer oscuro" onclick="$('#seccion11-168').toggle();">
+              <h3>168. Creando el reducer y el type de acciones / 169. Definiendo el State inicial / 170. Escribiendo el resto de las acciones</h3>
+              <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+            </div>
+            <div id="seccion11-168" class="">
+              <p>Hacer esto no significa que el custom hook que hemos creado esté mal, hay muchos proyectos que lo hacen así, pero está intentando abrcar todo lo que hay que saber de React.</p>
+              <p>Creamos en la carpeta src <span class="file">reducers&gt;cart-reducer.ts</span></p>
+              <pre><code class="language-js">
+                //reducers/cart-reducer.ts
+                export type CartActions = {
+    
+                }
+              </code></pre>
+              <p class="naranja">Definiendo el type de acciones</p>
+              <p>Cojamos las funciones siguientes de nuestro hook useCart.ts y convirtámoslas en un action en nuestro reducer:</p>
+              
+              
+              <div class="flex max-sm:flex-col">
+                <div class="w-[50%] max-sm:w-[100%]">
+                  <pre data-line="0"><code class="language-js">
+                    //hooks/useCart.ts                    
+                    function addToCart(item : Guitar) { ... }
+                    function removeFromCart(id : Guitar['id']) { ... }
+                    function decreaseQuantity(id : Guitar['id']) { ... }
+                    function increaseQuantity(id : Guitar['id']) { ... }
+                    function clearCart() {
+                        setCart([])
+                    }
+                  </code></pre>
+                  <div class="bg-white">
+                    <svg class="size-6 shrink-0 mx-auto" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3"></path>
+                    </svg>
+                  </div>
+                </div>
+                <div class="w-[50%] max-sm:w-[100%]">
+                  <pre data-line="0"><code class="language-js">
+                    //cart-reducer.ts
+                    import type { Guitar } from "../types"
+
+                    export type CartActions = 
+                        { type: 'add-to-cart', payload: {item : Guitar}} |
+                        { type: 'remove-from-cart', payload: {id : Guitar['id']}} |
+                        { type: 'decrease-quantity', payload: {id: Guitar['id']}} |
+                        { type: 'increase-quantity', payload: {id: Guitar['id']}} |
+                        { type: 'clear-cart'}
+                  </code></pre>
+                </div>
+              </div>
+              <p>Ya tenemos definidas todas las acciones y nos hace falta toda la lógica que veremos a continuación.</p>
+
+              <p class="naranja">Definiendo el type de state y state inicial</p>
+            
+              <p><strong>Definamos el type y state inicial de nuestro carrito</strong> Nuestro proyecto solo tiene 2 states, uno los datos y otro el carrito. Una vez definido el type de nuestro carrito definimos el state inicial (<strong>¡Recordar! este se utiliza cuando utilizamos useReducer</strong>):</p>
+              
+
+              <div class="flex max-sm:flex-col">
+                <div class="w-[50%] max-sm:w-[100%]">
+                  <pre data-line="0"><code class="language-js">
+                    //useCart.ts
+                    const [data] = useState(db)
+                    const [cart, setCart] = useState(initialCart)
+                  </code></pre>
+                  <div class="bg-white">
+                    <svg class="size-6 shrink-0 mx-auto" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3"></path>
+                    </svg>
+                  </div>
+                </div>
+                <div class="w-[50%] max-sm:w-[100%]">
+                  <pre data-line="0"><code class="language-js">
+                    //cart-reducer.ts
+                    import { db } from '../data/db'
+                    import type { CartItem, Guitar } from "../types"
+                    ...
+                    export type CartState = {
+                      data: Guitar[],
+                      cart: CartItem[]
+                    } 
+                    export const initialState : CartState = {
+                      data: db, //nuestra bbdd de guitarra con los datos
+                      cart: [] //de momento arreglo vacío pero recordemos que viene de localStorage, ahora lo hacemos                  
+                  }
+                  </code></pre>
+                </div>
+              </div>              
+
+              <p class="naranja">Definiendo el reducer</p>
+
+              <p>Creamos el reducer, con todas la funcionalidad para interaccionar con el state. Por tanto creamos cartReducer (con un export pues también este lo vamos a requerir cuando utilicemos el Hook de useReducer).</p>
+              
+              <ul class="my-2 list-disc">
+                <li class="my-1">En la primera parte de los paréntesis le hacemos saber a este reducer cual es nuestro state y qué acciones son las que tenemos disponibles, colocando como parámetros y con esos types el state y las acciones. Con ello tenemos nuestro maravilloso autocompletado en el reducer.
+                  <pre><code class="language-js">
+                    //cart-reducer.ts                
+                    export const cartReducer = (    
+                      state: CartState = initialState,
+                      actions: CartActions
+                      ) => {
+                        
+                        reurn state
+                    }
+                  </code></pre>
+                </li>
+                <li class="my-1">y entonces ya podemos comenzar a definir todas las acciones. <strong>Vamos colocando los if validando el action.type con los nombres de las acciones que tenemos definidas en la parte superior</strong>:
+
+                  <div class="flex max-sm:flex-col">
+                    <div class="w-[50%] max-sm:w-[100%]">
+                      <pre><code class="language-js">
+                        //cart-reducer.ts                
+                        import { db } from '../data/db'
+                        import type { CartItem, Guitar } from "../types"
+                        
+                        export type CartActions = 
+                            { type: 'add-to-cart', payload: {item : Guitar}} |
+                            { type: 'remove-from-cart', payload: {id : Guitar['id']}} |
+                            { type: 'decrease-quantity', payload: {id: Guitar['id']}} |
+                            { type: 'increase-quantity', payload: {id: Guitar['id']}} |
+                            { type: 'clear-cart'}
+                        
+                        export type CartState = {
+                            data: Guitar[],
+                            cart: CartItem[]
+                        }
+                        export const initialState : CartState = {
+                            data: db, //nuestra bbdd de guitarra con los datos
+                            cart: [] //de momento arreglo vacío pero recordemos que viene de localStorage, ahora lo hacemos
+                        
+                        }
+                        
+                        export const cartReducer = (    
+                                state: CartState = initialState,
+                                actions: CartActions
+                            ) => {
+                        
+                            if (actions.type === "add-to-cart"){
+                                return{
+                                    ...state
+                                }
+                            }
+                            if (actions.type === "remove-from-cart"){
+                                return{
+                                    ...state
+                                }
+                            }
+                            if (actions.type === "decrease-quantity"){
+                                return{
+                                    ...state
+                                }
+                            }
+                            if(actions.type === "increase-quantity"){
+                                return{
+                                    ...state
+                                }
+                            }
+                            if(actions.type === "clear-cart"){
+                                return{
+                                    ...state
+                                }
+                            }
+                        
+                            return state
+                            
+                        }
+                      </code></pre>
+                    </div>
+                    <div class="w-[50%] max-sm:w-[100%]">
+                      <img src="https://andune55.github.io/manual-react/assets/170-JgTUVx3j.png" alt="img" loading="lazy">
+                    </div>
+                  </div>
+                  
+                </li>
+              </ul>
+             
+
+              <p><span class="destacado">Ya tenemos los type de acciones, el type de state, state inicial y el reducer</span></p>
+
+            </div>
+
+
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion11-171').toggle();">
+  <h3>171. Instanciando el reducer en la página principal</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion11-171" class="hidden">      
+  
+</div>
+
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion11-XX').toggle();">
+  <h3>XXXXXXXXXXXXXXX</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion11-XX" class="hidden">
+
+
+</div>
+
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion11-XX').toggle();">
+  <h3>XXXXXXXXXXXXXXX</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion11-XX" class="hidden">
+
+
+</div>
+
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion11-XX').toggle();">
+  <h3>XXXXXXXXXXXXXXX</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion11-XX" class="hidden">
+
+
+</div>
+
+
+
+        </div>
+        <!-- Fin div colapsable-->
+
+      </div>
+      <!-- FIN SECCION XX -->
+
+
+
       <!-- SECCION 10 -->
       <div class="w-[80%] max-sm:w-[96%] mx-auto bg-gray-200 mb-1.25 py-0.75 pr-0 pl-2.5 rounded-xl">
         
