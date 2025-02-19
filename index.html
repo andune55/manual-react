@@ -135,7 +135,7 @@
               <h3>168. Creando el reducer y el type de acciones / 169. Definiendo el State inicial / 170. Escribiendo el resto de las acciones</h3>
               <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
             </div>
-            <div id="seccion11-168" class="">
+            <div id="seccion11-168" class="hidden">
               <p>Hacer esto no significa que el custom hook que hemos creado esté mal, hay muchos proyectos que lo hacen así, pero está intentando abrcar todo lo que hay que saber de React.</p>
               <p>Creamos en la carpeta src <span class="file">reducers&gt;cart-reducer.ts</span></p>
               <pre><code class="language-js">
@@ -311,41 +311,343 @@
             </div>
 
 
-<!-- Bloque desplegable interior-->
-<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion11-171').toggle();">
-  <h3>171. Instanciando el reducer en la página principal</h3>
-  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
-</div>
-<div id="seccion11-171" class="hidden">      
-  
-</div>
+            <!-- Bloque desplegable interior-->
+            <div class="flex justify-between items-center mt-1.25 cursor-pointer oscuro" onclick="$('#seccion11-171').toggle();">
+              <h3>171. Instanciando el reducer en la página principal / 172. Migrando del Custom Hook hacia useReducer / 173. Migrando el addToCart hacia useReducer</h3>
+              <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+            </div>
+            <div id="seccion11-171" class="hidden">      
+              <p>Como ya tenemos definido en nuestro fichero de reducers&gt;cart-reducer.ts las acciones, state(type y state inicial) y el reducer, ya podemos ir a nuestro compo ppal App.tsx y utilizar useReducer <code class="language-js">import { useReducer } from "react"</code>. Fijémonos que:</p>
+              
+              <ul class="list-disc">
+                <li>de nuestro custom hook con destructuring  ¡¡¡retornamos 9 cosas!!! <span class="destacado">como objeto{}</span> <code class="language-js">const { data, cart, addToCart, removeFromCart, decreaseQuantity, increaseQuantity, clearCart, isEmpty, cartTotal } = useCart()</code>.</li>
+                <li>Usando nuestro reducer solo retornamos state y dispatch <span class="destacado">como arreglo[]</span>: <code class="language-js"> const [state,dispatch] = useReducer(cartReducer, initialState)</code> (esos dos parámetros que toma: reducer y el initial state los tenemos exportados en nuestro fichero de reducer así que se importan aquí e la App.tsx)</li>
+              </ul> 
+
+              <pre data-line="1,3,7"><code class="language-js">
+                //App.tsx
+                import { useReducer } from "react"
+                ...
+                import { cartReducer, initialState } from "./reducers/cart-reducer"
+                
+                function App() {    
+                  const { data, cart, addToCart, removeFromCart, decreaseQuantity, increaseQuantity, clearCart, isEmpty, cartTotal } = useCart()
+                  const [state,dispatch] = useReducer(cartReducer, initialState)
+              </code></pre>
+
+                <p>Así ya tanto state como dispatch van a tener la información necesaria. Si ponemos un console.log(state) vemos que ya funciona correctamente, lo estamos conectando desde el reducer y en la consola nos retorna lo que hemos colocado como initialState: <strong>cart</strong> que es un array vacío [] y <strong>data</strong> lo que tenemos en nuestra pequeña bbdd.</p>
+
+                <p>Vamos a ir reemplazando cada una de las partes ¿moviendo todo lo que tenemos en nuestro <span class="rojo">x9</span><strong>custom hook useCart()</strong> hacia nuestro <span class="verde">x2</span><strong>reducer useReducer()</strong></p>
+
+                <p class="naranja">Migrando del Custom Hook hacia useReducer</p>
+              
+
+                <p>Vamos a mover todo lo de nuestro custom hook al reducer, no es que estuviera mal, simplemente Estamos tratando de usar diferentes técnicas para poner en práctica diferentes escenarios en este caso una función de tipo reducer.</p>
+
+                <p>Comencemos con las guitarras, que es la parte central de nuestro proyecto. Actualmente las tenemos en data de nuestro custom hook pero como ya las tenemos en nuestro state del reducer las mostramos desde ahí:</p>
+
+                <div class="flex max-sm:flex-col">
+                  <div class="w-[50%] max-sm:w-[100%]">
+                    <pre class="error" data-line="1"><code class="language-js">
+                      //App.tsx
+                      {data.map((guitar) =&gt; (
+                        &lt;Guitar 
+                          key={guitar.id}
+                          guitar={guitar}
+                          addToCart={addToCart}
+                        /&gt;
+                      ))}
+                    </code></pre>
+                  </div>
+                  <div class="w-[50%] max-sm:w-[100%]">
+                    <pre class="verde" data-line="1"><code class="language-js">
+                      //App.tsx
+                      {state.data.map((guitar) =&gt; (
+                        &lt;Guitar 
+                          key={guitar.id}
+                          guitar={guitar}
+                          addToCart={addToCart}
+                        /&gt;
+                      ))}
+                    </code></pre>
+                  </div>
+                </div>
+
+                <p>Vamos limpiando: en <span class="file">App.tsx</span> la prop data que extraíamos <code class="language-js">const { data, cart, addToCart, removeFromCart, decreaseQuantity, increaseQuantity, clearCart, isEmpty, cartTotal } = useCart()</code>, en nuestro hook useCart.ts: la variable que usábamos <code class="language-js">const [data] = useState(db)</code> + del return + también quitamos la importación que hacíamos de nuestra bbdd <strong>Para quitar importaciones que ya no se utilicen Ctrl + Mayus + P y escribimos "Quitar importaciones sin usar"</strong></p>
+
+                <p class="naranja">Migrando el addToCart hacia useReducer</p>
+                
+                <p>Si abrimos RDT (a veces se queda atascado y hay que recargar) y pulsamos en el compo ppal App.tsx vemos los dos cart que de momento tenemos, el del custom hook y el del reducer. Si agrego guitarra veo que se añade en el cart de mi hook pero <strong>queremos que escriba en el de reducer. Para eso tenemos que utilizar un dispatch</strong></p>
+
+                <p>Identificamos la función que es addToCart y esa se está pasando en cada una de las guitarras. Hemos de pasar en su lugar dispatch:</p>
+
+                <div class="flex max-sm:flex-col">
+                  <div class="w-[50%] max-sm:w-[100%]">
+                    <pre class="borrar" data-line="5"><code class="language-js">
+                      //App.tsx
+                      {state.data.map((guitar) =&gt; (
+                        &lt;Guitar 
+                          key={guitar.id}
+                          guitar={guitar}
+                          addToCart={addToCart}
+                        /&gt;
+                      ))}
+                    </code></pre>
+                  </div>
+                  <div class="w-[50%] max-sm:w-[100%]">
+                    <pre class="verde" data-line="5"><code class="language-js">
+                      //App.tsx
+                      {state.data.map((guitar) =&gt; (
+                        &lt;Guitar 
+                          key={guitar.id}
+                          guitar={guitar}
+                          dispatch={dispatch}
+                        /&gt;
+                      ))}
+                    </code></pre>
+                  </div>
+                </div>
+
+                <p>Si vemos, al hacer este cambio nos da error porque, la firma de nuestro componente guitar (el type) ya no coincide.</p>
+                
+                <img src="./src/assets/img/173.png" alt="img" loading="lazy">
+                
+                <p>Lo vamos a coger del IS de VSC para añadirle esa propiedad a la firma de mi compo guitarra (el type de las props). Importamos CartActions (para que el componente conozca todas las acciones que se soportan por el reducer, incluyendo sus payload) y al igual que ya hemos hecho otras veces, en vez de poner <code class="language-js">React.Dispatch&lt;CartActions&gt;</code> podemos quitar el 'React.' previo si importamos Dispatch en el componente. Lo cambiamos también en el destructuring del parámetro y en la llamada al <code class="language-js">onClick = {()=> ... }</code> en el que llamamos al dispatch llamando al type adecuado y a su correspondiente payload, que podemos inferirlo al escribir payload y viendo el IS.</p>
+
+                <div class="flex max-sm:flex-col">
+                  <div class="w-[50%] max-sm:w-[100%]">
+                    <pre class="error" data-line="5,8,13"><code class="language-js">
+                      //Guitar.tsx
+                      import type { Guitar } from '../types'
+
+                      type GuitarProps = {
+                          guitar : Guitar, 
+                          dispatch : (item: Guitar) => void
+                      }
+                      
+                      export default function Guitar({guitar, addToCart} : GuitarProps) {
+                        ...
+                        &lt;button 
+                            type=&quot;button&quot;
+                            className=&quot;btn btn-dark w-100&quot;
+                            onClick={() =&gt; addToCart(guitar)}
+                        &gt;Agregar al Carrito&lt;/button&gt;
+                    </code></pre>
+                  </div>
+                  <div class="w-[50%] max-sm:w-[100%]">
+                    <pre class="verde" data-line="1,3,7,10,15"><code class="language-js">
+                      //Guitar.tsx
+                      import { Dispatch } from 'react'
+                      import type { Guitar } from '../types'
+                      import { CartActions } from '../reducers/cart-reducer'
+                      
+                      type GuitarProps = {
+                          guitar : Guitar, 
+                          dispatch : Dispatch&lt;CartActions&gt;
+                      }
+
+                      export default function Guitar({guitar, dispatch} : GuitarProps) {
+                      ...
+                        &lt;button 
+                            type=&quot;button&quot;
+                            className=&quot;btn btn-dark w-100&quot;
+                            onClick={() =&gt; dispatch({type: &#39;add-to-cart&#39;, payload: {item: guitar} })}
+                        &gt;Agregar al Carrito&lt;/button&gt;
+                    </code></pre>
+                  </div>
+                </div>
+
+                <p>Si en el if del reducer correspondiente a ese type "add-to-cart" ponemos un console.log('desde-add-to-cart') vemos que ya lo llama.</p>
+
+                <p>Veamos a continuación como tomar toda la lógica que teníamos en nuestra función addToCart() de nuestro custom hook y ajustarla para la sintaxis de useReducer.</p>
+
+              </div>
+
+
+            <!-- Bloque desplegable interior-->
+            <div class="flex justify-between items-center mt-1.25 cursor-pointer oscuro" onclick="$('#seccion11-174').toggle();">
+              <h3>174. Ajustando el Código para la sintaxis de useReducer / 175. Evitando registros duplicados con sintaxis de Reducer</h3>
+              <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+            </div>
+            <div id="seccion11-174" class="">
+              <p>Como la la lógica de useState() que teníamos en la función addToCart() de nuestro custom hook es un poco distinta de la que se usa en useReducer(), vamos a adecuarla para usarla con useReducer(). Si la cogemos y la pegamos en el if correspondiente a esta acción vemos que de entrada nos da todos <span class="rojo">estos casques</span>. Vamos a ir siguiendo los errores para solucionarlos:</p>
+
+              <div class="flex max-sm:flex-col">
+                <div class="w-[30%] max-sm:w-[100%]">
+                  <img src="./src/assets/img/174.png" alt="img" loading="lazy">
+                </div>
+                <div class="w-[70%] max-sm:w-[100%]">
+                  <ul class="list-disc my-3">
+                    <li>1º revisamos si un elemento existe para evitar registros dupicados: <span class="rojo">cart.</span>findIndex() lo cambiamos por <span class="verde">state.cart.</span>findIndex()</li>
+                    <li><span class="rojo">item.id</span> falla; ese item era un parámetro de la función addToCart(item: Guitar), le pasábamos ese item que era el elemento sobre el cual presionábamos para agregarlo al carrito, pero ahora mismo eso ya forma parte del action.payload así que cambiamos <span class="rojo">item.id</span> por <span class="verde">actions.payload.item.id</span></li>
+                    <li><span class="rojo">MAX_ITEMS</span> al igual que <span class="rojo">MIN_ITEMS</span> eran variables que prevenían de que no agregáramos más elementos, de momento no existían en nuestro reducer así que las agregamos justo antes del <code class="language-js">export const cartReducer = (...</code></li>
+                    <li>A cuento de <span class="rojo">setCart(updatedCart)</span> Importante: estamos escribiendo en el state en dos lugares (el if y el else) pero el reducer solo tiene un único return{} entonces ese const updatedCart lo declaramos fuera del bloque if pero como let (para poder reasignarlo). le quitamos el const, reasignamos y borramos el SetCart(updatedCart) que ya no lo usamos. ese updatedCart hay que setearlo en el state así que lo añadimos en el return y así lo que hacía el setState, ahora lo hace nuestro reducer.</li>
+                    <li>en la parte del else <span class="rojo">...item</span> por <span class="verde">...actions.payload.item</span> que recordemos es lo que en el componente Guitar.tsx estamos agragando en el payload cuando hacemos click <code class="language-js">onClick={() => dispatch({type: 'add-to-cart', payload: {item: guitar} })}</code>. Eliminamos el <span class="rojo">setCart([...cart, newItem])</span> que es lo que usábamos con useState y nos quedamos con su contenido: <span class="verde">updatedCart = [...state.cart, newItem]</span></li>
+                  </ul>
+                </div>
+              </div>
+
+              <div class="flex max-sm:flex-col">
+                <div class="w-[50%] max-sm:w-[100%]">
+                  <pre><code class="language-js">
+                    //useCart.js
+                    function addToCart(item : Guitar) {
+                      const itemExists = cart.findIndex(guitar => guitar.id === item.id)
+                      if(itemExists >= 0 ) { // existe en el carrito
+                          if(cart[itemExists].quantity >= MAX_ITEMS) return
+                          const updatedCart = [...cart]
+                          updatedCart[itemExists].quantity++
+                          setCart(updatedCart)
+                      } else {
+                          const newItem : CartItem = {...item, quantity : 1}
+                          setCart([...cart, newItem])
+                      }
+                    }
+                  </code></pre>
+                </div>
+                <div class="w-[50%] max-sm:w-[100%]">
+                  <pre><code class="language-js">
+                    //cart-reducer.ts
+                    if (actions.type === "add-to-cart"){
+                      const itemExists = state.cart.findIndex(guitar => guitar.id === actions.payload.item.id)
+                      
+                      let updatedCart : CartItem[] = []
+                      if(itemExists >= 0 ) { // existe en el carrito
+                          if(state.cart[itemExists].quantity >= MAX_ITEMS) return
+                          updatedCart = [...state.cart]
+                          updatedCart[itemExists].quantity++
+                      } else {
+                          const newItem : CartItem = {...actions.payload.item, quantity : 1}
+                          updatedCart = [...state.cart, newItem]
+                      }
+              
+                      return{
+                          ...state,
+                          cart: updatedCart
+                      }
+                  }
+                  </code></pre>
+                </div>
+              </div>
+
+              <div class="flex max-sm:flex-col">
+                <div class="w-[30%] max-md:w-[100%] mr-1.25">
+                  <p>Si miramos en nuestra <span class="file">App.tsx</span> vemos que nos dice que nuestro state posiblemente pueda ser undefined</p>
+                  <img src="./src/assets/img/174-2.png" alt="img" loading="lazy">
+                </div>
+                <div class="w-[70%] max-md:w-[100%]">
+                  <p>Si recargamos el navegador, vemos en nuestro RDT App reducer, cómo al agregar guitarra se añade al state, si pulso en la misma guitarra quantity pasa de 1 a 3, a continuación a 5 y a continuación la pantalla se queda en blanco <strong>¿Qué pasa?</strong> algo raro pasa aquí:</p>
+
+                  <pre><code class="language-js">
+                    //cart-reducer.ts
+                    ...
+                    if (actions.type === "add-to-cart"){
+                      const itemExists = state.cart.findIndex(guitar => guitar.id === actions.payload.item.id)
+                  </code></pre>
+
+                  <p>y es que probablemente <span class="rojo">findIndex()</span> para este tipo de código/ejemplo no sea la mejor opción y Typescript sabe por adelantado que algo puede fallar. Esto es algo relativamente común que nos puede pasar, tener un código funcional y cuando lo movemos a Redux toolkit o Sustand dejar de funcionar. Veamos como utilizar find en lugar de findIndex() y adaptar nuestro código.</p>                  
+                </div>
+              </div>
+              
+              <p class="naranja">Evitando registros duplicados con sintaxis de Reducer</p>
+
+              <p>En vez de findIndex() usamos find() y en lugar de hacer las comprobaciones como teníamos hasta ahora en el if(), usaremos un .map() para identificar el elemento y entonces ir incrementando las cantidades.</p>
+
+              <ul class="list-disc my-2.5">
+                <li>.findIndex() nos retornaba un nº del índice de la posición del elemento en el arreglo del carrito. Utilizando .find() nos retorna el objeto. Lo podemos ver si lo cambiamos aquí, ponemos un console.log(itemExists) (quitamos la lógica del if para que no falle dejando solo lo siguiente) y miramos la consola al pulsar una guitarra que ya habíamos agregado, que ya existía por tanto:
+                <pre data-line="2,3,5"><code class="language-js">
+                  //cart-reducer.ts
+                  if (actions.type === "add-to-cart"){
+                    const itemExists = state.cart.find(guitar => guitar.id === actions.payload.item.id)
+                    console.log(itemExists)
+                    let updatedCart : CartItem[] = []
+                    if(itemExists ) { // existe en el carrito
+                        
+                    } else {...
+                </code></pre>  
+                <img src="./src/assets/img/175.png" alt="img" loading="lazy">
+                </li>
+                <li>Modificamos la lógica del if:
+                  <pre><code class="language-js">
+                    //cart-reducer.ts
+                    if(itemExists ) { // existe en el carrito
+                      updatedCart = state.cart.map(item => {
+                          if(item.id === actions.payload.item.id){ //ese es el elemento que el user está agregando repetido
+                              if(item.quantity &lt; MAX_ITEMS){ //le permitimos agregarlo
+                                  return{...item,quantity: item.quantity + 1 } //copia del item e incrementamos quantity
+                              } else {
+                                  return item // llegamos a 5, no se cumple lo anterior pero mantenemos lo que teníamos en el carrito
+                              }
+                          } else {//el que no estamos agregando repetido pero no queremos perder
+                              return item
+                          }
+                      })            
+                  } 
+                  </code></pre>
+                </li>
+              </ul>
+
+              <p>Como ya no estamos utilizando addToCart() la eliminamos de nuestro hook useCart.ts (también de su return) y también del destructuring que hacíamos en la App.tsx <code class="language-js">const { cart, addToCart, removeFromCart, decreaseQuantity, increaseQuantity, clearCart, isEmpty, cartTotal } = useCart()</code></p>
+                 
+
+            </div>
+
+
 
 <!-- Bloque desplegable interior-->
-<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion11-XX').toggle();">
-  <h3>XXXXXXXXXXXXXXX</h3>
+<div class="flex justify-between items-center mt-1.25 cursor-pointer oscuro" onclick="$('#seccion11-176').toggle();">
+  <h3>176. Mostrando el contenido del carrito</h3>
   <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
 </div>
-<div id="seccion11-XX" class="hidden">
+<div id="seccion11-176" class="hidden">
+
+
+</div>
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer oscuro" onclick="$('#seccion11-177').toggle();">
+  <h3>177. Trabajando con la acción de eliminar del carrito</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion11-177" class="hidden">
 
 
 </div>
 
 <!-- Bloque desplegable interior-->
-<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion11-XX').toggle();">
-  <h3>XXXXXXXXXXXXXXX</h3>
+<div class="flex justify-between items-center mt-1.25 cursor-pointer oscuro" onclick="$('#seccion11-178').toggle();">
+  <h3>178. Trabajando con la acción de incrementar cantidad y RETO 02</h3>
   <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
 </div>
-<div id="seccion11-XX" class="hidden">
+<div id="seccion11-178" class="hidden">
+
+
+</div>
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer oscuro" onclick="$('#seccion11-179').toggle();">
+  <h3>179. SOLUCION RETO 02</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion11-179" class="hidden">
 
 
 </div>
 
 <!-- Bloque desplegable interior-->
-<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion11-XX').toggle();">
-  <h3>XXXXXXXXXXXXXXX</h3>
+<div class="flex justify-between items-center mt-1.25 cursor-pointer oscuro" onclick="$('#seccion11-180').toggle();">
+  <h3>179. SOLUCION RETO 03</h3>
   <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
 </div>
-<div id="seccion11-XX" class="hidden">
+<div id="seccion11-180" class="hidden">
+
+
+</div>
+
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer oscuro" onclick="$('#seccion11-181').toggle();">
+  <h3>181. Colocando el state en LocalStorage</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion11-181" class="hidden">
 
 
 </div>
