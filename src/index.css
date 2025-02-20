@@ -178,7 +178,7 @@ div.code-toolbar>.toolbar>.toolbar-item>a, div.code-toolbar>.toolbar>.toolbar-it
     white-space: pre;
 	width: 100%!important;
 }
-pre.error .line-highlight { 
+pre.rojo .line-highlight { 
 	background: linear-gradient(to right, hsl(14deg 97% 49% / 50%) 20%, hsla(24, 20%, 50%, 0));
     border-left: 2px solid red;
 }

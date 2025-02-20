@@ -266,27 +266,27 @@
                                 actions: CartActions
                             ) => {
                         
-                            if (actions.type === "add-to-cart"){
+                            if (action.type === "add-to-cart"){
                                 return{
                                     ...state
                                 }
                             }
-                            if (actions.type === "remove-from-cart"){
+                            if (action.type === "remove-from-cart"){
                                 return{
                                     ...state
                                 }
                             }
-                            if (actions.type === "decrease-quantity"){
+                            if (action.type === "decrease-quantity"){
                                 return{
                                     ...state
                                 }
                             }
-                            if(actions.type === "increase-quantity"){
+                            if(action.type === "increase-quantity"){
                                 return{
                                     ...state
                                 }
                             }
-                            if(actions.type === "clear-cart"){
+                            if(action.type === "clear-cart"){
                                 return{
                                     ...state
                                 }
@@ -309,7 +309,6 @@
               <p><span class="destacado">Ya tenemos los type de acciones, el type de state, state inicial y el reducer</span></p>
 
             </div>
-
 
             <!-- Bloque desplegable interior-->
             <div class="flex justify-between items-center mt-1.25 cursor-pointer oscuro" onclick="$('#seccion11-171').toggle();">
@@ -348,7 +347,7 @@
 
                 <div class="flex max-sm:flex-col">
                   <div class="w-[50%] max-sm:w-[100%]">
-                    <pre class="error" data-line="1"><code class="language-js">
+                    <pre class="rojo" data-line="1"><code class="language-js">
                       //App.tsx
                       {data.map((guitar) =&gt; (
                         &lt;Guitar 
@@ -416,7 +415,7 @@
 
                 <div class="flex max-sm:flex-col">
                   <div class="w-[50%] max-sm:w-[100%]">
-                    <pre class="error" data-line="5,8,13"><code class="language-js">
+                    <pre class="rojo" data-line="5,8,13"><code class="language-js">
                       //Guitar.tsx
                       import type { Guitar } from '../types'
 
@@ -463,13 +462,12 @@
 
               </div>
 
-
             <!-- Bloque desplegable interior-->
             <div class="flex justify-between items-center mt-1.25 cursor-pointer oscuro" onclick="$('#seccion11-174').toggle();">
               <h3>174. Ajustando el Código para la sintaxis de useReducer / 175. Evitando registros duplicados con sintaxis de Reducer</h3>
               <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
             </div>
-            <div id="seccion11-174" class="">
+            <div id="seccion11-174" class="hidden">
               <p>Como la la lógica de useState() que teníamos en la función addToCart() de nuestro custom hook es un poco distinta de la que se usa en useReducer(), vamos a adecuarla para usarla con useReducer(). Si la cogemos y la pegamos en el if correspondiente a esta acción vemos que de entrada nos da todos <span class="rojo">estos casques</span>. Vamos a ir siguiendo los errores para solucionarlos:</p>
 
               <div class="flex max-sm:flex-col">
@@ -479,10 +477,10 @@
                 <div class="w-[70%] max-sm:w-[100%]">
                   <ul class="list-disc my-3">
                     <li>1º revisamos si un elemento existe para evitar registros dupicados: <span class="rojo">cart.</span>findIndex() lo cambiamos por <span class="verde">state.cart.</span>findIndex()</li>
-                    <li><span class="rojo">item.id</span> falla; ese item era un parámetro de la función addToCart(item: Guitar), le pasábamos ese item que era el elemento sobre el cual presionábamos para agregarlo al carrito, pero ahora mismo eso ya forma parte del action.payload así que cambiamos <span class="rojo">item.id</span> por <span class="verde">actions.payload.item.id</span></li>
+                    <li><span class="rojo">item.id</span> falla; ese item era un parámetro de la función addToCart(item: Guitar), le pasábamos ese item que era el elemento sobre el cual presionábamos para agregarlo al carrito, pero ahora mismo eso ya forma parte del action.payload así que cambiamos <span class="rojo">item.id</span> por <span class="verde">action.payload.item.id</span></li>
                     <li><span class="rojo">MAX_ITEMS</span> al igual que <span class="rojo">MIN_ITEMS</span> eran variables que prevenían de que no agregáramos más elementos, de momento no existían en nuestro reducer así que las agregamos justo antes del <code class="language-js">export const cartReducer = (...</code></li>
                     <li>A cuento de <span class="rojo">setCart(updatedCart)</span> Importante: estamos escribiendo en el state en dos lugares (el if y el else) pero el reducer solo tiene un único return{} entonces ese const updatedCart lo declaramos fuera del bloque if pero como let (para poder reasignarlo). le quitamos el const, reasignamos y borramos el SetCart(updatedCart) que ya no lo usamos. ese updatedCart hay que setearlo en el state así que lo añadimos en el return y así lo que hacía el setState, ahora lo hace nuestro reducer.</li>
-                    <li>en la parte del else <span class="rojo">...item</span> por <span class="verde">...actions.payload.item</span> que recordemos es lo que en el componente Guitar.tsx estamos agragando en el payload cuando hacemos click <code class="language-js">onClick={() => dispatch({type: 'add-to-cart', payload: {item: guitar} })}</code>. Eliminamos el <span class="rojo">setCart([...cart, newItem])</span> que es lo que usábamos con useState y nos quedamos con su contenido: <span class="verde">updatedCart = [...state.cart, newItem]</span></li>
+                    <li>en la parte del else <span class="rojo">...item</span> por <span class="verde">...action.payload.item</span> que recordemos es lo que en el componente Guitar.tsx estamos agregando en el payload cuando hacemos click <code class="language-js">onClick={() => dispatch({type: 'add-to-cart', payload: {item: guitar} })}</code>. Eliminamos el <span class="rojo">setCart([...cart, newItem])</span> que es lo que usábamos con useState y nos quedamos con su contenido: <span class="verde">updatedCart = [...state.cart, newItem]</span></li>
                   </ul>
                 </div>
               </div>
@@ -508,8 +506,8 @@
                 <div class="w-[50%] max-sm:w-[100%]">
                   <pre><code class="language-js">
                     //cart-reducer.ts
-                    if (actions.type === "add-to-cart"){
-                      const itemExists = state.cart.findIndex(guitar => guitar.id === actions.payload.item.id)
+                    if (action.type === "add-to-cart"){
+                      const itemExists = state.cart.findIndex(guitar => guitar.id === action.payload.item.id)
                       
                       let updatedCart : CartItem[] = []
                       if(itemExists >= 0 ) { // existe en el carrito
@@ -517,7 +515,7 @@
                           updatedCart = [...state.cart]
                           updatedCart[itemExists].quantity++
                       } else {
-                          const newItem : CartItem = {...actions.payload.item, quantity : 1}
+                          const newItem : CartItem = {...action.payload.item, quantity : 1}
                           updatedCart = [...state.cart, newItem]
                       }
               
@@ -541,24 +539,24 @@
                   <pre><code class="language-js">
                     //cart-reducer.ts
                     ...
-                    if (actions.type === "add-to-cart"){
-                      const itemExists = state.cart.findIndex(guitar => guitar.id === actions.payload.item.id)
+                    if (action.type === "add-to-cart"){
+                      const itemExists = state.cart.findIndex(guitar => guitar.id === action.payload.item.id)
                   </code></pre>
 
-                  <p>y es que probablemente <span class="rojo">findIndex()</span> para este tipo de código/ejemplo no sea la mejor opción y Typescript sabe por adelantado que algo puede fallar. Esto es algo relativamente común que nos puede pasar, tener un código funcional y cuando lo movemos a Redux toolkit o Sustand dejar de funcionar. Veamos como utilizar find en lugar de findIndex() y adaptar nuestro código.</p>                  
+                  <p>y es que probablemente <span class="rojo">findIndex()</span> para este tipo de código/ejemplo no sea la mejor opción y Typescript sabe por adelantado que algo puede fallar. Esto es algo relativamente común que nos puede pasar, tener un código funcional y cuando lo movemos a Redux Toolkit o Zustand dejar de funcionar. <strong>Veamos cómo utilizar .find() en lugar de .findIndex() y adaptar nuestro código</strong>.</p>                  
                 </div>
               </div>
               
               <p class="naranja">Evitando registros duplicados con sintaxis de Reducer</p>
 
-              <p>En vez de findIndex() usamos find() y en lugar de hacer las comprobaciones como teníamos hasta ahora en el if(), usaremos un .map() para identificar el elemento y entonces ir incrementando las cantidades.</p>
+              <p>En vez de .findIndex() usamos .find() y en lugar de hacer las comprobaciones como teníamos hasta ahora en el if(), usaremos un .map() para identificar el elemento y entonces ir incrementando las cantidades.</p>
 
               <ul class="list-disc my-2.5">
                 <li>.findIndex() nos retornaba un nº del índice de la posición del elemento en el arreglo del carrito. Utilizando .find() nos retorna el objeto. Lo podemos ver si lo cambiamos aquí, ponemos un console.log(itemExists) (quitamos la lógica del if para que no falle dejando solo lo siguiente) y miramos la consola al pulsar una guitarra que ya habíamos agregado, que ya existía por tanto:
                 <pre data-line="2,3,5"><code class="language-js">
                   //cart-reducer.ts
-                  if (actions.type === "add-to-cart"){
-                    const itemExists = state.cart.find(guitar => guitar.id === actions.payload.item.id)
+                  if (action.type === "add-to-cart"){
+                    const itemExists = state.cart.find(guitar => guitar.id === action.payload.item.id)
                     console.log(itemExists)
                     let updatedCart : CartItem[] = []
                     if(itemExists ) { // existe en el carrito
@@ -572,7 +570,7 @@
                     //cart-reducer.ts
                     if(itemExists ) { // existe en el carrito
                       updatedCart = state.cart.map(item => {
-                          if(item.id === actions.payload.item.id){ //ese es el elemento que el user está agregando repetido
+                          if(item.id === action.payload.item.id){ //ese es el elemento que el user está agregando repetido
                               if(item.quantity &lt; MAX_ITEMS){ //le permitimos agregarlo
                                   return{...item,quantity: item.quantity + 1 } //copia del item e incrementamos quantity
                               } else {
@@ -592,26 +590,299 @@
 
             </div>
 
+            <!-- Bloque desplegable interior-->
+            <div class="flex justify-between items-center mt-1.25 cursor-pointer oscuro" onclick="$('#seccion11-176').toggle();">
+              <h3>176. Mostrando el contenido del carrito</h3>
+              <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+            </div>
+            <div id="seccion11-176" class="hidden">
+              <p>Ya estamos escribiendo en nuestro carrito de nuestro rediucer, si agrego guitarras, vemos en el <strong>RDT App reducer(mirando en el React Developer Tools de Chrome en el reducer de nuestro compo ppal App.tsx)</strong> que se agregan adecuadamente, sin embargo no se están mostrando en la renderización del carrito, porque el código del carrito aun tiene el código de nuestro custom hook useCart.ts</p>            
+              
+              <pre><code class="language-js">
+                //Header.tsx
+                ...
+                &lt;div id=&quot;carrito&quot; className=&quot;bg-white p-3&quot;&gt;
+                  {isEmpty ? (
+                      &lt;p className=&quot;text-center&quot;&gt;El carrito esta vacio&lt;/p&gt;
+                  ) : (
+                  &lt;&gt;
+                  ...
+              </code></pre>
+                
+              <p>Vamos a tener que hacer cambios:</p>
 
+              <ul class="list-disc my-2.5">
+                <li>Debería bastar con cambiar en nuestro App.tsx la prop que le pasamos en el tag del compo Header.tsx(que es donde renderizamos nuestro carrito) de cart a state.cart:
+                  <div class="flex max-sm:flex-col">
+                    <div class="w-[50%] max-sm:w-[100%]">
+                      <pre class="rojo" data-line="2"><code class="language-js">
+                        //App.tsx
+                        &lt;Header 
+                          cart={cart}
+                          removeFromCart={removeFromCart}
+                          decreaseQuantity={decreaseQuantity}
+                          increaseQuantity={increaseQuantity}
+                          clearCart={clearCart}       
+                        /&gt;
+                      </code></pre>
+                    </div>
+                    <div class="w-[50%] max-sm:w-[100%]">
+                      <pre class="verde" data-line="2"><code class="language-js">
+                        //App.tsx
+                        &lt;Header 
+                          cart={state.cart}
+                          removeFromCart={removeFromCart}
+                          decreaseQuantity={decreaseQuantity}
+                          increaseQuantity={increaseQuantity}
+                          clearCart={clearCart}       
+                        /&gt;
+                      </code></pre>
+                    </div>                    
+                  </div>
 
-<!-- Bloque desplegable interior-->
-<div class="flex justify-between items-center mt-1.25 cursor-pointer oscuro" onclick="$('#seccion11-176').toggle();">
-  <h3>176. Mostrando el contenido del carrito</h3>
-  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
-</div>
-<div id="seccion11-176" class="hidden">
+                  <p>sin embargo vemos que en nuestro compo Header.tsx tenemos un código condicional que revisa "si está vacío nuestro carrito para mostrar un texto", y como nosotros ahora mismo esa funcionalidad la tenemos en nuestro reducer pues no se está mostrando nada, de momento se queda siempre en ese 'isEmpty' (esa variable es uno de los 2 states derivados que hemos de mover, que además usan useMemo()):</p>
+                      <pre class="verde"><code class="language-js">
+                        //Header.tsx                        
+                        &lt;div id=&quot;carrito&quot; className=&quot;bg-white p-3&quot;&gt;
+                          {isEmpty ? (
+                              &lt;p className=&quot;text-center&quot;&gt;El carrito esta vacio&lt;/p&gt;
+                          ) : (
+                      </code></pre>
+                </li>
 
+                <li>
+                  <div class="flex max-sm:flex-col">
+                    <div class="w-[50%] max-sm:w-[100%]">
+                      Movemos estos 2 states derivados que teníamos en nuestro custom hook useCart.ts antes del return (eliminamos la importación de useMemo, también quitamos ambos del return)...
+                      <pre class="rojo" data-line="1-3,7-8"><code class="language-js">
+                        // useCart.ts
+                        // State Derivado
+                          const isEmpty = useMemo( () => cart.length === 0, [cart])
+                          const cartTotal = useMemo( () => cart.reduce( (total, item ) => total + (item.quantity * item.price), 0), [cart] )
+                          ...//(eliminamos ambas del return)
+                          return {
+                            ...
+                            isEmpty,
+                            cartTotal
+                        }
+                      </code></pre>
+                    </div>
+                    <div class="w-[50%] max-sm:w-[100%]">
+                      a nuestro compo Header.tsx justo antes del return, donde también importamos useMemo...
+                      <pre class="verde" data-line="1,6-8"><code class="language-js">
+                        // Header.tsx
+                        import { useMemo } from "react"
+                        ...
+                          cartTotal
+                        } : HeaderProps ) {
+                    
+                        // State Derivado
+                        const isEmpty = useMemo( () =&gt; cart.length === 0, [cart])
+                        const cartTotal = useMemo( () =&gt; cart.reduce( (total, item ) =&gt; total + (item.quantity * item.price), 0), [cart] )
+                    
+                        return (
+                          <header className="py-5 header">
+                      </code></pre>
+                    </div>
+                  </div>
+                  
+                  
+                    <div class="flex max-sm:flex-col">
+                      <div class="w-[50%] max-sm:w-[100%]">
+                        <p>Seguimos los errores limpiando todas esas referencias a los 2 states derivados que hemos movido: en nuestro App.tsx quitamos de la extracción estos 2 states derivados y también cart, que ya no va a estar exportando y también eliminamos los 2 states derivados de las props que le pasábamos en el tag del compo Header.tsx:</p>
+                        <pre class="rojo" data-line="2,6,7"><code class="language-js">
+                          //App.tsx
+                          ...
+                          const { cart, removeFromCart, decreaseQuantity, increaseQuantity, clearCart, isEmpty, cartTotal } = useCart()
+                          ...
+                          &lt;Header 
+                            ...
+                            isEmpty={isEmpty}
+                            cartTotal={cartTotal}
+                          /&gt;
+                        </code></pre>
+                      </div>
+                      <div class="w-[50%] max-sm:w-[100%]">
+                        <p>También los eliminamos del Header.tsx, tanto del type como las props extraídas:</p>
+                        <pre class="rojo" data-line="3,4,9,10"><code class="language-js">
+                          //Header.tsx
+                          type HeaderProps = {
+                            ...
+                            isEmpty: boolean
+                            cartTotal: number
+                          }                         
+                        
+                          export default function Header({
+                                ...
+                                  isEmpty, 
+                                  cartTotal
+                              } : HeaderProps ) {
+                        </code></pre>
+                      </div>
+                    </div>
+                </li>                
+              </ul>              
 
-</div>
-<!-- Bloque desplegable interior-->
-<div class="flex justify-between items-center mt-1.25 cursor-pointer oscuro" onclick="$('#seccion11-177').toggle();">
-  <h3>177. Trabajando con la acción de eliminar del carrito</h3>
-  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
-</div>
-<div id="seccion11-177" class="hidden">
+            </div>
 
+            <!-- Bloque desplegable interior-->
+            <div class="flex justify-between items-center mt-1.25 cursor-pointer oscuro" onclick="$('#seccion11-177').toggle();">
+              <h3>177. Trabajando con la acción de eliminar del carrito</h3>
+              <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+            </div>
+            <div id="seccion11-177" class="">
+              <p>Trabajamos con la acción de 'remove-from-cart' de nuestro reducer. Nos posicionamos en su correspondiente if. En lugar de usar setCart() que es la función de nuestro custom hook, hemos de crear una variable y esa misma lógica adaptarla</p>
+              <div class="flex max-sm:flex-col">
+                <div class="w-[50%] max-sm:w-[100%]">
+                  <pre><code class="language-js">
+                    //useCart.ts
+                    function removeFromCart(id : Guitar['id']) {
+                      setCart(prevCart => prevCart.filter(guitar => guitar.id !== id))
+                    }
+                  </code></pre>
+                  
+                </div>
+                <div class="w-[50%] max-sm:w-[100%]">
+                  <pre><code class="language-js">
+                    //cart-reducer.ts
+                    if (action.type === "remove-from-cart"){
+                      const updatedCart = state.cart.filter( item => item.id !== action.payload.id)       
+                      return{
+                          ...state,
+                          state: updatedCart
+                      }
+                    }
+                    //sintaxis forma 2
+                    if (action.type === "remove-from-cart"){
+                      const cart = state.cart.filter( item => item.id !== action.payload.id)       
+                      return{
+                          ...state,
+                          cart
+                      }
+                    }
+                    //sintaxis forma 3
+                    if (action.type === "remove-from-cart"){                         
+                      return{
+                          ...state,
+                          cart: state.cart.filter( item => item.id !== action.payload.id) 
+                      }
+                    }
+                  </code></pre>
 
-</div>
+                </div>
+              </div>
+
+              <p><strong>El siguiente paso es disparar esa acción</strong>. Abrimos nuestra App.tsx y en el tag del componente Header sustituimos la antigua llamada a la propiedad removeFromCart por un dispatch. El proceso es el mismo que vimos en el punto 173; cambiamos la firma (cambiar el type, infiriendo de IS, de las props del compo donde se recibe el dispatch) esta vez en el compo Header.tsx. <strong>Buscamos esa llamada que teníamos en el onclick a la antigua función removeFromCart() y la cambiamos por un dispatch</strong></p>
+
+              <div class="flex max-sm:flex-col">
+                <div class="w-[50%] max-sm:w-[100%]">
+                  <pre class="rojo" data-line="3,10,15,21,28"><code class="language-js">
+                    //App.tsx
+                      function App() {
+
+                        const { removeFromCart, decreaseQuantity, increaseQuantity, clearCart } = useCart()
+                        const [state,dispatch] = useReducer(cartReducer, initialState)
+                    
+                        return (
+                          &lt;&gt;
+                            &lt;Header 
+                              ...
+                              removeFromCart={removeFromCart}
+
+                    //Header.tsx                        
+                      type HeaderProps = {
+                          cart: CartItem[]
+                          removeFromCart: (id: Guitar['id'] ) => void
+                          ...
+                      }
+
+                      export default function Header({
+                              cart, 
+                              removeFromCart, 
+                              ...
+                          } : HeaderProps ) {
+                      ...
+                      &lt;button
+                          className=&quot;btn btn-danger&quot;
+                          type=&quot;button&quot;
+                          onClick={() =&gt; removeFromCart(guitar.id)}
+                      &gt;X&lt;/button&gt;
+                  </code></pre>
+                </div>
+                <div class="w-[50%] max-sm:w-[100%]">
+                  <pre class="verde" data-line="3,10,15,21,28"><code class="language-js">
+                    //App.tsx
+                      function App() {
+
+                        const { decreaseQuantity, increaseQuantity, clearCart } = useCart()
+                        const [state,dispatch] = useReducer(cartReducer, initialState)
+                                            
+                        return (
+                          &lt;&gt;
+                            &lt;Header 
+                              ...
+                              dispatch={dispatch}
+
+                    //Header.tsx                        
+                      type HeaderProps = {
+                          cart: CartItem[]
+                          dispatch: Dispatch<CartActions>
+                          ...
+                      }
+
+                      export default function Header({
+                              cart, 
+                              dispatch, 
+                              ...
+                          } : HeaderProps ) {
+                      ...
+                      &lt;button
+                          className=&quot;btn btn-danger&quot;
+                          type=&quot;button&quot;
+                          onClick={() =&gt; dispatch({type: &#39;remove-from-cart&#39;, payload: {id: guitar.id}})}
+                      &gt;X&lt;/button&gt;
+                  </code></pre>
+                </div>
+              </div>
+
+              <p><span class="destacado">NOTA: importante tener delante la definición que hemos hecho de los payloads de los CartActions para escribir correctamente el payload y no perderse</span>. Comparamos el ejemplo del punto 173 donde añadíamos una guitarra con este que acabamos de hacer:</p>
+
+              <pre><code class="language-js">
+                //cart-reducer.ts
+                export type CartActions = 
+                { type: 'add-to-cart', payload: {item : Guitar}} |
+                { type: 'remove-from-cart', payload: {id : Guitar['id']}} |
+                { type: 'decrease-quantity', payload: {id: Guitar['id']}} |
+                { type: 'increase-quantity', payload: {id: Guitar['id']}} |
+                { type: 'clear-cart'}
+              </code></pre>
+
+              <div class="flex max-sm:flex-col">                
+                <div class="w-[50%] max-sm:w-[100%]">
+                  <pre><code class="language-js">
+                    //Guitar.tsx
+                    &lt;button
+                      type=&quot;button&quot;
+                      className=&quot;btn btn-dark w-100&quot;
+                      onClick={() =&gt; dispatch({type: &#39;add-to-cart&#39;, payload: {item: guitar} })} 
+                    >Agregar al Carrito</button>                   
+                  </code></pre>
+                </div>
+                <div class="w-[50%] max-sm:w-[100%]">
+                  <pre><code class="language-js">
+                    //App.tsx
+                    &lt;button
+                      className=&quot;btn btn-danger&quot;
+                      type=&quot;button&quot;
+                      onClick={() =&gt; dispatch({type: &#39;remove-from-cart&#39;, payload: {id: guitar.id}})}
+                    &gt;X&lt;/button&gt;
+                  </code></pre>
+                </div>
+              </div>
+              
+              <p>Eliminamos del custom hook useCart.ts nuestra función removeFromCart() que ya no vamos a utilizar (también lo vamos a eliminar del return que lo exportaba) y en nuestro compo ppal App.tsx lo eliminamos de la extracción que hacíamos con destructuring al llamar a nuestro custom hook en <strong>const { <span class="rojo">removeFromCart</span>, decreaseQuantity, increaseQuantity, clearCart } = useCart()</strong>.</p>
+
+            </div>
 
 <!-- Bloque desplegable interior-->
 <div class="flex justify-between items-center mt-1.25 cursor-pointer oscuro" onclick="$('#seccion11-178').toggle();">
@@ -2525,7 +2796,7 @@
             
             <div class="flex max-sm:flex-col">
               <div class="w-[50%] max-sm:w-[100%]">
-                <pre data-line="3-7,12-16" class="error"><code class="language-js">
+                <pre class="rojo" data-line="3-7,12-16"><code class="language-js">
                   //Form.tsx
                   export default function Form({dispatch}: FormProps) {
 
@@ -3752,7 +4023,7 @@
                 <strong>rfc</strong> vemos que nos autocompleta la estructura básica de nuestro componente, tanto con el
                 export default como con el return: (con <strong>rafc</strong> la crearía como arrow function). El import react
                 no es necesario así que lo eliminamos
-                <pre class="error" data-line="0"><code class="language-js">
+                <pre class="rojo" data-line="0"><code class="language-js">
                       import React from 'react'
       
                       export default function MenuItem() {
@@ -4367,7 +4638,7 @@
             <p>Al asignarle la prop me marca un error porque, esa propiedad que enviamos desde App.tsx hacia OrderContents.tsx
               hemos de tiparla, no tenemos ningún type asociado.</p>
       
-            <pre class="error" data-line="2"><code class="language-js">
+            <pre class="rojo" data-line="2"><code class="language-js">
                     //App.tsx
                     &lt;OrderContents 
                     order = { order }
@@ -5935,7 +6206,7 @@
                   </code></pre>
                   
                   <p>También quitamos del tag Guitar el prop <strong>setCart={setCart}</strong> porque esa función <code class="language-js">const [cart, setCart] = useState(initialCart)</code>ya no está disponible al haberlo migrado a nuestro custom hook junto al resto de la funcionalidad:</p>
-                  <pre class="error" data-line="3"><code class="language-js">
+                  <pre class="rojo" data-line="3"><code class="language-js">
                     &lt;Guitar 
                     key=&lcub;guitar.id&rcub;
                     guitar=&lcub;guitar&rcub;
