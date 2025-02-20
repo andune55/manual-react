@@ -10,8 +10,8 @@
     
     <!-- <script src="https://unpkg.com/@tailwindcss/browser@4"></script> -->
   
-    <script type="module" crossorigin src="https://andune55.github.io/manual-react/assets/index-JfvPjKi0.js"></script>
-    <link rel="stylesheet" crossorigin href="https://andune55.github.io/manual-react/assets/index-DJSklERz.css">
+    <script type="module" crossorigin src="https://andune55.github.io/manual-react/assets/index-i0i-4YNp.js"></script>
+    <link rel="stylesheet" crossorigin href="https://andune55.github.io/manual-react/assets/index-DNy_XlBz.css">
   </head>
   <body>
     <div id="root"></div>	
@@ -27,9 +27,8 @@
         </div>
 
         <div id="seccion11" class="hidden">
-
-          <a class="underline text-rose-600 font-bold" href="https://aab-calory-tracker.netlify.app/" target="blank">https://aab-calory-tracker.netlify.app/</a> - 
-          <a class="underline text-rose-600 font-bold" href="https://andune55.github.io/calory-tracker/" target="blank">https://andune55.github.io/calory-tracker/</a>
+          
+          <a class="underline text-rose-600 font-bold" href="https://github.com/and....55/guitarla-ur/" target="blank">https://github.com/and....55/guitarla-ur/</a>
           <p> <span class="destacado">migrar la funcionalidad de nuestro custom hook hacia useReducer</span> <span class="destacado">localStorage</span> <strong>useReducer:</strong> recordemos una excelente forma de manejar states más complejos o hacer operaciones en diferentes estados al mismo tiempo.</p>
 
 
@@ -2401,9 +2400,8 @@
         </div>
 
         <div id="seccion10" class="hidden">
-
-          <a class="underline text-rose-600 font-bold" href="https://aab-calory-tracker.netlify.app/" target="blank">https://aab-calory-tracker.netlify.app/</a> - 
-          <a class="underline text-rose-600 font-bold" href="https://andune55.github.io/calory-tracker/" target="blank">https://andune55.github.io/calory-tracker/</a>
+          
+          <a class="underline text-rose-600 font-bold" href="https://and....55.github.io/calory-tracker/" target="blank">https://and....55.github.io/calory-tracker/</a>
           <p> <span class="destacado">formularios, useReducer, useState, localStorage</span> Proyecto listo usando useReducer() que es una excelente forma de manejar states más complejos o hacer operaciones en diferentes estados al mismo tiempo. Vemos la <strong>estructura de un reducer</strong>, <strong>para qué utilizamos las acciones</strong>, <strong>para qué utilizamos el dispatch</strong> y <strong>cómo vamos manejando la lógica en nuestro state</strong>.</p>
 
 
@@ -2412,90 +2410,83 @@
             <h3>FICHEROS FINALES</h3>
             <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
           </div>
-          <div id="seccion10-ficheros" class="hidden">
+          <div id="seccion10-ficheros" class="hidden">            
 
-            <div class="flex max-sm:flex-col">
-              <div class="w-[264px] max-sm:w-[100%] mr-3.75">
-                <img src="https://andune55.github.io/manual-react/assets/166-ficheros-finales-calory-Cw5mM_0N.png" alt="img" loading="lazy">
-              </div>
-              <div class="w-auto max-sm:w-[100%]">
-                <pre data-line="0"><code class="language-js">
-                  //ActivityList.tsx
-                  import { useMemo, Dispatch } from &quot;react&quot;
-                  import { Activity } from &quot;../types&quot;
-                  import { categories } from &quot;../data/categories&quot;
-                  import { PencilSquareIcon, XCircleIcon } from &#39;@heroicons/react/24/outline&#39;
-                  import { ActivityActions } from &quot;../reducers/activity-reducers&quot;
+            <code class="language-html cursor-pointer px-3" onclick="$('#10-ActivityList').toggle();">ActivityList.tsx</code>
+            <pre id="10-ActivityList" class="hidden" data-line="0"><code class="language-ts">
+              import { useMemo, Dispatch } from &quot;react&quot;
+              import { Activity } from &quot;../types&quot;
+              import { categories } from &quot;../data/categories&quot;
+              import { PencilSquareIcon, XCircleIcon } from &#39;@heroicons/react/24/outline&#39;
+              import { ActivityActions } from &quot;../reducers/activity-reducers&quot;
+              
+              type ActivityListProps = {
+                  activities: Activity[]
+                  dispatch: Dispatch&lt;ActivityActions&gt;
+              }
+              
+              export default function ActivityList({activities, dispatch}: ActivityListProps) {  
                   
-                  type ActivityListProps = {
-                      activities: Activity[]
-                      dispatch: Dispatch&lt;ActivityActions&gt;
-                  }
-                  
-                  export default function ActivityList({activities, dispatch}: ActivityListProps) {  
+                  const categoryName = useMemo(()=&gt; 
+                      (category:Activity[&#39;category&#39;]) =&gt; categories.map( cat =&gt; cat.id === category ? cat.name : &#39;&#39;)
+                  , [activities]
+                  )
+              
+                  const isEmptyActivities = useMemo(() =&gt; activities.length === 0, [activities])
+              
+                  return (
+                  &lt;&gt;
+                      &lt;h2 className=&quot;text-4xl font-bold text-slate-600 text-center&quot;&gt;Comida y Actividades&lt;/h2&gt;
+              
+                      {isEmptyActivities 
+                          ? &lt;p className=&quot;text-center my-5&quot;&gt;No hay actividades aún&lt;/p&gt; :
                       
-                      const categoryName = useMemo(()=&gt; 
-                          (category:Activity[&#39;category&#39;]) =&gt; categories.map( cat =&gt; cat.id === category ? cat.name : &#39;&#39;)
-                      , [activities]
-                      )
-                  
-                      const isEmptyActivities = useMemo(() =&gt; activities.length === 0, [activities])
-                  
-                      return (
-                      &lt;&gt;
-                          &lt;h2 className=&quot;text-4xl font-bold text-slate-600 text-center&quot;&gt;Comida y Actividades&lt;/h2&gt;
-                  
-                          {isEmptyActivities 
-                              ? &lt;p className=&quot;text-center my-5&quot;&gt;No hay actividades aún&lt;/p&gt; :
-                          
-                          activities.map(activity =&gt; (
-                              &lt;div key={activity.id} className=&quot;px-5 py-10 bg-white mt-5 flex justify-between&quot;&gt;
-                                  &lt;div className=&quot;space-y-2 relative&quot;&gt;
-                                      {/* Muestra actividad: categoría, nombre y calorías */}
-                                      &lt;p className={`absolute -top-8 -left-8 px-10 py-2 text-white uppercase font-bold ${activity.category === 1 ? &#39;bg-lime-500&#39; : &#39;bg-orange-500&#39;}`}&gt;
-                                          {/* {activity.category} */}
-                                          {categoryName(+activity.category)}
-                                          
-                                      &lt;/p&gt;
-                                      &lt;p className=&quot;text-2xl font-bold pt-5&quot;&gt;{activity.name}&lt;/p&gt;
-                                      &lt;p className=&quot;font-black text-4xl text-lime-500&quot;&gt;
-                                          {activity.calories} {&#39;&#39;}
-                                          &lt;span&gt;Calorías&lt;/span&gt;
-                                      &lt;/p&gt;
-                                  &lt;/div&gt;
-                                  &lt;div className=&quot;flex gap-5 items-center&quot;&gt;
-                                      {/* Acciones para editar/eliminar esa actividad */}
-                                      &lt;button
-                                          className="cursor-pointer"
-                                          onClick={() =&gt; dispatch({type:&quot;set-activeId&quot;, payload: {id: activity.id}})}
-                                      &gt;
-                                          &lt;PencilSquareIcon 
-                                              className=&quot;h-8 w-8 text-g&quot;
-                                          /&gt;
-                                      &lt;/button&gt;
-                  
-                                      &lt;button
-                                          className="cursor-pointer"
-                                          onClick={() =&gt; dispatch({type:&quot;delete-activity&quot;, payload: {id: activity.id}})}
-                                      &gt;
-                                          &lt;XCircleIcon 
-                                              className=&quot;h-8 w-8 text-red-500&quot;
-                                          /&gt;
-                                      &lt;/button&gt;
-                                  &lt;/div&gt;
-                                  
+                      activities.map(activity =&gt; (
+                          &lt;div key={activity.id} className=&quot;px-5 py-10 bg-white mt-5 flex justify-between&quot;&gt;
+                              &lt;div className=&quot;space-y-2 relative&quot;&gt;
+                                  {/* Muestra actividad: categoría, nombre y calorías */}
+                                  &lt;p className={`absolute -top-8 -left-8 px-10 py-2 text-white uppercase font-bold ${activity.category === 1 ? &#39;bg-lime-500&#39; : &#39;bg-orange-500&#39;}`}&gt;
+                                      {/* {activity.category} */}
+                                      {categoryName(+activity.category)}
+                                      
+                                  &lt;/p&gt;
+                                  &lt;p className=&quot;text-2xl font-bold pt-5&quot;&gt;{activity.name}&lt;/p&gt;
+                                  &lt;p className=&quot;font-black text-4xl text-lime-500&quot;&gt;
+                                      {activity.calories} {&#39;&#39;}
+                                      &lt;span&gt;Calorías&lt;/span&gt;
+                                  &lt;/p&gt;
                               &lt;/div&gt;
-                          ))
-                          }
-                      &lt;/&gt;
-                      )
-                  }                  
-                </code></pre>
-              </div>
-            </div>
+                              &lt;div className=&quot;flex gap-5 items-center&quot;&gt;
+                                  {/* Acciones para editar/eliminar esa actividad */}
+                                  &lt;button
+                                      className="cursor-pointer"
+                                      onClick={() =&gt; dispatch({type:&quot;set-activeId&quot;, payload: {id: activity.id}})}
+                                  &gt;
+                                      &lt;PencilSquareIcon 
+                                          className=&quot;h-8 w-8 text-g&quot;
+                                      /&gt;
+                                  &lt;/button&gt;
+              
+                                  &lt;button
+                                      className="cursor-pointer"
+                                      onClick={() =&gt; dispatch({type:&quot;delete-activity&quot;, payload: {id: activity.id}})}
+                                  &gt;
+                                      &lt;XCircleIcon 
+                                          className=&quot;h-8 w-8 text-red-500&quot;
+                                      /&gt;
+                                  &lt;/button&gt;
+                              &lt;/div&gt;
+                              
+                          &lt;/div&gt;
+                      ))
+                      }
+                  &lt;/&gt;
+                  )
+              }                       
+            </code></pre>
 
-            <pre data-line="0"><code class="language-js">
-              //CalorieDisplay.tsx
+            <code class="language-html cursor-pointer px-3" onclick="$('#10-calorie').toggle();">CalorieDisplay.tsx</code>
+            <pre id="10-calorie" class="hidden"><code class="language-ts">
               type CalorieDisplayProps = {
                 calories: number,
                 text: string
@@ -2507,11 +2498,11 @@
                       &lt;span className=&quot;font-black text-6xl text-orange&quot;&gt;{calories}&lt;/span&gt; {text}
                   &lt;/p&gt;
                 )
-              }              
-            </code></pre>
+              }      
+            </code></pre>            
             
-            <pre data-line="0"><code class="language-js">
-              //CalorieTracker.tsx
+            <code class="language-html cursor-pointer px-3" onclick="$('#10-CalorieTracker').toggle();">CalorieTracker.tsx</code>
+            <pre id="10-CalorieTracker" class="hidden"><code class="language-ts">
               import { useMemo } from &quot;react&quot;
               import type { Activity } from &quot;../types&quot;
               import CalorieDisplay from &quot;./CalorieDisplay&quot;
@@ -2550,11 +2541,11 @@
                          
                       &lt;/&gt;
                   )
-              }                      
-            </code></pre>
+              }              
+            </code></pre>            
             
-            <pre data-line="0"><code class="language-js">
-              //Form.tsx
+            <code class="language-html cursor-pointer px-3" onclick="$('#10-Form').toggle();">Form.tsx</code>
+            <pre id="10-Form" class="hidden"><code class="language-ts">
               import { useState, ChangeEvent, FormEvent, Dispatch, useEffect } from &quot;react&quot;
               import { v4 as uuidv4 } from &#39;uuid&#39;
               import { categories } from &quot;../data/categories&quot;
@@ -2664,20 +2655,20 @@
                       &lt;/form&gt;  
                   )
               }                     
-            </code></pre>
+            </code></pre>            
             
-            <pre data-line="0"><code class="language-js">
-              //categories.ts
+            <code class="language-html cursor-pointer px-3" onclick="$('#10-categories').toggle();">categories.ts</code>
+            <pre id="10-categories" class="hidden"><code class="language-js">              
               import type { Category } from "../types"
 
               export const categories: Category[] = [
                   { id: 1, name: 'Comida'},
                   { id: 2, name: 'Ejercicio'}
-              ]                      
-            </code></pre>
+              ]      
+            </code></pre>            
             
-            <pre data-line="0"><code class="language-js">
-              //activity-reducers.ts
+            <code class="language-html cursor-pointer px-3" onclick="$('#10-activity-reducers').toggle();">activity-reducers.ts</code>
+            <pre id="10-activity-reducers" class="hidden"><code class="language-js">
               import { Activity } from &quot;../types&quot;
 
               //ACCIONES - type que va a describir lo que va a pasar en nuestro reducer
@@ -2751,11 +2742,11 @@
                   }
               
                   return state
-              }        
-            </code></pre>
+              }                   
+            </code></pre>            
             
-            <pre data-line="0"><code class="language-js">
-              //types&gt;index.ts
+            <code class="language-html cursor-pointer px-3" onclick="$('#10-indexts').toggle();">types&gt;index.ts</code>
+            <pre id="10-indexts" class="hidden"><code class="language-js">
               export type Category = {
                 id: number
                 name: string
@@ -2765,11 +2756,11 @@
                   category: number
                   name: string
                   calories: number
-              }        
+              }              
             </code></pre>
             
-            <pre data-line="0"><code class="language-js">
-              //App.tsx
+            <code class="language-html cursor-pointer px-3" onclick="$('#10-App').toggle();">App.tsx</code>
+            <pre id="10-App" class="hidden"><code class="language-js">
               import { useReducer, useEffect, useMemo } from &quot;react&quot;
               import Form from &quot;./components/Form&quot;
               import ActivityList from &quot;./components/ActivityList&quot;
@@ -2826,89 +2817,32 @@
                         activities = {state.activities}
                       /&gt;
                     &lt;/div&gt;
-                    &lt;/section&gt;
-              
-                   
+                    &lt;/section&gt;   
                     
                   &lt;/&gt;
                 )
               }
               
-              export default App                      
+              export default App               
             </code></pre>
             
-            <pre data-line="0,3,15,53"><code class="language-js">
+            <code class="language-html cursor-pointer px-3" onclick="$('#10-index').toggle();">index.css y main.tsx</code>
+            <pre id="10-index" class="hidden"><code class="language-js">
               //index.css
-                @import "tailwindcss";
-              
-              //main.tsx
-                import { StrictMode } from 'react'
-                import { createRoot } from 'react-dom/client'
-                import './index.css'
-                import App from './App.tsx'
-
-                createRoot(document.getElementById('root')!).render(
-                  &lt;StrictMode&gt;
-                    &lt;App /&gt;
-                  &lt;/StrictMode&gt;,
-                )
-
-              //package.json
-                {
-                  "name": "calorie-tracker",
-                  "private": true,
-                  "version": "0.0.0",
-                  "type": "module",
-                  "scripts": {
-                    "dev": "vite",
-                    "build": "tsc -b && vite build",
-                    "lint": "eslint .",
-                    "preview": "vite preview",
-                    "dpgh": "npm run build && gh-pages -d dist",
-                    "dpnet": "ntl deploy --prod"
-                  },
-                  "dependencies": {
-                    "@heroicons/react": "^2.2.0",
-                    "@tailwindcss/vite": "^4.0.6",
-                    "react": "^19.0.0",
-                    "react-dom": "^19.0.0",
-                    "tailwindcss": "^4.0.6",
-                    "uuid": "^11.0.5"
-                  },
-                  "devDependencies": {
-                    "@eslint/js": "^9.19.0",
-                    "@types/react": "^19.0.8",
-                    "@types/react-dom": "^19.0.3",
-                    "@vitejs/plugin-react-swc": "^3.5.0",
-                    "eslint": "^9.19.0",
-                    "eslint-plugin-react-hooks": "^5.0.0",
-                    "eslint-plugin-react-refresh": "^0.4.18",
-                    "gh-pages": "^6.3.0",
-                    "globals": "^15.14.0",
-                    "typescript": "~5.7.2",
-                    "typescript-eslint": "^8.22.0",
-                    "vite": "^6.1.0"
-                  }
-                }
-              
-              //vite.config.ts
-                import { defineConfig } from 'vite'
-                import react from '@vitejs/plugin-react-swc'
-                import tailwindcss from '@tailwindcss/vite'
-                
-                // https://vite.dev/config/
-                export default defineConfig({
-                  base: "https://andune55.github.io/calory-tracker/",
-                  plugins: [
-                    react(),
-                    tailwindcss()],
-                })
-            </code></pre>
-
-
+              @import "tailwindcss";
             
+            //main.tsx
+              import { StrictMode } from 'react'
+              import { createRoot } from 'react-dom/client'
+              import './index.css'
+              import App from './App.tsx'
 
-            
+              createRoot(document.getElementById('root')!).render(
+                &lt;StrictMode&gt;
+                  &lt;App /&gt;
+                &lt;/StrictMode&gt;,
+              )                   
+            </code></pre>            
           </div>
           
           <!-- Bloque desplegable interior-->
@@ -5204,8 +5138,7 @@
         </div>
       
         <div id="seccion9" class="hidden">
-          <a class="underline text-rose-600 font-bold" href="https://calcula-propinas.netlify.app/" target="blank">https://calcula-propinas.netlify.app/</a> - 
-          <a class="underline text-rose-600 font-bold" href="https://andune55.github.io/calculadora_propinas/" target="blank">https://andune55.github.io/calculadora_propinas/</a>
+          <a class="underline text-rose-600 font-bold" href="https://and....55.github.io/calculadora_propinas/" target="blank">https://and....55.github.io/calculadora_propinas/</a>
          
       
           <!-- Bloque desplegable interior-->
