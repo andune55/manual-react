@@ -10,8 +10,8 @@
     
     <!-- <script src="https://unpkg.com/@tailwindcss/browser@4"></script> -->
   
-    <script type="module" crossorigin src="https://andune55.github.io/manual-react/assets/index-B9JUmY__.js"></script>
-    <link rel="stylesheet" crossorigin href="https://andune55.github.io/manual-react/assets/index-DPz3G6OA.css">
+    <script type="module" crossorigin src="https://andune55.github.io/manual-react/assets/index-JfvPjKi0.js"></script>
+    <link rel="stylesheet" crossorigin href="https://andune55.github.io/manual-react/assets/index-DJSklERz.css">
   </head>
   <body>
     <div id="root"></div>	
@@ -21,12 +21,1240 @@
       <!-- SECCION 11 -->
       <div class="w-[80%] max-sm:w-[96%] mx-auto bg-gray-200 my-1.25 py-0.75 pr-0 pl-2.5 rounded-xl">
 
-        <div class="flex items-center mt-1.25 cursor-pointer desplegable justify-between" onclick="$('#seccionXX').toggle();">
+        <div class="flex items-center mt-1.25 cursor-pointer desplegable justify-between" onclick="$('#seccion11').toggle();">
           <h2>Sección 11: PROYECTO - Migrar el Carrito de Compras de Guitarras a useReducer</h2>
-          <span class="cambiaicono ico_chevron_up mr-2.5" title=""></span>
+          <span class="cambiaicono ico_chevron_down mr-2.5" title=""></span>
         </div>
 
-        <div id="seccion11">
+        <div id="seccion11" class="hidden">
+
+          <a class="underline text-rose-600 font-bold" href="https://aab-calory-tracker.netlify.app/" target="blank">https://aab-calory-tracker.netlify.app/</a> - 
+          <a class="underline text-rose-600 font-bold" href="https://andune55.github.io/calory-tracker/" target="blank">https://andune55.github.io/calory-tracker/</a>
+          <p> <span class="destacado">migrar la funcionalidad de nuestro custom hook hacia useReducer</span> <span class="destacado">localStorage</span> <strong>useReducer:</strong> recordemos una excelente forma de manejar states más complejos o hacer operaciones en diferentes estados al mismo tiempo.</p>
+
+
+            <!-- Bloque desplegable interior-->
+            <div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between oscuro" onclick="$('#seccion11-ficheros').toggle();">
+              <h3>FICHEROS FINALES</h3>
+              <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+            </div>
+            <div id="seccion11-ficheros" class="hidden">
+              
+              <code class="cursor-pointer" onclick="$('#11-guitar').toggle();">Guitar.tsx</code>
+              <pre id="11-guitar" class="hidden"><code class="language-ts">
+                  //Guitar.tsx
+                  import { Dispatch } from 'react'
+                  import type { Guitar } from &#39;../types&#39;
+                  import { CartActions } from &#39;../reducers/cart-reducer&#39;
+
+                  type GuitarProps = {
+                      guitar : Guitar, 
+                      dispatch : Dispatch&lt;CartActions&gt;
+                  }
+
+                  export default function Guitar({guitar, dispatch} : GuitarProps) {
+
+                      const { name, image, description, price } = guitar
+
+                      return (
+                          &lt;div className=&quot;col-md-6 col-lg-4 my-4 row align-items-center&quot;&gt;
+                              &lt;div className=&quot;col-4&quot;&gt;
+                                  &lt;img className=&quot;img-fluid&quot; src={`/img/${image}.jpg`} alt=&quot;imagen guitarra&quot; /&gt;
+                              &lt;/div&gt;
+                              &lt;div className=&quot;col-8&quot;&gt;
+                                  &lt;h3 className=&quot;text-black fs-4 fw-bold text-uppercase&quot;&gt;{name}&lt;/h3&gt;
+                                  &lt;p&gt;{description}&lt;/p&gt;
+                                  &lt;p className=&quot;fw-black text-primary fs-3&quot;&gt;${price}&lt;/p&gt;
+                                  &lt;button 
+                                      type=&quot;button&quot;
+                                      className=&quot;btn btn-dark w-100&quot;
+                                      onClick={() =&gt; dispatch({type: &#39;add-to-cart&#39;, payload: {item: guitar} })}
+                                  &gt;Agregar al Carrito&lt;/button&gt;
+                              &lt;/div&gt;
+                          &lt;/div&gt;
+                      )
+                  }  
+              </code></pre>   
+
+              <code class="cursor-pointer" onclick="$('#11-header').toggle();">Header.tsx</code>
+              <pre id="11-header" class="hidden"><code class="language-ts">
+                import { useMemo, Dispatch } from &quot;react&quot;
+                import type { CartItem } from &quot;../types&quot;
+                import { CartActions } from &quot;../reducers/cart-reducer&quot;
+                
+                type HeaderProps = {
+                    cart: CartItem[]
+                    dispatch: Dispatch&lt;CartActions&gt;
+                }
+                
+                export default function Header({ cart, dispatch } : HeaderProps ) {
+                
+                    // State Derivado
+                    const isEmpty = useMemo( () =&gt; cart.length === 0, [cart])
+                    const cartTotal = useMemo( () =&gt; cart.reduce( (total, item ) =&gt; total + (item.quantity * item.price), 0), [cart] )
+                
+                    return (
+                        &lt;header className=&quot;py-5 header&quot;&gt;
+                            &lt;div className=&quot;container-xl&quot;&gt;
+                                &lt;div className=&quot;row justify-content-center justify-content-md-between&quot;&gt;
+                                    &lt;div className=&quot;col-8 col-md-3&quot;&gt;
+                                        &lt;a href=&quot;index.html&quot;&gt;
+                                            &lt;img className=&quot;img-fluid&quot; src=&quot;/img/logo.svg&quot; alt=&quot;imagen logo&quot; /&gt;
+                                        &lt;/a&gt;
+                                    &lt;/div&gt;
+                                    &lt;nav className=&quot;col-md-6 a mt-5 d-flex align-items-start justify-content-end&quot;&gt;
+                                        &lt;div 
+                                            className=&quot;carrito&quot;
+                                        &gt;
+                                            &lt;img className=&quot;img-fluid&quot; src=&quot;/img/carrito.png&quot; alt=&quot;imagen carrito&quot; /&gt;
+                
+                                            &lt;div id=&quot;carrito&quot; className=&quot;bg-white p-3&quot;&gt;
+                                                {isEmpty ? (
+                                                    &lt;p className=&quot;text-center&quot;&gt;El carrito esta vacio&lt;/p&gt;
+                                                ) : (
+                                                &lt;&gt;
+                                                    &lt;table className=&quot;w-100 table&quot;&gt;
+                                                        &lt;thead&gt;
+                                                            &lt;tr&gt;
+                                                                &lt;th&gt;Imagen&lt;/th&gt;
+                                                                &lt;th&gt;Nombre&lt;/th&gt;
+                                                                &lt;th&gt;Precio&lt;/th&gt;
+                                                                &lt;th&gt;Cantidad&lt;/th&gt;
+                                                                &lt;th&gt;&lt;/th&gt;
+                                                            &lt;/tr&gt;
+                                                        &lt;/thead&gt;
+                                                        &lt;tbody&gt;
+                                                            {cart.map( guitar =&gt; (
+                                                                &lt;tr key={guitar.id}&gt;
+                                                                    &lt;td&gt;
+                                                                        &lt;img 
+                                                                            className=&quot;img-fluid&quot; 
+                                                                            src={`/img/${guitar.image}.jpg`}
+                                                                            alt=&quot;imagen guitarra&quot; 
+                                                                        /&gt;
+                                                                    &lt;/td&gt;
+                                                                    &lt;td&gt;{guitar.name}&lt;/td&gt;
+                                                                    &lt;td className=&quot;fw-bold&quot;&gt;
+                                                                        ${guitar.price}
+                                                                    &lt;/td&gt;
+                                                                    &lt;td className=&quot;flex align-items-start gap-4&quot;&gt;
+                                                                        &lt;button
+                                                                            type=&quot;button&quot;
+                                                                            className=&quot;btn btn-dark&quot;
+                                                                            onClick={() =&gt; dispatch({type: &quot;decrease-quantity&quot;, payload:{id: guitar.id}})}
+                                                                        &gt;
+                                                                            -
+                                                                        &lt;/button&gt;
+                                                                            {guitar.quantity}
+                                                                        &lt;button
+                                                                            type=&quot;button&quot;
+                                                                            className=&quot;btn btn-dark&quot;
+                                                                            onClick={() =&gt; dispatch({type: &quot;increase-quantity&quot;, payload:{id: guitar.id}})}
+                                                                        &gt;
+                                                                            +
+                                                                        &lt;/button&gt;
+                                                                    &lt;/td&gt;
+                                                                    &lt;td&gt;
+                                                                        &lt;button
+                                                                            className=&quot;btn btn-danger&quot;
+                                                                            type=&quot;button&quot;
+                                                                            onClick={() =&gt; dispatch({type: &#39;remove-from-cart&#39;, payload: {id: guitar.id}})}
+                                                                        &gt;
+                                                                            X
+                                                                        &lt;/button&gt;
+                                                                    &lt;/td&gt;
+                                                                &lt;/tr&gt;
+                                                            ))}
+                                                        &lt;/tbody&gt;
+                                                    &lt;/table&gt;
+                
+                                                    &lt;p className=&quot;text-end&quot;&gt;Total pagar: &lt;span className=&quot;fw-bold&quot;&gt;${cartTotal}&lt;/span&gt;&lt;/p&gt;
+                                                &lt;/&gt;
+                                                )}
+                
+                                                &lt;button 
+                                                    className=&quot;btn btn-dark w-100 mt-3 p-2&quot;
+                                                    onClick={()=&gt;dispatch({type: &quot;clear-cart&quot;})}
+                                                &gt;Vaciar Carrito&lt;/button&gt;
+                                            &lt;/div&gt;
+                                        &lt;/div&gt;
+                                    &lt;/nav&gt;
+                                &lt;/div&gt;
+                            &lt;/div&gt;
+                        &lt;/header&gt;
+                    )
+                }                
+              </code></pre>
+
+              <code class="cursor-pointer" onclick="$('#11-data').toggle();">data&gt;db.ts</code>
+              <pre id="11-data" class="hidden"><code class="language-ts">
+                import type { Guitar } from '../types'
+
+                export const db : Guitar[] = [
+                    {
+                        id: 1,
+                        name: 'Lukather',
+                        image: 'guitarra_01',
+                        description: 'Morbi ornare augue nisl, vel elementum dui mollis vel. Curabitur non ex id eros fermentum hendrerit.',
+                        price: 299
+                    },
+                    {
+                        id: 2,
+                        name: 'SRV',
+                        image: 'guitarra_02',
+                        description: 'Morbi ornare augue nisl, vel elementum dui mollis vel. Curabitur non ex id eros fermentum hendrerit.',
+                        price: 349,
+                    },
+                    {
+                        id: 3,
+                        name: 'Borland',
+                        image: 'guitarra_03',
+                        description: 'Morbi ornare augue nisl, vel elementum dui mollis vel. Curabitur non ex id eros fermentum hendrerit.',
+                        price: 329,
+                    },
+                    {
+                        id: 4,
+                        name: 'VAI',
+                        image: 'guitarra_04',
+                        description: 'Morbi ornare augue nisl, vel elementum dui mollis vel. Curabitur non ex id eros fermentum hendrerit.',
+                        price: 299,
+                    },
+                    {
+                        id: 5,
+                        name: 'Thompson',
+                        image: 'guitarra_05',
+                        description: 'Morbi ornare augue nisl, vel elementum dui mollis vel. Curabitur non ex id eros fermentum hendrerit.',
+                        price: 399,
+                    },
+                    {
+                        id: 6,
+                        name: 'White',
+                        image: 'guitarra_06',
+                        description: 'Morbi ornare augue nisl, vel elementum dui mollis vel. Curabitur non ex id eros fermentum hendrerit.',
+                        price: 329,
+                    },
+                    {
+                        id: 7,
+                        name: 'Cobain',
+                        image: 'guitarra_07',
+                        description: 'Morbi ornare augue nisl, vel elementum dui mollis vel. Curabitur non ex id eros fermentum hendrerit.',
+                        price: 349,
+                    },
+                    {
+                        id: 8,
+                        name: 'Dale',
+                        image: 'guitarra_08',
+                        description: 'Morbi ornare augue nisl, vel elementum dui mollis vel. Curabitur non ex id eros fermentum hendrerit.',
+                        price: 379,
+                    },
+                    {
+                        id: 9,
+                        name: 'Krieger',
+                        image: 'guitarra_09',
+                        description: 'Morbi ornare augue nisl, vel elementum dui mollis vel. Curabitur non ex id eros fermentum hendrerit.',
+                        price: 289,
+                    },
+                    {
+                        id: 10,
+                        name: 'Campbell',
+                        image: 'guitarra_10',
+                        description: 'Morbi ornare augue nisl, vel elementum dui mollis vel. Curabitur non ex id eros fermentum hendrerit.',
+                        price: 349,
+                    },
+                    {
+                        id: 11,
+                        name: 'Reed',
+                        image: 'guitarra_11',
+                        description: 'Morbi ornare augue nisl, vel elementum dui mollis vel. Curabitur non ex id eros fermentum hendrerit.',
+                        price: 399,
+                    },
+                    {
+                        id: 12,
+                        name: 'Hazel',
+                        image: 'guitarra_12',
+                        description: 'Morbi ornare augue nisl, vel elementum dui mollis vel. Curabitur non ex id eros fermentum hendrerit.',
+                        price: 379,
+                    },
+                  ]
+              </code></pre>
+
+              <code class="cursor-pointer" onclick="$('#11-reducer').toggle();">reducer&gt;cart-reducer.ts</code>
+              <pre id="11-reducer" class="hidden"><code class="language-ts">
+                import { db } from &#39;../data/db&#39;
+                import type { CartItem, Guitar } from &quot;../types&quot;
+                
+                export type CartActions = 
+                    { type: &#39;add-to-cart&#39;, payload: {item : Guitar}} |
+                    { type: &#39;remove-from-cart&#39;, payload: {id : Guitar[&#39;id&#39;]}} |
+                    { type: &#39;decrease-quantity&#39;, payload: {id: Guitar[&#39;id&#39;]}} |
+                    { type: &#39;increase-quantity&#39;, payload: {id: Guitar[&#39;id&#39;]}} |
+                    { type: &#39;clear-cart&#39;}
+                
+                export type CartState = {
+                    data: Guitar[],
+                    cart: CartItem[]
+                }
+                const initialCart = () : CartItem[] =&gt; {
+                    const localStorageCart = localStorage.getItem(&#39;cart&#39;)
+                    return localStorageCart ? JSON.parse(localStorageCart) : []
+                }
+                export const initialState : CartState = {
+                    data: db, //nuestra bbdd de guitarra con los datos
+                    //cart: []
+                    cart: initialCart()
+                }
+                
+                const MIN_ITEMS = 1
+                const MAX_ITEMS = 5
+                
+                export const cartReducer = (    
+                        state: CartState = initialState,
+                        action: CartActions
+                    ) =&gt; {
+                
+                    if (action.type === &quot;add-to-cart&quot;){
+                        const itemExists = state.cart.find(guitar =&gt; guitar.id === action.payload.item.id)
+                        //console.log(itemExists)
+                        let updatedCart : CartItem[] = []
+                        if(itemExists ) { // existe en el carrito
+                            updatedCart = state.cart.map(item =&gt; {
+                                if(item.id === action.payload.item.id){ //ese es el elemento que el user está agregando repetido
+                                    if(item.quantity &lt; MAX_ITEMS){ //le permitimos agregarlo
+                                        return{...item,quantity: item.quantity + 1 } //copia del item e incrementamos quantity
+                                    } else {
+                                        return item // llegamos a 5, no se cumple lo anterior pero mantenemos lo que teníamos en el carrito
+                                    }
+                                } else {//el que no estamos agregando repetido pero no queremos perder
+                                    return item
+                                }
+                            })            
+                        } else {
+                            const newItem : CartItem = {...action.payload.item, quantity : 1}
+                            updatedCart = [...state.cart, newItem]
+                        }
+                
+                        return{
+                            ...state,
+                            cart: updatedCart
+                        }
+                    }
+                    if (action.type === &quot;remove-from-cart&quot;){
+                        const updatedCart = state.cart.filter( item =&gt; item.id !== action.payload.id)       
+                        return{
+                            ...state,
+                            cart: updatedCart
+                        }
+                    }
+                    if (action.type === &quot;decrease-quantity&quot;){
+                        const updatedCart = state.cart.map( item =&gt; {
+                            if(item.id === action.payload.id &amp;&amp; item.quantity &gt; MIN_ITEMS) {
+                                return {
+                                    ...item,
+                                    quantity: item.quantity - 1
+                                }
+                            }
+                            return item
+                        })    
+                        return{
+                            ...state,
+                            cart: updatedCart
+                        }
+                    }
+                    if(action.type === &quot;increase-quantity&quot;){
+                        const updatedCart = state.cart.map( item =&gt; {
+                            if(item.id === action.payload.id &amp;&amp; item.quantity &lt; MAX_ITEMS) {
+                                return {
+                                    ...item,
+                                    quantity: item.quantity + 1
+                                }
+                            }
+                            return item
+                        })        
+                        return{
+                            ...state,
+                            cart: updatedCart
+                        }
+                    }
+                    if(action.type === &quot;clear-cart&quot;){
+                        const updatedCart : CartItem[] = []
+                        return{
+                            ...state,
+                            cart: updatedCart
+                        }
+                    }
+                
+                    return state
+                    
+                }
+              </code></pre>
+
+              <code class="cursor-pointer" onclick="$('#11-indexts').toggle();">types&gt;index.ts</code>
+              <pre id="11-indexts" class="hidden"><code class="language-ts">
+                export type Guitar = {
+                  id: number
+                  name: string
+                  image: string
+                  description: string
+                  price: number
+              }
+              
+              export type CartItem = Guitar & {
+                  quantity: number
+              }
+              
+              // export type CartItem = Pick&lt;Guitar, &#39;id&#39; | &#39;name&#39; | &#39;price&#39; &gt; &amp; {
+              //     quantity: number
+              // }
+              // export type CartItem = Omit&lt;Guitar, &#39;id&#39; | &#39;name&#39; | &#39;price&#39; &gt; &amp; {
+              //     quantity: number
+              // }
+              </code></pre>
+
+              <code class="cursor-pointer" onclick="$('#11-app').toggle();">App.tsx</code>
+              <pre id="11-app" class="hidden"><code class="language-ts">
+                import { useReducer, useEffect } from &quot;react&quot;
+                import Guitar from &quot;./components/Guitar&quot;
+                import Header from &quot;./components/Header&quot;
+                import { cartReducer, initialState } from &quot;./reducers/cart-reducer&quot;
+                
+                function App() {
+                
+                  const [state,dispatch] = useReducer(cartReducer, initialState)
+                
+                  useEffect(() =&gt; {
+                    localStorage.setItem(&#39;cart&#39;, JSON.stringify(state.cart))
+                  }, [state.cart])
+                
+                  return (
+                    &lt;&gt;
+                      &lt;Header 
+                        cart={state.cart}
+                        dispatch={dispatch}     
+                      /&gt;
+                      
+                      &lt;main className=&quot;container-xl mt-5&quot;&gt;
+                          &lt;h2 className=&quot;text-center&quot;&gt;Nuestra Colección&lt;/h2&gt;
+                
+                          &lt;div className=&quot;row mt-5&quot;&gt;
+                              {state.data.map((guitar) =&gt; (
+                                  &lt;Guitar 
+                                    key={guitar.id}
+                                    guitar={guitar}
+                                    dispatch={dispatch}
+                                  /&gt;
+                              ))}
+                              
+                          &lt;/div&gt;
+                      &lt;/main&gt;
+                
+                
+                      &lt;footer className=&quot;bg-dark mt-5 py-5&quot;&gt;
+                          &lt;div className=&quot;container-xl&quot;&gt;
+                              &lt;p className=&quot;text-white text-center fs-4 mt-4 m-md-0&quot;&gt;GuitarLA - Todos los derechos Reservados&lt;/p&gt;
+                          &lt;/div&gt;
+                      &lt;/footer&gt;
+                    &lt;/&gt;
+                  )
+                }
+                
+                export default App                
+              </code></pre>
+
+              <code class="cursor-pointer" onclick="$('#11-indexcss').toggle();">index.css</code>
+              <pre id="11-indexcss" class="hidden"><code class="language-css">
+                @charset "UTF-8";
+                .fw-black {
+                  font-weight: 900;
+                }
+                
+                .btn-dark {
+                  text-transform: uppercase;
+                }
+                
+                .carrito {
+                  background-color: transparent;
+                  border: none;
+                  max-width: 2rem;
+                  position: relative;
+                  z-index: 100;
+                }
+                
+                .carrito #carrito {
+                  display: none;
+                  position: absolute;
+                  box-shadow: 0px 10px 15px -3px rgba(0,0,0,0.1);
+                }
+                
+                .carrito:hover #carrito {
+                  display: block;
+                  background-color: white;
+                  padding: 10px;
+                  height: fit-content;
+                  min-width: 350px;
+                  width: fit-content;
+                  top: 100%;
+                  right: 0;
+                  left: unset;
+                  margin-left: unset;
+                  margin-right: unset;
+                }
+                
+                #carrito img {
+                  width: 30px;
+                }
+                
+                #carrito .btn-danger {
+                  font-size: 10px;
+                  border-radius: 50%;
+                  padding: 5px 9px;
+                }
+                
+                #carrito .btn-dark {
+                  padding: 0 2px;
+                  margin: 0 3px;
+                }
+                .m-0 {
+                  margin: 0;
+                }
+                /*!
+                 * Bootstrap  v5.2.3 (https://getbootstrap.com/)
+                 * Copyright 2011-2022 The Bootstrap Authors
+                 * Copyright 2011-2022 Twitter, Inc.
+                 * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
+                 */
+                :root {
+                  --bs-blue: #0d6efd;
+                  --bs-indigo: #6610f2;
+                  --bs-purple: #6f42c1;
+                  --bs-pink: #d63384;
+                  --bs-red: #dc3545;
+                  --bs-orange: #fd7e14;
+                  --bs-yellow: #ffc107;
+                  --bs-green: #198754;
+                  --bs-teal: #20c997;
+                  --bs-cyan: #0dcaf0;
+                  --bs-black: #000;
+                  --bs-white: #FFF;
+                  --bs-gray: #6c757d;
+                  --bs-gray-dark: #343a40;
+                  --bs-gray-100: #f8f9fa;
+                  --bs-gray-200: #e9ecef;
+                  --bs-gray-300: #dee2e6;
+                  --bs-gray-400: #ced4da;
+                  --bs-gray-500: #adb5bd;
+                  --bs-gray-600: #6c757d;
+                  --bs-gray-700: #495057;
+                  --bs-gray-800: #343a40;
+                  --bs-gray-900: #212529;
+                  --bs-primary: #e99401;
+                  --bs-secondary: #6c757d;
+                  --bs-success: #198754;
+                  --bs-info: #0dcaf0;
+                  --bs-warning: #ffc107;
+                  --bs-danger: #dc3545;
+                  --bs-light: #f8f9fa;
+                  --bs-dark: #262626;
+                  --bs-primary-rgb: 233, 148, 1;
+                  --bs-secondary-rgb: 108, 117, 125;
+                  --bs-success-rgb: 25, 135, 84;
+                  --bs-info-rgb: 13, 202, 240;
+                  --bs-warning-rgb: 255, 193, 7;
+                  --bs-danger-rgb: 220, 53, 69;
+                  --bs-light-rgb: 248, 249, 250;
+                  --bs-dark-rgb: 38, 38, 38;
+                  --bs-white-rgb: 255, 255, 255;
+                  --bs-black-rgb: 0, 0, 0;
+                  --bs-body-color-rgb: 33, 37, 41;
+                  --bs-body-bg-rgb: 255, 255, 255;
+                  --bs-font-sans-serif: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+                  --bs-font-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+                  --bs-gradient: linear-gradient(180deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0));
+                  --bs-body-font-family: Outfit, sans-serif;
+                  --bs-body-font-size: 1rem;
+                  --bs-body-font-weight: 400;
+                  --bs-body-line-height: 1.5;
+                  --bs-body-color: #212529;
+                  --bs-body-bg: #FFF;
+                  --bs-border-width: 1px;
+                  --bs-border-style: solid;
+                  --bs-border-color: #dee2e6;
+                  --bs-border-color-translucent: rgba(0, 0, 0, 0.175);
+                  --bs-border-radius: 0.375rem;
+                  --bs-border-radius-sm: 0.25rem;
+                  --bs-border-radius-lg: 0.5rem;
+                  --bs-border-radius-xl: 1rem;
+                  --bs-border-radius-2xl: 2rem;
+                  --bs-border-radius-pill: 50rem;
+                  --bs-link-color: #FFF;
+                  --bs-link-hover-color: #FFF;
+                  --bs-code-color: #d63384;
+                  --bs-highlight-bg: #fff3cd;
+                }
+                
+                *,
+                *::before,
+                *::after {
+                  box-sizing: border-box;
+                }
+                
+                @media (prefers-reduced-motion: no-preference) {
+                  :root {
+                    scroll-behavior: smooth;
+                  }
+                }
+                
+                body {
+                  margin: 0;
+                  font-family: var(--bs-body-font-family);
+                  font-size: var(--bs-body-font-size);
+                  font-weight: var(--bs-body-font-weight);
+                  line-height: var(--bs-body-line-height);
+                  color: var(--bs-body-color);
+                  text-align: var(--bs-body-text-align);
+                  background-color: var(--bs-body-bg);
+                  -webkit-text-size-adjust: 100%;
+                  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+                }
+                
+                 h3, .h3, h2, .h2, h1, .h1 {
+                  margin-top: 0;
+                  margin-bottom: 0.5rem;
+                  font-family: "Outfit", sans-serif;
+                  font-weight: 900;
+                  line-height: 1.2;
+                  color: #e99401;
+                }
+                
+                h1, .h1 {
+                  font-size: calc(1.565rem + 3.78vw);
+                }
+                @media (min-width: 1200px) {
+                  h1, .h1 {
+                    font-size: 4.4rem;
+                  }
+                }
+                
+                h2, .h2 {
+                  font-size: calc(1.485rem + 2.82vw);
+                }
+                @media (min-width: 1200px) {
+                  h2, .h2 {
+                    font-size: 3.6rem;
+                  }
+                }
+                
+                h3, .h3 {
+                  font-size: calc(1.385rem + 1.62vw);
+                }
+                @media (min-width: 1200px) {
+                  h3, .h3 {
+                    font-size: 2.6rem;
+                  }
+                }
+                
+                p {
+                  margin-top: 0;
+                  margin-bottom: 1rem;
+                }
+                
+                a {
+                  color: var(--bs-link-color);
+                  text-decoration: none;
+                }
+                a:hover {
+                  color: var(--bs-link-hover-color);
+                }
+                
+                a:not([href]):not([class]), a:not([href]):not([class]):hover {
+                  color: inherit;
+                  text-decoration: none;
+                }
+                
+                img,
+                svg {
+                  vertical-align: middle;
+                }
+                
+                table {
+                  caption-side: bottom;
+                  border-collapse: collapse;
+                }
+                
+                th {
+                  text-align: inherit;
+                  text-align: -webkit-match-parent;
+                }
+                
+                thead,
+                tbody,
+                tr,
+                td,
+                th {
+                  border-color: inherit;
+                  border-style: solid;
+                  border-width: 0;
+                }
+                
+                button {
+                  border-radius: 0;
+                }
+                
+                button:focus:not(:focus-visible) {
+                  outline: 0;
+                }
+                
+                
+                button {
+                  margin: 0;
+                  font-family: inherit;
+                  font-size: inherit;
+                  line-height: inherit;
+                }
+                
+                button {
+                  text-transform: none;
+                }
+                
+                button,
+                [type=button] {
+                  -webkit-appearance: button;
+                }
+                button:not(:disabled),
+                [type=button]:not(:disabled) {
+                  cursor: pointer;
+                }
+                
+                ::-moz-focus-inner {
+                  padding: 0;
+                  border-style: none;
+                }
+                
+                ::-webkit-datetime-edit-fields-wrapper,
+                ::-webkit-datetime-edit-text,
+                ::-webkit-datetime-edit-minute,
+                ::-webkit-datetime-edit-hour-field,
+                ::-webkit-datetime-edit-day-field,
+                ::-webkit-datetime-edit-month-field,
+                ::-webkit-datetime-edit-year-field {
+                  padding: 0;
+                }
+                
+                ::-webkit-inner-spin-button {
+                  height: auto;
+                }
+                
+                /* rtl:raw:
+                [type="tel"],
+                [type="url"],
+                [type="email"],
+                [type="number"] {
+                  direction: ltr;
+                }
+                */
+                ::-webkit-search-decoration {
+                  -webkit-appearance: none;
+                }
+                
+                ::-webkit-color-swatch-wrapper {
+                  padding: 0;
+                }
+                
+                ::file-selector-button {
+                  font: inherit;
+                  -webkit-appearance: button;
+                }
+                
+                .display-2 {
+                  font-size: calc(1.575rem + 3.9vw);
+                  font-weight: 300;
+                  line-height: 1.2;
+                }
+                @media (min-width: 1200px) {
+                  .display-2 {
+                    font-size: 4.5rem;
+                  }
+                }
+                
+                .img-fluid {
+                  max-width: 100%;
+                  height: auto;
+                }
+                
+                
+                .container-xl {
+                  --bs-gutter-x: 1.5rem;
+                  --bs-gutter-y: 0;
+                  width: 100%;
+                  padding-right: calc(var(--bs-gutter-x) * 0.5);
+                  padding-left: calc(var(--bs-gutter-x) * 0.5);
+                  margin-right: auto;
+                  margin-left: auto;
+                }
+                @media (min-width: 1200px) {
+                  .container-xl {
+                    max-width: 1140px;
+                  }
+                }
+                @media (min-width: 1400px) {
+                   .container-xl {
+                    max-width: 1320px;
+                  }
+                }
+                .row {
+                  --bs-gutter-x: 1.5rem;
+                  --bs-gutter-y: 0;
+                  display: flex;
+                  flex-wrap: wrap;
+                  margin-top: calc(-1 * var(--bs-gutter-y));
+                  margin-right: calc(-0.5 * var(--bs-gutter-x));
+                  margin-left: calc(-0.5 * var(--bs-gutter-x));
+                }
+                .row > * {
+                  flex-shrink: 0;
+                  width: 100%;
+                  max-width: 100%;
+                  padding-right: calc(var(--bs-gutter-x) * 0.5);
+                  padding-left: calc(var(--bs-gutter-x) * 0.5);
+                  margin-top: var(--bs-gutter-y);
+                }
+                
+                .col-4 {
+                  flex: 0 0 auto;
+                  width: 33.33333333%;
+                }
+                
+                .col-8 {
+                  flex: 0 0 auto;
+                  width: 66.66666667%;
+                }
+                @media (min-width: 768px) {
+                  .col-md-3 {
+                    flex: 0 0 auto;
+                    width: 25%;
+                  }
+                  .col-md-6 {
+                    flex: 0 0 auto;
+                    width: 50%;
+                  }
+                }
+                @media (min-width: 992px) {
+                  .col-lg-4 {
+                    flex: 0 0 auto;
+                    width: 33.33333333%;
+                  }
+                }
+                .table {
+                  --bs-table-color: var(--bs-body-color);
+                  --bs-table-bg: transparent;
+                  --bs-table-border-color: var(--bs-border-color);
+                  --bs-table-accent-bg: transparent;
+                  --bs-table-striped-color: var(--bs-body-color);
+                  --bs-table-striped-bg: rgba(0, 0, 0, 0.05);
+                  --bs-table-active-color: var(--bs-body-color);
+                  --bs-table-active-bg: rgba(0, 0, 0, 0.1);
+                  --bs-table-hover-color: var(--bs-body-color);
+                  --bs-table-hover-bg: rgba(0, 0, 0, 0.075);
+                  width: 100%;
+                  margin-bottom: 1rem;
+                  color: var(--bs-table-color);
+                  vertical-align: top;
+                  border-color: var(--bs-table-border-color);
+                }
+                .table > :not(caption) > * > * {
+                  padding: 0.5rem 0.5rem;
+                  background-color: var(--bs-table-bg);
+                  border-bottom-width: 1px;
+                  box-shadow: inset 0 0 0 9999px var(--bs-table-accent-bg);
+                }
+                .table > tbody {
+                  vertical-align: inherit;
+                }
+                .table > thead {
+                  vertical-align: bottom;
+                }
+                
+                .btn {
+                  --bs-btn-padding-x: 0.75rem;
+                  --bs-btn-padding-y: 0.375rem;
+                  --bs-btn-font-family: ;
+                  --bs-btn-font-size: 1rem;
+                  --bs-btn-font-weight: 900;
+                  --bs-btn-line-height: 1.5;
+                  --bs-btn-color: #212529;
+                  --bs-btn-bg: transparent;
+                  --bs-btn-border-width: 1px;
+                  --bs-btn-border-color: transparent;
+                  --bs-btn-border-radius: 0;
+                  --bs-btn-hover-border-color: transparent;
+                  --bs-btn-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 1px 1px rgba(0, 0, 0, 0.075);
+                  --bs-btn-disabled-opacity: 0.65;
+                  --bs-btn-focus-box-shadow: 0 0 0 0.25rem rgba(var(--bs-btn-focus-shadow-rgb), .5);
+                  display: inline-block;
+                  padding: var(--bs-btn-padding-y) var(--bs-btn-padding-x);
+                  font-family: var(--bs-btn-font-family);
+                  font-size: var(--bs-btn-font-size);
+                  font-weight: var(--bs-btn-font-weight);
+                  line-height: var(--bs-btn-line-height);
+                  color: var(--bs-btn-color);
+                  text-align: center;
+                  vertical-align: middle;
+                  cursor: pointer;
+                  user-select: none;
+                  border: var(--bs-btn-border-width) solid var(--bs-btn-border-color);
+                  border-radius: var(--bs-btn-border-radius);
+                  background-color: var(--bs-btn-bg);
+                  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+                }
+                @media (prefers-reduced-motion: reduce) {
+                  .btn {
+                    transition: none;
+                  }
+                }
+                .btn:hover {
+                  color: var(--bs-btn-hover-color);
+                  background-color: var(--bs-btn-hover-bg);
+                  border-color: var(--bs-btn-hover-border-color);
+                }
+                .btn:focus-visible {
+                  color: var(--bs-btn-hover-color);
+                  background-color: var(--bs-btn-hover-bg);
+                  border-color: var(--bs-btn-hover-border-color);
+                  outline: 0;
+                  box-shadow: var(--bs-btn-focus-box-shadow);
+                }
+                 :not(.btn-check) + .btn:active, .btn:first-child:active {
+                  color: var(--bs-btn-active-color);
+                  background-color: var(--bs-btn-active-bg);
+                  border-color: var(--bs-btn-active-border-color);
+                }
+                 :not(.btn-check) + .btn:active:focus-visible, .btn:first-child:active:focus-visible {
+                  box-shadow: var(--bs-btn-focus-box-shadow);
+                }
+                .btn:disabled {
+                  color: var(--bs-btn-disabled-color);
+                  pointer-events: none;
+                  background-color: var(--bs-btn-disabled-bg);
+                  border-color: var(--bs-btn-disabled-border-color);
+                  opacity: var(--bs-btn-disabled-opacity);
+                }
+                
+                .btn-danger {
+                  --bs-btn-color: #FFF;
+                  --bs-btn-bg: #dc3545;
+                  --bs-btn-border-color: #dc3545;
+                  --bs-btn-hover-color: #FFF;
+                  --bs-btn-hover-bg: #bb2d3b;
+                  --bs-btn-hover-border-color: #b02a37;
+                  --bs-btn-focus-shadow-rgb: 225, 83, 97;
+                  --bs-btn-active-color: #FFF;
+                  --bs-btn-active-bg: #b02a37;
+                  --bs-btn-active-border-color: #a52834;
+                  --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+                  --bs-btn-disabled-color: #FFF;
+                  --bs-btn-disabled-bg: #dc3545;
+                  --bs-btn-disabled-border-color: #dc3545;
+                }
+                
+                .btn-dark {
+                  --bs-btn-color: #FFF;
+                  --bs-btn-bg: #262626;
+                  --bs-btn-border-color: #262626;
+                  --bs-btn-hover-color: #FFF;
+                  --bs-btn-hover-bg: #474747;
+                  --bs-btn-hover-border-color: #3c3c3c;
+                  --bs-btn-focus-shadow-rgb: 71, 71, 71;
+                  --bs-btn-active-color: #FFF;
+                  --bs-btn-active-bg: #515151;
+                  --bs-btn-active-border-color: #3c3c3c;
+                  --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+                  --bs-btn-disabled-color: #FFF;
+                  --bs-btn-disabled-bg: #262626;
+                  --bs-btn-disabled-border-color: #262626;
+                }
+                
+                .nav {
+                  --bs-nav-link-padding-x: 1rem;
+                  --bs-nav-link-padding-y: 0.5rem;
+                  --bs-nav-link-font-weight: ;
+                  --bs-nav-link-color: var(--bs-link-color);
+                  --bs-nav-link-hover-color: var(--bs-link-hover-color);
+                  --bs-nav-link-disabled-color: #6c757d;
+                  display: flex;
+                  flex-wrap: wrap;
+                  padding-left: 0;
+                  margin-bottom: 0;
+                  list-style: none;
+                }
+                
+                @keyframes progress-bar-stripes {
+                  0% {
+                    background-position-x: 1rem;
+                  }
+                }
+                
+                /* rtl:begin:ignore */
+                
+                /* rtl:end:ignore */
+                
+                /* rtl:begin:ignore */
+                
+                /* rtl:end:ignore */
+                
+                /* rtl:begin:ignore */
+                
+                /* rtl:end:ignore */
+                
+                /* rtl:begin:ignore */
+                
+                /* rtl:end:ignore */
+                
+                /* rtl:options: {
+                  "autoRename": true,
+                  "stringMap":[ {
+                    "name"    : "prev-next",
+                    "search"  : "prev",
+                    "replace" : "next"
+                  } ]
+                } */
+                
+                @keyframes spinner-border {
+                  to {
+                    transform: rotate(360deg) /* rtl:ignore */;
+                  }
+                }
+                
+                @keyframes spinner-grow {
+                  0% {
+                    transform: scale(0);
+                  }
+                  50% {
+                    opacity: 1;
+                    transform: none;
+                  }
+                }
+                
+                @keyframes placeholder-glow {
+                  50% {
+                    opacity: 0.2;
+                  }
+                }
+                
+                @keyframes placeholder-wave {
+                  100% {
+                    mask-position: -200% 0%;
+                  }
+                }
+                
+                .d-flex {
+                  display: flex !important;
+                }
+                
+                .w-100 {
+                  width: 100% !important;
+                }
+                
+                .justify-content-end {
+                  justify-content: flex-end !important;
+                }
+                
+                .justify-content-center {
+                  justify-content: center !important;
+                }
+                
+                .align-items-start {
+                  align-items: flex-start !important;
+                }
+                
+                .align-items-center {
+                  align-items: center !important;
+                }
+                
+                .my-4 {
+                  margin-top: 1.5rem !important;
+                  margin-bottom: 1.5rem !important;
+                }
+                
+                .mt-3 {
+                  margin-top: 1rem !important;
+                }
+                
+                .mt-4 {
+                  margin-top: 1.5rem !important;
+                }
+                
+                .mt-5 {
+                  margin-top: 3rem !important;
+                }
+                
+                .p-2 {
+                  padding: 0.5rem !important;
+                }
+                
+                .p-3 {
+                  padding: 1rem !important;
+                }
+                
+                .px-5 {
+                  padding-right: 3rem !important;
+                  padding-left: 3rem !important;
+                }
+                
+                .py-2 {
+                  padding-top: 0.5rem !important;
+                  padding-bottom: 0.5rem !important;
+                }
+                
+                .py-5 {
+                  padding-top: 3rem !important;
+                  padding-bottom: 3rem !important;
+                }
+                
+                .pt-5 {
+                  padding-top: 3rem !important;
+                }
+                
+                .gap-4 {
+                  gap: 1.5rem !important;
+                }
+                
+                .fs-1 {
+                  font-size: calc(1.565rem + 3.78vw) !important;
+                }
+                
+                .fs-3 {
+                  font-size: calc(1.385rem + 1.62vw) !important;
+                }
+                
+                .fs-4 {
+                  font-size: calc(1.275rem + 0.3vw) !important;
+                }
+                
+                .fs-5 {
+                  font-size: 1.25rem !important;
+                }
+                
+                .fw-bold {
+                  font-weight: 700 !important;
+                }
+                
+                .text-end {
+                  text-align: right !important;
+                }
+                
+                .text-center {
+                  text-align: center !important;
+                }
+                
+                .text-uppercase {
+                  text-transform: uppercase !important;
+                }
+                
+                /* rtl:begin:remove */
+                
+                /* rtl:end:remove */
+                .text-primary {
+                  --bs-text-opacity: 1;
+                  color: rgba(var(--bs-primary-rgb), var(--bs-text-opacity)) !important;
+                }
+                
+                .text-black {
+                  --bs-text-opacity: 1;
+                  color: rgba(var(--bs-black-rgb), var(--bs-text-opacity)) !important;
+                }
+                
+                .text-white {
+                  --bs-text-opacity: 1;
+                  color: rgba(var(--bs-white-rgb), var(--bs-text-opacity)) !important;
+                }
+                
+                .bg-primary {
+                  --bs-bg-opacity: 1;
+                  background-color: rgba(var(--bs-primary-rgb), var(--bs-bg-opacity)) !important;
+                }
+                
+                .bg-dark {
+                  --bs-bg-opacity: 1;
+                  background-color: rgba(var(--bs-dark-rgb), var(--bs-bg-opacity)) !important;
+                }
+                
+                .bg-white {
+                  --bs-bg-opacity: 1;
+                  background-color: rgba(var(--bs-white-rgb), var(--bs-bg-opacity)) !important;
+                }
+                @media (min-width: 768px) {
+                  .justify-content-md-between {
+                    justify-content: space-between !important;
+                  }
+                  .m-md-0 {
+                    margin: 0 !important;
+                  }
+                  .text-md-start {
+                    text-align: left !important;
+                  }
+                }
+                @media (min-width: 1200px) {
+                  .fs-1 {
+                    font-size: 4.4rem !important;
+                  }
+                  .fs-3 {
+                    font-size: 2.6rem !important;
+                  }
+                  .fs-4 {
+                    font-size: 1.5rem !important;
+                  }
+                }
+                @keyframes animarImagen {
+                  0% {
+                    opacity: 0;
+                    transform: translateX(-10rem);
+                  }
+                  50% {
+                    opacity: 0;
+                  }
+                  100% {
+                    opacity: 1;
+                    transform: translateX(0);
+                  }
+                }
+                .header {
+                  background-image: linear-gradient(to right, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url("/img/header.jpg");
+                  background-position: 50%;
+                  background-size: cover;
+                  position: relative;
+                }
+                .header .header-guitarra {
+                  display: none;
+                }
+                @media (min-width: 992px) {
+                  .header .header-guitarra {
+                    display: block;
+                    position: absolute;
+                    right: 0;
+                    bottom: 0;
+                    animation-duration: 1s;
+                    animation-delay: 0s;
+                    animation-timing-function: ease-in-out;
+                    animation-name: animarImagen;
+                    z-index: 10;
+                  }
+                }
+              </code></pre>
+
+              <code class="cursor-pointer" onclick="$('#11-maintsx').toggle();">main.tsx</code>
+              <pre id="11-maintsx" class="hidden"><code class="language-js">
+                import React from 'react'
+                import ReactDOM from 'react-dom/client'
+                import App from './App.jsx'
+                import './index.css'
+                
+                ReactDOM.createRoot(document.getElementById('root')!).render(
+                  &lt;React.StrictMode&gt;
+                    &lt;App /&gt;
+                  &lt;/React.StrictMode&gt;,
+                )
+              </code></pre>                     
+            </div>
+
 
             <!-- Bloque desplegable interior-->
             <div class="flex justify-between items-center mt-1.25 cursor-pointer oscuro" onclick="$('#seccion11-167').toggle();">
@@ -484,7 +1712,7 @@
               <div class="flex max-sm:flex-col">
                 <div class="w-[50%] max-sm:w-[100%]">
                   <pre><code class="language-js">
-                    //useCart.js
+                    //useCart.ts
                     function addToCart(item : Guitar) {
                       const itemExists = cart.findIndex(guitar => guitar.id === item.id)
                       if(itemExists >= 0 ) { // existe en el carrito
@@ -726,7 +1954,7 @@
               <h3>177. Trabajando con la acción de eliminar del carrito</h3>
               <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
             </div>
-            <div id="seccion11-177" class="">
+            <div id="seccion11-177" class="hidden">
               <p>Trabajamos con la acción de 'remove-from-cart' de nuestro reducer. Nos posicionamos en su correspondiente if. En lugar de usar setCart() que es la función de nuestro custom hook, hemos de crear una variable y esa misma lógica adaptarla</p>
               <div class="flex max-sm:flex-col">
                 <div class="w-[50%] max-sm:w-[100%]">
@@ -745,7 +1973,7 @@
                       const updatedCart = state.cart.filter( item => item.id !== action.payload.id)       
                       return{
                           ...state,
-                          state: updatedCart
+                          cart: updatedCart
                       }
                     }
                     //sintaxis forma 2
@@ -880,53 +2108,288 @@
 
             </div>
 
-<!-- Bloque desplegable interior-->
-<div class="flex justify-between items-center mt-1.25 cursor-pointer oscuro" onclick="$('#seccion11-178').toggle();">
-  <h3>178. Trabajando con la acción de incrementar cantidad y RETO 02</h3>
-  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
-</div>
-<div id="seccion11-178" class="hidden">
+            <!-- Bloque desplegable interior-->
+            <div class="flex justify-between items-center mt-1.25 cursor-pointer oscuro" onclick="$('#seccion11-178').toggle();">
+              <h3>178. Trabajando con la acción de incrementar cantidad y RETO 02 / 179. SOLUCION RETO 02 / 180. SOLUCION RETO 03</h3>
+              <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+            </div>
+            <div id="seccion11-178" class="hidden">
+              <p>Trabajemos migrando la función increaseQuantity()  anuestro reducer.</p>
+              <div class="flex max-sm:flex-col">
+                <div class="w-[50%] max-sm:w-[100%]">
+                  <pre><code class="language-js">
+                    //useCart.ts
+                    function increaseQuantity(id : Guitar['id']) {
+                      const updatedCart = cart.map( item => {
+                          if(item.id === id && item.quantity &lt; MAX_ITEMS) {
+                              return {
+                                  ...item,
+                                  quantity: item.quantity + 1
+                              }
+                          }
+                          return item
+                      })
+                      setCart(updatedCart)
+                    }
+                  </code></pre>
+                </div>
+                <div class="w-[50%] max-sm:w-[100%]">
+                  <pre><code class="language-js">
+                    //cart-reducer.ts
+                    if(action.type === "increase-quantity"){
+                      const updatedCart = state.cart.map( item => {
+                          if(item.id === action.payload.id && item.quantity &lt; MAX_ITEMS) {
+                              return {
+                                  ...item,
+                                  quantity: item.quantity + 1
+                              }
+                          }
+                          return item
+                      })        
+                      return{
+                          ...state,
+                          cart: updatedCart
+                      }
+                  }
+                  </code></pre>
+                </div>
+              </div>
 
+              <p>En App.tsx quitamos la importación de la función antigua, la prop que se pasaba al tag header y en el compo Header.tsx lo quitamos de la firma y también del destructuring de parámetros de la función del componente <span class="destacado">(el dispatch ya centraliza todas las acciones)</span>. Eliminamos la función del custom hook y también de su return. Modificamos la llamada del onclick:</p>
 
-</div>
-<!-- Bloque desplegable interior-->
-<div class="flex justify-between items-center mt-1.25 cursor-pointer oscuro" onclick="$('#seccion11-179').toggle();">
-  <h3>179. SOLUCION RETO 02</h3>
-  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
-</div>
-<div id="seccion11-179" class="hidden">
+              <div class="flex max-sm:flex-col">
+                <div class="w-[40%] max-sm:w-[100%]">
+                  <pre class="rojo" data-line="4"><code class="language-js">
+                    //Header.tsx
+                    &lt;button
+                      type=&quot;button&quot;
+                      className=&quot;btn btn-dark&quot;
+                      onClick={() =&gt; increaseQuantity(guitar.id)}
+                    &gt;+&lt;/button&gt;
+                  </code></pre>
+                </div>
+                <div class="w-[60%] max-sm:w-[100%]">
+                  <pre class="verde" data-line="4"><code class="language-js">
+                    //Header.tsx
+                    &lt;button
+                      type=&quot;button&quot;
+                      className=&quot;btn btn-dark&quot;
+                      onClick={() =&gt; dispatch({type: &quot;increase-quantity&quot;, payload: {id: guitar.id}})}
+                    &gt;+&lt;/button&gt;
+                  </code></pre>
+                </div>
+              </div>
+              
+              <p class="naranja">Hacemos lo mismo para decreaseQuantity() <strong>Reto 02: Decrementar cantidades</strong></p>
 
+              <ul class="list-disc my-2.5">
+                <li>Hacer funcional el botón de decrementar cantidades, ahora con useReducer</li>
+                <li>Tendremos que crear la acción y mandarla llamar con dispatch</li>
+                <li>Seguir las convenciones de nombres del custom hook y reducer</li>
+              </ul>
 
-</div>
+              <div class="flex max-sm:flex-col">
+                <div class="w-[50%] max-sm:w-[100%]">
+                  <pre><code class="language-js">
+                    //useCart.ts
+                    function decreaseQuantity(id : Guitar['id']) {
+                      const updatedCart = cart.map( item => {
+                          if(item.id === id && item.quantity > MIN_ITEMS) {
+                              return {
+                                  ...item,
+                                  quantity: item.quantity - 1
+                              }
+                          }
+                          return item
+                      })
+                      setCart(updatedCart)
+                    }
+                  </code></pre>
+                </div>
+                <div class="w-[50%] max-sm:w-[100%]">
+                  <pre><code class="language-js">
+                    //cart-reducer.ts
+                    if (action.type === "decrease-quantity"){
+                      const updatedCart = state.cart.map( item => {
+                          if(item.id === action.payload.id && item.quantity > MIN_ITEMS) {
+                              return {
+                                  ...item,
+                                  quantity: item.quantity - 1
+                              }
+                          }
+                          return item
+                      })    
+                      return{
+                          ...state,
+                          cart: updatedCart
+                      }
+                    }
+                  </code></pre>
+                </div>
+              </div>
+              
+              <div class="flex max-sm:flex-col">
+                <div class="w-[40%] max-sm:w-[100%]">
+                  <pre class="rojo" data-line="4"><code class="language-js">
+                    //Header.tsx
+                    &lt;button
+                      type=&quot;button&quot;
+                      className=&quot;btn btn-dark&quot;
+                      onClick={() =&gt; decreaseQuantity(guitar.id)}
+                    &gt;-&lt;/button&gt;
+                  </code></pre>
+                </div>
+                <div class="w-[60%] max-sm:w-[100%]">
+                  <pre class="verde" data-line="4"><code class="language-js">
+                    //Header.tsx
+                    &lt;button
+                        type=&quot;button&quot;
+                        className=&quot;btn btn-dark&quot;
+                        onClick={() =&gt; dispatch({type: &quot;decrease-quantity&quot;, payload:{id: guitar.id}})}
+                    &gt;-&lt;/button&gt;
+                  </code></pre>
+                </div>
+              </div>
+              
+              <p class="naranja"><strong>Reto 03: Limpiar carrito</strong></p>
 
-<!-- Bloque desplegable interior-->
-<div class="flex justify-between items-center mt-1.25 cursor-pointer oscuro" onclick="$('#seccion11-180').toggle();">
-  <h3>179. SOLUCION RETO 03</h3>
-  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
-</div>
-<div id="seccion11-180" class="hidden">
+              <ul class="list-disc my-2.5">
+                <li>Hacer funcional el botón de limpiar el carrito de compras ahora con useReducer</li>
+                <li>Tendremos que crear la acción y mandarla llamar con dispatch</li>
+                <li>Seguir las convenciones de nombres del custom hook y reducer</li>
+              </ul>
 
+              <div class="flex max-sm:flex-col">
+                <div class="w-[50%] max-sm:w-[100%]">
+                  <pre><code class="language-js">
+                    //useCart.ts
+                    function clearCart() {
+                      setCart([])
+                  }
+                  </code></pre>
+                </div>
+                <div class="w-[50%] max-sm:w-[100%]">
+                  <pre><code class="language-js">
+                    //cart-reducer.ts
+                    if(action.type === "clear-cart"){
+                      const updatedCart : CartItem[] = []
+                      return{
+                          ...state,
+                          cart: updatedCart
+                      }
+                    }
+                    //su manera
+                    if(action.type === "clear-cart"){                      
+                      return{
+                          ...state,
+                          cart: []
+                      }
+                  }
+                  </code></pre>
+                </div>
+              </div>
 
-</div>
+              <p>Limpiamos todas las importaciones que ya no se usan. Como vemos en el tag de nuestro componente Header (que es donde s epinta le carrito) teníamos muchos props y como vemos es algo que se simplifica al incorporar useReducer.</p>
+            </div>
 
-<!-- Bloque desplegable interior-->
-<div class="flex justify-between items-center mt-1.25 cursor-pointer oscuro" onclick="$('#seccion11-181').toggle();">
-  <h3>181. Colocando el state en LocalStorage</h3>
-  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
-</div>
-<div id="seccion11-181" class="hidden">
+            <!-- Bloque desplegable interior-->
+            <div class="flex justify-between items-center mt-1.25 cursor-pointer oscuro" onclick="$('#seccion11-181').toggle();">
+              <h3>181. Colocando el state en LocalStorage</h3>
+              <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+            </div>
+            <div id="seccion11-181" class="hidden">
+              <p>Vamos a colocar el state en LocalStorage. En nuestro custom hook tenemos dos partes relacionadas con local Storage ahora mismo, la primera va  hacia el reducer y la segunda hacia el componente:</p>
 
+              <pre data-line="4-7,11-13"><code class="language-js">
+                //useCart.ts
+                ...
+                export const useCart = () => {
 
-</div>
+                    const initialCart = () : CartItem[] => {
+                        const localStorageCart = localStorage.getItem('cart')
+                        return localStorageCart ? JSON.parse(localStorageCart) : []
+                    }
+                
+                    const [cart, setCart] = useState(initialCart)
 
+                    useEffect(() => {
+                        localStorage.setItem('cart', JSON.stringify(cart))
+                    }, [cart])
 
+                    return {
+                        cart       
+                    }
+                }
+              </code></pre>
+
+              <p>Nos llevamos la primera parte del custom hook relacionada con localStorage a nuestro reducer y la ponemos justo antes de definir el initialState. En el initialState en lugar de que cart sea arreglo vacío, le decimos que sea la nueva función <strong>initialCart()</strong> que nos hemos traído (de ahora en adelante nuestro carrito de compras inicia tomando lo que hay en localStorage o si no hay nada, un arreglo vacío):</p>
+              <div class="flex max-sm:flex-col">
+                <div class="w-[50%] max-sm:w-[100%]">
+                
+                  <pre><code class="language-js">
+                    //useCart.ts
+                    const initialCart = () : CartItem[] => {
+                      const localStorageCart = localStorage.getItem('cart')
+                      return localStorageCart ? JSON.parse(localStorageCart) : []
+                  }
+                  </code></pre>
+                </div>
+                <div class="w-[50%] max-sm:w-[100%]">
+                    <pre data-line="2-5,9"><code class="language-js">
+                    //cart-reducer.ts
+                    ...
+                    const initialCart = () : CartItem[] => {
+                        const localStorageCart = localStorage.getItem('cart')
+                        return localStorageCart ? JSON.parse(localStorageCart) : []
+                    }
+                    export const initialState : CartState = {
+                        data: db, //nuestra bbdd de guitarra con los datos
+                        //cart: [] //antes de usar localStorage iniciábamos el carrito vacío
+                        cart: initialCart()
+                    }
+                  </code></pre>
+                </div>
+              </div>
+
+              <p>La otra parte, el useEffect, nos la llevamos al compo ppal App.tsx que es donde va a estar nuestro state, lo colocamos justo a continuación y como vemos hace falta que importemos useEffect de react y cambiamos <span class="rojo">cart</span> por <span class="verde">state.cart</span>:</p>
+
+              <div class="flex max-sm:flex-col">
+                <div class="w-[50%] max-sm:w-[100%]">
+                  <pre><code class="language-js">
+                    //useCart.ts
+                    useEffect(() => {
+                      localStorage.setItem('cart', JSON.stringify(cart))
+                    }, [cart])
+                  </code></pre>
+                </div>
+                <div class="w-[50%] max-sm:w-[100%]">
+                  <pre data-line="1,8,9"><code class="language-js">
+                    //App.ts
+                    import { useReducer, useEffect } from "react"
+                    ...
+                    function App() {
+                
+                      const [state,dispatch] = useReducer(cartReducer, initialState)
+                
+                      useEffect(() => {
+                        localStorage.setItem('cart', JSON.stringify(state.cart))
+                      }, [state.cart])
+                
+                  </code></pre>
+                </div>
+              </div>
+
+              <p>Ya nuestro custom hook no es necesario, podemos eliminar <span class="file">hooks&gt;useCart.ts</span> pues lo hemos movido todo hacia reducer usando useReducer.</p>
+              <p>En nuestro title del index le indicamos las tecnologías usadas en este proyecto: &lt;title&gt;Vite + React + TS + useReducer&lt;/title&gt;</p>
+              <p>Hacemos un <span class="destacado">npm run build y así nos aseguramos de que no tenemos ningún error antes de desplegar nuestro proyecto.</span></p>
+              
+            </div>
 
         </div>
         <!-- Fin div colapsable-->
 
       </div>
-      <!-- FIN SECCION XX -->
-
+      <!-- FIN SECCION 11 -->
 
 
       <!-- SECCION 10 -->
@@ -934,7 +2397,7 @@
         
         <div class="flex items-center mt-1.25 cursor-pointer desplegable justify-between pointer" onclick="$('#seccion10').toggle();">
           <h2>Sección 10: PROYECTO - Contador de Calorías, Consumo y Ejercicios con useReducer</h2>
-          <span class="cambiaicono ico_chevron_up mr-2.5" title=""></span>
+          <span class="cambiaicono ico_chevron_down mr-2.5" title=""></span>
         </div>
 
         <div id="seccion10" class="hidden">
@@ -6064,8 +7527,8 @@
 
             <p>Vamos a estar moviendo todo el código de antes del return() del App.jsx que maneja bastante lógica a un custom Hoook, para dejar limpio nuestro componente y hacerlo más reutilizable</p>
 
-            <p><span class="destacado">Creamos carpeta hooks donde se colocan los custom hooks</span>. Dentro creamos nuestro archivo hook personalizado que llamamos <strong>useCart.js</strong> (recordar que no es .jsx porque eso tiene parte de vista es el template). Los hooks son funciones de js con lo cual podemos definirlo como función "normal" o función arrow function pero <span class="destacado">siempre el nombre tiene que tener la palabra use y así React "escanea" el código para posibles violaciones de las reglas de los hooks</span>:</p>
-            <span class="file">useCart.js</span><br>
+            <p><span class="destacado">Creamos carpeta hooks donde se colocan los custom hooks</span>. Dentro creamos nuestro archivo hook personalizado que llamamos <strong>useCart.ts</strong> (recordar que no es .jsx porque eso tiene parte de vista es el template). Los hooks son funciones de js con lo cual podemos definirlo como función "normal" o función arrow function pero <span class="destacado">siempre el nombre tiene que tener la palabra use y así React "escanea" el código para posibles violaciones de las reglas de los hooks</span>:</p>
+            <span class="file">useCart.ts</span><br>
             <pre><code class="language-js">
               function useCart(){
                 
@@ -6110,7 +7573,7 @@
           <div id="seccion88" class="hidden">
             <p>¿Como hacemos para que el comportamiento de nuestro custom hook sea mas similar digamos al useState en <code class="language-js">const[data] = useState(db)</code> devolviendo algo. Supongamos que creamos una variable <code class="language-js">const auth = true</code> ¿como hacemos para que esté disponible en nuestro App.jsx? <strong>tenemos que agregar un return a continuación, que puede ser un Array pero se recomienda que sea un objeto.</strong> <span class="destacado">La ventaja de que sea un objeto es, que el mismo nombre con el que nombremos nuestras variables, funciones o state va a ser el mismo nombre para usarlo en nuestro componente.</span> Si usáramos un arreglo los retorna por posición, pero como normalmente vamos a tener en nuestro hook personalizado diferentes funciones/variables/states personalizados, lo ideal es que podamos acceder a ellos por medio de su nombre específico.</p>
             
-            <span class="file">useCart.js</span>
+            <span class="file">useCart.ts</span>
             <pre><code class="language-js">
               export const useCart = () => {
 
@@ -6134,7 +7597,7 @@
 
             <p>De hecho si hacemos la prueba en nuestro componente de extraer una nueva variable <strong>carrito</strong> que en mi custom hook sí he definido pero no he metido en el return, obtengo un <strong>Undefined</strong> porque no podemos acceder a ese valor. Hemos de meterla en el return, separada por coma del resto de variables/funciones. Es muy similar a un export de los módulos de ECMAScript.</p>
 
-            <span class="file">useCart.js</span>
+            <span class="file">useCart.ts</span>
             <pre><code class="language-js">
               export const useCart = () => {
 
@@ -6170,9 +7633,9 @@
           </div>
           <div id="seccion89">
             <ul class="mb-3.75">
-              <li>Tomamos toda la lógica de antes del return de nuestro componente principal App.jsx y nos la llevamos a nuestro custom kook useCart.js.</li>
-              <li>Como los Hooks useState,useEffect y useMemo ya no se usan en los componentes sino en nuestro hook personalizado useCart.js, quitamos el import de nuestros componentes y nos llevamos ahí la importación. También hacemos lo mismo con los datos:
-                <span class="file">useCart.js</span>
+              <li>Tomamos toda la lógica de antes del return de nuestro componente principal App.jsx y nos la llevamos a nuestro custom kook useCart.ts.</li>
+              <li>Como los Hooks useState,useEffect y useMemo ya no se usan en los componentes sino en nuestro hook personalizado useCart.ts, quitamos el import de nuestros componentes y nos llevamos ahí la importación. También hacemos lo mismo con los datos:
+                <span class="file">useCart.ts</span>
                 <pre><code class="language-js">
                   import { useState, useEffect, useMemo } from 'react'
                   import { db } from '../data/db'
@@ -6235,9 +7698,9 @@
                 function App() {                    
                   const { sEmpty, cartTotal } = useCart()
               </code></pre>
-              <p>Los carritos no saben de la existencia uno del otro, no están conectados, no están sincronizados. Sí, toda esa lógica está solo en nuestro custom Hook useCart.js que es único, pero cada vez que instanciamos (ver los dos códigos anteriores) estamos creando un nuevo data y un nuevo cart:</p>
+              <p>Los carritos no saben de la existencia uno del otro, no están conectados, no están sincronizados. Sí, toda esa lógica está solo en nuestro custom Hook useCart.ts que es único, pero cada vez que instanciamos (ver los dos códigos anteriores) estamos creando un nuevo data y un nuevo cart:</p>
 
-              <span class="file">useCart.js</span>
+              <span class="file">useCart.ts</span>
               <pre><code class="language-js">
                 const [data] = useState(db)
                 const [cart, setCart] = useState(initialCart)
@@ -9711,41 +11174,35 @@
       <!-- FIN SECCION 1 -->	
     
     
-        <!-- SECCION 00 -->
-        <div class="w-[80%] max-sm:w-[96%] mx-auto bg-gray-200 mb-1.25 py-0.75 pr-0 pl-2.5 rounded-xl">
-          <div class="row">
-            <div class="flex items-center mt-1.25 cursor-pointer desplegable justify-between pointer" onclick="$('#seccion0').toggle();">
-              <h2>Apuntes curso React</h2>
-              <span class="cambiaicono ico_chevron_down mr-2.5" title=""></span>
-            </div>
-
-            <div id="seccion0" class="hidden">
-              <div class="row">
-                <div class="col-12">
-
-                  <p>Aprende React con TypeScript paso a paso creando proyectos del mundo real.</p>
-            
-                  <p>Aprende React con proyectos del mundo real; Incluso si tus bases de JavaScript no son muy fuertes el curso tiene una introducción con todo lo que debes saber.</p>
-                  <p>En este curso aprenderemos a crear proyectos reales abarcando todo el ecosistema de React: State, Hooks, crear tus propios hooks, hooks avanzados, estado global, componentes y eventos, consultar API's externas y crear tus propias API's.</p>
-                  <p>Todos los Proyectos incluyen TypeScript desde el inicio.</p>	
-
-                </div>
-              </div><!--Fin row-->
-            </div>
-            <!-- Fin div colapsable-->
-
+      <!-- SECCION 00 -->
+      <div class="w-[80%] max-sm:w-[96%] mx-auto bg-gray-200 mb-1.25 py-0.75 pr-0 pl-2.5 rounded-xl">
+        <div class="row">
+          <div class="flex items-center mt-1.25 cursor-pointer desplegable justify-between pointer" onclick="$('#seccion0').toggle();">
+            <h2>Apuntes curso React</h2>
+            <span class="cambiaicono ico_chevron_down mr-2.5" title=""></span>
           </div>
-        </div>
-        <!-- FIN SECCION 00 -->
+
+          <div id="seccion0" class="hidden">
+            <div class="row">
+              <div class="col-12">
+
+                <p>Aprende React con TypeScript paso a paso creando proyectos del mundo real.</p>
           
-      
-      
+                <p>Aprende React con proyectos del mundo real; Incluso si tus bases de JavaScript no son muy fuertes el curso tiene una introducción con todo lo que debes saber.</p>
+                <p>En este curso aprenderemos a crear proyectos reales abarcando todo el ecosistema de React: State, Hooks, crear tus propios hooks, hooks avanzados, estado global, componentes y eventos, consultar API's externas y crear tus propias API's.</p>
+                <p>Todos los Proyectos incluyen TypeScript desde el inicio.</p>	
+
+              </div>
+            </div><!--Fin row-->
+          </div>
+          <!-- Fin div colapsable-->
+
+        </div>
+      </div>
+      <!-- FIN SECCION 00 -->
+               
     
     </div>
       
-     
-
-
-
   </body>
 </html>
