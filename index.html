@@ -10,8 +10,8 @@
     
     <!-- <script src="https://unpkg.com/@tailwindcss/browser@4"></script> -->
   
-    <script type="module" crossorigin src="https://andune55.github.io/manual-react/assets/index-Bs0lTKhH.js"></script>
-    <link rel="stylesheet" crossorigin href="https://andune55.github.io/manual-react/assets/index-Bug-LcRH.css">
+    <script type="module" crossorigin src="https://andune55.github.io/manual-react/assets/index-DuxEdwB3.js"></script>
+    <link rel="stylesheet" crossorigin href="https://andune55.github.io/manual-react/assets/index-Bwxgj_Ck.css">
   </head>
   <body>
     <div id="root"></div>	
@@ -295,7 +295,7 @@
           <h3>196. Definiendo el Context</h3>
           <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
         </div>
-        <div id="seccion13-196" class="">
+        <div id="seccion13-196" class="hidden">
           <p>Vamos a crear nuestro context y el nombrado es como si fuera una clase (el reducer con minúsculas y guion, recordemos <span class="file">reducers&gt;budget-reducer.ts</span>) <span class="file">context&gt;BudgetContext.tsx</span> </p>
 
           <ul class="list-disc my-2.5">
@@ -382,7 +382,7 @@
 
           <ul class="list-disc my-2.5">
             <li>1º - el children está marcado como any</li>
-            <li>2º - el provider no está retornando nada, nos dice que hace falta la propiedad value. Es un propo especial que existe en provider</li>
+            <li>2º - el provider no está retornando nada, nos dice que hace falta la propiedad value. Es un prop especial que existe en provider</li>
           </ul>
 
           <img src="https://andune55.github.io/manual-react/assets/196-CMXCw68N.png" alt="img" loading="lazy">
@@ -431,37 +431,295 @@
             }
           </code></pre>
 
+        </div>
 
+        <!-- Bloque desplegable interior-->
+        <div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion13-197').toggle();">
+          <h3>197. Agregando el Context a nuestra aplicación</h3>
+          <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+        </div>
+        <div id="seccion13-197" class="hidden">
+          <p>Actualmente ya tenemos el Boilerplate de nuestro context. tenemos dos partes,  provider(de donde vienen los datos y en este caso también las funciones) y context: que nos sirve para generar ese "componente" del return que es donde se están conectando ambos, tanto provider como context:</p>
 
+          <pre><code class="language-ts">
+            //BudgetContext.tsx
+            return(
+              &lt;BudgetContext.Provider
+                  value={{
+                      state,
+                      dispatch
+                  }}
+              &gt;
+                  {children}
+              &lt;/BudgetContext.Provider&gt;
+            )
+          </code></pre>
+
+          <p>Sin embargo este código no está conectado con nuestra app de React, es un archivo que está aparte ¿donde lo vamos a colocar para conectarlo y utilizarlo en nuestros componentes? Vamos hacia el <span class="file">main.tsx</span>. <span class="destacado">Context va a colocarse y envolver=rodear nuestra Aplicación para que podamos accder a las funciones, al state, a los datos que tengamos en este provider (en este ejemplo en nuestro provider estamos manejando el state y las funciones con useReducer, pero podríamos tener useEffect, variables, funciones, state, muchas otras cosas...)</span></p>
+
+          <ul class="list-disc my-2.5">
+            <li>Importamos BudgetProvider (recordemos, <strong>lo que contiene los datos</strong>, mientras que el context solo lo genera)</li>
+            <li>Escribimos el tag <strong>&lt;BudgetProvider&gt;&lt;/BudgetProvider&gt;</strong> y llevamos el tag <strong>&lt;App/&gt;</strong> dentro de él <strong>para que estén disponibles en la app de forma global el state y el dispatch (con sus acciones) del reducer</strong></li>
+          </ul>
+          <pre data-line="5,9,11"><code class="language-ts">
+            //main.tsx
+            import { StrictMode } from 'react'
+            import { createRoot } from 'react-dom/client'
+            import './index.css'
+            import App from './App.tsx'
+            import { BudgetProvider } from './context/BudgetContext.tsx'
+            
+            createRoot(document.getElementById('root')!).render(
+              &lt;StrictMode&gt;
+                &lt;BudgetProvider&gt;
+                &lt;App /&gt;
+                &lt;/BudgetProvider&gt;
+              &lt;/StrictMode&gt;,
+            )
+          </code></pre>
+
+          <p>Si recargamos la app y abrimos en RDT componentes, vemos que ahora (antes en rojo) tenemos el BudgetProvider y Context.Provider. EN BudgetProvider vemos que viene el Reducer y el Budget mientras que en el Context.Provider viene el value con el dispatch y el state</p>
+
+          <img src="https://andune55.github.io/manual-react/assets/197-Dn3wRh3K.png" alt="img" loading="lazy">
+
+          <p>De esta forma ya hemos conectado y tenemos acceso a esa información.</p>
+
+          <p>¿Como podemos acceder al dispatch y al state (que es lo que estamos retornando en el prop value del tag <strong>&lt;BudgetContext.Provider&gt;&lt;/BudgetContext.Provider&gt;</strong> en el return de nuestro context)? Recordamos que se utiliza el Hook useContext(). Algo importante es que createContext aquí: <code class="language-ts">export const BudgetContext = createContext&lt;BudgetContextProps&gt;(null!)</code> genera el context y aquí con <strong>useReducer</strong>le estamos "pasando el reducer" <code class="language-ts">const[state, dispatch] = useReducer(budgetReducer, initialState)</code> pero para poder utilizar este context, acceder y utilizar a lo que le estamos retornando en ese prop value <code class="language-ts">value={{state,dispatch}}</code> vamos a utilizar en <span class="file">App.tsx</span> useContext(), creando una nueva variable <strong>context</strong> en la que usamos este hook pasándole BudgetContext: <code class="language-ts">const context = useContext(BudgetContext)</code>. Si hacemos un console.log(context) vemos como aparece state y dispatch</p>
+
+          <div class="flex max-sm:flex-col">
+            <div class="w-[50%] max-sm:w-[100%]">
+              <pre data-line="3,7"><code class="language-ts">
+                //App.tsx
+                import { useContext } from 'react';
+                import BudgetForm from './components/BudgetForm';
+                import { BudgetContext } from './context/BudgetContext';    
+                
+                function App() {
+                
+                  const context = useContext(BudgetContext)
+                  console.log(context)
+                
+                  return (
+                    &lt;&gt;
+                    &lt;header className=&quot;bg-blue-600 py-8 max-h-72&quot;&gt;
+                      &lt;h1 className=&quot;uppercase text-center font-black text-4xl text-white&quot;&gt;Planificador de gastos&lt;/h1&gt;
+                    &lt;/header&gt;
+                
+                    &lt;div className=&quot;max-w-3xl mx-auto bg-white shadow-lg rounded-lg mt-10 p-10&quot;&gt;
+                      
+                      &lt;BudgetForm /&gt;
+                      
+                    &lt;/div&gt;
+                    &lt;/&gt;
+                  )
+                }
+                
+                export default App
+              </code></pre>
+            </div>
+            <div class="w-[50%] max-sm:w-[100%] ml-2">
+              <img src="https://andune55.github.io/manual-react/assets/197-2-D-RtwR4t.png" alt="img" loading="lazy">
+            </div>
+          </div>
+
+          <p>Pone un ejemplo para que queda un poco más claro cual es el uso de ese value... crea en BudgetContext.tsx una const auth = true y la pasa como objeto en ese objeto prop 'value'. Si vemos el console.log que tenemos vemos que aparece!</p>
+
+          <div class="flex max-sm:flex-col">
+            <div class="w-[50%] max-sm:w-[100%] mr-2">
+              <img src="https://andune55.github.io/manual-react/assets/197-3-DhAoS4OM.png" alt="img" loading="lazy">              
+            </div>
+            <div class="w-[50%] max-sm:w-[100%]">
+              <p>Podemos agregar más variables, funciones, state.... y en este value vamos colocando lo que vamos a poder consumir en nuestros componentes utilizando useContext() como acabamos de ver en el ejemplo de App.tsx <code class="language-ts">const context = useContext(BudgetContext)</code>. 
+            </div>
+          </div>
+
+          <p>Pero utilizar en nuestra App.tsx useContext() para acceder a los contenidos de ese provider, (creando una variable nueva que llamamos 'context' a la que le asignamos el hook useContext() al que le pasamos nuestro context <code class="language-ts">const context = useContext(BudgetContext)</code>) no es la mejor forma. <span class="destacado">Es mejor usar un custom hook para ello</span>, veámoslo a continuación.</p>
 
         </div>
 
-<!-- Bloque desplegable interior-->
-<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion13-197').toggle();">
-  <h3>197. Agregando el Context a nuestra aplicación</h3>
-  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
-</div>
-<div id="seccion13-197" class="hidden">
+        <!-- Bloque desplegable interior-->
+        <div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion13-198').toggle();">
+          <h3>198. Creando un Hook para fácilmente acceder al Context y al Reducer</h3>
+          <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+        </div>
+        <div id="seccion13-198" class="hidden">
+          <p>Ya hemos creado nuestro context y también tenemos nuestro provider:</p>
+
+          <pre data-line="4-7,12, 20-23"><code class="language-ts">
+            //BudgetContext.tsx
+            import { useReducer, createContext, Dispatch, ReactNode } from &#39;react&#39;;
+            import { BudgetState, BudgetActions, budgetReducer, initialState } from &quot;../reducers/budget-reducer&quot;
+            
+            type BudgetContextProps = {
+                state:  BudgetState
+                dispatch: Dispatch&lt;BudgetActions&gt;
+            }
+            type BudgetProviderProps = {
+                children : ReactNode
+            }
+            
+            export const BudgetContext = createContext&lt;BudgetContextProps&gt;(null!)
+            
+            export const BudgetProvider = ({children}: BudgetProviderProps) =&gt; {
+            
+                const[state, dispatch] = useReducer(budgetReducer, initialState)
+              
+                return(
+                    &lt;BudgetContext.Provider
+                        value={{
+                            state,
+                            dispatch
+                        }}
+                    &gt;
+                        {children}
+                    &lt;/BudgetContext.Provider&gt;
+                )
+            
+            }
+          </code></pre>
+            
+            
+          <p><strong>Creemos nuestro custom hook que haga exactamente lo que acabamos de ver en el App.tsx del punto anterior.</strong></p>
+          
+          <p>Creamos <span class="file">hooks&gt;useBudget.ts</span> donde importamos el hook useContext y el context que queremos utilizar con él. A continuación creamos la variable useBudget que va a ser un arrow function y no vamos a retornar un objeto porque, como vemos en nuestro console.log anterior de App.tsx retorna el context completo (que tiene state y dispatch). Dentro del arrow function creamos la variable <span class="destacado">export const = useBudget () =&gt; {}</span> que es un arrow function en el que creamos la variable 'context' (que es la que habíamos creado antes en nuestra App.tsx) y en la que usamos el Hook de React useContext() para pasarle nuestro context personalizado. <strong>Mirar nuestro context en el 1er code de este desplegable para no perdernos</strong>:</p>
+          
+          <pre><code class="language-ts">
+            //hooks&gt;useBudget.ts
+            import { useContext } from "react"
+            import { BudgetContext } from "../context/BudgetContext"
+            
+            export const useBudget = () => {
+                const context = useContext(BudgetContext)
+                return context
+            }
+          </code></pre>
+
+          <p>Limpiamos así nuestro compo ppal App.tsx, para usar nuestro custom hook <strong>useBudget.tsx</strong>. Probamos a usar nuestro custom hook con este destructuring que extrae esos 2 objetos de nuestro context 'BudgetContext' (que es el que le estamos pasando al useContext() de mi custom hook) <code class="language-ts">const{ state, dispatch } = useBudget()</code>Vemos con el console.log(state) que nos muestra el budget: 0. Si abrimos nuestro reducer y en el initialState detras de budget:0 ponemos auth:true vemos en la consola que también nos lo muestra, porque <strong>va a estar conectado todo el tiempo con ese state y también podremos añadir más acciones, que se muestran/pueden usar por medio del dispatch</strong>:</p>
+          <div class="flex max-sm:flex-col">
+            <div class="w-[50%] max-sm:w-[100%]">
+              <pre data-line="2,6,7"><code class="language-ts">
+                //App.tsx
+                import BudgetForm from './components/BudgetForm';
+                import { useBudget } from './hooks/useBudget';    
+                
+                function App() {
+                
+                  const{ state, dispatch } = useBudget()
+                  console.log(state)
+                
+                  return (
+                    &lt;&gt;
+                    &lt;header className=&quot;bg-blue-600 py-8 max-h-72&quot;&gt;
+                      &lt;h1 className=&quot;uppercase text-center font-black text-4xl text-white&quot;&gt;Planificador de gastos&lt;/h1&gt;
+                    &lt;/header&gt;
+                
+                    &lt;div className=&quot;max-w-3xl mx-auto bg-white shadow-lg rounded-lg mt-10 p-10&quot;&gt;
+                      
+                      &lt;BudgetForm /&gt;
+                      
+                    &lt;/div&gt;
+                    &lt;/&gt;
+                  )
+                }
+                
+                export default App    
+              </code></pre>
+            </div>
+            <div class="w-[50%] max-sm:w-[100%]">
+              <img src="https://andune55.github.io/manual-react/assets/198-1-CldQg20q.png" alt="img" loading="lazy">
+
+              <pre data-line="4"><code class="language-ts">
+                //budget-reducer.ts
+                ...
+                export const initialState: BudgetState = {
+                  budget: 0,
+                  auth: true
+                }
+                ...
+              </code></pre>
+
+              <img src="https://andune55.github.io/manual-react/assets/198-2-B4bJuWFG.png" alt="img" loading="lazy">
+            </div>
+          </div>
+
+          <p>Una buena práctica cuando creamos nuestros hooks y tienen un context es colocar un if que maneje la casuística de que no tengamos context lanzando un error con un mensjae en inglés a poder ser, que recuerde qué context(el que importamos <strong>BudgetContext</strong>) utiliza nuestra variable arrow function que lo maneja / o qué provider (<strong>BudgetProvider</strong>) --&gt; eso le dice a los usuarios: tienes que rodear tu app con este provider para poder hacer uso de mi custom hook. Y así es como se crean las librerías (los paquetes npm) que utilizan context API (si por ejemplo probamos en el main.tsx a quitar el tag del provider que envuelve el tag de nuestra app vemos que lanza ese error en consola). Así garantizas que el usuario haya tenido ese provider y entonces en ese provider comenzar a agregar los datos de la aplicación. <span class="destacado">Esta es su forma favorita de que todo esté controlado tener un reducer, un context y utilizar typescript.</span></p>
+
+          <pre><code class="language-ts">
+            //useBudget.ts
+            import { useContext } from "react"
+            import { BudgetContext } from "../context/BudgetContext"
+            
+            export const useBudget = () => {
+                const context = useContext(BudgetContext)
+                if(!context){
+                    throw new Error('useBudget must be used within a BudgetContext')
+                    //throw new Error('useBudget must be used within a BudgetProvider')
+                }
+                return context
+            }
+          </code></pre>
+
+          <p>Dejemos bien limpio nuestro compo ppal App.tsx y a continuación usaremos nuestro custom hook <strong>useBudget.ts</strong> para definir nuestro presupuesto.</p>
+
+          <pre><code class="language-ts">
+            //App.tsx
+            import BudgetForm from './components/BudgetForm';
+
+            function App() {
+            
+              return (
+                &lt;&gt;
+                &lt;header className=&quot;bg-blue-600 py-8 max-h-72&quot;&gt;
+                  &lt;h1 className=&quot;uppercase text-center font-black text-4xl text-white&quot;&gt;Planificador de gastos&lt;/h1&gt;
+                &lt;/header&gt;
+            
+                &lt;div className=&quot;max-w-3xl mx-auto bg-white shadow-lg rounded-lg mt-10 p-10&quot;&gt;
+                  
+                  &lt;BudgetForm /&gt;
+                  
+                &lt;/div&gt;
+                &lt;/&gt;
+              )
+            }
+            
+            export default App
+            
+          </code></pre>
 
 
-</div>
+          
 
-<!-- Bloque desplegable interior-->
-<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion13-198').toggle();">
-  <h3>198. Creando un Hook para fácilmente acceder al Context y al Reducer</h3>
-  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
-</div>
-<div id="seccion13-198" class="hidden">
+        </div>
 
-
-</div>
 
 <!-- Bloque desplegable interior-->
 <div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion13-199').toggle();">
   <h3>199. Llamando las acciones del reducer desde el Hook por medio del Context</h3>
   <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
 </div>
-<div id="seccion13-199" class="hidden">
+<div id="seccion13-199" class="">
+  <p>Vamos a usar nuestro custom hook para definir nuestro presupuesto y escribir en nuestro reducer lo que el usuario ponga en el input. Hasta ahora ¿cómo lo hemos hecho? hemos estado usando nuestro reducer en el app.tsx, extraíamos state y dispatch, pasamos por ejemplo dispatch como prop al compo BudgetForm.tsx, lo agregamos a la firma de nuestro type... pero <span class="destacado">gracias a que ya tenemos configurado context API</span> no tenemos que hacerlo así. Vamos a usar nuestro custom hook <span class="file">useBudget.tsx</span> directamente en el componente. Y podemos tener múltiples instancias de ese custom hook, pero al final solo vamos a tener una instancia del state y de las funciones de tipo dispatch. Abrimos nuestro componente <span class="file">BudgetForm.tsx</span> y definimos un handleSubmit (recordar usar el IS para inferir el type del 'e', no tenemos que memorizar), ponemos un console.log() para ver que funciona y lo probamos. Es ahí donde vamos a usar el dispatch pero <strong>Ya no tenemos que hacerlo en el app.tsx ni usar useReducer, de aquí en adelante usamos nuestro hook useBudget.ts (donde tenemos habilitado context API y por tanto tenemos nuestro estado global) que lo importamos</strong>. Extraemos el dispatch de nuestro custom Hook con destructuring (<span class="destacado">ojo! llaves{} y no corchetes[]. useReducer nos retornaba state y dispatch ¡en un arreglo!. En este caso es un custom hook, tiene que ser con llaves</span>) y directamente lo usamos en nuestro handleSubmit!!!</p>
+
+  <pre data-line="1,6,8-12,15"><code class="language-ts">
+    //BudgetForm.tsx
+    import { useBudget } from "../hooks/useBudget"
+
+    export default function BudgetForm() {
+
+      const [budget, setBudget] = useState(0)
+      const { dispatch } = useBudget() //ojo! llaves{} y no corchetes[]. useReducer nos retornaba state y dispatch ¡en un arreglo!. En este caso es un custom hook, tiene que ser con llaves
+      ...
+      const handleSubmit = (e:FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        //console.log('Añadir o definir presupuesto')
+        dispatch({type: 'add-budget', payload: {budget}})
+      }   
+
+      return (
+        &lt;form className=&quot;space-y-5&quot; onSubmit={handleSubmit}&gt;
+        ...
+  </code></pre>
+
 
 
 </div>
@@ -487,11 +745,271 @@
 </div>
 
 <!-- Bloque desplegable interior-->
-<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion13-XX').toggle();">
-  <h3>XXXXXXXXXXXXXXX</h3>
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion13-202').toggle();">
+  <h3>202. Instalando Headless UI para tener una ventana modal - <a class="text-white underline" href="https://gist.github.com/codigoconjuan/92e8a52abc8bd9ea5b81e5ad664d8ef0" target="blank">ExpenseModal.tsx</a></h3>
   <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
 </div>
-<div id="seccion13-XX" class="hidden">
+<div id="seccion13-202" class="hidden">
+
+
+</div>
+
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion13-203').toggle();">
+  <h3>203. Mostrando el Modal cuando agregamos un nuevo gasto</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion13-203" class="hidden">
+
+
+</div>
+
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion13-204').toggle();">
+  <h3>204. Agregando una acción para cerrar el modal</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion13-204" class="hidden">
+
+
+</div>
+
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion13-205').toggle();">
+  <h3>205. Creando el Formulario de Gastos</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion13-205" class="hidden">
+
+
+</div>
+
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion13-206').toggle();">
+  <h3>206. Agregando un calendario definir la fecha de gasto</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion13-206" class="hidden">
+
+
+</div>
+
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion13-207').toggle();">
+  <h3>207. Definiendo el Type para los gastos</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion13-207" class="hidden">
+
+
+</div>
+
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion13-208').toggle();">
+  <h3>208. Escribiendo el gasto en el State</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion13-208" class="hidden">
+
+
+</div>
+
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion13-209').toggle();">
+  <h3>209. Mostrando una alerta si la validación falla en el formulario</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion13-209" class="hidden">
+
+
+</div>
+
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion13-210').toggle();">
+  <h3>210. Definiendo la acción para nuevos gastos</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion13-210" class="hidden">
+
+
+</div>
+
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion13-211').toggle();">
+  <h3>211. Reiniciar el Formulario y Ocultar el Modal si se agrega un gasto</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion13-211" class="hidden">
+
+
+</div>
+
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion13-212').toggle();">
+  <h3>212. Creando el Componente para mostrar los gastos</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion13-212" class="hidden">
+
+
+</div>
+
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion13-213').toggle();">
+  <h3>213. Mostrando los gastos</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion13-213" class="hidden">
+
+
+</div>
+
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion13-214').toggle();">
+  <h3>214. Mostrando los iconos de la categoría del gasto</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion13-214" class="hidden">
+
+
+</div>
+
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion13-215').toggle();">
+  <h3>215. Agregando interacción de Swipe a los gastos para Editar y Eliminar - <a class="underline text-white" href="https://www.npmjs.com/package/react-swipeable-list" target="_blank">react-swipeable-list</a> - <a class="underline text-white" href="https://gist.github.com/codigoconjuan/e1a67f2a729bc44978c2c7d0f946ce7e" target="_blank">gist para para swipleable List</a></h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion13-215" class="hidden">
+
+
+</div>
+
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion13-216').toggle();">
+  <h3>216. Eliminando un gasto cuando ejecutamos un Swipe</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion13-216" class="hidden">
+
+
+</div>
+
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion13-217').toggle();">
+  <h3>217. Seleccionando el Gasto a Editar cuando ejecutamos Swipe en la otra dirección</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion13-217" class="hidden">
+
+
+</div>
+
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion13-218').toggle();">
+  <h3>218. Llenar el formulario del gasto a editar automáticamente</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion13-218" class="hidden">
+
+
+</div>
+
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion13-219').toggle();">
+  <h3>219. Editando el gasto</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion13-219" class="hidden">
+
+
+</div>
+
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion13-220').toggle();">
+  <h3>220. Mostrar de forma condicional si es un gasto nuevo o edición</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion13-220" class="hidden">
+
+
+</div>
+
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion13-221').toggle();">
+  <h3>221. Colocando gastos en LocalStorage</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion13-221" class="hidden">
+
+
+</div>
+
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion13-222').toggle();">
+  <h3>222. Trabajando con el Componente que muestra Presupuesto, Gastado y Disponible</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion13-222" class="hidden">
+
+
+</div>
+
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion13-223').toggle();">
+  <h3>223. Evitar Sobregirar el presupuesto</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion13-223" class="hidden">
+
+
+</div>
+
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion13-224').toggle();">
+  <h3>224. Agregando una gráfica circular interactiva y RETO 05</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion13-224" class="hidden">
+
+
+</div>
+
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion13-225').toggle();">
+  <h3>225. Crear un botón para reiniciar la app</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion13-225" class="hidden">
+
+
+</div>
+
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion13-226').toggle();">
+  <h3>226. Creando un componente para filtrar los gastos</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion13-226" class="hidden">
+
+
+</div>
+
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion13-227').toggle();">
+  <h3>227. Escribiendo en el State la categoría a filtrar</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion13-227" class="hidden">
+
+
+</div>
+
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion13-228').toggle();">
+  <h3>228. Mostrar los gastos de la categoría seleccionada y Building de la App</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion13-228" class="hidden">
 
 
 </div>
