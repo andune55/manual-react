@@ -696,54 +696,144 @@
         </div>
 
 
-<!-- Bloque desplegable interior-->
-<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion13-199').toggle();">
-  <h3>199. Llamando las acciones del reducer desde el Hook por medio del Context</h3>
-  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
-</div>
-<div id="seccion13-199" class="">
-  <p>Vamos a usar nuestro custom hook para definir nuestro presupuesto y escribir en nuestro reducer lo que el usuario ponga en el input. Hasta ahora ¿cómo lo hemos hecho? hemos estado usando nuestro reducer en el app.tsx, extraíamos state y dispatch, pasamos por ejemplo dispatch como prop al compo BudgetForm.tsx, lo agregamos a la firma de nuestro type... pero <span class="destacado">gracias a que ya tenemos configurado context API</span> no tenemos que hacerlo así. Vamos a usar nuestro custom hook <span class="file">useBudget.tsx</span> directamente en el componente. Y podemos tener múltiples instancias de ese custom hook, pero al final solo vamos a tener una instancia del state y de las funciones de tipo dispatch. Abrimos nuestro componente <span class="file">BudgetForm.tsx</span> y definimos un handleSubmit (recordar usar el IS para inferir el type del 'e', no tenemos que memorizar), ponemos un console.log() para ver que funciona y lo probamos. Es ahí donde vamos a usar el dispatch pero <strong>Ya no tenemos que hacerlo en el app.tsx ni usar useReducer, de aquí en adelante usamos nuestro hook useBudget.ts (donde tenemos habilitado context API y por tanto tenemos nuestro estado global) que lo importamos</strong>. Extraemos el dispatch de nuestro custom Hook con destructuring (<span class="destacado">ojo! llaves{} y no corchetes[]. useReducer nos retornaba state y dispatch ¡en un arreglo!. En este caso es un custom hook, tiene que ser con llaves</span>) y directamente lo usamos en nuestro handleSubmit!!!</p>
+        <!-- Bloque desplegable interior-->
+        <div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion13-199').toggle();">
+          <h3>199. Llamando las acciones del reducer desde el Hook por medio del Context</h3>
+          <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+        </div>
+        <div id="seccion13-199" class="hidden">
+          <p>Vamos a usar nuestro custom hook para definir nuestro presupuesto y escribir en nuestro reducer lo que el usuario ponga en el input. Hasta ahora ¿cómo lo hemos hecho? hemos estado usando nuestro reducer en el app.tsx, extraíamos state y dispatch, pasamos por ejemplo dispatch como prop al compo BudgetForm.tsx, lo agregamos a la firma de nuestro type... pero <span class="destacado">gracias a que ya tenemos configurado context API</span> no tenemos que hacerlo así. Vamos a usar nuestro custom hook <span class="file">useBudget.tsx</span> directamente en el componente. Y podemos tener múltiples instancias de ese custom hook, pero al final solo vamos a tener una instancia del state y de las funciones de tipo dispatch. Abrimos nuestro componente <span class="file">BudgetForm.tsx</span> y definimos un handleSubmit (recordar usar el IS para inferir el type del 'e', no tenemos que memorizar), ponemos un console.log() para ver que funciona y lo probamos. Es ahí donde vamos a usar el dispatch pero <strong>Ya no tenemos que hacerlo en el app.tsx ni usar useReducer, de aquí en adelante usamos nuestro hook useBudget.ts (donde tenemos habilitado context API y por tanto tenemos nuestro estado global) que lo importamos</strong>. Extraemos el dispatch de nuestro custom Hook con destructuring (<span class="destacado">ojo! llaves { } y no corchetes [ ]. useReducer nos retornaba state y dispatch ¡en un arreglo!. En este caso es un custom hook, tiene que ser con llaves porque retorna un objeto</span>) y directamente lo usamos en nuestro handleSubmit!!!</p>
 
-  <pre data-line="1,6,8-12,15"><code class="language-ts">
-    //BudgetForm.tsx
-    import { useBudget } from "../hooks/useBudget"
+          <pre data-line="1,6,8-12,15"><code class="language-ts">
+            //BudgetForm.tsx
+            import { useBudget } from "../hooks/useBudget"
 
-    export default function BudgetForm() {
+            export default function BudgetForm() {
 
-      const [budget, setBudget] = useState(0)
-      const { dispatch } = useBudget() //ojo! llaves{} y no corchetes[]. useReducer nos retornaba state y dispatch ¡en un arreglo!. En este caso es un custom hook, tiene que ser con llaves
-      ...
-      const handleSubmit = (e:FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        //console.log('Añadir o definir presupuesto')
-        dispatch({type: 'add-budget', payload: {budget}})
-      }   
+              const [budget, setBudget] = useState(0)
+              const { dispatch } = useBudget() //ojo! llaves{} y no corchetes[]. useReducer nos retornaba state y dispatch ¡en un arreglo!. En este caso es un custom hook, tiene que ser con llaves
+              ...
+              const handleSubmit = (e:FormEvent<HTMLFormElement>) => {
+                e.preventDefault();
+                //console.log('Añadir o definir presupuesto')
+                dispatch({type: 'add-budget', payload: {budget}})
+              }   
 
-      return (
-        &lt;form className=&quot;space-y-5&quot; onSubmit={handleSubmit}&gt;
-        ...
-  </code></pre>
+              return (
+                &lt;form className=&quot;space-y-5&quot; onSubmit={handleSubmit}&gt;
+                ...
+          </code></pre>
+
+          <p>Si probamos, en RDT en componentes y pulsamos en BudgetProvider, vemos que el budget es 0 (es como tenemos definido el initialState en nuestro budget-reducer.ts) pero si ahora ponemos una cantidad en el formulario y le damos al botón "Definir presupuesto" vemos que estamos escribiendo en nuestro state de presupuesto. Entonces como vemos va a ser una gran ventaja haber incorporado context API para tener un estado global en nuestras apps. Sí fue bastante código pero <span class="destacado">recapitulemos</span>:</p>
+
+          <ul class="list-disc my-2.5">
+            <li>hemos definido este context: <span class="file">BudgetContext.tsx</span> en el cual creamos el context <strong>BudgetContext</strong> usando la función de React createContext() y también nuestro provider <strong>BudgetProvider</strong>. Para decirle que este provider va a tener state y dispatch creamos el type BudgetContextProps. La forma en que utilizamos o conectamos el context con este provider es con el return &lt;BudgetContext.Provider&gt;&lt;/BudgetContext.Provider&gt; </li>
+            <li>Como estamos utilizando useReducer nos da acceso a BudgetReducer y vamos a poder definir y mandar llamar las acciones, como acabamos de hacer en nuestro componente BudgetForm.tsx utilizando dispatch</li>
+            <li>La forma en que conectamos nuestro archivo de context BudgetContext.tsx creado a parte con nuestra aplicación, es en nuestro archivo <span class="file">main.tsx</span> en donde "envolvemos" nuestra aplicación con nuestro provider
+              <pre><code class="language-ts">
+                //main.tsx
+                &lt;BudgetProvider&gt;
+                  &lt;App /&gt;
+                &lt;/BudgetProvider&gt;
+              </code></pre>
+            </li>
+            <li>Para no estar escribiendo useContext() pasándole el context, hemos creado un custom Hook llamado <span class="file">useBudget.ts</span> donde importamos useContext() y el context en cuestión (BudgetContext), lo montamos, nos aseguramos de que tengamos un provider (si no lanzamos el error) y lo vamos a utilizar directamente en nuestros componentes, como hemos hecho en <span class="file">BudgetForm.tsx</span> importándolo <code class="language-ts">import { useBudget } from "../hooks/useBudget"</code> lo cual me da acceso a todas las funciones que tenga ese provider (en nuestro último ejemplo fue dispatch) tal cual se define en el prop value del tag del provider que escribimos en el return del correspondiente fichero.</li>
+          </ul>
+
+          <p>Este context ya no va a tener nada más de código, vamos a estar escribiendo todo lo demás en el reducer. Este es un Boilerplate que va a estar prácticamente en todos los proyectos así que guardemos el código, no hace falta memorizarlo, y cuando vayamos a usarlo lo copiamos, pegamos y lo vamos adaptando. En base a esa repetición e ir creando nuestros proyectos todo esto se irá haciendo má sencillo.</p>
+
+          <pre><code class="language-ts">
+            //BudgetContext.tsx
+            import { useReducer, createContext, Dispatch, ReactNode } from &#39;react&#39;;
+            import { BudgetState, BudgetActions, budgetReducer, initialState } from &quot;../reducers/budget-reducer&quot;
+            
+            type BudgetContextProps = {
+                state:  BudgetState
+                dispatch: Dispatch&lt;BudgetActions&gt;
+            }
+            type BudgetProviderProps = {
+                children : ReactNode
+            }
+            
+            export const BudgetContext = createContext&lt;BudgetContextProps&gt;(null!)
+            
+            export const BudgetProvider = ({children}: BudgetProviderProps) =&gt; {
+            
+                const[state, dispatch] = useReducer(budgetReducer, initialState)
+              
+                return(
+                    &lt;BudgetContext.Provider
+                        value={{
+                            state,
+                            dispatch
+                        }}
+                    &gt;
+                        {children}
+                    &lt;/BudgetContext.Provider&gt;
+                )
+            
+            }
+          </code></pre>
 
 
+        </div>
 
-</div>
+        <!-- Bloque desplegable interior-->
+        <div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion13-200').toggle();">
+          <h3>200. Mostrando de forma condicional un componente si el presupuesto es válido</h3>
+          <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+        </div>
+        <div id="seccion13-200" class="hidden">
+          <p>Una vez que defino un presupuesto ya quiero ocultar este componente BudgetForm.tsx y comenzar a mostrar otros. Para continuar trabajando en esa dirección, tenemos que:</p>
 
-<!-- Bloque desplegable interior-->
-<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion13-200').toggle();">
-  <h3>200. Mostrando de forma condicional un componente si el presupuesto es válido</h3>
-  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
-</div>
-<div id="seccion13-200" class="hidden">
+          <ul class="list-disc my-2.5">
+            <li><strong>Creamos un nuevo componente</strong> <span class="file">components&gt;BudgetTracker.tsx</span> que nos servirá para mostrar qué cantidad hemos definido como presupuesto, cuanto hemos gastado y cuanto nos queda.</li>
+            <li><strong>Leemos el state de nuestro context</strong>. Vamos a nuestro compo ppal <span class="file">App.tsx</span> donde vamos a importar nuestro custom hook y leer nuestro state. Ponemos un console.log(state.budget) y si recargamos y definimos un nuevo presupuesto vemos que aparece en la consola ese presupuesto.</li>
+            <li><strong>Escribimos algo para validar ese presupuesto</strong>. Importamos useMemo() y, pasándole como dependencia el valor de state.budget vamos a comprobar si state.budget>0 (que es su valor inicial) y de esa forma comprobaremos si ya ha sido modificado por el usuario <code class="language-ts">const isValidObject = useMemo(()=> state.budget>0, [state.budget])</code>. Y a continuación en la parte del return de nuestro App.tsx donde simplemente escribíamos el tag del compo BudgetForm.tsx, vamos a completarlo utilizando nuestra nueva función para validar si ya tenemos presupuesto válido o no ¿no? renderiza el compo BudgetForm.tsx ¿si? renderiza nuestro nuevo compo BudgetTracker.tsx <code class="language-ts"> {isValidObject? &lt;BudgetTracker /&gt; : &lt;BudgetForm /&gt;}</code></li>    
+          </ul>
+            
 
+          <pre data-line="1,2,4,7,19"><code class="language-ts">
+            //App.tsx
+            import { useMemo } from 'react';
+            import { useBudget } from './hooks/useBudget';
+            import BudgetForm from './components/BudgetForm';
+            import BudgetTracker from './components/BudgetTracker';
+            
+            function App() {
+              const {state} = useBudget()
+              const isValidObject = useMemo(()=> state.budget>0, [state.budget])
+            
+              return (
+                &lt;&gt;
+                &lt;header className=&quot;bg-blue-600 py-8 max-h-72&quot;&gt;
+                  &lt;h1 className=&quot;uppercase text-center font-black text-4xl text-white&quot;&gt;
+                    Planificador de gastos
+                  &lt;/h1&gt;
+                &lt;/header&gt;
+            
+                &lt;div className=&quot;max-w-3xl mx-auto bg-white shadow-lg rounded-lg mt-10 p-10&quot;&gt;      
+                  {isValidObject? &lt;BudgetTracker /&gt; : &lt;BudgetForm /&gt;}    
+                &lt;/div&gt;
+                &lt;/&gt;
+              )
+            }
+            
+            export default App
+          </code></pre>
 
-</div>
+          
+
+        </div>
 
 <!-- Bloque desplegable interior-->
 <div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion13-201').toggle();">
   <h3>201. Creando el Componente con las cantidades y la gráfica</h3>
   <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
 </div>
-<div id="seccion13-201" class="hidden">
+<div id="seccion13-201" class="">
+
+  <p>Trabajamos con nuestro nuevo componente <span class="file">BudgetTracker.tsx</span></p>
 
 
 </div>
