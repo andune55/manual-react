@@ -22,7 +22,7 @@
     <div>   
       
 
-      <!-- SECCION 13 -->
+    <!-- SECCION 13 -->
     <div class="w-[80%] max-sm:w-[96%] mx-auto bg-gray-200 my-1.25 py-0.75 pr-0 pl-2.5 rounded-xl">
 
       <div class="flex items-center mt-1.25 cursor-pointer desplegable justify-between" onclick="$('#seccion13').toggle();">
@@ -82,6 +82,7 @@
                 </li>
               </ul>                   
             </li>
+            <li>Tenemos que instalar @heroicons <span class="destacado">npm install @heroicons/react</span> y @headlessui <span class="destacado">npm install @headlessui/react</span> en el vídeo 202. Lo podemos ir haciendo.</li>
           </ul>
         </div>
 
@@ -122,7 +123,7 @@
 
         <!-- Bloque desplegable interior-->
         <div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion13-192').toggle();">
-          <h3>192. Creando el Formulario <code class="language-js">&lt;BudgetForm /&gt;</code> para Definir el presupuesto / 193. Validando el presupuesto / 194. Creando el Reducer para Presupuestos</h3>
+          <h3>192. Creando el Formulario para Definir el presupuesto / 193. Validando el presupuesto / 194. Creando el Reducer para Presupuestos</h3>
           <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
         </div>
         <div id="seccion13-192" class="hidden">
@@ -698,7 +699,7 @@
 
         <!-- Bloque desplegable interior-->
         <div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion13-199').toggle();">
-          <h3>199. Llamando las acciones del reducer desde el Hook por medio del Context</h3>
+          <h3>199. Llamando las acciones del reducer desde el Hook por medio del Context <span class="destacado">BudgetContext.tsx</span></h3>
           <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
         </div>
         <div id="seccion13-199" class="hidden">
@@ -826,55 +827,277 @@
 
         </div>
 
-<!-- Bloque desplegable interior-->
-<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion13-201').toggle();">
-  <h3>201. Creando el Componente con las cantidades y la gráfica</h3>
-  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
-</div>
-<div id="seccion13-201" class="">
+        <!-- Bloque desplegable interior-->
+        <div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion13-201').toggle();">
+          <h3>201. Creando el Componente con las cantidades y la gráfica</h3>
+          <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+        </div>
+        <div id="seccion13-201" class="hidden">
 
-  <p>Trabajamos con nuestro nuevo componente <span class="file">BudgetTracker.tsx</span></p>
+          <p>Trabajamos con nuestro nuevo componente <span class="file">BudgetTracker.tsx</span>:</p>
+          <ul class="list-disc my-2.5">
+            <li>Añadimos clases de tailwindcss, el gráfico estático que tenemos en public (más adelante lo haremos dinámico), el botón de reset</li>
+            <li>Creamos un compo nuevo para las cantidades: <span class="file">AmountDisplay.tsx</span> y lo renderizamos 3 veces en nuestro compo BudgetTracker.tsx con sus correspondientes props de label y amount. <strong>Esas props las extraemos con destructuring y tipamos con su type de props en ese compo nuevo específico para cantidades AmountDisplay.tsx.</strong> Como queremos formatearlo como dinero creamos <span class="file">helpers&gt;index.ts</span>
+            <pre data-line="0"><code class="language-ts">
+              //helpers&gt;index.ts
+              export function formatCurrency(amount: number){
+                return new Intl.NumberFormat('es-ES', { style: 'currency', currency: 'EUR' }).format(amount)
+            }
+            </code></pre>    
+
+            <div class="flex max-sm:flex-col">
+              <div class="w-[50%] max-sm:w-[100%]">
+                <img class="mx-auto" src="./src/assets/img/201.png" alt="img" loading="lazy">
+                <pre data-line="2-5,7"><code class="language-js">
+                  //AmountDisplay.tsx
+                  import { formatCurrency } from "../helpers"
+                  type AmountDisplayProps = {
+                      label: string
+                      amount: number
+                  }
+                  
+                  export default function AmountDisplay({label, amount} : AmountDisplayProps) {
+                    return (
+                      &lt;p className=&quot;text-2xl text-blue-600 font-bold&quot;&gt;
+                          {label}: {&#39;&#39;}
+                          &lt;span className=&quot;text-black&quot;&gt;{formatCurrency(amount)}&lt;/span&gt;
+                      &lt;/p&gt;
+                    )
+                  }
+                </code></pre>                
+              </div>
+              <div class="w-[50%] max-sm:w-[100%]">
+                <pre data-line="17,18,21,22,25,26"><code class="language-js">
+                  //BudgetTracker.tsx
+                  import AmountDisplay from './AmountDisplay';
+                  export default function BudgetTracker() {
+                    return (
+                      &lt;div className=&quot;grid grid-cols-1 md:grid-cols-2 gap-5&quot;&gt;
+                          &lt;div className=&quot;flex justify-center&quot;&gt;
+                              &lt;img src=&quot;./grafico.jpg&quot; alt=&quot;Gráfica de gastos&quot; /&gt;
+                          &lt;/div&gt;
+                  
+                          &lt;div className=&quot;flex flex-col justify-center items-center gap-8&quot;&gt;
+                              &lt;button
+                                  type=&quot;button&quot;
+                                  className=&#39;bg-pink-600 w-full p-2 text-white uppercase font-bold rounded-lg&#39;&gt;
+                                      Resetear App
+                              &lt;/button&gt;
+                  
+                              &lt;AmountDisplay
+                                  label=&quot;Presupuesto&quot;
+                                  amount={300}
+                              /&gt;
+                              &lt;AmountDisplay
+                                  label=&quot;Disponible&quot;
+                                  amount={200}
+                              /&gt;
+                              &lt;AmountDisplay
+                                  label=&quot;Presupuesto&quot;
+                                  amount={100}
+                              /&gt;
+                          &lt;/div&gt;
+                      
+                      &lt;/div&gt;
+                    )
+                  }
+                </code></pre>
+              </div>              
+            </div>
+
+        </li>
+        </ul>
+
+          <p>Hasta aquí la parte superior de nuestro compo ppal App.tsx. Vamos a añadirle un div nuevo que va a tener una ventana modal en la cual vamos a poder mostrar el formulario para registrar gastos.</p>
+
+        </div>
+
+        <!-- Bloque desplegable interior-->
+        <div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion13-202').toggle();">
+          <h3>202. Instalando Headless UI para tener una ventana modal - <a class="text-white underline" href="https://gist.github.com/codigoconjuan/92e8a52abc8bd9ea5b81e5ad664d8ef0" target="blank">ExpenseModal.tsx</a></h3>
+          <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+        </div>
+        <div id="seccion13-202" class="hidden">
+          <p>Vamos a crear una ventan modal para mostrar el formulario con el que vamos a agregar los gastos.</p>
+
+          <ul class="list-disc my-2.5">
+            <li>Creamos nuevo componente <span class="file">ExpenseModal.tsx</span> y su contenido va a ser lo que copiemos del link del gist que tenemos en este apartado.</li>
+            <li>Tenemos que instalar @heroicons <span class="destacado">npm install @heroicons/react</span> y @headlessui <span class="destacado">npm install @headlessui/react</span> para que funcionen las importaciones correspondientes de lo que acabamos de copiar.</li>
+            <li>En nuestro <span class="file">App.tsx</span> tras el segundo div renderizamos nuestra modal con el tag correspondiente a este nuevo componente <code class="language-ts">&lt;ExpenseModal/&gt;</code> y veremos que nos aparece este signo de '+' en la parte inferior de nuestra interfaz:
+            <img src="./src/assets/img/202.png" alt="img" loading="lazy">
+            y al pulsarlo debe mostrar el modal (cambiando a true el false que hay en la línea 16 del código del componente modal: <code class="language-ts">&lt;Transition appear show={false} as={Fragment}&gt;&lt;/Transition&gt;</code>), lo haremos con un dispatch, pero si lo cambiamos un momento a mano veremos que se muestra correctamente el modal.
+            </li>
+            <li>Creamos un tag main <code class="language-ts">&lt;main&gt;&lt;/main&gt;</code> y movemos dentro el tag <code class="language-ts">&lt;ExpenseModal/&gt;</code>. (el modal está flotado, es decir no le van a afectar las clases de estilo del main, pero en él vamos a tener los gastos y el filtrado por categorías) </li>
+            <li>Si ahora mismo recargamos la pantalla vemos que ese '+' aparece cuando todavía no hemos definido el presupuesto así que vamos a controlar que eso no pase (es decir que solo aparezca el + una vez hayamos introducido un presupuesto) usando nuestro <code class="language-ts">const isValidObject = useMemo(()=> state.budget>0, [state.budget])</code> y lo utilizamos con && (es como un ternario pero solo se evalúa la condición del true):
+            <pre><code class="language-ts">
+              {isValidObject &amp;&amp; (
+                &lt;main className=&#39;max-w-3xl mx-auto py-10&#39;&gt;
+                  
+                  &lt;ExpenseModal/&gt;
+                &lt;/main&gt;
+              )}
+            </code></pre>
+            </li>
+            <li>El siguiente paso va a ser el dispatch para mostrar y ocultar el modal</li>
+          </ul>
+        </div>
+
+        <!-- Bloque desplegable interior-->
+        <div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion13-204').toggle();">
+          <h3>203. Mostrando el Modal cuando agregamos un nuevo gasto / 204. Agregando una acción para cerrar el modal</h3>
+          <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+        </div>
+        <div id="seccion13-204" class="hidden">
+          <p class="naranja">Mostrando el Modal cuando agregamos un nuevo gasto</p>
+
+          <p>Vamos a nuestro reducer <span class="file">budget-reducer.ts</span>, que es donde estamos manejando todo el código de nuestro state. Vamos a añadir una acción nueva 'show-modal' que no toma ningún payload porque solo cambia de false a true.</p>
+
+          <pre data-line="3,7,12,26-31"><code class="language-ts">
+            //budget-reducer.ts
+            export type BudgetActions = 
+            { type: 'add-budget', payload: {budget: number} } |
+            { type: 'show-modal' } 
+
+            export type BudgetState = {
+                budget: number
+                modal: boolean
+            }
+
+            export const initialState: BudgetState = {
+                budget: 0,
+                modal: false
+            }
+
+            export const budgetReducer = (
+                    state: BudgetState=initialState,
+                    action: BudgetActions
+                ) =&gt;{
+
+                if(action.type === &quot;add-budget&quot;){
+                    return{
+                        ...state,
+                        budget: action.payload.budget
+                    }
+                }
+                if(action.type === &quot;show-modal&quot;){
+                    return{
+                        ...state,
+                        modal: true
+                    }
+                }
+
+                return state
+            }
+          </code></pre>
+
+          <p>Vamos a nuestro compo <span class="file">ExpanseModal.tsx</span> y, <strong>recordando que todo nuestro state se maneja por medio del custom Hook:</strong></p>
+
+          <ul class="list-disc my-2.5">
+            <li><strong>Importamos nuestro custom Hook</strong><svg class="size-6 shrink-0 inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3"></path>
+            </svg> <code class="language-ts">import { useBudget } from '../hooks/useBudget'</code></li>
+            <li><strong>Extraemos state y dispatch</strong> <svg class="size-6 shrink-0 inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3"></path>
+            </svg> <code class="language-ts">const { state, dispatch } = useBudget()</code>.<br>
+              <span class="destacado">state</span> porque el modal se muestra en base al <code class="language-ts">show="{false}"</code> y queremos ya comenzar a controlarlo y hacerlo dinámico<br>
+              <span class="destacado">dispatch</span> porque, es el botón '+' que está en la parte superior el que controla que se muestre:
+              <div class="flex max-sm:flex-col">
+                <div class="w-[40%] max-sm:w-[100%]">
+                  <pre class="rojo" data-line="1-3,7"><code class="language-js">
+                    //ExpanseModal.tsx               
+                    &lt;button
+                      type=&quot;button&quot;
+                    &gt;
+                      &lt;PlusCircleIcon className=&#39;w-16 h-16 text-blue-600 rounded-full&#39; /&gt;
+                    &lt;/button&gt;    
+                    ...
+                    &lt;Transition appear show={false} as={Fragment}&gt;&lt;/Transition&gt;
+                  </code></pre>
+                </div>
+                <div class="w-[60%] max-sm:w-[100%]">
+                  <pre class="verde" data-line="3,8"><code class="language-js">
+                    //ExpanseModal.tsx
+                    &lt;button
+                      type=&quot;button&quot;
+                      onClick={() =&gt; dispatch({type:&#39;show-modal&#39;})}
+                    &gt;
+                      &lt;PlusCircleIcon className=&#39;w-16 h-16 text-blue-600 rounded-full&#39; /&gt;
+                    &lt;/button&gt;  
+                    ...
+                    &lt;Transition appear show={state.modal} as={Fragment}&gt;&lt;/Transition&gt; 
+                  </code></pre>
+                </div>
+              </div>
+            
+            </li>
+          </ul>
+
+          <p class="naranja">Agregando una acción para cerrar el modal</p>
+          <p>Si vemos el código del compo modal, vemos que aquí es donde se gestiona cerrarlo: <code class="language-ts">&lt;Dialog as=&quot;div&quot; className=&quot;relative z-10&quot; onClose={() =&gt; {}}&gt;</code></p>
+
+          <ul class="list-disc my-2.5">
+            <li>Añadimos una acción nueva 'close-modal' en nuestro reducer. No toma ningún payload porque solo cambia de true a false y añadimos el correspondiente:
+              <pre data-line="4,6-11"><code class="language-js">
+                //budget-reducer.ts
+                export type BudgetActions = 
+                { type: 'add-budget', payload: {budget: number} } |
+                { type: 'show-modal' } |
+                { type: 'close-modal' } 
+                ...
+                if(action.type === "close-modal"){
+                  return{
+                      ...state,
+                      modal: false
+                  }
+                }
+              </code></pre>
+            </li>
+            <li>Vamos a nuestro compo modal ExpenseModal.tsx y hacemos la modificación necesaria en la línea que controla el cerrado del modal:
+              <div class="flex max-sm:flex-col">
+                <div class="w-[40%] max-sm:w-[100%]">
+                  <pre class="rojo" data-line="1"><code class="language-js">
+                    //ExpenseModal.tsx
+                    &lt;Dialog as=&quot;div&quot; className=&quot;relative z-10&quot; onClose={() =&gt; {}}&gt;           
+                  </code></pre>
+                </div>
+                <div class="w-[60%] max-sm:w-[100%]">
+                  <pre class="verde" data-line="1"><code class="language-js">
+                    //ExpenseModal.tsx
+                    &lt;Dialog as=&quot;div&quot; className=&quot;relative z-10&quot; onClose={() =&gt; dispatch({type : &#39;close-modal&#39;})}&gt;
+                  </code></pre>
+                </div>
+              </div>
+            </li>
+            <li>Vamos a crear un componente nuevo <span class="file">ExpenseForm.tsx</span> que va a tener el formulario para registrar gastos. Lo vamos a llamar desde el componente modal, justo entre los tags <code class="language-ts">&lt;Dialog.Panel&gt;...&lt;/Dialog.Panel&gt;</code>:
+              <div class="flex max-sm:flex-col">
+                <div class="w-[50%] max-sm:w-[100%]">
+                  <pre data-line="3"><code class="language-js">
+                    //ExpenseModal.tsx
+                    ..
+                    &lt;Dialog.Panel className=&quot;w-full max-w-3xl transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all&quot;&gt;
+                      &lt;ExpenseForm /&gt;
+                    &lt;/Dialog.Panel&gt;
+                  </code></pre>
+                </div>
+                <div class="w-[50%] max-sm:w-[100%] ml-2">
+                  <img src="./src/assets/img/204.png" alt="img" loading="lazy">
+                </div>
+              </div>    
+              En él vamos a tener un formulario un poco más complejo con categoría a la que pertenece un gasto, la cantidad, la fecha en la que se hizo y le nombre del gasto.
+            </li>
+          </ul>
 
 
-</div>
+        </div>
 
-<!-- Bloque desplegable interior-->
-<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion13-202').toggle();">
-  <h3>202. Instalando Headless UI para tener una ventana modal - <a class="text-white underline" href="https://gist.github.com/codigoconjuan/92e8a52abc8bd9ea5b81e5ad664d8ef0" target="blank">ExpenseModal.tsx</a></h3>
-  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
-</div>
-<div id="seccion13-202" class="hidden">
-
-
-</div>
-
-<!-- Bloque desplegable interior-->
-<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion13-203').toggle();">
-  <h3>203. Mostrando el Modal cuando agregamos un nuevo gasto</h3>
-  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
-</div>
-<div id="seccion13-203" class="hidden">
-
-
-</div>
-
-<!-- Bloque desplegable interior-->
-<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion13-204').toggle();">
-  <h3>204. Agregando una acción para cerrar el modal</h3>
-  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
-</div>
-<div id="seccion13-204" class="hidden">
-
-
-</div>
 
 <!-- Bloque desplegable interior-->
 <div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion13-205').toggle();">
-  <h3>205. Creando el Formulario de Gastos</h3>
+  <h3>205. Creando el Formulario de Gastos - <a class="underline text-white" href="https://gist.github.com/codigoconjuan/75ba8738a387410b9fff81d96ffbc67d" target="_blank">Categorias para Admin de Gastos</a></h3>
   <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
 </div>
-<div id="seccion13-205" class="hidden">
-
+<div id="seccion13-205" class="">
+  <p>Comenzamos a trabajr con el formulario de gastos <span class="file">ExpenseForm-tsx</span></p>
 
 </div>
 
