@@ -1093,23 +1093,26 @@
 
 <!-- Bloque desplegable interior-->
 <div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion13-205').toggle();">
-  <h3>205. Creando el Formulario de Gastos - <a class="underline text-white" href="https://gist.github.com/codigoconjuan/75ba8738a387410b9fff81d96ffbc67d" target="_blank">Categorias para Admin de Gastos</a></h3>
+  <h3>205. Creando el Formulario de Gastos - <a class="underline text-white" href="https://gist.github.com/codigoconjuan/75ba8738a387410b9fff81d96ffbc67d" target="_blank">Categorias para Admin de Gastos</a> / 206. Agregando un calendario definir la fecha de gasto</h3>
   <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
 </div>
 <div id="seccion13-205" class="">
-  <p>Hablando con Juanjo. Comenzamos a trabajar con el formulario de gastos <span class="file">ExpenseForm-tsx</span></p>
+  <p>Comenzamos a trabajar con el formulario que sirve de entrada para procesar cada uno de los de gastos <span class="file">ExpenseForm-tsx</span>.</p>
+  <ul class="list-disc my-3">
+    <li>Nombre gasto. El name del input lo ponemos para poder escribir en el state. La función que modifica state y value la vemos un poco más adelante.</li>
+    <li>Cantidad</li>
+    <li>Creamos <span class="file">data&gt;categories.ts</span> Categorías que cogemos del gist <a class="underline text-black" href="https://gist.github.com/codigoconjuan/75ba8738a387410b9fff81d96ffbc67d" target="_blank">Categorias para Admin de Gastos</a> que es un arreglo que tiene objetos con id, nombre e icono.</li>
+    <li>También vamos a tener cuándo se realiza ese gasto, pero eso va a ser una dependencia para que sera más sencillo.</li>
+    <li>boton de submit</li>
+    <li>Tenemos que definir el state y conectarlo pero antes hagamos la dependencia para seleccionar de un date picker</li>
+  </ul>
+
+  <p class="naranja">Agregando calendario para definir la fecha de gasto - <a class="underline text-black" href="https://www.npmjs.com/" target="_blank">https://www.npmjs.com/</a></p>
+
+  <p>Buscamos react-date-picker y elegimos este que vemos que soporta TS <a class="underline" href="https://www.npmjs.com/package/react-date-picker" target="_blank">https://www.npmjs.com/package/react-date-picker</a></p>
 
 </div>
 
-<!-- Bloque desplegable interior-->
-<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion13-206').toggle();">
-  <h3>206. Agregando un calendario definir la fecha de gasto</h3>
-  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
-</div>
-<div id="seccion13-206" class="hidden">
-
-
-</div>
 
 <!-- Bloque desplegable interior-->
 <div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion13-207').toggle();">
