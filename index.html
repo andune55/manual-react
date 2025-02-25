@@ -10,8 +10,8 @@
     
     <!-- <script src="https://unpkg.com/@tailwindcss/browser@4"></script> -->
   
-    <script type="module" crossorigin src="https://andune55.github.io/manual-react/assets/index-qF2Bnf4b.js"></script>
-    <link rel="stylesheet" crossorigin href="https://andune55.github.io/manual-react/assets/index-D7MYjQUt.css">
+    <script type="module" crossorigin src="https://andune55.github.io/manual-react/assets/index-BkYhZKJw.js"></script>
+    <link rel="stylesheet" crossorigin href="https://andune55.github.io/manual-react/assets/index-B41IOcja.css">
   </head>
   <body>
     <div id="root"></div>	
@@ -78,7 +78,7 @@
                 </li>
               </ul>                   
             </li>
-            <li>Tenemos que instalar @heroicons <span class="destacado">npm install @heroicons/react</span> y @headlessui <span class="destacado">npm install @headlessui/react</span> en el vídeo 202. Lo podemos ir haciendo.</li>
+            <li>Tenemos que instalar @heroicons <span class="destacado">npm install @heroicons/react</span> y @headlessui <span class="destacado">npm install @headlessui/react</span> en el vídeo 202. También <span class="destacado">npm install uuid</span> en el vídeo 210. Lo podemos ir haciendo.</li>
           </ul>
         </div>
 
@@ -1086,73 +1086,417 @@
 
         </div>
 
+        <!-- Bloque desplegable interior-->
+        <div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion13-205').toggle();">
+          <h3>205. Creando el Formulario de Gastos - <a class="underline text-white" href="https://gist.github.com/codigoconjuan/75ba8738a387410b9fff81d96ffbc67d" target="_blank">Categorias para Admin de Gastos</a> / 206. Agregando un calendario definir la fecha de gasto</h3>
+          <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+        </div>
+        <div id="seccion13-205" class="hidden">
+          <p>Comenzamos a trabajar con el formulario que sirve de entrada para procesar cada uno de los de gastos <span class="file">ExpenseForm-tsx</span>.</p>
+          <ul class="list-disc my-3">
+            <li>Nombre gasto. El name del input lo ponemos para poder escribir en el state. La función que modifica state y value la vemos un poco más adelante.</li>
+            <li>Cantidad</li>
+            <li>Creamos <span class="file">data&gt;categories.ts</span> Categorías que cogemos del gist <a class="underline text-black" href="https://gist.github.com/codigoconjuan/75ba8738a387410b9fff81d96ffbc67d" target="_blank">Categorias para Admin de Gastos</a> que es un arreglo que tiene objetos con id, nombre e icono.</li>
+            <li>También vamos a tener cuándo se realiza ese gasto, pero eso va a ser una dependencia para que sera más sencillo.</li>
+            <li>boton de submit</li>
+            <li>Tenemos que definir el state y conectarlo pero antes hagamos la dependencia para seleccionar de un date picker</li>
+          </ul>
 
-<!-- Bloque desplegable interior-->
-<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion13-205').toggle();">
-  <h3>205. Creando el Formulario de Gastos - <a class="underline text-white" href="https://gist.github.com/codigoconjuan/75ba8738a387410b9fff81d96ffbc67d" target="_blank">Categorias para Admin de Gastos</a> / 206. Agregando un calendario definir la fecha de gasto</h3>
-  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
-</div>
-<div id="seccion13-205" class="">
-  <p>Comenzamos a trabajar con el formulario que sirve de entrada para procesar cada uno de los de gastos <span class="file">ExpenseForm-tsx</span>.</p>
-  <ul class="list-disc my-3">
-    <li>Nombre gasto. El name del input lo ponemos para poder escribir en el state. La función que modifica state y value la vemos un poco más adelante.</li>
-    <li>Cantidad</li>
-    <li>Creamos <span class="file">data&gt;categories.ts</span> Categorías que cogemos del gist <a class="underline text-black" href="https://gist.github.com/codigoconjuan/75ba8738a387410b9fff81d96ffbc67d" target="_blank">Categorias para Admin de Gastos</a> que es un arreglo que tiene objetos con id, nombre e icono.</li>
-    <li>También vamos a tener cuándo se realiza ese gasto, pero eso va a ser una dependencia para que sera más sencillo.</li>
-    <li>boton de submit</li>
-    <li>Tenemos que definir el state y conectarlo pero antes hagamos la dependencia para seleccionar de un date picker</li>
-  </ul>
+          <p class="naranja">Agregando calendario para definir la fecha de gasto - <a class="underline text-black" href="https://www.npmjs.com/" target="_blank">https://www.npmjs.com/</a></p>
 
-  <p class="naranja">Agregando calendario para definir la fecha de gasto - <a class="underline text-black" href="https://www.npmjs.com/" target="_blank">https://www.npmjs.com/</a></p>
+          <p>Buscamos react-date-picker y elegimos este que vemos que soporta TS <a class="underline" href="https://www.npmjs.com/package/react-date-picker" target="_blank">https://www.npmjs.com/package/react-date-picker</a>. En esa misma página hay instrucciones sobre cómo utilizarlo. Instalamos con <span class="destacado">npm install react-date-picker</span>. Vamos a ExpenseForm.tsx e importamos DatePicker, las dos hojas de estilo. A continuación creamos los 2 types que están en la documentación de la dependencia (<strong>estos mejor, los llevamos al fichero de types que vamos a crear, ver siguiente punto</strong>) y con esto ya podemos comenzar a utilizarlo, marcar una fecha, la cual aparecerá ahí una vez empecemos a escribir en el state:</p>
+          <pre><code class="language-ts">
+            //ExpenseForm.tsx
+            import DatePicker from 'react-date-picker'
+            import 'react-date-picker/dist/DatePicker.css';
+            import 'react-calendar/dist/Calendar.css';
+            type ValuePiece = Date | null
+            type Value = ValuePiece | [ValuePiece, ValuePiece]
+          </code></pre>
 
-  <p>Buscamos react-date-picker y elegimos este que vemos que soporta TS <a class="underline" href="https://www.npmjs.com/package/react-date-picker" target="_blank">https://www.npmjs.com/package/react-date-picker</a></p>
+          <p>Si vemos en la app ya nos aparece este calendario personlizado (que podríamos haber usado un input type="date" pero quería mostrarnos como hacerlo con una dependencia).</p>
 
-</div>
+          <img src="https://andune55.github.io/manual-react/assets/206-B0AT7_6t.png" alt="img" loading="lazy">
 
+        </div>
 
-<!-- Bloque desplegable interior-->
-<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion13-207').toggle();">
-  <h3>207. Definiendo el Type para los gastos</h3>
-  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
-</div>
-<div id="seccion13-207" class="hidden">
+        <!-- Bloque desplegable interior-->
+        <div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion13-207').toggle();">
+          <h3>207. Definiendo el Type para los gastos y definir el state</h3>
+          <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+        </div>
+        <div id="seccion13-207" class="hidden">
+          <p>Vamos a ver una forma un poco más avanzada de escribir en el state porque como vemos en nuestro formulario de gasto tenemos nombre de gasto, cantidad que es de tipo número, categoría y la fecha que es de tipo date.</p>
 
+          <p><span class="destacado">Creamos un fichero para types</span>: <span class="file">types/index.ts</span> (en este punto vuelve a recordar que se puede usar interfaces en lugar de types pero que es preferencia personal porque es más sencillo)</p>
 
-</div>
+          <ul class="list-disc my-3">
+            <li class="my-2"><strong>Creamos type para gasto una vez que se almacena (por tanto tiene id):</strong> <code class="language-ts">export type Expense = {}</code> que va a tener un id: string (vemos que nuestro formulario no lo tiene): vamos a hacer un enfoque un poco diferente, <strong>en el proyecto anterior generábamos el id cuando cargaba el componente, en este proyecto generamos id cuando se guarde este gasto</strong>. el date va a ser la fecha que tenemos de la dependencia instalada 'react-calendar', de hecho si nos fijamos en el 'cómo se usa' de su url <a class="underline mx-auto" href="https://www.npmjs.com/package/react-date-picker" target="_blank">https://www.npmjs.com/package/react-date-picker</a> vemos que definen el type 'value' y al crear una fecha le ponen con un generic el type: <code class="language-ts">&lt;value&gt;</code>. Con lo cual, el código de 'tipado' de esta dependencia mejor nos lo llevamos a nuestro fichero de type que tenerlo en el compo del form de gasto ExpenseForm.tsx (<strong>hemos de ponerle, eso sí, un export al type value</strong>)
+              <img class="mx-auto" src="https://andune55.github.io/manual-react/assets/207-Cl3WE352.png" alt="img" loading="lazy">
+            </li>
+            <li class="my-2"><strong>Creamos type para gasto temporal (que no va a tener id)</strong> y salvo el id va a ser igual por lo que utilizamos un utility type llamado Omit: <code class="language-ts">export type DraftExpense = Omit&lt;Expense, &#39;id&#39;&gt;</code></li>
+            <li class="my-2"><strong>Creamos type para las categorías</strong>, podemos inferir lo que contiene abriendo nuestros datos <span class="file">data/categories</span> y mirando el IS:
+              <div class="flex max-sm:flex-col">
+                <div class="w-[50%] max-sm:w-[100%] mr-2">
+                  <img class="mx-auto" src="https://andune55.github.io/manual-react/assets/207-2-0TczOreg.png" alt="img" loading="lazy">
+                </div>
+                <div class="w-[50%] max-sm:w-[100%]">
+                  <pre data-line="1,3"><code class="language-ts">
+                    //data/categories.ts
+                    import type { Category } from "../types";
+              
+                    export const categories: Category[] = [
+                    ...
+                  </code></pre>
+                </div>
+              </div> 
+              
+              <pre><code class="language-js">
+                //types/index.ts   
+                export type Expense = {
+                    id: string
+                    expenseName: string
+                    amount: number
+                    category: string
+                    date: Value
+                }
+                export type DraftExpense = Omit&lt;Expense, &#39;id&#39;&gt;
 
-<!-- Bloque desplegable interior-->
-<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion13-208').toggle();">
-  <h3>208. Escribiendo el gasto en el State</h3>
-  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
-</div>
-<div id="seccion13-208" class="hidden">
+                type ValuePiece = Date | null;
+                export type Value = ValuePiece | [ValuePiece, ValuePiece];
 
+                export type Category = {
+                  id: string
+                  name: string
+                  icon: string
+                }
+              </code></pre>
+            </li>
+          </ul>
+        
+          
+          <p><span class="destacado">Definimos nuestro state local 'expense' con useState()</span> en ExpenseForm.tsx (vamos a manejar un estado local, no se requiere en el reducer por tanto lo voy a hacer en este archivo) para lo que <strong>importamos useState y también el type DraftExpense</strong> que acabamos de crear para tipar con un generic el estado que vamos a crear.</p>
 
-</div>
+          <pre data-line="1,2,6,11"><code class="language-css">
+            //ExpenseForm.tsx
+            import { useState } from "react";
+            import type { DraftExpense } from "../types";
+            ...
+            export default function ExpenseForm() {
 
-<!-- Bloque desplegable interior-->
-<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion13-209').toggle();">
-  <h3>209. Mostrando una alerta si la validación falla en el formulario</h3>
-  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
-</div>
-<div id="seccion13-209" class="hidden">
+              const [expense, setExpense] = useState&lt;DraftExpense&gt;({
+                amount: 0,
+                expenseName: '',
+                category: '',
+                date: new Date()
+              })
+              ...
+          </code></pre>
 
+          <p><span class="destacado">Vamos a comenzar a asignar cada elemento del state expense ya en su correspondiente campo de formulario:</span>
 
-</div>
+            <pre><code class="language-js">
+              //Input Nombre gasto    
+                --&gt; value={expense.expenseName}
+              //Input Cantidad        
+                --&gt; value={expense.amount}
+              //Select de Categoría   
+                --&gt; value={expense.category}
+              //Dependencia DatePicker 
+                &lt;DatePicker
+                  className=&quot;bg-slate-100 p-2 border-0&quot;
+                  value={expense.date}
+                /&gt;
+            </code></pre>
+            
+            <p>Eso nos va a permitir conectar ese state con cada uno de los campos, sin embargo si buscamos el componente ExpenseForm en nuestra pestaña componentes de RWTD (Headless UI agrega un montón de componentes) vemos que si escribimos algo en Nombre de Gasto, no se está guardando en nuestro state, porque <strong>tenemos que utilizar un onChange</strong>. Va a ser un onChange un poco diferente/complejo porque tanto nombre de gasto como categorías son strings, la cantidad es un number y fecha gasto es un type value... por lo que vamos a tener dos funciones diferentes para poder escribir en el state</p>
 
-<!-- Bloque desplegable interior-->
-<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion13-210').toggle();">
-  <h3>210. Definiendo la acción para nuevos gastos</h3>
-  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
-</div>
-<div id="seccion13-210" class="hidden">
+        </div>
 
+        <!-- Bloque desplegable interior-->
+        <div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion13-208').toggle();">
+          <h3>208. Escribiendo el gasto en el State <span class="destacado">2 funciones handle, e.target-conexión name-destructuring</span></h3>
+          <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+        </div>
+        <div id="seccion13-208" class="hidden">
 
-</div>
+          <p>Nuestro state local para este formulario de gastos:</p>
+          <pre><code class="language-js">
+            //ExpenseForm.ts
+              const [expense, setExpense] = useState&lt;DraftExpense&gt;({
+                amount: 0,
+                expenseName: '',
+                category: '',
+                date: new Date()
+              })
+          </code></pre>
+          <p>Si vemos en la pestaña componentes de RDT y buscamos el ExpenseForm, vemos en el state que amount aparece un 0 en azul (string), hemos de conservar esa cantidad amount como número así que vamos a escribir un código para convertirlo a número. Nombre y categoría son strings, están bien y la fecha es una librería, una dependencia que hemos instalado, que si recordamos el type, los creadores de la librería definieron como Value (ya importado en nuestro fichero de types/index.ts). <strong>Entonces no podemos gestionarlo todo con la misma función por la disparidad de tipos, creamos dos funciones handleChange:</strong></p>
+          <ul class="list-disc my-3">
+            <li class="my-2"><strong>Función <code class="language-ts">const handleChangeDate = () => {}</code> para el campo fecha:</strong> cuando seleccionamos una fecha en el picker, la fecha nueva, el value, se pasa en automático así que le pasamos como parámetro value (del tipo Value que es el que definieron los de la librería y nosotros incluímos en nuestro fichero de types, así que lo importamos). Si hacemos un console.log(value) vemos que nos saca en consola la fecha que seleccionamos cada vez en el picker. Seteamos el state haciendo copia del mismo y estableciendo a continuación que el valor de date es el value (la fecha que acabamos de seleccionar del picker):
+            <pre data-line="14"><code class="language-js">
+              //ExpenseForm.tsx
+              import type { DraftExpense, Value } from "../types";
+              ...
+              const handleChangeDate = (value:Value) =>{
+                //console.log(value)
+                setExpense({
+                  ...expense,
+                  date: value
+                })
+              }
+              ... //En el onChange del campo fecha la llamamos:
+              &lt;DatePicker
+                className=&quot;bg-slate-100 p-2 border-0&quot;
+                //value={expense.date}
+                onChange={handleChangeDate}
+              /&gt;
+            </code></pre>
+            </li>
+            <li class="my-2"><strong>Función <code class="language-ts">const handleChange = () => {}</code> para los campos gasto, cantidad y categoría:</strong> escribimos código para, identificar si estamos escribiendo en amount y si es así comnvertirlo a número (+value ó Number[value]).
+            <pre data-line="11"><code class="language-js">
+              //ExpenseForm.tsx
+              const handleChange = (e: ChangeEvent&lt;HTMLInputElement&gt; | ChangeEvent&lt;HTMLSelectElement&gt;) => {
+                const { name, value } = e.target //extraemos name y value de cada campo de formulario
+                const isAmountField = ['amount'].includes(name) //true si estamos escribiendo en amount y false si escribimos en gasto o seleccionamos categoría
+                //console.log(isAmountField)
+                setExpense({
+                  ...expense,
+                  [name] : isAmountField ? +value : value
+                })
+              }
+              ... // en el onChange de los campos Nombre gasto, cantidad y categoría la llamamos:
+              onChange={handleChange}
+            </code></pre>
+            </li>
+          </ul>
+
+          <p>Así ya estamos escribiendo en nuestro state y conservando los tipos de datos que hemos definido en el type de DrafExpense (una copia temporal que no tiene un id aún). Vamos a continuación a trabajar con el form. Una vez que presionemos el submit, necesitamos que todos los campos tenga algo relleno/seleccionado, veamos una forma de validarlo y, en vez de deshabilitar el input mostraremos una alerta.</p>.
+        </div>
+
+        <!-- Bloque desplegable interior-->
+        <div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion13-209').toggle();">
+          <h3>209. Mostrando una alerta si la validación falla en el formulario <span class="destacado">error: compo, state y tag</span></h3>
+          <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+        </div>
+        <div id="seccion13-209" class="hidden">
+          <p><strong>Función <code class="language-ts">const handleSubmit = () => {}</code> para trabajar con el submit del formulario.</strong><br>
+            (Recordar, para sacar el type del parámetro 'e' que le pasamos a esta función, poner en el onSubmit del form: <code class="language-ts">onSubmit={e=>}</code> para que VSC lo infiera y lo podamos copiar del IS.</p>
+
+          <p><span class="destacado">Para validar utilizamos Object.values(), método para objetos que lo que hace es convertir un objeto a arreglo</span> De momento  probamos con estos 2 console.log siguientes. Si probamos a enviar el formulario sin rellenar tal cual, veríamos que en la consola el console.log de error y a continuación el de 'todo bien' porque entra en el if pero al no haber nada que lo detenga, el código se seguiría ejecutando así que pongamos un return para que esto no pase:</p>
+
+          <div class="flex max-sm:flex-col">
+            <div class="w-[50%] max-sm:w-[100%]">
+              <pre data-line="8,13"><code class="language-ts">
+                //ExpenseForm.ts
+                ...
+                const handleSubmit = (e: FormEvent&lt;HTMLFormElement&gt;) => {
+                  e.preventDefault()
+              
+                  //validar
+                  if(Object.values(expense).includes('')){
+                    console.log('error...')
+                    return
+                  }
+                  console.log('todo bien')  
+                }
+              
+                return (
+                  &lt;form className=&quot;space-y-5&quot; onSubmit={handleSubmit}&gt;
+                  ...
+              </code></pre>
+            </div>
+            <div class="w-[50%] max-sm:w-[100%]">   
+              <img src="https://andune55.github.io/manual-react/assets/209-1-DflhGxFz.png" alt="img" loading="lazy">
+            </div>
+          </div>
+
+          <p>Creamos un state local para error que iniciamos como string vacío: <code class="language-ts">const [error, setError] = useState('')</code> y creamos un componente nuevo para error llamado <span class="file">ErrorMessage.tsx</span>. Vamos a hacer que pueda recibir errores de forma dinámica (de antemano no sabemos el mensaje que vamos a enviarle) usando como parámetro {children} (recordar su uso en el context y también su tipado: podríamos tiparlo de cualquiera de estas dos maneras: <strong>ReactNode</strong> nos va a permitir renderizar componentes dentro de otros componentes o <strong>PropsWithChildren</strong>). Usamos todo esto para, si nuestro state de error cambia (lo hemos inicializado como string vacío) entonces pintamos el componente de error con lo que tenga mi state: <code class="language-ts">{error &amp;&amp; &lt;ErrorMessage&gt;{error}&lt;/ErrorMessage&gt;}</code></p>
+
+          <div class="flex max-sm:flex-col">
+            <div class="w-[50%] max-sm:w-[100%]">
+              <pre><code class="language-js">
+                //ErrorMessage.tsx
+                import { ReactNode } from "react"
+
+                type ErrorMessageProps = {
+                    children: ReactNode
+                }
+                export default function ErrorMessage({children} : ErrorMessageProps) {
+                  return (
+                    &lt;p className=&quot;bg-red-600 p-2 text-white font-bold text-sm text-center&quot;&gt;
+                        {children}
+                    &lt;/p&gt;
+                  )
+                }
+              </code></pre>
+            </div>
+            <div class="w-[50%] max-sm:w-[100%]">
+              <pre><code class="language-js">
+                ////ErrorMessage.tsx
+                import { PropsWithChildren } from &quot;react&quot;
+
+                export default function ErrorMessage({children} : PropsWithChildren) {
+                  return (
+                    &lt;p className=&quot;bg-red-600 p-2 text-white font-bold text-sm text-center&quot;&gt;
+                        {children}
+                    &lt;/p&gt;
+                  )
+                }        
+              </code></pre>
+            </div>
+          </div>
+
+          <p>A continuación vemos un resumen de todo lo que entra en juego:</p>
+
+          <ul class="list-disc my-3">
+            <li class="my-1.25">El compo nuevo para error.</li>
+            <li class="my-1.25">El state para error que inicializamos con string vacío.</li>
+            <li class="my-1.25">La función que maneja el submit conteniendo la validación:
+              <ul class="list-disc my-3">
+                <li class="my-1.25">si no pasa la validación se setea el error en cuestión.</li>
+                <li class="my-1.25">si pasa la validación aplicaremos un dispatch para comenzar a setear los gastos</li>
+              </ul>
+              </li>
+            <li class="my-1.25">La llamada a la función en el submit del formulario.</li>
+            <li class="my-1.25">La renderización del componente error con el contenido el state error en caso de que haya cambiado dicho state</li>
+          </ul>
+
+          <pre data-line="1,3,5,12,15,20"><code class="language-js">
+            //ExpenseForm.tsx
+            import ErrorMessage from "./ErrorMessage";
+            ...
+            const [error, setError] = useState('')
+            ...
+            const handleSubmit = (e: FormEvent&lt;HTMLFormElement&gt;) =&gt; {
+              e.preventDefault()  
+              //validar
+              if(Object.values(expense).includes(&#39;&#39;)){
+                setError(&#39;Todos los campos son obligatorios&#39;)
+              }
+              console.log(&#39;todo bien&#39;)  //
+            }
+          
+            return (
+              &lt;form className=&quot;space-y-5&quot; onSubmit={handleSubmit}&gt;
+                &lt;legend
+                  className=&quot;uppercase text-center text-2xl font-black border-b-4 border-blue-500 py-2&quot;
+                &gt;Nuevo gasto&lt;/legend&gt;
+          
+                {error &amp;&amp; &lt;ErrorMessage&gt;{error}&lt;/ErrorMessage&gt;}
+          
+          </code></pre>
+        </div>
+
+        <!-- Bloque desplegable interior-->
+        <div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion13-210').toggle();">
+          <h3>210. Definiendo la acción para nuevos gastos</h3>
+          <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+        </div>
+        <div id="seccion13-210" class="hidden">
+          <p>Veamos como agregar la acción que va a agregar los nuevos gastos. Vamos a nuestro budget-reducer.ts y agregamos la acción: <code class="language-ts">{ type: 'add-expense', payload: {expense: DraftExpense} } </code> de tipo DraftExpense porque no va a tener id, el id lo vamos a generar en el reducer. Veamos nuestros cambios en el budget-reducer.ts</p>
+
+          <pre data-line="1,7,12,18,26-32"><code class="language-ts">
+            //budget-reducer.ts
+            import { DraftExpense, Expense } from "../types"
+
+            export type BudgetActions = 
+                { type: 'add-budget', payload: {budget: number} } |
+                { type: 'show-modal' } |
+                { type: 'close-modal' } |
+                { type: 'add-expense', payload: {expense: DraftExpense} } 
+            
+            export type BudgetState = {
+                budget: number
+                modal: boolean
+                expenses: Expense[]
+            }
+            
+            export const initialState: BudgetState = {
+                budget: 0,
+                modal: false,
+                expenses: []
+            }
+            
+            export const budgetReducer = (
+                    state: BudgetState=initialState,
+                    action: BudgetActions
+                ) =>{
+                ...
+                if(action.type === "add-expense"){
+
+                  return{
+                      ...state,
+                      expenses: [...state.expenses, action.payload.expense]
+                  }
+                }
+          
+              return state
+          }
+          </code></pre>
+
+          <p>Ya tenemos todo esto en un state global, ya no necesitamos pasarlo via props. Nos vamos al ExpenseForm.ts:</p>
+
+          <ul class="list-disc my-3">
+            <li class="my-1.25">Importamos useBudget y lo instanciamos después del state de error, extrayendo el dispatch. En nuestro handleSubmit cuando pasa la validación llamamos al dispatch en concreto a la acción que acabamos de crear para añadir gasto de tipo 'add-expense' y en el payload pasamos el gasto 'expense': 
+              <pre data-line="1,11">
+              <code class="language-ts">
+                //ExpenseForm.ts
+                const { dispatch } = useBudget()
+                --
+                const handleSubmit = (e: FormEvent&lt;HTMLFormElement&gt;) => {
+                  e.preventDefault()
+              
+                  //validar
+                  if(Object.values(expense).includes('')){
+                    setError('Todos los campos son obligatorios')
+                  }
+                  //Agregar un nuevo gasto
+                  dispatch({type: 'add-expense', payload: {expense}})
+                }
+              </code>
+              </pre>
+
+              Si vemos en la pestaña componentes de nuestro RDT el componente Budget Provider, vemos que en el reducer ya tenemos el nuevo state que acabamos de crear "expenses" y si en la app añadimos un gasto vemos que se añade, aunque si lo expandimos vemos que no hay ningún id único 
+              <img src="https://andune55.github.io/manual-react/assets/210-01-CQhu8pIU.png" alt="img" loading="lazy">      
+              </li>
+            <li class="my-1.25">En un ejemplo anterior cada vez que se montaba el componente generábamos un nuevo id. <strong>En este caso vamos a simular como si fuera una base de datos</strong>. En una bbdd nosotros no le decimos cual es el id; una vez que se genera se le asigna, por lo tanto vamos a volver al budget-reducer.tsx. Instalamos en nuestro proyecto <span class="destacado">npm install uuid</span> En nuestro budget-reducer.tsx importamos la dependencia (él, aunque parece que no lo necesitamos, instala las definiciones de types para uuid <strong>npm install --save-dev @types/uuid</strong>). Vamos a crear una función que va a tomar el payload de nuestro último action y le va a añadir un id, pero muy importante: <strong>lo va a convertir a type Expense, en lugar de que sea un DraftExpnse que no tiene id. Esta función 'createExpense' va a tomar desde el payload lo que está en el formulario, una vez que llega aquí mandamos llamar a esa función, le añade un id y lo devuelve hacia el reducer de nuevo</strong>. En lugar de generar el id en el formulario, no lo vamos a generar hasta que no haya pasado su validación. Podemos probar la app 
+            
+            <pre><code class="language-ts">
+              //budget-reducer.tsx
+              ...
+              const createExpense = (draftExpense: DraftExpense ) : Expense => {
+                return {
+                    ...draftExpense,
+                    id: uuidv4()
+                }
+              }
+              
+              export const budgetReducer = (
+                    state: BudgetState=initialState,
+                    action: BudgetActions
+                ) =>{
+                ...
+                if(action.type === "add-expense"){
+                  const expense = createExpense(action.payload.expense)
+                  return{
+                      ...state,
+                      expenses: [...state.expenses, expense]
+                  }
+                } 
+                return state
+              }
+
+            </code></pre>
+            </li>
+          </ul>
+
+          <p>Una vez agregado un gasto correctamente querremos que se reinicie el formulario y se cierre el modal. Veamos como hacerlo</p>
+
+        </div>
 
 <!-- Bloque desplegable interior-->
 <div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion13-211').toggle();">
-  <h3>211. Reiniciar el Formulario y Ocultar el Modal si se agrega un gasto</h3>
+  <h3><p class="naranja">211.</p> Reiniciar el Formulario y Ocultar el Modal si se agrega un gasto</h3>
   <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
 </div>
 <div id="seccion13-211" class="hidden">
