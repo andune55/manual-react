@@ -82,7 +82,22 @@
                 </li>
               </ul>                   
             </li>
-            <li>Tenemos que instalar @heroicons <span class="destacado">npm install @heroicons/react</span> y @headlessui <span class="destacado">npm install @headlessui/react</span> en el vídeo 202. También <span class="destacado">npm install uuid</span> en el vídeo 210. Lo podemos ir haciendo.</li>
+            <li>Tenemos que instalar @heroicons <span class="destacado">npm install @heroicons/react</span> y @headlessui <span class="destacado">npm install @headlessui/react</span> en el vídeo 202. También <span class="destacado">npm install uuid</span> en el vídeo 210. <span class="destacado">npm i react-swipeable-list</span> para lista swipeable del vídeo 215. --&gt; 
+              <br><span class="rojo">OJO me daba este error y blancazo interfaz:</span><br> 16:44:03 [vite] (client) error while updating dependencies:<br>
+              Error: Build failed with 1 error:<br>
+              node_modules/react-swipeable-list/dist/react-swipeable-list.esm.js:2:22: ERROR: Could not resolve "prop-types"
+              <br><span class="verde">Solucionado con</span> <br>
+              As of React 15.5.0, PropTypes have been removed from the core React package as a separate dependency. To fix this, add prop-types into your code:
+
+              If you're loading via script tags:<br>
+
+              &lt;script src=&quot;https://unpkg.com/prop-types/prop-types.min.js&quot;&gt;&lt;/script&gt;
+              Or via NPM:<br>
+
+              <span class="destacado">npm install --save prop-types</span>
+            
+            
+            </li>
           </ul>
         </div>
 
@@ -1498,45 +1513,240 @@
 
         </div>
 
-<!-- Bloque desplegable interior-->
-<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion13-211').toggle();">
-  <h3><p class="naranja">211.</p> Reiniciar el Formulario y Ocultar el Modal si se agrega un gasto</h3>
-  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
-</div>
-<div id="seccion13-211" class="hidden">
+        <!-- Bloque desplegable interior -->
+        <div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion13-211').toggle();">
+          <h3>211. Reiniciar el Formulario y Ocultar el Modal si se agrega un gasto</h3>
+          <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+        </div>
+        <div id="seccion13-211" class="hidden">
+          <p>Ya estamos escribiendo en el arreglo de los gastos (el state 'expenses' que definimos en nuestro reducer y que podemos ver en la pestaña componentes de RDT pulsando el componente BudgetProvider dentro de los hooks)</p>
 
+          <img src="./src/assets/img/211.png" alt="img" loading="lazy">
 
-</div>
+          <p>Una vez rellenado el gasto deberíamos o resetear el formulario o cerrar el modal para que el usuario pueda interactuar enla aplicación.</p>
 
-<!-- Bloque desplegable interior-->
-<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion13-212').toggle();">
-  <h3>212. Creando el Componente para mostrar los gastos</h3>
-  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
-</div>
-<div id="seccion13-212" class="hidden">
+          <p>En nuestro <span class="file">ExpenseForm.tsx</span> una vez que disparamos el dispatch para 'Agregar nuevo gasto' podemos reiniciar el state local con su función 'setExpense' pasándole los valores iniciales que teníamos. Eso lo podemos hacer porque tenemos conectado el value de los campos de formulario con nuestro state local. (<strong>en cada campo llamamos el id y el name del mismo como cada una de las propiedades de nuestro state local :)</strong>)</p>
 
+          <pre data-line="11-17"><code class="language-ts">
+            //ExpenseForm.tsx
+            const handleSubmit = (e: FormEvent&lt;HTMLFormElement&gt;) => {
+              e.preventDefault()
+          
+              //validar
+              if(Object.values(expense).includes('')){
+                setError('Todos los campos son obligatorios')
+              }
+              //Agregar un nuevo gasto
+              dispatch({type: 'add-expense', payload: {expense}})
+          
+              //reiniciar el state
+              setExpense({
+                amount: 0,        //&lt;input type=&quot;number&quot; id=&quot;amount&quot; name=&quot;amount&quot; value={expense.amount} onChange={handleChange}/&gt;
+                expenseName: '',  //&lt;input type=&quot;text&quot; id=&quot;expenseName&quot; name=&quot;expenseName&quot; value={expense.expenseName} onChange={handleChange} /&gt;
+                category: '',     //&lt;select id=&quot;category&quot; name=&quot;category&quot; value={expense.category} onChange={handleChange}&gt;
+                date: new Date()
+              })
+            }
+          </code></pre>
 
-</div>
+          <p>Si quisiéramos cerrar el modal después de agregar el gasto, lo hacemos en nuestro reducer (gran ventaja de reducer tener algo de lógica y poder escribir en múltiples states al mismo tiempo, a diferencia de usar useState donde tendríamos que estar manejando para esto mismo distintos setStates):</p>
+          <pre data-line="7"><code class="language-ts">
+            //budget-reducer.ts
+            ...
+            if(action.type === "add-expense"){
+              const expenseconId = createExpense(action.payload.expense)
+              return{
+                  ...state,
+                  expenses: [...state.expenses, expenseconId],
+                  modal: false
+              }
+            }
+          </code></pre>
 
-<!-- Bloque desplegable interior-->
-<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion13-213').toggle();">
-  <h3>213. Mostrando los gastos</h3>
-  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
-</div>
-<div id="seccion13-213" class="hidden">
+        </div>
 
+        <!-- Bloque desplegable interior-->
+        <div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion13-212').toggle();">
+          <h3>212. Creando el Componente para mostrar los gastos / 213. Mostrando los gastos / 214. Mostrando los iconos de la categoría del gasto</h3>
+          <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+        </div>
+        <div id="seccion13-212" class="hidden">
+          <p>Vamos a trabajar con <span class="file">App.tsx</span> y con <span class="file">budget-reducer.tsx</span> más que nada para extraer información</p>
 
-</div>
+          <p>En App.tsx tenemos la  comprobación de que si el presupuesto(budget) es válido el usuario pueda generar gastos; ahí es donde vamos a mostrar el listado de gastos. </p>
 
-<!-- Bloque desplegable interior-->
-<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion13-214').toggle();">
-  <h3>214. Mostrando los iconos de la categoría del gasto</h3>
-  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
-</div>
-<div id="seccion13-214" class="hidden">
+          <ul class="list-disc my-3">
+            <li class="my-1.25"><strong>Creamos nuestro componente nuevo <span class="file">ExpenseList.tsx</span> para ese listado de gastos:</strong>  y lo renderizamos en App.tsx dentro de esa misma condición porque solo cuando tengamos un presupuesto válido es cuando queremos poder agregar nuevos gastos y listarlos:</li>
 
+            <li class="my-1.25"><strong>Importamos nuestro useBudget.tsx en el nuevo componente:</strong> anteriormente pasábamos el state a utilizar como prop en este nuevo tag desde App.tsx al nuevo componentes ExpenseList.tsx pero ahora como tenemos contextAPI recordemos, disponemos de un state global.</li>
 
-</div>
+            <li><strong>Extraemos el state como nueva variable:</strong> <code class="language-ts">const { state } = useBudget()</code></li>
+            <li><strong>Creamos una nueva variable 'isEmpty' usando useMemo que, teniendo el state como dependencia va a devolver true cuando no haya gastos:</strong> <code class="language-ts">const isEmpty = useMemo(() => state.expenses.length === 0, [state.expenses])</code> Queremos que en nuestra app, cuando aún no hay gastos se muestre el mensaje "No hay gastos" y si los hay, iterar sobre ellos para mostrarlos</li>
+            <li class="my-1.25">Creamos un nuevo componente ExpenseDetail.tsx para usar en ExpenseList.tsx cuando iteramos sobre state.expenses y le pasamos como props key por iterar y expense (<strong>notar como con el autocompletado y la notación de punto tenemos accesos a las propiedades del type de gasto</strong>). Ese prop hemos de extraerlo y tiparlo en el nuevo componente ExpenseDetail.tsx como venimos haciendo hasta ahora con los props entre compos.
+              <div class="flex max-sm:flex-col">            
+                <div class="w-[50%] max-sm:w-[100%]">
+                  <pre data-line="0"><code class="language-js">
+                    //ExpenseList.tsx
+                    import { useMemo } from "react"
+                    import { useBudget } from "../hooks/useBudget"
+                    import ExpenseDetail from "./ExpenseDetail"
+    
+                    export default function ExpenseList() {
+    
+                        const { state } = useBudget()
+                        const isEmpty = useMemo(() => state.expenses.length === 0, [state.expenses])
+    
+                        return (
+                            &lt;div className=&quot;mt-10&quot;&gt;
+                                {isEmpty ? &lt;p className=&quot;text-gray-600 text-2xl font-bold&quot;&gt;No hay gastos&lt;/p&gt; : (
+                                    &lt;&gt;
+                                        &lt;p className=&quot;text-gray-600 text-2xl font-bold my-5&quot;&gt;Listado de gastos.&lt;/p&gt;
+                                        {state.expenses.map( expense =&gt; (
+                                            &lt;ExpenseDetail
+                                                key = {expense.id}
+                                                expense = {expense}
+                                            /&gt;
+                                        ))}
+                                    &lt;/&gt;
+                                )}
+                            &lt;/div&gt;
+                        )
+                    }
+                  </code></pre>
+                </div>
+                <div class="w-[50%] max-sm:w-[100%]">
+                  <pre data-line="0"><code class="language-ts">
+                    //App.tsx
+                    {isValidObject && (
+                      &lt;main className=&#39;max-w-3xl mx-auto py-10&#39;&gt;
+                        &lt;ExpenseList/&gt;
+                        &lt;ExpenseModal/&gt;
+                      &lt;/main&gt;
+                     )}
+                  </code></pre>
+                  <pre data-line="0"><code class="language-js">
+                    //ExpenseDetail.tsx
+                    import { Expense } from '../types/index';
+    
+                    type ExpenseDetailsProps = {
+                        expense : Expense
+                    }
+                    
+                    export default function ExpenseDetail({expense} : ExpenseDetailsProps) {
+                        return (
+                        &lt;div&gt;
+                            
+                        &lt;/div&gt;
+                        )
+                    }
+                  </code></pre>
+                </div>
+               
+              </div>
+            </li>
+            <li class="my-1.25">
+              <p><strong>Construimos y damos estilos a las distintas etiquetas de la interfaz del componente <span class="file">ExpenseDetail.tsx</span>.</strong> Ojo! al intentar llamar a {expense.date} nos da este error porque, recordemos, tenía un type 'Value' de los creadores de la libreria, así que lo convertimos a string con un .toString(). Si lo vemos ahora, vemos que la fecha sale en el formato de la librería usada:</p>
+              <div class="flex max-sm:flex-col">
+                <div class="w-[50%] max-sm:w-[100%]">
+                  <img src="./src/assets/img/213-1.png" alt="img" loading="lazy">
+                </div>
+                <div class="w-[50%] max-sm:w-[100%]">
+                  <img src="./src/assets/img/213-2.png" alt="img" loading="lazy">
+                </div>
+              </div>            
+            
+              <p>Para que nos salga en formato español (hay muchas librerías y opciones para hacerlo porque trabajar con fechas es complicado). Nosotros vamos a utilizar las funciones Intl, como la que tenemos en nuestro helper y ahí es donde vamos a crear nuestra función para formatear la fecha, una función que toma un parámetro de tipo string y debe devolver un string. En la función creamos el objeto(usando el parámetro que recibe), le pasamos una configuración y retornamos la fecha formateada:</p>          
+
+              <pre data-line="0"><code class="language-ts">
+                //helpers/index.ts
+                export function formatDate(dateStr : string) : string {
+                  const dateObj = new Date(dateStr) //convertimos a objeto de tipo fecha
+                  const options : Intl.DateTimeFormatOptions = {
+                      weekday: 'long',
+                      year: 'numeric',
+                      month: 'long',
+                      day: 'numeric'
+                  }
+                  return new Intl.DateTimeFormat('es-ES', options).format(dateObj)
+                }
+              </code></pre>
+
+              <p>En nuestro componente ExpenseDetail.tsx llamamos a esa función para que formate la fecha (con la admiración le decimos a TS que ese valor va a estar ahí): <code class="language-ts">&lt;p className=&quot;text-slate-600 text-sm&quot;&gt;{ formatDate( expense.date!.toString() ) }&lt;/p&gt;</code></p>
+
+              <p>A continuación utilizamos nuestro compo AmountDisplay.tsx, pero como ahora no queremos que nos saque label, lo modificamos para que sea opcional y además no queremos que nos saque los ":" que pusimos, hacemos estos cambios:</p>
+
+              <pre data-line="0"><code class="language-js">
+                // AmountDisplay.tsx
+                import { formatCurrency } from "../helpers"
+                type AmountDisplayProps = {
+                    label?: string
+                    amount: number
+                }
+
+                export default function AmountDisplay({label, amount} : AmountDisplayProps) {
+                  return (
+                    &lt;p className=&quot;text-2xl text-blue-600 font-bold&quot;&gt;
+                        {/* {label}: {&#39;&#39;} */}
+                        {label &amp;&amp; `${label}: `}
+                        &lt;span className=&quot;text-black&quot;&gt;{formatCurrency(amount)}&lt;/span&gt;
+                    &lt;/p&gt;
+                  )
+                }
+              </code></pre>
+
+              <p>Nos falta por mostrar el icono y el texto de la categoría (tenemos el diccionario con toda la información de esas categorías en nuestro <span class="file">data/categories.ts</span>), los iconos en la carpeta public y recordemos que en nuestro state de gastos del reducer, la categoría solo almacena el id, el resto de la info la vamos a tener que sacar de este diccionario.</p>             
+            </li>
+
+            <li class="my-1.25">
+              Vamos a ver cómo tomar la información de la categoría, porque cuando estamos almacenando en el state solo estamos guardando el id, pero tenemos un diccionario de catergorías en <span class="file">data/categories.ts</span> de donde podemos sacar el nombre (para mostrarlo en mi listado) y el icono para renderizarlo desde public. (es como si lo hiciéramos desde una bbdd, otro gallo cantaría si tuviéramos un arreglo en memoria donde accederíamos directamente a esas props)
+              
+              <p>Vamos a <span class="file">EspenseDetails.tsx</span> y antes del return creamos nueva variable con useMemo() con dependencia del state expense para ejecutar lo siguiente cada vez que cambie ese state de nuestro reducer: <code class="language-ts">const categoryInfo = useMemo(() => categories.filter(cat => cat.id === expense.category)[0],[expense])</code>,  es decir <span class="destacado">usando filter sobre nuestro diccionario de datos categories, vamos a poder filtrar sobre ese arreglo y encontrar la coincidencia de la categoría del gasto que estamos iterando, permitiéndonos así con el id del gasto que itero traerme todo el objeto correspondiente a ese id y poder acceder a lo que necesito: name y al icono</span>.</p>
+
+              <pre data-line="0"><code class="language-js">
+                //ExpenseDetail.tsx
+                import { useMemo } from 'react';
+                import { categories } from '../data/categories';
+                import { formatDate } from '../helpers';
+                import { Expense } from '../types/index';
+                import AmountDisplay from './AmountDisplay';
+                
+                type ExpenseDetailsProps = {
+                    expense : Expense
+                }
+                
+                export default function ExpenseDetail({expense} : ExpenseDetailsProps) {
+                
+                    const categoryInfo = useMemo(() => categories.filter(cat => cat.id === expense.category)[0],[expense])
+                
+                    return (
+                    &lt;div className=&quot;bg-white shadow-lg p-10 w-full border-b border-gray-200 flex gap-4 items-center&quot;&gt;
+                        &lt;div&gt;
+                            &lt;img 
+                                src={`./icono_${categoryInfo.icon}.svg`} 
+                                alt=&quot;icono gasto&quot;
+                                className=&#39;w-20&#39;
+                             /&gt;
+                        &lt;/div&gt;
+                
+                        &lt;div className=&#39;flex-1 space-y-2&#39;&gt;
+                            &lt;p className=&quot;text-sm font-bold uppercase text-slate-500&quot;&gt;{categoryInfo.name}&lt;/p&gt;
+                            &lt;p&gt;{expense.expenseName}&lt;/p&gt;
+                            &lt;p className=&quot;text-slate-600 text-sm&quot;&gt;{ formatDate( expense.date!.toString() ) }&lt;/p&gt;
+                        &lt;/div&gt;
+                
+                        &lt;AmountDisplay
+                            amount={expense.amount}
+                        /&gt;
+                    &lt;/div&gt;
+                    )
+                }
+              </code></pre>
+            </li>
+          </ul>
+            
+          <p>A continuación empezaremos con la parte de editar y eliminar e instalaremos para ello una librería para la interacción Swipe.</p>     
+        </div>
+
 
 <!-- Bloque desplegable interior-->
 <div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion13-215').toggle();">
@@ -1544,13 +1754,95 @@
   <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
 </div>
 <div id="seccion13-215" class="hidden">
+  <p>Vamos con las acciones de editar y eliminar. Podríamos añadir algunos iconos como hemos hecho hasta ahora pero vamos a utilizar un efecto que tiene distintas apps, whatsapp, gmail. amazon... swipeable-list. Instalamos esta dependencia que soporta TS y además tiene actualizaciones recientes: <a class="underline text-black" href="https://www.npmjs.com/package/react-swipeable-list" target="_blank">react-swipeable-list</a> con <span class="destacado">npm i react-swipeable-list</span>. </p>
+
+  <p>Vamos a <span class="file">ExpenseDetail.tsx</span> e importamos varias cosas entre ellas: LeadingActions (las acciones que vienen del lado izquierdo) y TrailingActions (las acciones que vienen del otro lado) así como la hoja de estilos propia que tiene sus propias animaciones. Aunque aún nos queda trabajo, así es como queda de momento nuestro componente con swype inicialmente configurado y si lo probamos en al interfaz vemos que ya hace el swype para ambos lados (actualizar hacia la izquierda y Eliminar hacia la derecha).</p>
+
+  <p><strong>SwipeableList:</strong> tiene que rodear todo nuestro div princpal</p>
+  <p><strong>SwipeableListItem:</strong> para especificarle cuales son las acciones y la configuración. Este prop <code class="language-ts">maxSwipe={30}</code> que le pasamos le especifica los px que queremos que recorra para que se dispare. Los props <code class="language-ts">LeadingActions={}</code> y <code class="language-ts">TrailingActions={}</code> son para especificar lo que queremos que haga ese elemento cuando arrastramos respectivamente de izda a derecha o de drecha a izda. Así que creamos las correspondientes funciones que queremos que ejecuten esos props.</p>
+
+  <p>Copiamos en raw el código que ha preparado en este gist <a class="underline text-black" href="https://gist.github.com/codigoconjuan/e1a67f2a729bc44978c2c7d0f946ce7e" target="_blank">gist para para swipleable List</a> con estilos y lo pegamos en nuestro index.css (con @apply leemos las clases que utiliza esa librería y aplico clases de tailwindcss incorporándolas a lo que de por sí tiene esa librería que tomamos de npm).</p>
+
+  <p>La librería nos da unos props muy útiles como por ejemplo: usemos este en el SwipeAction del TrailingAction: <code class="language-ts">destructive={true}</code> visualmente vemos que desaparece de nuestra interfaz, aunque no lo ha eliminado de nuestro state porque tenemos que disparar esa acción.</p>
+
+  <pre data-line="2,7,17-32,35-40,62,63"><code class="language-ts">
+    //ExpenseDetail.tsx
+    import { useMemo } from 'react';
+    import { LeadingActions, SwipeableList, SwipeableListItem, SwipeAction, TrailingActions} from 'react-swipeable-list'
+    import { categories } from '../data/categories';
+    import { formatDate } from '../helpers';
+    import { Expense } from '../types/index';
+    import AmountDisplay from './AmountDisplay';
+    import "react-swipeable-list/dist/styles.css"
+    
+    type ExpenseDetailsProps = {
+        expense : Expense
+    }
+    
+    export default function ExpenseDetail({expense} : ExpenseDetailsProps) {
+    
+        const categoryInfo = useMemo(() =&gt; categories.filter(cat =&gt; cat.id === expense.category)[0],[expense])
+    
+        const leadingActions = () =&gt; (
+            &lt;LeadingActions&gt;
+                &lt;SwipeAction onClick={() =&gt; {}}&gt;
+                    Actualizar
+                &lt;/SwipeAction&gt;
+    
+            &lt;/LeadingActions&gt;
+        )
+        const trailingActions = () =&gt; (
+            &lt;TrailingActions&gt;
+                &lt;SwipeAction onClick={() =&gt; {}}&gt;
+                    Eliminar
+                &lt;/SwipeAction&gt;
+    
+            &lt;/TrailingActions&gt;
+        )
+    
+        return (
+         &lt;SwipeableList&gt;  
+            &lt;SwipeableListItem
+                maxSwipe={30}
+                leadingActions = {leadingActions()}
+                trailingActions = {trailingActions()}
+            &gt;
+    
+                &lt;div className=&quot;bg-white shadow-lg p-10 w-full border-b border-gray-200 flex gap-4 items-center&quot;&gt;
+                    &lt;div&gt;
+                        &lt;img 
+                            src={`./icono_${categoryInfo.icon}.svg`} 
+                            alt=&quot;icono gasto&quot;
+                            className=&#39;w-20&#39;
+                        /&gt;
+                    &lt;/div&gt;
+    
+                    &lt;div className=&#39;flex-1 space-y-2&#39;&gt;
+                        &lt;p className=&quot;text-sm font-bold uppercase text-slate-500&quot;&gt;{categoryInfo.name}&lt;/p&gt;
+                        &lt;p&gt;{expense.expenseName}&lt;/p&gt;
+                        &lt;p className=&quot;text-slate-600 text-sm&quot;&gt;{ formatDate( expense.date!.toString() ) }&lt;/p&gt;
+                    &lt;/div&gt;
+    
+                    &lt;AmountDisplay
+                        amount={expense.amount}
+                    /&gt;
+                &lt;/div&gt;
+    
+            &lt;/SwipeableListItem&gt;
+        &lt;/SwipeableList&gt;
+        )
+    }    
+  </code></pre>
+    
+  
+  
 
 
 </div>
 
 <!-- Bloque desplegable interior-->
 <div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion13-216').toggle();">
-  <h3>216. Eliminando un gasto cuando ejecutamos un Swipe</h3>
+  <h3><span class="naranja">216.</span> Eliminando un gasto cuando ejecutamos un Swipe</h3>
   <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
 </div>
 <div id="seccion13-216" class="hidden">
