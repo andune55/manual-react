@@ -1743,152 +1743,273 @@
           <p>A continuación empezaremos con la parte de editar y eliminar e instalaremos para ello una librería para la interacción Swipe.</p>     
         </div>
 
+        <!-- Bloque desplegable interior-->
+        <div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion13-215').toggle();">
+          <h3>215. Agregando interacción de Swipe a los gastos para Editar y Eliminar - <a class="underline text-white" href="https://www.npmjs.com/package/react-swipeable-list" target="_blank">react-swipeable-list</a> - <a class="underline text-white" href="https://gist.github.com/codigoconjuan/e1a67f2a729bc44978c2c7d0f946ce7e" target="_blank">gist para para swipleable List</a></h3>
+          <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+        </div>
+        <div id="seccion13-215" class="hidden">
+          <p>Vamos con las acciones de editar y eliminar. Podríamos añadir algunos iconos como hemos hecho hasta ahora pero vamos a utilizar un efecto que tiene distintas apps, whatsapp, gmail. amazon... swipeable-list. Instalamos esta dependencia que soporta TS y además tiene actualizaciones recientes: <a class="underline text-black" href="https://www.npmjs.com/package/react-swipeable-list" target="_blank">react-swipeable-list</a> con <span class="destacado">npm i react-swipeable-list</span>. </p>
 
-<!-- Bloque desplegable interior-->
-<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion13-215').toggle();">
-  <h3>215. Agregando interacción de Swipe a los gastos para Editar y Eliminar - <a class="underline text-white" href="https://www.npmjs.com/package/react-swipeable-list" target="_blank">react-swipeable-list</a> - <a class="underline text-white" href="https://gist.github.com/codigoconjuan/e1a67f2a729bc44978c2c7d0f946ce7e" target="_blank">gist para para swipleable List</a></h3>
-  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
-</div>
-<div id="seccion13-215" class="hidden">
-  <p>Vamos con las acciones de editar y eliminar. Podríamos añadir algunos iconos como hemos hecho hasta ahora pero vamos a utilizar un efecto que tiene distintas apps, whatsapp, gmail. amazon... swipeable-list. Instalamos esta dependencia que soporta TS y además tiene actualizaciones recientes: <a class="underline text-black" href="https://www.npmjs.com/package/react-swipeable-list" target="_blank">react-swipeable-list</a> con <span class="destacado">npm i react-swipeable-list</span>. </p>
+          <p>Vamos a <span class="file">ExpenseDetail.tsx</span> e importamos varias cosas entre ellas: LeadingActions (las acciones que vienen del lado izquierdo) y TrailingActions (las acciones que vienen del otro lado) así como la hoja de estilos propia que tiene sus propias animaciones. Aunque aún nos queda trabajo, así es como queda de momento nuestro componente con swype inicialmente configurado y si lo probamos en al interfaz vemos que ya hace el swype para ambos lados (actualizar hacia la izquierda y Eliminar hacia la derecha).</p>
 
-  <p>Vamos a <span class="file">ExpenseDetail.tsx</span> e importamos varias cosas entre ellas: LeadingActions (las acciones que vienen del lado izquierdo) y TrailingActions (las acciones que vienen del otro lado) así como la hoja de estilos propia que tiene sus propias animaciones. Aunque aún nos queda trabajo, así es como queda de momento nuestro componente con swype inicialmente configurado y si lo probamos en al interfaz vemos que ya hace el swype para ambos lados (actualizar hacia la izquierda y Eliminar hacia la derecha).</p>
+          <p><strong>SwipeableList:</strong> tiene que rodear todo nuestro div princpal</p>
+          <p><strong>SwipeableListItem:</strong> para especificarle cuales son las acciones y la configuración. Este prop <code class="language-ts">maxSwipe={30}</code> que le pasamos le especifica los px que queremos que recorra para que se dispare. Los props <code class="language-ts">LeadingActions={}</code> y <code class="language-ts">TrailingActions={}</code> son para especificar lo que queremos que haga ese elemento cuando arrastramos respectivamente de izda a derecha o de drecha a izda. Así que creamos las correspondientes funciones que queremos que ejecuten esos props.</p>
 
-  <p><strong>SwipeableList:</strong> tiene que rodear todo nuestro div princpal</p>
-  <p><strong>SwipeableListItem:</strong> para especificarle cuales son las acciones y la configuración. Este prop <code class="language-ts">maxSwipe={30}</code> que le pasamos le especifica los px que queremos que recorra para que se dispare. Los props <code class="language-ts">LeadingActions={}</code> y <code class="language-ts">TrailingActions={}</code> son para especificar lo que queremos que haga ese elemento cuando arrastramos respectivamente de izda a derecha o de drecha a izda. Así que creamos las correspondientes funciones que queremos que ejecuten esos props.</p>
+          <p>Copiamos en raw el código que ha preparado en este gist <a class="underline text-black" href="https://gist.github.com/codigoconjuan/e1a67f2a729bc44978c2c7d0f946ce7e" target="_blank">gist para para swipleable List</a> con estilos y lo pegamos en nuestro index.css (con @apply leemos las clases que utiliza esa librería y aplico clases de tailwindcss incorporándolas a lo que de por sí tiene esa librería que tomamos de npm).</p>
 
-  <p>Copiamos en raw el código que ha preparado en este gist <a class="underline text-black" href="https://gist.github.com/codigoconjuan/e1a67f2a729bc44978c2c7d0f946ce7e" target="_blank">gist para para swipleable List</a> con estilos y lo pegamos en nuestro index.css (con @apply leemos las clases que utiliza esa librería y aplico clases de tailwindcss incorporándolas a lo que de por sí tiene esa librería que tomamos de npm).</p>
+          <p>La librería nos da unos props muy útiles como por ejemplo: usemos este en el SwipeAction del TrailingAction: <code class="language-ts">destructive={true}</code> visualmente vemos que desaparece de nuestra interfaz, aunque no lo ha eliminado de nuestro state porque tenemos que disparar esa acción.</p>
 
-  <p>La librería nos da unos props muy útiles como por ejemplo: usemos este en el SwipeAction del TrailingAction: <code class="language-ts">destructive={true}</code> visualmente vemos que desaparece de nuestra interfaz, aunque no lo ha eliminado de nuestro state porque tenemos que disparar esa acción.</p>
-
-  <pre data-line="2,7,17-32,35-40,62,63"><code class="language-ts">
-    //ExpenseDetail.tsx
-    import { useMemo } from 'react';
-    import { LeadingActions, SwipeableList, SwipeableListItem, SwipeAction, TrailingActions} from 'react-swipeable-list'
-    import { categories } from '../data/categories';
-    import { formatDate } from '../helpers';
-    import { Expense } from '../types/index';
-    import AmountDisplay from './AmountDisplay';
-    import "react-swipeable-list/dist/styles.css"
-    
-    type ExpenseDetailsProps = {
-        expense : Expense
-    }
-    
-    export default function ExpenseDetail({expense} : ExpenseDetailsProps) {
-    
-        const categoryInfo = useMemo(() =&gt; categories.filter(cat =&gt; cat.id === expense.category)[0],[expense])
-    
-        const leadingActions = () =&gt; (
-            &lt;LeadingActions&gt;
-                &lt;SwipeAction onClick={() =&gt; {}}&gt;
-                    Actualizar
-                &lt;/SwipeAction&gt;
-    
-            &lt;/LeadingActions&gt;
-        )
-        const trailingActions = () =&gt; (
-            &lt;TrailingActions&gt;
-                &lt;SwipeAction onClick={() =&gt; {}}&gt;
-                    Eliminar
-                &lt;/SwipeAction&gt;
-    
-            &lt;/TrailingActions&gt;
-        )
-    
-        return (
-         &lt;SwipeableList&gt;  
-            &lt;SwipeableListItem
-                maxSwipe={30}
-                leadingActions = {leadingActions()}
-                trailingActions = {trailingActions()}
-            &gt;
-    
-                &lt;div className=&quot;bg-white shadow-lg p-10 w-full border-b border-gray-200 flex gap-4 items-center&quot;&gt;
-                    &lt;div&gt;
-                        &lt;img 
-                            src={`./icono_${categoryInfo.icon}.svg`} 
-                            alt=&quot;icono gasto&quot;
-                            className=&#39;w-20&#39;
-                        /&gt;
-                    &lt;/div&gt;
-    
-                    &lt;div className=&#39;flex-1 space-y-2&#39;&gt;
-                        &lt;p className=&quot;text-sm font-bold uppercase text-slate-500&quot;&gt;{categoryInfo.name}&lt;/p&gt;
-                        &lt;p&gt;{expense.expenseName}&lt;/p&gt;
-                        &lt;p className=&quot;text-slate-600 text-sm&quot;&gt;{ formatDate( expense.date!.toString() ) }&lt;/p&gt;
-                    &lt;/div&gt;
-    
-                    &lt;AmountDisplay
-                        amount={expense.amount}
-                    /&gt;
-                &lt;/div&gt;
-    
-            &lt;/SwipeableListItem&gt;
-        &lt;/SwipeableList&gt;
-        )
-    }    
-  </code></pre>
-    
-  
-  
-
-
-</div>
-
-<!-- Bloque desplegable interior-->
-<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion13-216').toggle();">
-  <h3><span class="naranja">216.</span> Eliminando un gasto cuando ejecutamos un Swipe</h3>
-  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
-</div>
-<div id="seccion13-216" class="hidden">
+          <pre data-line="2,7,17-32,35-40,62,63"><code class="language-ts">
+            //ExpenseDetail.tsx
+            import { useMemo } from 'react';
+            import { LeadingActions, SwipeableList, SwipeableListItem, SwipeAction, TrailingActions} from 'react-swipeable-list'
+            import { categories } from '../data/categories';
+            import { formatDate } from '../helpers';
+            import { Expense } from '../types/index';
+            import AmountDisplay from './AmountDisplay';
+            import "react-swipeable-list/dist/styles.css"
+            
+            type ExpenseDetailsProps = {
+                expense : Expense
+            }
+            
+            export default function ExpenseDetail({expense} : ExpenseDetailsProps) {
+            
+                const categoryInfo = useMemo(() =&gt; categories.filter(cat =&gt; cat.id === expense.category)[0],[expense])
+            
+                const leadingActions = () =&gt; (
+                    &lt;LeadingActions&gt;
+                        &lt;SwipeAction onClick={() =&gt; {}}&gt;
+                            Actualizar
+                        &lt;/SwipeAction&gt;
+            
+                    &lt;/LeadingActions&gt;
+                )
+                const trailingActions = () =&gt; (
+                    &lt;TrailingActions&gt;
+                        &lt;SwipeAction onClick={() =&gt; {}}&gt;
+                            Eliminar
+                        &lt;/SwipeAction&gt;
+            
+                    &lt;/TrailingActions&gt;
+                )
+            
+                return (
+                &lt;SwipeableList&gt;  
+                    &lt;SwipeableListItem
+                        maxSwipe={30}
+                        leadingActions = {leadingActions()}
+                        trailingActions = {trailingActions()}
+                    &gt;
+            
+                        &lt;div className=&quot;bg-white shadow-lg p-10 w-full border-b border-gray-200 flex gap-4 items-center&quot;&gt;
+                            &lt;div&gt;
+                                &lt;img 
+                                    src={`./icono_${categoryInfo.icon}.svg`} 
+                                    alt=&quot;icono gasto&quot;
+                                    className=&#39;w-20&#39;
+                                /&gt;
+                            &lt;/div&gt;
+            
+                            &lt;div className=&#39;flex-1 space-y-2&#39;&gt;
+                                &lt;p className=&quot;text-sm font-bold uppercase text-slate-500&quot;&gt;{categoryInfo.name}&lt;/p&gt;
+                                &lt;p&gt;{expense.expenseName}&lt;/p&gt;
+                                &lt;p className=&quot;text-slate-600 text-sm&quot;&gt;{ formatDate( expense.date!.toString() ) }&lt;/p&gt;
+                            &lt;/div&gt;
+            
+                            &lt;AmountDisplay
+                                amount={expense.amount}
+                            /&gt;
+                        &lt;/div&gt;
+            
+                    &lt;/SwipeableListItem&gt;
+                &lt;/SwipeableList&gt;
+                )
+            }    
+          </code></pre>
+            
+          
+          
 
 
-</div>
+        </div>
 
-<!-- Bloque desplegable interior-->
-<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion13-217').toggle();">
-  <h3>217. Seleccionando el Gasto a Editar cuando ejecutamos Swipe en la otra dirección</h3>
-  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
-</div>
-<div id="seccion13-217" class="hidden">
+        <!-- Bloque desplegable interior-->
+        <div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion13-216').toggle();">
+          <h3>216. Eliminando un gasto cuando ejecutamos un Swipe</h3>
+          <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+        </div>
+        <div id="seccion13-216" class="hidden">
+          <p>Abrimos budget-reducer.ts y creamos acción nueva para eliminar <code class="language-ts"> </code> y lo que le estamos especificando en el payload es "lo que sea que tenga expense en su campo id, ese mismo type queremos usar". Un poco más abajo en el if de nuestro reducer, podríamos usar algo de lógica para eliminarlo, por ejemplo con un filter y después asignarlo pero también lo podemos poner todo directamente en el return: hacemos una copia del state y a continuación en el filter accedemos a cada gasto y le decimos "traete todos los que sean diferentes al payload que estamos pasando que es el que queremos eliminar"</p>
+          <pre><code class="language-js">
+            //budget-reducer.ts
+            ...
+            { type: 'remove-expense', payload: {id: Expense['id']} }
+            ...
+            if(action.type="remove-expense"){
+              return{
+                  ...state,
+                  expenses: state.expenses.filter( expense => expense.id !== action.payload.id)
+              }
+            }
+          </code></pre>
 
+          <p>Ahora en <span class="file">ExpenseDetail.tsx</span> importamos nuestro custom hook e instanciamos extrayendo dispatch para entonces, ¿¿escribir en mi state esa acción:</p>
 
-</div>
+          <pre data-line="1,5,10"><code class="language-ts">
+            //ExpenseDetail.tsx
+            import { useBudget } from '../hooks/useBudget';
+            ..
+            export default function ExpenseDetail({expense} : ExpenseDetailsProps) {
 
-<!-- Bloque desplegable interior-->
-<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion13-218').toggle();">
-  <h3>218. Llenar el formulario del gasto a editar automáticamente</h3>
-  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
-</div>
-<div id="seccion13-218" class="hidden">
+              const { dispatch } = useBudget()
+              ...
+              const trailingActions = () =&gt; (
+                &lt;TrailingActions&gt;
+                    &lt;SwipeAction 
+                        onClick={() =&gt; dispatch({type: &#39;remove-expense&#39;, payload: {id: expense.id}})}
+                        destructive = {true}
+                    &gt;
+                        Eliminar
+                    &lt;/SwipeAction&gt;
 
+                &lt;/TrailingActions&gt;
+              )
+          </code></pre>
 
-</div>
+        </div>
 
-<!-- Bloque desplegable interior-->
-<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion13-219').toggle();">
-  <h3>219. Editando el gasto</h3>
-  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
-</div>
-<div id="seccion13-219" class="hidden">
+        <!-- Bloque desplegable interior-->
+        <div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion13-217').toggle();">
+          <h3>217. Seleccionando el Gasto a Editar cuando ejecutamos Swipe en la otra dirección / 218. Llenar el formulario del gasto a editar automáticamente</h3>
+          <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+        </div>
+        <div id="seccion13-217" class="hidden">
+          <p>Vamos a ver cómo editamos los gastos. Lo primero es identificar qué gasto estamos "arrastrando" de izquierda a derecha con el swype, lo colocaremos en el state del que estamos editando, abriremos modal y entonces filtrar el gasto por ese id.</p>
+          <ul class="list-disc my-3">
+            <li class="my-1.25">Añadimos una nueva propiedad de state en nuestro reducer llamada <strong>'editingId'</strong> de tipo Expense y usamos lookup para buscar id. Registramos una acción nueva <strong>'get-expense-by-id'</strong> que es la que vamos a disparar para que escriba en nuestra prop de state 'editingId'. En nuestro reducer definimos el if de esa acción. En <span class="file">ExpenseDetail.tsx</span> en el cnClick del LeadingActions SwipeActions llamamos con el dispatch a nuestra nueva acción. Quiero que al arrastrar me lance el modal: es muy fácil gracias a reducer, añadimos en el if correspondiente que <code class="language-ts">modal: true</code>. 
+              <div class="flex max-sm:flex-col">
+                <div class="w-[50%] max-sm:w-[100%]">
+                  <pre data-line="0,3,9,15,18-24"><code class="language-ts">
+                    //budget-reducer.ts
+                    export type BudgetActions = 
+                      ... |
+                      { type: 'get-expense-by-id', payload: {id: Expense['id']} } 
+            
+                    export type BudgetState = {
+                      budget: number
+                      modal: boolean
+                      expenses: Expense[]
+                      editingId: Expense['id']
+                    }
+                    export const initialState: BudgetState = {
+                        budget: 0,
+                        modal: false,
+                        expenses: [],
+                        editingId: ''
+                    }
+                    ...
+                    if(action.type === "get-expense-by-id"){
+                      return{
+                          ...state,
+                          editingId: action.payload.id ,
+                          modal: true
+                      }
+                    }
+                  </code></pre>
+                </div>
+                <div class="w-[50%] max-sm:w-[100%]">
+                  <pre data-line="0,3"><code class="language-ts">
+                    //ExpenseDetail.tsx
+                    const leadingActions = () => (
+                      &lt;LeadingActions&gt;
+                          &lt;SwipeAction onClick={() =&gt; dispatch({type: &quot;get-expense-by-id&quot;, payload: {id: expense.id}})}&gt;
+                              Actualizar
+                          &lt;/SwipeAction&gt;
+                      &lt;/LeadingActions&gt;
+                    )
+                  </code></pre>
+                </div>
+              </div> 
+            </li>
+            <li class="my-1.25">Llenemos el formulario del modal en función del id que aparece en el state 'editingId': nos vamos a <span class="file">ExpenseForm.tsx</span> y al instanciar nuestro useBudget, además de extraer el dispatch vamos a extraer el state: <code class="language-ts">const { dispatch, state } = useBudget()</code> y entonces utilizamos un useEffect() y le pasamos como dependencia state.editingId (teniendo en cuenta que useEffect siempre se ejecuta al menos una vez así que añadimos if comprobando). Una vez hecho el filter seteamos! regresamos de lo global a lo local (anteriormente lo habíamos movido de local a global) para tener toda la validación y el código que hemos hecho en nuestro compo.
+            <pre data-line="0"><code class="language-ts">
+              //ExpenseForm.tsx
+              const { dispatch, state } = useBudget()
 
+              useEffect(() => {
+                if(state.editingId){
+                  const editingExpense = state.expenses.filter( currentExpense => currentExpense.id === state.editingId)[0]
+                  setExpense(editingExpense)
+                }
+              },[state.editingId])
+            </code></pre>
+            </li>
+          </ul>
 
-</div>
+        </div>
 
-<!-- Bloque desplegable interior-->
-<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion13-220').toggle();">
-  <h3>220. Mostrar de forma condicional si es un gasto nuevo o edición</h3>
-  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
-</div>
-<div id="seccion13-220" class="hidden">
+        <!-- Bloque desplegable interior-->
+        <div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion13-219').toggle();">
+          <h3>219. Editando el gasto / 220. Mostrar de forma condicional si es un gasto nuevo o edición</h3>
+          <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+        </div>
+        <div id="seccion13-219" class="hidden">
+          <p>Con lo que llevamos hecho si tratamos de editar un gasto y le damos a enviar vemos que nos agrega uno nuevo. Hemos de identificar cuando estamos editando para actualizar el gasto y si es uno nuevo entonces agregarlo a la lista. Nos vamos a <span class="file">budget-reducer.ts</span> y creamos una acción nueva que se dispara cuando actualizamos. Le pasamos este payload porque cuando estamos actualizando pasamos el objeto completo (estamos actualizando un gasto que ya tiene un id) <code class="language-ts">{ type: 'update-expense', payload: {expense: Expense} } </code>. En el reducer creamos su if correspondiente creando una copia del state actual y con un map vamos a recorrer todos los gastos para identificar cual estoy actualizando vamos a poner(siendo expense el elemento iterado) expense.id === y aquí hay dos formas de hacerlo:</p>
 
+          <ul class="list-disc my-3">
+            <li class="my-1.25">Una forma sería con expense.id === state.editingId (porque ese es el activo y el que estamos actualizando)</li>
+            <li class="my-1.25">Pero también ese gasto, esta actualización tiene su propio id solo que primero tendríamos que validar en el dispatch 'add-expense' de ExpenseForm.tsx <code class="language-ts">dispatch({type: 'add-expense', payload: {expense}})</code>si hay algo en activo para editar y si es así despechar la acción de editar y si no hay nada PARA EDITAR DESPACHAR la que hay actualmente de agregar el gasto. Lo hacemos así.</li>
+          </ul>
+        
+          <p>Cuando detecte que es igual entonces voy a reescribir de mis gastos con action.payload.expense (es decir el objeto completo) y en caso contrario retorno expense (el gasto sobre el cual estoy iterando) para no perder así los otros gastos.</p>
+              <pre><code class="language-ts">
+                //budget-reducer.ts
+                if(action.type==="update-expense"){
+                  return{
+                      ...state,
+                      expenses: state.expenses.map(expense => expense.id === action.payload.expense.id ? action.payload.expense : expense),
+                      modal: false,
+                      editingId: ''
+                  }
+              }
+              </code></pre>
+            
+              <p>Como estamos comparando por al payload, para que mande llamar correctamente a esa función tenemos que ir a <span class="file">ExpenseForm.tsx</span> como decíamos y vamos a comprobar si estamos agregando o actualizando gasto: si agregamos usamos el dispatch como lo teníamos, si estmaos actualizando, usamos la acción recién creada pero el payload es un poco más complejo porque, recordemos, nuestro expense no tenía id, pero al actualizar la estamos pasando que su objeto va a ser ya un gasto que tiene id. Le vamos a decir que el id lo coja del editingId (id: state.editingId), y del resto toma una copia de lo que tenemos en el state como gasto (...expense)</p>
 
-</div>
+              <pre><code class="language-ts">
+                //ExpenseForm.tsx
+                //Agregar un nuevo gasto o actualizar uno existente
+                if(state.editingId){
+                  dispatch({type: 'update-expense', payload: {expense: {id: state.editingId, ...expense}} })
+                }else{
+                  dispatch({type: 'add-expense', payload: {expense}})
+                }
+              </code></pre>
+
+          <p>Si nos fijamos, al editar un gasto en cuanto se cierra el modal lo reseteábamos, sin embargo a darle a agregar nuevo gasto a continuación nos sale el último editado de nuevo ¿por qué? mirando 'BudgetProvider' en la pestaña components en RDT vemos que nuestro state 'editingID' SIEMPRE está en activo (usaba un useEffect) entonces cuando lo vuelve a llamar se rellena. Por lo tanto vamos a especificarle tras el cierre del modal que editingId sea un string vacío. Esto mismo lo vamos a especificar en nuestra acción de cierre de modal también para prevenir que si un usuario edita y cierra el modal sin finalizar la acción de editar, este permanezca lleno:
+          
+          <p>Vamos a mostrar el título del modal diferente si se trata de un nuevo gasto o de una edición. Vamos a ExpenseForm.tsx. Ese título está en un legend y como ya teníamos importado el state de nuestra aplicación podemos hacer lo siguiente:</p>
+
+          <pre><code class="language-ts">
+            //ExpenseForm.tsx
+            &lt;legend
+              className=&quot;uppercase text-center text-2xl font-black border-b-4 border-blue-500 py-2&quot;
+            &gt;{state.editingId ? &#39;Guardar Cambios&#39; : &#39;Nuevo gasto&#39;}&lt;/legend&gt;
+            ...
+            &lt;input 
+              type=&quot;submit&quot; 
+              className=&quot;bg-blue-600 cursor-pointer w-full p-2 text-white uppercase font-bold rounded-lg&quot;
+              value={state.editingId ? &#39;Guardar Cambios&#39; : &#39;Registrar gasto&#39;}
+            /&gt;
+          </code></pre>
+        </div>
+
 
 <!-- Bloque desplegable interior-->
 <div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion13-221').toggle();">
-  <h3>221. Colocando gastos en LocalStorage</h3>
+  <h3><span class="naranja">221.</span> Colocando gastos en LocalStorage</h3>
   <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
 </div>
 <div id="seccion13-221" class="hidden">
