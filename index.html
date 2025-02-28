@@ -90,7 +90,8 @@
               &lt;script src=&quot;https://unpkg.com/prop-types/prop-types.min.js&quot;&gt;&lt;/script&gt;
               Or via NPM:<br>
 
-              <span class="destacado">npm install --save prop-types</span>
+              <span class="destacado">npm install --save prop-types</span><br>
+              En el vídeo 224 instala <span class="destacado">npm i react-circular-progressbar</span>
             
             
             </li>
@@ -2006,44 +2007,311 @@
           </code></pre>
         </div>
 
+        <!-- Bloque desplegable interior-->
+        <div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion13-221').toggle();">
+          <h3>221. Colocando gastos en LocalStorage</h3>
+          <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+        </div>
+        <div id="seccion13-221" class="hidden">
+          <p>Vamos a nuestro reducer que es donde manejamos el state. Requerimos el presupuesto (budget) pero también los gastos (expenses) así que vamos a tener dos funciones, dos objetos distintos para no tener tanta lógica. De esta manera, separado, es más simple, más fácil de leer, más sencillo de mantener:</p>
 
-<!-- Bloque desplegable interior-->
-<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion13-221').toggle();">
-  <h3><span class="naranja">221.</span> Colocando gastos en LocalStorage</h3>
-  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
-</div>
-<div id="seccion13-221" class="hidden">
+          <div class="flex max-sm:flex-col">
+            <div class="w-[50%] max-sm:w-[100%]">
+              <pre class="rojo" data-line="2,4"><code class="language-js">
+                //budget-reducer.ts
+                export const initialState: BudgetState = {
+                  budget: 0,
+                  modal: false,
+                  expenses: [],
+                  editingId: ''
+              }
+              </code></pre>
+            </div>
+            <div class="w-[50%] max-sm:w-[100%]">
+              <pre class="verde" data-line="1-8,10,12"><code class="language-js">
+                //budget-reducer.ts
+                const initialBudget = () : number =>{
+                  const localStorageBudget = localStorage.getItem('budget')
+                  return localStorageBudget ? +localStorageBudget : 0
+                }
+                const localStorageExpenses = () : Expense[] => {
+                  const localStorageExpenses = localStorage.getItem('expenses')
+                  return localStorageExpenses ? JSON.parse(localStorageExpenses) : []
+                }
+                export const initialState: BudgetState = {
+                  budget: initialBudget(),
+                  modal: false,
+                  expenses: localStorageExpenses(),
+                  editingId: ''
+              }
+              </code></pre>
+            </div>
+          </div>
+
+          <p>En <span class="file">App.tsx</span> usamos un useEffect() y le pasamos como dependencia para escuchar el state que ya tiene importado ese App.tsx de manera global.</p>
+          
+          <ul class="list-disc my-3">
+            <li class="my-1.25">Seteamos nuestro 'budget' de localStorage usando toString() porque localStorage no acepta números (y recordemos nuestro presupuesto budget es un número) y en typescript tenemos que ser muy específicos.</li>
+            <li class="my-1.25">Seteamos nuestro 'expenses' de localStorage usando JSON.stringify() porque localStorage no acepta arreglos (y nuestros gastos lo son)</li>
+          </ul>
+
+          <pre data-line="0"><code class="language-ts">
+            //App.tsx
+            useEffect(() => {
+              localStorage.setItem('budget', state.budget.toString())
+              localStorage.setItem('expenses', JSON.stringify(state.expenses))
+            },[state])
+          </code></pre>
+
+        </div>
+
+        <!-- Bloque desplegable interior-->
+        <div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion13-222').toggle();">
+          <h3>222. Trabajando con el Componente que muestra Presupuesto, Gastado y Disponible</h3>
+          <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+        </div>
+        <div id="seccion13-222" class="hidden">
+          <p>Vamos a trabajar con el compo <span class="file">BudgetTracker.tsx</span> que es donde mostramos Presupuesto, Gastado y Disponible. Vamos a hacerlo como un state derivado, vamos a ir escribiendo algunas funciones que, gracias a que se actualiza el state también se van a ir actualizando. Importamos nuestro useBudget y extraemos el state que es donde vamos a tener nuestro presupuesto, nuestras cantidades y podemos calcular el total a pagar.</p>
+          <ul class="list-disc my-3">
+            <li class="my-1.25"><strong>Nuestro presupuesto:</strong> Cambiamos el código hardcodeado de 300 que teníamos en el prop Amount del tag AmountDisplay de : <code class="language-ts">amount={300}</code> por <code class="language-ts">amount={state.budget}</code> </li>
+            <li class="my-1.25"><strong>Lo gastado: </strong> Vamos a crear una variable 'totalExpenses' y usaremos en ella useMemo() porque queremos que ese cálculo se ejecute cada vez que cambie el state de gastos. usamos reduce() con sus dos parámetros para el cálculo</li>
+            <li class="my-1.25">Lo disponible: creamos variable 'remainingBudget' y calculamos la diferencia entre el presupuesto y lo gastado. </li>
+          </ul>
+         
+          <pre data-line="4-5,7,11,15,19"><code class="language-ts">
+          //BudhetTracker.tsx
+          export default function BudgetTracker() {
+            const { state } = useBudget()
+        
+            const totalExpenses = useMemo( () => state.expenses.reduce((total,expense) => expense.amount + total, 0 )
+            , [state.expenses])
+
+            const remainingBudget = state.budget - totalExpenses
+            ...
+            &lt;AmountDisplay
+            label=&quot;Presupuesto&quot;
+            amount={state.budget}
+            /&gt;
+            &lt;AmountDisplay
+              label=&quot;Disponible&quot;
+              amount={remainingBudget}
+            /&gt;
+            &lt;AmountDisplay
+              label=&quot;Gastado&quot;
+              amount={totalExpenses}            
+            /&gt;
+          </code></pre>
+        </div>
+
+        <!-- Bloque desplegable interior-->
+        <div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion13-223').toggle();">
+          <h3>223. Evitar Excedernos del presupuesto</h3>
+          <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+        </div>
+        <div id="seccion13-223" class="hidden">
+          <p>Veamos como hacer para no pasarnos del presupuesto y evitar añadir/editar un gasto con cuya cantidad se exceda nuestro presupuesto (nos aparecería cifra negativa ahí). Básicamente tendríamos que copiar todo el código que acabamos de crear en el punto anterior también al formulario porque ahí es cuanto queda disponible... sin embargo en vez de tener copias por ahí en nuestro código, nos lo vamos a llevar al context <span class="file">context/BudgetContext.tsx</span> donde estamos utilizando reducer (aunque no tenga que ver esclusivamente con nuestro estate, si lo podemos utilizar en distintos sitios de nuestra app para no tener así código duplicado lo llevamos al context):</p>
+
+          <div class="flex max-sm:flex-col">
+            <div class="w-[40%] max-sm:w-[100%]">
+              <pre data-line="0"><code class="language-js">
+                //context/BudgetContext.tsx
+                import { useReducer, createContext, Dispatch, ReactNode } from &#39;react&#39;;
+                import { BudgetState, BudgetActions, budgetReducer, initialState } from &quot;../reducers/budget-reducer&quot;
+                
+                type BudgetContextProps = {
+                    state:  BudgetState
+                    dispatch: Dispatch&lt;BudgetActions&gt;
+                }
+                type BudgetProviderProps = {
+                    children : ReactNode
+                }
+                
+                export const BudgetContext = createContext&lt;BudgetContextProps&gt;(null!)
+                
+                export const BudgetProvider = ({children}: BudgetProviderProps) =&gt; {
+                
+                    const[state, dispatch] = useReducer(budgetReducer, initialState)
+                   
+                    return(
+                        &lt;BudgetContext.Provider
+                            value={{
+                                state,
+                                dispatch
+                            }}
+                        &gt;
+                            {children}
+                        &lt;/BudgetContext.Provider&gt;
+                    )                
+                }
+              </code></pre>
+            </div>
+            <div class="w-[60%] max-sm:w-[100%]">
+              <pre class="verde" data-line="7,8,20-22,29,30"><code class="language-js">
+                //context/BudgetContext.tsx
+                import { useReducer, createContext, Dispatch, ReactNode, useMemo } from &#39;react&#39;;
+                import { BudgetState, BudgetActions, budgetReducer, initialState } from &quot;../reducers/budget-reducer&quot;
+                
+                type BudgetContextProps = {
+                    state:  BudgetState
+                    dispatch: Dispatch&lt;BudgetActions&gt;
+                    totalExpenses: number
+                    remainingBudget: number
+                }
+                type BudgetProviderProps = {
+                    children : ReactNode
+                }
+                
+                export const BudgetContext = createContext&lt;BudgetContextProps&gt;(null!)
+                
+                export const BudgetProvider = ({children}: BudgetProviderProps) =&gt; {
+                
+                    const [state, dispatch] = useReducer(budgetReducer, initialState)
+                
+                    const totalExpenses = useMemo( () =&gt; state.expenses.reduce((total,expense) =&gt; expense.amount + total, 0 )
+                    , [state.expenses])
+                    const remainingBudget = state.budget - totalExpenses
+                   
+                    return(
+                        &lt;BudgetContext.Provider
+                            value={{
+                                state,
+                                dispatch,
+                                totalExpenses,
+                                remainingBudget
+                            }}
+                        &gt;
+                            {children}
+                        &lt;/BudgetContext.Provider&gt;
+                    )                
+                }
+              </code></pre>
+            </div>
+          </div>
+
+          <p>En <span class="file">BudgetTracker.tsx</span> eliminaríamos entonces ese código que creamos antes y simplemente extraemos esos dos objetos que hemos creado en el context con el importe que resta del presupuesto y la suma del total de los gastos (remainingBudget y totalExpenses). Quedaría así:</p>
+
+          <pre data-line="5"><code class="language-ts">
+            //BudgetTracker.tsx
+            import { useBudget } from &#39;../hooks/useBudget&#39;;
+            import AmountDisplay from &#39;./AmountDisplay&#39;;
+            
+            export default function BudgetTracker() {
+                const { state, remainingBudget, totalExpenses } = useBudget()
+            
+                return (
+                &lt;div className=&quot;grid grid-cols-1 md:grid-cols-2 gap-5&quot;&gt;
+                    &lt;div className=&quot;flex justify-center&quot;&gt;
+                        &lt;img src=&quot;./grafico.jpg&quot; alt=&quot;Gráfica de gastos&quot; /&gt;
+                    &lt;/div&gt;
+            
+                    &lt;div className=&quot;flex flex-col justify-center items-center gap-8&quot;&gt;
+                        &lt;button
+                            type=&quot;button&quot;
+                            className=&#39;bg-pink-600 w-full p-2 text-white uppercase font-bold rounded-lg&#39;&gt;
+                                Resetear App
+                        &lt;/button&gt;
+            
+                        &lt;AmountDisplay
+                            label=&quot;Presupuesto&quot;
+                            amount={state.budget}
+                        /&gt;
+                        &lt;AmountDisplay
+                            label=&quot;Disponible&quot;
+                            amount={remainingBudget}
+                        /&gt;
+                        &lt;AmountDisplay
+                            label=&quot;Gastado&quot;
+                            amount={totalExpenses}            
+                        /&gt;
+                    &lt;/div&gt;
+                    
+                &lt;/div&gt;
+                )
+            }
+          </code></pre>
+
+          <p>Si vemos nuestra app sigue funcionando igual pero al tenerlo en nuestro context ya es algo reutilizable así que vamos a <span class="file">ExpenseForm.tsx</span> en donde, como tenemos ya importado el useBudget, extraemos el objeto remainingBudget y agregamos una segunda validación en nuestro handleSubmit:</p>
+
+          <pre><code class="language-ts">
+            //ExpenseForm.tsx
+            ...
+            const { dispatch, state, remainingBudget } = useBudget()
+            ...
+            //Validar que no me pase del presupuesto
+            if( expense.amount > remainingBudget){
+              setError('Ese gasto es mayor que lo que resta de Presupuesto')
+              return
+            }
+          </code></pre>
+
+          <p>Llegados a este punto vemos que el nivel de complejidad es grande y algo nos falla (si intentamos modificar un gasto de 200 y bajarlo a 180 cuando por ejemplo aun nos quedan 100 de presupeusto nos sale error). Vamos a agregar en <span class="file">ExpenseForm.tsx</span> un nuevo state local 'previousAmount' <code class="language-ts">const [previousAmount, setPreviousAmount] = useState(0)</code> para que, cuando estemos editando, vamos a congelar esa cantidad porque la requerimos. Añadimos lo siguiente en nuestro useEffect() de editar:</p>
+
+          <pre data-line="2,9"><code class="language-ts">
+            //ExpenseForm.tsx
+            ...
+            const [previousAmount, setPreviousAmount] = useState(0)
+            const { dispatch, state, remainingBudget } = useBudget()
+
+            useEffect(() => {
+              if(state.editingId){
+                const editingExpense = state.expenses.filter( currentExpense => currentExpense.id === state.editingId)[0]
+                setExpense(editingExpense)
+                setPreviousAmount(editingExpense.amount)
+              }
+            },[state.editingId])
+
+          </code></pre>
+
+          <p>y entonces cambiamos nuestra validación de esto a esto e importante reinicar también ese nuevo state previousAmount porqeu en los siguientes que yo agregue queremos iniciar a 0 y entonces cuando se monte el componente, cuando estemos editando que lo tome de ahí:</p>
+
+          <div class="flex max-sm:flex-col">
+            <div class="w-[50%] max-sm:w-[100%]">
+              <pre class="rojo" data-line="1"><code class="language-js">
+                //Validar que no me pase del presupuesto
+                if( expense.amount > remainingBudget){
+                  setError('Ese gasto es mayor que lo que resta de Presupuesto')
+                  return
+                }
+                ...
+                //reiniciar el state
+                setExpense({
+                  amount: 0,
+                  expenseName: '',
+                  category: '',
+                  date: new Date()
+                })
+              </code></pre>
+            </div>
+            <div class="w-[50%] max-sm:w-[100%]">
+              <pre class="verde" data-line="1,13"><code class="language-js">
+                //Validar que no me pase del presupuesto
+                if( (expense.amount-previousAmount) > remainingBudget){
+                  setError('Ese gasto es mayor que lo que resta de Presupuesto')
+                  return
+                }
+                ...
+                //reiniciar el state
+                setExpense({
+                  amount: 0,
+                  expenseName: '',
+                  category: '',
+                  date: new Date()
+                })
+                setPreviousAmount(0)
+              </code></pre>
+            </div>
+          </div>
 
 
-</div>
-
-<!-- Bloque desplegable interior-->
-<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion13-222').toggle();">
-  <h3>222. Trabajando con el Componente que muestra Presupuesto, Gastado y Disponible</h3>
-  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
-</div>
-<div id="seccion13-222" class="hidden">
-
-
-</div>
-
-<!-- Bloque desplegable interior-->
-<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion13-223').toggle();">
-  <h3>223. Evitar Sobregirar el presupuesto</h3>
-  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
-</div>
-<div id="seccion13-223" class="hidden">
-
-
-</div>
+        </div>
 
 <!-- Bloque desplegable interior-->
 <div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion13-224').toggle();">
   <h3>224. Agregando una gráfica circular interactiva y RETO 05</h3>
   <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
 </div>
-<div id="seccion13-224" class="hidden">
-
+<div id="seccion13-224" class="">
+  <p>Veamos como realizar esta gráfica circular dinámica para lo cual instalamos la dependencia <span class="destacado">npm i react-circular-progressbar</span>.</p>
 
 </div>
 
