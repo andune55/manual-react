@@ -2309,33 +2309,104 @@
 
         </div>
 
-<!-- Bloque desplegable interior-->
-<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion13-224').toggle();">
-  <h3>224. Agregando una gráfica circular interactiva y RETO 05</h3>
-  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
-</div>
-<div id="seccion13-224" class="">
-  <p>Veamos como realizar esta gráfica circular dinámica para lo cual instalamos la dependencia <span class="destacado">npm i react-circular-progressbar</span>.</p>
+        <!-- Bloque desplegable interior-->
+        <div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion13-224').toggle();">
+          <h3>224. Agregando una gráfica circular interactiva y RETO 05 - <a class="text-white underline" href="https://www.npmjs.com/package/react-circular-progressbar" target="_blank">React Circular Progressbar</a> / 225. Crear un botón para reiniciar la app</h3>
+          <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+        </div>
+        <div id="seccion13-224" class="hidden">
+          <p>Veamos como realizar esta gráfica circular dinámica para lo cual instalamos la dependencia <span class="destacado">npm i react-circular-progressbar</span>. Importamos y sustituimos el jpg estático por este componente. El prop value representa el % de lo que se llena, hay que hacerlo dinámico para lo cual hacemos lo siguiente: <code class="language-ts">const percentage = +((totalExpenses / state.budget) * 100).toFixed(2)</code>.</p>
 
-</div>
+          <div class="flex max-sm:flex-col">
+            <div class="w-[50%] max-sm:w-[100%]">
+              <pre data-line="1,2,7,13-19"><code class="language-ts">
+                //BudgetTracker.tsx
+                import { CircularProgressbar, buildStyles } from 'react-circular-progressbar'
+                import "react-circular-progressbar/dist/styles.css"
+                ...
+                export default function BudgetTracker() {
+                  const { state, remainingBudget, totalExpenses } = useBudget()
+              
+                  const percentage = +((totalExpenses / state.budget) * 100).toFixed(2)
+                  //console.log(percentage)
+              
+                  return (
+                    &lt;div className=&quot;grid grid-cols-1 md:grid-cols-2 gap-5&quot;&gt;
+                      &lt;div className=&quot;flex justify-center&quot;&gt;
+                      &lt;CircularProgressbar 
+                          value={percentage}
+                          styles={buildStyles({
+                              pathColor: percentage === 100? &#39;#dc2626&#39; : &#39;#3b82f6&#39;,
+                              trailColor: &#39;#f5f5f5&#39;,
+                              textSize: 8,
+                              textColor: percentage === 100? &#39;#dc2626&#39; : &#39;#3b82f6&#39;
+                          })}
+                          text={`${percentage}% gastado`}                
+                      /&gt;
+                      &lt;/div&gt;
+                      ...
+              </code></pre>
+            </div>
+            <div class="w-[50%] max-sm:w-[100%] mr-2">
+              <img src="./src/assets/img/224.png" alt="img" loading="lazy">
+            </div>
+          </div>  
 
-<!-- Bloque desplegable interior-->
-<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion13-225').toggle();">
-  <h3>225. Crear un botón para reiniciar la app</h3>
-  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
-</div>
-<div id="seccion13-225" class="hidden">
+          <p>Hagamos el <strong>Reto 05: Reiniciar la App</strong></p>
 
+          <ul class="list-disc my-2.5">
+            <li>Hacer funcional el botón de Reiniciar o Resetear App</li>
+            <li>Deberemos crear la acción y mandarla llamar con Dispatch</li>
+            <li>Seguir las convenciones de nombres del custom hook y reducer</li>
+          </ul>
 
-</div>
+          <p>En <span class="file">budget-reducer.ts</span> agregamos nueva acción sin payload y en el if del reducer tomamos copia del state, inicializamos el presupuesto a 0 y los gastos array vacío (no hace falt poner a false el modal porque el hecho de estar pulsando el botón ya presupone que está cerrado). En <span class="file">BudgetTracker</span> extraemos el dispatch de nuestro useBudget() y lo usamos para crear una función de borrado que llamamos desde el onClick del botón.</p>
+
+          <div class="flex max-sm:flex-col">
+            <div class="w-[50%] max-sm:w-[100%]">
+              <pre><code class="language-js">
+                //budget-reducer.ts
+                ...
+                { type: 'restart-app' } 
+                ...
+                if(action.type == "restart-app" ){
+                  return{
+                      ...state,
+                      budget: 0,
+                      expenses: []
+                  }
+              }
+              </code></pre>
+            </div>
+            <div class="w-[50%] max-sm:w-[100%]">
+              <pre data-line="1,2,6"><code class="language-ts">
+                //BudgetTracker.tsx
+                const { state, remainingBudget, totalExpenses, dispatch } = useBudget()
+                const resetApp = () =>{dispatch({type: 'restart-app'}) }
+                ..
+                &lt;button
+                    type=&quot;button&quot;
+                    className=&#39;bg-pink-600 w-full p-2 text-white uppercase font-bold rounded-lg cursor-pointer&#39;
+                    onClick={resetApp}
+                &gt;
+                    Resetear App
+                &lt;/button&gt;
+              </code></pre>
+            </div>
+          </div>
+
+          
+
+        </div>
+
 
 <!-- Bloque desplegable interior-->
 <div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion13-226').toggle();">
   <h3>226. Creando un componente para filtrar los gastos</h3>
   <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
 </div>
-<div id="seccion13-226" class="hidden">
-
+<div id="seccion13-226" class="">
+  <p>Vamos a preparar un compo para poder filtrar los gastos por categorías en caso de que lleguen a ser muchos.</p>
 
 </div>
 
