@@ -248,16 +248,16 @@
           </div>
 
           <!-- Bloque desplegable interior-->
-          <div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion15-245').toggle();">
+          <div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion15-244').toggle();">
             <h3>244. Creando el Store de Zustand / 245. Definiendo acciones en el Store de Zustand</h3>
             <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
           </div>
-          <div id="seccion15-245" class="hidden">
+          <div id="seccion15-244" class="hidden">
             <p>Vamos a crear nuestro primer store de Zustand. ¿Qué es un store? es exactamente lo mismo que hicimos con reducer. Es lo mismo solo que en Zustand, en Redux, ellos le dan el nombre de store. <strong>Y es donde vamos a colocar nuestro state y las funciones que lo modifican.</strong> Se puede crear (uno o si son varios) en una carpeta llamada store y también, suelto junto al App.tsx y main.tsx. Nosotros solo tendremos uno así que lo dejamos suelto <span class="file">store.ts</span>. Es una sintaxis más fácil que con useReducer() y por tanto más fácil de entender.</p>
 
             <p>La forma en que vamos a crear un store es importando de zustand la función para hacerlo, create <code class="language-ts">import { create } from "zustand"</code>. Nuestra primera variable, el nombre de nuestro hook va a ser <code class="language-ts">export const usePatientStore = </code> y usamos la función create con su callback, paréntesis y llaves.</p>
 
-            <pre><code class="language-ts">
+            <pre data-line="0"><code class="language-ts">
               //store.ts
               import { create } from "zustand" 
 
@@ -270,7 +270,7 @@
 
             <div class="flex max-sm:flex-col">
               <div class="w-[50%] max-sm:w-[100%]">
-                <pre><code class="language-js">
+                <pre data-line="0"><code class="language-js">
                   //types/index.ts
                   export type Patient = {
                     id: string
@@ -285,7 +285,7 @@
                 </code></pre>
               </div>
               <div class="w-[50%] max-sm:w-[100%]">
-                <pre><code class="language-ts">
+                <pre data-line="0"><code class="language-ts">
                   //store.ts
                   import { create } from "zustand" 
               
@@ -300,14 +300,11 @@
               </div>
             </div>
 
-            <p>Así es como "va a ir quedando sincronizado nuestro store con cierta estructura" como hicimos con la parte de reducer´. Y si queremos agregar más state o funciones hayq ue seguir la misma dinámica de añadirlas en el store y en el type.</p>
+            <p>Así es como "va a ir quedando sincronizado nuestro store con cierta estructura" como hicimos con la parte de reducer´. Y si queremos agregar más state o funciones hay que seguir la misma dinámica de añadirlas en el store y en el type.</p>
 
-            <p>Cuando vimos la parte de Context API, registrábamos el provider y registrábamos nuestro context con bastante código, teníamos acciones y mucho código, también creábamos un context hook... también en el main agregábamos toda nuestra aplicación dentro del context. Ahora no necesitamos nada de eso. Nuestro custom hook está en la línea <code class="language-ts">export const usePatientStore = create(() =&gt; ({}))</code>. Lo que vemos aquí es todo lo que necesitamos para tener un estado global con Zustand</p>
+            <p>Cuando vimos la parte de Context API, registrábamos el provider y registrábamos nuestro context con bastante código, teníamos acciones y mucho código, también creábamos un context hook... también en el main agregábamos toda nuestra aplicación dentro del context. Ahora no necesitamos nada de eso. Nuestro custom hook está en la línea <code class="language-ts">export const usePatientStore = create(() =&gt; ({}))</code> Lo que vemos aquí es todo lo que necesitamos para tener un estado global con Zustand.</p>
 
             <p>Veamos como escribir en pacientes, como comunicar nuestros componentes con nuestro store para comenzar a escribir en nuestro state.</p>
-
-
-
           </div>
 
           <!-- Bloque desplegable interior-->
@@ -323,7 +320,7 @@
 
             <p>Creamos la función addPatient que toma data (los datos que vienen del formulario) que son de type DraftPatient y no retorna nada y a continuación registramos la función en el hook:</p>
 
-            <pre><code class="language-ts">
+            <pre data-line="0"><code class="language-ts">
               //store.ts
               import { create } from "zustand" 
               import { DraftPatient, Patient } from "./types"
@@ -374,7 +371,7 @@
 
             <p>Estamos comunicando de nuestro formulario de pacientes al store. Es en el store donde vamos a almacenar nuestros pacientes para tener un estado global y sobre todo un lugar centralizado para manejar nuestro state y ahí tenemos las funciones que escriben en el state. Zustand como decimos simplifica mucho lo que habíamos visto con useReducer() (acciones arriba, state y lógica abajo), aquí tenemos el state junto a las acciones que lo modifican.</p>
             
-            <p>¿Como hacemos para escribir en Patients en addPatient. <strong>En el callback de create le podemos pasar un par de funciones <span class="destacado">set y get</span></strong> siendo set para setear un valor en nuestro state y get para obtenerlo. De momento usamos set porque queremos escribir en patients. set toma un callback, paréntesis y llaves (es muy similar a la parte del return que vimos con useReducer(), pero esta es la manera en que lo hace Zustand) y en el callback le pasamos el state para poder acceder a todo lo que tiene con la notación del punto y recuperamos los patients para no perder loq ue ya estuviera almacenado, y le pasamos data, momento en que nos marca error ('oye en el type del store me dijiste que patients es un arreglo de Patient, pero este data es un draft, te hace falta generar su id')</p>
+            <p>¿Como hacemos para escribir en Patients en addPatient. <strong>En el callback de create le podemos pasar un par de funciones <span class="destacado">set y get</span></strong> siendo set para setear un valor en nuestro state y get para obtenerlo. De momento usamos set porque queremos escribir en patients. set toma un callback, paréntesis y llaves (es muy similar a la parte del return que vimos con useReducer(), pero esta es la manera en que lo hace Zustand) y en el callback le pasamos el state para poder acceder a todo lo que tiene con la notación del punto y recuperamos los patients para no perder lo que ya estuviera almacenado, y le pasamos data, momento en que nos marca error ('oye en el type del store me dijiste que patients es un arreglo de Patient, pero este data es un draft, te hace falta generar su id')</p>
 
             <img src="./src/assets/img/246.png" alt="img" loading="lazy">
 
