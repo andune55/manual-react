@@ -10,8 +10,8 @@
     
     <!-- <script src="https://unpkg.com/@tailwindcss/browser@4"></script> -->
   
-    <script type="module" crossorigin src="https://andune55.github.io/manual-react/assets/index-DLZ4b5xI.js"></script>
-    <link rel="stylesheet" crossorigin href="https://andune55.github.io/manual-react/assets/index-Cl-vonuC.css">
+    <script type="module" crossorigin src="https://andune55.github.io/manual-react/assets/index-C9ypGi9E.js"></script>
+    <link rel="stylesheet" crossorigin href="https://andune55.github.io/manual-react/assets/index-BCFsCysA.css">
   </head>
   <body>
     <div id="root"></div>	
@@ -39,8 +39,7 @@
             <li><span class="destacado">Zustand - npm i zustand</span> - <a class="underline" href="https://www.npmjs.com/package/zustand" target="_blank">https://www.npmjs.com/package/zustand</a> - <a class="underline" href="https://github.com/pmndrs/zustand" target="_blank"> github zustand</a> - administrador para manejar un estado global de forma muy simple</li>
             <li><span class="destacado">npm i uuid</span> - <a class="underline" href="https://www.npmjs.com/package/uuid" target="_blank">https://www.npmjs.com/package/uuid</a> - uuid es una dependencia para generar id</li>
             <li><span class="destacado">React-Toastify</span> para notificaciones <a href="https://www.npmjs.com/package/react-toastify" target="_blank" class="underline">https://www.npmjs.com/package/react-toastify</a></li>
-          </ul>
-                       
+          </ul>                       
 
           <!-- Bloque desplegable interior-->
           <div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion15-235').toggle();">
@@ -106,7 +105,7 @@
 
             <p class="naranja">Procesar el Formulario con React Hook Form</p>
 
-            <p>otra función que extraemos es handleSubmit y la llamamos desde el onSubmit de nuestro formulario. Creamos una función nuevba registerPatient que la pasamos como parámetro. Extraemos también formState y tras nuestro input que estamos validadno añadimos el objeto {errors.name?.message}</p>
+            <p>otra función que extraemos es handleSubmit y la llamamos desde el onSubmit de nuestro formulario. Creamos una función nueva registerPatient que la pasamos como parámetro. Extraemos también formState y tras nuestro input que estamos validano añadimos el objeto {errors.name?.message}</p>
 
             <pre><code class="language-ts">
               ///PatientForm.tsx
@@ -428,97 +427,450 @@
 
           </div>
 
+          <!-- Bloque desplegable interior-->
+          <div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion15-247').toggle();">
+            <h3>247. Trabajando con el Listado de Pacientes / 248. Mostrando la información del Paciente / 249. Creando los botones de Editar y eliminar</h3>
+            <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+          </div>
+          <div id="seccion15-247" class="hidden">
+            <p>Ya estamos escribiendo en nuestro state desde nuestro formulario. Hemos creado un store, que maneja tanto state como funciones, de momento solo tenemos una que es 'addPatient'. Vamos a comenzar a mostrar nuestros pacientes para tener esa aplicación dinámica y reactiva. Vemos que la sintaxis para acceder al state <svg class="size-6 shrink-0 inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3"></path>
+            </svg><span class="file">PatientList.tsx</span> <code class="language-ts">const patients = usePatientStore(state => state.patients)</code> y acceder a nuestras funciones que modifican el state <svg class="size-6 shrink-0 inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3"></path>
+            </svg> <span class="file">PatientForm.tsx</span> <code class="language-ts">const addPatient  = usePatientStore(state => state.addPatient)</code> es la misma.</p>
+
+            <pre data-line="0"><code class="language-ts">
+              //PatienteList.tsx
+              import { usePatientStore } from &quot;../store&quot;
+              import PatientDetails from &quot;./PatientDetails&quot;
+              
+              export default function PatientsList() {
+              
+                  const patients = usePatientStore(state =&gt; state.patients)
+                  console.log(patients)
+                  
+                  return (
+                      &lt;div className=&quot;md:w-1/2 lg:3/5 md:h-screen overflow-y-scroll&quot;&gt;
+                          {patients.length ? (
+                              &lt;&gt;
+                                  &lt;h2 className=&quot;font-black text-3xl text-center&quot;&gt;Listado de Pacientes&lt;/h2&gt;
+                                  &lt;p className=&quot;text-xl mt-5 mb-10 text-center&quot;&gt;
+                                      Administra tus {&#39;&#39;}
+                                      &lt;span className=&quot;text-indigo-600 font-bold&quot;&gt;Pacientes y Citas&lt;/span&gt;
+                                  &lt;/p&gt;
+                                  {patients.map( patient =&gt; (
+                                      &lt;PatientDetails
+                                          key={patient.id}
+                                          patient={patient}
+                                      /&gt;
+                                  ))}
+                              &lt;/&gt;
+                          ) : (
+                              &lt;&gt;
+                                  &lt;h2 className=&quot;font-black text-3xl text-center&quot;&gt;No hay pacientes&lt;/h2&gt;
+                                  &lt;p className=&quot;text-xl mt-5 mb-10 text-center&quot;&gt;
+                                      Comienza agregando pacientes {&#39;&#39;}
+                                      &lt;span className=&quot;text-indigo-600 font-bold&quot;&gt;y aparecerán en este lugar&lt;/span&gt;
+                                  &lt;/p&gt;
+                              &lt;/&gt;
+                          )}
+                      &lt;/div&gt;
+                  )
+              }    
+            </code></pre>
+
+            <div class="flex max-sm:flex-col">
+              <div class="w-[50%] max-sm:w-[100%]">
+                <pre data-line="0"><code class="language-js">
+                  //PatienteDetail.tsx
+                  import { toast } from 'react-toastify'
+                  import { Patient } from "../types"
+                  import PatientDetailItem from "./PatientDetailItem"
+                  import { usePatientStore } from "../store"
+                  
+                  type PatientDetailsProps = {
+                      patient: Patient
+                  }
+                  
+                  export default function PatientDetails({patient} : PatientDetailsProps) {
+                  
+                      const deletePatient = usePatientStore((state) => state.deletePatient)
+                      const getPatientById = usePatientStore((state) => state.getPatientById)
+                  
+                      const handleClick = () => {
+                          deletePatient(patient.id)
+                          toast('Paciente Eliminado', {
+                              type: 'error'
+                          })
+                      }
+                          
+                      return (
+                          &lt;div className=&quot;mx-5 my-10 px-5 py-10 bg-white shadow-md rounded-xl&quot;&gt;
+                              &lt;PatientDetailItem label=&quot;ID&quot; data={patient.id} /&gt;
+                              &lt;PatientDetailItem label=&quot;Nombre&quot; data={patient.name} /&gt;
+                              &lt;PatientDetailItem label=&quot;Propietario&quot; data={patient.caretaker} /&gt;
+                              &lt;PatientDetailItem label=&quot;Email&quot; data={patient.email} /&gt;
+                              &lt;PatientDetailItem label=&quot;Fecha Alta&quot; data={patient.date.toString()} /&gt;
+                              &lt;PatientDetailItem label=&quot;Síntomas&quot; data={patient.symptoms} /&gt;
+                  
+                              &lt;div className=&quot;flex flex-col lg:flex-row gap-3 justify-between mt-10&quot;&gt;
+                                  &lt;button
+                                      type=&quot;button&quot;
+                                      className=&quot;py-2 px-10 bg-indigo-600 hover:bg-indigo-700 text-white font-bold uppercase rounded-lg&quot;
+                                      onClick={() =&gt; getPatientById(patient.id)}
+                                  &gt;Editar&lt;/button&gt;
+                  
+                                  &lt;button
+                                      type=&quot;button&quot;
+                                      className=&quot;py-2 px-10 bg-red-600 hover:bg-red-700 text-white font-bold uppercase rounded-lg&quot;
+                                      onClick={handleClick}
+                                  &gt;Eliminar&lt;/button&gt;
+                              &lt;/div&gt;
+                          &lt;/div&gt;
+                      )
+                  }        
+                </code></pre>
+              </div>
+              <div class="w-[50%] max-sm:w-[100%]">
+                <pre data-line="0"><code class="language-js">
+                  //PatientDetailItem.tsx
+                  type PatientDetailItemProps = {
+                    label: string
+                    data: string
+                  }
+                  export default function PatientDetailItem({label, data} : PatientDetailItemProps) {
+                    return (
+                      <p className="font-bold mb-3 text-gray-700 uppercase">{label}: {''}
+                          <span className="font-normal normal-case">{data}</span>
+                      </p>
+                    )
+                  }
+                </code></pre>
+                <p>Vemos que tras añadir un paciente, el formulario de la izquierda mantiene los datos que acabamos de teclear. Si queremos borrarlos no tenemos que reiniciar el formulario reiniciando el state como antes, podemos extraer la función reset y usarla así, es algo que va a hacer en automático React Hook Form:</p>
+                <pre data-line="2,14"><code class="language-ts">
+                  ///PatientForm.tsx
+                  ...
+                  const { register, handleSubmit, setValue , formState: { errors }, reset } = useForm<DraftPatient>()
+                  ...
+                  const registerPatient = (data: DraftPatient) => {
+                    if(activeId) {
+                        updatePatient(data)
+                        toast('Paciente Actualizado Correctamente', {
+                            type: 'success'
+                        })
+                    } else {
+                        addPatient(data)
+                        toast.success('Paciente Registrado Correctamente')
+                    }
+                    reset()
+                  }
+                </code></pre>
+              </div>
+            </div>
+
+            
+
+          </div>
+
+          <!-- Bloque desplegable interior-->
+          <div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion15-250').toggle();">
+            <h3>250. Eliminar Pacientes en Zustand</h3>
+            <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+          </div>
+          <div id="seccion15-250" class="hidden">
+            <p>Vamos a crear en nuestro store una función nueva que llamamos 'deletePatient'. recordemos que hay que añadirla también en nuestra firma (type de store) 'PatientState' <code class="language-ts">deletePatient: (id: Patient['id']) => void</code> Tenemos que identificar qué paciente es, pasémosle como parámetro un id y hagamos un console.log(id). Una vez comprobado en cuanto llamamos a esta función desde el onClick de nuestro botón de la interfaz, con un set establecemos que el state patients quede con todos los pacientes menos con el que tiene el id que le estamos pasando a esa función... </p>
+
+            <div class="flex max-sm:flex-col">
+              <div class="w-[50%] max-sm:w-[100%]">
+                <pre data-line="4,11-16"><code class="language-ts">
+                  //store.ts
+                  type PatientState = {
+                    patients: Patient[]
+                    addPatient: (data: DraftPatient) => void
+                    deletePatient: (id: Patient['id']) => void
+                }
+                  export const usePatientStore = create&lt;PatientState&gt;((set) => ({
+                    patients: [],
+                    addPatient: (data) => {
+                        ...
+                    },
+                    deletePatient: (id) => {
+                      //console.log(id)
+                      set((state) => ({
+                        patients: state.patients.filter(patient=>patient.id != id)
+                      }))
+                    }
+                }))
+                </code></pre>
+              </div>
+              <div class="w-[50%] max-sm:w-[100%]">
+                <p>La mandamos llamar en nuestro componente <span class="file">PatientDetail.tsx</span>. Importo el store para tener acceso a todas sus funciones y el state, extraigo deletePatient y lo conecto a mi interfaz de react utilizando el evento de onClick en el botón correspondiente.</p>
+
+                <pre data-line="1,3,8"><code class="language-ts">
+                  //PatientDetail.tsx
+                  import { usePatientStore } from "../store"
+                  ...
+                  const deletePatient = usePatientStore((state) => state.deletePatient)
+                  ...
+                  &lt;button
+                      type=&quot;button&quot;
+                      className=&quot;py-2 px-10 bg-red-600 hover:bg-red-700 text-white font-bold uppercase rounded-lg&quot;
+                      onClick={deletePatient(patient.id)}
+                  &gt;Eliminar&lt;/button&gt;
+                </code></pre>
+              </div>
+            </div>
+
+            
+
+            
+
+          </div>
+
+          <!-- Bloque desplegable interior-->
+          <div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion15-251').toggle();">
+            <h3>251. Obtener el paciente a editar</h3>
+            <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+          </div>
+          <div id="seccion15-251" class="hidden">
+            <p>Con un paciente introducido, hemos de ser capaces de identificar el registro de dicho paciente cuando pulsamos en el botón de editar. Generamos en nuestro store un state nuevo que va a tener el id que está en activo <code class="language-ts">activeId: Patient['id']</code>, también una función que identifique y agregue en el state 'activeId' que estamos presionando en un paciente para editarlo <code class="language-ts">getPatientById: (id: Patient['id']) => void</code></p>
+
+            <div class="flex max-sm:flex-col">
+              <div class="w-[50%] max-sm:w-[100%]">
+                <pre data-line="3,6,11,18-22"><code class="language-ts">
+                  //store.ts
+                  type PatientState = {
+                    patients: Patient[]
+                    activeId: Patient['id']
+                    addPatient: (data: DraftPatient) => void
+                    deletePatient: (id: Patient['id']) => void
+                    getPatientById: (id: Patient['id']) => void
+                  }
+                  ...
+                  export const usePatientStore = create&lt;PatientState&gt;((set) => ({
+                    patients: [],
+                    activeId: '',
+                    addPatient: (data) => {
+                     ...
+                    },
+                    deletePatient: (id) => {
+                      ...
+                    },
+                    getPatientById: (id) => {
+                        set(() => ({
+                            activeId: id
+                        }))
+                    }
+                </code></pre>
+              </div>
+              <div class="w-[50%] max-sm:w-[100%]">
+                <p>En <span class="file">PatientDetails.tsx</span> creamos la variable 'getPatientById' donde extraemos la nueva función correspondiente. Recordar que también podríamos hacer las extracciones así:</p>
+                <pre><code class="language-ts">
+                  const {deletePatient, getPatientById} = usePatientStore()
+                </code></pre>
+                <p>Y llamamos a la función desde el onClick del botón editar:</p>
+                <pre data-line="2,7"><code class="language-js">
+                  //PatientDetails.tsx
+                  const deletePatient = usePatientStore((state) => state.deletePatient)
+                  const getPatientById = usePatientStore((state) => state.getPatientById)
+                  ...
+                  &lt;button
+                    type=&quot;button&quot;
+                    className=&quot;py-2 px-10 bg-indigo-600 hover:bg-indigo-700 text-white font-bold uppercase rounded-lg&quot;
+                    onClick={() =&gt; getPatientById(patient.id)}
+                  &gt;Editar&lt;/button&gt;
+                </code></pre>
+                <p></p>
+
+              </div>
+            </div>
+
+            <p>En este caso para poder ver una vez seteado ese activeId tendríamos que extraerlo y vía variable renderizarlo en mi vista. <strong>Como eso no es la mejor manera de trabajr en desarrollo</strong>, <span class="destacado">Veamos como incorporar Redux devtools par apoder ver el state de Zustand</span></p>   
+          </div>
 
 
-<!-- Bloque desplegable interior-->
-<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion15-247').toggle();">
-  <h3><span class="naranja">247.</span> Trabajando con el Listado de Pacientes</h3>
-  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
-</div>
-<div id="seccion15-247" class="">
-  <p></p>
-
-</div>
-
-<!-- Bloque desplegable interior-->
-<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion15-248').toggle();">
-  <h3>248. Mostrando la información del Paciente</h3>
-  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
-</div>
-<div id="seccion15-248" class="hidden">
-
-
-</div>
-
-<!-- Bloque desplegable interior-->
-<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion15-249').toggle();">
-  <h3>249. Creando los botones de Editar y eliminar</h3>
-  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
-</div>
-<div id="seccion15-249" class="hidden">
-
-
-</div>
-
-<!-- Bloque desplegable interior-->
-<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion15-250').toggle();">
-  <h3>250. Eliminar Pacientes en Zustand</h3>
-  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
-</div>
-<div id="seccion15-250" class="hidden">
-
-
-</div>
-
-<!-- Bloque desplegable interior-->
-<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion15-251').toggle();">
-  <h3>251. Obtener el paciente a editar</h3>
-  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
-</div>
-<div id="seccion15-251" class="hidden">
-
-
-</div>
-
-<!-- Bloque desplegable interior-->
-<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion15-252').toggle();">
-  <h3>252. Incorporar Redux DevTools para inspeccionar el Store de Zustand</h3>
-  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
-</div>
-<div id="seccion15-252" class="hidden">
-
-
-</div>
-
-<!-- Bloque desplegable interior-->
-<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion15-253').toggle();">
-  <h3>253. Llenar el Formulario cuando editamos un Paciente</h3>
-  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
-</div>
-<div id="seccion15-253" class="hidden">
-
-
-</div>
-
-<!-- Bloque desplegable interior-->
-<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion15-254').toggle();">
-  <h3>254. Actualizando el Paciente</h3>
-  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
-</div>
-<div id="seccion15-254" class="hidden">
+          <!-- Bloque desplegable interior-->
+          <div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion15-252').toggle();">
+            <h3>252. Incorporar Redux DevTools para inspeccionar el Store de Zustand / 253. Llenar el Formulario cuando editamos un Paciente / 254. Actualizando el Paciente</h3>
+            <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+          </div>
+          <div id="seccion15-252" class="hidden">
+            <ul class="list-disc my-3">
+              <li class="my-1.25">Instalamos la extensión para el navegador: <a class="underline" href="https://chromewebstore.google.com/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd?hl=es" target="_blank">Extensión Redux DevTools</a> </li>
+              <li class="my-1.25">En nuestro <span class="file">store.ts</span> importamos devtools <code class="language-ts">import { devtools, persist } from 'zustand/middleware'</code></li>
+              <li class="my-1.25">Lo utilizamos: 
+                <div class="flex max-sm:flex-col">
+                  <div class="w-[50%] max-sm:w-[100%]">
+                    <pre data-line="0"><code class="language-js">
+                      //store.ts
+                      export const usePatientStore = create&lt;PatientState&gt;(
+                        (set) => ({
+                          patients: [],
+                          activeId: '',
+                          addPatient: (data) => {
+                              //console.log(data)
+                              const newPatient = createPatient(data)
+                              set((state) => ({
+                                  patients: [...state.patients, newPatient]
+                              }))
+                          },
+                          deletePatient: (id) => {
+                            ...
+                          },
+                          getPatientById: (id) => {
+                            ...
+                          }
+                        })
+                      )
+                    </code></pre>
+                  </div>
+                  <div class="w-[50%] max-sm:w-[100%]">
+                    <pre class="verde" data-line="1,2,20"><code class="language-js">
+                      //store.ts
+                      export const usePatientStore = create&lt;PatientState&gt;()(
+                        devtools(
+                          (set) => ({
+                            patients: [],
+                            activeId: '',
+                            addPatient: (data) => {
+                                //console.log(data)
+                                const newPatient = createPatient(data)
+                                set((state) => ({
+                                    patients: [...state.patients, newPatient]
+                                }))
+                            },
+                            deletePatient: (id) => {
+                              ...
+                            },
+                            getPatientById: (id) => {
+                              ...
+                            }
+                          })
+                        )
+                      )
+                    </code></pre>
+                  </div>
+                </div>
+              </li>
+              <li>Recargar y ya vemos que nos aparece en la nueva pestaña Redux, Action, State <svg class="size-6 shrink-0 inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3"> y ahí podemos ver, como estaba el state antes, las acciones que disparan el estate (están como anónimas porque no hay acciones como tal en Zustand como sí las hay en useReducer o en Redux Toolkit</path>
+              </svg>
+              <img src="https://andune55.github.io/manual-react/assets/254-CUXkqlvw.png" alt="img" loading="lazy">
+            </li>
+            </ul>
+            
+            <p class="naranja">Llenar el Formulario cuando editamos un Paciente</p>
 
 
-</div>
+            <ul class="list-disc my-3">
+              <li class="my-1.25">Nos vamos a <span class="file">PatientForm.tsx</span> y extraemos el state 'activeId' en una nueva variable: <code class="language-ts">const activeId = usePatientStore(state => state.activeId)</code> y también la información de los pacientes: <code class="language-ts">const patients = usePatientStore(state => state.patients)</code></li>
+              <li class="my-1.25">Tenemos que revisar e identificar cuando activeId tenga algo. Usamos para ello useEffect() pasándole como dependencia activeId para ejecutar ese código cada vez que cambie ese state. Y en ese código metemos en una variable el filtrado del paciente que tenga el mismo id que activeId (recordar, .filter() devuelve un arreglo como esta vez solo quiero uno, un objeto, pongo la coletilla [0]).</li>
+              <li class="my-1.25">¿Cómo colocamos esa información del state de nuevo en nuestro formulario? Usando una función de useForm() llamada <strong>setValue</strong> que nos va a permitir setear un valor por default a nuestro formulario.</li>
+              <li class="my-1.25">Si guardamos a continuación nos crearía paciente nuevo así que <strong>tenemos que revisar si estamos editando o creando uno nuevo</strong>. En esta parte vamos a disparar acciones diferentes en función se si hay un activeId.                
 
-<!-- Bloque desplegable interior-->
-<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion15-255').toggle();">
-  <h3>XXXXXXXXXXXXXXX</h3>
-  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
-</div>
-<div id="seccion15-255" class="hidden">
+                <pre data-line="0"><code class="language-ts">
+                  //PatientForm.tsx
+                  ...
+                  const activeId = usePatientStore(state => state.activeId)
+                  const patients = usePatientStore(state => state.patients)
+                  ...
+                  const { register, handleSubmit, setValue , formState: { errors }, reset } = useForm&lt;DraftPatient&gt;()
+                  useEffect(() => {
+                    if(activeId) {
+                        const activePatient = patients.filter( patient => patient.id === activeId)[0]
+                        setValue('name', activePatient.name)
+                        setValue('caretaker', activePatient.caretaker)
+                        setValue('date', activePatient.date)
+                        setValue('email', activePatient.email)
+                        setValue('symptoms', activePatient.symptoms)
+                    }
+                  }, [activeId])
+                
+                  const registerPatient = (data: DraftPatient) => {                  
+                    addPatient(data)
+                        
+                    reset()
+                  }
+                </code></pre>
+              </li>
+            </ul>  
+
+            <p class="naranja">Actualizando el Paciente</p>
+                
+            <ul class="list-disc my-3">
+              <li class="my-1.25"><strong>Creamos una nueva acción en nuestro store: en ella iteramos con .map() sobre los patients del state</strong> y tenemos que identificar cual es el que estamos editando = compruebo si el paciente de la iteración tiene el mismo id que 'activeId', si es así retorno un objeto {} y si no, el patient que está en el state (para no perder lo que teníamos). En el objeto {} ponemos 2 cosas: el id (recordemos que este es un draft, requerimos id ¿de donde lo sacamos? pues o de nuestro state.activeId o del state.id (porque en esa iteración coincide :P)) y el segundo parámetro tras la coma <strong>todo lo que el user puso en el form es decir una copia de data: '...data'</strong>. <span class="destacado">En Zustand se puede escribir en múltiples id al mismo tiempo</span> y en este punto es un buen ejemplo porque recién hecho esto, regresamos activeId a string vacío: <code class="language-ts">activeId: ''</code>
+                <pre data-line="3,20-25"><code class="language-ts">
+                  //store.ts
+                  type PatientState = {
+                    ...
+                    updatePatient: (data: DraftPatient) => void
+                  }
+                  ...
+                  export const usePatientStore = create&lt;PatientState&gt;()(
+                    devtools(
+                      persist( (set) => ({
+                          patients: [],
+                          activeId: '',
+                          addPatient: (data) => {
+                              ...
+                          },
+                          deletePatient: (id) => {
+                            ...
+                          },
+                          getPatientById: (id) => {
+                            ...
+                          },
+                          updatePatient: (data) => {
+                              set((state) => ({
+                                  patients: state.patients.map( patient => patient.id === state.activeId ? {id: state.activeId, ...data } : patient),
+                                  activeId: ''
+                              }))
+                          }
+                       })
+                    )
+                  )
+                </code>
+                </pre>
+              
+             </li>             
+            <li class="my-1.25">Vamos a <span class="file">PatientForm.tsx</span> y creamos nueva variable para extraer la función updatePatient
 
 
-</div>
+            <pre data-line="0"><code class="language-ts">
+              //PatientForm.tsx
+              ...
+              const activeId = usePatientStore(state => state.activeId)
+              const patients = usePatientStore(state => state.patients)
+              const updatePatient = usePatientStore(state => state.updatePatient)
+
+              ...
+              const { register, handleSubmit, setValue , formState: { errors }, reset } = useForm&lt;DraftPatient&gt;()
+              useEffect(() => {
+                if(activeId) {
+                    const activePatient = patients.filter( patient => patient.id === activeId)[0]
+                    setValue('name', activePatient.name)
+                    setValue('caretaker', activePatient.caretaker)
+                    setValue('date', activePatient.date)
+                    setValue('email', activePatient.email)
+                    setValue('symptoms', activePatient.symptoms)
+                }
+            }, [activeId])
+
+            const registerPatient = (data: DraftPatient) => {
+              if(activeId) {
+                  updatePatient(data)                  
+              } else {
+                  addPatient(data)                  
+              }
+              reset()
+            }
+            </code></pre>
+
+            </li>
+          </ul>
+            
+          </div>
+
 
 <!-- Bloque desplegable interior-->
 <div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion15-256').toggle();">
