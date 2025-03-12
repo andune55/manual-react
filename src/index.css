@@ -83,7 +83,7 @@ ul {
 
 .h-300{height:300px}
 
-div.oscuro{
+div.oscuro,div.oscuro2{
 	/*color: #51d0f4;*/
 	color: #ffffff;
     background-color: #666666;
@@ -92,8 +92,11 @@ div.oscuro{
     width: Calc(100% - 10px);
     border-radius: 1px 7px 13px 2px;
 }
+div.oscuro2{
+    background-color: #00d492;
+}
 @media screen and (max-width: 599px){
-	div.oscuro{
+	div.oscuro,div.oscuro2{
 		border-radius: 1px 3px 33px 2px;		
 	}
 }
