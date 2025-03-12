@@ -10,15 +10,313 @@
     
     <!-- <script src="https://unpkg.com/@tailwindcss/browser@4"></script> -->
   
-    <script type="module" crossorigin src="https://andune55.github.io/manual-react/assets/index-NK-DBhtG.js"></script>
-    <link rel="stylesheet" crossorigin href="https://andune55.github.io/manual-react/assets/index-UOBqQiaa.css">
+    <script type="module" crossorigin src="https://andune55.github.io/manual-react/assets/index-Cdfv_s7Q.js"></script>
+    <link rel="stylesheet" crossorigin href="https://andune55.github.io/manual-react/assets/index-B09OhKRw.css">
   </head>
   <body>
     <div id="root"></div>	
     <div>  
 
 
-       
+       <!-- SECCION 16 -->
+      <div class="w-[80%] max-sm:w-[96%] mx-auto bg-gray-200 my-1.25 py-0.75 pr-0 pl-2.5 rounded-xl">
+
+        <div class="flex items-center mt-1.25 cursor-pointer desplegable justify-between" onclick="$('#seccion16').toggle();">
+          <h2>Sección 16: PROYECTO - Aplicación de Clima que obtiene el Clima en tiempo real con una API</h2>
+          <span class="cambiaicono ico_chevron_up mr-2.5" title=""></span>
+        </div>
+
+        <div id="seccion16">
+
+          <p>Trabajo con <span class="destacado">CSS modules</span>, <span class="destacado">API externa</span>, veremos como <strong>enviar peticiones hacia API</strong>, como <strong>leer las respuestas de una API</strong>, como <strong>validarlas</strong> (<span class="destacado">TYPE GUARD O ASSERTION</span>, <span class="destacado">Zod</span> y <span class="destacado">Valibot</span>) y como <strong>mostrar esa información</strong>. <span class="destacado">La parte de APIS es muy importante en el mundo de React</span>.</p>
+
+          <!-- Bloque desplegable interior-->
+          <div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion16-258').toggle();">
+            <h3>258. El Proyecto que vamos a construir</h3>
+            <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+          </div>
+          <div id="seccion16-258" class="hidden">   
+            <p>Este proyecto, <strong>Buscador de clima</strong>, será nuestra primera aplicación que obtiene datos de una <span class="destacado">API externa</span>. Como React Developer vamos a trabajar en muchos proyectos que incluyen API's; conectaremos a una API externa y envía unas credenciales para permitirnos acceder a los recursos de esa API.</p>
+
+            <p>Veremos como enviar peticiones hacia API, como leer las respuestas, como validarlas y como mostrar esa información. La parte de APIS es muy importante en el mundo de React.</p>
+            
+            <p>Una vez que trabajas con APIS la parte de TS se hace un poco más complicada. TS funciona muy bien en nuestro código, pero no tanto cuando tiene que conectarse y validar una respuesta de una REST API, simplemente no puede hacerlo. Estaremos viendo diferentes formas de validar esa respuesta que obtiene de la REST API: <strong>TYPE GUARD O ASSERTION</strong>, <strong>Zod</strong> y con <strong>Valibot</strong> y asegurarnos así de que nuestro código no tiene ningún error. Una vez que mandamos una consulta a un servidor esterno y obtenemos una respuesta, ahí TS ya no sabe qué es lo que está obteniendo, pero nosotros lo vamos a apoyar con estas herramientas.</p>
+
+            <img class="my-2.5 mx-auto" src="https://andune55.github.io/manual-react/assets/s1-06-DCP4YZTs.jpg" width="" height="" alt="">
+          </div>
+
+          <!-- Bloque desplegable interior-->
+          <div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion16-259').toggle();">
+            <h3>259. Creando el Proyecto y la API que estaremos utilizando / 260. Creando un API Key y Que es una API?</h3>
+            <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+          </div>
+          <div id="seccion16-259" class="">
+            <p>Vamos a comenzar con nuestro primer proyecto que ya consume datos desde una API. Hasta ahora hemos visto formularios, interacciones con cicks y todo almacenado en memoria, pero normalmente conforme tengamos un proyecto más grande, vamos a requerir información que venga desde una base de datos. <strong>Como tal, React no nos permite consultar directamente una base de datos, lo podemos hacer con frameworks como Next.js o como Remix. Pero la versión que estamos aprendiendo, la versión de cliente de React, directamente no puede hacerlo</strong>. Vamos a hacerlo por medio de una API. Muchas pruebas técnicas tratan de esto precisamente, consumir una API y crear algunas interacciones con esa API, por lo que es importante ver cómo trabajar en esa parte. Como veíamos, en Typescript cuando trabajamos con APIS hay ciertas cosas que tenemos que tener en cuenta. <strong>Van a ser proyectos muy interesantes.</strong></p>
+
+            <p>Vamos a crear nuestro proyecto de vite <span class="destacado">npm create vite@latest</span> y lo nombramos como <strong>clima-react-typescript</strong>, vamos a esa carpeta e instalamos dependencias: <span class="destacado">npm install</span>. Ejecutamos el servidor de desarrollo <span class="destacado">npm run dev</span>. Cogemos el background de los materiales del curso '<strong>bg_clima.jpg</strong>' y lo llevamos a public. Hacemos limpieza (borramos carpeta assets, logo vite.svg de public y fichero <span class="file">App.css</span> (escribiremos el código como <span class="destacado">css modules</span>) Limpiamos todo el contenido de <span class="file">App.tsx</span> donde solo dejamos un h1 <code class="language-ts">&lt;h1&gt;Buscador de clima&lt;/h1&gt;</code> y limpiamos el <span class="file">index.css</span>. En el <span class="file">index.html</span> cambiamos el title a <code class="language-ts">&lt;title&gt;React / Typescript - CSS Modules y API&#39;s&lt;/title&gt;</code>. Vamos a generar nuestra API key para este proyecto.</p>
+
+            <p class="naranja">Creando un API Key y Que es una API?</p>
+
+            <p>En este proyecto estaremos utilizando la API de clima de <span class="destacado">Weather API</span> <a href="https://openweathermap.org/" class="underline" target="blank">https://openweathermap.org/</a> - <a href="https://openweathermap.org/api" class="underline" target="blank">https://openweathermap.org/api</a>.</p>
+
+            <ul class="list-disc my-3">
+              <li class="my-1.25">Vamos a <a href="https://openweathermap.org/api" class="underline" target="blank">https://openweathermap.org/api</a> y presionamos en <strong>Sign In</strong> y creamos una cuenta para iniciar sesión.</li>
+              <li class="my-1.25">Vamos a "For Business" <svg class="size-6 shrink-0 inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3"></path>
+              </svg>Pestaña API keys <svg class="size-6 shrink-0 inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3"></path>
+              </svg> campo Create Key le damos un nombre y pulsamos en Generate. Nos aparecerá aquí, no lo copiamos, lo tenemos a mano. Tarda entre 10-15 min en registrarse en su base de datos.
+              <img src="https://andune55.github.io/manual-react/assets/260-EtuMAubK.png" alt="img" loading="lazy">
+            </li>
+              <li class="my-1.25">Ya con nuestra API key listo, veamos <span class="destacado">qué son las APIS</span>:
+                <ul class="list-disc my-3">
+                  <li class="my-1.25"><strong>API: Application Programming Interface</strong></li>
+                  <li class="my-1.25"><strong>Son funciones, métodos que ofrece una librería para ser utilizada por otro software como una capa de abstracción:</strong> lo que acabamos de hacer es generar nuestro API Key y eso nos va a permitir interactuar con los datos que tienen ellos almacenados y una API pone a disposición recursos que están alojados en otro</li>
+                  <li class="my-1.25"><strong>Una API pone a disposición recursos que están alojados en otro servidor o una base de datos:</strong> es una forma segura de acceder a esa información. Podemos pensar en ello también como Google Maps: queremos llegar a algún lugar y escribimos la ubicación a la que queremos llegar. Colocamos donde estamos y nos dice cómo llegar a ese lugar. Están poniendo a disposición recursos y esos recursos están alojados en un servidor y tienen una base de datos.</li>
+                  <li class="my-1.25"><strong>Usualmente hay que enviar una petición estructurada:</strong> en el caso por ejemplo de Google Maps, tienes una API muy sencilla, una interfaz muy sencilla donde dice dónde estás y a dónde quieres llegar. Esa información es la que ellos requieren para poder procesar tu petición y entonces decirte hacia dónde tienes que dirigirte.</li>
+                  <li class="my-1.25"><strong>Utilizando React en el cliente con Vite, no se puede consultar una base de datos directamente (sí lo podríamos hacer con Remix y también con Next.js), por lo tanto, consultar una API es una forma de obtener datos dinámicos, ya sea de un servidor o de una base de datos.</strong></li>
+                  <li class="my-1.25"><strong>La API, si somos un back end Developer, puede ser creada en cualquier lenguaje o framework:</strong> Python, en Django, en Java, en Netcore, .net, Express, Node.js, en Laravel, PHP...</li>
+                  <li class="my-1.25"><strong>... siempre y cuando la forma en que entregue los recursos sea una respuesta de tipo JSON</strong>. También puede ser xml aunque el stándard hoy día son respuestas de tipo JSON. Y entonces ya lo podemos consumir con React!!</li>
+                </ul>
+              </li>
+              <li class="my-1.25"><span class="destacado">Consultar una API con React</span>
+                <ul class="list-disc my-3">
+                  <li class="my-1.25">Al ser JavaScript puedes utilizar <strong>Fetch API</strong> (nativo de Javascript), <strong>Axios</strong> (librería) o librerías como <strong>SWR</strong> (librería optimizada para React y consultar y consumir APIs externas) para obtener los datos y mostrarlos en pantalla.</li>
+                  <li class="my-1.25">Algunas APIs requieren un <strong>key</strong> como hicimos anteriormente y otra es una forma de protegerlas es por medio de algo llamado <strong>CORS</strong>.</li>
+                  <li class="my-1.25"></li>
+                </ul>
+              </li>
+            </ul>
+
+            <p>Vamos a llamar a la API de clima. Así que vamos a comenzar con el código de nuestro proyecto.</p>
+
+</div>
+
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion16-XX').toggle();">
+  <h3>XXXXXXXXXXXXXXX</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion16-XX" class="hidden">
+
+
+</div>
+
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion16-XX').toggle();">
+  <h3>XXXXXXXXXXXXXXX</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion16-XX" class="hidden">
+
+
+</div>
+
+
+            
+
+        </div>
+        <!-- Fin div colapsable-->
+
+      </div>
+      <!-- FIN SECCION 16 -->
+
+
+      <!-- SECCION PROYECTO PROPIO TUDÚS -->
+      <div class="w-[80%] max-sm:w-[96%] mx-auto bg-emerald-200 my-1.25 py-0.75 pr-0 pl-2.5 rounded-xl">
+
+        <div class="flex items-center mt-1.25 cursor-pointer desplegable justify-between" onclick="$('#secciontudus').toggle();">
+          <h2>PROYECTO FOS TUDÚS</h2>
+          <span class="cambiaicono ico_chevron_down mr-2.5" title=""></span>
+        </div>
+
+        <div id="secciontudus" class="hidden">
+
+          <!-- Bloque desplegable interior-->
+          <div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between oscuro2" onclick="$('#secciontudus-ficheros').toggle();">
+            <h3>FICHEROS FINALES</h3>
+            <span class="cambiaicono ico_chevron_up_blanco ico20 mr-1.25" title=""></span>
+          </div>
+          <div id="secciontudus-ficheros" class="bg-white">
+            <div class="flex max-sm:flex-col">
+              <div class="w-[25%] max-sm:w-[100%]">
+                <span class="destacado">types/index.ts, App.tsx, index.css, main.tsx, store.ts</span><br>
+
+                <code class="cursor-pointer" onclick="$('#XX-types').toggle();">types/index.ts</code>
+                <pre data-line="0" id="XX-types" class="hidden"><code class="language-ts">
+                  //types/index.ts
+
+                </code></pre>
+
+                <code class="cursor-pointer" onclick="$('#XX-app').toggle();">App.tsx</code>
+                <pre data-line="0" id="XX-app" class="hidden"><code class="language-ts">
+                  //App.tsx
+
+                </code></pre>
+
+                <code class="cursor-pointer" onclick="$('#XX-indexcss').toggle();">index.css</code>
+                <pre data-line="0" id="XX-indexcss" class="hidden"><code class="language-css">
+                  //index.css
+
+                </code></pre>
+
+                <code class="cursor-pointer" onclick="$('#XX-maintsx').toggle();">main.tsx</code>
+                <pre data-line="0" id="XX-maintsx" class="hidden"><code class="language-js">
+                  //main.tsx
+
+                </code></pre>
+
+                <code class="cursor-pointer" onclick="$('#XX-store').toggle();">store.ts</code>
+                <pre data-line="0" id="XX-store" class="hidden"><code class="language-ts">
+                  //store.ts
+
+                </code></pre>
+              </div>
+
+              <div class="w-[25%] max-sm:w-[100%]">
+                <span class="destacado">data, helpers, hooks, reducer, types</span><br>
+
+                <code class="cursor-pointer" onclick="$('#XX-data').toggle();">data/XXXXX.ts</code>
+                <pre data-line="0" id="XX-data" class="hidden"><code class="language-ts">
+                  //data/XXXXX.ts
+
+                </code></pre>
+
+                <code class="cursor-pointer" onclick="$('#XX-helpers').toggle();">helpers/index.ts</code>
+                <pre data-line="0" id="XX-helpers" class="hidden"><code class="language-ts">
+                  //helpers/index.ts
+
+                </code></pre>
+
+                <code class="cursor-pointer" onclick="$('#XX-customhook').toggle();">hooks/XXXXX.ts</code>
+                <pre data-line="0" id="XX-customhook" class="hidden"><code class="language-ts">
+                  //hooks/XXXXX.ts
+
+                </code></pre>
+
+                <code class="cursor-pointer" onclick="$('#XX-XXXXX-reducer').toggle();">reducer/XXXXX-reducer.ts</code>
+                <pre data-line="0" id="XX-XXXXX-reducer" class="hidden"><code class="language-ts">
+                  //reducer/XXXXX-reducer.ts
+
+                </code></pre>
+              </div>
+
+              <div class="w-[50%] max-sm:w-[100%]">
+                <span class="destacado">Componentes</span><br>
+                <code class="cursor-pointer" onclick="$('#XX-XXXXXXXXXX').toggle();">XXXXXXXXXX.tsx</code>
+                <pre data-line="0" id="XX-XXXXXXXXXX" class="hidden"><code class="language-ts">
+                  // XXXXXXXXXX.tsx
+
+                </code></pre>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+        <!-- Fin div colapsable-->
+
+      </div>
+      <!-- FIN SECCION PROYECTO PROPIO TUDÚS -->
+
+
+      <!-- SECCION MIGRADO CONTROL GASTOS FOS A ZUSTAND -->
+      <div class="w-[80%] max-sm:w-[96%] mx-auto bg-emerald-200 my-1.25 py-0.75 pr-0 pl-2.5 rounded-xl">
+
+        <div class="flex items-center mt-1.25 cursor-pointer desplegable justify-between" onclick="$('#seccionFOSgastos').toggle();">
+          <h2>MIGRADO CONTROL GASTOS FOS A ZUSTAND</h2>
+          <span class="cambiaicono ico_chevron_down mr-2.5" title=""></span>
+        </div>
+
+        <div id="seccionFOSgastos" class="hidden">
+
+            <!-- Bloque desplegable interior-->
+          <div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between oscuro2" onclick="$('#seccionFOSgastos-ficheros').toggle();">
+            <h3>FICHEROS FINALES</h3>
+            <span class="cambiaicono ico_chevron_up_blanco ico20 mr-1.25" title=""></span>
+          </div>
+          <div id="seccionFOSgastos-ficheros" class="bg-white">
+            <div class="flex max-sm:flex-col">
+              <div class="w-[25%] max-sm:w-[100%]">
+                <span class="destacado">types/index.ts, App.tsx, index.css, main.tsx, store.ts</span><br>
+
+                <code class="cursor-pointer" onclick="$('#XX-types').toggle();">types/index.ts</code>
+                <pre data-line="0" id="XX-types" class="hidden"><code class="language-ts">
+                  //types/index.ts
+
+                </code></pre>
+
+                <code class="cursor-pointer" onclick="$('#XX-app').toggle();">App.tsx</code>
+                <pre data-line="0" id="XX-app" class="hidden"><code class="language-ts">
+                  //App.tsx
+
+                </code></pre>
+
+                <code class="cursor-pointer" onclick="$('#XX-indexcss').toggle();">index.css</code>
+                <pre data-line="0" id="XX-indexcss" class="hidden"><code class="language-css">
+                  //index.css
+
+                </code></pre>
+
+                <code class="cursor-pointer" onclick="$('#XX-maintsx').toggle();">main.tsx</code>
+                <pre data-line="0" id="XX-maintsx" class="hidden"><code class="language-js">
+                  //main.tsx
+
+                </code></pre>
+
+                <code class="cursor-pointer" onclick="$('#XX-store').toggle();">store.ts</code>
+                <pre data-line="0" id="XX-store" class="hidden"><code class="language-ts">
+                  //store.ts
+
+                </code></pre>
+              </div>
+
+              <div class="w-[25%] max-sm:w-[100%]">
+                <span class="destacado">data, helpers, hooks, reducer, types</span><br>
+
+                <code class="cursor-pointer" onclick="$('#XX-data').toggle();">data/XXXXX.ts</code>
+                <pre data-line="0" id="XX-data" class="hidden"><code class="language-ts">
+                  //data/XXXXX.ts
+
+                </code></pre>
+
+                <code class="cursor-pointer" onclick="$('#XX-helpers').toggle();">helpers/index.ts</code>
+                <pre data-line="0" id="XX-helpers" class="hidden"><code class="language-ts">
+                  //helpers/index.ts
+
+                </code></pre>
+
+                <code class="cursor-pointer" onclick="$('#XX-customhook').toggle();">hooks/XXXXX.ts</code>
+                <pre data-line="0" id="XX-customhook" class="hidden"><code class="language-ts">
+                  //hooks/XXXXX.ts
+
+                </code></pre>
+
+                <code class="cursor-pointer" onclick="$('#XX-XXXXX-reducer').toggle();">reducer/XXXXX-reducer.ts</code>
+                <pre data-line="0" id="XX-XXXXX-reducer" class="hidden"><code class="language-ts">
+                  //reducer/XXXXX-reducer.ts
+
+                </code></pre>
+              </div>
+
+              <div class="w-[50%] max-sm:w-[100%]">
+                <span class="destacado">Componentes</span><br>
+                <code class="cursor-pointer" onclick="$('#XX-XXXXXXXXXX').toggle();">XXXXXXXXXX.tsx</code>
+                <pre data-line="0" id="XX-XXXXXXXXXX" class="hidden"><code class="language-ts">
+                  // XXXXXXXXXX.tsx
+
+                </code></pre>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+        <!-- Fin div colapsable-->
+
+      </div>
+      <!-- FIN SECCION SECCION MIGRADO CONTROL GASTOS FOS A ZUSTAND -->
+
 
 
       <!-- SECCION 15 -->
