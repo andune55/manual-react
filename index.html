@@ -33,6 +33,7 @@
         <div id="seccion16">
 
           <p>Trabajo con <span class="destacado">CSS modules</span>, <span class="destacado">API externa</span>, veremos como <strong>enviar peticiones hacia API</strong>, como <strong>leer las respuestas de una API</strong>, como <strong>validarlas</strong> (<span class="destacado">TYPE GUARD O ASSERTION</span>, <span class="destacado">Zod</span> y <span class="destacado">Valibot</span>) y como <strong>mostrar esa información</strong>. <span class="destacado">La parte de APIS es muy importante en el mundo de React</span>.</p>
+          <p>Escribiremos css con <span class="destacado">Módulos CSS</span></p>
 
           <!-- Bloque desplegable interior-->
           <div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion16-258').toggle();">
@@ -44,7 +45,7 @@
 
             <p>Veremos como enviar peticiones hacia API, como leer las respuestas, como validarlas y como mostrar esa información. La parte de APIS es muy importante en el mundo de React.</p>
             
-            <p>Una vez que trabajas con APIS la parte de TS se hace un poco más complicada. TS funciona muy bien en nuestro código, pero no tanto cuando tiene que conectarse y validar una respuesta de una REST API, simplemente no puede hacerlo. Estaremos viendo diferentes formas de validar esa respuesta que obtiene de la REST API: <strong>TYPE GUARD O ASSERTION</strong>, <strong>Zod</strong> y con <strong>Valibot</strong> y asegurarnos así de que nuestro código no tiene ningún error. Una vez que mandamos una consulta a un servidor esterno y obtenemos una respuesta, ahí TS ya no sabe qué es lo que está obteniendo, pero nosotros lo vamos a apoyar con estas herramientas.</p>
+            <p>Una vez que trabajas con APIS la parte de TS se hace un poco más complicada. TS funciona muy bien en nuestro código, pero no tanto cuando tiene que conectarse y validar una respuesta de una REST API, simplemente no puede hacerlo. Estaremos viendo diferentes formas de validar esa respuesta que obtiene de la REST API: <strong>TYPE GUARD O ASSERTION</strong>, <strong>Zod</strong> y con <strong>Valibot</strong> y asegurarnos así de que nuestro código no tiene ningún error. Una vez que mandamos una consulta a un servidor externo y obtenemos una respuesta, ahí TS ya no sabe qué es lo que está obteniendo, pero nosotros lo vamos a apoyar con estas herramientas.</p>
 
             <img class="my-2.5 mx-auto" src="./src/assets/img/s1-06.jpg" width="" height="" alt="">
           </div>
@@ -54,8 +55,8 @@
             <h3>259. Creando el Proyecto y la API que estaremos utilizando / 260. Creando un API Key y Que es una API?</h3>
             <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
           </div>
-          <div id="seccion16-259" class="">
-            <p>Vamos a comenzar con nuestro primer proyecto que ya consume datos desde una API. Hasta ahora hemos visto formularios, interacciones con cicks y todo almacenado en memoria, pero normalmente conforme tengamos un proyecto más grande, vamos a requerir información que venga desde una base de datos. <strong>Como tal, React no nos permite consultar directamente una base de datos, lo podemos hacer con frameworks como Next.js o como Remix. Pero la versión que estamos aprendiendo, la versión de cliente de React, directamente no puede hacerlo</strong>. Vamos a hacerlo por medio de una API. Muchas pruebas técnicas tratan de esto precisamente, consumir una API y crear algunas interacciones con esa API, por lo que es importante ver cómo trabajar en esa parte. Como veíamos, en Typescript cuando trabajamos con APIS hay ciertas cosas que tenemos que tener en cuenta. <strong>Van a ser proyectos muy interesantes.</strong></p>
+          <div id="seccion16-259" class="hidden">
+            <p>Vamos a comenzar con nuestro primer proyecto que ya consume datos desde una API. Hasta ahora hemos visto formularios, interacciones con clicks y todo almacenado en memoria, pero normalmente conforme tengamos un proyecto más grande, vamos a requerir información que venga desde una base de datos. <strong>Como tal, React no nos permite consultar directamente una base de datos, lo podemos hacer con frameworks como Next.js o como Remix. Pero la versión que estamos aprendiendo, la versión de cliente de React, directamente no puede hacerlo</strong>. Vamos a hacerlo por medio de una API. Muchas pruebas técnicas tratan de esto precisamente, consumir una API y crear algunas interacciones con esa API, por lo que es importante ver cómo trabajar en esa parte. Como veíamos, en Typescript cuando trabajamos con APIS hay ciertas cosas que tenemos que tener en cuenta. <strong>Van a ser proyectos muy interesantes.</strong></p>
 
             <p>Vamos a crear nuestro proyecto de vite <span class="destacado">npm create vite@latest</span> y lo nombramos como <strong>clima-react-typescript</strong>, vamos a esa carpeta e instalamos dependencias: <span class="destacado">npm install</span>. Ejecutamos el servidor de desarrollo <span class="destacado">npm run dev</span>. Cogemos el background de los materiales del curso '<strong>bg_clima.jpg</strong>' y lo llevamos a public. Hacemos limpieza (borramos carpeta assets, logo vite.svg de public y fichero <span class="file">App.css</span> (escribiremos el código como <span class="destacado">css modules</span>) Limpiamos todo el contenido de <span class="file">App.tsx</span> donde solo dejamos un h1 <code class="language-ts">&lt;h1&gt;Buscador de clima&lt;/h1&gt;</code> y limpiamos el <span class="file">index.css</span>. En el <span class="file">index.html</span> cambiamos el title a <code class="language-ts">&lt;title&gt;React / Typescript - CSS Modules y API&#39;s&lt;/title&gt;</code>. Vamos a generar nuestra API key para este proyecto.</p>
 
@@ -75,7 +76,7 @@
               <li class="my-1.25">Ya con nuestra API key listo, veamos <span class="destacado">qué son las APIS</span>:
                 <ul class="list-disc my-3">
                   <li class="my-1.25"><strong>API: Application Programming Interface</strong></li>
-                  <li class="my-1.25"><strong>Son funciones, métodos que ofrece una librería para ser utilizada por otro software como una capa de abstracción:</strong> lo que acabamos de hacer es generar nuestro API Key y eso nos va a permitir interactuar con los datos que tienen ellos almacenados y una API pone a disposición recursos que están alojados en otro</li>
+                  <li class="my-1.25"><strong>Son funciones, métodos que ofrece una librería para ser utilizada por otro software como una capa de abstracción:</strong> lo que acabamos de hacer es generar nuestro API Key y eso nos va a permitir interactuar con los datos que tienen ellos almacenados</li>
                   <li class="my-1.25"><strong>Una API pone a disposición recursos que están alojados en otro servidor o una base de datos:</strong> es una forma segura de acceder a esa información. Podemos pensar en ello también como Google Maps: queremos llegar a algún lugar y escribimos la ubicación a la que queremos llegar. Colocamos donde estamos y nos dice cómo llegar a ese lugar. Están poniendo a disposición recursos y esos recursos están alojados en un servidor y tienen una base de datos.</li>
                   <li class="my-1.25"><strong>Usualmente hay que enviar una petición estructurada:</strong> en el caso por ejemplo de Google Maps, tienes una API muy sencilla, una interfaz muy sencilla donde dice dónde estás y a dónde quieres llegar. Esa información es la que ellos requieren para poder procesar tu petición y entonces decirte hacia dónde tienes que dirigirte.</li>
                   <li class="my-1.25"><strong>Utilizando React en el cliente con Vite, no se puede consultar una base de datos directamente (sí lo podríamos hacer con Remix y también con Next.js), por lo tanto, consultar una API es una forma de obtener datos dinámicos, ya sea de un servidor o de una base de datos.</strong></li>
@@ -86,13 +87,394 @@
               <li class="my-1.25"><span class="destacado">Consultar una API con React</span>
                 <ul class="list-disc my-3">
                   <li class="my-1.25">Al ser JavaScript puedes utilizar <strong>Fetch API</strong> (nativo de Javascript), <strong>Axios</strong> (librería) o librerías como <strong>SWR</strong> (librería optimizada para React y consultar y consumir APIs externas) para obtener los datos y mostrarlos en pantalla.</li>
-                  <li class="my-1.25">Algunas APIs requieren un <strong>key</strong> como hicimos anteriormente y otra es una forma de protegerlas es por medio de algo llamado <strong>CORS</strong>.</li>
+                  <li class="my-1.25">Algunas APIs requieren un <strong>key</strong> como hicimos anteriormente y otras, una forma de protegerlas es por medio de algo llamado <strong>CORS</strong>.</li>
                   <li class="my-1.25"></li>
                 </ul>
               </li>
             </ul>
-
             <p>Vamos a llamar a la API de clima. Así que vamos a comenzar con el código de nuestro proyecto.</p>
+          </div>
+
+          <!-- Bloque desplegable interior-->
+          <div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion16-261').toggle();">
+            <h3>261. Introducción a CSS Modules</h3>
+            <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+          </div>
+          <div id="seccion16-261" class="hidden">
+            <p>Empezamos con la interfaz del proyecto. Vamos a agregar la fuente <strong>Outfit</strong> de google fonts (400,700 y 900): <a href="https://fonts.google.com/specimen/Outfit" class="underline" target="blank">https://fonts.google.com/specimen/Outfit</a>. Copiamos el código de link y lo pegamos en nuestro <spd>index.html</spd> después del title para agregar esta fuente, y en el <span class="file">index.css</span> pegamos el estilo que google fonts nos da para esa fuente. En ese mismo css registramos un par de colores en lo que va a ser nuestra css global de proyecto y damos mas estilos al body y en el html reseteamos el font-size:</p>
+
+            <pre data-line="0"><code class="language-html">
+              //index.html
+              ...
+              &lt;title&gt;React / Typescript - CSS Modules y API&#39;s&lt;/title&gt;
+              &lt;link rel=&quot;preconnect&quot; href=&quot;https://fonts.googleapis.com&quot;&gt;
+              &lt;link rel=&quot;preconnect&quot; href=&quot;https://fonts.gstatic.com&quot; crossorigin&gt;
+              &lt;link href=&quot;https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&amp;display=swap&quot; rel=&quot;stylesheet&quot;&gt;
+
+              //index.css 
+              :root {
+                --white: #ffffff;
+                --primary: #f59e0b;
+              }             
+              html{
+                font-size: 62.5%;
+              }
+              body {
+                  font-family: "Outfit", sans-serif;
+                  background-image: url(/bg_clima.jpg);
+                  height: 100vh;
+                  background-size: cover;
+                  background-repeat: no-repeat;
+                  color: var(--white);
+                  font-size: 2rem;
+              }
+            </code></pre>
+
+            <p>Cerramos ya el index.css y vamos al App.tsx a darle estilos al h1. No usamos tailwind porque vemos otra forma de escribir css. De todas las formas que vimos anteriormente (CSS plano, Styled Components, Framework CSS, SASS, Módulos CSS, Componentes) usamos <span class="destacado">Módulos CSS</span>. Nuestro componente se llama App.tsx, cuando trabajamos con módulos css lo nombramos con el mismo nombre y agregamos <strong>.module.css</strong> por tanto <span class="file">App.module.css</span>. Va a contener en exclusiva los estilso de ese componente no podemos hacer mezclas. En el componente lo tenemos que importar pero vemos que si lo intentamos importar así <code class="language-ts">import "./App.module.css"</code> no aplica el estilo (sí lo hace si lo especificamos con el tag h1, pero no es plan) ¿como lo hacemos?</p>
+            <div class="flex max-sm:flex-col">
+              <div class="w-[33%] max-sm:w-[100%]">
+                <pre data-line="0"><code class="language-ts">
+                  //App.module.css
+                  .title{
+                    text-align: center;
+                    font-size: 3rem;
+                    margin-top: 5rem;
+                }
+                </code></pre>
+              </div>
+
+              <div class="w-[33%] max-sm:w-[100%]">
+                <pre class="rojo" data-line="1,7"><code class="language-js">
+                  //App.tsx
+                  import "./App.module.css"
+
+                  function App() {                  
+                  
+                    return (
+                      &lt;&gt;
+                       &lt;h1 className=&quot;title&quot;&gt;Buscador de clima&lt;/h1&gt;
+                      &lt;/&gt;
+                    )
+                  }
+                  
+                  export default App
+                </code></pre>
+              </div>
+              <div class="w-[33%] max-sm:w-[100%]">
+                <pre class="verde" data-line="1,7"><code class="language-js">
+                  //App.tsx
+                  import styles from "./App.module.css"
+
+                  function App() {                  
+                  
+                    return (
+                      &lt;&gt;
+                       &lt;h1 className={styles.title}Buscador de clima&lt;/h1&gt;
+                      &lt;/&gt;
+                    )
+                  }
+                  
+                  export default App
+                </code></pre>
+              </div>
+            </div>
+           
+            <p>Si inspeccionamos el código vemos que aplica una serie de transformaciones y vemos que el class se renderiza con estos caracteres. Si alguna vez vemos esto al inspeccionar (como por ejemplo de la url de airbnb) sabremos que usa <strong>Módulos CSS: es una forma, quizás la más optimizada, de escribir código css para React</strong>. Hay que tener una css por cada componente eso sí.</p>
+
+            <img src="./src/assets/img/261.png" alt="img" loading="lazy">
+          </div>
+
+          <!-- Bloque desplegable interior-->
+          <div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion16-262').toggle();">
+            <h3>262. Agregando los formularios para consultar el Clima - <a href="https://gist.github.com/codigoconjuan/e5266150032120f10bbf69394d7b8861" class="underline text-white" target="blank">Gist de countries</a> / 263. CSS para los Formularios</h3>
+            <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+          </div>
+          <div id="seccion16-262" class="hidden">
+            <p>Vamos a crear un formulario porque requerimos pasarle hacia nuestra API la ciudad y el país del cual queremos obtener el clima. Creamos nuestra carpeta de components y como cada componente requiere su hoja de estilos vamos a ir agrupando por elementos de nuestra interfaz, creamos carpeta Form y dentro de ella <span class="file">Form.tsx</span> y <span class="file">Form.module.css</span> (otras personas crean aquí dentro carpeta css/styles/modules donde meten las hojas de estilo).</p>
+
+            <ul class="list-disc my-3">
+              <li class="my-1.25">Creamos un form sin action y dentro un div que agrupa el label y el input.</li>
+              <li class="my-1.25">En otro div metemos el país que va a ser un select y las opciones vienen del código que hay en este <a href="https://gist.github.com/codigoconjuan/e5266150032120f10bbf69394d7b8861" class="underline" target="blank">Gist de countries</a> que incluimos en nuevo fichero dentro de la carpeta <span class="file">data/countries.ts</span> En este segundo div metemos un select y un primer option vacío para validación "-- Seleccione un país --" seguido de una iteracción sobre nuestros datos (countries) con un .map() para acceder a cada país de forma individual.
+              </li>
+              <li class="my-1.25">Incluimos un input de tipo submit</li>
+              <li class="my-1.25">En nuestro compo ppal <span class="file">App.tsx</span> sustituimos el primer párrafo por el nuevo componente <code class="language-ts">&lt;Form/&gt;</code>
+              
+              <div class="flex max-sm:flex-col">
+                <div class="w-[50%] max-sm:w-[100%]">
+                  <pre data-line="0"><code class="language-ts">
+                    //data/countries.ts
+                    export const countries = [
+                    { code: 'US', name: 'Estados Unidos' },
+                    { code: 'MX', name: 'México' },
+                    { code: 'AR', name: 'Argentina' },
+                    { code: 'CO', name: 'Colombia' },
+                    { code: 'CR', name: 'Costa Rica' },
+                    { code: 'ES', name: 'España' },
+                    { code: 'PE', name: 'Perú' }
+                  ]
+                  </code></pre>  
+                </div>
+                <div class="w-[50%] max-sm:w-[100%]">                
+                  <pre data-line="0"><code class="language-js">
+                    //App.tsx
+                    import styles from "./App.module.css"
+                    import Form from './components/Form/Form';                  
+                    function App() {
+                      return (
+                        &lt;&gt;
+                          &lt;h1 className={styles.title}&gt;Buscador de clima&lt;/h1&gt;
+                    
+                          &lt;div className={styles.container}&gt;
+                            &lt;Form/&gt;
+                            &lt;p&gt;2&lt;/p&gt;
+                          &lt;/div&gt;
+                        &lt;/&gt;
+                      )
+                    }                  
+                    export default App
+                  </code></pre>
+                </div>
+              </div>
+              
+              </li>
+              <li class="my-1.25">Para escribir los estilos para el formulario dividimos vista en MVSC para ir viendo paso a paso junto con el Form a qué elemento vamos aplicando estilos:
+                <div class="flex max-sm:flex-col">
+                  <div class="w-[50%] max-sm:w-[100%]">
+                    <pre data-line="0,5,15,29"><code class="language-js">
+                      //components/Form/Form.tsx
+                      import { countries } from "../../data/countries"
+                      import styles from "./Form.module.css"                  
+                      export default function Form() {
+                        return (
+                          &lt;form className={styles.form}&gt;              
+                            &lt;div className={styles.field}&gt;
+                              &lt;label htmlFor=&quot;city&quot;&gt;Ciudad:&lt;/label&gt;
+                              &lt;input 
+                                  id=&quot;city&quot;
+                                  type=&quot;text&quot;
+                                  name=&quot;city&quot;
+                                  placeholder=&quot;Ciudad&quot;
+                              /&gt;
+                            &lt;/div&gt;              
+                            &lt;div className={styles.field}&gt;
+                              &lt;label htmlFor=&quot;city&quot;&gt;Pais:&lt;/label&gt;
+                              &lt;select&gt;
+                              &lt;option value=&quot;&quot;&gt;-- Seleccione un País --&lt;/option&gt;
+                                  {countries.map(country =&gt; (
+                                      &lt;option 
+                                          key={country.code}
+                                          value={country.code}
+                                      &gt;
+                                          {country.name}
+                                      &lt;/option&gt;
+                                  ))}
+                                &lt;/select&gt;
+                            &lt;/div&gt;              
+                            &lt;input type=&quot;submit&quot; className={styles.submit} value=&quot;Consultar clima&quot; /&gt;              
+                          &lt;/form&gt;
+                        )
+                      }
+                    </code></pre>
+                  </div>             
+                  <div class="w-[50%] max-sm:w-[100%]">
+                    <pre data-line="0"><code class="language-js">
+                      //components/Form/Form.module.css
+                      .form, .field{
+                        display: flex;
+                        flex-direction: column;
+                        gap: 2rem;
+                      }
+    
+                      .form input[type='text'],.form select{
+                          padding: 1rem;
+                          background-color: transparent;
+                          border: .3rem solid var(--white);
+                          color: var(--white);
+                          font-size: 1.8rem;
+                          font-weight: 400;
+                          border-radius: 1rem;
+                      }
+    
+                      .field ::placeholder{
+                          color: var(--white);
+                      }
+    
+                      .submit{
+                          background-color: var(--primary);
+                          border: none;
+                          color: var(--white);
+                          font-weight: 700;
+                          font-size: 1.4rem;
+                          text-transform: uppercase;
+                          cursor: cursor-pointer;
+                          padding: 1rem;
+                      }
+                    </code></pre>
+                  </div>              
+                </div>
+              </li>
+            </ul>
+            
+            <p><strong>Sigamos avanzando en la dirección de ponder enviar una petición estructurada a nuestra API, para lo cual colocaremos en el state la ciudad y país de la que queremos consultar el clima.</strong></p>
+          </div>
+
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion16-264').toggle();">
+  <h3>264. Colocando en el State la ciudad y pais a consultar el Clima</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion16-264" class="hidden">
+
+
+</div>
+
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion16-XX').toggle();">
+  <h3>XXXXXXXXXXXXXXX</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion16-XX" class="hidden">
+
+
+</div>
+
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion16-XX').toggle();">
+  <h3>XXXXXXXXXXXXXXX</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion16-XX" class="hidden">
+
+
+</div>
+
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion16-XX').toggle();">
+  <h3>XXXXXXXXXXXXXXX</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion16-XX" class="hidden">
+
+
+</div>
+
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion16-XX').toggle();">
+  <h3>XXXXXXXXXXXXXXX</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion16-XX" class="hidden">
+
+
+</div>
+
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion16-XX').toggle();">
+  <h3>XXXXXXXXXXXXXXX</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion16-XX" class="hidden">
+
+
+</div>
+
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion16-XX').toggle();">
+  <h3>XXXXXXXXXXXXXXX</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion16-XX" class="hidden">
+
+
+</div>
+
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion16-XX').toggle();">
+  <h3>XXXXXXXXXXXXXXX</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion16-XX" class="hidden">
+
+
+</div>
+
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion16-XX').toggle();">
+  <h3>XXXXXXXXXXXXXXX</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion16-XX" class="hidden">
+
+
+</div>
+
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion16-XX').toggle();">
+  <h3>XXXXXXXXXXXXXXX</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion16-XX" class="hidden">
+
+
+</div>
+
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion16-XX').toggle();">
+  <h3>XXXXXXXXXXXXXXX</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion16-XX" class="hidden">
+
+
+</div>
+
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion16-XX').toggle();">
+  <h3>XXXXXXXXXXXXXXX</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion16-XX" class="hidden">
+
+
+</div>
+
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion16-XX').toggle();">
+  <h3>XXXXXXXXXXXXXXX</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion16-XX" class="hidden">
+
+
+</div>
+
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion16-XX').toggle();">
+  <h3>XXXXXXXXXXXXXXX</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion16-XX" class="hidden">
+
+
+</div>
+
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion16-XX').toggle();">
+  <h3>XXXXXXXXXXXXXXX</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion16-XX" class="hidden">
+
+
+</div>
+
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion16-XX').toggle();">
+  <h3>XXXXXXXXXXXXXXX</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion16-XX" class="hidden">
+
 
 </div>
 
