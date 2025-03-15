@@ -257,8 +257,11 @@
                               /&gt;
                             &lt;/div&gt;              
                             &lt;div className={styles.field}&gt;
-                              &lt;label htmlFor=&quot;city&quot;&gt;Pais:&lt;/label&gt;
-                              &lt;select&gt;
+                              &lt;label htmlFor=&quot;country&quot;&gt;Pais:&lt;/label&gt;
+                              &lt;select 
+                                id=&quot;country&quot; 
+                                name=&quot;country&quot;            
+                              &gt;
                               &lt;option value=&quot;&quot;&gt;-- Seleccione un País --&lt;/option&gt;
                                   {countries.map(country =&gt; (
                                       &lt;option 
@@ -318,15 +321,123 @@
             <p><strong>Sigamos avanzando en la dirección de ponder enviar una petición estructurada a nuestra API, para lo cual colocaremos en el state la ciudad y país de la que queremos consultar el clima.</strong></p>
           </div>
 
-<!-- Bloque desplegable interior-->
-<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion16-264').toggle();">
-  <h3>264. Colocando en el State la ciudad y pais a consultar el Clima</h3>
-  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
-</div>
-<div id="seccion16-264" class="hidden">
+          <!-- Bloque desplegable interior-->
+          <div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion16-264').toggle();">
+            <h3>264. Colocando en el State la ciudad y pais a consultar el Clima</h3>
+            <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+          </div>
+          <div id="seccion16-264" class="hidden">
 
+            <ul class="list-disc my-3">
+              <li class="my-1.25"><span class="destacado">Definimos nuestro state:</span> colocamos tanto ciudad como país en el state.  En <span class="file">Form.tsx</span> importamos useState de React y creamos un objeto que llamamos search, con su método setSearch y va a tener 2 propiedades city y country.</li>
+              <li class="my-1.25"><span class="destacado">Creamos type SearchType y tipamos el state con generic:</span> como search es un objeto creamos nuestro fichero de types <span class="file">Data/index.ts</span> y el type <strong>SearchType</strong> que exportamos desde ahí e importamos en nuestro compo <span class="file">Form.tsx</span> para poder tipar nuestro objeto search mediante un generic.</li>
+              <li class="my-1.25"><span class="destacado">Creamos type Country para nuestros datos:</span> Aprovechemos y definamos también un type para los países que tenemos en <span class="file">Data/countries.ts</span>. Cada pais tiene un código y un nombre y ambos son strings. Creamos el type Country y lo asignamos al objeto countries de Data pero de tipo arreglo <strong>Country[]</strong></li>
+              <li class="my-1.25"><span class="destacado">Asignamos con 'value'</span> las propiedades 'city' y 'country' de nuestro state a cada uno de los dos campos que tenemos en el form.</li>
+              <li class="my-1.25"><span class="destacado">Crear la función de handleChange: es la que va a ir escribiendo en el state, en city y en country:</span> 
+                <ul class="list-disc my-3">
+                  <li class="my-1.25">Si en el input de ciudad ponemos un onChange y dentro esto, inferimos para saber el type que usar: <code class="language-ts">onChange={e =&gt;}</code> <span class="bg-amber-950 text-amber-300">(parameter) e: React.ChangeEvent&lt;HTMLInputElement&gt;</span>.</li>
+                  <li class="my-1.25">Si en el select de country ponemos un onChange y dentro esto, inferimos para saber el type que usar: <code class="language-ts">onChange={e =&gt;}</code> <span class="bg-amber-950 text-amber-300">(parameter) e: ChangeEvent&lt;HTMLSelectElement&gt;</span>.</li>
+                </ul>
+                Con const creamos un objeto que es la función handleChange en la que tomamos como parámetro el evento (e) que es donde va a estar la información que se va a leer del name del input <code>name="city"</code> o del name del select <code>name="country"</code> y lo tipamos (puede serHTMLInputElement o HTMLSelectElement) <code class="language-ts">const handleChange = (e: ChangeEvent&lt;HTMLInputElement&gt; | ChangeEvent&lt;HTMLSelectElement&gt;) =&gt; {...}</code>. Como ambos elementos son strings no requerimos mucha lógica. Con setSearch tomamos una copia de lo que tengamos en el state y escribimos en el campo en el que estemos modificando con <code>[e.target.name]: e.target.value</code> ( en vez de usar e.target.name también podríamos usar id como hicimos anteriormente). <strong>Para que funcione esta técnica usando el name lo que tengamos en el name de cada input ha de llamarse exactamente igual que las propiedades del state.</strong>
+              </li>
+            </ul>
+          
+            <div class="flex max-sm:flex-col">
+              <div class="w-[25%] max-sm:w-[100%]">
+                <pre data-line="0"><code class="language-js">
+                  //Types/index.ts
+                  export type SearchType = {
+                    city: string,
+                    country: string
+                  }
+                  export type Country = {
+                    code: string,
+                    name: string
+                  }
+                </code></pre>
+              </div>
+              <div class="w-[25%] max-sm:w-[100%]">
+                <pre data-line="0"><code class="language-js">
+                  //Data/countries.ts
+                  export const countries: Country[] = [
+                  { code: 'US', name: 'Estados Unidos' },
+                  { code: 'MX', name: 'México' },
+                  { code: 'AR', name: 'Argentina' },
+                  { code: 'CO', name: 'Colombia' },
+                  { code: 'CR', name: 'Costa Rica' },
+                  { code: 'ES', name: 'España' },
+                  { code: 'PE', name: 'Perú' }
+                ]        
+                </code></pre>
+              </div>
+              <div class="w-[50%] max-sm:w-[100%]">
+                <pre data-line="0"><code class="language-ts">
+                //Form.tsx
+                import { ChangeEvent, useState } from "react"
+                import type { SearchType } from "../../Types"
+                import { countries } from "../../data/countries"
+                import styles from "./Form.module.css"
+                
+                export default function Form() {
+                
+                    const [search, setSearch] = useState&lt;SearchType&gt;({
+                        city: &#39;&#39;,
+                        country: &#39;&#39;
+                    })
+                
+                    const handleChange = (e: ChangeEvent&lt;HTMLInputElement&gt; | ChangeEvent&lt;HTMLSelectElement&gt;) =&gt;{
+                        setSearch({
+                            ...search,
+                            [e.target.name] : e.target.value //escribimos en el campo en el cual estamos modificando
+                        })
+                    }
+                    return (
+                        &lt;form className={styles.form}&gt;
+                
+                            &lt;div className={styles.field}&gt;
+                              &lt;label htmlFor=&quot;city&quot;&gt;Ciudad:&lt;/label&gt;
+                              &lt;input 
+                                id=&quot;city&quot;
+                                type=&quot;text&quot;
+                                name=&quot;city&quot;
+                                placeholder=&quot;Ciudad&quot;
+                                value={search.city}
+                                onChange={handleChange}
+                              /&gt;
+                            &lt;/div&gt;
+                
+                            &lt;div className={styles.field}&gt;
+                              &lt;label htmlFor=&quot;country&quot;&gt;Pais:&lt;/label&gt;
+                              &lt;select 
+                                id=&quot;country&quot;
+                                name=&quot;country&quot;
+                                value={search.country}  
+                                onChange={handleChange}              
+                              &gt;
+                              &lt;option value=&quot;&quot;&gt;-- Seleccione un País --&lt;/option&gt;
+                                {countries.map(country =&gt; (
+                                    &lt;option 
+                                        key={country.code}
+                                        value={country.code}
+                                    &gt;
+                                        {country.name}
+                                    &lt;/option&gt;
+                                ))}
+                              &lt;/select&gt;
+                            &lt;/div&gt;
+                
+                            &lt;input type=&quot;submit&quot; className={styles.submit} value=&quot;Consultar clima&quot; /&gt;
+                
+                        &lt;/form&gt;
+                    )
+                }
+                
+                </code></pre>
+              </div>
+            </div>
 
-</div>
+          <p>A continuación veamos la parte del submit, ya estaremos comunicándonos con nuestra API. Sin embargo nuestra APi requiere que estos dos campos requieran algo, en la presentación de APIS vimos que requieren una <strong>petición estructurada</strong> es decir pasarle ciertos datos, veamos cómo validar este formulario.</p>
+          </div>
 
 <!-- Bloque desplegable interior-->
 <div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion16-XX').toggle();">
