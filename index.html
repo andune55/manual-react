@@ -335,7 +335,7 @@
               <li class="my-1.25"><span class="destacado">Asignamos con 'value'</span> las propiedades 'city' y 'country' de nuestro state a cada uno de los dos campos que tenemos en el form.</li>
               <li class="my-1.25"><span class="destacado">Crear la función de handleChange: es la que va a ir escribiendo en el state, en city y en country:</span> 
                 <ul class="list-disc my-3">
-                  <li class="my-1.25">Si en el input de ciudad ponemos un onChange y dentro esto, inferimos para saber el type que usar: <code class="language-ts">onChange={e =&gt;}</code> <span class="bg-amber-950 text-amber-300">(parameter) e: React.ChangeEvent&lt;HTMLInputElement&gt;</span>.</li>
+                  <li class="my-1.25">Si en el input de ciudad ponemos un onChange y dentro esto, inferimos para saber el type que usar: <code class="language-ts">onChange={e =&gt;}</code> <span class="bg-amber-950 text-amber-300">(parameter) e: ChangeEvent&lt;HTMLInputElement&gt;</span>.</li>
                   <li class="my-1.25">Si en el select de country ponemos un onChange y dentro esto, inferimos para saber el type que usar: <code class="language-ts">onChange={e =&gt;}</code> <span class="bg-amber-950 text-amber-300">(parameter) e: ChangeEvent&lt;HTMLSelectElement&gt;</span>.</li>
                 </ul>
                 Con const creamos un objeto que es la función handleChange en la que tomamos como parámetro el evento (e) que es donde va a estar la información que se va a leer del name del input <code>name="city"</code> o del name del select <code>name="country"</code> y lo tipamos (puede serHTMLInputElement o HTMLSelectElement) <code class="language-ts">const handleChange = (e: ChangeEvent&lt;HTMLInputElement&gt; | ChangeEvent&lt;HTMLSelectElement&gt;) =&gt; {...}</code>. Como ambos elementos son strings no requerimos mucha lógica. Con setSearch tomamos una copia de lo que tengamos en el state y escribimos en el campo en el que estemos modificando con <code>[e.target.name]: e.target.value</code> ( en vez de usar e.target.name también podríamos usar id como hicimos anteriormente). <strong>Para que funcione esta técnica usando el name lo que tengamos en el name de cada input ha de llamarse exactamente igual que las propiedades del state.</strong>
@@ -439,177 +439,249 @@
           <p>A continuación veamos la parte del submit, ya estaremos comunicándonos con nuestra API. Sin embargo nuestra APi requiere que estos dos campos requieran algo, en la presentación de APIS vimos que requieren una <strong>petición estructurada</strong> es decir pasarle ciertos datos, veamos cómo validar este formulario.</p>
           </div>
 
-<!-- Bloque desplegable interior-->
-<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion16-XX').toggle();">
-  <h3>XXXXXXXXXXXXXXX</h3>
-  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
-</div>
-<div id="seccion16-XX" class="hidden">
+          <!-- Bloque desplegable interior-->
+          <div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion16-265').toggle();">
+            <h3>265. Validando el Formulario</h3>
+            <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+          </div>
+          <div id="seccion16-265" class="hidden">
+            <p><span class="destacado">Para poder obtener la información que deseas de una API o de un proyecto tenemos que enviarle ciertos datos, que es lo que se conoce como una petición</span> y normalmente tiene que tener cierta estructura. Por ejemplo en Google Maps tenemos que pasarle dos cosas: "donde estamos" y "dónde queremos ir" (y requiere las dos). Si queremos pedir un taxi desde una app hay que decirle "a donde vamos" para que nos diga "cuanto nos va a costar".</p>
+            
+            <p>En nuestro caso, la API de OpenWeather requiere ciudad y pais por lo que <span class="destacado">vamos a implementar validación para asegurarnos de que ambos están presentes</span> y entonces poder obtener el clima.</p>
 
+            <p><span class="destacado">Creamos la función handleSubmit y la llamamos desde el onSubmit del form</span> <code class="language-ts">onSubmit={handleSubmit}</code></p>
 
-</div>
+            <ul class="list-disc my-3">
+              <li class="my-1.25"><strong>Con const creamos un objeto que es la función handleSubmit </strong>en la que tomamos como parámetro el evento (e) que es XXXXXXXXXXXX y lo tipamos  usando el mismo "truqui" de siempre <svg class="size-6 shrink-0 inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3"></path>
+              </svg> <br>
+              Si en el onSubmit del form ponemos e y callback <code class="language-ts">onSubmit={e =&gt;}</code>, inferimos para saber el type que usar y lo copiamos <span class="bg-amber-950 text-amber-300">(parameter) e: React.FormEvent&lt;HTMLFormElement&gt;</span>.<br>
+              para tipar el parámetro e que recibe nuestro handleSubmit() que queda así: <code class="language-ts">const handleSubmit = (e:FormEvent&lt;HTMLFormElement&gt;) => {...}</code>. </strong>      
+              </li>
+              
+              <li class="my-1.25"><strong>añadimos e.preventDefault()</strong> porque nosotros somos los que vamos a manejar el código (lo que incluye llamar a nuestra API, pero primero terminamos la validación)</li>
+              
+              <li class="my-1.25"><strong>validamos mirando si alguno está vacío</strong> con <code class="language-ts">if(Object.values(search).includes(''))</code> y sacamos un console.log de momento para informar de ello: 
+                <pre data-line="0"><code class="language-ts">
+                  //Form.tsx
+                  const handleSubmit = (e:FormEvent&lt;HTMLFormElement&gt;) => {
+                    e.preventDefault()
+                    if(Object.values(search).includes('')){
+                      console.log('Sí hay campos vacíos...')
+                    }
+                }
+                </code></pre>
+                Como vemos es una validación sencilla. Si queremos algo más robusto, usaremos <svg class="size-6 shrink-0 inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3"></path>
+                </svg> <strong>React Hook Form:</strong> - 
+                <a class="underline" href="https://react-hook-form.com/" target="_blank">https://react-hook-form.com/</a> - recordemos, librería para para la parte de validación y procesamiento de nuestros formularios sencilla y robusta. Nos lo pondremos como ejercicio al finalizar el proyecto, tomando los ejemplos hechos con esta librería y adaptar este que estamos haciendo. Se instala con <span class="destacado">npm i react-hook-form</span>.
+              </li>
 
-<!-- Bloque desplegable interior-->
-<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion16-XX').toggle();">
-  <h3>XXXXXXXXXXXXXXX</h3>
-  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
-</div>
-<div id="seccion16-XX" class="hidden">
+              <li class="my-1.25">Como vamos a querer mostrar un mensaje de error, una alerta. <strong>Creamos un componente (carpeta Alert con su componente Alert.tsx y su css Alert.module.css)</strong>. Y también <strong>vamos a crear en nuestro Form.tsx un nuevo state para esta alerta que iniciamos como string vacío</strong> <code class="language-ts">const [alert, setAlert] = useState('')</code>. No colocamos type porque es un string y solo es ese. Modificamos nuestra validación y sustituimos el console.log por la llamada a nuestro state, seteando el string que quremos mostrar y a continuación un return para que no se ejecuten las siguientes líneas de código. A continuación del tag form metemos un código para decirle que si hay algo en el state Alert renderice el componente Alert que de momento lo escribimos con esta sintaxis pasándole un children para escribir dentro el estado alert <code class="language-ts">{alert && &lt;Alert&gt;{alert}&lt;/Alert&gt;}</code>
+              <div class="flex max-sm:flex-col">      
+                <div class="w-[33%] max-sm:w-[100%]">
+                  <pre data-line="0"><code class="language-ts">
+                    //Form.tsx
+                    const [alert, setAlert] = useState('')
+                    ...
+                    const handleSubmit = (e:FormEvent&lt;HTMLFormElement&gt;) => {
+                      e.preventDefault()
+                      if(Object.values(search).includes('')){
+                        setAlert('Todos los campos son obligatorios')
+                        return
+                      }
+                    }
+                    ...
+                    &lt;form 
+                      className={styles.form}
+                      onSubmit={handleSubmit}
+                    &gt;
+                      {alert &amp;&amp; &lt;Alert&gt;{alert}&lt;/Alert&gt;}
+                  </code></pre>
+                </div>
+                <div class="w-[33%] max-sm:w-[100%]">
+                  <pre data-line="0"><code class="language-js">
+                    //Alert.tsx
+                    import { ReactNode } from "react"
+                    import styles from './Alert.module.css'
 
-
-</div>
-
-<!-- Bloque desplegable interior-->
-<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion16-XX').toggle();">
-  <h3>XXXXXXXXXXXXXXX</h3>
-  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
-</div>
-<div id="seccion16-XX" class="hidden">
-
-
-</div>
-
-<!-- Bloque desplegable interior-->
-<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion16-XX').toggle();">
-  <h3>XXXXXXXXXXXXXXX</h3>
-  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
-</div>
-<div id="seccion16-XX" class="hidden">
-
-
-</div>
-
-<!-- Bloque desplegable interior-->
-<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion16-XX').toggle();">
-  <h3>XXXXXXXXXXXXXXX</h3>
-  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
-</div>
-<div id="seccion16-XX" class="hidden">
-
-
-</div>
-
-<!-- Bloque desplegable interior-->
-<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion16-XX').toggle();">
-  <h3>XXXXXXXXXXXXXXX</h3>
-  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
-</div>
-<div id="seccion16-XX" class="hidden">
-
-
-</div>
-
-<!-- Bloque desplegable interior-->
-<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion16-XX').toggle();">
-  <h3>XXXXXXXXXXXXXXX</h3>
-  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
-</div>
-<div id="seccion16-XX" class="hidden">
-
-
-</div>
-
-<!-- Bloque desplegable interior-->
-<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion16-XX').toggle();">
-  <h3>XXXXXXXXXXXXXXX</h3>
-  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
-</div>
-<div id="seccion16-XX" class="hidden">
-
-
-</div>
-
-<!-- Bloque desplegable interior-->
-<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion16-XX').toggle();">
-  <h3>XXXXXXXXXXXXXXX</h3>
-  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
-</div>
-<div id="seccion16-XX" class="hidden">
-
-
-</div>
-
-<!-- Bloque desplegable interior-->
-<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion16-XX').toggle();">
-  <h3>XXXXXXXXXXXXXXX</h3>
-  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
-</div>
-<div id="seccion16-XX" class="hidden">
-
-
-</div>
+                    export default function Alert({children} : {children : ReactNode}) {
+                        return (
+                        &lt;div className={styles.alert}&gt; 
+                            {children}
+                        &lt;/div&gt;
+                        )
+                    }
+                  </code></pre>
+                </div>    
+                <div class="w-[33%] max-sm:w-[100%]">
+                  <pre data-line="0"><code class="language-js">
+                    //Alert.module.css
+                    .alert{
+                      text-align: center;
+                      margin-bottom: 2rem;
+                      text-transform: uppercase;
+                      font-weight: 900;
+                      font-size: 1.8rem;
+                    }
+                  </code></pre>
+                </div>
+              </div> 
+              </li>    
+            </ul>
+            <p>Ya con la validación lista entonces podemos enviar una petición hacia nuestra API. Vamos a crear un custom hook que va a tomar tanto la ciudad como el país, va a hacer la consulta y va a devolvernos un resultado</p>
+          </div>
 
 <!-- Bloque desplegable interior-->
-<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion16-XX').toggle();">
-  <h3>XXXXXXXXXXXXXXX</h3>
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion16-266').toggle();">
+  <h3>266. Creando un Hook para Consultar el Clima</h3>
   <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
 </div>
-<div id="seccion16-XX" class="hidden">
+<div id="seccion16-266" class="">
 
 
 </div>
 
 <!-- Bloque desplegable interior-->
-<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion16-XX').toggle();">
-  <h3>XXXXXXXXXXXXXXX</h3>
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion16-267').toggle();">
+  <h3>267. Primer Llamado hacia la API</h3>
   <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
 </div>
-<div id="seccion16-XX" class="hidden">
+<div id="seccion16-267" class="hidden">
 
 
 </div>
 
 <!-- Bloque desplegable interior-->
-<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion16-XX').toggle();">
-  <h3>XXXXXXXXXXXXXXX</h3>
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion16-268').toggle();">
+  <h3>268. ¿Qué son las variables de Entorno? <a href="https://vite.dev/guide/env-and-mode" class="underline text-white" target="blank">Vite Env Variables and Modes</a></h3>
   <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
 </div>
-<div id="seccion16-XX" class="hidden">
+<div id="seccion16-268" class="hidden">
 
 
 </div>
 
 <!-- Bloque desplegable interior-->
-<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion16-XX').toggle();">
-  <h3>XXXXXXXXXXXXXXX</h3>
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion16-269').toggle();">
+  <h3>269. Segundo llamado hacia la API para obtener el Clima</h3>
   <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
 </div>
-<div id="seccion16-XX" class="hidden">
+<div id="seccion16-269" class="hidden">
 
 
 </div>
 
 <!-- Bloque desplegable interior-->
-<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion16-XX').toggle();">
-  <h3>XXXXXXXXXXXXXXX</h3>
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion16-270').toggle();">
+  <h3>270. Tipar Resultados de una API - Asignar Type</h3>
   <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
 </div>
-<div id="seccion16-XX" class="hidden">
+<div id="seccion16-270" class="hidden">
+
+
+</div>
+
+
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion16-271').toggle();">
+  <h3>271. Tipar Resultados de una API - Type Guards</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion16-271" class="hidden">
 
 
 </div>
 
 <!-- Bloque desplegable interior-->
-<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion16-XX').toggle();">
-  <h3>XXXXXXXXXXXXXXX</h3>
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion16-272').toggle();">
+  <h3>272. Tipar Resultados de una API - Validar con ZOD</h3>
   <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
 </div>
-<div id="seccion16-XX" class="hidden">
+<div id="seccion16-272" class="hidden">
 
 
 </div>
 
 <!-- Bloque desplegable interior-->
-<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion16-XX').toggle();">
-  <h3>XXXXXXXXXXXXXXX</h3>
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion16-273').toggle();">
+  <h3>273. Tipar Resultados de una API - Validar con Valibot</h3>
   <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
 </div>
-<div id="seccion16-XX" class="hidden">
+<div id="seccion16-273" class="hidden">
 
 
 </div>
 
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion16-274').toggle();">
+  <h3>274. Colocando el Resultado de la API en el State</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion16-274" class="hidden">
 
+
+</div>
+
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion16-275').toggle();">
+  <h3>275. Mostrando los Resultados del Clima</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion16-275" class="hidden">
+
+
+</div>
+
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion16-276').toggle();">
+  <h3>276. Finalizando el Componente de Clima</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion16-276" class="hidden">
+
+
+</div>
+
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion16-277').toggle();">
+  <h3>277. Agregando un Spinner de Carga <a href="https://tobiasahlin.com/spinkit/" class="underline text-white" target="blank">https://tobiasahlin.com/spinkit/</a></h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion16-277" class="hidden">
+
+
+</div>
+
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion16-278').toggle();">
+  <h3>278. Reiniciar el Estado después de cada consulta</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion16-278" class="hidden">
+
+
+</div>
+
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion16-279').toggle();">
+  <h3>279. Trabajar con ciudades que no existen</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion16-279" class="hidden">
+
+
+</div>
+
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion16-280').toggle();">
+  <h3>280. Deployment del PROYECTO con API Key</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion16-280" class="hidden">
+
+
+</div>
             
 
         </div>
