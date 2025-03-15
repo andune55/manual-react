@@ -32,7 +32,7 @@
 
         <div id="seccion16">
 
-          <p>Trabajo con <span class="destacado">CSS modules</span>, <span class="destacado">API externa</span>, veremos como <strong>enviar peticiones hacia API</strong>, como <strong>leer las respuestas de una API</strong>, como <strong>validarlas</strong> (<span class="destacado">TYPE GUARD O ASSERTION</span>, <span class="destacado">Zod</span> y <span class="destacado">Valibot</span>) y como <strong>mostrar esa información</strong>. <span class="destacado">La parte de APIS es muy importante en el mundo de React</span>.</p>
+          <p>Trabajo con <span class="destacado">CSS modules</span>, <span class="destacado">API externa</span>, veremos como <strong>enviar peticiones hacia API</strong> <a href="https://openweathermap.org/" class="underline" target="blank">https://openweathermap.org/</a> -  <a href="https://openweathermap.org/api/geocoding-api" class="underline" target="blank">Geocoding API</a>, como <strong>leer las respuestas de una API</strong>, como <strong>validarlas</strong> (<span class="destacado">TYPE GUARD O ASSERTION</span>, <span class="destacado">Zod</span> y <span class="destacado">Valibot</span>) y como <strong>mostrar esa información</strong>. <span class="destacado">La parte de APIS es muy importante en el mundo de React</span>.</p>
           <p>Escribiremos css con <span class="destacado">Módulos CSS</span></p>
 
           <!-- Bloque desplegable interior-->
@@ -532,23 +532,94 @@
             <p>Ya con la validación lista entonces podemos enviar una petición hacia nuestra API. Vamos a crear un custom hook que va a tomar tanto la ciudad como el país, va a hacer la consulta y va a devolvernos un resultado</p>
           </div>
 
-<!-- Bloque desplegable interior-->
-<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion16-266').toggle();">
-  <h3>266. Creando un Hook para Consultar el Clima</h3>
-  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
-</div>
-<div id="seccion16-266" class="">
+          <!-- Bloque desplegable interior-->
+          <div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion16-266').toggle();">
+            <h3>266. Creando un Hook para Consultar el Clima</h3>
+            <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+          </div>
+          <div id="seccion16-266" class="hidden">
+            <p>Vamos a crear un custom hook que se va a encargar de toda la lógica y de consultar nuestra APi de clima, así lo separamos un poco y tenemos un código más limpio y fácil de mantener.</p>
 
 
-</div>
+            <ul class="list-disc my-3">
+              <li class="my-1.25"><strong>Creamos nuestro custom hook: <span class="file">hooks/useWeather.ts</span>. En el return de dentro de la función irán todos los datos que nos irá retornando este custom hook.</strong></li>
+            
+              <li class="my-1.25"><strong>Creamos función para consultar clima 'fetchWeather' y la exportamos en el return para hacerla disponible a nuestros componentes.</strong> En esta función es donde vamos a estar escribiendo buena parte de nuestra lógica, tenemos mucho que ver y aprender relacionado con consulta de API y Typescript.</li>
+              
+              <li class="my-1.25">Importamos nuestro custom hook en el <span class="file">App.tsx</span>. Extraemos con destructuring la función de obtener clima fetchWeather y lo pasamos hacia el formulario como prop nombrándolo exactamente igual. Vemos ya el "error/aviso" que nos da VSC en donde podemos inferir ahí el type que ha de tener esta función que estamos pasando como prop al componente Form <span class="bg-amber-950 text-amber-300">(property) fetchWeather: () => void</span>) </li>
+                
+              <li class="my-1.25"><strong>Comunicamos nuestro custom hook y nuestro formulario:</strong> en el compo <span class="file">Form.tsx</span> creamos un type para las props que le pasemos al Form <strong>FormProps</strong> en el que especificamos esta primera propiedad y su tipo. Añadimos ese prop como parámetro en la función de nuestro compo y tipamo el parámetro con el tipo que hemos añadido en el type de las props. Mandamos llamar esa función nada más pasar la validación. Si probamos ahora la aplicación y ponemos una ciudad y país y le damos al botón de consultar clima, vemos que en consola nos saca lo que, de momento en console.log le hemos puesto a esa función.
+                <div class="flex max-sm:flex-col">      
+                  <div class="w-[25%] max-sm:w-[100%]">
+                    <pre data-line="0"><code class="language-js">
+                      //hooks/useWeather.ts
+                      export default function useWeather(){
+                        const fetchWeather = () => {
+                            console.log('Consultando...')
+                        }        
+                        return {
+                            fetchWeather
+                        }
+                      }
+                    </code></pre>
+                  </div>
+                  <div class="w-[37%] max-sm:w-[100%]">
+                    <pre data-line="0,2,5,12"><code class="language-js">
+                      //App.tsx
+                      ...
+                      import useWeather from "./hooks/useWeather"
+                      
+                      function App() {            
+                        const { fetchWeather } = useWeather()            
+                        return (
+                          &lt;&gt;
+                            &lt;h1 className={styles.title}&gt;Buscador de clima&lt;/h1&gt;
+                      
+                            &lt;div className={styles.container}&gt;
+                              &lt;Form
+                                fetchWeather = {fetchWeather}
+                              /&gt;
+                    </code></pre>
+                  </div>
+                  <div class="w-[37%] max-sm:w-[100%]">
+                    <pre data-line="0,13"><code class="language-js">
+                      //components/Form.tsx
+                      type FormProps = {
+                        fetchWeather: () => void
+                      }
+                      export default function Form({fetchWeather}:FormProps) {
+                        ...
+                        const handleSubmit = (e:FormEvent&lt;HTMLFormElement&gt;) => {
+                          e.preventDefault()
+                          if(Object.values(search).includes('')){
+                            //console.log('Sí hay campos vacíos...')
+                            setAlert('Todos los campos son obligatorios')
+                            return
+                          }
+                          fetchWeather()
+                      }
+                    </code></pre>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
 
 <!-- Bloque desplegable interior-->
 <div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion16-267').toggle();">
-  <h3>267. Primer Llamado hacia la API</h3>
+  <h3>267. Primer Llamado hacia la API - <a href="https://openweathermap.org/" class="underline text-white" target="blank">https://openweathermap.org/</a> -  <a href="https://openweathermap.org/api/geocoding-api" class="underline text-white" target="blank">Geocoding API</a></h3>
   <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
 </div>
-<div id="seccion16-267" class="hidden">
+<div id="seccion16-267" class="">
+  <p>Vamos a estar consumiendo una API que es "curiosa" porque antes solamente había que hacer una llamada para una consulta de clima, pero tras una actualización que hicieron hay que hacer 2 llamadas para consultar clima (en el plan gratuito te dan 3000 llamadas). Antes era ciudad y país, ahora hay que ponerle latitud y longitud y ellos mismos te dicen como obtenerlos, utilizando <strong>la API de geocoding</strong>.</p>
+  
+  <p>En <a href="https://openweathermap.org/" class="underline" target="blank">https://openweathermap.org/</a> pulsamos arriba en "API", scrolleamos un poco en la nueva url hasta "Current Weather Data" y pulsamos en "API doc" donde vamos a tener el ejemplo del código y podemos ver la latitud y longitud {lat} y {lon} pero ¿cómo vamos a obtener esos valores? Lo explican un poco más abajo, hay que ir a <a href="https://openweathermap.org/api/geocoding-api" class="underline" target="blank">Geocoding API</a> y ahí ya sí vemos que en esa llamada a la API toma el nombre de la ciudad y el país, y esta llamada ya sí retorna la latitud y la longitud que utilizamos para la segunda llamada.</p> 
 
+    <img src="./src/assets/img/266.png" alt="img" loading="lazy">
+    
+  <p>Como vimos en la presentación de APIS, tenemos que enviar una petición estructurada, básicamente hacer lo que ellos te piden que hagas. Una prueba muy común como Junior Developer es decirte "tenemos esta API nosotros, consúmela, envíale información". Es algo que vamos a estar haciendo continuamente.</p>
+
+  <p class="naranja">Aquí empieza el 267</p>
 
 </div>
 
