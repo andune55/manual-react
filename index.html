@@ -33,7 +33,7 @@
         <div id="seccion16">
 
           <p>Trabajo con <span class="destacado">CSS modules</span>, <span class="destacado">API externa</span>, veremos como <strong>enviar peticiones hacia API</strong> <a href="https://openweathermap.org/" class="underline" target="blank">https://openweathermap.org/</a> -  <a href="https://openweathermap.org/api/geocoding-api" class="underline" target="blank">Geocoding API</a>, como <strong>leer las respuestas de una API</strong>, como <strong>validarlas</strong> (<span class="destacado">TYPE GUARD O ASSERTION</span>, <span class="destacado">Zod</span> y <span class="destacado">Valibot</span>) y como <strong>mostrar esa información</strong>. <span class="destacado">La parte de APIS es muy importante en el mundo de React</span>.</p>
-          <p>Escribiremos css con <span class="destacado">Módulos CSS</span></p>
+          <p>Escribiremos css con <span class="destacado">Módulos CSS</span>. Instalamos <srong>axios</srong> <span class="destacado">npm i axios</span> que es una librería para consultar APIs externas, es una abstracción sobre fetch api.</p> Vemos qué son <span class="destacado">Variables de entorno</span>
 
           <!-- Bloque desplegable interior-->
           <div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion16-258').toggle();">
@@ -605,43 +605,339 @@
             </ul>
           </div>
 
-<!-- Bloque desplegable interior-->
-<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion16-267').toggle();">
-  <h3>267. Primer Llamado hacia la API - <a href="https://openweathermap.org/" class="underline text-white" target="blank">https://openweathermap.org/</a> -  <a href="https://openweathermap.org/api/geocoding-api" class="underline text-white" target="blank">Geocoding API</a></h3>
-  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
-</div>
-<div id="seccion16-267" class="">
-  <p>Vamos a estar consumiendo una API que es "curiosa" porque antes solamente había que hacer una llamada para una consulta de clima, pero tras una actualización que hicieron hay que hacer 2 llamadas para consultar clima (en el plan gratuito te dan 3000 llamadas). Antes era ciudad y país, ahora hay que ponerle latitud y longitud y ellos mismos te dicen como obtenerlos, utilizando <strong>la API de geocoding</strong>.</p>
-  
-  <p>En <a href="https://openweathermap.org/" class="underline" target="blank">https://openweathermap.org/</a> pulsamos arriba en "API", scrolleamos un poco en la nueva url hasta "Current Weather Data" y pulsamos en "API doc" donde vamos a tener el ejemplo del código y podemos ver la latitud y longitud {lat} y {lon} pero ¿cómo vamos a obtener esos valores? Lo explican un poco más abajo, hay que ir a <a href="https://openweathermap.org/api/geocoding-api" class="underline" target="blank">Geocoding API</a> y ahí ya sí vemos que en esa llamada a la API toma el nombre de la ciudad y el país, y esta llamada ya sí retorna la latitud y la longitud que utilizamos para la segunda llamada.</p> 
+          <!-- Bloque desplegable interior-->
+          <div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion16-267').toggle();">
+            <h3>267. Primer Llamado hacia la API - <a href="https://openweathermap.org/" class="underline text-white" target="blank">https://openweathermap.org/</a> -  <a href="https://openweathermap.org/api/geocoding-api" class="underline text-white" target="blank">Geocoding API</a></h3>
+            <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+          </div>
+          <div id="seccion16-267" class="hidden">
+            <p>Vamos a estar consumiendo una API que es "curiosa" porque antes solamente había que hacer una llamada para una consulta de clima, pero tras una actualización que hicieron hay que hacer 2 llamadas para consultar clima (en el plan gratuito te dan 3000 llamadas). Antes era ciudad y país, ahora hay que ponerle latitud y longitud y ellos mismos te dicen como obtenerlos, utilizando <strong>la API de geocoding</strong>.</p>
+            
+            <p>En <a href="https://openweathermap.org/" class="underline" target="blank">https://openweathermap.org/</a> pulsamos arriba en "API", scrolleamos un poco en la nueva url hasta "Current Weather Data" y pulsamos en "API doc" donde vamos a tener el ejemplo del código y podemos ver la latitud y longitud {lat} y {lon} pero ¿cómo vamos a obtener esos valores? Lo explican un poco más abajo, hay que ir a <a href="https://openweathermap.org/api/geocoding-api" class="underline" target="blank">Geocoding API</a> y ahí ya sí vemos que en esa llamada a la API toma el nombre de la ciudad y el país, y esta llamada ya sí retorna la latitud y la longitud que utilizamos para la segunda llamada.</p> 
 
-    <img src="./src/assets/img/266.png" alt="img" loading="lazy">
-    
-  <p>Como vimos en la presentación de APIS, tenemos que enviar una petición estructurada, básicamente hacer lo que ellos te piden que hagas. Una prueba muy común como Junior Developer es decirte "tenemos esta API nosotros, consúmela, envíale información". Es algo que vamos a estar haciendo continuamente.</p>
+              <img src="./src/assets/img/266.png" alt="img" loading="lazy">
+              
+            <p>Como vimos en la presentación de APIS, tenemos que enviar una petición estructurada, básicamente hacer lo que ellos te piden que hagas. Una prueba muy común como Junior Developer es decirte "tenemos esta API nosotros, consúmela, envíale información". Es algo que vamos a estar haciendo continuamente.</p>
 
-  <p class="naranja">Aquí empieza el 267</p>
+            <p class="naranja">Aquí empieza el 267</p>
 
-</div>
+            <p>Vamos a consultar el primer endpoint de nuestra API que es el de Geocoding API porque requerimos latitud y longitud pero en nuestro formulario solo le estamos poniendo el nombre de la ciudad y del país.</p>
 
-<!-- Bloque desplegable interior-->
-<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion16-268').toggle();">
-  <h3>268. ¿Qué son las variables de Entorno? <a href="https://vite.dev/guide/env-and-mode" class="underline text-white" target="blank">Vite Env Variables and Modes</a></h3>
-  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
-</div>
-<div id="seccion16-268" class="hidden">
+            <ul class="list-disc my-3">
+              <li class="my-1.25">Instalamos axios <span class="destacado">npm i axios</span> es una librería para consultar APIs externas que es una abstracción sobre fetch api, simplifica un poco las llamadas cuando consumimos datos. Fetch aPI está bien, pero esa parte del doble await, ya para un código final es otra historia.</li>
+              <li class="my-1.25">en nuestro custom hook importamos axios y empleamos la palabra <strong>async</strong> para hacer nuestra función asíncrona porque va a ser un llamado hacia una API y no sabemos cuánto tiempo puede tomar, así que con esto 'bloqueamos' el código hasta tener cierta respuesta. Usualmente cuando trabajamos con async/await, su mejor aliado es <strong>try/catch</strong> que nos va a permitir que en caso de que haya un error lo podamos debugear. El try/catch intenta llevar a cabo, línea por línea, todo el código que esté en el try y en caso de uqe haya un error salta directamente a la parte del catch. Esto es importante porque requerimos que se realicen todos estos pasos: que se haga la conexión, que nos traiga los datos y en caso de que haya un error (que no escribamos bien la url, que no l estemos pasando el id que generamos para la API (la key)...), de momento lo tenemos en la consola.
+              
+                <pre data-line="0"><code class="language-js">
+                  //useWeather.ts
+                  import axios from "axios"
+                  export default function useWeather(){
+                      const fetchWeather = async () => {
+                        try {
+                      
+                        } catch (error) {
+                            console.log(error)
+                        }
+                      }
+                      return {
+                          fetchWeather
+                      }
+                  }
+                </code></pre>
+              </li>
+              <li class="my-1.25"><p>Vamos a Geocoding API y copiamos la API call <code class="language-ts">http://api.openweathermap.org/geo/1.0/direct?q={city name},{state code},{country code}&limit={limit}&appid={API key}</code>. Lo metemos en una nueva variable geoUrl con un template string, puesto que vemos que en la url tenemos ciertas variables como nuestra API key y el nombre de la ciudad.</p>
+                
+              <p>Si nos fijamos en la estructura de la url viene q={city name} que es el nombre de la ciudad que tenemos en nuestra interfaz, luego {state code} y {country code}. Tenemos que, desde nuestro formulario en Form.tsx, en la llamada a la función fetchWeather(), pasarle nuestra búsqueda: <code class="language-ts">fetchWeather(search)</code> y entonces en nuestro custom hook tomar ese parámetro que es una búsqueda de tipo <span class="bg-[#4ec9b0] text-white">SearchType</span>  <code class="language-ts">const fetchWeather = async (search: SearchType) => {</code>.</p>
 
+              <p>Vemos que nos aparecen muchos errores. Sigámoslos. En App.tsx nos marca error en el prop que le pasamos al Form, recordemos que en principio habíamos tipado ese prop en el <span class="bg-[#4ec9b0] text-white">FormProps</span> del Form.tsx como una función que no retorna nada, pero le estamos pasando una búsqueda, así que ya esa Firma está mal, tenemos que ajustarla. Si vemos el aviso de App.tsx nos inidica que el tipo search debe retornar un promise <span class="bg-amber-950 text-amber-300">El tipo '(search: SearchType) => Promise<void>' no se puede asignar al tipo '() => void'. La firma de destino proporciona muy pocos argumentos. Se esperaba 1 o más, pero se obtuvo 0.</span> Async Await es una abstracción de promises API, una versión un poco más corta, pero siguen siendo promises. Por tanto copiamos ese valor del IS y lo usamos para modificar nuestra anterior firma de <code class="language-ts">fetchWeather: () => void</code> por <code class="language-ts">fetchWeather: (search: SearchType) => Promise</code> Y eso ya lo soluciona <strong>antes solo era una función, pero ahora es una función asíncrona que toma una búsqueda de tipo SearchType y no retorna nada aún y no sabemos si va a retornar algo o solo vamos a escribir en el state, por eso requerimos el promise.</strong></p>
 
-</div>
+              <p>Cambiamos de nuestra url <code class="language-ts">{city name}</code> por <code class="language-ts">${search.city}</code>. Eliminamos el parámetro {state code}. Sustituimos <code class="language-ts">{country code}</code> por <code class="language-ts">${search.country}</code>. Eliminamos el parámetro limit. El parámetro <code class="language-ts">{API Key}</code> lo sustituimos por esta variable que creamos con el código que generamos anteriormente: <code class="language-ts">const appI = 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'</code>. !Claro! si ponemos esto en github cualquiera puede verlo <span class="destacado">hemos de ocultarlo ya hora en seguida veremos como hacerlo.</span> Podemos hacer un <code class="language-ts">console.log(geoUrl)</code> para ver toda la estructura de la url una vez inyectados los valores. Si probamos nuestra app y copiamos la url de la consola y la pegamos en el navegador, vemos que nos aparece esta información, donde están los valores de latitud y longitud que son los que necesitamos para consultar nuestra API de clima:
+              <pre><code class="language-ts">
+                [
+                  {
+                    "name": "Tres Cantos",
+                    "local_names": {
+                      "ru": "Трес-Кантос",
+                      "uk": "Трес-Кантос"
+                    },
+                    "lat": 40.6065826,
+                    "lon": -3.7065333,
+                    "country": "ES",
+                    "state": "Community of Madrid"
+                  }
+                ]
+              </code></pre>
+              </p>
 
-<!-- Bloque desplegable interior-->
-<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion16-269').toggle();">
-  <h3>269. Segundo llamado hacia la API para obtener el Clima</h3>
-  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
-</div>
-<div id="seccion16-269" class="hidden">
+              <p><strong>¿Cómo hacemos para consultarlo aquí en nuestro código?</strong> creamos una nueva variable: <code class="language-ts">const data = await axios(geoUrl)</code>. Si dejáramos el código como está va a hacer una petición de tipo get (que es la que obtiene datos) y como es lo que queremos en este caso, pues bien. <span class="destacado">Podríamos especificarlo de estas dos maneras distintas adicionales: <code class="language-ts">const data = await axios.get(geoUrl)</code> o <code class="language-ts">const data = await axios(geoUrl, {method: 'get'})</code>. Pero como get es el default, no es necesario.</span>. Hacemos un <code class="language-ts">console.log(data)</code>, guardamos cambios y vemos la respuesta que obtenemos:</p>
+                <ul class="list-disc my-3">
+                  <li class="my-1.25">statusText: OK significa que se conectó correctamente</li>
+                  <li class="my-1.25">data: es la url que visitamos antes (la proveniente de nuestra geoUrl). como quiero acceder directamente a data, puedo aplicar destructuring desde mi código: en vez de <code class="language-ts">const data = await axios.get(geoUrl)</code> aplicando destructuring: <code class="language-ts">const {data} = await axios.get(geoUrl)</code> ya entra directamente a esa información:
+                    <div class="flex max-sm:flex-col">
+                      <div class="w-[50%] max-sm:w-[100%]">
+                        <pre data-line="0"><code class="language-ts">
+                          const data = await axios.get(geoUrl)
+                        </code></pre>
+                        <img src="./src/assets/img/267.png" alt="img" loading="lazy">
+                      </div>
+                      <div class="w-[50%] max-sm:w-[100%]">
+                        <pre data-line="0"><code class="language-ts">
+                          const {data} = await axios.get(geoUrl)
+                        </code></pre>
+                        <img src="./src/assets/img/267-2.png" alt="img" loading="lazy">
+                      </div>
+                    </div>        
+                  </li>     
+                </ul>
+              </li>
+          </ul>
 
+            <p>Ya tenemos esa información (que tiene latitud y longitud) en nuestro código. Ya hemos hecho nuestra primera llamada y es correcta, estamos obteniendo información de Internet. Pero antes de seguir hemos de:</p>
+            <ul class="list-disc my-3">
+              <li class="my-1.25">ocultar nuestro API Key que tenemos almacenado en la variable appId</li>
+              <li class="my-1.25">si vemos nuestro data destructurado <code class="language-ts">const {data} = await axios.get(geoUrl)</code>, vemos que es de tipo any <span class="bg-amber-950 text-amber-300">const data: any</span>. Cuando llamamos a una API es prácticamente imposible para TypeScript saber qué es lo que está obteniendo porque eso está en Internet no está en nuestro código. Más adelante veremos técnicas para evitar esto, tener tipos any cuando hacemos llamadas a APIS.</li>
+            </ul>
 
-</div>
+                <div class="flex max-sm:flex-col">
+                  <div class="w-[33%] max-sm:w-[100%]">
+                    <pre data-line="0,2,13"><code class="language-js">
+                      //App.tsx
+                      &lt;Form
+                        fetchWeather = {fetchWeather}
+                      /&gt;
+                    </code></pre>
+                  </div>
+                  <div class="w-[33%] max-sm:w-[100%]">
+                    <pre data-line="0,2,13"><code class="language-js">
+                      //Form.tsx
+                      type FormProps = {
+                        fetchWeather: (search: SearchType) => Promise<void>
+                      }    
+                      export default function Form({fetchWeather}:FormProps) {
+                        ...
+                        const handleSubmit = (e:FormEvent&lt;HTMLFormElement&gt;) => {
+                          e.preventDefault()
+                          if(Object.values(search).includes('')){
+                              //console.log('Sí hay campos vacíos...')
+                              setAlert('Todos los campos son obligatorios')
+                              return
+                          }
+                          fetchWeather(search)
+                        }     
+                  
+                    </code></pre>
+                  </div>
+                  <div class="w-[33%] max-sm:w-[100%]">
+                    <pre data-line="0"><code class="language-js">
+                      //useWeather.ts
+                      import axios from "axios"
+                      export default function useWeather(){
+                        const fetchWeather = async (search: SearchType) => {
+                          const appId = 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
+                          try {
+                            const geoUrl = `http://api.openweathermap.org/geo/1.0/direct?q=${search.city},${search.country}&appid=${appId}` 
+                            //console.log(geoUrl)
+                            const data = await axios(geoUrl)
+                            console.log(data)
+                          } catch (error) {
+                            console.log(error)
+                          }
+                        }
+                        return {
+                          fetchWeather
+                        }
+                      }
+                    </code></pre>
+                  </div>
+                </div> 
+
+          </div>
+
+          <!-- Bloque desplegable interior-->
+          <div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion16-268').toggle();">
+            <h3>268. ¿Qué son las variables de Entorno? <a href="https://vite.dev/guide/env-and-mode" class="underline text-white" target="blank">Vite Env Variables and Modes</a></h3>
+            <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+          </div>
+          <div id="seccion16-268" class="hidden">
+            <p>Tenemos que ocultar nuesta API key. Siempre es recomendable ocultar este tipo de información sensible. No es algo de React, es algo más bien de Vite. Vamos a ver qué son <span class="destacado">las variables de entorno</span>. <strong>Nos van a permitir fijar valores diferentes en función del entorno en el que estemos (DESARROLLO vs PRODUCCIÓN)</strong>. Actualmente estamos en el entorno de desarrollo, cuando yo haga el build el entorno se convierte a producción porque ese proyecto ya va a estar hospedado en un servidor. Ejemplo: conexión a una BBDD. En desarrollo puede que tengamos una BBDD de pruebas, de DESA que en vez de 100000 de clientes solo tiene 5 para hacer pruebas, no puedes estar probando en la BBDD del negocio. Otro ejemplo: probando un servicio de email, vamos a utilizar un smtp, un servicio de email de pruebas como <a href="https://mailtrap.io/es/" class="underline" target="blank">https://mailtrap.io/es/</a> pero una vez que tengamos nuestro código usaremos un servicio de pago para que envíe los emails a producción.</p>
+
+            <p>Nosotros vamos a ocultar el valor de nuestra API Key colocándolo en una variable de entorno, para que funcione localmente pero si lo subimos a github ese código o esas variables no tienen que estar visibles, y en un hosting tenemos que agregarlas en un panel que, a día de hoy, casi todos los hostings tienen.</p>
+
+            <p>Veamos que vite ya tiene algunas variables de entorno. En nuestro App.tsx añadamos este <code class="language-ts">  console.log(import.meta.env)</code> antes del return. Guardamos, recargamos y vemos en consola que ahora mismoa hay 5: </p>
+            <img src="./src/assets/img/268.png" alt="img" loading="lazy">
+
+            <p>Esta es la forma en que vamos a obtener las variables de entorno <strong>(con node es con process but con vite es con import.meta.env)</strong> No podemos nombrar nuevas variables de entorno con ninguno de esos nombres, de hecho hay una forma de hacerlo. En este link <a href="https://vite.dev/guide/env-and-mode" class="underline text-white" target="blank">Vite Env Variables and Modes</a> vemos algunas variables de entorno y cómo acceder a ellas, es un objeto, y si scrolleamos un poco hacia abajo se nos explica que <span class="destacado">tenemos que crear el archivo .env</span>. Vemos cómo debemos nombrar nuestras variables de entorno: para vite se requiere que inicen con <span class="destacado">VITE_</span> <span class="destacado">Creamos nuestro archivo <span class="file">.env.local</span> en la raíz del proyecto</span>  y si vemos esto significa que env.local es ignorado por git por lo que cuando yo suba este código, no se va a subir ese archivo que tiene información sensible:</p>
+
+            <pre><code class="language-ts">
+              .env                # loaded in all cases
+              .env.local          # loaded in all cases, ignored by git
+              .env.[mode]         # only loaded in specified mode
+              .env.[mode].local   # only loaded in specified mode, ignored by git
+            </code></pre>
+
+            <p>Supongamos que en nuestro fichero de variables de entorno metemos una que sí cumple con el requisito de nomenclatura (en la que metemos nuestro API KEY) y creamos otra que no cumple con el requisito de nomenclatura:</p>
+            <pre><code class="language-ts">
+              //.env.local
+              VITE_API_KEY=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+              EMAIL_PASSWORD=123456
+            </code></pre>
+
+            <p>Si mandamos a la consola <code class="language-ts">console.log(import.meta.env)</code> vemos que sí aparece la que cumple con el requisito de que el nombre empieza por VITE_ sin embargo la otra no</p>
+            <p>Así ya queda oculto, cuando yo suba este código este archivo va a ser ignorado y nadie va  apoder ver mi API key. </p>
+            <p>En nuestro custom hook reemplazamos esto: <code class="language-ts">const appId = 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'</code> por esto: <code class="language-ts">const appId = import.meta.env.VITE_API_KEY</code> (cuando alguien visite nuestro código va a ver esto, en vez de nuestra API KEY)</p>
+
+            <p><strong>Algo importante es que cuando tenemos variables en código local, nos tenemos que asegurar que esas variables tambiéne existan en producción, eso lo vamos a ver en cuanto hagamos el deployment (más adelante veremos como llevar este proyecto a producción y registrar las variables de entorno en Netlify que tiene un panel especial para ello)</strong></p>
+
+            <p>Una vez oculta la api key podemos continuar con nuestro código, de este data requerimos latitud y longitud. Y tenemos que hacer una segunda llamada que es la que obtiene el clima: <a href="https://openweathermap.org/current" class="underline" target="blank">Call current weather data</a> - How to make an API call: <code class="language-ts">https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={API key}</code></p>
+
+          </div>
+
+          <!-- Bloque desplegable interior-->
+          <div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion16-269').toggle();">
+            <h3>269. Segundo llamado hacia la API para obtener el Clima</h3>
+            <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+          </div>
+          <div id="seccion16-269" class="hidden">
+            <p>En nuestra variable geoUrl tenemos la url de geocoding. En el destructuring que hacemos del data que obtenemos con <code class="language-ts">const {data} = await axios.get(geoUrl)</code> veíamos que ya tenemos latitud y longitud que es lo que necesitamos para obtener el clima actual. Cuando buscamos una ciudad vemos con el <code class="language-ts"> console.log(data)</code> que, si encuentra algo, siempre nos va a retornar el arreglo y posición 0. </p>
+
+            <ul class="list-disc my-3">
+              <li class="my-1.25">En nuestro try, justo despues del destructuring const {data} (en el que ya tenemos esa primera llamada con lat y lon) creamos 2 variables nuevas para almacenar esos valores (vemos tras el [0] que no tenemos autocompletado porque data es any como decíamos; más adelante veremos como tiparlo. por el console log de dat vemos que en cada caso es lat y lon). Hacemos un console.log a ambos y podemos ver esos valores en consola. Mas adelante también contemplaremos la opción de que no encuentre esos valores, mostraremos un mensaje:
+              <pre><code class="language-ts">
+                const lat= data[0].lat
+                const lon= data[0].lon
+              </code></pre>
+              </li>
+              <li class="my-1.25">Tomamos la url de <a href="https://openweathermap.org/current" class="underline" target="blank">Call current weather data</a> - How to make an API call: <code class="language-ts">https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={API key}</code> y creamos una segunda variable para esta segunda url: 'weatherUrl' <code class="language-ts">const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${appId}`</code>  y hacemos un
+                console.log(weatherUrl). En consola vemos esa url y al presionarla vemos toda la información que nos devuelve la api. Vemos que en main aparecen temperaturas, pero en grados Kelvin, haremos la conversión a centígrados.
+
+                <div class="flex max-sm:flex-col m2.5-5">
+                  <div class="w-[50%] max-sm:w-[100%]">
+                    <pre><code class="language-ts">
+                      {
+                        "coord": {
+                            "lon": -3.7065,
+                            "lat": 40.6066
+                        },
+                        "weather": [
+                            {
+                                "id": 801,
+                                "main": "Clouds",
+                                "description": "few clouds",
+                                "icon": "02d"
+                            }
+                        ],
+                        "base": "stations",
+                        "main": {
+                            "temp": 282.76,
+                            "feels_like": 280.66,
+                            "temp_min": 281.73,
+                            "temp_max": 284.09,
+                            "pressure": 1014,
+                            "humidity": 58,
+                            "sea_level": 1014,
+                            "grnd_level": 925
+                        },
+                        "visibility": 10000,
+                        "wind": {
+                            "speed": 4.02,
+                            "deg": 281,
+                            "gust": 7.15
+                        },
+                        "clouds": {
+                            "all": 20
+                        },
+                        "dt": 1742141210,
+                        "sys": {
+                            "type": 2,
+                            "id": 2003930,
+                            "country": "ES",
+                            "sunrise": 1742106289,
+                            "sunset": 1742149329
+                        },
+                        "timezone": 3600,
+                        "id": 6359405,
+                        "name": "Tres Cantos",
+                        "cod": 200
+                    }
+                    </code></pre>   
+                  </div>
+                  <div class="w-[50%] max-sm:w-[100%]">
+                    <ul class="list-disc my-3">
+                      <li class="my-1.25"> Almacenamos en una variable destructurando esta segunda url. Como esto <code class="language-ts">const{data} = await axios.get(weatherUrl)</code> nos marca error porque ya teníamos un data destructurado con la primera llamada, podemos utilizar esta sintaxis para renombrar este segundo data; aplicándole aquí en el destructuring los ":" haces que a la variable data se le asigne el nombre weatherResult:<br> <code class="language-ts">const{data: weatherResult} = await axios.get(weatherUrl)</code> y hacemos un <code class="language-ts">console.log(weatherResult)</code>
+                
+                        <p>Lo único que nos interesa de aquí es el name y lo que está en main (incluída temperatura que como decíamos convertiremos de Kelvin a Centígrados)</p>
+                        <img src="./src/assets/img/269.png" alt="img" loading="lazy">
+                      </li>
+                    </ul>                  
+
+                    
+                  </div>
+                </div>
+               
+              </li>              
+            </ul>
+
+            <div class="flex max-sm:flex-col">
+              <div class="w-[35%] max-sm:w-[100%]">
+                <pre data-line="0"><code class="language-js">
+                  //App.tsx
+                  &lt;Form
+                    fetchWeather = {fetchWeather}
+                  /&gt;
+                </code></pre>    
+                <pre data-line="0"><code class="language-js">
+                  //Form.tsx
+                  type FormProps = {
+                    fetchWeather: (search: SearchType) => Promise<void>
+                  }    
+                  export default function Form({fetchWeather}:FormProps) {
+                    ...
+                    const handleSubmit = (e:FormEvent&lt;HTMLFormElement&gt;) => {
+                      e.preventDefault()
+                      if(Object.values(search).includes('')){
+                          //console.log('Sí hay campos vacíos...')
+                          setAlert('Todos los campos son obligatorios')
+                          return
+                      }
+                      fetchWeather(search)
+                    }  
+                </code></pre>
+                <pre data-line="0"><code class="language-ts">
+                  //.env.local
+                  VITE_API_KEY=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                </code></pre>
+              </div>
+              <div class="w-[65%] max-sm:w-[100%]">
+                <pre data-line="0"><code class="language-js">
+                  //useWeather.ts
+                  import axios from "axios"
+                  export default function useWeather(){
+                    const fetchWeather = async (search: SearchType) => {
+                      const appId = import.meta.env.VITE_API_KEY
+                      try {
+                        const geoUrl = `http://api.openweathermap.org/geo/1.0/direct?q=${search.city},${search.country}&appid=${appId}` 
+                        //console.log(geoUrl)
+                        const data = await axios(geoUrl)
+                        //console.log(data)
+                        const lat= data[0].lat
+                        const lon= data[0].lon
+                        const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${appId}`
+                        //console.log(weatherUrl)
+                        const{data: weatherResult} = await axios.get(weatherUrl)
+                        console.log(weatherResult)
+                      } catch (error) {
+                        console.log(error)
+                      }
+                    }
+                    return {
+                      fetchWeather
+                    }
+                  }
+                </code></pre>
+              </div>
+            </div> 
+
+            <p>Ambas variables obtenidas con destructuring (data y weatherResult) son de tipo any. TS funciona en nuestro código pero antes consultas a una API TS no se puede conectar "hacia allí" y saber qué está obteniendo. <strong>Veamos varias opciones para tipar las respuestas de una API, desde la peor hasta la mejor.</strong></p>
+          </div>
 
 <!-- Bloque desplegable interior-->
 <div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion16-270').toggle();">
