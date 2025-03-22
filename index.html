@@ -34,6 +34,7 @@
 
           <p>Trabajo con <span class="destacado">CSS modules</span>, <span class="destacado">API externa</span>, veremos como <strong>enviar peticiones hacia API</strong> <a href="https://openweathermap.org/" class="underline" target="blank">https://openweathermap.org/</a> -  <a href="https://openweathermap.org/api/geocoding-api" class="underline" target="blank">Geocoding API</a>, como <strong>leer las respuestas de una API</strong>, como <strong>validarlas</strong> (<span class="destacado">TYPE GUARD O ASSERTION</span>, <span class="destacado">Zod</span> y <span class="destacado">Valibot</span>) y como <strong>mostrar esa información</strong>. <span class="destacado">La parte de APIS es muy importante en el mundo de React</span>.</p>
           <p>Escribiremos css con <span class="destacado">Módulos CSS</span>. Instalamos <srong>axios</srong> <span class="destacado">npm i axios</span> que es una librería para consultar APIs externas, es una abstracción sobre fetch api.</p> Vemos qué son <span class="destacado">Variables de entorno</span>
+          <p>Libería Zod para tipar respuestas de una API: <span class="destacado">npm i zod</span></p>
 
           <!-- Bloque desplegable interior-->
           <div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion16-258').toggle();">
@@ -862,7 +863,7 @@
                   </div>
                   <div class="w-[50%] max-sm:w-[100%]">
                     <ul class="list-disc my-3">
-                      <li class="my-1.25"> Almacenamos en una variable destructurando esta segunda url. Como esto <code class="language-ts">const{data} = await axios.get(weatherUrl)</code> nos marca error porque ya teníamos un data destructurado con la primera llamada, podemos utilizar esta sintaxis para renombrar este segundo data; aplicándole aquí en el destructuring los ":" haces que a la variable data se le asigne el nombre weatherResult:<br> <code class="language-ts">const{data: weatherResult} = await axios.get(weatherUrl)</code> y hacemos un <code class="language-ts">console.log(weatherResult)</code>
+                      <li class="my-1.25"> Almacenamos en una variable destructurando esta segunda url. Como esto <code class="language-ts">const{data} = await axios.get(weatherUrl)</code> nos marca error porque ya teníamos un data destructurado con la primera llamada, podemos utilizar esta sintaxis para renombrar este segundo data; aplicándole aquí en el destructuring los ":" hace que a la variable data se le asigne el nombre weatherResult:<br> <code class="language-ts">const{data: weatherResult} = await axios.get(weatherUrl)</code> y hacemos un <code class="language-ts">console.log(weatherResult)</code>
                 
                         <p>Lo único que nos interesa de aquí es el name y lo que está en main (incluída temperatura que como decíamos convertiremos de Kelvin a Centígrados)</p>
                         <img src="./src/assets/img/269.png" alt="img" loading="lazy">
@@ -939,46 +940,235 @@
             <p>Ambas variables obtenidas con destructuring (data y weatherResult) son de tipo any. TS funciona en nuestro código pero antes consultas a una API TS no se puede conectar "hacia allí" y saber qué está obteniendo. <strong>Veamos varias opciones para tipar las respuestas de una API, desde la peor hasta la mejor.</strong></p>
           </div>
 
-<!-- Bloque desplegable interior-->
-<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion16-270').toggle();">
-  <h3>270. Tipar Resultados de una API - Asignar Type</h3>
-  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
-</div>
-<div id="seccion16-270" class="hidden">
+          <!-- Bloque desplegable interior-->
+          <div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion16-270').toggle();">
+            <h3>Tipar Resultados de una API: 270. Asignar Type / 271. Type Guards = Assertion / 272. Validar con ZOD</h3>
+            <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+          </div>
+          <div id="seccion16-270" class="">
+            <p>Veamos algunas opciones para tipar este resultado (veremos desde la peor hasta la mejor) porque como podemos ver en el IS weatherResult es de tipo any <span class="bg-amber-950 text-amber-300">const weatherResult: any</span> y si yo quisiera un console.log a algunos de los valores (por ejemplo ciudad y temperatura de las que está en el main) podemos ver que no tenemos ninguna ayuda con la notación del punto.</p>
+
+            <ul class="list-disc my-3">
+              <li class="my-1.25"><strong>1. Tipar Resultados de una API - Asignar Type:</strong> solo casteamos el type que queremos asignar a la respuesta: <code class="language-ts">const{data: weatherResult} = await axios&lt;Weather&gt;(weatherUrl)</code></li>
+              <li class="my-1.25"><strong>2. Type guard o assertion:</strong> es mucho mejor que la anterior porque sí revisa el JSON que estamos obteniendo. Pero difícil de mantener si tenemos múltiples objetos, múltiples endpoints=APIS no va a ser tan simple.</li>
+              <li class="my-1.25"><strong>3. Validar con ZOD:</strong> ha ganado muhca popularidad implementar una librería llamada ZOD. La instalamos con <span class="destacado">npm i zod</span></li>
+            </ul>
+
+
+      <p class="naranja">1. Tipar Resultados de una API: Asignar Type</p>
+
+            <p>Esta es la peor forma: (veo en la consola la respuesta que se está obteniendo y entonces creo un type que tenga esa forma): Crear un type en <span class="file">types/index.ts</span> llamado <span class="bg-[#4ec9b0] text-white">Weather</span> donde vamos a tipar solo lo que nos interesa (name y 3 temperaturas), no todo lo que devuelve. De esa información me gustaría extraer el nombre y las 3 temperaturas. Hacemos lo siguiente y tendríamos un objeto con esa información.</p>
+
+            <div class="flex max-sm:flex-col">
+              <div class="w-[50%] max-sm:w-[100%]">
+                <pre data-line="0"><code class="language-ts">
+                  //types/index.ts
+                  export type Weather = {
+                    name:string
+                    main: {
+                      temp: number,
+                      temp_max: number,
+                      temp_min: number
+                    }
+                  }                  
+                </code></pre>
+              </div>
+              <div class="w-[50%] max-sm:w-[100%]">
+                <p>En nuestro hook usaríamos este type vía generic indicando así que "la respuesta que vamos a obtener en este llamado va a ser un type de tipo <span class="bg-[#4ec9b0] text-white">Weather</span>. Con el IS ya veríamos que aparece con ese type y también funciona ya la notación del punto para acceder a esos valores:</p>
+                <pre data-line="0"><code class="language-ts">
+                  //useWeather.ts
+                  ...
+                  const{data: weatherResult} = await axios&lt;Weather&gt;(weatherUrl)
+                  console.log(weatherResult.name)
+                  console.log(weatherResult.main.temp_max)
+                </code></pre>
+              </div>
+            </div>
+
+            <p>Si aquí <code class="language-ts">console.log(weatherResult.main.temp_max)</code> le quitáramos el main <code class="language-ts">console.log(weatherResult.temp_max)</code> nos daría un undefined), porque <strong>no escanea el objeto para poder decir "ok es correcto lo que estás asignando"</strong>. El código de TS reside aquí, pero no puede ir a la respuesta de la API e identificar si lo que le estamos asignando es correcto, si asignamos algo que no va o es incorrecto, TS no nos puede decir "oye ahí hay un error". Con esto <code class="language-ts">const{data: weatherResult} = await axios&lt;Weather&gt;(weatherUrl)</code> lo que estamos haciendo es castear el type (asignarle el valor nosotros), pero existen otras formas de comprobar si lo que le estamos pasando es correcto. Veámoslas.</p>
+
+      <p class="naranja">2. Tipar Resultados de una API: Type Guards = Assetions</p>          
+
+            <p>Nuestro problema está siendo que no sabemos exactamente qué estamos obteniendo. Con un type guard podemos garantizar que sí es de esa forma. La función 'isWeatherResponse(weather) va a revisar que tenga todo lo que tenemos definido en el type. Creamos una variable result en la que asignamos la llamada a nuestra nueva función función isWeatherResponse que vamos a crear pasándole como argumento nuestro weatherResult. Vemos que, al crear la función, el parámetro weather nos lo marca como any; <span class="destacado">existe una alternativa en TS para tipar que es 'unknown', en TS se usa para tipar un valor cuyo tipo no conocemos aún (en el tiempo de compilación), pero es una manera de decirle al compilador de TS que no estmaos seguros de qué tipo de dato podemos recibir, como en este caso el llamado a una API, pero aún así queremos asegurarnos de que se realicen ciertas verificaciones de tipo antes de operar con ese valor</span>. Y ya comenzamos a escribir las verificaciones, verificar que este clima que le estamos pasando en la llamada tenga la forma de un name y un objeto main con 3 temperaturas, todos del tipo que hemos especificado en nuestro <span class="file">types/index.ts</span>.</p>
+
+            <p> En nuestra función escribimos return() y dentro cada una de esas comprobaciones. <strong>typeof</strong> nos va a retornar el tipo de dato que tiene una variable. Ponemos todos estos <strong>&&</strong> porque <strong>las siguientes condiciones se tienen que cumplir para describir correctamente el tipo weather que estamos obteniendo desde axios</strong> (este código toma esa respuesta, la pasa como objeto y aplicamos comprobaciones de forma individual):</p>
+
+            <div class="flex max-sm:flex-col">
+              <div class="w-[25%] max-sm:w-[100%]">
+                <pre data-line="0"><code class="language-ts">
+                  //types/index.ts
+                  export type Weather = {
+                    name:string
+                    main: {
+                      temp: number,
+                      temp_max: number,
+                      temp_min: number
+                    }
+                  }
+                </code></pre>
+              </div>
+              <div class="w-[75%] max-sm:w-[100%]">
+                <pre data-line="0"><code class="language-ts">
+                  //useWeather.ts
+                  ...
+                  // TYPE GUARD O ASSERTION
+                  function isWeatherResponse(weather : unknown) : weather is Weather{
+                    return(        
+                      Boolean(weather) &&         //que weather exista, que le hayamos pasado algo
+                      typeof weather === 'object' && //que sea un objeto
+                      typeof (weather as Weather).name === 'string' && //accedemos a cada uno de los elementos revisando que el nombre sea un string, que las 3 temepraturas sean números
+                      typeof (weather as Weather).main.temp === 'number' &&
+                      typeof (weather as Weather).main.temp_min === 'number' &&
+                      typeof (weather as Weather).main.temp_max === 'number' 
+                    )
+                  }
+                  ...
+                  //Type Guards
+                  const{data: weatherResult} = await axios(weatherUrl)
+                  const result = isWeatherResponse(weatherResult)
+                  //console.log(result)
+                  if(result){
+                    console.log(weatherResult.name)
+                  } else {
+                    console.log('Respuesta mal formada')
+                  }
+                </code></pre>
+              </div>
+            </div>
+
+            <p>El console.log(result) nos devuelve un true (porque se están cumpliendo todas esas condiciones) así que en vez de ese console.log ya le podemos poner un if para acceder a weatherResult. pero vemos que la notación del punto aún notenemos autocompletado, tendríamos que completar la función tipándola así y una vez que tenemos ese assertion que se cumple ya tenemos autocompletado:</p>
+
+            <pre><code class="language-ts">
+              function isWeatherResponse(weather : unknown) : weather is Weather{ ... }
+            </code></pre>
+
+            <p>Estamos seguros así de que la respuesta que estamos obteniendo cumple con ese objeto. ¿Cual es el problema de este código? puies que obviamente no es un código mantenible. Si tenemos una respuesta muy grande vamos a tener funciones también muy grandes. Además si tenemos múltiples APIS=endpoints, tendremos que crear una función por cada endpoint, lo cual es difícilmente mantenible. No obstante garantiza que la respuesta que estamos obteniendo (recordemos es desconocida para typescript, unkown) cumpla con todas estas comprobaciones. Esta forma, a diferencia de la anterior donde lo asteábamos, comprueba la respuesta real, ese JSON que estamos obteniendo, de esto se trata este <strong>type guard o assertions</strong>: comprueban ahora ´si el objeto real y no solamente el type que hemos definido, no solamente forzarlo cuando hicimos anteriormente cuando forzmaos el type (que teníamos buen autocompletado, el código no tenía problemas, aunque es lapeor forma de tipar una respuesta). Como vemos el problema que tienen los type guard o assertions es que no son mantenibles si teneos mas de 1 o 2 objetos.</p>
+
+            <p>Por tanto ante una pregunta técnica de cómo comprobar una respuesta de una API sin usar librerías, usar un type guard = assertion, pero de forma profesional vamos a querer utilzar algo que simplifique esto porque es muy complicado de mantener.</p>
+
+            <p>¿Qué opciones nos quedan? podríamos utilizar una librería como ZOD que nos va a permitir definir un esquema fácilmente y comprobar si el objeto cumple con esa condición</p>
+
+      <p class="naranja">3. Tipar Resultados de una API: validar con ZOD</p>
+
+            <p>Veamos una tercera opción para tipar las respuestas de nuestra API: instalamos la libreria ZOD <span class="destacado">npm i zod</span>. La importamos después de axios:</p>
+
+            <pre data-line="0"><code class="language-ts">
+              //useweather.ts
+              import axios from "axios"
+              import { z } from 'zod'
+            </code></pre>
+            
+
+            <p>hemos definido nuestro type <span class="bg-[#4ec9b0] text-white">Weather</span> pero con Zod podemos definir un esquema e inferir el type que se generaría en base a ese esquema. Quitamos de nuestro custom hook la importación de nuestro type <span class="bg-[#4ec9b0] text-white">Weather</span> del cual copiamos su esquema, y teniendo este presente:</p>
+
+            <pre><code class="language-ts">
+              name:string
+              main: {
+                  temp: number,
+                  temp_max: number,
+                  temp_min: number
+              }
+            </code></pre>
+
+            <p><strong>En Zod vamos a crear nuestro esquema con la forma que queremos que tenga nuestro type:</strong> creamos la constante Weather (aunque es con mayúscula no es un type) y le asignamos el objeto=función principal de la librería Zod que es una "z" y con la notación del punto vemos a la cantidad de métodos que podemos acceder. En este caso como nuestra respuesta es un objeto usamos el método object, colocando paréntesis y después sintaxis de objeto ({}).</p>
+
+            <p>ponemos name que es el nombre de la propiedad que queremos agregar a este type pero para especificarle string usamos "z.string". Y así sucesivamente con todas las propiedades de nuestro esquema, en este caso 4.</p>
+
+            <p>A continuación creamos nuestro type de la siguiente manera: <code class="language-ts">type Weather = z.infer&lt;typeof Weather&gt;</code>. <strong>infer</strong> va a inferir en base a ese esquema el type, básicamente va a ser nuestro anterior type <span class="bg-[#4ec9b0] text-white">Weather</span> de index.ts, así que le ponemos typeof y le pasamos la variable que contiene esa inforamción que va a ser la que acabamos de crear con el mismo nombre 'Weather'. De hecho si nos colocamos encima del type Weather, el IS nos muestra la misma estructura que si nosotros lo hubiéramos hecho.</p>
+           
+            <pre data-line="0"><code class="language-ts">
+              //useWeather.ts
+              const Weather = z.object({
+                name: z.string(),
+                main: z.object({
+                    temp: z.number(),
+                    temp_max: z.number(),
+                    temp_min: z.number()
+                })
+            })
+            type Weather = z.infer&lt;typeof Weather&gt;
+            </code></pre>           
+
+            <p>No es solo eso lo que tiene Zod, también la parte que hemos visto anteriormente de escribir el Guard lo tiene incluido y lo hace muy sencillo:</p>
+
+            <div class="flex max-sm:flex-col">
+              <div class="w-[50%] max-sm:w-[100%]">
+                <p>hacemos el llamado hacia la API <code class="language-ts">const{data: weatherResult} = await axios(weatherUrl)</code></p>
+                <p>creamos la variable result y utilizamos la variable que acabamos de crear 'Weather' y la aplicamos el método <strong>safeParse</strong> al que le pasamos como argumento el resultado de la consulta que tenemos en nuestra API 'weatherResult'; <code class="language-ts">const result = Weather.safeParse(weatherResult)</code> <strong>este método va a revisar: "¿estas propiedades que estoy obteniendo en el JSON corresponden al esquema que yo definí? si es así retorna un true</strong>; si no es así, si no tienen esa forma, si diseñamos mal nuestro objeto y es algo diferente a lo que obtiene nuestro objeto nos va a retornar un false. Básicamente ese safeParse es lo mismo que hacía la función isWeatherResponse del caso 2 anterior para tipar con Typeguard = Assertion pero de una forma muy sencilla gracias a Zod. </p>
+
+                <pre data-line="0"><code class="language-ts">
+                  //useWeather.ts
+                  ...
+                  //Zod
+                  const{data: weatherResult} = await axios(weatherUrl)
+                  const result = Weather.safeParse(weatherResult)
+                  //console.log(result)
+                  if(result.success){
+                    console.log(result.data.name)
+                    console.log(result.data.main.temp)
+                  }
+                </code></pre>
+              </div>
+
+              <div class="w-[50%] max-sm:w-[100%]">
+                <p>Si hacemos un console.log(result) veremos en consola que aparece success: true y si lo expandimos además viene data y toda nuestra información con los datos, ya no nos quedamos con el JSON como respuesta, sino que nos xtrae lo que hemos definidio en nuestro esquema</p>
+                <img src="./src/assets/img/272.png" alt="img" loading="lazy">
+              </div>
+            </div>
+
+            <p>podemos ver ya el autocompletado que tenemos:</p>
+
+            <img src="./src/assets/img/272-2.png" alt="img" loading="lazy">
+
+            <p>Si probamos esto ahora vemos que tenemos la ciudad y la temperatura. Lo estamos extrayendo desde este result y safeParse,no tanto desde weatherResult (el result, lo vemos con el IS, va a tener la información que nosotros le hemos definido en el esquema y por eso tenemos un buen autocompletado</p>
+
+            <p>Imaginemos que yo diseño mal ese objeto, digamos que no le pongo el 'main'. <strong>Yo pongo mi esquema de cierta forma pero ese esquema no corresponde con la respuesta JSON que estoy obteniendo, nos indica que la respuesta no está bien formada:</strong></p>
+
+            <div class="flex max-sm:flex-col">
+              <div class="w-[35%] max-sm:w-[100%]">
+                <pre class="rojo" data-line="0,3-5"><code class="language-ts">
+                  //useWeather.ts
+                  const Weather = z.object({
+                    name: z.string(),               
+                    temp: z.number(),
+                    temp_max: z.number(),
+                    temp_min: z.number()              
+                })
+                type Weather = z.infer&lt;typeof Weather&gt;
+                </code></pre>    
+              </div>
+              <div class="w-[40%] max-sm:w-[100%]">
+                <pre class="rojo" data-line="0,8"><code class="language-ts">
+                  //useWeather.ts
+                  ...
+                  //Zod
+                  const{data: weatherResult} = await axios(weatherUrl)
+                  const result = Weather.safeParse(weatherResult)
+                  //console.log(result)
+                  if(result.success){
+                    console.log(result.data.name)
+                    console.log(result.data.temp)
+                  } else {
+                    console.log('Respuesta mal formada...')
+                  }
+                </code></pre>
+              </div>
+              <div class="w-[25%] max-sm:w-[100%]">
+                <img src="./src/assets/img/272-3.png" alt="img" loading="lazy">
+              </div>
+            </div>
+
+            <p>Nuestro código de por sí no puede hacerlo pero si escribimos este tipo de funciones o usamos Zod vamos a poder verificar que las respuestas son correctas, revisando el type que hemos definido con el JSON obtenido como respuesta.</p>
+
+            <p>¿Cual es la desventaja de Zod? que no es modular. Importamoz una única función <strong>z</strong> y vamos agrregando todo ahí mismo. Existe una opción que es modular y se llama Valibot</p>
+            
+      <p class="naranja">4. Tipar Resultados de una API: Validar con Valibot</p>
+  
 
 
 </div>
 
 
-<!-- Bloque desplegable interior-->
-<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion16-271').toggle();">
-  <h3>271. Tipar Resultados de una API - Type Guards</h3>
-  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
-</div>
-<div id="seccion16-271" class="hidden">
-
-
-</div>
-
-<!-- Bloque desplegable interior-->
-<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion16-272').toggle();">
-  <h3>272. Tipar Resultados de una API - Validar con ZOD</h3>
-  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
-</div>
-<div id="seccion16-272" class="hidden">
-
-
-</div>
-
-<!-- Bloque desplegable interior-->
-<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion16-273').toggle();">
-  <h3>273. Tipar Resultados de una API - Validar con Valibot</h3>
-  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
-</div>
-<div id="seccion16-273" class="hidden">
-
-
-</div>
 
 <!-- Bloque desplegable interior-->
 <div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion16-274').toggle();">
