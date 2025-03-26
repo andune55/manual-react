@@ -32,9 +32,17 @@
 
         <div id="seccion16">
 
-          <p>Trabajo con <span class="destacado">CSS modules</span>, <span class="destacado">API externa</span>, veremos como <strong>enviar peticiones hacia API</strong> <a href="https://openweathermap.org/" class="underline" target="blank">https://openweathermap.org/</a> -  <a href="https://openweathermap.org/api/geocoding-api" class="underline" target="blank">Geocoding API</a>, como <strong>leer las respuestas de una API</strong>, como <strong>validarlas</strong> (<span class="destacado">TYPE GUARD O ASSERTION</span>, <span class="destacado">Zod</span> y <span class="destacado">Valibot</span>) y como <strong>mostrar esa información</strong>. <span class="destacado">La parte de APIS es muy importante en el mundo de React</span>.</p>
-          <p>Escribiremos css con <span class="destacado">Módulos CSS</span>. Instalamos <srong>axios</srong> <span class="destacado">npm i axios</span> que es una librería para consultar APIs externas, es una abstracción sobre fetch api.</p> Vemos qué son <span class="destacado">Variables de entorno</span>
-          <p>Libería Zod para tipar respuestas de una API: <span class="destacado">npm i zod</span></p>
+          <p>Trabajo con <span class="destacado">CSS modules</span>, <span class="destacado">API externa</span>, veremos como <strong>enviar peticiones hacia API</strong> <a href="https://openweathermap.org/" class="underline" target="blank">https://openweathermap.org/</a> -  <a href="https://openweathermap.org/api/geocoding-api" class="underline" target="blank">Geocoding API</a>, como <strong>leer las respuestas de una API</strong>, como <strong>validarlas=tiparlas</strong>:</p>
+          <ul class="list-disc my-3">
+            <li class="my-1.25"><span class="destacado">TYPE GUARD O ASSERTION</span></li>
+            <li class="my-1.25">Libería Zod para tipar respuestas de una API: <span class="destacado">npm i zod</span></li>
+            <li class="my-1.25">Libería Valibot para tipar respuestas de una API: <span class="destacado">npm i valibot</span></li>
+          </ul>
+          
+          <p>... y como <strong>mostrar esa información</strong>. <span class="destacado">La parte de APIS es muy importante en el mundo de React</span>.</p>
+          <p>Escribiremos css con <span class="destacado">Módulos CSS</span>. Instalamos <srong>axios</srong> <span class="destacado">npm i axios</span> que es una librería para consultar APIs externas, es una abstracción sobre fetch api. Vemos qué son <span class="destacado">Variables de entorno</span>.</p> 
+          <p>Veremos <span class="destacado">como utilizar un spinner de carga</span> - <a href="https://tobiasahlin.com/spinkit/" class="underline" target="blank">https://tobiasahlin.com/spinkit/</a></p>
+         
 
           <!-- Bloque desplegable interior-->
           <div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion16-258').toggle();">
@@ -1163,343 +1171,627 @@
             
       <p class="naranja">4. Tipar Resultados de una API: Validar con Valibot</p>
   
-      <p>Es una alternativa a Zod y hace prácticamente lo mismo. Lo instalamos con <span class="destacado">npm i valibot</span></p>  
-      <p>Importamos de manera individual lo que antes utilizábamos en nuestro esquema con Zod: object, string, number, lo cual lo hace modular y más ligero. Incluimos también <strong>InferOutput</strong>, que es una función que nos va a permitir inferir el tipo de dato y parse (para comprobar el JSON que obtenemos como respuesta): <code class="language-ts">import { object, string, number, InferOutput, parse } from 'valibot'</code></p>  
+            <p>Es una alternativa a Zod y hace prácticamente lo mismo. Lo instalamos con <span class="destacado">npm i valibot</span></p>  
+            <p>Importamos de manera individual lo que antes utilizábamos en nuestro esquema con Zod: object, string, number, lo cual lo hace modular y más ligero. Incluimos también <strong>InferOutput</strong>, que es una función que nos va a permitir inferir el tipo de dato y parse (para comprobar el JSON que obtenemos como respuesta): <code class="language-ts">import { object, string, number, InferOutput, parse } from 'valibot'</code></p>  
 
-      <div class="flex max-sm:flex-col">
-        <div class="w-[50%] max-sm:w-[100%]">
-          <pre data-line="0"><code class="language-ts">
-            //useWeather.ts
-            import axios from "axios"
-            import { object, string, number, InferOutput, parse } from 'valibot'
-            ...
-            //Valibot
-            const WeatherSchema = object({
-              name: string(),
-              main: object({
-                  temp: number(),
-                  temp_max: number(),
-                  temp_min: number()
-              })
-            })
-            type Weather = InferOutput&lt;typeof WeatherSchema&gt;
-          </code></pre>
-        </div>
-        <div class="w-[50%] max-sm:w-[100%]">
-          usamos la función <strong>parse</strong> de valibot para comprobar el JSON de respuesta. parse() requiere dos argumentos, nuestro schema <strong>weatherSchema</strong> y el resultado de nuestra consulta:  <strong>weatherResult</strong>. Ponemso un console.log(result)
-          <pre data-line="0"><code class="language-ts">
-            //4. Valibot
-            const{data: weatherResult} = await axios(weatherUrl)
-            const result = parse(WeatherSchema, weatherResult)
-            //console.log(result)
-            if(result){
-              console.log(result.name)
-              console.log(result.main.temp)
-            }else {
-                console.log('Respuesta mal formada...')
-            }
-          </code></pre>
-        </div>
-      </div>
+            <div class="flex max-sm:flex-col">
+              <div class="w-[50%] max-sm:w-[100%]">
+                <pre data-line="0"><code class="language-ts">
+                  //useWeather.ts
+                  import axios from "axios"
+                  import { object, string, number, InferOutput, parse } from 'valibot'
+                  ...
+                  //Valibot
+                  const WeatherSchema = object({
+                    name: string(),
+                    main: object({
+                        temp: number(),
+                        temp_max: number(),
+                        temp_min: number()
+                    })
+                  })
+                  type Weather = InferOutput&lt;typeof WeatherSchema&gt;
+                </code></pre>
+              </div>
+              <div class="w-[50%] max-sm:w-[100%]">
+                usamos la función <strong>parse</strong> de valibot para comprobar el JSON de respuesta. parse() requiere dos argumentos, nuestro schema <strong>weatherSchema</strong> y el resultado de nuestra consulta:  <strong>weatherResult</strong>. Ponemso un console.log(result)
+                <pre data-line="0"><code class="language-ts">
+                  //4. Valibot
+                  const{data: weatherResult} = await axios(weatherUrl)
+                  const result = parse(WeatherSchema, weatherResult)
+                  //console.log(result)
+                  if(result){
+                    console.log(result.name)
+                    console.log(result.main.temp)
+                  }else {
+                      console.log('Respuesta mal formada...')
+                  }
+                </code></pre>
+              </div>
+            </div>
 
-      <p>Vemos la información en consola: extrae del JSON y genera un objeto nuevo en base a nuestro Schema:</p>
+            <p>Vemos la información en consola: extrae del JSON y genera un objeto nuevo en base a nuestro Schema:</p>
 
-      <img src="./src/assets/img/273.png" alt="img" loading="lazy">
+            <img src="./src/assets/img/273.png" alt="img" loading="lazy">
 
-      <p>Al igual que antes, si nuestro schema está mal formado con respecto a lo que se obtiene en la respuesta, nos aparece en consola el error, aunque en este caso de Valivot cae en la parte del catch.</p>
+            <p>Al igual que antes, si nuestro schema está mal formado con respecto a lo que se obtiene en la respuesta, nos aparece en consola el error, aunque en este caso de Valivot cae en la parte del catch.</p>
 
-      <div class="flex max-sm:flex-col">
-        <div class="w-[30%] max-sm:w-[100%]">
-          <pre class="rojo" data-line="0,4,8"><code class="language-ts">
-            //useWeather.ts
-            ...
-            const WeatherSchema = object({
-              name: string(),
-              main: object({
-                  temp: number(),
-                  temp_max: number(),
-                  temp_min: number()
-              })
-            })
-            type Weather = InferOutput&lt;typeof WeatherSchema&gt;
-          </code></pre>    
-        </div>
-        <div class="w-[30%] max-sm:w-[100%]">
-          <pre class="rojo" data-line="0,8"><code class="language-ts">
-            //useWeather.ts
-            ...
-            //4. Valibot
-            const{data: weatherResult} = await axios(weatherUrl)
-            const result = parse(WeatherSchema, weatherResult)
-            //console.log(result)
-            if(result){
-              console.log(result.name)
-              console.log(result.temp)
-            }else {
-                console.log('Respuesta mal formada...')
-            }
-          </code></pre>
-        </div>
-        <div class="w-[40%] max-sm:w-[100%]">
-          <img src="./src/assets/img/273-2.png" alt="img" loading="lazy">
-        </div>
-      </div>
-      
-      
+            <div class="flex max-sm:flex-col">
+              <div class="w-[30%] max-sm:w-[100%]">
+                <pre class="rojo" data-line="0,4,8"><code class="language-ts">
+                  //useWeather.ts
+                  ...
+                  const WeatherSchema = object({
+                    name: string(),
+                    main: object({
+                        temp: number(),
+                        temp_max: number(),
+                        temp_min: number()
+                    })
+                  })
+                  type Weather = InferOutput&lt;typeof WeatherSchema&gt;
+                </code></pre>    
+              </div>
+              <div class="w-[30%] max-sm:w-[100%]">
+                <pre class="rojo" data-line="0,8"><code class="language-ts">
+                  //useWeather.ts
+                  ...
+                  //4. Valibot
+                  const{data: weatherResult} = await axios(weatherUrl)
+                  const result = parse(WeatherSchema, weatherResult)
+                  //console.log(result)
+                  if(result){
+                    console.log(result.name)
+                    console.log(result.temp)
+                  }else {
+                      console.log('Respuesta mal formada...')
+                  }
+                </code></pre>
+              </div>
+              <div class="w-[40%] max-sm:w-[100%]">
+                <img src="./src/assets/img/273-2.png" alt="img" loading="lazy">
+              </div>
+            </div>
+          </div>
 
-</div>
+          <!-- Bloque desplegable interior-->
+          <div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion16-274').toggle();">
+            <h3>274. Colocando el Resultado de la API en el State</h3>
+            <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+          </div>
+          <div id="seccion16-274" class="hidden">
+            <p>Utilizamos Zod. Vamos a colocar el resultado en el state.:</p>
 
+            <div class="flex max-sm:flex-col">
+              <div class="w-[50%] max-sm:w-[100%]">
+                <p>Definimos nuestro nuevo state weather <span class="destacado">OJO! aquí es donde usamos nuestro type que infiere del Schema!!!! <code class="language-ts">const [weather, setWeather] = useState&lt;Weather&gt;({...})</code></span>y en la parte del código de Zod, como toda la info que requerimos está en ese data, seteamos nuestro state así: <code class="language-ts">if(result.success){setWeather(result.data)}</code>.</p>
+                <pre data-line="0"><code class="language-ts">
+                  //useWeather.ts
+                  import axios from "axios"
+                  import { z } from 'zod' 
+                  //3. Zod
+                  const WeatherSchema = z.object({
+                      name: z.string(),
+                      main: z.object({
+                          temp: z.number(),
+                          temp_max: z.number(),
+                          temp_min: z.number()
+                      })
+                  })
+                  export type Weather = z.infer&lt;typeof WeatherSchema&gt;
+                  ...
+                  const [weather, setWeather] = useState&lt;Weather&gt;({
+                    name: '',
+                    main: {
+                      temp: 0,
+                      temp_max: 0, 
+                      temp_min: 0
+                    }
+                  })
+                  ...
+                  //3. Zod
+                  const{data: weatherResult} = await axios(weatherUrl)
+                  const result = WeatherSchema.safeParse(weatherResult)     
+                  if(result.success){
+                    //console.log(result)
+                    //console.log(result.data.name)
+                    setWeather(result.data)
+                  }else {
+                    console.log('Respuesta mal formada...')
+                  }
+                </code></pre>
+              </div>
+              <div class="w-[50%] max-sm:w-[100%]">
+                <p>Podemos ver en la pestaña components de RDT, en nuestra App.tsx nuestro state weather inicializado con los valores iniciales que hemos definido y en cuanto lanzamos una consulta vemos como, una vez que se valida el schema que hemos definido contra el JSON de la respuesta, se agrega en el state.</p>
+                <img src="./src/assets/img/274.png" alt="img" loading="lazy">
+                <p>Como queremos mostrar ya ese clima en su componente, lo exportamos:</p>
+                <pre data-line="0,3"><code class="language-ts">
+                  //useWeather.ts
+                  ...
+                  return {
+                    weather,
+                    fetchWeather
+                }
+                </code></pre>
+              </div>
+            </div>
+              
 
+              <div class="flex max-sm:flex-col mt-5">
+                <div class="w-[50%] max-sm:w-[100%]">
+                  <p>En nuestro compo ppal <span class="file">App.tsx</span> vamos a extraer ese weather en la destructuración que hacemos del custom hook y lo mostramos en la parte de la derecha de nuestra interfaz, donde teníamos ese <code class="language-ts">&lt;p&gt;2&lt;/p&gt;</code></p>
+                  <pre data-line="0,2,6,16-18"><code class="language-ts">
+                    //App.tsx
+                    ...
+                    import useWeather from "./hooks/useWeather"
+                    import WeatherDetail from './components/WeatherDetail/WeatherDetail';
+                    
+                    function App() {            
+                      const { fetchWeather, weather } = useWeather()                    
+                      return (
+                        &lt;&gt;
+                          &lt;h1 className={styles.title}&gt;Buscador de clima&lt;/h1&gt;
+                    
+                          &lt;div className={styles.container}&gt;
+                            &lt;Form
+                              fetchWeather = {fetchWeather}
+                            /&gt;
+                            
+                            &lt;WeatherDetail
+                              weather = {weather}
+                            /&gt;          
+                          &lt;/div&gt;
+                        &lt;/&gt;
+                      )
+                    }
+                    
+                    export default App
+                  </code></pre>
+                </div>
 
-<!-- Bloque desplegable interior-->
-<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion16-274').toggle();">
-  <h3>274. Colocando el Resultado de la API en el State</h3>
-  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
-</div>
-<div id="seccion16-274" class="">
-  <p>Utilizamos Zod. Vamos a colocar el resultado en el state.:</p>
+                <div class="w-[50%] max-sm:w-[100%]">
+                  <p>Generamos un componente nuevo <span class="file">components/WeatherDetail/WeatherDetail.tsx</span> y su css <span class="file">components/WeatherDetail/WeatherDetai.module.css</span></p>
 
-  <div class="flex max-sm:flex-col">
-    <div class="w-[50%] max-sm:w-[100%]">
-      <p>Definimos nuestro nuevo state weather <span class="destacado">OJO! aquí es donde usamos nuestro type que infiere del Schema!!!! <code class="language-ts">const [weather, setWeather] = useState&lt;Weather&gt;({...})</code></span>y en la parte del código de Zod, como toda la info que requerimos está en ese data, seteamos nuestro state así: <code class="language-ts">if(result.success){setWeather(result.data)}</code>.</p>
-      <pre data-line="0"><code class="language-ts">
-        //useWeather.ts
-        import axios from "axios"
-        import { z } from 'zod' 
-        //3. Zod
-        const WeatherSchema = z.object({
-            name: z.string(),
-            main: z.object({
-                temp: z.number(),
-                temp_max: z.number(),
-                temp_min: z.number()
-            })
-        })
-        export type Weather = z.infer&lt;typeof WeatherSchema&gt;
-        ...
-        const [weather, setWeather] = useState&lt;Weather&gt;({
-          name: '',
-          main: {
-            temp: 0,
-            temp_max: 0, 
-            temp_min: 0
-          }
-        })
-        ...
-        //3. Zod
-        const{data: weatherResult} = await axios(weatherUrl)
-        const result = WeatherSchema.safeParse(weatherResult)     
-        if(result.success){
-          //console.log(result)
-          //console.log(result.data.name)
-          setWeather(result.data)
-        }else {
-          console.log('Respuesta mal formada...')
-        }
-      </code></pre>
-    </div>
-    <div class="w-[50%] max-sm:w-[100%]">
-      <p>Podemos ver en la pestaña components de RDT, en nuestra App.tsx nuestro state weather inicializado con los valores iniciales que hemos definido y en cuanto lanzamos una consulta vemos como, una vez que se valida el schema que hemos definido contra el JSON de la respuesta, se agrega en el state.</p>
-      <img src="./src/assets/img/274.png" alt="img" loading="lazy">
-      <p>Como queremos mostrar ya ese clima en su componente, lo exportamos:</p>
-      <pre data-line="0,3"><code class="language-ts">
-        //useWeather.ts
-        ...
-        return {
-          weather,
-          fetchWeather
-      }
-      </code></pre>
-    </div>
-  </div>
-    
-
-    <div class="flex max-sm:flex-col mt-5">
-      <div class="w-[50%] max-sm:w-[100%]">
-        <p>En nuestro compo ppal <span class="file">App.tsx</span> vamos a extraer ese weather en la destructuración que hacemos del custom hook y lo mostramos en la parte de la derecha de nuestra interfaz, donde teníamos ese <code class="language-ts">&lt;p&gt;2&lt;/p&gt;</code></p>
-        <pre data-line="0,2,6,16-18"><code class="language-ts">
-          //App.tsx
-          ...
-          import useWeather from "./hooks/useWeather"
-          import WeatherDetail from './components/WeatherDetail/WeatherDetail';
-          
-          function App() {            
-            const { fetchWeather, weather } = useWeather()                    
-            return (
-              &lt;&gt;
-                &lt;h1 className={styles.title}&gt;Buscador de clima&lt;/h1&gt;
-          
-                &lt;div className={styles.container}&gt;
-                  &lt;Form
-                    fetchWeather = {fetchWeather}
-                  /&gt;
+                  <p>En nuestro nuevo componente hemos de tipar esa prop <span class="destacado">ojo! usando no el type que teníamos en nuestro <span class="file">types/index.ts</span> sino el de nuestro custom hook que está sincronizado con lo que Zod nos da para lo cual desde nuestro custom hook hemos de exportarlo <code class="language-ts"> export type Weather = z.infer&lt;typeof WeatherSchema&gt;</code></span>. Así que en nuestro nuevo componente importamos el type que exportamos de nuestro custom hook:</p>
                   
-                  &lt;WeatherDetail
-                    weather = {weather}
-                  /&gt;          
-                &lt;/div&gt;
-              &lt;/&gt;
-            )
-          }
-          
-          export default App
-        </code></pre>
-      </div>
+                  <img src="./src/assets/img/274-2.png" alt="img" loading="lazy">
 
-      <div class="w-[50%] max-sm:w-[100%]">
-        <p>Generamos un componente nuevo <span class="file">components/WeatherDetail/WeatherDetail.tsx</span> y su css <span class="file">components/WeatherDetail/WeatherDetai.module.css</span></p>
+                  <pre data-line="0"><code class="language-ts">
+                    //components/WeatherDetail/WeatherDetail.tsx
+                    import { Weather } from "../../hooks/useWeather"
+                    type WeatherDetailProps = {
+                      weather: Weather // ojo! este no el que teníamos en nuestro types/index.ts sino el de 
+                      // nuestro custom hook que está sincronizado con lo que Zod nos da para lo cual desde 
+                      // nuestro custom hook hemos de exportarlo
+                    }
+                    export default function WeatherDetail({weather} : WeatherDetailProps) {
+                      return (
+                        &lt;div&gt;
+                          WeatherDetail
+                        &lt;/div&gt;
+                      )
+                    }
+                  </code></pre>
+                </div> 
+              </div>
 
-        <p>En nuestro nuevo componente hemos de tipar esa prop <span class="destacado">ojo! usando no el type que teníamos en nuestro <span class="file">types/index.ts</span> sino el de nuestro custom hook que está sincronizado con lo que Zod nos da para lo cual desde nuestro custom hook hemos de exportarlo <code class="language-ts"> export type Weather = z.infer&lt;typeof WeatherSchema&gt;</code></span>. Así que en nuestro nuevo componente importamos el type que exportamos de nuestro custom hook:</p>
-        
-        <img src="./src/assets/img/274-2.png" alt="img" loading="lazy">
+              <p>De momento este nuevo componente se muestra siempre. Metamos una comprobación para que no se muestre si por ejemplo el name del estado está vacío.</p>
+          </div>
 
-        <pre data-line="0"><code class="language-ts">
-          //components/WeatherDetail/WeatherDetail.tsx
-          import { Weather } from "../../hooks/useWeather"
-          type WeatherDetailProps = {
-            weather: Weather // ojo! este no el que teníamos en nuestro types/index.ts sino el de 
-            // nuestro custom hook que está sincronizado con lo que Zod nos da para lo cual desde 
-            // nuestro custom hook hemos de exportarlo
-          }
-          export default function WeatherDetail({weather} : WeatherDetailProps) {
-            return (
-              &lt;div&gt;
-                WeatherDetail
-              &lt;/div&gt;
-            )
-          }
-        </code></pre>
-      </div> 
-    </div>
+          <!-- Bloque desplegable interior-->
+          <div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion16-275').toggle();">
+            <h3>275. Mostrando los Resultados del Clima</h3>
+            <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+          </div>
+          <div id="seccion16-275" class="hidden">
 
-    <p>De momento este nuevo componente se muestra siempre. Metamos una comprobación para que no se muestre si por ejemplo el name del estado está vacío.</p>
-</div>
+            <div class="flex max-sm:flex-col">
+              <div class="w-[33%] max-sm:w-[100%]">
+                <p>Vamos a nuestro custom hook <span class="file">hooks/useWeather.ts</span> y creemos una función nueva para revisar que nuestro estado tenga algo para, así, renderizar el componente WeatherDetail.tsx. Se puede hacer de varias formas, quizás lo más sencillo sea ver que name no tenga nada. Usamos useMemo() con la dependencia del state weather y exportamos la función.</p>
 
-<!-- Bloque desplegable interior-->
-<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion16-275').toggle();">
-  <h3>275. Mostrando los Resultados del Clima</h3>
-  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
-</div>
-<div id="seccion16-275" class="">
+                <pre data-line="0,2,6"><code class="language-ts">
+                  //hooks/useWeather.ts
+                  ...
+                  const hasWeatherData = useMemo(() => weather.name , [weather])
+                  return {
+                      weather,
+                      fetchWeather,
+                      hasWeatherData
+                  }
+                </code></pre>
+              </div>
+              <div class="w-[33%] max-sm:w-[100%]">
+                <p>En nuestra <span class="file">App.tsx</span> extraemos esa función y la usamos para renderizar el componente si en name hay algo</p>
+                <pre data-line="0,2,6-10"><code class="language-ts">
+                  //App.tsx
+                  ...
+                  const { fetchWeather, weather, hasWeatherData } = useWeather()
+                  return (
+                    &lt;&gt;
+                    ...        
+                      {hasWeatherData &amp;&amp;
+                        &lt;WeatherDetail
+                          weather = {weather}
+                        /&gt;
+                      }
+                </code></pre>
+              </div>
+              <div class="w-[33%] max-sm:w-[100%]">
+                <p>En nuestro componente <span class="file">WeatherDetail.tsx</span> ya vamos renderizando los datos que queremos mostrar tras una consulta, <strong>teniendo ya el autocompletado resultado del trabajo previo que hemos hecho con nuestro schema y esa validación contra el JSON de respuesta usando Zod</strong>.</p>
 
-  <div class="flex max-sm:flex-col">
-    <div class="w-[33%] max-sm:w-[100%]">
-      <p>Vamos a nuestro custom hook <span class="file">hooks/useWeather.ts</span> y creemos una función nueva para revisar que nuestro estado tenga algo para, así, renderizar el componente WeatherDetail.tsx. Se puede hacer de varias formas, quizás lo más sencillo sea ver que name no tenga nada. Usamos useMemo() con la dependencia del state weather y exportamos la función.</p>
+                <pre data-line="0"><code class="language-ts">
+                  //WeatherDetail.tsx
+                  import { Weather } from "../../hooks/useWeather"
+              
+                  type WeatherDetailProps = {
+                      weather: Weather 
+                  }
+                  
+                  export default function WeatherDetail({weather} : WeatherDetailProps) {
+                    return (
+                      &lt;div&gt;
+                        &lt;h2&gt;Clima de: {weather.name}&lt;/h2&gt;
+                        &lt;p&gt;{weather.main.temp}&lt;/p&gt;
+                      &lt;/div&gt;
+                    )
+                  }
+                </code></pre>
+              </div>
+            </div> 
 
-      <pre data-line="0,2,6"><code class="language-ts">
-        //hooks/useWeather.ts
-        ...
-        const hasWeatherData = useMemo(() => weather.name , [weather])
-        return {
-            weather,
-            fetchWeather,
-            hasWeatherData
-        }
-      </code></pre>
-    </div>
-    <div class="w-[33%] max-sm:w-[100%]">
-      <p>En nuestra <span class="file">App.tsx</span> extraemos esa función y la usamos para renderizar el componente si en name hay algo</p>
-      <pre data-line="0,2,6-10"><code class="language-ts">
-        //App.tsx
-        ...
-        const { fetchWeather, weather, hasWeatherData } = useWeather()
-        return (
-          &lt;&gt;
-          ...        
-            {hasWeatherData &amp;&amp;
-              &lt;WeatherDetail
-                weather = {weather}
-              /&gt;
-            }
-      </code></pre>
-    </div>
-    <div class="w-[33%] max-sm:w-[100%]">
-      <p>En nuestro componente <span class="file">WeatherDetail.tsx</span> ya vamos renderizando los datos que queremos mostrar tras una consulta, <strong>teniendo ya el autocompletado resultado del trabajo previo que hemos hecho con nuestro schema y esa validación contra el JSON de respuesta usando Zod</strong>.</p>
+            <p>Vemos que la temperatura viene en grados Kelvin. Creemos una carpeta de helpers, esta vez la llamaremos <span class="file">utils/index.ts</span></p>
 
-      <pre data-line="0"><code class="language-ts">
-        //WeatherDetail.tsx
-        import { Weather } from "../../hooks/useWeather"
-    
-        type WeatherDetailProps = {
-            weather: Weather 
-        }
-        
-        export default function WeatherDetail({weather} : WeatherDetailProps) {
-          return (
-            &lt;div&gt;
-              &lt;h2&gt;Clima de: {weather.name}&lt;/h2&gt;
-              &lt;p&gt;{weather.main.temp}&lt;/p&gt;
-            &lt;/div&gt;
-          )
-        }
-      </code></pre>
-    </div>
-  </div> 
+            <div class="flex max-sm:flex-col">        
+              <div class="w-[50%] max-sm:w-[100%]">
+                <pre data-line="0"><code class="language-ts">
+                  //utils/index.ts
+                  export const formatTemperature = (temperature: number) : number =>{
+                    const Kelvin = 273.15
+                    return parseInt((temperature - Kelvin).toString())
+                }
+                </code></pre>
+                <img src="./src/assets/img/276.png" alt="img" loading="lazy">
+              </div>
+              <div class="w-[50%] max-sm:w-[100%]">
+                <pre data-line="0,2,11"><code class="language-ts">
+                  //WeatherDetail.tsx
+                  import { Weather } from "../../hooks/useWeather"
+                  import { formatTemperature } from "../../utils"
+                  
+                  type WeatherDetailProps = {
+                      weather: Weather 
+                  }        
+                  export default function WeatherDetail({weather} : WeatherDetailProps) {
+                    return (
+                      &lt;div&gt;
+                        &lt;h2&gt;Clima de: {weather.name}&lt;/h2&gt;
+                        &lt;p&gt;{formatTemperature(weather.main.temp)}&deg;C&lt;/p&gt;
+                        &lt;div&gt;
+                          &lt;p&gt;Min: &lt;span&gt;{formatTemperature(weather.main.temp_min)}&amp;deg;C&lt;/span&gt;&lt;/p&gt;
+                          &lt;p&gt;Max: &lt;span&gt;{formatTemperature(weather.main.temp_max)}&amp;deg;C&lt;/span&gt;&lt;/p&gt;
+                        &lt;/div&gt;
+                      &lt;/div&gt;
+                    )
+                  }
+                </code></pre>
+              </div>
+            </div>
 
-  <p>Vemos que la temperatura viene en grados Kelvin. Creemos una carpeta de helpers, esta vez la llamaremos <span class="file">utils/index.ts</span></p>
+            <p class="naranja">Finalizando el Componente de Clima</p>
 
-  <div class="flex max-sm:flex-col">        
-    <div class="w-[50%] max-sm:w-[100%]">
-      <pre data-line="0"><code class="language-ts">
-        //utils/index.ts
-        export const formatTemperature = (temperature: number) : number =>{
-          const Kelvin = 273.15
-          return parseInt((temperature - Kelvin).toString())
-      }
-      </code></pre>
-      <img src="./src/assets/img/276.png" alt="img" loading="lazy">
-    </div>
-    <div class="w-[50%] max-sm:w-[100%]">
-      <pre data-line="0,2,11"><code class="language-ts">
-        //WeatherDetail.tsx
-        import { Weather } from "../../hooks/useWeather"
-        import { formatTemperature } from "../../utils"
-        
-        type WeatherDetailProps = {
-            weather: Weather 
-        }        
-        export default function WeatherDetail({weather} : WeatherDetailProps) {
-          return (
-            &lt;div&gt;
-              &lt;h2&gt;Clima de: {weather.name}&lt;/h2&gt;
-              &lt;p&gt;{formatTemperature(weather.main.temp)}&deg;C&lt;/p&gt;
-              &lt;div&gt;
-                &lt;p&gt;Min: &lt;span&gt;{formatTemperature(weather.main.temp_min)}&amp;deg;C&lt;/span&gt;&lt;/p&gt;
-                &lt;p&gt;Max: &lt;span&gt;{formatTemperature(weather.main.temp_max)}&amp;deg;C&lt;/span&gt;&lt;/p&gt;
-              &lt;/div&gt;
-            &lt;/div&gt;
-          )
-        }
-      </code></pre>
-    </div>
-  </div>
+            <p>Escribamos un poco de css para el componente. En <span class="file">WeatherDetail.tsx</span> importamos la hoja de estilos <code class="language-ts">import styles from './WeatherDetail.module.css'</code></p>
 
-  <p class="naranja">Finalizando el Componente de Clima</p>
-
-  <p>Escribamos un poco de css para el componente.</p>
-
-  
-
-</div>
-
-
-<!-- Bloque desplegable interior-->
-<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion16-277').toggle();">
-  <h3>277. Agregando un Spinner de Carga <a href="https://tobiasahlin.com/spinkit/" class="underline text-white" target="blank">https://tobiasahlin.com/spinkit/</a></h3>
-  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
-</div>
-<div id="seccion16-277" class="hidden">
+            <div class="flex max-sm:flex-col">
+              <div class="w-[50%] max-sm:w-[100%]">
+                <pre data-line="0,3,11,13,14"><code class="language-ts">
+                  //WeatherDetail.tsx
+                  import { Weather } from "../../hooks/useWeather"
+                  import { formatTemperature } from "../../utils"
+                  import styles from './WeatherDetail.module.css'
+                  
+                  type WeatherDetailProps = {
+                    weather: Weather 
+                  }
+                  
+                  export default function WeatherDetail({weather} : WeatherDetailProps) {
+                    return (
+                      &lt;div className={styles.container}&gt;
+                        &lt;h2&gt;Clima de: {weather.name}&lt;/h2&gt;
+                        &lt;p className={styles.current}&gt; {formatTemperature(weather.main.temp)}&amp;deg;C&lt;/p&gt;
+                        &lt;div className={styles.temperatures}&gt;
+                          &lt;p&gt;Min: &lt;span&gt;{formatTemperature(weather.main.temp_min)}&amp;deg;C&lt;/span&gt;&lt;/p&gt;
+                          &lt;p&gt;Max: &lt;span&gt;{formatTemperature(weather.main.temp_max)}&amp;deg;C&lt;/span&gt;&lt;/p&gt;
+                        &lt;/div&gt;
+                      &lt;/div&gt;
+                    )
+                  }
+                </code></pre>
+              </div>
+              <div class="w-[50%] max-sm:w-[100%]">
+                <pre data-line="0"><code class="language-ts">
+                  //WeatherDetail.module.css
+                  .container{
+                    background-color: var(--white);
+                    color: #000000;
+                    border-radius: 1rem;
+                    text-align: center;
+                    padding: 1rem;
+                  }
+                  .current{
+                    font-size: 6rem;
+                    font-weight: 900;
+                    margin: 0;
+                  }
+                  .temperatures{
+                    display: flex;
+                    justify-content: center;
+                    gap: 5rem;
+                  } 
+                  .temperatures p{
+                    font-weight:900;
+                  }
+                  .temperatures span{
+                    font-weight:400;
+                  }
+                </code></pre>
+              </div> 
+            </div>
+            <img src="./src/assets/img/276-2.png" alt="img" loading="lazy"> 
+          </div>
 
 
-</div>
+          <!-- Bloque desplegable interior-->
+          <div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion16-277').toggle();">
+            <h3>277. Agregando un Spinner de Carga <a href="https://tobiasahlin.com/spinkit/" class="underline text-white" target="blank">https://tobiasahlin.com/spinkit/</a></h3>
+            <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+          </div>
+          <div id="seccion16-277" class="hidden">
+            <p>Como tarda un poco en renderizar la información desde que enviamos, veamos como mostrar un spinner de carga. Es algo muy común cuando trabajas con APIs:</p>
+            <ul class="list-disc my-3">
+              <li class="my-1.25">En nuestro custom hook, bajo nuestro state weather, creamos una nueva variable: <code class="language-ts">const [loading, setLoading] = useState(false)</code> ¿Cual va a ser su lógica? Inicia como false. Cuando el usuario pulsa el botón "consultar clima" cambia a true en lo que obtiene los datos</li>
+              <li class="my-1.25">Antes del try seteamos loading a true <code class="language-ts">setLoading(true)</code></li>
+              <li class="my-1.25">¿Cuando lo seteamos a false de nuevo? 
+                
+                <div class="flex max-sm:flex-col">
+                  <div class="w-[50%] max-sm:w-[100%]">
+                    <p>Podríamos hacerlo justo aquí pero solo se ejecutaría cuando la llamada es correcta (de hecho a continuación veremos como trabajar cuando no se encuentra la ciudad en el país que el usuario está buscando, por tanto en ese caso se quedaría en true todo el tiempo):</p>
+                    <pre data-line="0,5,10"><code class="language-ts">
+                      //useWeather.ts
+                      const [loading, setLoading] = useState(false)
+
+                      const fetchWeather = async (search: SearchType) => {
+                        const appId = import.meta.env.VITE_API_KEY
+                        setLoading(true)
+                        try {
+                          ...
+                          if(result.success){
+                            setWeather(result.data)
+                            setLoading(false)
+                          }else {
+                              console.log('Respuesta mal formada...')
+                          }
+                        } catch (error) {
+                          console.log(error)
+                        }
+                      }
+                    </code></pre>
+                  </div>
+                  <div class="w-[50%] max-sm:w-[100%]">
+                    <p>pero gracias al try / catch tenemos acceso a algo llamado <span class="destacado">finally{}</span> ¿qué  hace? pues independientemente de que se ejcute el código del try o el código del catch{} el código del finally{} siempre se ejecuta y es un buen lugar para regresar un loader o un spinner a su estado inicial.</p>
+                    <pre data-line="0,5,15-17"><code class="language-ts">
+                      //useWeather.ts
+                      const [loading, setLoading] = useState(false)
+
+                      const fetchWeather = async (search: SearchType) => {
+                        const appId = import.meta.env.VITE_API_KEY
+                        setLoading(true)
+                        try {
+                          ...
+                          if(result.success){
+                            setWeather(result.data)
+                          }else {
+                              console.log('Respuesta mal formada...')
+                          }
+                        } catch (error) {
+                          console.log(error)
+                        } finally {
+                            setLoading(false)
+                        }
+                      }  
+                    </code></pre>
+                  </div>
+                </div> 
+              </li>
+              <li class="my-1.25">No nos olvidemos de exportarlo desde nuestro custom hook en su return:
+
+                <pre data-line="0,3"><code class="language-ts">
+                  //useWeather.ts
+                  return {
+                    weather,
+                    loading,
+                    fetchWeather,
+                    hasWeatherData
+                }
+                </code></pre></li>
+              <li class="my-1.25">En nuestro <span class="file">App.tsx</span> lo extraemos e imprimimos un párrafo en caso de que loading sea true que diga "cargando...". 
+                <pre data-line="0,2,10"><code class="language-ts">
+                  //App.tsx
+                  function App() {  
+                    const { fetchWeather, weather, loading, hasWeatherData } = useWeather()        
+                    return (
+                      &lt;&gt;
+                        &lt;h1 className={styles.title}&gt;Buscador de clima&lt;/h1&gt;        
+                        &lt;div className={styles.container}&gt;
+                          &lt;Form
+                            fetchWeather = {fetchWeather}
+                          /&gt;                
+                          {loading &amp;&amp; &lt;p&gt;Cargando...&lt;/p&gt;}
+                          {hasWeatherData &amp;&amp;
+                            &lt;WeatherDetail
+                              weather = {weather}
+                            /&gt;
+                          }
+                </code></pre>
+                
+                Si lo probamos vemos como en cuanto le damos al botón para consultar:
+                <img src="./src/assets/img/277.png" alt="img" loading="lazy">      
+              </li>
+              <li class="my-1.25">Creamos componente nuevo con uno de los spinner que cogemos de aquí: <a href="https://tobiasahlin.com/spinkit/" class="underline" target="blank">https://tobiasahlin.com/spinkit/</a> y ojo! que como estamos utilizando css modules, vemos que si creamos un Spinner.module.css, recordemos que por las mejoras de nombre que introducen los modules, no va a coincidir con los nombres de clase definidos en la css (y no vamos a ver que aparezca el spinner, como si no tuviera clases ¡vamos!), por lo que en estos casos es mejor crear <span class="file">Spinner.css</span> e importarlo así en nuestro compo <span class="file">Spinner.tsx</span>: <code class="language-ts">import './Spinner.css'</code>
+
+                <div class="flex max-sm:flex-col">
+                  <div class="w-[50%] max-sm:w-[100%]">
+                    <pre data-line="0"><code class="language-ts">
+                      //Spinner.css
+                      .spinner {
+                        margin: 100px auto 0;
+                        width: 70px;
+                        text-align: center;
+                      }
+                      .spinner>div {
+                          width: 18px;
+                          height: 18px;
+                          background-color: #fff;
+                          border-radius: 100%;
+                          display: inline-block;
+                          -webkit-animation: sk-bouncedelay 1.4s infinite ease-in-out both;
+                          animation: sk-bouncedelay 1.4s infinite ease-in-out both;
+                      }
+                      .spinner .bounce1 {
+                          -webkit-animation-delay: -0.32s;
+                          animation-delay: -0.32s;
+                      }
+                      .spinner .bounce2 {
+                          -webkit-animation-delay: -0.16s;
+                          animation-delay: -0.16s;
+                      }
+                      @-webkit-keyframes sk-bouncedelay {
+                          0%,
+                          80%,
+                          100% {
+                              -webkit-transform: scale(0)
+                          }
+                          40% {
+                              -webkit-transform: scale(1.0)
+                          }
+                      }
+                      @keyframes sk-bouncedelay {
+                          0%,
+                          80%,
+                          100% {
+                              -webkit-transform: scale(0);
+                              transform: scale(0);
+                          }
+                          40% {
+                              -webkit-transform: scale(1.0);
+                              transform: scale(1.0);
+                          }
+                      }
+                    </code></pre>
+                  </div>
+                  <div class="w-[50%] max-sm:w-[100%]">
+                    <pre data-line="0"><code class="language-ts">
+                      //Spinner.tsx
+                      import './Spinner.css'
+                      export default function Spinner() {
+                          return (
+                            &lt;div className=&quot;spinner&quot;&gt;
+                              &lt;div className=&quot;bounce1&quot;&gt;&lt;/div&gt;
+                              &lt;div className=&quot;bounce2&quot;&gt;&lt;/div&gt;
+                              &lt;div className=&quot;bounce3&quot;&gt;&lt;/div&gt;
+                            &lt;/div&gt;
+                          )
+                      }
+                    </code></pre>
+
+                    <pre data-line="0,2,10"><code class="language-ts">
+                      //App.tsx
+                      function App() {  
+                        const { fetchWeather, weather, loading, hasWeatherData } = useWeather()        
+                        return (
+                          &lt;&gt;
+                            &lt;h1 className={styles.title}&gt;Buscador de clima&lt;/h1&gt;        
+                            &lt;div className={styles.container}&gt;
+                              &lt;Form
+                                fetchWeather = {fetchWeather}
+                              /&gt;                
+                              {loading &amp;&amp; &lt;Spinner /&gt;}
+                              {hasWeatherData &amp;&amp;
+                                &lt;WeatherDetail
+                                  weather = {weather}
+                                /&gt;
+                              }
+                    </code></pre>
+                  </div>
+                </div>    
+              </li>
+            </ul>
+
+            <p class="naranja">278. Reiniciar el Estado después de cada consulta</p>
+
+            <p>Si con un clima consultado vuelvo a darle hace un salto extraño. Tenemos esta función que se encarga de revisar si hay algo en el state de weather. Si hay algo en futuras búsquedas estamos cambiando loading a true y eso hace que se muestren ambos componentes y por eso tenemos ese "salto raro"</p>
+            <pre><code class="language-ts">
+              //App.tsx
+              {hasWeatherData &&
+                &lt;WeatherDetail
+                  weather = {weather}
+                /&gt;
+              }
+            </code></pre>
+            <p>Lo solucionamos regresando el state a su estado inicial para que, en nuestra función que comprueba si hay algo esa condición ya no se cumpla y se "desmonte" ese componente. Para ello creamos una nueva variable que llamaremos "initialState" en la que pegamos el código del state inicial de weather:</p>
+
+            <div class="flex max-sm:flex-col">
+              <div class="w-[50%] max-sm:w-[100%]">
+                <pre class="rojo" data-line="0,3-10"><code class="language-ts">
+                  //useWeather.ts
+                  export default function useWeather(){
+
+                    const [weather, setWeather] = useState&lt;Weather&gt;({
+                        name: '',
+                        main: {
+                          temp: 0,
+                          temp_max: 0, 
+                          temp_min: 0
+                        }
+                    })      
+                    const [loading, setLoading] = useState(false)      
+                    const fetchWeather = async (search: SearchType) => {
+                        const appId = import.meta.env.VITE_API_KEY
+                        setLoading(true)
+                        try {...
+                </code></pre>
+              </div>
+              <div class="w-[50%] max-sm:w-[100%]">
+                <pre class="verde" data-line="0-8,11,16"><code class="language-ts">
+                  //useWeather.ts
+                  const initialState = {
+                    name: '',
+                    main: {
+                      temp: 0,
+                      temp_max: 0, 
+                      temp_min: 0
+                    }
+                  }
+                
+                  export default function useWeather(){        
+                      const [weather, setWeather] = useState&lt;Weather&gt;(initialState)        
+                      const [loading, setLoading] = useState(false)        
+                      const fetchWeather = async (search: SearchType) => {
+                          const appId = import.meta.env.VITE_API_KEY
+                          setLoading(true)
+                          setWeather(initialState)
+                          try {...
+                </code></pre>
+              </div>
+            </div>
+          </div>
 
 <!-- Bloque desplegable interior-->
 <div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion16-278').toggle();">
-  <h3>278. Reiniciar el Estado después de cada consulta</h3>
+  <h3></h3>
   <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
 </div>
-<div id="seccion16-278" class="hidden">
-
+<div id="seccion16-278" class="">
+  <p>Veamos como mostrar un mensaje personalizado cuando intentemos buscar una ciudad que no se encuentra.</p>
 
 </div>
 
