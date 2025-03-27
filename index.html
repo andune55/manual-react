@@ -739,7 +739,7 @@
                         const fetchWeather = async (search: SearchType) => {
                           const appId = 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
                           try {
-                            const geoUrl = `http://api.openweathermap.org/geo/1.0/direct?q=${search.city},${search.country}&appid=${appId}` 
+                            const geoUrl = `https://api.openweathermap.org/geo/1.0/direct?q=${search.city},${search.country}&appid=${appId}` 
                             //console.log(geoUrl)
                             const data = await axios(geoUrl)
                             console.log(data)
@@ -919,7 +919,7 @@
                     const fetchWeather = async (search: SearchType) => {
                       const appId = import.meta.env.VITE_API_KEY
                       try {
-                        const geoUrl = `http://api.openweathermap.org/geo/1.0/direct?q=${search.city},${search.country}&appid=${appId}` 
+                        const geoUrl = `https://api.openweathermap.org/geo/1.0/direct?q=${search.city},${search.country}&appid=${appId}` 
                         //console.log(geoUrl)
                         const data = await axios(geoUrl)
                         //console.log(data)
@@ -1538,7 +1538,7 @@
 
           <!-- Bloque desplegable interior-->
           <div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion16-277').toggle();">
-            <h3>277. Agregando un Spinner de Carga <a href="https://tobiasahlin.com/spinkit/" class="underline text-white" target="blank">https://tobiasahlin.com/spinkit/</a></h3>
+            <h3>277. Agregando un Spinner de Carga <a href="https://tobiasahlin.com/spinkit/" class="underline text-white" target="blank">https://tobiasahlin.com/spinkit/</a> / 278. Reiniciar el Estado después de cada consulta</h3>
             <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
           </div>
           <div id="seccion16-277" class="hidden">
@@ -1722,7 +1722,7 @@
               </li>
             </ul>
 
-            <p class="naranja">278. Reiniciar el Estado después de cada consulta</p>
+            <p class="naranja">Reiniciar el Estado después de cada consulta</p>
 
             <p>Si con un clima consultado vuelvo a darle hace un salto extraño. Tenemos esta función que se encarga de revisar si hay algo en el state de weather. Si hay algo en futuras búsquedas estamos cambiando loading a true y eso hace que se muestren ambos componentes y por eso tenemos ese "salto raro"</p>
             <pre><code class="language-ts">
@@ -1781,35 +1781,140 @@
             </div>
           </div>
 
-<!-- Bloque desplegable interior-->
-<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion16-278').toggle();">
-  <h3></h3>
-  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
-</div>
-<div id="seccion16-278" class="">
-  <p>Veamos como mostrar un mensaje personalizado cuando intentemos buscar una ciudad que no se encuentra.</p>
+          <!-- Bloque desplegable interior-->
+          <div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion16-278').toggle();">
+            <h3>279. Trabajar con ciudades que no existen</h3>
+            <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+          </div>
+          <div id="seccion16-278" class="hidden">
+            <p>Veamos como mostrar un mensaje personalizado cuando intentemos buscar una ciudad que no se encuentra. Si intentamos buscar una ciudad que no existe vemos que nos sale este error "estoy tratando de leer latitud y longitud pero no puedo encontrar esos valores". Como vemos, no es que esto esté cayendo en el catch, la API debería tener ese diseño, si no se encuentra entonces lanzar un error para que caiga en el catch <span class="destacado">eso veremos como hacerlo más adelante nosotros cuando estemos diseñando nuestras propias REST API en node</span></p>
 
-</div>
+            <img src="https://andune55.github.io/manual-react/assets/279-LV71iBSH.png" alt="img" loading="lazy">  
 
-<!-- Bloque desplegable interior-->
-<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion16-279').toggle();">
-  <h3>279. Trabajar con ciudades que no existen</h3>
-  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
-</div>
-<div id="seccion16-279" class="hidden">
+            <p>El error está aquí, está tratando de leer la latitud. Por la forma en que funciona JS detecta un error y ya no ejecuta la siguiente línea, por lo tanto el siguiente "lon" tampoco se ejecuta:</p>
+            <pre data-line="0,6"><code class="language-ts">
+              //useWeather.ts
+              ...
+              try {
+                const geoUrl = `https://api.openweathermap.org/geo/1.0/direct?q=${search.city},${search.country}&appid=${appId}`        
+                const {data} = await axios.get(geoUrl)
+                //console.log(data)    
+                const lat= data[0].lat
+                const lon= data[0].lon
+            </code></pre>
+
+            <p>si le pusiéramos un console.log(data), veríamos en consola que una ciudad que no existe la marca como un arreglo vacío {} (y es por eso que no se va hacia el catch, porque ellos están retornando un arreglo vacío). Como en nuestras variables lat y lon tenemos posicion [0] podemos probar a hacer <strong>console.log(data)[0] y nos marca undefined</strong>, por tanto podemos hacer lo siguiente: comprobamos si data[0] no existe y lanzamos un console log con 'Clima no encontrado' y <span class="destacado">muy importante, un return para que se pare la ejecución</span></p>
+
+            <pre data-line="0,6-10"><code class="language-ts">
+              //useWeather.ts
+              ...
+              try {
+                const geoUrl = `https://api.openweathermap.org/geo/1.0/direct?q=${search.city},${search.country}&appid=${appId}`  
+                const {data} = await axios.get(geoUrl)
+                //console.log(data)
+                //Comprobar si existe
+                if(!data[0]){
+                  console.log('Clima no encontrado')
+                  return
+                }      
+                const lat= data[0].lat
+                const lon= data[0].lon
+            </code></pre>
 
 
-</div>
 
-<!-- Bloque desplegable interior-->
-<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion16-280').toggle();">
-  <h3>280. Deployment del PROYECTO con API Key</h3>
-  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
-</div>
-<div id="seccion16-280" class="hidden">
+              <p>En vez de en consola mostrémoslo en la pantalla:</p>
+              
+              <div class="flex max-sm:flex-col">
+                <div class="w-[50%] max-sm:w-[100%]">
+                  <p>Creamos una nueva variable state que llamamos 'notFound' <code class="language-ts">const [notFound, setNotFound] = useState(false)</code>. La seteamos a true cuando se cumpla la condición de que no existe data[0] y la exportamos en el return de nuestro custom hook:</p>
+                  <pre data-line="0,2,6-10,15"><code class="language-ts">
+                    //useWeather.ts
+                    ...
+                    const [notFound, setNotFound] = useState(false)
+                    ...
+                    try {
+                      ...
+                      //Comprobar si existe
+                      if(!data[0]){
+                        setNotFound(true)
+                        return
+                      }      
+                      ...
+                      return {
+                        weather,
+                        loading,
+                        notFound,
+                        fetchWeather,
+                        hasWeatherData
+                      } 
+                  </code></pre>
+              
+                </div>
+                <div class="w-[50%] max-sm:w-[100%]">
+                  <p>En <span class="file">App.tsx</span> extraemos ese objeto y le decimos 1ue si tiene algo muestre lo siguiente (utilizamos el componente de Alerta que creábamos que tomaba un children, pudiendo ser una variable, un componente o en este caso un texto):</p>
+                  <pre data-line="0,14"><code class="language-ts">
+                    //App.tsx
+                    function App() {  
+                      const { weather, loading, notFound, fetchWeather, hasWeatherData } = useWeather()          
+                      //console.log(import.meta.env)          
+                      return (
+                        &lt;&gt;
+                          &lt;h1 className={styles.title}&gt;Buscador de clima&lt;/h1&gt;          
+                          &lt;div className={styles.container}&gt;
+                            &lt;Form
+                              fetchWeather = {fetchWeather}
+                            /&gt;
+                            
+                            {loading &amp;&amp; &lt;Spinner /&gt;}
+                            {hasWeatherData &amp;&amp; &lt;WeatherDetail weather = {weather}/&gt;}
+                            {notFound &amp;&amp; &lt;Alert&gt;Ciudad No encontrada&lt;/Alert&gt;}
+                            
+                          &lt;/div&gt;
+                        &lt;/&gt;
+                      )
+                    }
+                  </code></pre>
+                </div>
+              </div>
+              
+              
+              <p>De esta forma queda listo este proyecto, ya un poco más complejo que consume una REST API, y lo hace de una forma segura, asegurándonos que la respuesta que obtenemos como JSON coincida con los types que hemos recibido</p>
+
+              <p>De aquí en adelante todos los poryectos ya incluyen esta funcionalidad desde una APi o desde una BBDD.</p>
+
+          </div>
 
 
-</div>
+          <!-- Bloque desplegable interior-->
+          <div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion16-280').toggle();">
+            <h3>280. Deployment del PROYECTO con API Key</h3>
+            <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+          </div>
+          <div id="seccion16-280" class="hidden">
+            <p>Veamos como realizar el Deployment de un proyecto qeu incluye un API KEY. tenemos que agregar el Api Key una vez que subamos nuestro proyecto, porqeu recordemos, el archivo donde está la api key (variable de entorno) es ignorado en GIT y tampoco forma parte del build que realizamos.</p>
+
+            <ul class="list-disc my-3">
+              <li class="my-1.25">Construimos <span class="destacado">npm run build</span> y la carpeta dist la agregamos a Netlify. Si abrimos el sitio y abrimos el deploy de producción. Vemos que si intentamos hacer una búsqueda nos aparece un error, y eso es porque no tenemos agregado nuestro API KEY
+              <img src="https://andune55.github.io/manual-react/assets/280-Bh-PFZH6.png" alt="img" loading="lazy">
+              </li>
+              <li class="my-1.25">Vamos a Site configuration <svg class="size-6 shrink-0 inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3"></path>
+              </svg></li>
+              Environment variables
+              <svg class="size-6 shrink-0 inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3"></path>
+              </svg>
+              Add a variable y podemos elegir una o un archivo, en nuestro caso solo tenemos una, elegimos esa opción y la llamamos con el mismo nombre que tenemos en nuestro <span class="file">.env.local</span> y en el value el que tenemos en ese fichero y le damos a "Create variable". 
+              <img src="https://andune55.github.io/manual-react/assets/280-2-B0cpVChM.png" alt="img" loading="lazy">
+              (en este punto vemos que teníamos un error en la variable <code class="language-ts">const geoUrl = `https://api.openweathermap.org/geo/1.0/direct?q=${search.city},${search.country}&appid=${appId}`</code> que la teníamos con http en vez de con https. Lo cambiamos, hacemos nuevo deploy y ne ntelify en deplys, abajo podemos arrastrar nuestra carpea dist, no es necesrio que creemos un site nuevo, y la variable de entorno se nos va a mantener.)
+
+
+              <li class="my-1.25">Si probamos de nuevo el deploy de producción vemos que ya funciona!</li>
+            </ul>
+
+            <p><span class="destacado">Siempre que tengamos variables de entorno nos tenemos que asegurar de agregarlas en nuestro proyecto (en el lugar indicado del panel del hosting) una vez que hagamos el deployment porque estas variables son ignoradas una vez que subimos el proyecto</span> pero la mayor parte de opciones modernas de hosting siempre nos van a ofrecer un panel en el que podremos agregar las variables de entorno. Y si por algo cambia digamos la conexión a la BBDD o el servidor SMTP tienes que colocar ya en producción la conexión a la BBDD de producción o el SMTP de producción, etc y localmente mantener las credenciales de los valores del entorno de desarrollo.</p>
+          </div>
             
 
         </div>
