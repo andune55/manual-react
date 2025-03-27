@@ -27,10 +27,10 @@
 
         <div class="flex items-center mt-1.25 cursor-pointer desplegable justify-between" onclick="$('#seccion16').toggle();">
           <h2>Sección 16: PROYECTO - Aplicación de Clima que obtiene el Clima en tiempo real con una API</h2>
-          <span class="cambiaicono ico_chevron_up mr-2.5" title=""></span>
+          <span class="cambiaicono ico_chevron_down mr-2.5" title=""></span>
         </div>
 
-        <div id="seccion16">
+        <div id="seccion16" class="hidden">
 
           <p>Trabajo con <span class="destacado">CSS modules</span>, <span class="destacado">API externa</span>, veremos como <strong>enviar peticiones hacia API</strong> <a href="https://openweathermap.org/" class="underline" target="blank">https://openweathermap.org/</a> -  <a href="https://openweathermap.org/api/geocoding-api" class="underline" target="blank">Geocoding API</a>, como <strong>leer las respuestas de una API</strong>, como <strong>validarlas=tiparlas</strong>:</p>
           <ul class="list-disc my-3">
@@ -43,6 +43,507 @@
           <p>Escribiremos css con <span class="destacado">Módulos CSS</span>. Instalamos <srong>axios</srong> <span class="destacado">npm i axios</span> que es una librería para consultar APIs externas, es una abstracción sobre fetch api. Vemos qué son <span class="destacado">Variables de entorno</span>.</p> 
           <p>Veremos <span class="destacado">como utilizar un spinner de carga</span> - <a href="https://tobiasahlin.com/spinkit/" class="underline" target="blank">https://tobiasahlin.com/spinkit/</a></p>
          
+
+
+          <!-- Bloque desplegable interior-->
+          <div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between oscuro" onclick="$('#seccion16-ficheros').toggle();">
+            <h3>FICHEROS FINALES</h3>
+            <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+          </div>
+          <div id="seccion16-ficheros" class="hidden">
+            <div class="flex max-sm:flex-col">
+              <div class="w-[25%] max-sm:w-[100%]">
+                <span class="destacado">types/index.ts, App.tsx, index.css, main.tsx</span><br>
+
+                <code class="cursor-pointer" onclick="$('#16-types').toggle();">types/index.ts</code>
+                <pre data-line="0" id="16-types" class="hidden"><code class="language-ts">
+                  //types/index.ts
+                  export type SearchType = {
+                    city: string
+                    country: string
+                  }
+                  export type Country = {
+                    code: string
+                    name: string
+                  }
+                  export type Weather = {
+                    name:string
+                    main: {
+                      temp: number,
+                      temp_max: number,
+                      temp_min: number
+                    }
+                  }
+                </code></pre>
+
+                <code class="cursor-pointer" onclick="$('#16-app').toggle();">App.tsx</code>
+                <pre data-line="0" id="16-app" class="hidden"><code class="language-ts">
+                  //App.tsx
+                  import styles from "./App.module.css"
+                  import Form from './components/Form/Form'
+                  import useWeather from "./hooks/useWeather"
+                  import WeatherDetail from './components/WeatherDetail/WeatherDetail';
+                  import Spinner from "./components/Spinner/Spinner";
+                  import Alert from "./components/Alert/Alert";
+                  
+                  function App() {
+                    
+                    const { weather, loading, notFound, fetchWeather, hasWeatherData } = useWeather()
+                    //console.log(import.meta.env)
+                  
+                    return (
+                      &lt;&gt;
+                        &lt;h1 className={styles.title}&gt;Buscador de clima&lt;/h1&gt;
+                  
+                        &lt;div className={styles.container}&gt;
+                          &lt;Form fetchWeather = {fetchWeather}/&gt;        
+                          {loading &amp;&amp; &lt;Spinner /&gt;}
+                          {hasWeatherData &amp;&amp; &lt;WeatherDetail weather = {weather}/&gt;}
+                          {notFound &amp;&amp; &lt;Alert&gt;Ciudad No encontrada&lt;/Alert&gt;}        
+                        &lt;/div&gt;
+                      &lt;/&gt;
+                    )
+                  }
+                  
+                  export default App
+                </code></pre>
+
+                <code class="cursor-pointer" onclick="$('#16-indexcss').toggle();">index.css</code>
+                <pre data-line="0" id="16-indexcss" class="hidden"><code class="language-css">
+                  //index.css
+                  :root {
+                    --white: #ffffff;
+                    --primary: #f59e0b;
+                  } 
+                  /* // &lt;weight&gt;: Use a value from 100 to 900
+                  // &lt;uniquifier&gt;: Use a unique and descriptive class name */
+                  html{
+                      font-size: 62.5%;
+                  }
+                  body {
+                      font-family: "Outfit", sans-serif;
+                      background-image: url(/bg_clima.jpg);
+                      height: 100vh;
+                      background-size: cover;
+                      background-repeat: no-repeat;
+                      color: var(--white);
+                      font-size: 2rem;
+                  }
+                </code></pre>
+
+                <code class="cursor-pointer" onclick="$('#16-maintsx').toggle();">main.tsx</code>
+                <pre data-line="0" id="16-maintsx" class="hidden"><code class="language-js">
+                  //main.tsx
+                  import { StrictMode } from 'react'
+                  import { createRoot } from 'react-dom/client'
+                  import './index.css'
+                  import App from './App.tsx'
+                  
+                  createRoot(document.getElementById('root')!).render(
+                    &lt;StrictMode&gt;
+                      &lt;App /&gt;
+                    &lt;/StrictMode&gt;,
+                  )
+                </code></pre>                
+              </div>
+
+              <div class="w-[40%] max-sm:w-[100%]">
+                <span class="destacado">data, hooks, types, utils</span><br>
+
+                <code class="cursor-pointer" onclick="$('#16-data').toggle();">data/countries.ts</code>
+                <pre data-line="0" id="16-data" class="hidden"><code class="language-ts">
+                  //data/countries.ts
+                  import type { Country } from "../Types"
+
+                  export const countries: Country[] = [
+                    { code: 'US', name: 'Estados Unidos' },
+                    { code: 'MX', name: 'México' },
+                    { code: 'AR', name: 'Argentina' },
+                    { code: 'CO', name: 'Colombia' },
+                    { code: 'CR', name: 'Costa Rica' },
+                    { code: 'ES', name: 'España' },
+                    { code: 'PE', name: 'Perú' }
+                  ]
+                </code></pre>                
+
+                <code class="cursor-pointer" onclick="$('#16-customhook').toggle();">hooks/useWeather.ts</code>
+                <pre data-line="0" id="16-customhook" class="hidden"><code class="language-ts">
+                  //hooks/useWeather.ts
+                  import axios from "axios"
+                  import { z } from 'zod'
+                  //import { object, string, number, InferOutput, parse } from 'valibot'
+                  import { SearchType } from "../Types"
+                  import { useState, useMemo } from "react"
+                                   
+                  //ZOD
+                  const WeatherSchema = z.object({
+                      name: z.string(),
+                      main: z.object({
+                          temp: z.number(),
+                          temp_max: z.number(),
+                          temp_min: z.number()
+                      })
+                  })
+                  export type Weather = z.infer&lt;typeof WeatherSchema&gt;
+                                    
+                  const initialState = {
+                      name: '',
+                      main: {
+                          temp: 0,
+                          temp_max: 0, 
+                          temp_min: 0
+                      }
+                  }
+                  
+                  export default function useWeather(){
+                  
+                      const [weather, setWeather] = useState&lt;Weather&gt;(initialState)
+                      const [loading, setLoading] = useState(false)
+                      const [notFound, setNotFound] = useState(false)
+                  
+                      const fetchWeather = async (search: SearchType) => {
+                          const appId = import.meta.env.VITE_API_KEY
+                          setLoading(true)
+                          setWeather(initialState)
+                          try {
+                            const geoUrl = `https://api.openweathermap.org/geo/1.0/direct?q=${search.city},${search.country}&appid=${appId}`  
+                            console.log(geoUrl)
+                            const {data} = await axios.get(geoUrl)
+                
+                            //Comprobar si existe
+                            if(!data[0]){
+                                setNotFound(true)
+                                return
+                            }
+                            //console.log(data)
+                            const lat= data[0].lat
+                            const lon= data[0].lon
+                            
+                            const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${appId}`
+                            //console.log(weatherUrl)
+                                              
+                            //3. Zod
+                            const{data: weatherResult} = await axios(weatherUrl)
+                            const result = WeatherSchema.safeParse(weatherResult)
+                            //console.log(result)
+                            if(result.success){
+                                //console.log(result.data.name)
+                                //console.log(result.data.main.temp)
+                                setWeather(result.data)
+                            }else {
+                                console.log('Respuesta mal formada...')
+                            }                           
+                          } catch (error) {
+                              console.log(error)
+                          } finally {
+                              setLoading(false)
+                          }    
+                      }                  
+                      const hasWeatherData = useMemo(() => weather.name , [weather])
+                  
+                      return {
+                          weather,
+                          loading,
+                          notFound,
+                          fetchWeather,
+                          hasWeatherData
+                      }
+                  }
+                </code></pre>
+
+                <code class="cursor-pointer" onclick="$('#16-types').toggle();">Types/index.ts</code>
+                <pre data-line="0" id="16-types" class="hidden"><code class="language-ts">
+                  //Types/index.ts
+                  export type SearchType = {
+                    city: string
+                    country: string
+                  }
+                  export type Country = {
+                    code: string
+                    name: string
+                  }
+                  export type Weather = {
+                    name:string
+                    main: {
+                      temp: number,
+                      temp_max: number,
+                      temp_min: number
+                    }
+                  }
+                </code></pre>
+
+                <code class="cursor-pointer" onclick="$('#16-utils').toggle();">utils/index.ts</code>
+                <pre data-line="0" id="16-utils" class="hidden"><code class="language-ts">
+                  //utils/index.ts
+                  export const formatTemperature = (temperature: number) : number =>{
+                    const Kelvin = 273.15
+                    return parseInt((temperature - Kelvin).toString())
+                  }
+                </code></pre>
+              </div>
+
+              <div class="w-[35%] max-sm:w-[100%]">
+                <span class="destacado">Componentes</span><br>
+                <code class="cursor-pointer" onclick="$('#16-alertmodulecss').toggle();">Alert.module.css</code>
+                <pre data-line="0" id="16-alertmodulecss" class="hidden"><code class="language-ts">
+                  //Alert/Alert.module.css
+                  .alert{
+                    text-align: center;
+                    margin-bottom: 2rem;
+                    text-transform: uppercase;
+                    font-weight: 900;
+                    font-size: 1.8rem;
+                  }
+                </code></pre>
+                <code class="cursor-pointer" onclick="$('#16-alert').toggle();">Alert.tsx</code>
+                <pre data-line="0" id="16-alert" class="hidden"><code class="language-ts">
+                  //Alert/Alert.tsx
+                  import { ReactNode } from "react"
+                  import styles from './Alert.module.css'
+                  
+                  export default function Alert({children} : {children : ReactNode}) {
+                      return (
+                      &lt;div className={styles.alert}&gt; 
+                          {children}
+                      &lt;/div&gt;
+                      )
+                  }
+                </code></pre>
+
+                <code class="cursor-pointer" onclick="$('#16-Formmodulecss').toggle();">Form.module.css</code>
+                <pre data-line="0" id="16-Formmodulecss" class="hidden"><code class="language-ts">
+                  //Form/Form.modulecss
+                  .form, .field{
+                    display: flex;
+                    flex-direction: column;
+                    gap: 2rem;
+                }
+                .form input[type='text'],.form select{
+                    padding: 1rem;
+                    background-color: transparent;
+                    border: .3rem solid var(--white);
+                    color: var(--white);
+                    font-size: 1.8rem;
+                    font-weight: 400;
+                    border-radius: 1rem;
+                }
+                .form select option{
+                    color: #000000;
+                }
+                .field ::placeholder{
+                    color: var(--white);
+                }
+                .submit{
+                    background-color: var(--primary);
+                    border: none;
+                    color: var(--white);
+                    font-weight: 700;
+                    font-size: 1.4rem;
+                    text-transform: uppercase;
+                    cursor: cursor-pointer;
+                    padding: 1rem;
+                }
+                </code></pre>
+                <code class="cursor-pointer" onclick="$('#16-Form').toggle();">Form.tsx</code>
+                <pre data-line="0" id="16-Form" class="hidden"><code class="language-ts">
+                  // Form.tsx
+                  import { useState, ChangeEvent, FormEvent } from "react"
+                  import type { SearchType } from "../../Types"
+                  import { countries } from "../../data/countries"
+                  import styles from "./Form.module.css"
+                  import Alert from "../Alert/Alert"
+                  
+                  type FormProps = {
+                      fetchWeather: (search: SearchType) =&gt; Promise&lt;void&gt;
+                  }
+                  export default function Form({fetchWeather}:FormProps) {
+                  
+                      const [search, setSearch] = useState&lt;SearchType&gt;({
+                          city: &#39;&#39;,
+                          country: &#39;&#39;
+                      })
+                      const [alert, setAlert] = useState(&#39;&#39;)
+                  
+                      const handleChange = (e: ChangeEvent&lt;HTMLInputElement&gt; | ChangeEvent&lt;HTMLSelectElement&gt;) =&gt;{
+                          setSearch({
+                              ...search,
+                              [e.target.name] : e.target.value //escribimos en el campo en el cual estamos modificando
+                          })
+                      }
+                      const handleSubmit = (e:FormEvent&lt;HTMLFormElement&gt;) =&gt; {
+                          e.preventDefault()
+                          if(Object.values(search).includes(&#39;&#39;)){
+                              //console.log(&#39;Sí hay campos vacíos...&#39;)
+                              setAlert(&#39;Todos los campos son obligatorios&#39;)
+                              return
+                          }
+                          fetchWeather(search)
+                      }
+                      return (
+                          &lt;form 
+                              className={styles.form}
+                              onSubmit={handleSubmit}
+                          &gt;
+                              {alert &amp;&amp; &lt;Alert&gt;{alert}&lt;/Alert&gt;}
+                  
+                              &lt;div className={styles.field}&gt;
+                                  &lt;label htmlFor=&quot;city&quot;&gt;Ciudad:&lt;/label&gt;
+                                  &lt;input 
+                                      id=&quot;city&quot;
+                                      type=&quot;text&quot;
+                                      name=&quot;city&quot;
+                                      placeholder=&quot;Ciudad&quot;
+                                      value={search.city}
+                                      onChange={handleChange}
+                                  /&gt;
+                              &lt;/div&gt;
+                  
+                              &lt;div className={styles.field}&gt;
+                                  &lt;label htmlFor=&quot;country&quot;&gt;Pais:&lt;/label&gt;
+                                  &lt;select 
+                                      id=&quot;country&quot;
+                                      name=&quot;country&quot;
+                                      value={search.country}  
+                                      onChange={handleChange}              
+                                  &gt;
+                                  &lt;option value=&quot;&quot;&gt;-- Seleccione un País --&lt;/option&gt;
+                                      {countries.map(country =&gt; (
+                                          &lt;option 
+                                              key={country.code}
+                                              value={country.code}
+                                          &gt;
+                                              {country.name}
+                                          &lt;/option&gt;
+                                      ))}
+                                  &lt;/select&gt;
+                              &lt;/div&gt;
+                  
+                              &lt;input type=&quot;submit&quot; className={styles.submit} value=&quot;Consultar clima&quot; /&gt;
+                  
+                          &lt;/form&gt;
+                      )
+                  }
+                  
+                </code></pre>
+
+                <code class="cursor-pointer" onclick="$('#16-Spinnermodulecss').toggle();">Spinner.module.css</code>
+                <pre data-line="0" id="16-Spinnermodulecss" class="hidden"><code class="language-ts">
+                  //Spinner/Spinner.modulecss
+                  .spinner {
+                    margin: 100px auto 0;
+                    width: 70px;
+                    text-align: center;
+                  }
+                  .spinner>div {
+                      width: 18px;
+                      height: 18px;
+                      background-color: #fff;
+                      border-radius: 100%;
+                      display: inline-block;
+                      -webkit-animation: sk-bouncedelay 1.4s infinite ease-in-out both;
+                      animation: sk-bouncedelay 1.4s infinite ease-in-out both;
+                  }
+                  .spinner .bounce1 {
+                      -webkit-animation-delay: -0.32s;
+                      animation-delay: -0.32s;
+                  }
+                  .spinner .bounce2 {
+                      -webkit-animation-delay: -0.16s;
+                      animation-delay: -0.16s;
+                  }
+                  @-webkit-keyframes sk-bouncedelay {
+                      0%,
+                      80%,
+                      100% {
+                          -webkit-transform: scale(0)
+                      }
+                      40% {
+                          -webkit-transform: scale(1.0)
+                      }
+                  }
+                  @keyframes sk-bouncedelay {
+                      0%,
+                      80%,
+                      100% {
+                          -webkit-transform: scale(0);
+                          transform: scale(0);
+                      }
+                      40% {
+                          -webkit-transform: scale(1.0);
+                          transform: scale(1.0);
+                      }
+                  }
+                </code></pre>
+                <code class="cursor-pointer" onclick="$('#16-Spinner').toggle();">Spinner.tsx</code>
+                <pre data-line="0" id="16-Spinner" class="hidden"><code class="language-ts">
+                  // Spinner.tsx
+                  import './Spinner.css'
+                  export default function Spinner() {
+                    return (
+                      &lt;div className=&quot;spinner&quot;&gt;
+                        &lt;div className=&quot;bounce1&quot;&gt;&lt;/div&gt;
+                        &lt;div className=&quot;bounce2&quot;&gt;&lt;/div&gt;
+                        &lt;div className=&quot;bounce3&quot;&gt;&lt;/div&gt;
+                      &lt;/div&gt;
+                    )
+                  }
+                </code></pre>
+
+                <code class="cursor-pointer" onclick="$('#16-WeatherDetailmodulecss').toggle();">WeatherDetail.module.css</code>
+                <pre data-line="0" id="16-WeatherDetailmodulecss" class="hidden"><code class="language-ts">
+                  //WeatherDetail/WeatherDetail.modulecss
+                  .container{
+                    background-color: var(--white);
+                    color: #000000;
+                    border-radius: 1rem;
+                    text-align: center;
+                    padding: 1rem;
+                  }
+                  .current{
+                      font-size: 6rem;
+                      font-weight: 900;
+                      margin: 0;
+                  }
+                  .temperatures{
+                      display: flex;
+                      justify-content: center;
+                      gap: 5rem;
+                  } 
+                  .temperatures p{
+                      font-weight:900;
+                  }
+                  .temperatures span{
+                      font-weight:400;
+                  }
+                </code></pre>
+                <code class="cursor-pointer" onclick="$('#16-WeatherDetail').toggle();">WeatherDetail.tsx</code>
+                <pre data-line="0" id="16-WeatherDetail" class="hidden"><code class="language-ts">
+                  //WeatherDetail.tsx
+                  import { Weather } from "../../hooks/useWeather"
+                  import { formatTemperature } from "../../utils"
+                  import styles from './WeatherDetail.module.css'
+                  
+                  type WeatherDetailProps = {
+                      weather: Weather 
+                  }                  
+                  export default function WeatherDetail({weather} : WeatherDetailProps) {
+                    return (
+                      &lt;div className={styles.container}&gt;
+                        &lt;h2&gt;Clima de: {weather.name}&lt;/h2&gt;
+                        &lt;p className={styles.current}&gt; {formatTemperature(weather.main.temp)}&amp;deg;C&lt;/p&gt;
+                        &lt;div className={styles.temperatures}&gt;
+                          &lt;p&gt;Min: &lt;span&gt;{formatTemperature(weather.main.temp_min)}&amp;deg;C&lt;/span&gt;&lt;/p&gt;
+                          &lt;p&gt;Max: &lt;span&gt;{formatTemperature(weather.main.temp_max)}&amp;deg;C&lt;/span&gt;&lt;/p&gt;
+                        &lt;/div&gt;
+                      &lt;/div&gt;
+                    )
+                  }
+                </code></pre>
+
+              </div>
+            </div>
+
+          </div>
 
           <!-- Bloque desplegable interior-->
           <div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion16-258').toggle();">
