@@ -10,12 +10,3098 @@
     
     <!-- <script src="https://unpkg.com/@tailwindcss/browser@4"></script> -->
   
-    <script type="module" crossorigin src="https://andune55.github.io/manual-react/assets/index-DdTKIby0.js"></script>
-    <link rel="stylesheet" crossorigin href="https://andune55.github.io/manual-react/assets/index-Ak286lWY.css">
+    <script type="module" crossorigin src="https://andune55.github.io/manual-react/assets/index-xNgk4BzD.js"></script>
+    <link rel="stylesheet" crossorigin href="https://andune55.github.io/manual-react/assets/index-BxVPj2VV.css">
   </head>
   <body>
     <div id="root"></div>	
     <div>  
+
+
+
+      <!-- SECCION 17 -->
+      <div class="w-[80%] max-sm:w-[96%] mx-auto bg-gray-200 my-1.25 py-0.75 pr-0 pl-2.5 rounded-xl">
+
+        <div class="flex items-center mt-1.25 cursor-pointer desplegable justify-between" onclick="$('#seccion17').toggle();">
+          <h2>Sección 17: PROYECTO - Cotizador de Criptomonedas en Tiempo Real con ZOD y Zustand</h2>
+          <span class="cambiaicono ico_chevron_up mr-2.5" title=""></span>
+        </div>
+
+        <div id="seccion17">
+
+          <p>Link para css shadows: <a href="https://getcssscan.com/css-box-shadow-examples" class="underline" target="blank">https://getcssscan.com/css-box-shadow-examples</a> / <a href="https://realfavicongenerator.net/" class="underline" target="blank">Link para generar favicon</a> / <a href="https://developers.coindesk.com/" class="underline" target="blank">Link Crypto compare</a></p>
+
+          <p>Instalamos Zod con <span class="destacado">npm i zod</span> / Instalamos Zustand <span class="destacado">npm i zustand</span></p>
+
+          <!-- Bloque desplegable interior-->
+          <div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion17-281').toggle();">
+            <h3>281. El Proyecto que vamos a construir / 282. Creando el Proyecto y Copiando Materiales / 283. Primeros pasos con código CSS</h3>
+            <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+          </div>
+          <div id="seccion17-281" class="hidden">
+            <p>Vamos a construir un cotizador de criptomonedas. Este proyecto al igual que el anterior se conecta a una API para obtener el precio de una Criptomoneda en dólares, pesos mexicanos y otras monedas (veremos como añadir la de nuestro país). Este proyecto incluye <strong>Zustand para manejar el estado global</strong> y <strong>Zod para validar las respuestas que obtenemos de nuestra API</strong> (recordemos que TS no puede saber qué tipo de dato es lo que obtenemos como respuesta de una API).</p>
+
+            <p class="naranja">Creando el Proyecto y Copiando Materiales</p>
+
+            <ul class="list-disc my-3">
+              <li class="my-1.25"><span class="destacado">npm create vite@latest</span> React,  TS + SWC y nombramos como <strong>cripto-react-typescript</strong>, vamos a la carpeta e instalamos dependencias con <span class="destacado">npm install</span>, arrancamos servidor de desarrollo con <span class="destacado">npm run dev</span> y hacemos la limpieza de siempre (borramos carpeta assets y el App.css. limpiamos App.tsx y index.css. Eliminamos de public el svg de vite y colocamos la imagen de fondo para este proyecto que está en los materiales del curso.)</li>
+              <li class="my-1.25">Uso <a href="https://realfavicongenerator.net/" class="underline" target="blank">https://realfavicongenerator.net/</a> para generar icono personalizado de app/favicon y pongo todo lo generado en public y en el index.html el código correspondiente:
+              <pre><code class="language-html">
+                //index.html
+                &lt;link rel=&quot;icon&quot; type=&quot;image/png&quot; href=&quot;/favicon-96x96.png&quot; sizes=&quot;96x96&quot; /&gt;
+                &lt;link rel=&quot;icon&quot; type=&quot;image/svg+xml&quot; href=&quot;/favicon.svg&quot; /&gt;
+                &lt;link rel=&quot;shortcut icon&quot; href=&quot;/favicon.ico&quot; /&gt;
+                &lt;link rel=&quot;apple-touch-icon&quot; sizes=&quot;180x180&quot; href=&quot;/apple-touch-icon.png&quot; /&gt;
+                &lt;meta name=&quot;apple-mobile-web-app-title&quot; content=&quot;cotizador-cripto&quot; /&gt;
+                &lt;link rel=&quot;manifest&quot; href=&quot;/site.webmanifest&quot; /&gt;
+              </code></pre>
+              </li>             
+            </ul>
+
+            <p class="naranja">Primeros pasos con código CSS</p>
+
+            <p>Vamos a hacerlo de la forma tradicional sin css modules ni tailwind. Agregamos estilos y al index.html esta fuente:</p>
+            <p>Link para css shadows: <a href="https://getcssscan.com/css-box-shadow-examples" class="underline" target="blank">https://getcssscan.com/css-box-shadow-examples</a></p>
+
+            <pre><code class="language-html">
+              //index.html
+              &lt;link rel=&quot;preconnect&quot; href=&quot;https://fonts.googleapis.com&quot;&gt;
+              &lt;link rel=&quot;preconnect&quot; href=&quot;https://fonts.gstatic.com&quot; crossorigin&gt;
+              &lt;link href=&quot;https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;900&amp;display=swap&quot; rel=&quot;stylesheet&quot;&gt;
+            </code></pre>
+
+            <pre><code class="language-css">
+              //index.css(completo)
+              :root {
+                --white: #FFF;
+                --primary: #61ECBC;
+                --black: #182339;
+              }
+              html {
+                font-size: 62.5%;
+              }
+              body {
+                background-image: url('/bg.jpg');
+                background-position: center;
+                background-repeat: no-repeat;
+                background-size: cover;
+                min-height: 100vh;
+                font-family: 'Outfit', sans-serif;
+                font-size: 2rem;
+              }
+              .container {
+                max-width: 60rem;
+                width: 95%;
+                margin: 0 auto;
+              }
+              .app-title {
+                font-size: 3.8rem;
+                margin-top: 5rem;
+                color: var(--white);
+                line-height: .8;
+              }
+              .app-title span {
+                display: block;
+                color: var(--primary);
+                font-size: 4.4rem;
+              }
+              .content {
+                margin-top: 5rem;
+                padding: 6rem 2rem;
+                background-color: var(--white);
+                border-radius: 1rem;
+                box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+              }
+              
+              .form,
+              .field {
+                display: flex;
+                flex-direction: column;
+                gap: 2rem;
+              }
+              .form label {
+                color: var(--black);
+              }
+              .form select {
+                background-color: #ECEBEB;
+                border: none;
+                padding: 1rem;
+                border-radius: 1rem;
+                font-size: 1.8rem;
+              }
+              .form [type="submit"] {
+                background-color: var(--primary);
+                color: var(--black);
+                border: none;
+                padding: 1rem;
+                font-weight: 900;
+                cursor: pointer;
+                text-transform: uppercase;
+                margin-top: 2rem;
+                transition: background-color 300ms ease;
+              }
+              .form [type="submit"]:hover {
+                background-color: #0CB387;
+              }
+              
+              .result-wrapper {
+                margin-top: 5rem;
+              }
+              .result-wrapper h2 {
+                text-align: center;
+              }
+              .result {
+                display: grid;
+                grid-template-columns: 1fr 3fr;
+                align-items: center;
+                gap: 1rem;
+              }
+              .result img {
+                width: 100%;
+              }
+              .result p {
+                margin: 0 0 1rem;
+                font-size: 1.6rem;
+              }
+              .result span {
+                font-weight: 700;
+              }
+            </code></pre>
+
+            <img src="https://andune55.github.io/manual-react/assets/283-BusJmuEZ.jpg" alt="img" loading="lazy">
+
+          </div>
+
+          <!-- Bloque desplegable interior-->
+          <div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion17-284').toggle();">
+            <h3>284. Creando El Formulario / 285. Agregando las Monedas para Cotizar Criptos / 286. Schema de Zod y Mostrando las Monedas</h3>
+            <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+          </div>
+          <div id="seccion17-284" class="hidden">
+            <p>Vamos a crear el formulario que nos va a permitir buscar las criptomendas y cotizarlas. Vamos a src y creamos las carpetas de <span class="file">components, data, schema y types</span></p>
+
+            <p>Nuestro primer componente es este <span class="file">components/CriptoSearchForm.tsx</span> en el que tenemos:
+              
+              <ul class="list-disc my-3">
+                <li class="my-1.25"><p>Un primer div para la moneda con un label con su <strong>htmlFor="currency"</strong> que apunta al <strong>id="currency"</strong> de nuestro select. Ese select también tendrá el mismo <strong>name="currency"</strong>; este name nos va a permitir escribir en el state cuando estemos ya seleccionando lo que queremos cotizar en nuestra API.</p></li>
+
+                <li class="my-1.25"><p>Un segundo div para la criptomoneda con su <strong>htmlFor="criptocurrency"</strong> que apunta al <strong>id="criptocurrency"</strong> de nuestro select. Ese select también tendrá el mismo <strong>name="criptocurrency"</strong>; este name nos va a permitir escribir en el state.</p></li>
+
+                <li class="my-1.25"><p>Un input de <strong>type="submit"</strong> con <strong>value="cotizar"</strong></p></li>
+              </ul>
+
+              <div class="flex max-sm:flex-col">
+                <div class="w-[50%] max-sm:w-[100%]">
+                  <pre data-line="0"><code class="language-ts">
+                    //CriptoSearchForm.tsx
+                    export default function CriptoSearchForm() {
+                      return (
+                        &lt;form className=&quot;form&quot;&gt;
+                          &lt;div className=&quot;field&quot;&gt;
+                            &lt;label htmlFor=&quot;currency&quot;&gt;Moneda:&lt;/label&gt;
+                            &lt;select name=&quot;currency&quot; id=&quot;currency&quot;&gt;
+                                &lt;option value=&quot;&quot;&gt;-- Seleccione --&lt;/option&gt;
+                            &lt;/select&gt;
+                          &lt;/div&gt;
+                
+                          &lt;div className=&quot;field&quot;&gt;
+                            &lt;label htmlFor=&quot;criptocurrency&quot;&gt;Criptomoneda:&lt;/label&gt;
+                            &lt;select name=&quot;criptocurrency&quot; id=&quot;criptocurrency&quot;&gt;
+                                &lt;option value=&quot;&quot;&gt;-- Seleccione --&lt;/option&gt;
+                            &lt;/select&gt;
+                          &lt;/div&gt;
+                
+                          &lt;input type=&quot;submit&quot; value=&quot;cotizar&quot;/&gt;
+                        &lt;/form&gt;
+                      )
+                    }
+                  </code></pre>
+                </div>
+                <div class="w-[50%] max-sm:w-[100%] ml-2">
+                  <img src="https://andune55.github.io/manual-react/assets/285-k8BNGACM.png" alt="img" loading="lazy">
+                </div>
+              </div>
+
+            <p class="naranja">Agregando las Monedas para Cotizar Criptos - <a href="https://gist.github.com/codigoconjuan/19cf022c1e657e85150c8ef7ff0aefe3" class="underline" target="blank">Gist Monedas para cotizar cripto</a> / Schema de Zod y Mostrando las Monedas</p>
+          
+            <p>Tenemos dos selects. Veamos como agregar en el primero las monedas que vamos a cotizar en criptomonedas y en el segundo, veremos como consultarlo desde una API. Creemos el type <span class="bg-[#4ec9b0] text-white">Currency</span> utilizando Zod para ello: instalamos Zod con <span class="destacado">npm i zod</span></p>
+
+            <ul class="list-disc my-3">
+              <li class="my-1.25">Creamos <span class="file">data/index.ts</span> donde metemos el gist con las 4 monedas que hay (La APi no soporta todas las monedas existentes pero si queremos agregar la de nuestro país solo tenemos que buscar nuestra moneda y encontrar el código de 3 dígitos.)
+                <pre data-line="0"><code class="language-ts">
+                  //data/index.ts
+                  import { Currency } from "../types";
+
+                  export const currencies : Currency[] = [
+                    { code: 'USD', name: 'Dolar de Estados Unidos'},
+                    { code: 'MXN', name: 'Peso Mexicano'},
+                    { code: 'EUR', name: 'Euro'},
+                    { code: 'GBP', name: 'Libra Esterlina'},
+                  ]
+                </code></pre>
+              </li>
+
+              <li class="my-1.25">Creamos <span class="file">schema/crypto-schema.ts</span> donde generamos el schema para el type currency. Importamos la 'z' de Zod y diseñamos nuestro schema para el type de currency (que como vemos es el type que se utiliza en nuestros datos, en el Gist de nuestras monedas para cotizar cryptos); vemos en los datos que tenemos un code (string) y un name (string) por tanto:
+                <pre data-line="0"><code class="language-ts">
+                  //schema/crypto-schema.ts
+                  import { z } from 'zod'
+                  export const CurrencySchema = z.object({
+                      code: z.string(),
+                      name: z.string()
+                  })
+                </code></pre>
+              </li>
+
+              <li class="my-1.25">Creamos <span class="file">types/index.ts</span> donde importamos la z de Zod (usaremos la función infer) y nuestro schema y creamos (y exportamos) el type <span class="bg-[#4ec9b0] text-white">Currency</span> usando el método z.infer de Zod y el schema creado. 
+                <pre data-line="0"><code class="language-ts">
+                  //types/index.ts
+                  import { z } from 'zod'
+                  import { CurrencySchema} from '../schema/crypto-schema'
+                  export type Currency = z.infer&lt;typeof CurrencySchema&gt;
+                </code></pre>
+              </li>
+
+              <li class="my-1.25">Así queda nuestro componente de formulario <span class="file">components/CriptoSearchForm.tsx</span> donde importamos nuestros datos y utilizamos ese objeto currencies importado para mapearlo y rellenar el primer select con esos datos:
+                <pre data-line="0,1,9-11"><code class="language-ts">
+                  //CriptoSearchForm.tsx
+                  import { currencies } from '../data/index.ts';
+                  export default function CriptoSearchForm() {
+                      return (
+                        &lt;form className=&quot;form&quot;&gt;
+                          &lt;div className=&quot;field&quot;&gt;
+                            &lt;label htmlFor=&quot;currency&quot;&gt;Moneda:&lt;/label&gt;
+                            &lt;select name=&quot;currency&quot; id=&quot;currency&quot;&gt;
+                                &lt;option value=&quot;&quot;&gt;-- Seleccione --&lt;/option&gt;
+                                {currencies.map( currency =&gt; (
+                                    &lt;option key={currency.code} value={currency.code}&gt;{currency.name}&lt;/option&gt;
+                                ))}
+                            &lt;/select&gt;
+                          &lt;/div&gt;
+              
+                          &lt;div className=&quot;field&quot;&gt;
+                            &lt;label htmlFor=&quot;criptocurrency&quot;&gt;Criptomoneda:&lt;/label&gt;
+                            &lt;select name=&quot;criptocurrency&quot; id=&quot;criptocurrency&quot;&gt;
+                                &lt;option value=&quot;&quot;&gt;-- Seleccione --&lt;/option&gt;                    
+                            &lt;/select&gt;
+                          &lt;/div&gt;
+              
+                          &lt;input type=&quot;submit&quot; value=&quot;cotizar&quot;/&gt;
+                        &lt;/form&gt;
+                      )
+                  }
+                </code></pre>
+              
+              </li>
+
+              <li class="my-1.25">El segundo select que presenta las criptomendas las recupera desde una API y las vamos a colocar en un store de Zustand para poder tener acceso a esa información de forma global.</li>
+            </ul>
+            
+
+          </div>
+
+          <!-- Bloque desplegable interior-->
+          <div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion17-287').toggle();">
+            <h3>287. Creando el Store de Zustand - <a href="https://developers.coindesk.com/" class="underline" target="blank">Enlace Crypto compare</a></h3>
+            <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+          </div>
+          <div id="seccion17-287" class="hidden">
+            <p>Vamos a ver la API que vamos a utilizar <a href="https://developers.coindesk.com/" class="underline" target="blank">Crypto compare</a> y también configurar nuestro store.</p>
+
+            <p>Si vamos a este link (ha cambiado con respecto al vídeo) <a href="https://developers.coindesk.com/documentation/data-api/asset_v1_top_list" class="underline" target="blank">https://developers.coindesk.com/documentation/data-api/asset_v1_top_list</a> vemos un montón de endpoints que podemos utilizar. El que vamos a usar está en toplist en su vídeo: <strong>TopList by Market Cap Full Data</strong> aunque en la actual interfaz de la API que ha cambiado mucho de momento no lo encuentro así que <span class="destacado">pico a mano este endpoint:</span> <a href="https://min-api.cryptocompare.com/data/top/mktcapfull?limit=20&tsym=EUR" class="underline" target="blank">https://min-api.cryptocompare.com/data/top/mktcapfull?limit=20&tsym=EUR</a> donde se ve el JSON devuelto en respuesta a especificar ese <strong>limit=20</strong>(las 20 criptos que tienen más valor hoy en día en cuanto a volumen de transacciones) cotizado en <strong>EUR</strong>.</p>
+              
+            <p>Si lo vemos en chrome, vemos que ese JSON es muy grande y no lo requerimos todo, pero básicmaente es lo que requerimos para rellenar el segundo select de nuestro formulario, porqeu <strong>c0uadno coticemos una criptomoneda requerimos pasarle el código de 3 dígitos de la cripto (eso ya viene en ese JSON: "Name": "BTC"). Además, como son las 20 critps, digamos, más valiosas, con el paso del tiepo si alguna cripto eleva su valor esa lista se va a actualizar en automático con lo cual tiene sus ventajas.</strong></p>
+
+            <pre data-line="0,12" class="max-h-[400px] overflow-auto"><code class="language-ts">
+              //https://min-api.cryptocompare.com/data/top/mktcapfull?limit=20&tsym=EUR
+              {
+                "Message": "Success",
+                "Type": 100,
+                "MetaData": {
+                    "Count": 846
+                },
+                "SponsoredData": [],
+                "Data": [
+                    {
+                      "CoinInfo": {
+                          "Id": "1182",
+                          "Name": "BTC",
+                          "FullName": "Bitcoin",
+                          "Internal": "BTC",
+                          "ImageUrl": "/media/37746251/btc.png",
+                          "Url": "/coins/btc/overview",
+                          "Algorithm": "SHA-256",
+                          "ProofType": "PoW",
+                          "Rating": {
+                              "Weiss": {
+                                  "Rating": "B+",
+                                  "TechnologyAdoptionRating": "A-",
+                                  "MarketPerformanceRating": "D"
+                              }
+                          },
+                          "NetHashesPerSecond": "791871604565720800000",
+                          "BlockNumber": 890101,
+                          "BlockTime": 447,
+                          "BlockReward": 3.125,
+                          "AssetLaunchDate": "2009-01-03",
+                          "MaxSupply": 20999999.9769,
+                          "Type": 1,
+                          "DocumentType": "Webpagecoinp"
+                      },
+                      "RAW": {
+                          "EUR": {
+                              "TYPE": "5",
+                              "MARKET": "CCCAGG",
+                              "FROMSYMBOL": "BTC",
+                              "TOSYMBOL": "EUR",
+                              "FLAGS": "1",
+                              "LASTMARKET": "CCCAGG",
+                              "MEDIAN": 76895.7535701053,
+                              "TOPTIERVOLUME24HOUR": 892.63259069,
+                              "TOPTIERVOLUME24HOURTO": 68213713.8471543,
+                              "LASTTRADEID": "98954660",
+                              "PRICE": 76895.7535701053,
+                              "LASTUPDATE": 1743333001,
+                              "LASTVOLUME": 0.02308,
+                              "LASTVOLUMETO": 1776.4138236,
+                              "VOLUMEHOUR": 14.45578055,
+                              "VOLUMEHOURTO": 1111032.97889921,
+                              "OPENHOUR": 76834.2564036766,
+                              "HIGHHOUR": 76896.4345706239,
+                              "LOWHOUR": 76813.4973879916,
+                              "VOLUMEDAY": 357.18943215,
+                              "VOLUMEDAYTO": 27451231.4808115,
+                              "OPENDAY": 76372.6985992196,
+                              "HIGHDAY": 77205.9689519402,
+                              "LOWDAY": 76256.8479553021,
+                              "VOLUME24HOUR": 892.63259069,
+                              "VOLUME24HOURTO": 68213713.8471543,
+                              "OPEN24HOUR": 75971.7997263603,
+                              "HIGH24HOUR": 77205.9689519402,
+                              "LOW24HOUR": 75458.109523385,
+                              "CHANGE24HOUR": 923.9538437449955,
+                              "CHANGEPCT24HOUR": 1.2161800129428904,
+                              "CHANGEDAY": 523.0549708856997,
+                              "CHANGEPCTDAY": 0.6848716628837893,
+                              "CHANGEHOUR": 61.49716642870044,
+                              "CHANGEPCTHOUR": 0.08003873442283713,
+                              "CONVERSIONTYPE": "direct",
+                              "CONVERSIONSYMBOL": "",
+                              "CONVERSIONLASTUPDATE": 1743333001,
+                              "SUPPLY": 19844050,
+                              "MKTCAP": 1525923178632.8481,
+                              "MKTCAPPENALTY": 0,
+                              "CIRCULATINGSUPPLY": 19844050,
+                              "CIRCULATINGSUPPLYMKTCAP": 1525923178632.8481,
+                              "TOTALVOLUME24H": 106121.590191332,
+                              "TOTALVOLUME24HTO": 8159873705.945181,
+                              "TOTALTOPTIERVOLUME24H": 59625.266290882704,
+                              "TOTALTOPTIERVOLUME24HTO": 4584503841.380434,
+                              "IMAGEURL": "/media/37746251/btc.png"
+                          }
+                        },
+                        "DISPLAY": {
+                            "EUR": {
+                                "FROMSYMBOL": "Ƀ",
+                                "TOSYMBOL": "€",
+                                "MARKET": "CryptoCompare Index",
+                                "LASTMARKET": "CCCAGG",
+                                "TOPTIERVOLUME24HOUR": "Ƀ 892.63",
+                                "TOPTIERVOLUME24HOURTO": "€ 68,213,713.8",
+                                "LASTTRADEID": "98954660",
+                                "PRICE": "€ 76,895.8",
+                                "LASTUPDATE": "Just now",
+                                "LASTVOLUME": "Ƀ 0.02308",
+                                "LASTVOLUMETO": "€ 1,776.41",
+                                "VOLUMEHOUR": "Ƀ 14.46",
+                                "VOLUMEHOURTO": "€ 1,111,033.0",
+                                "OPENHOUR": "€ 76,834.3",
+                                "HIGHHOUR": "€ 76,896.4",
+                                "LOWHOUR": "€ 76,813.5",
+                                "VOLUMEDAY": "Ƀ 357.19",
+                                "VOLUMEDAYTO": "€ 27,451,231.5",
+                                "OPENDAY": "€ 76,372.7",
+                                "HIGHDAY": "€ 77,206.0",
+                                "LOWDAY": "€ 76,256.8",
+                                "VOLUME24HOUR": "Ƀ 892.63",
+                                "VOLUME24HOURTO": "€ 68,213,713.8",
+                                "OPEN24HOUR": "€ 75,971.8",
+                                "HIGH24HOUR": "€ 77,206.0",
+                                "LOW24HOUR": "€ 75,458.1",
+                                "CHANGE24HOUR": "€ 923.95",
+                                "CHANGEPCT24HOUR": "1.22",
+                                "CHANGEDAY": "€ 523.05",
+                                "CHANGEPCTDAY": "0.68",
+                                "CHANGEHOUR": "€ 61.50",
+                                "CHANGEPCTHOUR": "0.08",
+                                "CONVERSIONTYPE": "direct",
+                                "CONVERSIONSYMBOL": "",
+                                "CONVERSIONLASTUPDATE": "Just now",
+                                "SUPPLY": "Ƀ 19,844,050.0",
+                                "MKTCAP": "€ 1,525.92 B",
+                                "MKTCAPPENALTY": "0 %",
+                                "CIRCULATINGSUPPLY": "Ƀ 19,844,050.0",
+                                "CIRCULATINGSUPPLYMKTCAP": "€ 1,525.92 B",
+                                "TOTALVOLUME24H": "Ƀ 106.12 K",
+                                "TOTALVOLUME24HTO": "€ 8.16 B",
+                                "TOTALTOPTIERVOLUME24H": "Ƀ 59.63 K",
+                                "TOTALTOPTIERVOLUME24HTO": "€ 4.58 B",
+                                "IMAGEURL": "/media/37746251/btc.png"
+                            }
+                        }
+                    },
+                    {
+                        "CoinInfo": {
+                            "Id": "7605",
+                            "Name": "ETH",
+                            "FullName": "Ethereum",
+                            "Internal": "ETH",
+                            "ImageUrl": "/media/37746238/eth.png",
+                            "Url": "/coins/eth/overview",
+                            "Algorithm": "Ethash",
+                            "ProofType": "PoS",
+                            "Rating": {
+                                "Weiss": {
+                                    "Rating": "B-",
+                                    "TechnologyAdoptionRating": "B",
+                                    "MarketPerformanceRating": "D"
+                                }
+                            },
+                            "NetHashesPerSecond": 0,
+                            "BlockNumber": 22159231,
+                            "BlockTime": 12,
+                            "BlockReward": 2.044338104121828,
+                            "AssetLaunchDate": "2015-07-30",
+                            "MaxSupply": -1,
+                            "Type": 1,
+                            "DocumentType": "Webpagecoinp"
+                        },
+                        "RAW": {
+                            "EUR": {
+                                "TYPE": "5",
+                                "MARKET": "CCCAGG",
+                                "FROMSYMBOL": "ETH",
+                                "TOSYMBOL": "EUR",
+                                "FLAGS": "1",
+                                "LASTMARKET": "CCCAGG",
+                                "MEDIAN": 1694.30728395784,
+                                "TOPTIERVOLUME24HOUR": 32144.59582677,
+                                "TOPTIERVOLUME24HOURTO": 54310623.3676413,
+                                "LASTTRADEID": "59746632",
+                                "PRICE": 1694.30728395784,
+                                "LASTUPDATE": 1743333005,
+                                "LASTVOLUME": 0.02364152,
+                                "LASTVOLUMETO": 40.0577186576,
+                                "VOLUMEHOUR": 189.86211777,
+                                "VOLUMEHOURTO": 321361.318930532,
+                                "OPENHOUR": 1691.65330453031,
+                                "HIGHHOUR": 1694.30728395784,
+                                "LOWHOUR": 1691.31509799771,
+                                "VOLUMEDAY": 8920.19732111,
+                                "VOLUMEDAYTO": 15139252.2655218,
+                                "OPENDAY": 1689.18241841159,
+                                "HIGHDAY": 1708.18109673839,
+                                "LOWDAY": 1675.66776980908,
+                                "VOLUME24HOUR": 32144.59582677,
+                                "VOLUME24HOURTO": 54310623.3676413,
+                                "OPEN24HOUR": 1702.85262563368,
+                                "HIGH24HOUR": 1720.84963524357,
+                                "LOW24HOUR": 1661.59308200996,
+                                "CHANGE24HOUR": -8.545341675840064,
+                                "CHANGEPCT24HOUR": -0.5018250873389645,
+                                "CHANGEDAY": 5.124865546249794,
+                                "CHANGEPCTDAY": 0.3033932564292803,
+                                "CHANGEHOUR": 2.6539794275299755,
+                                "CHANGEPCTHOUR": 0.15688672261760261,
+                                "CONVERSIONTYPE": "direct",
+                                "CONVERSIONSYMBOL": "",
+                                "CONVERSIONLASTUPDATE": 1743333005,
+                                "SUPPLY": 120654458.547835,
+                                "MKTCAP": 204425727959.58612,
+                                "MKTCAPPENALTY": 0,
+                                "CIRCULATINGSUPPLY": 120654458.547835,
+                                "CIRCULATINGSUPPLYMKTCAP": 204425727959.58612,
+                                "TOTALVOLUME24H": 3180855.98895283,
+                                "TOTALVOLUME24HTO": 5389195271.822162,
+                                "TOTALTOPTIERVOLUME24H": 2162261.5823681,
+                                "TOTALTOPTIERVOLUME24HTO": 3663383349.3469405,
+                                "IMAGEURL": "/media/37746238/eth.png"
+                            }
+                        },
+                        "DISPLAY": {
+                            "EUR": {
+                                "FROMSYMBOL": "Ξ",
+                                "TOSYMBOL": "€",
+                                "MARKET": "CryptoCompare Index",
+                                "LASTMARKET": "CCCAGG",
+                                "TOPTIERVOLUME24HOUR": "Ξ 32,144.6",
+                                "TOPTIERVOLUME24HOURTO": "€ 54,310,623.4",
+                                "LASTTRADEID": "59746632",
+                                "PRICE": "€ 1,694.31",
+                                "LASTUPDATE": "Just now",
+                                "LASTVOLUME": "Ξ 0.02364",
+                                "LASTVOLUMETO": "€ 40.06",
+                                "VOLUMEHOUR": "Ξ 189.86",
+                                "VOLUMEHOURTO": "€ 321,361.3",
+                                "OPENHOUR": "€ 1,691.65",
+                                "HIGHHOUR": "€ 1,694.31",
+                                "LOWHOUR": "€ 1,691.32",
+                                "VOLUMEDAY": "Ξ 8,920.20",
+                                "VOLUMEDAYTO": "€ 15,139,252.3",
+                                "OPENDAY": "€ 1,689.18",
+                                "HIGHDAY": "€ 1,708.18",
+                                "LOWDAY": "€ 1,675.67",
+                                "VOLUME24HOUR": "Ξ 32,144.6",
+                                "VOLUME24HOURTO": "€ 54,310,623.4",
+                                "OPEN24HOUR": "€ 1,702.85",
+                                "HIGH24HOUR": "€ 1,720.85",
+                                "LOW24HOUR": "€ 1,661.59",
+                                "CHANGE24HOUR": "€ -8.55",
+                                "CHANGEPCT24HOUR": "-0.50",
+                                "CHANGEDAY": "€ 5.12",
+                                "CHANGEPCTDAY": "0.30",
+                                "CHANGEHOUR": "€ 2.65",
+                                "CHANGEPCTHOUR": "0.16",
+                                "CONVERSIONTYPE": "direct",
+                                "CONVERSIONSYMBOL": "",
+                                "CONVERSIONLASTUPDATE": "Just now",
+                                "SUPPLY": "Ξ 120,654,458.5",
+                                "MKTCAP": "€ 204.43 B",
+                                "MKTCAPPENALTY": "0 %",
+                                "CIRCULATINGSUPPLY": "Ξ 120,654,458.5",
+                                "CIRCULATINGSUPPLYMKTCAP": "€ 204.43 B",
+                                "TOTALVOLUME24H": "Ξ 3.18 M",
+                                "TOTALVOLUME24HTO": "€ 5.39 B",
+                                "TOTALTOPTIERVOLUME24H": "Ξ 2.16 M",
+                                "TOTALTOPTIERVOLUME24HTO": "€ 3.66 B",
+                                "IMAGEURL": "/media/37746238/eth.png"
+                            }
+                        }
+                    },
+                    {
+                        "CoinInfo": {
+                            "Id": "5031",
+                            "Name": "XRP",
+                            "FullName": "XRP",
+                            "Internal": "XRP",
+                            "ImageUrl": "/media/38553096/xrp.png",
+                            "Url": "/coins/xrp/overview",
+                            "Algorithm": "N/A",
+                            "ProofType": "XRP LCP",
+                            "Rating": {
+                                "Weiss": {
+                                    "Rating": "B-",
+                                    "TechnologyAdoptionRating": "B-",
+                                    "MarketPerformanceRating": "C-"
+                                }
+                            },
+                            "NetHashesPerSecond": 0,
+                            "BlockNumber": 95118393,
+                            "BlockTime": 0,
+                            "BlockReward": 0,
+                            "AssetLaunchDate": "2012-09-26",
+                            "MaxSupply": 100000000000,
+                            "Type": 1,
+                            "DocumentType": "Webpagecoinp"
+                        },
+                        "RAW": {
+                            "EUR": {
+                                "TYPE": "5",
+                                "MARKET": "CCCAGG",
+                                "FROMSYMBOL": "XRP",
+                                "TOSYMBOL": "EUR",
+                                "FLAGS": "1",
+                                "LASTMARKET": "CCCAGG",
+                                "MEDIAN": 2.00425078237658,
+                                "TOPTIERVOLUME24HOUR": 19160311.9832586,
+                                "TOPTIERVOLUME24HOURTO": 37869967.303051,
+                                "LASTTRADEID": "28899165",
+                                "PRICE": 2.00425078237658,
+                                "LASTUPDATE": 1743333006,
+                                "LASTVOLUME": 2,
+                                "LASTVOLUMETO": 4.006,
+                                "VOLUMEHOUR": 270968.16377469,
+                                "VOLUMEHOURTO": 541922.827578376,
+                                "OPENHOUR": 1.99634549302565,
+                                "HIGHHOUR": 2.00427837942756,
+                                "LOWHOUR": 1.9963062750624,
+                                "VOLUMEDAY": 7890265.18086796,
+                                "VOLUMEDAYTO": 15866682.7787643,
+                                "OPENDAY": 1.97251979979156,
+                                "HIGHDAY": 2.04540101896933,
+                                "LOWDAY": 1.9562820397931,
+                                "VOLUME24HOUR": 19160311.9832586,
+                                "VOLUME24HOURTO": 37869967.303051,
+                                "OPEN24HOUR": 1.92351599431083,
+                                "HIGH24HOUR": 2.04540101896933,
+                                "LOW24HOUR": 1.91466895244715,
+                                "CHANGE24HOUR": 0.08073478806574985,
+                                "CHANGEPCT24HOUR": 4.197250675561762,
+                                "CHANGEDAY": 0.03173098258501983,
+                                "CHANGEPCTDAY": 1.6086521711149822,
+                                "CHANGEHOUR": 0.007905289350929934,
+                                "CHANGEPCTHOUR": 0.39598803806993965,
+                                "CONVERSIONTYPE": "direct",
+                                "CONVERSIONSYMBOL": "",
+                                "CONVERSIONLASTUPDATE": 1743333006,
+                                "SUPPLY": 99986282177.8299,
+                                "MKTCAP": 200397584281.841,
+                                "MKTCAPPENALTY": 0,
+                                "CIRCULATINGSUPPLY": 58205697378,
+                                "CIRCULATINGSUPPLYMKTCAP": 116658814508.63094,
+                                "TOTALVOLUME24H": 1176135376.53573,
+                                "TOTALVOLUME24HTO": 2356738145.6225357,
+                                "TOTALTOPTIERVOLUME24H": 716643541.9900404,
+                                "TOTALTOPTIERVOLUME24HTO": 1435801276.7386875,
+                                "IMAGEURL": "/media/38553096/xrp.png"
+                            }
+                        },
+                        "DISPLAY": {
+                            "EUR": {
+                                "FROMSYMBOL": "XRP",
+                                "TOSYMBOL": "€",
+                                "MARKET": "CryptoCompare Index",
+                                "LASTMARKET": "CCCAGG",
+                                "TOPTIERVOLUME24HOUR": "XRP 19,160,312.0",
+                                "TOPTIERVOLUME24HOURTO": "€ 37,869,967.3",
+                                "LASTTRADEID": "28899165",
+                                "PRICE": "€ 2.00",
+                                "LASTUPDATE": "Just now",
+                                "LASTVOLUME": "XRP 2.00",
+                                "LASTVOLUMETO": "€ 4.01",
+                                "VOLUMEHOUR": "XRP 270,968.2",
+                                "VOLUMEHOURTO": "€ 541,922.8",
+                                "OPENHOUR": "€ 2.00",
+                                "HIGHHOUR": "€ 2.00",
+                                "LOWHOUR": "€ 2.00",
+                                "VOLUMEDAY": "XRP 7,890,265.2",
+                                "VOLUMEDAYTO": "€ 15,866,682.8",
+                                "OPENDAY": "€ 1.97",
+                                "HIGHDAY": "€ 2.05",
+                                "LOWDAY": "€ 1.96",
+                                "VOLUME24HOUR": "XRP 19,160,312.0",
+                                "VOLUME24HOURTO": "€ 37,869,967.3",
+                                "OPEN24HOUR": "€ 1.92",
+                                "HIGH24HOUR": "€ 2.05",
+                                "LOW24HOUR": "€ 1.91",
+                                "CHANGE24HOUR": "€ 0.081",
+                                "CHANGEPCT24HOUR": "4.20",
+                                "CHANGEDAY": "€ 0.032",
+                                "CHANGEPCTDAY": "1.61",
+                                "CHANGEHOUR": "€ 0.0079",
+                                "CHANGEPCTHOUR": "0.40",
+                                "CONVERSIONTYPE": "direct",
+                                "CONVERSIONSYMBOL": "",
+                                "CONVERSIONLASTUPDATE": "Just now",
+                                "SUPPLY": "XRP 99,986,282,177.8",
+                                "MKTCAP": "€ 200.40 B",
+                                "MKTCAPPENALTY": "0 %",
+                                "CIRCULATINGSUPPLY": "XRP 58,205,697,378.0",
+                                "CIRCULATINGSUPPLYMKTCAP": "€ 116.66 B",
+                                "TOTALVOLUME24H": "XRP 1.18 B",
+                                "TOTALVOLUME24HTO": "€ 2.36 B",
+                                "TOTALTOPTIERVOLUME24H": "XRP 716.64 M",
+                                "TOTALTOPTIERVOLUME24HTO": "€ 1.44 B",
+                                "IMAGEURL": "/media/38553096/xrp.png"
+                            }
+                        }
+                    },
+                    {
+                        "CoinInfo": {
+                            "Id": "171986",
+                            "Name": "USDT",
+                            "FullName": "Tether",
+                            "Internal": "USDT",
+                            "ImageUrl": "/media/37746338/usdt.png",
+                            "Url": "/coins/usdt/overview",
+                            "Algorithm": "N/A",
+                            "ProofType": "N/A",
+                            "Rating": {
+                                "Weiss": {
+                                    "Rating": "",
+                                    "TechnologyAdoptionRating": "",
+                                    "MarketPerformanceRating": ""
+                                }
+                            },
+                            "NetHashesPerSecond": 0,
+                            "BlockNumber": 0,
+                            "BlockTime": 0,
+                            "BlockReward": 0,
+                            "AssetLaunchDate": "2014-10-06",
+                            "MaxSupply": -1,
+                            "Type": 1,
+                            "DocumentType": "Webpagecoinp"
+                        },
+                        "RAW": {
+                            "EUR": {
+                                "TYPE": "5",
+                                "MARKET": "CCCAGG",
+                                "FROMSYMBOL": "USDT",
+                                "TOSYMBOL": "EUR",
+                                "FLAGS": "2",
+                                "LASTMARKET": "CCCAGG",
+                                "MEDIAN": 0.92433686882227,
+                                "TOPTIERVOLUME24HOUR": 26568479.9995615,
+                                "TOPTIERVOLUME24HOURTO": 24553388.6419313,
+                                "LASTTRADEID": "89196040",
+                                "PRICE": 0.92433686882227,
+                                "LASTUPDATE": 1743333005,
+                                "LASTVOLUME": 1000,
+                                "LASTVOLUMETO": 924.04,
+                                "VOLUMEHOUR": 363921.271945405,
+                                "VOLUMEHOURTO": 336434.271063821,
+                                "OPENHOUR": 0.924621906706507,
+                                "HIGHHOUR": 0.924756073234941,
+                                "LOWHOUR": 0.924302782613197,
+                                "VOLUMEDAY": 9160673.29408372,
+                                "VOLUMEDAYTO": 8468202.48706929,
+                                "OPENDAY": 0.924309699396123,
+                                "HIGHDAY": 0.924756073234941,
+                                "LOWDAY": 0.923989302606001,
+                                "VOLUME24HOUR": 26568479.9995615,
+                                "VOLUME24HOURTO": 24553388.6419313,
+                                "OPEN24HOUR": 0.923448926791114,
+                                "HIGH24HOUR": 0.924756073234941,
+                                "LOW24HOUR": 0.923335377852067,
+                                "CHANGE24HOUR": 0.0008879420311559416,
+                                "CHANGEPCT24HOUR": 0.0961549692024057,
+                                "CHANGEDAY": 0.00002716942614700013,
+                                "CHANGEPCTDAY": 0.002939428869430957,
+                                "CHANGEHOUR": -0.00028503788423706045,
+                                "CHANGEPCTHOUR": -0.030827507132332847,
+                                "CONVERSIONTYPE": "direct",
+                                "CONVERSIONSYMBOL": "",
+                                "CONVERSIONLASTUPDATE": 1743333005,
+                                "SUPPLY": 151269622595.6422,
+                                "MKTCAP": 139824089297.98242,
+                                "MKTCAPPENALTY": 0,
+                                "CIRCULATINGSUPPLY": 144182349120.78696,
+                                "CIRCULATINGSUPPLYMKTCAP": 133273061125.74759,
+                                "TOTALVOLUME24H": 131956030.004115,
+                                "TOTALVOLUME24HTO": 121966986.62599067,
+                                "TOTALTOPTIERVOLUME24H": 130083856.65124026,
+                                "TOTALTOPTIERVOLUME24HTO": 120236467.77110195,
+                                "IMAGEURL": "/media/37746338/usdt.png"
+                            }
+                        },
+                        "DISPLAY": {
+                            "EUR": {
+                                "FROMSYMBOL": "₮",
+                                "TOSYMBOL": "€",
+                                "MARKET": "CryptoCompare Index",
+                                "LASTMARKET": "CCCAGG",
+                                "TOPTIERVOLUME24HOUR": "₮ 26,568,480.0",
+                                "TOPTIERVOLUME24HOURTO": "€ 24,553,388.6",
+                                "LASTTRADEID": "89196040",
+                                "PRICE": "€ 0.9243",
+                                "LASTUPDATE": "Just now",
+                                "LASTVOLUME": "₮ 1,000.00",
+                                "LASTVOLUMETO": "€ 924.04",
+                                "VOLUMEHOUR": "₮ 363,921.3",
+                                "VOLUMEHOURTO": "€ 336,434.3",
+                                "OPENHOUR": "€ 0.9246",
+                                "HIGHHOUR": "€ 0.9248",
+                                "LOWHOUR": "€ 0.9243",
+                                "VOLUMEDAY": "₮ 9,160,673.3",
+                                "VOLUMEDAYTO": "€ 8,468,202.5",
+                                "OPENDAY": "€ 0.9243",
+                                "HIGHDAY": "€ 0.9248",
+                                "LOWDAY": "€ 0.9240",
+                                "VOLUME24HOUR": "₮ 26,568,480.0",
+                                "VOLUME24HOURTO": "€ 24,553,388.6",
+                                "OPEN24HOUR": "€ 0.9234",
+                                "HIGH24HOUR": "€ 0.9248",
+                                "LOW24HOUR": "€ 0.9233",
+                                "CHANGE24HOUR": "€ 0.00089",
+                                "CHANGEPCT24HOUR": "0.10",
+                                "CHANGEDAY": "€ 0.000027",
+                                "CHANGEPCTDAY": "0.00",
+                                "CHANGEHOUR": "€ -0.00029",
+                                "CHANGEPCTHOUR": "-0.03",
+                                "CONVERSIONTYPE": "direct",
+                                "CONVERSIONSYMBOL": "",
+                                "CONVERSIONLASTUPDATE": "Just now",
+                                "SUPPLY": "₮ 151,269,622,595.6",
+                                "MKTCAP": "€ 139.82 B",
+                                "MKTCAPPENALTY": "0 %",
+                                "CIRCULATINGSUPPLY": "₮ 144,182,349,120.8",
+                                "CIRCULATINGSUPPLYMKTCAP": "€ 133.27 B",
+                                "TOTALVOLUME24H": "₮ 131.96 M",
+                                "TOTALVOLUME24HTO": "€ 121.97 M",
+                                "TOTALTOPTIERVOLUME24H": "₮ 130.08 M",
+                                "TOTALTOPTIERVOLUME24HTO": "€ 120.24 M",
+                                "IMAGEURL": "/media/37746338/usdt.png"
+                            }
+                        }
+                    },
+                    {
+                        "CoinInfo": {
+                            "Id": "204788",
+                            "Name": "BNB",
+                            "FullName": "Binance Coin",
+                            "Internal": "BNB",
+                            "ImageUrl": "/media/40485170/bnb.png",
+                            "Url": "/coins/bnb/overview",
+                            "Algorithm": "BEP-2",
+                            "ProofType": "PoSA",
+                            "Rating": {
+                                "Weiss": {
+                                    "Rating": "C",
+                                    "TechnologyAdoptionRating": "C",
+                                    "MarketPerformanceRating": "C-"
+                                }
+                            },
+                            "NetHashesPerSecond": 0,
+                            "BlockNumber": 47916670,
+                            "BlockTime": 3,
+                            "BlockReward": 0,
+                            "AssetLaunchDate": "2019-04-18",
+                            "MaxSupply": 100000000,
+                            "Type": 1,
+                            "DocumentType": "Webpagecoinp"
+                        },
+                        "RAW": {
+                            "EUR": {
+                                "TYPE": "5",
+                                "MARKET": "CCCAGG",
+                                "FROMSYMBOL": "BNB",
+                                "TOSYMBOL": "EUR",
+                                "FLAGS": "1",
+                                "LASTMARKET": "CCCAGG",
+                                "MEDIAN": 560.04,
+                                "TOPTIERVOLUME24HOUR": 1097.231,
+                                "TOPTIERVOLUME24HOURTO": 614225.11425,
+                                "LASTTRADEID": "6826318",
+                                "PRICE": 560.04,
+                                "LASTUPDATE": 1743332978,
+                                "LASTVOLUME": 0.313,
+                                "LASTVOLUMETO": 175.29252,
+                                "VOLUMEHOUR": 5.092,
+                                "VOLUMEHOURTO": 2853.01372,
+                                "OPENHOUR": 561,
+                                "HIGHHOUR": 561,
+                                "LOWHOUR": 559.66,
+                                "VOLUMEDAY": 453.128,
+                                "VOLUMEDAYTO": 254981.25505,
+                                "OPENDAY": 557.52,
+                                "HIGHDAY": 566.9,
+                                "LOWDAY": 555.31,
+                                "VOLUME24HOUR": 1097.231,
+                                "VOLUME24HOURTO": 614225.11425,
+                                "OPEN24HOUR": 555.33,
+                                "HIGH24HOUR": 566.9,
+                                "LOW24HOUR": 551.96,
+                                "CHANGE24HOUR": 4.709999999999923,
+                                "CHANGEPCT24HOUR": 0.8481443466047076,
+                                "CHANGEDAY": 2.519999999999982,
+                                "CHANGEPCTDAY": 0.45200172191131827,
+                                "CHANGEHOUR": -0.9600000000000364,
+                                "CHANGEPCTHOUR": -0.1711229946524129,
+                                "CONVERSIONTYPE": "direct",
+                                "CONVERSIONSYMBOL": "",
+                                "CONVERSIONLASTUPDATE": 1743332978,
+                                "SUPPLY": 142471988.79,
+                                "MKTCAP": 79790012601.95158,
+                                "MKTCAPPENALTY": 0,
+                                "CIRCULATINGSUPPLY": 142471988.79,
+                                "CIRCULATINGSUPPLYMKTCAP": 79790012601.95158,
+                                "TOTALVOLUME24H": 703201.691740162,
+                                "TOTALVOLUME24HTO": 393820807.3071703,
+                                "TOTALTOPTIERVOLUME24H": 446459.60734,
+                                "TOTALTOPTIERVOLUME24HTO": 250034970.35970357,
+                                "IMAGEURL": "/media/40485170/bnb.png"
+                            }
+                        },
+                        "DISPLAY": {
+                            "EUR": {
+                                "FROMSYMBOL": "BNB",
+                                "TOSYMBOL": "€",
+                                "MARKET": "CryptoCompare Index",
+                                "LASTMARKET": "CCCAGG",
+                                "TOPTIERVOLUME24HOUR": "BNB 1,097.23",
+                                "TOPTIERVOLUME24HOURTO": "€ 614,225.1",
+                                "LASTTRADEID": "6826318",
+                                "PRICE": "€ 560.04",
+                                "LASTUPDATE": "Just now",
+                                "LASTVOLUME": "BNB 0.3130",
+                                "LASTVOLUMETO": "€ 175.29",
+                                "VOLUMEHOUR": "BNB 5.09",
+                                "VOLUMEHOURTO": "€ 2,853.01",
+                                "OPENHOUR": "€ 561.00",
+                                "HIGHHOUR": "€ 561.00",
+                                "LOWHOUR": "€ 559.66",
+                                "VOLUMEDAY": "BNB 453.13",
+                                "VOLUMEDAYTO": "€ 254,981.3",
+                                "OPENDAY": "€ 557.52",
+                                "HIGHDAY": "€ 566.90",
+                                "LOWDAY": "€ 555.31",
+                                "VOLUME24HOUR": "BNB 1,097.23",
+                                "VOLUME24HOURTO": "€ 614,225.1",
+                                "OPEN24HOUR": "€ 555.33",
+                                "HIGH24HOUR": "€ 566.90",
+                                "LOW24HOUR": "€ 551.96",
+                                "CHANGE24HOUR": "€ 4.71",
+                                "CHANGEPCT24HOUR": "0.85",
+                                "CHANGEDAY": "€ 2.52",
+                                "CHANGEPCTDAY": "0.45",
+                                "CHANGEHOUR": "€ -0.96",
+                                "CHANGEPCTHOUR": "-0.17",
+                                "CONVERSIONTYPE": "direct",
+                                "CONVERSIONSYMBOL": "",
+                                "CONVERSIONLASTUPDATE": "Just now",
+                                "SUPPLY": "BNB 142,471,988.8",
+                                "MKTCAP": "€ 79.79 B",
+                                "MKTCAPPENALTY": "0 %",
+                                "CIRCULATINGSUPPLY": "BNB 142,471,988.8",
+                                "CIRCULATINGSUPPLYMKTCAP": "€ 79.79 B",
+                                "TOTALVOLUME24H": "BNB 703.20 K",
+                                "TOTALVOLUME24HTO": "€ 393.82 M",
+                                "TOTALTOPTIERVOLUME24H": "BNB 446.46 K",
+                                "TOTALTOPTIERVOLUME24HTO": "€ 250.03 M",
+                                "IMAGEURL": "/media/40485170/bnb.png"
+                            }
+                        }
+                    },
+                    {
+                        "CoinInfo": {
+                            "Id": "934443",
+                            "Name": "SOL",
+                            "FullName": "Solana",
+                            "Internal": "SOL",
+                            "ImageUrl": "/media/37747734/sol.png",
+                            "Url": "/coins/sol/overview",
+                            "Algorithm": "N/A",
+                            "ProofType": "PoH",
+                            "Rating": {
+                                "Weiss": {
+                                    "Rating": "D+",
+                                    "TechnologyAdoptionRating": "D",
+                                    "MarketPerformanceRating": "C"
+                                }
+                            },
+                            "NetHashesPerSecond": 0,
+                            "BlockNumber": 308395818,
+                            "BlockTime": 0.637,
+                            "BlockReward": 0,
+                            "AssetLaunchDate": "2020-03-31",
+                            "MaxSupply": -1,
+                            "Type": 1,
+                            "DocumentType": "Webpagecoinp"
+                        },
+                        "RAW": {
+                            "EUR": {
+                                "TYPE": "5",
+                                "MARKET": "CCCAGG",
+                                "FROMSYMBOL": "SOL",
+                                "TOSYMBOL": "EUR",
+                                "FLAGS": "1",
+                                "LASTMARKET": "CCCAGG",
+                                "MEDIAN": 115.904743593744,
+                                "TOPTIERVOLUME24HOUR": 117683.50831998,
+                                "TOPTIERVOLUME24HOURTO": 13613828.9879079,
+                                "LASTTRADEID": "29905763",
+                                "PRICE": 115.904743593744,
+                                "LASTUPDATE": 1743332997,
+                                "LASTVOLUME": 0.331,
+                                "LASTVOLUMETO": 38.38276,
+                                "VOLUMEHOUR": 1124.36441412,
+                                "VOLUMEHOURTO": 129957.409647387,
+                                "OPENHOUR": 115.523800330296,
+                                "HIGHHOUR": 115.904743593744,
+                                "LOWHOUR": 115.491963073318,
+                                "VOLUMEDAY": 44418.99532305,
+                                "VOLUMEDAYTO": 5155337.57941949,
+                                "OPENDAY": 115.0972657772,
+                                "HIGHDAY": 116.970429996381,
+                                "LOWDAY": 114.170070471079,
+                                "VOLUME24HOUR": 117683.50831998,
+                                "VOLUME24HOURTO": 13613828.9879079,
+                                "OPEN24HOUR": 115.658017320706,
+                                "HIGH24HOUR": 117.109649843048,
+                                "LOW24HOUR": 113.469374784205,
+                                "CHANGE24HOUR": 0.2467262730380071,
+                                "CHANGEPCT24HOUR": 0.213323969019687,
+                                "CHANGEDAY": 0.807477816544008,
+                                "CHANGEPCTDAY": 0.7015612500361967,
+                                "CHANGEHOUR": 0.3809432634480032,
+                                "CHANGEPCTHOUR": 0.32975305725646326,
+                                "CONVERSIONTYPE": "direct",
+                                "CONVERSIONSYMBOL": "",
+                                "CONVERSIONLASTUPDATE": 1743332997,
+                                "SUPPLY": 597387834.4574867,
+                                "MKTCAP": 69240083778.81699,
+                                "MKTCAPPENALTY": 0,
+                                "CIRCULATINGSUPPLY": 512294057.1058842,
+                                "CIRCULATINGSUPPLYMKTCAP": 59377311333.45635,
+                                "TOTALVOLUME24H": 11222545.1014315,
+                                "TOTALVOLUME24HTO": 1300719964.5815141,
+                                "TOTALTOPTIERVOLUME24H": 7825406.070246365,
+                                "TOTALTOPTIERVOLUME24HTO": 906975436.2197012,
+                                "IMAGEURL": "/media/37747734/sol.png"
+                            }
+                        },
+                        "DISPLAY": {
+                            "EUR": {
+                                "FROMSYMBOL": "SOL",
+                                "TOSYMBOL": "€",
+                                "MARKET": "CryptoCompare Index",
+                                "LASTMARKET": "CCCAGG",
+                                "TOPTIERVOLUME24HOUR": "SOL 117,683.5",
+                                "TOPTIERVOLUME24HOURTO": "€ 13,613,829.0",
+                                "LASTTRADEID": "29905763",
+                                "PRICE": "€ 115.90",
+                                "LASTUPDATE": "Just now",
+                                "LASTVOLUME": "SOL 0.3310",
+                                "LASTVOLUMETO": "€ 38.38",
+                                "VOLUMEHOUR": "SOL 1,124.36",
+                                "VOLUMEHOURTO": "€ 129,957.4",
+                                "OPENHOUR": "€ 115.52",
+                                "HIGHHOUR": "€ 115.90",
+                                "LOWHOUR": "€ 115.49",
+                                "VOLUMEDAY": "SOL 44,419.0",
+                                "VOLUMEDAYTO": "€ 5,155,337.6",
+                                "OPENDAY": "€ 115.10",
+                                "HIGHDAY": "€ 116.97",
+                                "LOWDAY": "€ 114.17",
+                                "VOLUME24HOUR": "SOL 117,683.5",
+                                "VOLUME24HOURTO": "€ 13,613,829.0",
+                                "OPEN24HOUR": "€ 115.66",
+                                "HIGH24HOUR": "€ 117.11",
+                                "LOW24HOUR": "€ 113.47",
+                                "CHANGE24HOUR": "€ 0.25",
+                                "CHANGEPCT24HOUR": "0.21",
+                                "CHANGEDAY": "€ 0.81",
+                                "CHANGEPCTDAY": "0.70",
+                                "CHANGEHOUR": "€ 0.38",
+                                "CHANGEPCTHOUR": "0.33",
+                                "CONVERSIONTYPE": "direct",
+                                "CONVERSIONSYMBOL": "",
+                                "CONVERSIONLASTUPDATE": "Just now",
+                                "SUPPLY": "SOL 597,387,834.5",
+                                "MKTCAP": "€ 69.24 B",
+                                "MKTCAPPENALTY": "0 %",
+                                "CIRCULATINGSUPPLY": "SOL 512,294,057.1",
+                                "CIRCULATINGSUPPLYMKTCAP": "€ 59.38 B",
+                                "TOTALVOLUME24H": "SOL 11.22 M",
+                                "TOTALVOLUME24HTO": "€ 1.30 B",
+                                "TOTALTOPTIERVOLUME24H": "SOL 7.83 M",
+                                "TOTALTOPTIERVOLUME24HTO": "€ 906.98 M",
+                                "IMAGEURL": "/media/37747734/sol.png"
+                            }
+                        }
+                    },
+                    {
+                        "CoinInfo": {
+                            "Id": "925809",
+                            "Name": "USDC",
+                            "FullName": "USD Coin",
+                            "Internal": "USDC",
+                            "ImageUrl": "/media/34835941/usdc.png",
+                            "Url": "/coins/usdc/overview",
+                            "Algorithm": "N/A",
+                            "ProofType": "N/A",
+                            "Rating": {
+                                "Weiss": {
+                                    "Rating": "",
+                                    "TechnologyAdoptionRating": "",
+                                    "MarketPerformanceRating": ""
+                                }
+                            },
+                            "NetHashesPerSecond": 0,
+                            "BlockNumber": 0,
+                            "BlockTime": 0,
+                            "BlockReward": 0,
+                            "AssetLaunchDate": "2018-09-10",
+                            "MaxSupply": -1,
+                            "Type": 1,
+                            "DocumentType": "Webpagecoinp"
+                        },
+                        "RAW": {
+                            "EUR": {
+                                "TYPE": "5",
+                                "MARKET": "CCCAGG",
+                                "FROMSYMBOL": "USDC",
+                                "TOSYMBOL": "EUR",
+                                "FLAGS": "1",
+                                "LASTMARKET": "CCCAGG",
+                                "MEDIAN": 0.924278742978527,
+                                "TOPTIERVOLUME24HOUR": 28538892.7345341,
+                                "TOPTIERVOLUME24HOURTO": 26378072.7415648,
+                                "LASTTRADEID": "24534261",
+                                "PRICE": 0.924278742978527,
+                                "LASTUPDATE": 1743333013,
+                                "LASTVOLUME": 110.2824,
+                                "LASTVOLUMETO": 102,
+                                "VOLUMEHOUR": 402351.86647941,
+                                "VOLUMEHOURTO": 372003.49991748,
+                                "OPENHOUR": 0.924782085203237,
+                                "HIGHHOUR": 0.924827761581407,
+                                "LOWHOUR": 0.924242006237299,
+                                "VOLUMEDAY": 9764571.13502301,
+                                "VOLUMEDAYTO": 9027154.95300744,
+                                "OPENDAY": 0.924369930885074,
+                                "HIGHDAY": 0.924831801348185,
+                                "LOWDAY": 0.924121172728835,
+                                "VOLUME24HOUR": 28538892.7345341,
+                                "VOLUME24HOURTO": 26378072.7415648,
+                                "OPEN24HOUR": 0.923727467277785,
+                                "HIGH24HOUR": 0.924831801348185,
+                                "LOW24HOUR": 0.923690960331079,
+                                "CHANGE24HOUR": 0.0005512757007419822,
+                                "CHANGEPCT24HOUR": 0.059679474766143506,
+                                "CHANGEDAY": -0.00009118790654705222,
+                                "CHANGEPCTDAY": -0.009864871573628623,
+                                "CHANGEHOUR": -0.0005033422247100461,
+                                "CHANGEPCTHOUR": -0.054428198033207774,
+                                "CONVERSIONTYPE": "direct",
+                                "CONVERSIONSYMBOL": "",
+                                "CONVERSIONLASTUPDATE": 1743333013,
+                                "SUPPLY": 60242801966.24085,
+                                "MKTCAP": 55681141274.86143,
+                                "MKTCAPPENALTY": 0,
+                                "CIRCULATINGSUPPLY": 60242801966.24085,
+                                "CIRCULATINGSUPPLYMKTCAP": 55681141274.86143,
+                                "TOTALVOLUME24H": 903576941.904435,
+                                "TOTALVOLUME24HTO": 835157140.8867033,
+                                "TOTALTOPTIERVOLUME24H": 588355568.2527996,
+                                "TOTALTOPTIERVOLUME24HTO": 543804725.8880051,
+                                "IMAGEURL": "/media/34835941/usdc.png"
+                            }
+                        },
+                        "DISPLAY": {
+                            "EUR": {
+                                "FROMSYMBOL": "USDC",
+                                "TOSYMBOL": "€",
+                                "MARKET": "CryptoCompare Index",
+                                "LASTMARKET": "CCCAGG",
+                                "TOPTIERVOLUME24HOUR": "USDC 28,538,892.7",
+                                "TOPTIERVOLUME24HOURTO": "€ 26,378,072.7",
+                                "LASTTRADEID": "24534261",
+                                "PRICE": "€ 0.9243",
+                                "LASTUPDATE": "Just now",
+                                "LASTVOLUME": "USDC 110.28",
+                                "LASTVOLUMETO": "€ 102.00",
+                                "VOLUMEHOUR": "USDC 402,351.9",
+                                "VOLUMEHOURTO": "€ 372,003.5",
+                                "OPENHOUR": "€ 0.9248",
+                                "HIGHHOUR": "€ 0.9248",
+                                "LOWHOUR": "€ 0.9242",
+                                "VOLUMEDAY": "USDC 9,764,571.1",
+                                "VOLUMEDAYTO": "€ 9,027,155.0",
+                                "OPENDAY": "€ 0.9244",
+                                "HIGHDAY": "€ 0.9248",
+                                "LOWDAY": "€ 0.9241",
+                                "VOLUME24HOUR": "USDC 28,538,892.7",
+                                "VOLUME24HOURTO": "€ 26,378,072.7",
+                                "OPEN24HOUR": "€ 0.9237",
+                                "HIGH24HOUR": "€ 0.9248",
+                                "LOW24HOUR": "€ 0.9237",
+                                "CHANGE24HOUR": "€ 0.00055",
+                                "CHANGEPCT24HOUR": "0.06",
+                                "CHANGEDAY": "€ -0.000091",
+                                "CHANGEPCTDAY": "-0.01",
+                                "CHANGEHOUR": "€ -0.00050",
+                                "CHANGEPCTHOUR": "-0.05",
+                                "CONVERSIONTYPE": "direct",
+                                "CONVERSIONSYMBOL": "",
+                                "CONVERSIONLASTUPDATE": "Just now",
+                                "SUPPLY": "USDC 60,242,801,966.2",
+                                "MKTCAP": "€ 55.68 B",
+                                "MKTCAPPENALTY": "0 %",
+                                "CIRCULATINGSUPPLY": "USDC 60,242,801,966.2",
+                                "CIRCULATINGSUPPLYMKTCAP": "€ 55.68 B",
+                                "TOTALVOLUME24H": "USDC 903.58 M",
+                                "TOTALVOLUME24HTO": "€ 835.16 M",
+                                "TOTALTOPTIERVOLUME24H": "USDC 588.36 M",
+                                "TOTALTOPTIERVOLUME24HTO": "€ 543.80 M",
+                                "IMAGEURL": "/media/34835941/usdc.png"
+                            }
+                        }
+                    },
+                    {
+                        "CoinInfo": {
+                            "Id": "321992",
+                            "Name": "ADA",
+                            "FullName": "Cardano",
+                            "Internal": "ADA",
+                            "ImageUrl": "/media/37746235/ada.png",
+                            "Url": "/coins/ada/overview",
+                            "Algorithm": "Ouroboros",
+                            "ProofType": "PoS",
+                            "Rating": {
+                                "Weiss": {
+                                    "Rating": "B-",
+                                    "TechnologyAdoptionRating": "B",
+                                    "MarketPerformanceRating": "D-"
+                                }
+                            },
+                            "NetHashesPerSecond": 0,
+                            "BlockNumber": 11670382,
+                            "BlockTime": 0,
+                            "BlockReward": 0,
+                            "AssetLaunchDate": "2017-09-23",
+                            "MaxSupply": 45000000000,
+                            "Type": 1,
+                            "DocumentType": "Webpagecoinp"
+                        },
+                        "RAW": {
+                            "EUR": {
+                                "TYPE": "5",
+                                "MARKET": "CCCAGG",
+                                "FROMSYMBOL": "ADA",
+                                "TOSYMBOL": "EUR",
+                                "FLAGS": "1",
+                                "LASTMARKET": "CCCAGG",
+                                "MEDIAN": 0.626730418810958,
+                                "TOPTIERVOLUME24HOUR": 6462711.35198712,
+                                "TOPTIERVOLUME24HOURTO": 4036606.90503426,
+                                "LASTTRADEID": "13046300",
+                                "PRICE": 0.626730418810958,
+                                "LASTUPDATE": 1743333007,
+                                "LASTVOLUME": 328.49253621,
+                                "LASTVOLUMETO": 205.929999994832,
+                                "VOLUMEHOUR": 22035.78063112,
+                                "VOLUMEHOURTO": 13802.6903039372,
+                                "OPENHOUR": 0.625483272805506,
+                                "HIGHHOUR": 0.626730418810958,
+                                "LOWHOUR": 0.625443568013295,
+                                "VOLUMEDAY": 3322835.29045999,
+                                "VOLUMEDAYTO": 2093297.56868249,
+                                "OPENDAY": 0.622145085901783,
+                                "HIGHDAY": 0.63513846050651,
+                                "LOWDAY": 0.618125759461405,
+                                "VOLUME24HOUR": 6462711.35198712,
+                                "VOLUME24HOURTO": 4036606.90503426,
+                                "OPEN24HOUR": 0.615387393190984,
+                                "HIGH24HOUR": 0.63513846050651,
+                                "LOW24HOUR": 0.609260191822721,
+                                "CHANGE24HOUR": 0.011343025619974023,
+                                "CHANGEPCT24HOUR": 1.8432333430096353,
+                                "CHANGEDAY": 0.004585332909175066,
+                                "CHANGEPCTDAY": 0.7370198709403525,
+                                "CHANGEHOUR": 0.00124714600545206,
+                                "CHANGEPCTHOUR": 0.19938918587833446,
+                                "CONVERSIONTYPE": "direct",
+                                "CONVERSIONSYMBOL": "",
+                                "CONVERSIONLASTUPDATE": 1743333007,
+                                "SUPPLY": 45000000000,
+                                "MKTCAP": 28202868846.49311,
+                                "MKTCAPPENALTY": 0,
+                                "CIRCULATINGSUPPLY": 35980357573.5154,
+                                "CIRCULATINGSUPPLYMKTCAP": 22549984571.017334,
+                                "TOTALVOLUME24H": 497202339.606246,
+                                "TOTALVOLUME24HTO": 311598059.64795977,
+                                "TOTALTOPTIERVOLUME24H": 214698870.2710309,
+                                "TOTALTOPTIERVOLUME24HTO": 134544541.9959518,
+                                "IMAGEURL": "/media/37746235/ada.png"
+                            }
+                        },
+                        "DISPLAY": {
+                            "EUR": {
+                                "FROMSYMBOL": "ADA",
+                                "TOSYMBOL": "€",
+                                "MARKET": "CryptoCompare Index",
+                                "LASTMARKET": "CCCAGG",
+                                "TOPTIERVOLUME24HOUR": "ADA 6,462,711.4",
+                                "TOPTIERVOLUME24HOURTO": "€ 4,036,606.9",
+                                "LASTTRADEID": "13046300",
+                                "PRICE": "€ 0.6267",
+                                "LASTUPDATE": "Just now",
+                                "LASTVOLUME": "ADA 328.49",
+                                "LASTVOLUMETO": "€ 205.93",
+                                "VOLUMEHOUR": "ADA 22,035.8",
+                                "VOLUMEHOURTO": "€ 13,802.7",
+                                "OPENHOUR": "€ 0.6255",
+                                "HIGHHOUR": "€ 0.6267",
+                                "LOWHOUR": "€ 0.6254",
+                                "VOLUMEDAY": "ADA 3,322,835.3",
+                                "VOLUMEDAYTO": "€ 2,093,297.6",
+                                "OPENDAY": "€ 0.6221",
+                                "HIGHDAY": "€ 0.6351",
+                                "LOWDAY": "€ 0.6181",
+                                "VOLUME24HOUR": "ADA 6,462,711.4",
+                                "VOLUME24HOURTO": "€ 4,036,606.9",
+                                "OPEN24HOUR": "€ 0.6154",
+                                "HIGH24HOUR": "€ 0.6351",
+                                "LOW24HOUR": "€ 0.6093",
+                                "CHANGE24HOUR": "€ 0.011",
+                                "CHANGEPCT24HOUR": "1.84",
+                                "CHANGEDAY": "€ 0.0046",
+                                "CHANGEPCTDAY": "0.74",
+                                "CHANGEHOUR": "€ 0.0012",
+                                "CHANGEPCTHOUR": "0.20",
+                                "CONVERSIONTYPE": "direct",
+                                "CONVERSIONSYMBOL": "",
+                                "CONVERSIONLASTUPDATE": "Just now",
+                                "SUPPLY": "ADA 45,000,000,000.0",
+                                "MKTCAP": "€ 28.20 B",
+                                "MKTCAPPENALTY": "0 %",
+                                "CIRCULATINGSUPPLY": "ADA 35,980,357,573.5",
+                                "CIRCULATINGSUPPLYMKTCAP": "€ 22.55 B",
+                                "TOTALVOLUME24H": "ADA 497.20 M",
+                                "TOTALVOLUME24HTO": "€ 311.60 M",
+                                "TOTALTOPTIERVOLUME24H": "ADA 214.70 M",
+                                "TOTALTOPTIERVOLUME24HTO": "€ 134.54 M",
+                                "IMAGEURL": "/media/37746235/ada.png"
+                            }
+                        }
+                    },
+                    {
+                        "CoinInfo": {
+                            "Id": "4432",
+                            "Name": "DOGE",
+                            "FullName": "Dogecoin",
+                            "Internal": "DOGE",
+                            "ImageUrl": "/media/37746339/doge.png",
+                            "Url": "/coins/doge/overview",
+                            "Algorithm": "Scrypt",
+                            "ProofType": "PoW",
+                            "Rating": {
+                                "Weiss": {
+                                    "Rating": "C+",
+                                    "TechnologyAdoptionRating": "B-",
+                                    "MarketPerformanceRating": "E+"
+                                }
+                            },
+                            "NetHashesPerSecond": 3048145634055243,
+                            "BlockNumber": 5647009,
+                            "BlockTime": 62,
+                            "BlockReward": 10000,
+                            "AssetLaunchDate": "2013-12-08",
+                            "MaxSupply": -1,
+                            "Type": 1,
+                            "DocumentType": "Webpagecoinp"
+                        },
+                        "RAW": {
+                            "EUR": {
+                                "TYPE": "5",
+                                "MARKET": "CCCAGG",
+                                "FROMSYMBOL": "DOGE",
+                                "TOSYMBOL": "EUR",
+                                "FLAGS": "1",
+                                "LASTMARKET": "CCCAGG",
+                                "MEDIAN": 0.156731213462141,
+                                "TOPTIERVOLUME24HOUR": 18136253.067982,
+                                "TOPTIERVOLUME24HOURTO": 2844351.19318786,
+                                "LASTTRADEID": "15602390",
+                                "PRICE": 0.156731213462141,
+                                "LASTUPDATE": 1743332999,
+                                "LASTVOLUME": 510,
+                                "LASTVOLUMETO": 80.1159,
+                                "VOLUMEHOUR": 63891.38773175,
+                                "VOLUMEHOURTO": 10009.4786650162,
+                                "OPENHOUR": 0.156346316255652,
+                                "HIGHHOUR": 0.156731213462141,
+                                "LOWHOUR": 0.156346316255652,
+                                "VOLUMEDAY": 6821748.60989957,
+                                "VOLUMEDAYTO": 1076506.29062024,
+                                "OPENDAY": 0.156681470818761,
+                                "HIGHDAY": 0.159313486208965,
+                                "LOWDAY": 0.155295928471432,
+                                "VOLUME24HOUR": 18136253.067982,
+                                "VOLUME24HOURTO": 2844351.19318786,
+                                "OPEN24HOUR": 0.156812499467999,
+                                "HIGH24HOUR": 0.159490089932565,
+                                "LOW24HOUR": 0.153409407528318,
+                                "CHANGE24HOUR": -0.0000812860058579945,
+                                "CHANGEPCT24HOUR": -0.051836432767645976,
+                                "CHANGEDAY": 0.000049742643380007445,
+                                "CHANGEPCTDAY": 0.03174762345545411,
+                                "CHANGEHOUR": 0.00038489720648898773,
+                                "CHANGEPCTHOUR": 0.24618245936771374,
+                                "CONVERSIONTYPE": "direct",
+                                "CONVERSIONSYMBOL": "",
+                                "CONVERSIONLASTUPDATE": 1743332999,
+                                "SUPPLY": 148642586383.705,
+                                "MKTCAP": 23296932936.0692,
+                                "MKTCAPPENALTY": 0,
+                                "CIRCULATINGSUPPLY": 148642586383.705,
+                                "CIRCULATINGSUPPLYMKTCAP": 23296932936.0692,
+                                "TOTALVOLUME24H": 4520030313.52255,
+                                "TOTALVOLUME24HTO": 708431670.1662375,
+                                "TOTALTOPTIERVOLUME24H": 2765141168.6660843,
+                                "TOTALTOPTIERVOLUME24HTO": 433385765.0013446,
+                                "IMAGEURL": "/media/37746339/doge.png"
+                            }
+                        },
+                        "DISPLAY": {
+                            "EUR": {
+                                "FROMSYMBOL": "DOGE",
+                                "TOSYMBOL": "€",
+                                "MARKET": "CryptoCompare Index",
+                                "LASTMARKET": "CCCAGG",
+                                "TOPTIERVOLUME24HOUR": "DOGE 18,136,253.1",
+                                "TOPTIERVOLUME24HOURTO": "€ 2,844,351.2",
+                                "LASTTRADEID": "15602390",
+                                "PRICE": "€ 0.1567",
+                                "LASTUPDATE": "Just now",
+                                "LASTVOLUME": "DOGE 510.00",
+                                "LASTVOLUMETO": "€ 80.12",
+                                "VOLUMEHOUR": "DOGE 63,891.4",
+                                "VOLUMEHOURTO": "€ 10,009.5",
+                                "OPENHOUR": "€ 0.1563",
+                                "HIGHHOUR": "€ 0.1567",
+                                "LOWHOUR": "€ 0.1563",
+                                "VOLUMEDAY": "DOGE 6,821,748.6",
+                                "VOLUMEDAYTO": "€ 1,076,506.3",
+                                "OPENDAY": "€ 0.1567",
+                                "HIGHDAY": "€ 0.1593",
+                                "LOWDAY": "€ 0.1553",
+                                "VOLUME24HOUR": "DOGE 18,136,253.1",
+                                "VOLUME24HOURTO": "€ 2,844,351.2",
+                                "OPEN24HOUR": "€ 0.1568",
+                                "HIGH24HOUR": "€ 0.1595",
+                                "LOW24HOUR": "€ 0.1534",
+                                "CHANGE24HOUR": "€ -0.000081",
+                                "CHANGEPCT24HOUR": "-0.05",
+                                "CHANGEDAY": "€ 0.000050",
+                                "CHANGEPCTDAY": "0.03",
+                                "CHANGEHOUR": "€ 0.00038",
+                                "CHANGEPCTHOUR": "0.25",
+                                "CONVERSIONTYPE": "direct",
+                                "CONVERSIONSYMBOL": "",
+                                "CONVERSIONLASTUPDATE": "Just now",
+                                "SUPPLY": "DOGE 148,642,586,383.7",
+                                "MKTCAP": "€ 23.30 B",
+                                "MKTCAPPENALTY": "0 %",
+                                "CIRCULATINGSUPPLY": "DOGE 148,642,586,383.7",
+                                "CIRCULATINGSUPPLYMKTCAP": "€ 23.30 B",
+                                "TOTALVOLUME24H": "DOGE 4.52 B",
+                                "TOTALVOLUME24HTO": "€ 708.43 M",
+                                "TOTALTOPTIERVOLUME24H": "DOGE 2.77 B",
+                                "TOTALTOPTIERVOLUME24HTO": "€ 433.39 M",
+                                "IMAGEURL": "/media/37746339/doge.png"
+                            }
+                        }
+                    },
+                    {
+                        "CoinInfo": {
+                            "Id": "953119",
+                            "Name": "SUI",
+                            "FullName": "Sui",
+                            "Internal": "SUI",
+                            "ImageUrl": "/media/44082045/sui.png",
+                            "Url": "/coins/sui/overview",
+                            "Algorithm": "N/A",
+                            "ProofType": "N/A",
+                            "Rating": {
+                                "Weiss": {
+                                    "Rating": "",
+                                    "TechnologyAdoptionRating": "",
+                                    "MarketPerformanceRating": ""
+                                }
+                            },
+                            "NetHashesPerSecond": 0,
+                            "BlockNumber": 0,
+                            "BlockTime": 0,
+                            "BlockReward": 0,
+                            "AssetLaunchDate": "2023-04-01",
+                            "MaxSupply": -1,
+                            "Type": 1,
+                            "DocumentType": "Webpagecoinp"
+                        },
+                        "RAW": {
+                            "EUR": {
+                                "TYPE": "5",
+                                "MARKET": "CCCAGG",
+                                "FROMSYMBOL": "SUI",
+                                "TOSYMBOL": "EUR",
+                                "FLAGS": "2",
+                                "LASTMARKET": "CCCAGG",
+                                "MEDIAN": 2.19868477929006,
+                                "TOPTIERVOLUME24HOUR": 629811.39298,
+                                "TOPTIERVOLUME24HOURTO": 1356758.39624252,
+                                "LASTTRADEID": "2371767",
+                                "PRICE": 2.19868477929006,
+                                "LASTUPDATE": 1743332988,
+                                "LASTVOLUME": 5.38,
+                                "LASTVOLUMETO": 11.845684,
+                                "VOLUMEHOUR": 473.00934,
+                                "VOLUMEHOURTO": 1041.165879353,
+                                "OPENHOUR": 2.19718809224785,
+                                "HIGHHOUR": 2.20239894271615,
+                                "LOWHOUR": 2.19717044534147,
+                                "VOLUMEDAY": 256614.84978,
+                                "VOLUMEDAYTO": 565638.595762543,
+                                "OPENDAY": 2.13842093786427,
+                                "HIGHDAY": 2.26038937484238,
+                                "LOWDAY": 2.11454157706326,
+                                "VOLUME24HOUR": 629811.39298,
+                                "VOLUME24HOURTO": 1356758.39624252,
+                                "OPEN24HOUR": 2.12997347186723,
+                                "HIGH24HOUR": 2.26038937484238,
+                                "LOW24HOUR": 2.08118237427352,
+                                "CHANGE24HOUR": 0.06871130742283027,
+                                "CHANGEPCT24HOUR": 3.2259231549299474,
+                                "CHANGEDAY": 0.06026384142579033,
+                                "CHANGEPCTDAY": 2.8181468091113224,
+                                "CHANGEHOUR": 0.0014966870422101763,
+                                "CHANGEPCTHOUR": 0.06811829389986268,
+                                "CONVERSIONTYPE": "direct",
+                                "CONVERSIONSYMBOL": "",
+                                "CONVERSIONLASTUPDATE": 1743332988,
+                                "SUPPLY": 10000000000,
+                                "MKTCAP": 21986847792.9006,
+                                "MKTCAPPENALTY": 0,
+                                "CIRCULATINGSUPPLY": 3169845047.4838877,
+                                "CIRCULATINGSUPPLYMKTCAP": 6969490058.610802,
+                                "TOTALVOLUME24H": 270386779.439957,
+                                "TOTALVOLUME24HTO": 594467298.148566,
+                                "TOTALTOPTIERVOLUME24H": 158444653.10393903,
+                                "TOTALTOPTIERVOLUME24HTO": 348341848.8121982,
+                                "IMAGEURL": "/media/44082045/sui.png"
+                            }
+                        },
+                        "DISPLAY": {
+                            "EUR": {
+                                "FROMSYMBOL": "SUI",
+                                "TOSYMBOL": "€",
+                                "MARKET": "CryptoCompare Index",
+                                "LASTMARKET": "CCCAGG",
+                                "TOPTIERVOLUME24HOUR": "SUI 629,811.4",
+                                "TOPTIERVOLUME24HOURTO": "€ 1,356,758.4",
+                                "LASTTRADEID": "2371767",
+                                "PRICE": "€ 2.20",
+                                "LASTUPDATE": "Just now",
+                                "LASTVOLUME": "SUI 5.38",
+                                "LASTVOLUMETO": "€ 11.85",
+                                "VOLUMEHOUR": "SUI 473.01",
+                                "VOLUMEHOURTO": "€ 1,041.17",
+                                "OPENHOUR": "€ 2.20",
+                                "HIGHHOUR": "€ 2.20",
+                                "LOWHOUR": "€ 2.20",
+                                "VOLUMEDAY": "SUI 256,614.8",
+                                "VOLUMEDAYTO": "€ 565,638.6",
+                                "OPENDAY": "€ 2.14",
+                                "HIGHDAY": "€ 2.26",
+                                "LOWDAY": "€ 2.11",
+                                "VOLUME24HOUR": "SUI 629,811.4",
+                                "VOLUME24HOURTO": "€ 1,356,758.4",
+                                "OPEN24HOUR": "€ 2.13",
+                                "HIGH24HOUR": "€ 2.26",
+                                "LOW24HOUR": "€ 2.08",
+                                "CHANGE24HOUR": "€ 0.069",
+                                "CHANGEPCT24HOUR": "3.23",
+                                "CHANGEDAY": "€ 0.060",
+                                "CHANGEPCTDAY": "2.82",
+                                "CHANGEHOUR": "€ 0.0015",
+                                "CHANGEPCTHOUR": "0.07",
+                                "CONVERSIONTYPE": "direct",
+                                "CONVERSIONSYMBOL": "",
+                                "CONVERSIONLASTUPDATE": "Just now",
+                                "SUPPLY": "SUI 10,000,000,000.0",
+                                "MKTCAP": "€ 21.99 B",
+                                "MKTCAPPENALTY": "0 %",
+                                "CIRCULATINGSUPPLY": "SUI 3,169,845,047.5",
+                                "CIRCULATINGSUPPLYMKTCAP": "€ 6.97 B",
+                                "TOTALVOLUME24H": "SUI 270.39 M",
+                                "TOTALVOLUME24HTO": "€ 594.47 M",
+                                "TOTALTOPTIERVOLUME24H": "SUI 158.44 M",
+                                "TOTALTOPTIERVOLUME24HTO": "€ 348.34 M",
+                                "IMAGEURL": "/media/44082045/sui.png"
+                            }
+                        }
+                    },
+                    {
+                        "CoinInfo": {
+                            "Id": "310829",
+                            "Name": "TRX",
+                            "FullName": "TRON",
+                            "Internal": "TRX",
+                            "ImageUrl": "/media/37746879/trx.png",
+                            "Url": "/coins/trx/overview",
+                            "Algorithm": "N/A",
+                            "ProofType": "DPoS",
+                            "Rating": {
+                                "Weiss": {
+                                    "Rating": "C",
+                                    "TechnologyAdoptionRating": "C",
+                                    "MarketPerformanceRating": "D+"
+                                }
+                            },
+                            "NetHashesPerSecond": 0,
+                            "BlockNumber": 70892813,
+                            "BlockTime": 0,
+                            "BlockReward": 16,
+                            "AssetLaunchDate": "2018-06-25",
+                            "MaxSupply": -1,
+                            "Type": 1,
+                            "DocumentType": "Webpagecoinp"
+                        },
+                        "RAW": {
+                            "EUR": {
+                                "TYPE": "5",
+                                "MARKET": "CCCAGG",
+                                "FROMSYMBOL": "TRX",
+                                "TOSYMBOL": "EUR",
+                                "FLAGS": "1",
+                                "LASTMARKET": "CCCAGG",
+                                "MEDIAN": 0.213048399627087,
+                                "TOPTIERVOLUME24HOUR": 2685737.67866298,
+                                "TOPTIERVOLUME24HOURTO": 577865.190372665,
+                                "LASTTRADEID": "3656221",
+                                "PRICE": 0.213048399627087,
+                                "LASTUPDATE": 1743333009,
+                                "LASTVOLUME": 1058.784888,
+                                "LASTVOLUMETO": 225.520122359112,
+                                "VOLUMEHOUR": 7411.72902,
+                                "VOLUMEHOURTO": 1578.98506167078,
+                                "OPENHOUR": 0.213388766375443,
+                                "HIGHHOUR": 0.213389541864464,
+                                "LOWHOUR": 0.213008076820029,
+                                "VOLUMEDAY": 873382.53735967,
+                                "VOLUMEDAYTO": 186415.244044372,
+                                "OPENDAY": 0.214291382693003,
+                                "HIGHDAY": 0.215113269469407,
+                                "LOWDAY": 0.212235186518799,
+                                "VOLUME24HOUR": 2685737.67866298,
+                                "VOLUME24HOURTO": 577865.190372665,
+                                "OPEN24HOUR": 0.215146750311249,
+                                "HIGH24HOUR": 0.217850601929073,
+                                "LOW24HOUR": 0.212235186518799,
+                                "CHANGE24HOUR": -0.0020983506841620037,
+                                "CHANGEPCT24HOUR": -0.9753113542855548,
+                                "CHANGEDAY": -0.001242983065915998,
+                                "CHANGEPCTDAY": -0.5800434204564884,
+                                "CHANGEHOUR": -0.0003403667483559969,
+                                "CHANGEPCTHOUR": -0.1595054670109226,
+                                "CONVERSIONTYPE": "direct",
+                                "CONVERSIONSYMBOL": "",
+                                "CONVERSIONLASTUPDATE": 1743333009,
+                                "SUPPLY": 94994759515.91003,
+                                "MKTCAP": 20238481487.824627,
+                                "MKTCAPPENALTY": 0,
+                                "CIRCULATINGSUPPLY": 94994759515.91003,
+                                "CIRCULATINGSUPPLYMKTCAP": 20238481487.824627,
+                                "TOTALVOLUME24H": 1462616336.29677,
+                                "TOTALVOLUME24HTO": 311613742.7925755,
+                                "TOTALTOPTIERVOLUME24H": 512470160.0642234,
+                                "TOTALTOPTIERVOLUME24HTO": 109186620.53443526,
+                                "IMAGEURL": "/media/37746879/trx.png"
+                            }
+                        },
+                        "DISPLAY": {
+                            "EUR": {
+                                "FROMSYMBOL": "TRX",
+                                "TOSYMBOL": "€",
+                                "MARKET": "CryptoCompare Index",
+                                "LASTMARKET": "CCCAGG",
+                                "TOPTIERVOLUME24HOUR": "TRX 2,685,737.7",
+                                "TOPTIERVOLUME24HOURTO": "€ 577,865.2",
+                                "LASTTRADEID": "3656221",
+                                "PRICE": "€ 0.2130",
+                                "LASTUPDATE": "Just now",
+                                "LASTVOLUME": "TRX 1,058.78",
+                                "LASTVOLUMETO": "€ 225.52",
+                                "VOLUMEHOUR": "TRX 7,411.73",
+                                "VOLUMEHOURTO": "€ 1,578.99",
+                                "OPENHOUR": "€ 0.2134",
+                                "HIGHHOUR": "€ 0.2134",
+                                "LOWHOUR": "€ 0.2130",
+                                "VOLUMEDAY": "TRX 873,382.5",
+                                "VOLUMEDAYTO": "€ 186,415.2",
+                                "OPENDAY": "€ 0.2143",
+                                "HIGHDAY": "€ 0.2151",
+                                "LOWDAY": "€ 0.2122",
+                                "VOLUME24HOUR": "TRX 2,685,737.7",
+                                "VOLUME24HOURTO": "€ 577,865.2",
+                                "OPEN24HOUR": "€ 0.2151",
+                                "HIGH24HOUR": "€ 0.2179",
+                                "LOW24HOUR": "€ 0.2122",
+                                "CHANGE24HOUR": "€ -0.0021",
+                                "CHANGEPCT24HOUR": "-0.98",
+                                "CHANGEDAY": "€ -0.0012",
+                                "CHANGEPCTDAY": "-0.58",
+                                "CHANGEHOUR": "€ -0.00034",
+                                "CHANGEPCTHOUR": "-0.16",
+                                "CONVERSIONTYPE": "direct",
+                                "CONVERSIONSYMBOL": "",
+                                "CONVERSIONLASTUPDATE": "Just now",
+                                "SUPPLY": "TRX 94,994,759,515.9",
+                                "MKTCAP": "€ 20.24 B",
+                                "MKTCAPPENALTY": "0 %",
+                                "CIRCULATINGSUPPLY": "TRX 94,994,759,515.9",
+                                "CIRCULATINGSUPPLYMKTCAP": "€ 20.24 B",
+                                "TOTALVOLUME24H": "TRX 1.46 B",
+                                "TOTALVOLUME24HTO": "€ 311.61 M",
+                                "TOTALTOPTIERVOLUME24H": "TRX 512.47 M",
+                                "TOTALTOPTIERVOLUME24HTO": "€ 109.19 M",
+                                "IMAGEURL": "/media/37746879/trx.png"
+                            }
+                        }
+                    },
+                    {
+                        "CoinInfo": {
+                            "Id": "945129",
+                            "Name": "TON",
+                            "FullName": "Toncoin",
+                            "Internal": "TON",
+                            "ImageUrl": "/media/43957906/toncoin.png",
+                            "Url": "/coins/ton/overview",
+                            "Algorithm": "N/A",
+                            "ProofType": "N/A",
+                            "Rating": {
+                                "Weiss": {
+                                    "Rating": "",
+                                    "TechnologyAdoptionRating": "",
+                                    "MarketPerformanceRating": ""
+                                }
+                            },
+                            "NetHashesPerSecond": 0,
+                            "BlockNumber": 0,
+                            "BlockTime": 0,
+                            "BlockReward": 0,
+                            "AssetLaunchDate": "2021-08-19",
+                            "MaxSupply": -1,
+                            "Type": 1,
+                            "DocumentType": "Webpagecoinp"
+                        },
+                        "RAW": {
+                            "EUR": {
+                                "TYPE": "5",
+                                "MARKET": "CCCAGG",
+                                "FROMSYMBOL": "TON",
+                                "TOSYMBOL": "EUR",
+                                "FLAGS": "2",
+                                "LASTMARKET": "CCCAGG",
+                                "MEDIAN": 3.53542656134716,
+                                "TOPTIERVOLUME24HOUR": 66928.33208,
+                                "TOPTIERVOLUME24HOURTO": 232170.64798881,
+                                "LASTTRADEID": "1334772",
+                                "PRICE": 3.53542656134716,
+                                "LASTUPDATE": 1743332998,
+                                "LASTVOLUME": 1.32,
+                                "LASTVOLUMETO": 4.66092,
+                                "VOLUMEHOUR": 435.88146,
+                                "VOLUMEHOURTO": 1542.29903632,
+                                "OPENHOUR": 3.5292846270881,
+                                "HIGHHOUR": 3.54174458810969,
+                                "LOWHOUR": 3.52742362316579,
+                                "VOLUMEDAY": 32485.72369,
+                                "VOLUMEDAYTO": 114008.66829508,
+                                "OPENDAY": 3.41862836318652,
+                                "HIGHDAY": 3.59044521655872,
+                                "LOWDAY": 3.37006734193362,
+                                "VOLUME24HOUR": 66928.33208,
+                                "VOLUME24HOURTO": 232170.64798881,
+                                "OPEN24HOUR": 3.39472699913798,
+                                "HIGH24HOUR": 3.59044521655872,
+                                "LOW24HOUR": 3.37006734193362,
+                                "CHANGE24HOUR": 0.14069956220918023,
+                                "CHANGEPCT24HOUR": 4.144650283952375,
+                                "CHANGEDAY": 0.11679819816064008,
+                                "CHANGEPCTDAY": 3.4165222350104156,
+                                "CHANGEHOUR": 0.006141934259059845,
+                                "CHANGEPCTHOUR": 0.17402773955716228,
+                                "CONVERSIONTYPE": "direct",
+                                "CONVERSIONSYMBOL": "",
+                                "CONVERSIONLASTUPDATE": 1743332998,
+                                "SUPPLY": 5125901199.77751,
+                                "MKTCAP": 18122247252.534683,
+                                "MKTCAPPENALTY": 0,
+                                "CIRCULATINGSUPPLY": 2484467129.77082,
+                                "CIRCULATINGSUPPLYMKTCAP": 8783651081.385698,
+                                "TOTALVOLUME24H": 34393692.9115934,
+                                "TOTALVOLUME24HTO": 121591925.90751137,
+                                "TOTALTOPTIERVOLUME24H": 19215659.5936688,
+                                "TOTALTOPTIERVOLUME24HTO": 67931103.76630858,
+                                "IMAGEURL": "/media/43957906/toncoin.png"
+                            }
+                        },
+                        "DISPLAY": {
+                            "EUR": {
+                                "FROMSYMBOL": "TON",
+                                "TOSYMBOL": "€",
+                                "MARKET": "CryptoCompare Index",
+                                "LASTMARKET": "CCCAGG",
+                                "TOPTIERVOLUME24HOUR": "TON 66,928.3",
+                                "TOPTIERVOLUME24HOURTO": "€ 232,170.6",
+                                "LASTTRADEID": "1334772",
+                                "PRICE": "€ 3.54",
+                                "LASTUPDATE": "Just now",
+                                "LASTVOLUME": "TON 1.32",
+                                "LASTVOLUMETO": "€ 4.66",
+                                "VOLUMEHOUR": "TON 435.88",
+                                "VOLUMEHOURTO": "€ 1,542.30",
+                                "OPENHOUR": "€ 3.53",
+                                "HIGHHOUR": "€ 3.54",
+                                "LOWHOUR": "€ 3.53",
+                                "VOLUMEDAY": "TON 32,485.7",
+                                "VOLUMEDAYTO": "€ 114,008.7",
+                                "OPENDAY": "€ 3.42",
+                                "HIGHDAY": "€ 3.59",
+                                "LOWDAY": "€ 3.37",
+                                "VOLUME24HOUR": "TON 66,928.3",
+                                "VOLUME24HOURTO": "€ 232,170.6",
+                                "OPEN24HOUR": "€ 3.39",
+                                "HIGH24HOUR": "€ 3.59",
+                                "LOW24HOUR": "€ 3.37",
+                                "CHANGE24HOUR": "€ 0.14",
+                                "CHANGEPCT24HOUR": "4.14",
+                                "CHANGEDAY": "€ 0.12",
+                                "CHANGEPCTDAY": "3.42",
+                                "CHANGEHOUR": "€ 0.0061",
+                                "CHANGEPCTHOUR": "0.17",
+                                "CONVERSIONTYPE": "direct",
+                                "CONVERSIONSYMBOL": "",
+                                "CONVERSIONLASTUPDATE": "Just now",
+                                "SUPPLY": "TON 5,125,901,199.8",
+                                "MKTCAP": "€ 18.12 B",
+                                "MKTCAPPENALTY": "0 %",
+                                "CIRCULATINGSUPPLY": "TON 2,484,467,129.8",
+                                "CIRCULATINGSUPPLYMKTCAP": "€ 8.78 B",
+                                "TOTALVOLUME24H": "TON 34.39 M",
+                                "TOTALVOLUME24HTO": "€ 121.59 M",
+                                "TOTALTOPTIERVOLUME24H": "TON 19.22 M",
+                                "TOTALTOPTIERVOLUME24HTO": "€ 67.93 M",
+                                "IMAGEURL": "/media/43957906/toncoin.png"
+                            }
+                        }
+                    },
+                    {
+                        "CoinInfo": {
+                            "Id": "938193",
+                            "Name": "STETH",
+                            "FullName": "Staked Ether",
+                            "Internal": "STETH",
+                            "ImageUrl": "/media/37621928/steth.png",
+                            "Url": "/coins/steth/overview",
+                            "Algorithm": "N/A",
+                            "ProofType": "N/A",
+                            "Rating": {
+                                "Weiss": {
+                                    "Rating": "",
+                                    "TechnologyAdoptionRating": "",
+                                    "MarketPerformanceRating": ""
+                                }
+                            },
+                            "NetHashesPerSecond": 0,
+                            "BlockNumber": 0,
+                            "BlockTime": 0,
+                            "BlockReward": 0,
+                            "AssetLaunchDate": "2020-12-18",
+                            "MaxSupply": -1,
+                            "Type": 1,
+                            "DocumentType": "Webpagecoinp"
+                        },
+                        "RAW": {
+                            "EUR": {
+                                "TYPE": "5",
+                                "MARKET": "CCCAGG",
+                                "FROMSYMBOL": "STETH",
+                                "TOSYMBOL": "EUR",
+                                "FLAGS": "4",
+                                "PRICE": 1693.968422501048,
+                                "LASTUPDATE": 1743332405,
+                                "MEDIAN": 1693.968422501048,
+                                "LASTVOLUME": 0,
+                                "LASTVOLUMETO": 0,
+                                "LASTTRADEID": "768955",
+                                "VOLUMEDAY": 3.434818,
+                                "VOLUMEDAYTO": 5818.473229038205,
+                                "VOLUME24HOUR": 142.365342,
+                                "VOLUME24HOURTO": 241162.3938065622,
+                                "OPENDAY": 1688.844581927908,
+                                "HIGHDAY": 1707.839460519042,
+                                "LOWDAY": 1675.165069478137,
+                                "OPEN24HOUR": 1702.512055108553,
+                                "HIGH24HOUR": 1720.677550280046,
+                                "LOW24HOUR": 1660.928444777156,
+                                "LASTMARKET": "CCCAGG",
+                                "VOLUMEHOUR": 0,
+                                "VOLUMEHOURTO": 0,
+                                "OPENHOUR": 1691.314973869404,
+                                "HIGHHOUR": 1693.968422501048,
+                                "LOWHOUR": 1690.97683497811,
+                                "TOPTIERVOLUME24HOUR": 142.365342,
+                                "TOPTIERVOLUME24HOURTO": 241162.3938065622,
+                                "CHANGE24HOUR": -8.54363260750506,
+                                "CHANGEPCT24HOUR": -0.5018250873389741,
+                                "CHANGEDAY": 5.123840573140114,
+                                "CHANGEPCTDAY": 0.30339325642925485,
+                                "CHANGEHOUR": 2.653448631644096,
+                                "CHANGEPCTHOUR": 0.15688672261758052,
+                                "CONVERSIONTYPE": "multiply",
+                                "CONVERSIONSYMBOL": "ETH",
+                                "CONVERSIONLASTUPDATE": 1743333005,
+                                "SUPPLY": 9371779.95372459,
+                                "MKTCAP": 15875499304.237787,
+                                "MKTCAPPENALTY": 0,
+                                "CIRCULATINGSUPPLY": 9371779.95372459,
+                                "CIRCULATINGSUPPLYMKTCAP": 15875499304.237787,
+                                "TOTALVOLUME24H": 3326.32544041589,
+                                "TOTALVOLUME24HTO": 5634690.259026409,
+                                "TOTALTOPTIERVOLUME24H": 1404.603222093853,
+                                "TOTALTOPTIERVOLUME24HTO": 2379353.5043702135,
+                                "IMAGEURL": "/media/37621928/steth.png"
+                            }
+                        },
+                        "DISPLAY": {
+                            "EUR": {
+                                "FROMSYMBOL": "STETH",
+                                "TOSYMBOL": "€",
+                                "MARKET": "CryptoCompare Index",
+                                "PRICE": "€ 1,693.97",
+                                "LASTUPDATE": "10 min ago",
+                                "LASTVOLUME": "STETH 0",
+                                "LASTVOLUMETO": "€ 0",
+                                "LASTTRADEID": "768955",
+                                "VOLUMEDAY": "STETH 3.43",
+                                "VOLUMEDAYTO": "€ 5,818.47",
+                                "VOLUME24HOUR": "STETH 142.37",
+                                "VOLUME24HOURTO": "€ 241,162.4",
+                                "OPENDAY": "€ 1,688.84",
+                                "HIGHDAY": "€ 1,707.84",
+                                "LOWDAY": "€ 1,675.17",
+                                "OPEN24HOUR": "€ 1,702.51",
+                                "HIGH24HOUR": "€ 1,720.68",
+                                "LOW24HOUR": "€ 1,660.93",
+                                "LASTMARKET": "CCCAGG",
+                                "VOLUMEHOUR": "STETH 0",
+                                "VOLUMEHOURTO": "€ 0",
+                                "OPENHOUR": "€ 1,691.31",
+                                "HIGHHOUR": "€ 1,693.97",
+                                "LOWHOUR": "€ 1,690.98",
+                                "TOPTIERVOLUME24HOUR": "STETH 142.37",
+                                "TOPTIERVOLUME24HOURTO": "€ 241,162.4",
+                                "CHANGE24HOUR": "€ -8.54",
+                                "CHANGEPCT24HOUR": "-0.50",
+                                "CHANGEDAY": "€ 5.12",
+                                "CHANGEPCTDAY": "0.30",
+                                "CHANGEHOUR": "€ 2.65",
+                                "CHANGEPCTHOUR": "0.16",
+                                "CONVERSIONTYPE": "multiply",
+                                "CONVERSIONSYMBOL": "ETH",
+                                "CONVERSIONLASTUPDATE": "Just now",
+                                "SUPPLY": "STETH 9,371,780.0",
+                                "MKTCAP": "€ 15.88 B",
+                                "MKTCAPPENALTY": "0 %",
+                                "CIRCULATINGSUPPLY": "STETH 9,371,780.0",
+                                "CIRCULATINGSUPPLYMKTCAP": "€ 15.88 B",
+                                "TOTALVOLUME24H": "STETH 3.33 K",
+                                "TOTALVOLUME24HTO": "€ 5.63 M",
+                                "TOTALTOPTIERVOLUME24H": "STETH 1.40 K",
+                                "TOTALTOPTIERVOLUME24HTO": "€ 2.38 M",
+                                "IMAGEURL": "/media/37621928/steth.png"
+                            }
+                        }
+                    },
+                    {
+                        "CoinInfo": {
+                            "Id": "309621",
+                            "Name": "LINK",
+                            "FullName": "Chainlink",
+                            "Internal": "LINK",
+                            "ImageUrl": "/media/37746242/link.png",
+                            "Url": "/coins/link/overview",
+                            "Algorithm": "N/A",
+                            "ProofType": "N/A",
+                            "Rating": {
+                                "Weiss": {
+                                    "Rating": "B",
+                                    "TechnologyAdoptionRating": "B+",
+                                    "MarketPerformanceRating": "D+"
+                                }
+                            },
+                            "NetHashesPerSecond": 0,
+                            "BlockNumber": 0,
+                            "BlockTime": 0,
+                            "BlockReward": 0,
+                            "AssetLaunchDate": "2017-09-16",
+                            "MaxSupply": -1,
+                            "Type": 1,
+                            "DocumentType": "Webpagecoinp"
+                        },
+                        "RAW": {
+                            "EUR": {
+                                "TYPE": "5",
+                                "MARKET": "CCCAGG",
+                                "FROMSYMBOL": "LINK",
+                                "TOSYMBOL": "EUR",
+                                "FLAGS": "1",
+                                "LASTMARKET": "CCCAGG",
+                                "MEDIAN": 12.651712531779,
+                                "TOPTIERVOLUME24HOUR": 75774.8899042,
+                                "TOPTIERVOLUME24HOURTO": 954480.248784311,
+                                "LASTTRADEID": "7388815",
+                                "PRICE": 12.651712531779,
+                                "LASTUPDATE": 1743333008,
+                                "LASTVOLUME": 0.47,
+                                "LASTVOLUMETO": 5.9549,
+                                "VOLUMEHOUR": 440.39860705,
+                                "VOLUMEHOURTO": 5570.90006971665,
+                                "OPENHOUR": 12.6540036878414,
+                                "HIGHHOUR": 12.6547166177421,
+                                "LOWHOUR": 12.6347919236262,
+                                "VOLUMEDAY": 36046.47056504,
+                                "VOLUMEDAYTO": 456113.497096066,
+                                "OPENDAY": 12.5112250986581,
+                                "HIGHDAY": 12.8255229964941,
+                                "LOWDAY": 12.4138360460302,
+                                "VOLUME24HOUR": 75774.8899042,
+                                "VOLUME24HOURTO": 954480.248784311,
+                                "OPEN24HOUR": 12.567367694719,
+                                "HIGH24HOUR": 12.8255229964941,
+                                "LOW24HOUR": 12.3744057792146,
+                                "CHANGE24HOUR": 0.08434483705999973,
+                                "CHANGEPCT24HOUR": 0.6711416352960113,
+                                "CHANGEDAY": 0.1404874331208994,
+                                "CHANGEPCTDAY": 1.1228910998969035,
+                                "CHANGEHOUR": -0.002291156062399935,
+                                "CHANGEPCTHOUR": -0.018106175080392875,
+                                "CONVERSIONTYPE": "direct",
+                                "CONVERSIONSYMBOL": "",
+                                "CONVERSIONLASTUPDATE": 1743333008,
+                                "SUPPLY": 1000000000,
+                                "MKTCAP": 12651712531.779,
+                                "MKTCAPPENALTY": 0,
+                                "CIRCULATINGSUPPLY": 657099970.452787,
+                                "CIRCULATINGSUPPLYMKTCAP": 8313439930.809136,
+                                "TOTALVOLUME24H": 12773476.352542,
+                                "TOTALVOLUME24HTO": 161602148.9684275,
+                                "TOTALTOPTIERVOLUME24H": 6509367.937946771,
+                                "TOTALTOPTIERVOLUME24HTO": 82350450.03907076,
+                                "IMAGEURL": "/media/37746242/link.png"
+                            }
+                        },
+                        "DISPLAY": {
+                            "EUR": {
+                                "FROMSYMBOL": "LINK",
+                                "TOSYMBOL": "€",
+                                "MARKET": "CryptoCompare Index",
+                                "LASTMARKET": "CCCAGG",
+                                "TOPTIERVOLUME24HOUR": "LINK 75,774.9",
+                                "TOPTIERVOLUME24HOURTO": "€ 954,480.2",
+                                "LASTTRADEID": "7388815",
+                                "PRICE": "€ 12.65",
+                                "LASTUPDATE": "Just now",
+                                "LASTVOLUME": "LINK 0.4700",
+                                "LASTVOLUMETO": "€ 5.95",
+                                "VOLUMEHOUR": "LINK 440.40",
+                                "VOLUMEHOURTO": "€ 5,570.90",
+                                "OPENHOUR": "€ 12.65",
+                                "HIGHHOUR": "€ 12.65",
+                                "LOWHOUR": "€ 12.63",
+                                "VOLUMEDAY": "LINK 36,046.5",
+                                "VOLUMEDAYTO": "€ 456,113.5",
+                                "OPENDAY": "€ 12.51",
+                                "HIGHDAY": "€ 12.83",
+                                "LOWDAY": "€ 12.41",
+                                "VOLUME24HOUR": "LINK 75,774.9",
+                                "VOLUME24HOURTO": "€ 954,480.2",
+                                "OPEN24HOUR": "€ 12.57",
+                                "HIGH24HOUR": "€ 12.83",
+                                "LOW24HOUR": "€ 12.37",
+                                "CHANGE24HOUR": "€ 0.084",
+                                "CHANGEPCT24HOUR": "0.67",
+                                "CHANGEDAY": "€ 0.14",
+                                "CHANGEPCTDAY": "1.12",
+                                "CHANGEHOUR": "€ -0.0023",
+                                "CHANGEPCTHOUR": "-0.02",
+                                "CONVERSIONTYPE": "direct",
+                                "CONVERSIONSYMBOL": "",
+                                "CONVERSIONLASTUPDATE": "Just now",
+                                "SUPPLY": "LINK 1,000,000,000.0",
+                                "MKTCAP": "€ 12.65 B",
+                                "MKTCAPPENALTY": "0 %",
+                                "CIRCULATINGSUPPLY": "LINK 657,099,970.5",
+                                "CIRCULATINGSUPPLYMKTCAP": "€ 8.31 B",
+                                "TOTALVOLUME24H": "LINK 12.77 M",
+                                "TOTALVOLUME24HTO": "€ 161.60 M",
+                                "TOTALTOPTIERVOLUME24H": "LINK 6.51 M",
+                                "TOTALTOPTIERVOLUME24HTO": "€ 82.35 M",
+                                "IMAGEURL": "/media/37746242/link.png"
+                            }
+                        }
+                    },
+                    {
+                        "CoinInfo": {
+                            "Id": "4614",
+                            "Name": "XLM",
+                            "FullName": "Stellar",
+                            "Internal": "XLM",
+                            "ImageUrl": "/media/37746346/xlm.png",
+                            "Url": "/coins/xlm/overview",
+                            "Algorithm": "N/A",
+                            "ProofType": "SCP",
+                            "Rating": {
+                                "Weiss": {
+                                    "Rating": "B-",
+                                    "TechnologyAdoptionRating": "B",
+                                    "MarketPerformanceRating": "D"
+                                }
+                            },
+                            "NetHashesPerSecond": 0,
+                            "BlockNumber": 56385793,
+                            "BlockTime": 0,
+                            "BlockReward": 0,
+                            "AssetLaunchDate": "2014-07-31",
+                            "MaxSupply": -1,
+                            "Type": 1,
+                            "DocumentType": "Webpagecoinp"
+                        },
+                        "RAW": {
+                            "EUR": {
+                                "TYPE": "5",
+                                "MARKET": "CCCAGG",
+                                "FROMSYMBOL": "XLM",
+                                "TOSYMBOL": "EUR",
+                                "FLAGS": "1",
+                                "LASTMARKET": "CCCAGG",
+                                "MEDIAN": 0.248587482478759,
+                                "TOPTIERVOLUME24HOUR": 2031382.96846693,
+                                "TOPTIERVOLUME24HOURTO": 501988.876320708,
+                                "LASTTRADEID": "3444848",
+                                "PRICE": 0.248587482478759,
+                                "LASTUPDATE": 1743332982,
+                                "LASTVOLUME": 286,
+                                "LASTVOLUMETO": 71.214,
+                                "VOLUMEHOUR": 11946.29964476,
+                                "VOLUMEHOURTO": 2965.90389019306,
+                                "OPENHOUR": 0.248320886114743,
+                                "HIGHHOUR": 0.248587482478759,
+                                "LOWHOUR": 0.24806900349957,
+                                "VOLUMEDAY": 779293.52299386,
+                                "VOLUMEDAYTO": 194501.17417502,
+                                "OPENDAY": 0.24694231057294,
+                                "HIGHDAY": 0.25158728994268,
+                                "LOWDAY": 0.245513935448374,
+                                "VOLUME24HOUR": 2031382.96846693,
+                                "VOLUME24HOURTO": 501988.876320708,
+                                "OPEN24HOUR": 0.244824228239182,
+                                "HIGH24HOUR": 0.25158728994268,
+                                "LOW24HOUR": 0.242060465196141,
+                                "CHANGE24HOUR": 0.003763254239576991,
+                                "CHANGEPCT24HOUR": 1.5371249269906673,
+                                "CHANGEDAY": 0.001645171905819004,
+                                "CHANGEPCTDAY": 0.6662171022867567,
+                                "CHANGEHOUR": 0.00026659636401599185,
+                                "CHANGEPCTHOUR": 0.10735962173266578,
+                                "CONVERSIONTYPE": "direct",
+                                "CONVERSIONSYMBOL": "",
+                                "CONVERSIONLASTUPDATE": 1743332982,
+                                "SUPPLY": 50001786892.817924,
+                                "MKTCAP": 12429818323.125017,
+                                "MKTCAPPENALTY": 0,
+                                "CIRCULATINGSUPPLY": 30787179407.61554,
+                                "CIRCULATINGSUPPLYMKTCAP": 7653307421.561038,
+                                "TOTALVOLUME24H": 282858302.194694,
+                                "TOTALVOLUME24HTO": 70312045.7390343,
+                                "TOTALTOPTIERVOLUME24H": 131268737.6447841,
+                                "TOTALTOPTIERVOLUME24HTO": 32628777.517520864,
+                                "IMAGEURL": "/media/37746346/xlm.png"
+                            }
+                        },
+                        "DISPLAY": {
+                            "EUR": {
+                                "FROMSYMBOL": "XLM",
+                                "TOSYMBOL": "€",
+                                "MARKET": "CryptoCompare Index",
+                                "LASTMARKET": "CCCAGG",
+                                "TOPTIERVOLUME24HOUR": "XLM 2,031,383.0",
+                                "TOPTIERVOLUME24HOURTO": "€ 501,988.9",
+                                "LASTTRADEID": "3444848",
+                                "PRICE": "€ 0.2486",
+                                "LASTUPDATE": "Just now",
+                                "LASTVOLUME": "XLM 286.00",
+                                "LASTVOLUMETO": "€ 71.21",
+                                "VOLUMEHOUR": "XLM 11,946.3",
+                                "VOLUMEHOURTO": "€ 2,965.90",
+                                "OPENHOUR": "€ 0.2483",
+                                "HIGHHOUR": "€ 0.2486",
+                                "LOWHOUR": "€ 0.2481",
+                                "VOLUMEDAY": "XLM 779,293.5",
+                                "VOLUMEDAYTO": "€ 194,501.2",
+                                "OPENDAY": "€ 0.2469",
+                                "HIGHDAY": "€ 0.2516",
+                                "LOWDAY": "€ 0.2455",
+                                "VOLUME24HOUR": "XLM 2,031,383.0",
+                                "VOLUME24HOURTO": "€ 501,988.9",
+                                "OPEN24HOUR": "€ 0.2448",
+                                "HIGH24HOUR": "€ 0.2516",
+                                "LOW24HOUR": "€ 0.2421",
+                                "CHANGE24HOUR": "€ 0.0038",
+                                "CHANGEPCT24HOUR": "1.54",
+                                "CHANGEDAY": "€ 0.0016",
+                                "CHANGEPCTDAY": "0.67",
+                                "CHANGEHOUR": "€ 0.00027",
+                                "CHANGEPCTHOUR": "0.11",
+                                "CONVERSIONTYPE": "direct",
+                                "CONVERSIONSYMBOL": "",
+                                "CONVERSIONLASTUPDATE": "Just now",
+                                "SUPPLY": "XLM 50,001,786,892.8",
+                                "MKTCAP": "€ 12.43 B",
+                                "MKTCAPPENALTY": "0 %",
+                                "CIRCULATINGSUPPLY": "XLM 30,787,179,407.6",
+                                "CIRCULATINGSUPPLYMKTCAP": "€ 7.65 B",
+                                "TOTALVOLUME24H": "XLM 282.86 M",
+                                "TOTALVOLUME24HTO": "€ 70.31 M",
+                                "TOTALTOPTIERVOLUME24H": "XLM 131.27 M",
+                                "TOTALTOPTIERVOLUME24HTO": "€ 32.63 M",
+                                "IMAGEURL": "/media/37746346/xlm.png"
+                            }
+                        }
+                    },
+                    {
+                        "CoinInfo": {
+                            "Id": "936181",
+                            "Name": "OM",
+                            "FullName": "MANTRA",
+                            "Internal": "OM",
+                            "ImageUrl": "/media/43717810/om.png",
+                            "Url": "/coins/om/overview",
+                            "Algorithm": "N/A",
+                            "ProofType": "N/A",
+                            "Rating": {
+                                "Weiss": {
+                                    "Rating": "",
+                                    "TechnologyAdoptionRating": "",
+                                    "MarketPerformanceRating": ""
+                                }
+                            },
+                            "NetHashesPerSecond": 0,
+                            "BlockNumber": 0,
+                            "BlockTime": 0,
+                            "BlockReward": 0,
+                            "AssetLaunchDate": "2020-12-17",
+                            "MaxSupply": -1,
+                            "Type": 1,
+                            "DocumentType": "Webpagecoinp"
+                        },
+                        "RAW": {
+                            "EUR": {
+                                "TYPE": "5",
+                                "MARKET": "CCCAGG",
+                                "FROMSYMBOL": "OM",
+                                "TOSYMBOL": "EUR",
+                                "FLAGS": "2",
+                                "LASTMARKET": "CCCAGG",
+                                "MEDIAN": 5.8548,
+                                "TOPTIERVOLUME24HOUR": 224.58579,
+                                "TOPTIERVOLUME24HOURTO": 1313.335407896,
+                                "LASTTRADEID": "1341",
+                                "PRICE": 5.8548,
+                                "LASTUPDATE": 1743332864,
+                                "LASTVOLUME": 8.92693,
+                                "LASTVOLUMETO": 52.265389764,
+                                "VOLUMEHOUR": 153.18537,
+                                "VOLUMEHOURTO": 896.843021459,
+                                "OPENHOUR": 5.8826,
+                                "HIGHHOUR": 5.8826,
+                                "LOWHOUR": 5.8466,
+                                "VOLUMEDAY": 206.6403,
+                                "VOLUMEDAYTO": 1211.115125428,
+                                "OPENDAY": 5.6585,
+                                "HIGHDAY": 5.8826,
+                                "LOWDAY": 5.6585,
+                                "VOLUME24HOUR": 224.58579,
+                                "VOLUME24HOURTO": 1313.335407896,
+                                "OPEN24HOUR": 5.7412,
+                                "HIGH24HOUR": 5.8826,
+                                "LOW24HOUR": 5.6585,
+                                "CHANGE24HOUR": 0.11359999999999992,
+                                "CHANGEPCT24HOUR": 1.9786804152441984,
+                                "CHANGEDAY": 0.19629999999999992,
+                                "CHANGEPCTDAY": 3.4691172572236444,
+                                "CHANGEHOUR": -0.027800000000000047,
+                                "CHANGEPCTHOUR": -0.47258015163363215,
+                                "CONVERSIONTYPE": "direct",
+                                "CONVERSIONSYMBOL": "",
+                                "CONVERSIONLASTUPDATE": 1743332864,
+                                "SUPPLY": 1814026663.67,
+                                "MKTCAP": 10620763310.455116,
+                                "MKTCAPPENALTY": 0,
+                                "CIRCULATINGSUPPLY": 986284750.78,
+                                "CIRCULATINGSUPPLYMKTCAP": 5774499958.866744,
+                                "TOTALVOLUME24H": 5590111.0301304,
+                                "TOTALVOLUME24HTO": 32728980.489732075,
+                                "TOTALTOPTIERVOLUME24H": 2851084.3737608674,
+                                "TOTALTOPTIERVOLUME24HTO": 16692527.22201973,
+                                "IMAGEURL": "/media/43717810/om.png"
+                            }
+                        },
+                        "DISPLAY": {
+                            "EUR": {
+                                "FROMSYMBOL": "OM",
+                                "TOSYMBOL": "€",
+                                "MARKET": "CryptoCompare Index",
+                                "LASTMARKET": "CCCAGG",
+                                "TOPTIERVOLUME24HOUR": "OM 224.59",
+                                "TOPTIERVOLUME24HOURTO": "€ 1,313.34",
+                                "LASTTRADEID": "1341",
+                                "PRICE": "€ 5.85",
+                                "LASTUPDATE": "2 min ago",
+                                "LASTVOLUME": "OM 8.93",
+                                "LASTVOLUMETO": "€ 52.27",
+                                "VOLUMEHOUR": "OM 153.19",
+                                "VOLUMEHOURTO": "€ 896.84",
+                                "OPENHOUR": "€ 5.88",
+                                "HIGHHOUR": "€ 5.88",
+                                "LOWHOUR": "€ 5.85",
+                                "VOLUMEDAY": "OM 206.64",
+                                "VOLUMEDAYTO": "€ 1,211.12",
+                                "OPENDAY": "€ 5.66",
+                                "HIGHDAY": "€ 5.88",
+                                "LOWDAY": "€ 5.66",
+                                "VOLUME24HOUR": "OM 224.59",
+                                "VOLUME24HOURTO": "€ 1,313.34",
+                                "OPEN24HOUR": "€ 5.74",
+                                "HIGH24HOUR": "€ 5.88",
+                                "LOW24HOUR": "€ 5.66",
+                                "CHANGE24HOUR": "€ 0.11",
+                                "CHANGEPCT24HOUR": "1.98",
+                                "CHANGEDAY": "€ 0.20",
+                                "CHANGEPCTDAY": "3.47",
+                                "CHANGEHOUR": "€ -0.028",
+                                "CHANGEPCTHOUR": "-0.47",
+                                "CONVERSIONTYPE": "direct",
+                                "CONVERSIONSYMBOL": "",
+                                "CONVERSIONLASTUPDATE": "2 min ago",
+                                "SUPPLY": "OM 1,814,026,663.7",
+                                "MKTCAP": "€ 10.62 B",
+                                "MKTCAPPENALTY": "0 %",
+                                "CIRCULATINGSUPPLY": "OM 986,284,750.8",
+                                "CIRCULATINGSUPPLYMKTCAP": "€ 5.77 B",
+                                "TOTALVOLUME24H": "OM 5.59 M",
+                                "TOTALVOLUME24HTO": "€ 32.73 M",
+                                "TOTALTOPTIERVOLUME24H": "OM 2.85 M",
+                                "TOTALTOPTIERVOLUME24HTO": "€ 16.69 M",
+                                "IMAGEURL": "/media/43717810/om.png"
+                            }
+                        }
+                    },
+                    {
+                        "CoinInfo": {
+                            "Id": "928761",
+                            "Name": "WBTC",
+                            "FullName": "Wrapped Bitcoin",
+                            "Internal": "WBTC",
+                            "ImageUrl": "/media/35309588/wbtc.png",
+                            "Url": "/coins/wbtc/overview",
+                            "Algorithm": "N/A",
+                            "ProofType": "N/A",
+                            "Rating": {
+                                "Weiss": {
+                                    "Rating": "",
+                                    "TechnologyAdoptionRating": "",
+                                    "MarketPerformanceRating": ""
+                                }
+                            },
+                            "NetHashesPerSecond": 0,
+                            "BlockNumber": 0,
+                            "BlockTime": 0,
+                            "BlockReward": 0,
+                            "AssetLaunchDate": "2018-11-27",
+                            "MaxSupply": -1,
+                            "Type": 1,
+                            "DocumentType": "Webpagecoinp"
+                        },
+                        "RAW": {
+                            "EUR": {
+                                "TYPE": "5",
+                                "MARKET": "CCCAGG",
+                                "FROMSYMBOL": "WBTC",
+                                "TOSYMBOL": "EUR",
+                                "FLAGS": "1",
+                                "PRICE": 76822.85050119857,
+                                "LASTUPDATE": 1743332999,
+                                "MEDIAN": 76822.85050119857,
+                                "LASTVOLUME": 0.0001,
+                                "LASTVOLUMETO": 7.682285050119857,
+                                "LASTTRADEID": "15841394",
+                                "VOLUMEDAY": 32.67054302,
+                                "VOLUMEDAYTO": 2509844.242218436,
+                                "VOLUME24HOUR": 62.19843815,
+                                "VOLUME24HOURTO": 4778261.315405495,
+                                "OPENDAY": 76310.30495445876,
+                                "HIGHDAY": 77182.05907047362,
+                                "LOWDAY": 76172.9804602976,
+                                "OPEN24HOUR": 75917.37001307154,
+                                "HIGH24HOUR": 77222.53653919432,
+                                "LOW24HOUR": 75375.12048314548,
+                                "LASTMARKET": "CCCAGG",
+                                "VOLUMEHOUR": 0.75509,
+                                "VOLUMEHOURTO": 58008.16618495003,
+                                "OPENHOUR": 76754.6199040296,
+                                "HIGHHOUR": 76823.58055738559,
+                                "LOWHOUR": 76733.46935597851,
+                                "TOPTIERVOLUME24HOUR": 62.19843815,
+                                "TOPTIERVOLUME24HOURTO": 4778261.315405495,
+                                "CHANGE24HOUR": 905.4804881270247,
+                                "CHANGEPCT24HOUR": 1.1927184621531517,
+                                "CHANGEDAY": 512.5455467398133,
+                                "CHANGEPCTDAY": 0.6716596756436702,
+                                "CHANGEHOUR": 68.23059716896387,
+                                "CHANGEPCTHOUR": 0.08889444994226565,
+                                "CONVERSIONTYPE": "multiply",
+                                "CONVERSIONSYMBOL": "BTC",
+                                "CONVERSIONLASTUPDATE": 1743333001,
+                                "SUPPLY": 128915.05657878,
+                                "MKTCAP": 9903622118.90517,
+                                "MKTCAPPENALTY": 0,
+                                "CIRCULATINGSUPPLY": 128915.05657878,
+                                "CIRCULATINGSUPPLYMKTCAP": 9903622118.90517,
+                                "TOTALVOLUME24H": 696.841232511952,
+                                "TOTALVOLUME24HTO": 53533329.828336634,
+                                "TOTALTOPTIERVOLUME24H": 563.88965013,
+                                "TOTALTOPTIERVOLUME24HTO": 43319610.29111015,
+                                "IMAGEURL": "/media/35309588/wbtc.png"
+                            }
+                        },
+                        "DISPLAY": {
+                            "EUR": {
+                                "FROMSYMBOL": "wɃ",
+                                "TOSYMBOL": "€",
+                                "MARKET": "CryptoCompare Index",
+                                "PRICE": "€ 76,822.9",
+                                "LASTUPDATE": "Just now",
+                                "LASTVOLUME": "wɃ 0.0001000",
+                                "LASTVOLUMETO": "€ 7.68",
+                                "LASTTRADEID": "15841394",
+                                "VOLUMEDAY": "wɃ 32.67",
+                                "VOLUMEDAYTO": "€ 2,509,844.2",
+                                "VOLUME24HOUR": "wɃ 62.20",
+                                "VOLUME24HOURTO": "€ 4,778,261.3",
+                                "OPENDAY": "€ 76,310.3",
+                                "HIGHDAY": "€ 77,182.1",
+                                "LOWDAY": "€ 76,173.0",
+                                "OPEN24HOUR": "€ 75,917.4",
+                                "HIGH24HOUR": "€ 77,222.5",
+                                "LOW24HOUR": "€ 75,375.1",
+                                "LASTMARKET": "CCCAGG",
+                                "VOLUMEHOUR": "wɃ 0.7551",
+                                "VOLUMEHOURTO": "€ 58,008.2",
+                                "OPENHOUR": "€ 76,754.6",
+                                "HIGHHOUR": "€ 76,823.6",
+                                "LOWHOUR": "€ 76,733.5",
+                                "TOPTIERVOLUME24HOUR": "wɃ 62.20",
+                                "TOPTIERVOLUME24HOURTO": "€ 4,778,261.3",
+                                "CHANGE24HOUR": "€ 905.48",
+                                "CHANGEPCT24HOUR": "1.19",
+                                "CHANGEDAY": "€ 512.55",
+                                "CHANGEPCTDAY": "0.67",
+                                "CHANGEHOUR": "€ 68.23",
+                                "CHANGEPCTHOUR": "0.09",
+                                "CONVERSIONTYPE": "multiply",
+                                "CONVERSIONSYMBOL": "BTC",
+                                "CONVERSIONLASTUPDATE": "Just now",
+                                "SUPPLY": "wɃ 128,915.1",
+                                "MKTCAP": "€ 9.90 B",
+                                "MKTCAPPENALTY": "0 %",
+                                "CIRCULATINGSUPPLY": "wɃ 128,915.1",
+                                "CIRCULATINGSUPPLYMKTCAP": "€ 9.90 B",
+                                "TOTALVOLUME24H": "wɃ 696.84",
+                                "TOTALVOLUME24HTO": "€ 53.53 M",
+                                "TOTALTOPTIERVOLUME24H": "wɃ 563.89",
+                                "TOTALTOPTIERVOLUME24HTO": "€ 43.32 M",
+                                "IMAGEURL": "/media/35309588/wbtc.png"
+                            }
+                        }
+                    },
+                    {
+                        "CoinInfo": {
+                            "Id": "929418",
+                            "Name": "CRO",
+                            "FullName": "Cronos",
+                            "Internal": "CRO",
+                            "ImageUrl": "/media/34478435/mco.png",
+                            "Url": "/coins/cro/overview",
+                            "Algorithm": "N/A",
+                            "ProofType": "PoS",
+                            "Rating": {
+                                "Weiss": {
+                                    "Rating": "B-",
+                                    "TechnologyAdoptionRating": "B-",
+                                    "MarketPerformanceRating": "C-"
+                                }
+                            },
+                            "NetHashesPerSecond": 0,
+                            "BlockNumber": 0,
+                            "BlockTime": 6,
+                            "BlockReward": 0,
+                            "AssetLaunchDate": "2019-11-14",
+                            "MaxSupply": 100000000000,
+                            "Type": 1,
+                            "DocumentType": "Webpagecoinp"
+                        },
+                        "RAW": {
+                            "EUR": {
+                                "TYPE": "5",
+                                "MARKET": "CCCAGG",
+                                "FROMSYMBOL": "CRO",
+                                "TOSYMBOL": "EUR",
+                                "FLAGS": "1",
+                                "LASTMARKET": "CCCAGG",
+                                "MEDIAN": 0.0977388832538823,
+                                "TOPTIERVOLUME24HOUR": 533114.136,
+                                "TOPTIERVOLUME24HOURTO": 50793.08780405,
+                                "LASTTRADEID": "160820",
+                                "PRICE": 0.0977388832538823,
+                                "LASTUPDATE": 1743332837,
+                                "LASTVOLUME": 644.923,
+                                "LASTVOLUMETO": 63.20890323,
+                                "VOLUMEHOUR": 9693.82,
+                                "VOLUMEHOURTO": 950.0912982,
+                                "OPENHOUR": 0.0975236828330678,
+                                "HIGHHOUR": 0.0977388832538823,
+                                "LOWHOUR": 0.0975236828330678,
+                                "VOLUMEDAY": 276536.287,
+                                "VOLUMEDAYTO": 27036.20319396,
+                                "OPENDAY": 0.0930821595668771,
+                                "HIGHDAY": 0.10037081597233,
+                                "LOWDAY": 0.092738320255433,
+                                "VOLUME24HOUR": 533114.136,
+                                "VOLUME24HOURTO": 50793.08780405,
+                                "OPEN24HOUR": 0.0920140857392546,
+                                "HIGH24HOUR": 0.10037081597233,
+                                "LOW24HOUR": 0.0913074293006708,
+                                "CHANGE24HOUR": 0.005724797514627705,
+                                "CHANGEPCT24HOUR": 6.221653422553565,
+                                "CHANGEDAY": 0.004656723687005204,
+                                "CHANGEPCTDAY": 5.002810107407822,
+                                "CHANGEHOUR": 0.00021520042081450697,
+                                "CHANGEPCTHOUR": 0.2206647806593477,
+                                "CONVERSIONTYPE": "direct",
+                                "CONVERSIONSYMBOL": "",
+                                "CONVERSIONLASTUPDATE": 1743332837,
+                                "SUPPLY": 97543210869,
+                                "MKTCAP": 9533764499.334015,
+                                "MKTCAPPENALTY": 0,
+                                "CIRCULATINGSUPPLY": 26571560696,
+                                "CIRCULATINGSUPPLYMKTCAP": 2597074668.7397914,
+                                "TOTALVOLUME24H": 587900822.055075,
+                                "TOTALVOLUME24HTO": 57459456.91920696,
+                                "TOTALTOPTIERVOLUME24H": 449669594.304152,
+                                "TOTALTOPTIERVOLUME24HTO": 43948891.088018686,
+                                "IMAGEURL": "/media/34478435/mco.png"
+                            }
+                        },
+                        "DISPLAY": {
+                            "EUR": {
+                                "FROMSYMBOL": "CRO",
+                                "TOSYMBOL": "€",
+                                "MARKET": "CryptoCompare Index",
+                                "LASTMARKET": "CCCAGG",
+                                "TOPTIERVOLUME24HOUR": "CRO 533,114.1",
+                                "TOPTIERVOLUME24HOURTO": "€ 50,793.1",
+                                "LASTTRADEID": "160820",
+                                "PRICE": "€ 0.09774",
+                                "LASTUPDATE": "2 min ago",
+                                "LASTVOLUME": "CRO 644.92",
+                                "LASTVOLUMETO": "€ 63.21",
+                                "VOLUMEHOUR": "CRO 9,693.82",
+                                "VOLUMEHOURTO": "€ 950.09",
+                                "OPENHOUR": "€ 0.09752",
+                                "HIGHHOUR": "€ 0.09774",
+                                "LOWHOUR": "€ 0.09752",
+                                "VOLUMEDAY": "CRO 276,536.3",
+                                "VOLUMEDAYTO": "€ 27,036.2",
+                                "OPENDAY": "€ 0.09308",
+                                "HIGHDAY": "€ 0.1004",
+                                "LOWDAY": "€ 0.09274",
+                                "VOLUME24HOUR": "CRO 533,114.1",
+                                "VOLUME24HOURTO": "€ 50,793.1",
+                                "OPEN24HOUR": "€ 0.09201",
+                                "HIGH24HOUR": "€ 0.1004",
+                                "LOW24HOUR": "€ 0.09131",
+                                "CHANGE24HOUR": "€ 0.0057",
+                                "CHANGEPCT24HOUR": "6.22",
+                                "CHANGEDAY": "€ 0.0047",
+                                "CHANGEPCTDAY": "5.00",
+                                "CHANGEHOUR": "€ 0.00022",
+                                "CHANGEPCTHOUR": "0.22",
+                                "CONVERSIONTYPE": "direct",
+                                "CONVERSIONSYMBOL": "",
+                                "CONVERSIONLASTUPDATE": "2 min ago",
+                                "SUPPLY": "CRO 97,543,210,869.0",
+                                "MKTCAP": "€ 9.53 B",
+                                "MKTCAPPENALTY": "0 %",
+                                "CIRCULATINGSUPPLY": "CRO 26,571,560,696.0",
+                                "CIRCULATINGSUPPLYMKTCAP": "€ 2.60 B",
+                                "TOTALVOLUME24H": "CRO 587.90 M",
+                                "TOTALVOLUME24HTO": "€ 57.46 M",
+                                "TOTALTOPTIERVOLUME24H": "CRO 449.67 M",
+                                "TOTALTOPTIERVOLUME24HTO": "€ 43.95 M",
+                                "IMAGEURL": "/media/34478435/mco.png"
+                            }
+                        }
+                    },
+                    {
+                        "CoinInfo": {
+                            "Id": "950493",
+                            "Name": "WBT",
+                            "FullName": "WhiteBIT Token",
+                            "Internal": "WBT",
+                            "ImageUrl": "/media/40485147/wbt.png",
+                            "Url": "/coins/wbt/overview",
+                            "Algorithm": "N/A",
+                            "ProofType": "N/A",
+                            "Rating": {
+                                "Weiss": {
+                                    "Rating": "",
+                                    "TechnologyAdoptionRating": "",
+                                    "MarketPerformanceRating": ""
+                                }
+                            },
+                            "NetHashesPerSecond": 0,
+                            "BlockNumber": 0,
+                            "BlockTime": 0,
+                            "BlockReward": 0,
+                            "AssetLaunchDate": "2022-08-05",
+                            "MaxSupply": 400000000,
+                            "Type": 1,
+                            "DocumentType": "Webpagecoinp"
+                        },
+                        "RAW": {
+                            "EUR": {
+                                "TYPE": "5",
+                                "MARKET": "CCCAGG",
+                                "FROMSYMBOL": "WBT",
+                                "TOSYMBOL": "EUR",
+                                "FLAGS": "4",
+                                "PRICE": 26.16762493990683,
+                                "LASTUPDATE": 1743332968,
+                                "MEDIAN": 26.16762493990683,
+                                "LASTVOLUME": 3.3,
+                                "LASTVOLUMETO": 86.35316230169254,
+                                "LASTTRADEID": "20747988",
+                                "VOLUMEDAY": 11988.5,
+                                "VOLUMEDAYTO": 313710.571592073,
+                                "VOLUME24HOUR": 40235.9,
+                                "VOLUME24HOURTO": 1052877.940319597,
+                                "OPENDAY": 26.1194629209331,
+                                "HIGHDAY": 26.45076496293471,
+                                "LOWDAY": 25.85107145684741,
+                                "OPEN24HOUR": 26.2102709055943,
+                                "HIGH24HOUR": 26.7287064511617,
+                                "LOW24HOUR": 25.58029912842752,
+                                "LASTMARKET": "CCCAGG",
+                                "VOLUMEHOUR": 174.6,
+                                "VOLUMEHOURTO": 4568.867314507732,
+                                "OPENHOUR": 26.13901402853078,
+                                "HIGHHOUR": 26.18323597129744,
+                                "LOWHOUR": 26.13195181139474,
+                                "TOPTIERVOLUME24HOUR": 40235.9,
+                                "TOPTIERVOLUME24HOURTO": 1052877.940319597,
+                                "CHANGE24HOUR": -0.04264596568746981,
+                                "CHANGEPCT24HOUR": -0.16270707708849924,
+                                "CHANGEDAY": 0.048162018973730625,
+                                "CHANGEPCTDAY": 0.18439130666477757,
+                                "CHANGEHOUR": 0.028610911376048875,
+                                "CHANGEPCTHOUR": 0.10945673522658511,
+                                "CONVERSIONTYPE": "multiply",
+                                "CONVERSIONSYMBOL": "BTC",
+                                "CONVERSIONLASTUPDATE": 1743333001,
+                                "SUPPLY": 328380962,
+                                "MKTCAP": 8592949851.021797,
+                                "MKTCAPPENALTY": 0,
+                                "CIRCULATINGSUPPLY": 182380962,
+                                "CIRCULATINGSUPPLYMKTCAP": 4772476609.7954,
+                                "TOTALVOLUME24H": 460241.1123,
+                                "TOTALVOLUME24HTO": 12043416.80859194,
+                                "TOTALTOPTIERVOLUME24H": 0,
+                                "TOTALTOPTIERVOLUME24HTO": 0,
+                                "IMAGEURL": "/media/40485147/wbt.png"
+                            }
+                        },
+                        "DISPLAY": {
+                            "EUR": {
+                                "FROMSYMBOL": "WBT",
+                                "TOSYMBOL": "€",
+                                "MARKET": "CryptoCompare Index",
+                                "PRICE": "€ 26.17",
+                                "LASTUPDATE": "Just now",
+                                "LASTVOLUME": "WBT 3.30",
+                                "LASTVOLUMETO": "€ 86.35",
+                                "LASTTRADEID": "20747988",
+                                "VOLUMEDAY": "WBT 11,988.5",
+                                "VOLUMEDAYTO": "€ 313,710.6",
+                                "VOLUME24HOUR": "WBT 40,235.9",
+                                "VOLUME24HOURTO": "€ 1,052,877.9",
+                                "OPENDAY": "€ 26.12",
+                                "HIGHDAY": "€ 26.45",
+                                "LOWDAY": "€ 25.85",
+                                "OPEN24HOUR": "€ 26.21",
+                                "HIGH24HOUR": "€ 26.73",
+                                "LOW24HOUR": "€ 25.58",
+                                "LASTMARKET": "CCCAGG",
+                                "VOLUMEHOUR": "WBT 174.60",
+                                "VOLUMEHOURTO": "€ 4,568.87",
+                                "OPENHOUR": "€ 26.14",
+                                "HIGHHOUR": "€ 26.18",
+                                "LOWHOUR": "€ 26.13",
+                                "TOPTIERVOLUME24HOUR": "WBT 40,235.9",
+                                "TOPTIERVOLUME24HOURTO": "€ 1,052,877.9",
+                                "CHANGE24HOUR": "€ -0.043",
+                                "CHANGEPCT24HOUR": "-0.16",
+                                "CHANGEDAY": "€ 0.048",
+                                "CHANGEPCTDAY": "0.18",
+                                "CHANGEHOUR": "€ 0.029",
+                                "CHANGEPCTHOUR": "0.11",
+                                "CONVERSIONTYPE": "multiply",
+                                "CONVERSIONSYMBOL": "BTC",
+                                "CONVERSIONLASTUPDATE": "Just now",
+                                "SUPPLY": "WBT 328,380,962.0",
+                                "MKTCAP": "€ 8.59 B",
+                                "MKTCAPPENALTY": "0 %",
+                                "CIRCULATINGSUPPLY": "WBT 182,380,962.0",
+                                "CIRCULATINGSUPPLYMKTCAP": "€ 4.77 B",
+                                "TOTALVOLUME24H": "WBT 460.24 K",
+                                "TOTALVOLUME24HTO": "€ 12.04 M",
+                                "TOTALTOPTIERVOLUME24H": "WBT 0",
+                                "TOTALTOPTIERVOLUME24HTO": "€ 0",
+                                "IMAGEURL": "/media/40485147/wbt.png"
+                            }
+                        }
+                    },
+                    {
+                        "CoinInfo": {
+                            "Id": "930571",
+                            "Name": "LEO",
+                            "FullName": "LEO Token",
+                            "Internal": "LEO",
+                            "ImageUrl": "/media/35650675/leo.png",
+                            "Url": "/coins/leo/overview",
+                            "Algorithm": "N/A",
+                            "ProofType": "N/A",
+                            "Rating": {
+                                "Weiss": {
+                                    "Rating": "D",
+                                    "TechnologyAdoptionRating": "D-",
+                                    "MarketPerformanceRating": "C-"
+                                }
+                            },
+                            "NetHashesPerSecond": 0,
+                            "BlockNumber": 0,
+                            "BlockTime": 0,
+                            "BlockReward": 0,
+                            "AssetLaunchDate": "2019-05-21",
+                            "MaxSupply": -1,
+                            "Type": 1,
+                            "DocumentType": "Webpagecoinp"
+                        },
+                        "RAW": {
+                            "EUR": {
+                                "TYPE": "5",
+                                "MARKET": "CCCAGG",
+                                "FROMSYMBOL": "LEO",
+                                "TOSYMBOL": "EUR",
+                                "FLAGS": "4",
+                                "PRICE": 8.699929041666717,
+                                "LASTUPDATE": 1743307200,
+                                "MEDIAN": 8.699929041666717,
+                                "LASTVOLUME": 0,
+                                "LASTVOLUMETO": 0,
+                                "LASTTRADEID": "260078",
+                                "VOLUMEDAY": 0.61441216,
+                                "VOLUMEDAYTO": 5.345342194337178,
+                                "VOLUME24HOUR": 1.7842213,
+                                "VOLUME24HOURTO": 15.52259870463034,
+                                "OPENDAY": 8.548614383097375,
+                                "HIGHDAY": 8.771168295532284,
+                                "LOWDAY": 8.480219449449791,
+                                "OPEN24HOUR": 8.701917487513231,
+                                "HIGH24HOUR": 8.836218707048683,
+                                "LOW24HOUR": 8.408990269436005,
+                                "LASTMARKET": "CCCAGG",
+                                "VOLUMEHOUR": 0,
+                                "VOLUMEHOURTO": 0,
+                                "OPENHOUR": 8.686301388102235,
+                                "HIGHHOUR": 8.699929041666717,
+                                "LOWHOUR": 8.68456476519864,
+                                "TOPTIERVOLUME24HOUR": 1.7842213,
+                                "TOPTIERVOLUME24HOURTO": 15.52259870463034,
+                                "CHANGE24HOUR": -0.001988445846514253,
+                                "CHANGEPCT24HOUR": -0.02285066307934501,
+                                "CHANGEDAY": 0.15131465856934234,
+                                "CHANGEPCTDAY": 1.7700489434700328,
+                                "CHANGEHOUR": 0.013627653564482145,
+                                "CHANGEPCTHOUR": 0.15688672261761671,
+                                "CONVERSIONTYPE": "multiply",
+                                "CONVERSIONSYMBOL": "ETH",
+                                "CONVERSIONLASTUPDATE": 1743333005,
+                                "SUPPLY": 923836969.9,
+                                "MKTCAP": 8037316084.198391,
+                                "MKTCAPPENALTY": 0,
+                                "CIRCULATINGSUPPLY": 923836969.9,
+                                "CIRCULATINGSUPPLYMKTCAP": 8037316084.198391,
+                                "TOTALVOLUME24H": 220217.52940956,
+                                "TOTALVOLUME24HTO": 1915876.8795943253,
+                                "TOTALTOPTIERVOLUME24H": 19713.6078291204,
+                                "TOTALTOPTIERVOLUME24HTO": 171506.98926859294,
+                                "IMAGEURL": "/media/35650675/leo.png"
+                            }
+                        },
+                        "DISPLAY": {
+                            "EUR": {
+                                "FROMSYMBOL": "LEO",
+                                "TOSYMBOL": "€",
+                                "MARKET": "CryptoCompare Index",
+                                "PRICE": "€ 8.70",
+                                "LASTUPDATE": "7 hours ago",
+                                "LASTVOLUME": "LEO 0",
+                                "LASTVOLUMETO": "€ 0",
+                                "LASTTRADEID": "260078",
+                                "VOLUMEDAY": "LEO 0.6144",
+                                "VOLUMEDAYTO": "€ 5.35",
+                                "VOLUME24HOUR": "LEO 1.78",
+                                "VOLUME24HOURTO": "€ 15.52",
+                                "OPENDAY": "€ 8.55",
+                                "HIGHDAY": "€ 8.77",
+                                "LOWDAY": "€ 8.48",
+                                "OPEN24HOUR": "€ 8.70",
+                                "HIGH24HOUR": "€ 8.84",
+                                "LOW24HOUR": "€ 8.41",
+                                "LASTMARKET": "CCCAGG",
+                                "VOLUMEHOUR": "LEO 0",
+                                "VOLUMEHOURTO": "€ 0",
+                                "OPENHOUR": "€ 8.69",
+                                "HIGHHOUR": "€ 8.70",
+                                "LOWHOUR": "€ 8.68",
+                                "TOPTIERVOLUME24HOUR": "LEO 1.78",
+                                "TOPTIERVOLUME24HOURTO": "€ 15.52",
+                                "CHANGE24HOUR": "€ -0.0020",
+                                "CHANGEPCT24HOUR": "-0.02",
+                                "CHANGEDAY": "€ 0.15",
+                                "CHANGEPCTDAY": "1.77",
+                                "CHANGEHOUR": "€ 0.014",
+                                "CHANGEPCTHOUR": "0.16",
+                                "CONVERSIONTYPE": "multiply",
+                                "CONVERSIONSYMBOL": "ETH",
+                                "CONVERSIONLASTUPDATE": "Just now",
+                                "SUPPLY": "LEO 923,836,969.9",
+                                "MKTCAP": "€ 8.04 B",
+                                "MKTCAPPENALTY": "0 %",
+                                "CIRCULATINGSUPPLY": "LEO 923,836,969.9",
+                                "CIRCULATINGSUPPLYMKTCAP": "€ 8.04 B",
+                                "TOTALVOLUME24H": "LEO 220.22 K",
+                                "TOTALVOLUME24HTO": "€ 1.92 M",
+                                "TOTALTOPTIERVOLUME24H": "LEO 19.71 K",
+                                "TOTALTOPTIERVOLUME24HTO": "€ 171.51 K",
+                                "IMAGEURL": "/media/35650675/leo.png"
+                            }
+                        }
+                    }
+                ],
+                "RateLimit": {},
+                "HasWarning": false
+            }
+            </code></pre>
+
+            <p>Instalamos Zustand <span class="destacado">npm i zustand</span> para tener un estado global y estaremos viendo como en Zustand tenemos o podemos consumir una API externa.</p>
+
+            <ul class="list-disc my-3">
+              <li class="my-1.25">
+                En src generamos el archivo store.ts, en el cual importamos la función <strong>create</strong> de Zustand que nos permite crear nuestro store. Lo creamos con create y su callback que, recordemos, usa paréntesis y dentro llaves <code class="language-ts">create (() => ({...}))</code>. Dentro creamos una función que nombramos como fetchCryptos <code class="language-ts">fetchCryptos: () => {...}</code>. Recordemos que aquí es donde tenemos la función que modifica el state <strong>Zustand tiene state y funciones que lo modifican juntas, a diferencia de lo que veíamos con useReducer donde en la parte superior definíamos las acciones y su payload y en la parte inferior ya manejábamos toda la lógica</strong>
+                <pre data-line="0"><code class="language-ts">
+                  //store.ts
+                  import { create } from "zustand"
+                  export const useCryptoStore = create(() => ({
+                      fetchCryptos: () => {
+                          console.log('desde fetchCryptos')
+                      }
+                  }))
+                </code></pre>
+              </li>
+              <li class="my-1.25">Esta función va a mandar llamar este JSON que acabamos de ver para traerse las 20 criptomonedas más valiosas pero ¿cuando/donde la vamos a mandar llamar? Pongamosle un console.log("desde FetchCryptos"). Vamos a colocar esa llamada en nuestro compo ppal <span class="file">App.tsx</span> porque queremos que esa función se mande llamar tan pronto como nuestra app esté lista, para lo cual importamos nuestro store, lo usamos en un nuevo objeto 'fetchCryptos' que mandamos 'observar' con un useEffect y vemos nuestra consola:
+
+                <div class="flex max-sm:flex-col">
+                  <div class="w-[50%] max-sm:w-[100%]">
+                    <pre data-line="0-3,6-9"><code class="language-ts">
+                      //App.tsx
+                      import { useEffect } from 'react';
+                      import CriptoSearchForm from './components/CriptoSearchForm';
+                      import { useCryptoStore } from './store'
+                      
+                      function App() {
+                        const fetchCryptos = useCryptoStore((state) => state.fetchCryptos)
+                        useEffect(() => {
+                          fetchCryptos()
+                        }, [])
+                      
+                        return (
+                          &lt;&gt;
+                            &lt;div className=&quot;container&quot;&gt;
+                                &lt;h1 className=&quot;app-title&quot;&gt;
+                                    Cotizador de &lt;span&gt;Criptomonedas&lt;/span&gt;
+                                &lt;/h1&gt;
+                      
+                                &lt;div className=&quot;content&quot;&gt;
+                                    &lt;CriptoSearchForm /&gt;
+                                &lt;/div&gt;
+                            &lt;/div&gt;
+                          &lt;/&gt;
+                        )
+                      }                    
+                      export default App
+                    </code></pre>
+                  </div>
+                  <div class="w-[50%] max-sm:w-[100%]">
+                    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAX4AAABACAMAAAAqA+ynAAAAA3NCSVQICAjb4U/gAAAAz1BMVEUfHx///75DiPW+cR8fcb6Pj4/t8vofH26+u26+5v++//9uHx+Pnb7///++nY+a3//mvZ0fRppDmOKPj52aRh++mEP/0axuH25uu//i/////+KdveaamEMfH0NDmJr/5r5DRpqdj4+aRkP/u25uH0OPrND//8ys0f9DH24zMzNuRprZ5/2sj53M//9DHx/QrI+acW5Skfbv9f7/35rm//+sj4/imEO+cUOdvb6amG6sj6z6/P++nZ2dj6z//+adnb6Pj6xYlfb4+v/e5v9NjvaR4x+SAAAACXBIWXMAACUcAAAlHAHbBRspAAAAH3RFWHRTb2Z0d2FyZQBNYWNyb21lZGlhIEZpcmV3b3JrcyA4tWjSeAAAABZ0RVh0Q3JlYXRpb24gVGltZQAwMy8zMC8yNSrJESAAAANJSURBVHic7ZsNU9NAEIYvprFaPGkrQkvVArGtgIBYWj9QVMb//5u83b1LWmliO0O6jH2fYQi5bNLMc5s3aWYwj3NOry1YL2ZWv/bJbB7Qrwr0qzKn/1b7bDYOdL8q0K8K9KuC7Fdlpe5Pa3fHpu07I8ZkdeODbjYe7TXkKMaYzsLjh4qHyPDr2coFw0mSvHhattP9659zuEB/+nq76Pj/nf5/7bOC/vE5d3VsjBMebfGCGrkdxkIdG9/fcS1Ov0JdvRHtvTJOfSyl0zdbptWllbTV/fSFymKqrvGu+Ueoc/M8SQb2IkloQSs9a5ufJ8mzK7ub0G9hpmDgVvuHo5X1l2V/9Habut81+/5Ox/f8+F2D/vJjUuakseQO7yFzQXW0ye1e2z+S5p/WG66ItrvSuNWlaun+ePYj9Nkd8EJUXvSc4JFt/jyzF6P+jyvbHIQ6KfDVXv9E5qKYpbufgietST93XDtTDpGhaTuMedh4mAXRLyZJblojzTYbc5MRnfAM8ISRfp4ftzU1C6JOgf4hdzjbvfnmkrzZox9HUxreI/p9dcbN817ZwVfVfxSCm+x4/UdzYS76fYrf1R+uE9/caTsV9TQ+p98+rAlYpH/ObEiavyageT/6XYBIemQDB12X2uPz9syYH7c2JLzETlrn8GH9nDo20x+dfGiwfqqUK8PtGm118kPpQ2aH7+kRxoXPcDLyTvvfz2TzhC4BKfDVEj68bVR25OWf+2NTfyL3RUptjhu30nrZDmMecUbp0+qGu/JUbr2sn1ZMHu1xjY9t+HmIn1n9PTcufD5dLxQxPVkOOM17WUvTplHQLwWhmvX3D3l7CdrfeiW54ofgWQNd/e66YfHQj3c+GuCdjyroflWgXxXoVwXZrwq6XxXoVwX6VUH2q4LuV2U5/cdrPKONolD/6eXHfAX6K6Iw+69/Pcr9Q39FFIfPrH/or4iS7L/9nfk/xv+9VEOZ/stc/9rPa0Mofu5H+KyBwu7HrXcdLPngieyvBnztUmW5dz7QXxHoflWW1I/srwZ0vyp4368K3verAv2qQL8qyH5V0P2qQL8q0K8Ksl8VdL8q0K8K9KuC7FcF3a8K9KsC/aog+1VB96sC/apAvyp/ALli8WJHSdIUAAAAAElFTkSuQmCC" alt="img" loading="lazy">
+
+                    <p>Como vemos desde Zustand podemos también hacer llamadas/consulta hacia una API sin ningún problema. Lo ideal va a ser colocar esa consulta en nuesto state, para lo cual vamos a crear un state cryptocurrencies o criptomonedas que va a ser un arreglo y vamos a hacer la llamada utilizando actios y traernos toda la información.</p>
+                  </div>
+                </div>             
+              </li>
+            </ul>
+
+          </div>
+
+          <!-- Bloque desplegable interior-->
+          <div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion17-288').toggle();">
+            <h3>288. Obteniendo las Criptomonedas en Zustand</h3>
+            <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+          </div>
+          <div id="seccion17-288" class="">
+            <p>Comencemos con la llamada a nuestra API.</p>
+
+          </div>
+
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion17-289').toggle();">
+  <h3>289. Validando la respuesta de la API con Zod</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion17-289" class="hidden">
+
+
+</div>
+
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion17-290').toggle();">
+  <h3>290. Finalizando la función que obtiene las Criptos</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion17-290" class="hidden">
+
+
+</div>
+
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion17-291').toggle();">
+  <h3>291. Agregando Redux Dev Tools para visualizar los datos del Store</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion17-291" class="hidden">
+
+
+</div>
+
+
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion17-292').toggle();">
+  <h3>292. Moviendo la función que obtiene la API hacia otro archivo</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion17-292" class="hidden">
+
+
+</div>
+
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion17-293').toggle();">
+  <h3>293. Mostrando las Criptomonedas en el Formulario</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion17-293" class="hidden">
+
+
+</div>
+
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion17-294').toggle();">
+  <h3>294. Creando State para Moneda y Criptomoneda a Cotizar</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion17-294" class="hidden">
+
+
+</div>
+
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion17-295').toggle();">
+  <h3>295. Agregando Validación</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion17-295" class="hidden">
+
+
+</div>
+
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion17-296').toggle();">
+  <h3>296. Obteniendo la Moneda y Cripto a Cotizar</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion17-296" class="hidden">
+
+
+</div>
+
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion17-297').toggle();">
+  <h3>297. Llamando la API para obtener la cotización Actual</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion17-297" class="hidden">
+
+
+</div>
+
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion17-298').toggle();">
+  <h3>298. Validando la Respuesta de la API con ZOD</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion17-298" class="hidden">
+
+
+</div>
+
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion17-299').toggle();">
+  <h3>299. Colocando la Respuesta en el State</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion17-299" class="hidden">
+
+
+</div>
+
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion17-300').toggle();">
+  <h3>300. Mostrando el Resultado de la cotización</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion17-300" class="hidden">
+
+
+</div>
+
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion17-301').toggle();">
+  <h3>301. Agregando CSS al resultado de la cotización</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion17-301" class="hidden">
+
+
+</div>
+
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion17-302').toggle();">
+  <h3>302. Agregando un spinner de Carga y Deployment</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion17-302" class="hidden">
+
+
+</div>
+
+        </div>
+        <!-- Fin div colapsable-->
+
+      </div>
+      <!-- FIN SECCION 17 -->
 
 
        <!-- SECCION 16 -->
@@ -49,28 +3135,7 @@
           <div id="seccion16-ficheros" class="hidden">
             <div class="flex max-sm:flex-col">
               <div class="w-[25%] max-sm:w-[100%]">
-                <span class="destacado">types/index.ts, App.tsx, index.css, main.tsx</span><br>
-
-                <code class="cursor-pointer" onclick="$('#16-types').toggle();">types/index.ts</code>
-                <pre data-line="0" id="16-types" class="hidden"><code class="language-ts">
-                  //types/index.ts
-                  export type SearchType = {
-                    city: string
-                    country: string
-                  }
-                  export type Country = {
-                    code: string
-                    name: string
-                  }
-                  export type Weather = {
-                    name:string
-                    main: {
-                      temp: number,
-                      temp_max: number,
-                      temp_min: number
-                    }
-                  }
-                </code></pre>
+                <span class="destacado">App.tsx, index.css, main.tsx</span><br>
 
                 <code class="cursor-pointer" onclick="$('#16-app').toggle();">App.tsx</code>
                 <pre data-line="0" id="16-app" class="hidden"><code class="language-ts">
