@@ -10,8 +10,8 @@
     
     <!-- <script src="https://unpkg.com/@tailwindcss/browser@4"></script> -->
   
-    <script type="module" crossorigin src="https://andune55.github.io/manual-react/assets/index-xNgk4BzD.js"></script>
-    <link rel="stylesheet" crossorigin href="https://andune55.github.io/manual-react/assets/index-BxVPj2VV.css">
+    <script type="module" crossorigin src="https://andune55.github.io/manual-react/assets/index-BLKAnzHV.js"></script>
+    <link rel="stylesheet" crossorigin href="https://andune55.github.io/manual-react/assets/index-BPmqzfum.css">
   </head>
   <body>
     <div id="root"></div>	
@@ -31,7 +31,8 @@
 
           <p>Link para css shadows: <a href="https://getcssscan.com/css-box-shadow-examples" class="underline" target="blank">https://getcssscan.com/css-box-shadow-examples</a> / <a href="https://realfavicongenerator.net/" class="underline" target="blank">Link para generar favicon</a> / <a href="https://developers.coindesk.com/" class="underline" target="blank">Link Crypto compare</a></p>
 
-          <p>Instalamos Zod con <span class="destacado">npm i zod</span> / Instalamos Zustand <span class="destacado">npm i zustand</span></p>
+          <p>Instalamos Zod con <span class="destacado">npm i zod</span> / Instalamos Zustand <span class="destacado">npm i zustand</span> / Instalamos axios <span class="destacado">npm i axios</span> que es una librería que simplifica bastante las llamadas/consultas a APIs externas (es una abstracción sobre fetch api).</p>
+          
 
           <!-- Bloque desplegable interior-->
           <div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion17-281').toggle();">
@@ -307,9 +308,9 @@
           <div id="seccion17-287" class="hidden">
             <p>Vamos a ver la API que vamos a utilizar <a href="https://developers.coindesk.com/" class="underline" target="blank">Crypto compare</a> y también configurar nuestro store.</p>
 
-            <p>Si vamos a este link (ha cambiado con respecto al vídeo) <a href="https://developers.coindesk.com/documentation/data-api/asset_v1_top_list" class="underline" target="blank">https://developers.coindesk.com/documentation/data-api/asset_v1_top_list</a> vemos un montón de endpoints que podemos utilizar. El que vamos a usar está en toplist en su vídeo: <strong>TopList by Market Cap Full Data</strong> aunque en la actual interfaz de la API que ha cambiado mucho de momento no lo encuentro así que <span class="destacado">pico a mano este endpoint:</span> <a href="https://min-api.cryptocompare.com/data/top/mktcapfull?limit=20&tsym=EUR" class="underline" target="blank">https://min-api.cryptocompare.com/data/top/mktcapfull?limit=20&tsym=EUR</a> donde se ve el JSON devuelto en respuesta a especificar ese <strong>limit=20</strong>(las 20 criptos que tienen más valor hoy en día en cuanto a volumen de transacciones) cotizado en <strong>EUR</strong>.</p>
+            <p>Si vamos a este link (ha cambiado con respecto al vídeo) <a href="https://developers.coindesk.com/documentation/data-api/asset_v1_top_list" class="underline" target="blank">https://developers.coindesk.com/documentation/data-api/asset_v1_top_list</a> vemos un montón de endpoints que podemos utilizar. El que vamos a usar está en toplist en su vídeo: <strong>TopList by Market Cap Full Data</strong> aunque en la actual interfaz de la API que ha cambiado mucho de momento no lo encuentro así que <span class="destacado">pico a mano este endpoint:</span> <a href="https://min-api.cryptocompare.com/data/top/mktcapfull?limit=20&tsym=EUR" class="underline" target="blank">https://min-api.cryptocompare.com/data/top/mktcapfull?limit=20&tsym=EUR</a> donde se ve el JSON devuelto en respuesta a especificar ese <strong>limit=20</strong> (las 20 criptos que tienen más valor hoy en día en cuanto a volumen de transacciones) cotizado en <strong>EUR</strong>.</p>
               
-            <p>Si lo vemos en chrome, vemos que ese JSON es muy grande y no lo requerimos todo, pero básicmaente es lo que requerimos para rellenar el segundo select de nuestro formulario, porqeu <strong>c0uadno coticemos una criptomoneda requerimos pasarle el código de 3 dígitos de la cripto (eso ya viene en ese JSON: "Name": "BTC"). Además, como son las 20 critps, digamos, más valiosas, con el paso del tiepo si alguna cripto eleva su valor esa lista se va a actualizar en automático con lo cual tiene sus ventajas.</strong></p>
+            <p>Si lo vemos en chrome, vemos que ese JSON es muy grande y no lo requerimos todo, pero básicamente es lo que requerimos para rellenar el segundo select de nuestro formulario, porque <strong>cuando coticemos una criptomoneda requerimos pasarle el código de 3 dígitos de la cripto (eso ya viene en ese JSON: "Name": "BTC"). Además, como son las 20 criptos, digamos, más valiosas, con el paso del tiempo si alguna cripto eleva su valor esa lista se va a actualizar en automático con lo cual tiene sus ventajas.</strong></p>
 
             <pre data-line="0,12" class="max-h-[400px] overflow-auto"><code class="language-ts">
               //https://min-api.cryptocompare.com/data/top/mktcapfull?limit=20&tsym=EUR
@@ -2891,7 +2892,7 @@
 
             <ul class="list-disc my-3">
               <li class="my-1.25">
-                En src generamos el archivo store.ts, en el cual importamos la función <strong>create</strong> de Zustand que nos permite crear nuestro store. Lo creamos con create y su callback que, recordemos, usa paréntesis y dentro llaves <code class="language-ts">create (() => ({...}))</code>. Dentro creamos una función que nombramos como fetchCryptos <code class="language-ts">fetchCryptos: () => {...}</code>. Recordemos que aquí es donde tenemos la función que modifica el state <strong>Zustand tiene state y funciones que lo modifican juntas, a diferencia de lo que veíamos con useReducer donde en la parte superior definíamos las acciones y su payload y en la parte inferior ya manejábamos toda la lógica</strong>
+                En src generamos el archivo store.ts, en el cual importamos la función <strong>create</strong> de Zustand que nos permite crear nuestro store. Lo creamos con create y su callback que, recordemos, usa paréntesis y dentro llaves <code class="language-ts">create (() => ({...}))</code>. Dentro creamos una función que nombramos como fetchCryptos <code class="language-ts">fetchCryptos: () => {...}</code>. Recordemos que aquí es donde tenemos la función que modifica el state. <strong>Zustand tiene state y funciones que lo modifican juntas, a diferencia de lo que veíamos con useReducer donde en la parte superior definíamos las acciones y su payload y en la parte inferior ya manejábamos toda la lógica.</strong>
                 <pre data-line="0"><code class="language-ts">
                   //store.ts
                   import { create } from "zustand"
@@ -2951,38 +2952,503 @@
             <h3>288. Obteniendo las Criptomonedas en Zustand</h3>
             <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
           </div>
-          <div id="seccion17-288" class="">
-            <p>Comencemos con la llamada a nuestra API.</p>
+          <div id="seccion17-288" class="hidden">
+            <p>Comencemos con la llamada a nuestra API. Nuestro endpoint va a ser este: <a href="https://min-api.cryptocompare.com/data/top/mktcapfull?limit=20&tsym=EUR" class="underline" target="blank">https://min-api.cryptocompare.com/data/top/mktcapfull?limit=20&tsym=EUR</a>.</p>
 
+            <p>Instalamos axios <span class="destacado">npm i axios</span> que simplifica bastante las llamadas a APIs.</p>
+
+            <p>Vimos que cuando queremos escribir en el state, se le pasa como parámetro una función llamada set que usaríamos aquí....</p>
+            <pre data-line="2,5"><code class="language-ts">
+              //store.ts
+              import { create } from "zustand"
+              export const useCryptoStore = create((set) => ({
+                  fetchCryptos: () => {
+                      console.log('desde fetchCryptos')
+                      set(...)
+                  }
+              }))
+            </code></pre>
+
+            <p>Antes de ese set puedes escribir toda la lógica que quramos pero como ya vimos, cuando trabajamos con llamadas hacia APIs ese código suele ser muy largo. Pero quiero que mis acciones sean más limpias (las funciones que están dentro del store de Zustand, aunque se definen de forma diferente a las que vimos en useReducer y como tal no es que en Zustand haya acciones con payload, al ser funciones, son acciones).</p>
+
+            <p>Creamos la acción/función <strong>getCryptos()</strong> donde vamos a escribir toda la lógica:</p>
+
+            <ul class="list-disc my-3">
+              <li class="my-1.25">importamos axios <code class="language-ts">import axios from 'axios'</code></li>
+              <li class="my-1.25">Creamos variable <strong>url</strong> para la url <code class="language-ts">const url = 'https://min-api.cryptocompare.com/data/top/mktcapfull?limit=20&tsym=EUR'</code></li>
+              <li class="my-1.25">creamos otra variable <strong>data</strong> usamos await axios hacia nuestra url <code class="language-ts">const data = await axios(url)</code> y mandamos a la consola ese data para ver qué estamos obteniendo.
+              
+              <div class="flex max-sm:flex-col mt-2">
+                
+                <div class="w-[50%] max-sm:w-[100%]">
+                  <p>En <span class="file">App.tsx</span> cuando nuestra App está lista, con el useEffect mandamos llamar a nuestro store <strong>useCryptoStore</strong> </p>
+                  <pre data-line="0, 6-9"><code class="language-ts">
+                    //App.tsx
+                    import { useEffect } from 'react';
+                    import CriptoSearchForm from './components/CriptoSearchForm';
+                    import { useCryptoStore } from './store'
+
+                    function App() {
+                      const fetchCryptos = useCryptoStore((state) => state.fetchCryptos)
+                      useEffect(() => {
+                        fetchCryptos()
+                      }, [])
+
+                      return (
+                        &lt;&gt;
+                          &lt;div className=&quot;container&quot;&gt;
+                              &lt;h1 className=&quot;app-title&quot;&gt;
+                                  Cotizador de &lt;span&gt;Criptomonedas&lt;/span&gt;
+                              &lt;/h1&gt;
+
+                              &lt;div className=&quot;content&quot;&gt;
+                                  &lt;CriptoSearchForm /&gt;
+                              &lt;/div&gt;
+                          &lt;/div&gt;
+                        &lt;/&gt;
+                      )
+                    }
+                    export default App
+
+                  </code></pre>
+                </div>
+                <div class="w-[50%] max-sm:w-[100%]">
+                  <p><br>...y nuestro store se encarga de mandar llamar esta otra función <strong>getCryptos()</strong></p>
+                  <pre data-line="0,4-8,12"><code class="language-ts">
+                    //store.ts
+                    import { create } from "zustand"
+                    import axios from 'axios'
+                    
+                    async function getCryptos(){
+                        const url = 'https://min-api.cryptocompare.com/data/top/mktcapfull?limit=20&tsym=EUR'
+                        //const data = await axios(url)
+                        const {data: {Data}} = await axios(url)
+                        console.log(data)
+                    }
+                    
+                    export const useCryptoStore = create(() => ({
+                        fetchCryptos: () => {
+                            getCryptos()
+                        }
+                    }))              
+                  </code></pre>
+
+                  <p>y vemos que aparece esta respuesta; sabemos que la llamada fue correcta viendo <strong>statusText: "OK"</strong></p>
+                  <img src="https://andune55.github.io/manual-react/assets/288-D1uLJjm7.png" alt="img" loading="lazy">
+                </div>                
+              </div>
+
+              <div class="flex max-sm:flex-col border p-5">
+                <div class="w-[50%] max-sm:w-[100%]">
+                  <p class="mt-2">Si despegamos el Data dentro de data vemos que ahí están todas las criptos:</p>
+                  <img src="https://andune55.github.io/manual-react/assets/288-2-1TyeKuaE.png" alt="img" loading="lazy">
+                </div>
+                <div class="w-[50%] max-sm:w-[100%]">
+                  <p>Podemos entrar al primer data si en vez de <code class="language-ts">const data = await axios(url)</code> ponemos esto: <code class="language-ts">const {data} = await axios(url)</code> <code class="language-ts">console.log(data)</code></p>
+                  <img src="https://andune55.github.io/manual-react/assets/288-3-CtqJBKf3.png" alt="img" loading="lazy">
+                  <p>¿Y acceder al Data dentro de data? sí, poniendo esto <code class="language-ts">const {data: {Data}} = await axios(url)</code> y enviamos <strong>Data a la consola <code class="language-ts">console.log(Data)</code></strong></p>
+                  <img src="https://andune55.github.io/manual-react/assets/288-4-CDB6H-JZ.png" alt="img" loading="lazy">
+                </div>
+              </div>
+              </li>
+              <li class="my-1.25">Si expandimos por ejemplo el primero, vemos en <strong>CoinInfo</strong> que tenemos información sobre esa moneda, de hecho la primera es un Bitcoin como vemos en <strong>FullName</strong>(que es el nombre que quremos mostrar en nuestro segundo select) y requerimos el valor de 3 dígitos (Name) que es el que vamos a enviar como petición a la API para generar ese segundo select de nuestro formulario:
+              <img src="https://andune55.github.io/manual-react/assets/288-5-BDHycjcD.png" alt="img" loading="lazy">             
+              </li>              
+            </ul> 
           </div>
 
-<!-- Bloque desplegable interior-->
-<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion17-289').toggle();">
-  <h3>289. Validando la respuesta de la API con Zod</h3>
-  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
-</div>
-<div id="seccion17-289" class="hidden">
+          <!-- Bloque desplegable interior-->
+          <div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion17-289').toggle();">
+            <h3>289. Validando la respuesta de la API con Zod</h3>
+            <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+          </div>
+          <div id="seccion17-289" class="hidden">
+            <p>Estamos consultando la API de cryto compare y obteniendo las 20 criptos de mayor valor.  Si recordamos vamos a usar Zod para asegurarnos y revisar que la respuesta que estamos obteniendo de la API tiene la forma, el schema que nosotros deseamos.</p>
+
+            <ul class="list-disc my-3">
+              <li class="my-1.25">En <span class="file">crypto-schema.ts</span> creamos una nueva variable <code class="language-ts">export const CryptoCurrencyResponseSchema = z.object({ ... })</code> que es la respuesta de nuestra API. Y dentro de ese objeto, de toda esa lista que nos pasa el backend como decimos solo requerimos <strong>FullName</strong> y <strong>Name</strong> siendo ambos strings:
+              <pre data-line="0, 7-12"><code class="language-ts">
+                //crypto-schema.ts
+                import { z } from 'zod'
+
+                export const CurrencySchema = z.object({
+                  code: z.string(),
+                  name: z.string()
+                })
+                export const CryptoCurrencyResponseSchema = z.object({
+                  CoinInfo : z.object({
+                    FullName: z.string(),
+                    Name: z.string()
+                  }) 
+                })
+              </code></pre>
+              </li>
+              <li class="my-1.25">Volvemos a nuestro <span class="file">store.ts</span> y como tenemos que validar nuestro Data <code class="language-ts">const {data: {Data}} = await axios(url)</code> utilizando ese schema que acabamos de crear; eliminamos el <code class="language-ts">console.log(Data)</code> y en su lugar añadimos la nueva variable <strong>result</strong> en la que usando el nuevo schema y la función safeParse (para validar la respuesta porque TS ni puede, recordemos) le pasamos ese Data y ponemos <code class="language-ts">console.log(result)</code> a esta nueva variable para ver qué obtenemos y vemos que obtenemos un <strong>succes: false</strong>:
+                <pre data-line="0"><code class="language-ts">
+                  //store.ts
+                  ...
+                  const result = CryptoCurrencyResponseSchema.safeParse(Data)
+                  console.log(result)
+                </code></pre>
+                <img src="data:image/png;base64,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" alt="img" loading="lazy">
+                
+                <p>¿Por qué, si era la respuesta que esperábamos?. Si hacemos un console.log(Data) antes, podemos ver que lo que nos devuelve es un arreglo</p>
+                <pre data-line="0"><code class="language-ts">
+                  //store.ts
+                  async function getCryptos(){
+                    const url = 'https://min-api.cryptocompare.com/data/top/mktcapfull?limit=20&tsym=EUR'
+                    const {data: {Data}} = await axios(url)
+                    console.log(Data)
+                    const result = CryptoCurrencyResponseSchema.safeParse(Data)
+                    console.log(result)
+                }
+                </code></pre>
+                <img src="https://andune55.github.io/manual-react/assets/289-2-0Spu7V8h.png" alt="img" loading="lazy">
+                <p>¿Como lo solucionamos? En <span class="file">crypto-schema.ts</span> retocamos la nueva variable del nuevo schema indicándole que es un array y ya de esa forma va a esperar un arreglo:</p>
+                <pre data-line="0,6,12"><code class="language-ts">
+                  //crypto-schema.ts
+                  import { z } from 'zod'
+                  export const CurrencySchema = z.object({
+                      code: z.string(),
+                      name: z.string()
+                  })
+                  export const CryptoCurrencyResponseSchema = z.array(
+                    z.object({
+                      CoinInfo : z.object({
+                        FullName: z.string(),
+                        Name: z.string()
+                      }) 
+                  }))
+                </code></pre>
+                <p>Si recargamos vemos que ya nos aparece el <strong>success: true</strong></p>
+                <img src="data:image/png;base64,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" alt="img" loading="lazy">
+                <p>Estos son los beneficios de utilizar Zod, porque va a comprobar con el JSON, con los datos reales, que estamos obteniendo.</p>              
+              </li>
+              <li class="my-1.25">Una recomendación que nos da en lugar de tener así los schemas que contienen arrays (z.array() y dentro z.object()) es tener, digamos, una forma en singular y una forma en plural para que se aun poco más reutilizable. Creamos una nueva variable para "schema arrray" <strong>CryptoCurrenciesResponseSchema</strong> y le pasamos como argumento nuestro primer eschema <strong>CryptoCurrencyResponseSchema</strong>. Lo único que hace es tomar el esquema <strong>CryptoCurrencyResponseSchema</strong> que le pasamos como argumento y convertirlo a arreglo (como si tuviéramos un type por ejemplo de Product y después le pusiéramos arreglo Product[])
+
+                <div class="flex max-sm:flex-col">
+                  <div class="w-[50%] max-sm:w-[100%]">
+                    <pre class="rojo" data-line="6-12"><code class="language-ts">
+                      //crypto-schema.ts
+                      import { z } from 'zod'
+                      export const CurrencySchema = z.object({
+                          code: z.string(),
+                          name: z.string()
+                      })
+                      export const CryptoCurrencyResponseSchema = z.array(
+                        z.object({
+                          CoinInfo : z.object({
+                            FullName: z.string(),
+                            Name: z.string()
+                          }) 
+                      }))
+                    </code></pre>
+                  
+                  </div>
+                  <div class="w-[50%] max-sm:w-[100%]">
+                    
+                    <pre class="verde" data-line="6-11,13"><code class="language-ts">
+                      //crypto-schema.ts
+                      import { z } from 'zod'
+                      export const CurrencySchema = z.object({
+                          code: z.string(),
+                          name: z.string()
+                      })
+                      export const CryptoCurrencyResponseSchema = z.object({
+                          CoinInfo : z.object({
+                            FullName: z.string(),
+                            Name: z.string()
+                        }) 
+                      })
+
+                      export const CryptoCurrenciesResponseSchema = z.array(CryptoCurrencyResponseSchema)
+                    </code></pre>
+                  </div>
+                </div>
+
+                <p>Volvamos al store y utilicemos este nuevo schema para array (eliminamos la importanción del otro también)</p>
+                <p>Seguimos viendo que nos devuelve un <strong>success: true</strong> porque funciona correctamente:</p>
+
+                <div class="flex max-sm:flex-col">
+                  <div class="w-[50%] max-sm:w-[100%]">
+                    <pre data-line="0,3,9"><code class="language-ts">
+                      //store.ts
+                      import { create } from "zustand"
+                      import axios from 'axios'
+                      import { CryptoCurrenciesResponseSchema } from './schema/crypto-schema'
+                      
+                      async function getCryptos(){
+                        const url = 'https://min-api.cryptocompare.com/data/top/mktcapfull?limit=20&tsym=EUR'
+                        const {data: {Data}} = await axios(url)
+                        console.log(Data)
+                        const result = CryptoCurrenciesResponseSchema.safeParse(Data)
+                        console.log(result)
+                      }                      
+                      export const useCryptoStore = create(() => ({
+                        fetchCryptos: () => {
+                          getCryptos()
+                        }
+                      }))
+                    </code></pre>
+                  </div>
+                  <div class="w-[50%] max-sm:w-[100%]">                    
+                    <img src="https://andune55.github.io/manual-react/assets/289-4-ee4G5Ay1.png" alt="img" loading="lazy">                    
+                  </div>
+                </div>
+                <p>Coloquemos en el state esta respuesta que estamos obteniendo porque esta ya viene bien formateada, ya tiene todo lo que necesitamos para componer ese segundo select de nuestro formulario: el <strong>FullName</strong> y el <strong>Name</strong></p>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Bloque desplegable interior-->
+          <div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion17-290').toggle();">
+            <h3>290. Finalizando la función que obtiene las Criptos</h3>
+            <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+          </div>
+          <div id="seccion17-290" class="hidden">
+            <p>Vamos a finalizar la función <code class="language-ts">async function getCryptos(){...}</code> de nuestro <span class="file">store.ts</span>. Como vimos ya tenemos un resultado satisfactorio, ese <strong>success: true</strong> nos confirma que se está validando la respuesta correctamente. Metemos un if para que si result.success retorne result.data y así esos datos van a nuestra función <strong>getCryptos()</strong> que tenemos en nuestro store. Probemos a meter la llamada a getCryptos en una variable que vemos con console.log y vemos que nos aparece un <span class="rojo">Promise {&lt;Pending&gt;}</span> </p>
+
+            <div class="flex max-sm:flex-col">
+              <div class="w-[50%] max-sm:w-[100%]">
+                <pre data-line="0,7-9,14-15"><code class="language-ts">
+                  //store.ts
+                  async function getCryptos(){
+                    const url = 'https://min-api.cryptocompare.com/data/top/mktcapfull?limit=20&tsym=EUR'
+                    const {data: {Data}} = await axios(url)
+                    console.log(Data)
+                    const result = CryptoCurrenciesResponseSchema.safeParse(Data)
+                    //console.log(result)
+                    if(result.success){
+                        return result.data
+                    }
+                  }
+                  export const useCryptoStore = create(() => ({
+                    fetchCryptos: () => {
+                        //getCryptos()
+                        const cryptocurrencies = getCryptos()
+                        console.log(cryptocurrencies)
+                    }
+                  }))
+                </code></pre>
+              </div>
+              <div class="w-[50%] max-sm:w-[100%] ml-2">
+                <img src="data:image/png;base64,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" alt="img" loading="lazy">
+              </div>
+            </div>  
+
+            <p>¿Por qué nos pasa esto si nos estaba funcionando bien pero ahora con el nuevo console.log vemos eso? porque <span class="destacado">nuestra función getCryptos() es asíncrona (tiene el async y el await) y por tanto se alcanza a resolver correctamente</span> sin embargo en la parte inferior, <strong>la acción de nuestro store es otra función aparte</strong> y, aunque estamos llamando en el código a getCryptos no estamos esperando a que se resuelva esa función antes de continuar con la ejecución de nuestro código, con ese console log (estamos intentando hacer un console.log de algo que aún no se ha ejecutado, esa llamada a getCryptos que hemos metido en una variable). <span class="destacado">Recordemos que lo que hace ese await es: "en lo que voy y obtengo la información de los datos detengo la ejecución del código"</span>. Si, como en la parte inferior (la acción de nuestra store), no hacemos nuestra función asíncrona, la va a tratar como una función normal, no va a bloquear la ejecución del código y va a ejecutar todo de arriba hacia a abajo y por eso obtenemos ese <span class="rojo">Promise {&lt;Pending&gt;}</span> </p>
+            <p>¿Cómo convertimos esa acción en asíncroma? <span class="destacado">le añadimos la palabra async aquí, y la palabra await aquí para bloquear la ejecución del console.log(cryptocurrencies) hasta que getCryptos() haya finalizado su ejecución</span>. Y ahora sí vemos que aparece el resultado correctamente:</p>
+
+            <div class="flex max-sm:flex-col">
+              <div class="w-[50%] max-sm:w-[100%]">
+                <pre data-line="0,1,3,12,14"><code class="language-ts">
+                  //store.ts
+                  async function getCryptos(){
+                    const url = 'https://min-api.cryptocompare.com/data/top/mktcapfull?limit=20&tsym=EUR'
+                    const {data: {Data}} = await axios(url)
+                    console.log(Data)
+                    const result = CryptoCurrenciesResponseSchema.safeParse(Data)
+                    //console.log(result)
+                    if(result.success){
+                        return result.data
+                    }
+                  }
+                  export const useCryptoStore = create(() => ({
+                    fetchCryptos: async () => {
+                        //getCryptos()
+                        const cryptocurrencies = await getCryptos()
+                        console.log(cryptocurrencies)
+                    }
+                  }))
+                </code></pre>
+              </div>
+              <div class="w-[50%] max-sm:w-[100%]">
+                <img src="data:image/png;base64,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" alt="img" loading="lazy">
+              </div>
+            </div>
+
+            <p>Como queremos colocar todo lo de nuestra respuesta en un state y aún no tenemos uno, lo creamos (en vez de <code class="language-ts">cryptocurrencies : cryptocurrencies</code> podríamos poner <code class="language-ts">cryptocurrencies</code> porque se llaman igual pero yo prefiero dejarlo así para entender que seteamos nuestro state cryptocurrencies (inicializado vacío en nuestro store) con lo que recuperamos del await getCryptos() que guardamos en la variable cryptocurrencies):</p>
+
+            <div class="flex max-sm:flex-col">
+              <div class="w-[50%] max-sm:w-[100%]">
+                <pre data-line="0,2,3,8-10"><code class="language-ts">
+                  //store.ts
+                  ...                
+                  export const useCryptoStore = create((set) => ({
+                    cryptocurrencies: [],
+                    fetchCryptos: async () => {
+                      //getCryptos()
+                      const cryptocurrencies = await getCryptos()
+                      //console.log(cryptocurrencies)
+                      set(() => ({
+                          cryptocurrencies : cryptocurrencies
+                      }))
+                    }
+                  }))
+                </code></pre>
+              </div>
+              <div class="w-[50%] max-sm:w-[100%]">
+                <pre data-line="0"><code class="language-ts"></code></pre>
+              </div>
+            </div>
 
 
-</div>
 
-<!-- Bloque desplegable interior-->
-<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion17-290').toggle();">
-  <h3>290. Finalizando la función que obtiene las Criptos</h3>
-  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
-</div>
-<div id="seccion17-290" class="hidden">
+            <p>Inmediatamente al guardar cambios vemos que nos da un aviso en <span class="file">App.tsx</span> de que ese state es de tipo unknown: <span class="bg-amber-950 text-amber-300">"state" es de tipo "unknown".</span></p>
+
+            <img src="https://andune55.github.io/manual-react/assets/290-3-CSxhgcG7.png" alt="img" loading="lazy">
+
+            <p>Y es porque en el store aún no hemos definido qué forma va a tener el state de este store, el type, lo hacemos:</p>
+              
+            <p><span class="destacado">Creamos el type en <span class="file">types/index.ts</span> para a su vez poder tipar en nuestro store el state y la acción con la que recuperamos las cryptos y seteamos el state. Podemos usar cualquiera de los dos schemas siguientes pero es preferible el "singular" para que al tipar en el store quede más claro que se tratra de un array:</span></p>
+              <ul class="list-disc my-3">
+                <li class="my-1.25">Usar el schema singular de <span class="file">schema/crypto-schema.ts</span> <code class="language-ts">CryptoCurrencyResponseSchema</code> <svg class="size-6 shrink-0 inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3"></path>
+                </svg>
+                <span class="file">types/index.ts</span>
+                <code class="language-ts">export type Cryptocurrency = z.infer&lt;typeof CryptoCurrencyResponseSchema&gt;</code>
+                <svg class="size-6 shrink-0 inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3"></path>
+                </svg>
+                <pre data-line="0,2"><code class="language-ts">
+                  //store.ts
+                  type CryptoStore = {
+                    cryptocurrencies: Cryptocurrency[]
+                    fetchCryptos: () => Promise&lt;void&gt; 
+                  }
+                </code></pre>
+                </li>
+                <li class="my-1.25">Usar el otro schema de array de <span class="file">schema/crypto-schema.ts</span> <code class="language-ts">CryptoCurrenciesResponseSchema</code> <svg class="size-6 shrink-0 inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3"></path>
+                </svg>
+                <span class="file">types/index.ts</span>
+                <code class="language-ts">export type Cryptocurrencies = z.infer&lt;typeof CryptoCurrenciesResponseSchema&gt;</code>
+                <svg class="size-6 shrink-0 inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3"></path>
+                </svg>
+                <pre data-line="0,2"><code class="language-ts">
+                  //store.ts
+                  type CryptoStore = {
+                    cryptocurrencies: Cryptocurrencies
+                    fetchCryptos: () => Promise&lt;void&gt; 
+                  }
+                </code></pre>
+                </li>
+              </ul>
+           
+            <pre data-line="0"><code class="language-ts">
+              //schema/crypto-schema.ts
+              import { z } from 'zod'
+
+              export const CurrencySchema = z.object({
+                  code: z.string(),
+                  name: z.string()
+              })              
+              export const CryptoCurrencyResponseSchema = z.object({
+                  CoinInfo : z.object({
+                      FullName: z.string(),
+                      Name: z.string()
+                  }) 
+              })              
+              export const CryptoCurrenciesResponseSchema = z.array(CryptoCurrencyResponseSchema)
+            </code></pre>
+          
+
+            <pre data-line="0,2,5"><code class="language-ts">
+              //types/index.ts
+              import { z } from 'zod'
+              import { CurrencySchema, CryptoCurrencyResponseSchema } from '../schema/crypto-schema'
+              
+              export type Currency = z.infer&lt;typeof CurrencySchema&gt;
+              export type Cryptocurrency = z.infer&lt;typeof CryptoCurrencyResponseSchema&gt;
+            </code></pre>
+          
+            <pre data-line="1-4,15"><code class="language-ts">
+              //store.ts
+              type CryptoStore = {
+                cryptocurrencies: Cryptocurrency[]
+                fetchCryptos: () => Promise&lt;void&gt; 
+              }
+              async function getCryptos(){
+                  const url = 'https://min-api.cryptocompare.com/data/top/mktcapfull?limit=20&tsym=EUR'
+                  const {data: {Data}} = await axios(url)
+                  console.log(Data)
+                  const result = CryptoCurrenciesResponseSchema.safeParse(Data)
+                  //console.log(result)
+                  if(result.success){
+                      return result.data
+                  }
+              }
+              export const useCryptoStore = create&lt;CryptoStore&gt;((set) => ({
+                  cryptocurrencies: [],
+                  fetchCryptos: async () => {
+                      //getCryptos()
+                      const cryptocurrencies = await getCryptos()
+                      //console.log(cryptocurrencies)
+                      set(() => ({
+                          cryptocurrencies : cryptocurrencies
+                      }))
+                  }
+              }))                  
+            </code></pre>             
+              
+            <p>Veamos como utilizar Redux Dev Tools pra visualizar los datos del Store</p>
 
 
-</div>
+          </div>
 
 <!-- Bloque desplegable interior-->
 <div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion17-291').toggle();">
   <h3>291. Agregando Redux Dev Tools para visualizar los datos del Store</h3>
   <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
 </div>
-<div id="seccion17-291" class="hidden">
+<div id="seccion17-291" class="">
 
+  <p>En <span class="file">store.ts</span> importamos <code class="language-ts">import { devtools } from 'zustand/middleware'</code> y añadimos en la línea indicada <strong>()(devtools....)</strong>. <span class="destacado">En la pestaña de Redux ya podemos ver nuestro state cryptocurrencies</span></p>
+
+  <div class="flex max-sm:flex-col">
+    <div class="w-[50%] max-sm:w-[100%]">
+      <pre data-line="0,2,21,31"><code class="language-ts">
+        //store.ts
+        import { create } from "zustand"
+        import { devtools } from 'zustand/middleware' 
+        import axios from 'axios'
+        import { CryptoCurrenciesResponseSchema } from './schema/crypto-schema'
+        import { Cryptocurrency } from "./types"
+        
+        type CryptoStore = {
+          cryptocurrencies: Cryptocurrency[]
+          fetchCryptos: () => Promise&lt;void&gt; 
+        }
+        async function getCryptos(){
+          const url = 'https://min-api.cryptocompare.com/data/top/mktcapfull?limit=20&tsym=EUR'
+          const {data: {Data}} = await axios(url)
+          console.log(Data)
+          const result = CryptoCurrenciesResponseSchema.safeParse(Data)
+          //console.log(result)
+          if(result.success){
+            return result.data
+          }
+        }
+        export const useCryptoStore = create&lt;CryptoStore&gt;()(devtools((set) => ({
+          cryptocurrencies: [],
+          fetchCryptos: async () => {
+            //getCryptos()
+            const cryptocurrencies = await getCryptos()
+            //console.log(cryptocurrencies)
+            set(() => ({
+                cryptocurrencies : cryptocurrencies
+            }))
+          }
+        })))
+      </code></pre>
+    </div>
+    <div class="w-[50%] max-sm:w-[100%]">
+      <img src="https://andune55.github.io/manual-react/assets/291-wZ5-oesJ.png" alt="img" loading="lazy">
+    </div>
+  </div>
+
+  <p>La función de nuestro store <code class="language-ts">async function getCryptos(){...} </code> vamos a colocarla en una carpeta o en su propio archivo donde tengamos todos los servicios o conexiones hacia nuestras APIS</p>
 
 </div>
 
