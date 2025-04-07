@@ -3288,7 +3288,7 @@
                 </code></pre>
               </div>
               <div class="w-[50%] max-sm:w-[100%]">
-                <pre data-line="0"><code class="language-ts"></code></pre>
+               
               </div>
             </div>
 
@@ -3397,81 +3397,205 @@
 
           </div>
 
-<!-- Bloque desplegable interior-->
-<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion17-291').toggle();">
-  <h3>291. Agregando Redux Dev Tools para visualizar los datos del Store</h3>
-  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
-</div>
-<div id="seccion17-291" class="">
+          <!-- Bloque desplegable interior-->
+          <div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion17-291').toggle();">
+            <h3>291. Agregando Redux Dev Tools para visualizar los datos del Store</h3>
+            <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+          </div>
+          <div id="seccion17-291" class="hidden">
 
-  <p>En <span class="file">store.ts</span> importamos <code class="language-ts">import { devtools } from 'zustand/middleware'</code> y añadimos en la línea indicada <strong>()(devtools....)</strong>. <span class="destacado">En la pestaña de Redux ya podemos ver nuestro state cryptocurrencies</span></p>
+            <p>En <span class="file">store.ts</span> importamos <code class="language-ts">import { devtools } from 'zustand/middleware'</code> y añadimos en la línea indicada <strong>()(devtools....)</strong>. <span class="destacado">En la pestaña de Redux ya podemos ver nuestro state cryptocurrencies</span></p>
 
-  <div class="flex max-sm:flex-col">
-    <div class="w-[50%] max-sm:w-[100%]">
-      <pre data-line="0,2,21,31"><code class="language-ts">
-        //store.ts
-        import { create } from "zustand"
-        import { devtools } from 'zustand/middleware' 
-        import axios from 'axios'
-        import { CryptoCurrenciesResponseSchema } from './schema/crypto-schema'
-        import { Cryptocurrency } from "./types"
-        
-        type CryptoStore = {
-          cryptocurrencies: Cryptocurrency[]
-          fetchCryptos: () => Promise&lt;void&gt; 
-        }
-        async function getCryptos(){
-          const url = 'https://min-api.cryptocompare.com/data/top/mktcapfull?limit=20&tsym=EUR'
-          const {data: {Data}} = await axios(url)
-          console.log(Data)
-          const result = CryptoCurrenciesResponseSchema.safeParse(Data)
-          //console.log(result)
-          if(result.success){
-            return result.data
-          }
-        }
-        export const useCryptoStore = create&lt;CryptoStore&gt;()(devtools((set) => ({
-          cryptocurrencies: [],
-          fetchCryptos: async () => {
-            //getCryptos()
-            const cryptocurrencies = await getCryptos()
-            //console.log(cryptocurrencies)
-            set(() => ({
-                cryptocurrencies : cryptocurrencies
-            }))
-          }
-        })))
-      </code></pre>
-    </div>
-    <div class="w-[50%] max-sm:w-[100%]">
-      <img src="https://andune55.github.io/manual-react/assets/291-wZ5-oesJ.png" alt="img" loading="lazy">
-    </div>
-  </div>
+            <div class="flex max-sm:flex-col">
+              <div class="w-[50%] max-sm:w-[100%]">
+                <pre data-line="0,2,21,31"><code class="language-ts">
+                  //store.ts
+                  import { create } from "zustand"
+                  import { devtools } from 'zustand/middleware' 
+                  import axios from 'axios'
+                  import { CryptoCurrenciesResponseSchema } from './schema/crypto-schema'
+                  import { Cryptocurrency } from "./types"
+                  
+                  type CryptoStore = {
+                    cryptocurrencies: Cryptocurrency[]
+                    fetchCryptos: () => Promise&lt;void&gt; 
+                  }
+                  async function getCryptos(){
+                    const url = 'https://min-api.cryptocompare.com/data/top/mktcapfull?limit=20&tsym=EUR'
+                    const {data: {Data}} = await axios(url)
+                    console.log(Data)
+                    const result = CryptoCurrenciesResponseSchema.safeParse(Data)
+                    //console.log(result)
+                    if(result.success){
+                      return result.data
+                    }
+                  }
+                  export const useCryptoStore = create&lt;CryptoStore&gt;()(devtools((set) => ({
+                    cryptocurrencies: [],
+                    fetchCryptos: async () => {
+                      //getCryptos()
+                      const cryptocurrencies = await getCryptos()
+                      //console.log(cryptocurrencies)
+                      set(() => ({
+                          cryptocurrencies : cryptocurrencies
+                      }))
+                    }
+                  })))
+                </code></pre>
+              </div>
+              <div class="w-[50%] max-sm:w-[100%]">
+                <img src="https://andune55.github.io/manual-react/assets/291-wZ5-oesJ.png" alt="img" loading="lazy">
+              </div>
+            </div>
 
-  <p>La función de nuestro store <code class="language-ts">async function getCryptos(){...} </code> vamos a colocarla en una carpeta o en su propio archivo donde tengamos todos los servicios o conexiones hacia nuestras APIS</p>
+            <p>La función de nuestro store <code class="language-ts">async function getCryptos(){...} </code> vamos a colocarla en una carpeta o en su propio archivo donde tengamos todos los servicios o conexiones hacia nuestras APIS.</p>
 
-</div>
-
-
-<!-- Bloque desplegable interior-->
-<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion17-292').toggle();">
-  <h3>292. Moviendo la función que obtiene la API hacia otro archivo</h3>
-  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
-</div>
-<div id="seccion17-292" class="hidden">
+          </div>
 
 
-</div>
+          <!-- Bloque desplegable interior-->
+          <div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion17-292').toggle();">
+            <h3>292. Moviendo la función que obtiene la API hacia otro archivo</h3>
+            <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+          </div>
+          <div id="seccion17-292" class="hidden">
+            <p>La función de nuestro store <code class="language-ts">async function getCryptos(){...}</code> no tiene nada que ver con nuestro store. Lo que hace es hacer la llamada a la API y validar la respuesta. Así que para no hacer tan "pesado" el store.ts creamos este fichero donde estarán nuestros servicios <span class="file">services/CryptoService.ts</span></p>
 
-<!-- Bloque desplegable interior-->
-<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion17-293').toggle();">
-  <h3>293. Mostrando las Criptomonedas en el Formulario</h3>
-  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
-</div>
-<div id="seccion17-293" class="hidden">
+            <div class="flex max-sm:flex-col">
+              <div class="w-[50%] max-sm:w-[100%]">
+                <pre data-line="0"><code class="language-ts">
+                  //services/CryptoService.ts
+                  import axios from 'axios'
+                  import { CryptoCurrenciesResponseSchema } from '../schema/crypto-schema'
+                  
+                  export async function getCryptos(){
+                      const url = 'https://min-api.cryptocompare.com/data/top/mktcapfull?limit=20&tsym=EUR'
+                      const {data: {Data}} = await axios(url)
+                      console.log(Data)
+                      const result = CryptoCurrenciesResponseSchema.safeParse(Data)
+                      //console.log(result)
+                      if(result.success){
+                          return result.data
+                      }
+                  }
+                </code></pre>
+              </div>
+              <div class="w-[50%] max-sm:w-[100%]">
+                <pre data-line="0"><code class="language-ts">
+                  //store.ts
+                  import { create } from "zustand"
+                  import { devtools } from 'zustand/middleware' 
+                  import { Cryptocurrency } from "./types"
+                  import { getCryptos } from "./services/CryptoService"
+                  
+                  type CryptoStore = {
+                      cryptocurrencies: Cryptocurrency[]
+                      fetchCryptos: () => Promise&lt;void&gt; 
+                  }
+                  
+                  export const useCryptoStore = create&lt;CryptoStore&gt;()(devtools((set) => ({
+                      cryptocurrencies: [],
+                      fetchCryptos: async () => {
+                          //getCryptos()
+                          const cryptocurrencies = await getCryptos()
+                          //console.log(cryptocurrencies)
+                          set(() => ({
+                              cryptocurrencies : cryptocurrencies
+                          }))
+                      }
+                  })))        
+                </code></pre>
+              </div>
+            </div>
 
+            <p>Por tanto <strong>getCryptos(){...}</strong> es un servicio que va a conectarse con una API y tiene la validación y todo lo demás.</p>
 
-</div>
+            <p>Como vemos nuestro store queda más limpio dejando fuera las funciones que se comunican con la API (así son más reutilizables) mientras que el store.ts ya solo tiene states y acciones que los modifican.</p>
+
+          </div>
+
+          <!-- Bloque desplegable interior-->
+          <div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion17-293').toggle();">
+            <h3>293. Mostrando las Criptomonedas en el Formulario</h3>
+            <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+          </div>
+          <div id="seccion17-293" class="">
+            <p>Ya teniendo nuestras monedas en el state es momento de mostrarlas en el segundo select. Abrimos nuestro formulario <span class="file">components/CriptoSearchForm.tsx</span> e importamos nuestro hook <code class="language-ts">import { useCryptoStore } from '../store'</code>:</p>
+
+            <div class="flex max-sm:flex-col">
+              <div class="w-[50%] max-sm:w-[100%]">
+                <pre data-line="0"><code class="language-ts">
+                  //store.ts
+                  import { create } from "zustand"
+                  import { devtools } from 'zustand/middleware' 
+                  import { Cryptocurrency } from "./types"
+                  import { getCryptos } from "./services/CryptoService"
+                  
+                  type CryptoStore = {
+                      cryptocurrencies: Cryptocurrency[]
+                      fetchCryptos: () => Promise&lt;void&gt; 
+                  }
+                  
+                  export const useCryptoStore = create&lt;CryptoStore&gt;()(devtools((set) => ({
+                      cryptocurrencies: [],
+                      fetchCryptos: async () => {
+                          //getCryptos()
+                          const cryptocurrencies = await getCryptos()
+                          //console.log(cryptocurrencies)
+                          set(() => ({
+                              cryptocurrencies : cryptocurrencies
+                          }))
+                      }
+                  })))        
+                </code></pre>                
+              </div>
+              <div class="w-[50%] max-sm:w-[100%]">
+                <pre data-line="1,4,21-26"><code class="language-ts">
+                  //components/CriptoSearchForm.tsx
+                  import { useCryptoStore } from '../store'
+                  import { currencies } from '../data/index'
+                  export default function CriptoSearchForm() {
+                      const cryptocurrencies = useCryptoStore((state) => state.cryptocurrencies )
+                      return (
+                          &lt;form className=&quot;form&quot;&gt;
+                              &lt;div className=&quot;field&quot;&gt;
+                                  &lt;label htmlFor=&quot;currency&quot;&gt;Moneda:&lt;/label&gt;
+                                  &lt;select name=&quot;currency&quot; id=&quot;currency&quot;&gt;
+                                      &lt;option value=&quot;&quot;&gt;-- Seleccione --&lt;/option&gt;
+                                      {currencies.map( currency =&gt; (
+                                          &lt;option key={currency.code} value={currency.code}&gt;{currency.name}&lt;/option&gt;
+                                      ))}
+                                  &lt;/select&gt;
+                              &lt;/div&gt;
+                  
+                              &lt;div className=&quot;field&quot;&gt;
+                                  &lt;label htmlFor=&quot;criptocurrency&quot;&gt;Criptomoneda:&lt;/label&gt;
+                                  &lt;select name=&quot;criptocurrency&quot; id=&quot;criptocurrency&quot;&gt;
+                                      &lt;option value=&quot;&quot;&gt;-- Seleccione --&lt;/option&gt;   
+                                      { cryptocurrencies.map(crypto =&gt; (
+                                          &lt;option 
+                                              key={crypto.CoinInfo.FullName}
+                                              value={crypto.CoinInfo.Name}
+                                          &gt;{crypto.CoinInfo.FullName}&lt;/option&gt;
+                                      ))}                 
+                                  &lt;/select&gt;
+                              &lt;/div&gt;
+                  
+                              &lt;input type=&quot;submit&quot; value=&quot;cotizar&quot;/&gt;
+                          &lt;/form&gt;
+                      )
+                  }
+                </code></pre>
+              </div>              
+            </div>
+
+            <p>La ventaja de implementar esta API, consumir desde este servicio, es que siempre nos va a mostrar las 20 cryptos que tengan mayor volumen de transacción y mayor valor; si el mercado va cambiando (unas ganan y/o pierden valor) este listado nuestro siempre se va a ir actualizando. La respuesta además queda totalmente tipada y comprobamos que la respuesta tenga la forma que hemos definido en nuestro schema.</p>
+
+            <img src="https://andune55.github.io/manual-react/assets/294-DOWBeJaC.png" alt="img" loading="lazy">
+
+            <p>Vamos a continuación a colocar en un state estos dos valores de los dos selects <strong>Moneda</strong> y <strong>Criptomoneda</strong> a cotizar.</p>
+
+          </div>
 
 <!-- Bloque desplegable interior-->
 <div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion17-294').toggle();">
