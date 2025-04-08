@@ -3602,8 +3602,93 @@
   <h3>294. Creando State para Moneda y Criptomoneda a Cotizar</h3>
   <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
 </div>
-<div id="seccion17-294" class="hidden">
+<div id="seccion17-294" class="">
+  <p>Vamos a crear un state local para almacenar las opciones que seleccionamos con los select. En este caso no hay necesidad de pasarlo a Zustand. Creamos el state local <strong>pair</strong> y podemos añadirle al useState un generic para indicarle el type a utilizar. Para ello definimos un schema nuevo para ese state <strong>pair</strong> que importamos en types:</p>
 
+  <div class="flex max-sm:flex-col">
+   
+    <div class="w-[30%] max-sm:w-[100%]">
+      <pre data-line="0,2-5"><code class="language-ts">
+        //schema/crypto-schema.ts
+        ...
+        export const PairSchema = z.object({
+          currency: z.string(),
+          criptocurrency: z.string()
+        })
+      </code></pre>
+    </div>   
+    <div class="w-[70%] max-sm:w-[100%]">
+      <pre data-line="0,6"><code class="language-ts">
+        //types/index.ts
+        import { z } from 'zod'
+        import { CurrencySchema, CryptoCurrencyResponseSchema, PairSchema } from '../schema/crypto-schema'
+
+        export type Currency = z.infer&lt;typeof CurrencySchema&gt;
+        export type Cryptocurrency = z.infer&lt;typeof CryptoCurrencyResponseSchema&gt;
+        export type Pair = z.infer&lt;typeof PairSchema&gt;
+      </code></pre>
+    </div> 
+
+  </div>
+
+  <p>El tipo del parámetro e que recibe handleChange lo inferimos, recordar, poniéndonos en el onChange del select y como arrow function ponemos una e y copiamos lo que nos indica el IS (le quitamos el react. previo importando ChangeEvent)</p>
+
+  <pre data-line="0,3,4,8-17,25,38"><code class="language-ts">
+    //CriptoSearchForm.tsx
+    import { useCryptoStore } from '../store'
+    import { currencies } from '../data/index'
+    import { ChangeEvent, useState } from 'react'
+    import { Pair } from '../types'
+    
+    export default function CriptoSearchForm() {
+        const cryptocurrencies = useCryptoStore((state) => state.cryptocurrencies )
+        const [pair, setPair] = useState&lt;Pair&gt;({
+            currency: '',
+            criptocurrency: ''
+        })
+        const handleChange = (e: ChangeEvent&lt;HTMLSelectElement&gt;) => {
+            setPair({
+                ...pair,
+                [e.target.name]: e.target.value
+            })
+        }
+        return (
+            &lt;form className=&quot;form&quot;&gt;
+                &lt;div className=&quot;field&quot;&gt;
+                    &lt;label htmlFor=&quot;currency&quot;&gt;Moneda:&lt;/label&gt;
+                    &lt;select 
+                        name=&quot;currency&quot; 
+                        id=&quot;currency&quot;
+                        onChange={handleChange}
+                    &gt;
+                        &lt;option value=&quot;&quot;&gt;-- Seleccione --&lt;/option&gt;
+                        {currencies.map( currency =&gt; (
+                            &lt;option key={currency.code} value={currency.code}&gt;{currency.name}&lt;/option&gt;
+                        ))}
+                    &lt;/select&gt;
+                &lt;/div&gt;    
+                &lt;div className=&quot;field&quot;&gt;
+                    &lt;label htmlFor=&quot;criptocurrency&quot;&gt;Criptomoneda:&lt;/label&gt;
+                    &lt;select 
+                        name=&quot;criptocurrency&quot; 
+                        id=&quot;criptocurrency&quot;
+                        onChange={handleChange}
+                    &gt;
+                        &lt;option value=&quot;&quot;&gt;-- Seleccione --&lt;/option&gt;   
+                        { cryptocurrencies.map(crypto =&gt; (
+                            &lt;option 
+                                key={crypto.CoinInfo.FullName}
+                                value={crypto.CoinInfo.Name}
+                            &gt;{crypto.CoinInfo.FullName}&lt;/option&gt;
+                        ))}                 
+                    &lt;/select&gt;
+                &lt;/div&gt;
+    
+                &lt;input type=&quot;submit&quot; value=&quot;cotizar&quot;/&gt;
+            &lt;/form&gt;
+        )
+    }
+  </code></pre>
 
 </div>
 
