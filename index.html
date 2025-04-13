@@ -3519,7 +3519,7 @@
             <h3>293. Mostrando las Criptomonedas en el Formulario</h3>
             <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
           </div>
-          <div id="seccion17-293" class="">
+          <div id="seccion17-293" class="hidden">
             <p>Ya teniendo nuestras monedas en el state es momento de mostrarlas en el segundo select. Abrimos nuestro formulario <span class="file">components/CriptoSearchForm.tsx</span> e importamos nuestro hook <code class="language-ts">import { useCryptoStore } from '../store'</code>:</p>
 
             <div class="flex max-sm:flex-col">
@@ -3597,110 +3597,169 @@
 
           </div>
 
-<!-- Bloque desplegable interior-->
-<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion17-294').toggle();">
-  <h3>294. Creando State para Moneda y Criptomoneda a Cotizar</h3>
-  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
-</div>
-<div id="seccion17-294" class="">
-  <p>Vamos a crear un state local para almacenar las opciones que seleccionamos con los select. En este caso no hay necesidad de pasarlo a Zustand. Creamos el state local <strong>pair</strong> y podemos añadirle al useState un generic para indicarle el type a utilizar. Para ello definimos un schema nuevo para ese state <strong>pair</strong> que importamos en types:</p>
+          <!-- Bloque desplegable interior-->
+          <div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion17-294').toggle();">
+            <h3>294. Creando State para Moneda y Criptomoneda a Cotizar</h3>
+            <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+          </div>
+          <div id="seccion17-294" class="hidden">
+            <p>Vamos a crear un state local para almacenar las opciones que seleccionamos con los select. En este caso no hay necesidad de pasarlo a Zustand. Creamos el state local <strong>pair</strong> y podemos añadirle al useState un generic para indicarle el type a utilizar. Para ello definimos un schema nuevo para ese state <strong>pair</strong> que importamos en types:</p>
 
-  <div class="flex max-sm:flex-col">
-   
-    <div class="w-[30%] max-sm:w-[100%]">
-      <pre data-line="0,2-5"><code class="language-ts">
-        //schema/crypto-schema.ts
-        ...
-        export const PairSchema = z.object({
-          currency: z.string(),
-          criptocurrency: z.string()
-        })
-      </code></pre>
-    </div>   
-    <div class="w-[70%] max-sm:w-[100%]">
-      <pre data-line="0,6"><code class="language-ts">
-        //types/index.ts
-        import { z } from 'zod'
-        import { CurrencySchema, CryptoCurrencyResponseSchema, PairSchema } from '../schema/crypto-schema'
+            <div class="flex max-sm:flex-col">
+            
+              <div class="w-[30%] max-sm:w-[100%]">
+                <pre data-line="0,2-5"><code class="language-ts">
+                  //schema/crypto-schema.ts
+                  ...
+                  export const PairSchema = z.object({
+                    currency: z.string(),
+                    criptocurrency: z.string()
+                  })
+                </code></pre>
+              </div>   
+              <div class="w-[70%] max-sm:w-[100%]">
+                <pre data-line="0,6"><code class="language-ts">
+                  //types/index.ts
+                  import { z } from 'zod'
+                  import { CurrencySchema, CryptoCurrencyResponseSchema, PairSchema } from '../schema/crypto-schema'
 
-        export type Currency = z.infer&lt;typeof CurrencySchema&gt;
-        export type Cryptocurrency = z.infer&lt;typeof CryptoCurrencyResponseSchema&gt;
-        export type Pair = z.infer&lt;typeof PairSchema&gt;
-      </code></pre>
-    </div> 
+                  export type Currency = z.infer&lt;typeof CurrencySchema&gt;
+                  export type Cryptocurrency = z.infer&lt;typeof CryptoCurrencyResponseSchema&gt;
+                  export type Pair = z.infer&lt;typeof PairSchema&gt;
+                </code></pre>
+              </div> 
 
-  </div>
+            </div>
 
-  <p>El tipo del parámetro e que recibe handleChange lo inferimos, recordar, poniéndonos en el onChange del select y como arrow function ponemos una e y copiamos lo que nos indica el IS (le quitamos el react. previo importando ChangeEvent)</p>
+            <p>El tipo del parámetro e que recibe handleChange lo inferimos, recordar, poniéndonos en el onChange del select y como arrow function ponemos una e y copiamos lo que nos indica el IS (le quitamos el react. previo importando ChangeEvent). <strong>Le añadimos a los selects ambos values de manera correspondiente a cada propiedad de nuestro nuevo state local que lo modifica:</strong> <code class="language-ts">value={pair.currency}</code> y <code class="language-ts">value={pair.criptocurrency}</code></p>
 
-  <pre data-line="0,3,4,8-17,25,38"><code class="language-ts">
-    //CriptoSearchForm.tsx
-    import { useCryptoStore } from '../store'
-    import { currencies } from '../data/index'
-    import { ChangeEvent, useState } from 'react'
-    import { Pair } from '../types'
-    
-    export default function CriptoSearchForm() {
-        const cryptocurrencies = useCryptoStore((state) => state.cryptocurrencies )
-        const [pair, setPair] = useState&lt;Pair&gt;({
-            currency: '',
-            criptocurrency: ''
-        })
-        const handleChange = (e: ChangeEvent&lt;HTMLSelectElement&gt;) => {
-            setPair({
-                ...pair,
-                [e.target.name]: e.target.value
-            })
-        }
-        return (
-            &lt;form className=&quot;form&quot;&gt;
-                &lt;div className=&quot;field&quot;&gt;
-                    &lt;label htmlFor=&quot;currency&quot;&gt;Moneda:&lt;/label&gt;
-                    &lt;select 
-                        name=&quot;currency&quot; 
-                        id=&quot;currency&quot;
-                        onChange={handleChange}
-                    &gt;
-                        &lt;option value=&quot;&quot;&gt;-- Seleccione --&lt;/option&gt;
-                        {currencies.map( currency =&gt; (
-                            &lt;option key={currency.code} value={currency.code}&gt;{currency.name}&lt;/option&gt;
-                        ))}
-                    &lt;/select&gt;
-                &lt;/div&gt;    
-                &lt;div className=&quot;field&quot;&gt;
-                    &lt;label htmlFor=&quot;criptocurrency&quot;&gt;Criptomoneda:&lt;/label&gt;
-                    &lt;select 
-                        name=&quot;criptocurrency&quot; 
-                        id=&quot;criptocurrency&quot;
-                        onChange={handleChange}
-                    &gt;
-                        &lt;option value=&quot;&quot;&gt;-- Seleccione --&lt;/option&gt;   
-                        { cryptocurrencies.map(crypto =&gt; (
-                            &lt;option 
-                                key={crypto.CoinInfo.FullName}
-                                value={crypto.CoinInfo.Name}
-                            &gt;{crypto.CoinInfo.FullName}&lt;/option&gt;
-                        ))}                 
-                    &lt;/select&gt;
-                &lt;/div&gt;
-    
-                &lt;input type=&quot;submit&quot; value=&quot;cotizar&quot;/&gt;
-            &lt;/form&gt;
-        )
-    }
-  </code></pre>
+            <pre data-line="0,3,4,8-17,25,26,39,40"><code class="language-ts">
+              //CriptoSearchForm.tsx
+              import { useCryptoStore } from '../store'
+              import { currencies } from '../data/index'
+              import { ChangeEvent, useState } from 'react'
+              import { Pair } from '../types'
+              
+              export default function CriptoSearchForm() {
+                  const cryptocurrencies = useCryptoStore((state) => state.cryptocurrencies )
+                  const [pair, setPair] = useState&lt;Pair&gt;({
+                      currency: '',
+                      criptocurrency: ''                      
+                  })
+                  const handleChange = (e: ChangeEvent&lt;HTMLSelectElement&gt;) => {
+                      setPair({
+                          ...pair,
+                          [e.target.name]: e.target.value
+                      })
+                  }
+                  return (
+                      &lt;form className=&quot;form&quot;&gt;
+                          &lt;div className=&quot;field&quot;&gt;
+                              &lt;label htmlFor=&quot;currency&quot;&gt;Moneda:&lt;/label&gt;
+                              &lt;select 
+                                  name=&quot;currency&quot; 
+                                  id=&quot;currency&quot;
+                                  onChange={handleChange}
+                                  value={pair.currency}
+                              &gt;
+                                  &lt;option value=&quot;&quot;&gt;-- Seleccione --&lt;/option&gt;
+                                  {currencies.map( currency =&gt; (
+                                      &lt;option key={currency.code} value={currency.code}&gt;{currency.name}&lt;/option&gt;
+                                  ))}
+                              &lt;/select&gt;
+                          &lt;/div&gt;    
+                          &lt;div className=&quot;field&quot;&gt;
+                              &lt;label htmlFor=&quot;criptocurrency&quot;&gt;Criptomoneda:&lt;/label&gt;
+                              &lt;select 
+                                  name=&quot;criptocurrency&quot; 
+                                  id=&quot;criptocurrency&quot;
+                                  onChange={handleChange}
+                                  value={pair.criptocurrency}
+                              &gt;
+                                  &lt;option value=&quot;&quot;&gt;-- Seleccione --&lt;/option&gt;   
+                                  { cryptocurrencies.map(crypto =&gt; (
+                                      &lt;option 
+                                          key={crypto.CoinInfo.FullName}
+                                          value={crypto.CoinInfo.Name}
+                                      &gt;{crypto.CoinInfo.FullName}&lt;/option&gt;
+                                  ))}                 
+                              &lt;/select&gt;
+                          &lt;/div&gt;
+              
+                          &lt;input type=&quot;submit&quot; value=&quot;cotizar&quot;/&gt;
+                      &lt;/form&gt;
+                  )
+              }
+            </code></pre>
 
-</div>
+          </div>
 
-<!-- Bloque desplegable interior-->
-<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion17-295').toggle();">
-  <h3>295. Agregando Validación</h3>
-  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
-</div>
-<div id="seccion17-295" class="hidden">
+          <!-- Bloque desplegable interior-->
+          <div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion17-295').toggle();">
+            <h3>295. Agregando Validación</h3>
+            <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+          </div>
+          <div id="seccion17-295" class="">
+            <p>Incluyamos una validación, vamos a mostrar un mensaje de error en el caso de que no le pasemos ambos valores a nuestra API. Como vimso, las llamadas a API requieren una petición estructurada y en este caso requieren la moneda y la cryptomoneda.</p>
 
+            <p>Vamos a crear la función del <strong>handleSubmit y, recordar, para tipar el parámetro e que recibe, </strong>le ponemos en el form un <code class="language-ts">onSubmit= { e =&gt; }</code> para inferir el type: <span class="bg-amber-950 text-amber-300">(parameter) e: React.FormEvent&lt;HTMLFormElement&gt;</span> y creamos la función. También creamos un state de error iniciándolo con string vacío <code class="language-ts">const [error, setError] = useState('')</code>. Vamos a hacer la validación con esta expresión <code class="language-ts">if(Object.values(pair).includes('')){...}</code> en la que <span class="destacado">como pair es un objeto, empleamos el método de objetos '<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/values" target="blank">Object.values()</a>' para aplicárselo a pair que lo convierte a arreglo y con .include revisamos si algunos de los valores de este arreglo incluye un string vacío</span>:</p>
 
-</div>
+            <div class="flex max-sm:flex-col">
+              <div class="w-[50%] max-sm:w-[100%]">
+                <p>En caso de tener algún valor vacío seteamos el error con el texto que queramos y detenemos la ejecución de nuestro código. Cuando validemos que no hay ningún valor vacío entonces consultaremos la API.</p>
+
+                <pre data-line="0,2,4-9,11,19"><code class="language-ts">
+                  //CriptoSearchForm.tsx
+                  ...
+                  const [error, setError] = useState('')
+                  ...
+                  const handleSubmit = (e: FormEvent&lt;HTMLFormElement&gt;) =&gt; {
+                    e.preventDefault();
+                    if(Object.values(pair).includes(&#39;&#39;)){
+                        setError(&#39;Todos los campos son obligatorios&#39;)
+                        return
+                    } 
+
+                    setError('')         
+                    //Consultar la API
+                  }                                
+                    return (
+                        &lt;form 
+                            className=&quot;form&quot; 
+                            onSubmit={ handleSubmit }
+                        &gt;
+                            {error &amp;&amp; &lt;ErrorMessage&gt;{error}&lt;/ErrorMessage&gt;}
+                            &lt;div className=&quot;field&quot;&gt;
+                            ...
+                </code></pre>
+              </div>
+              <div class="w-[50%] max-sm:w-[100%]">
+                <p>Creamos un componente nuevo para mostrar el error <span class="file">ErrorMessage.tsx</span></p>
+                <pre data-line="0"><code class="language-ts">
+                  //components/ErrorMessage.tsx
+                  export default function ErrorMessage({children}: {children: React.ReactNode}){
+                    return(
+                        &lt;div&gt;
+                            {children}
+                        &lt;/div&gt;
+                    )
+                }
+                </code></pre>
+                <p>Y en nuestro componente <span class="file">CriptoSearchForm.tsx</span> antes del <code class="language-ts">&lt;div className=&quot;field&quot;&gt;</code>le indicamos que si tenemos algo en error renderizamos el componente nuevo de error:</p>
+                <pre data-line="0"><code class="language-ts">
+                  //components/CriptoSearchForm.tsx
+                  ...
+                  {error && <ErrorMessage>{error}</ErrorMessage>}
+                  ...
+                </code></pre>
+                <p>Si no hubiera error y prosiguiera la ejecución del código, como vemos a la izquierda, inicializamos a string vacío el state de error para que no aparezca ese mensaje.</p>
+              </div>
+              
+            </div>           
+
+            <p>Para poder entonces cotizar nuestra moneda con la criptomoneda vamos a volver a cryptocompare y revisamos qué endpoint es el que nos va a servir para hacer esto.</p>
+
+          </div>
 
 <!-- Bloque desplegable interior-->
 <div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion17-296').toggle();">
