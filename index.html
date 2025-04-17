@@ -32,7 +32,10 @@
           <p>Link para css shadows: <a href="https://getcssscan.com/css-box-shadow-examples" class="underline" target="blank">https://getcssscan.com/css-box-shadow-examples</a> / <a href="https://realfavicongenerator.net/" class="underline" target="blank">Link para generar favicon</a> / <a href="https://developers.coindesk.com/" class="underline" target="blank">Link Crypto compare</a></p>
 
           <p>Instalamos Zod con <span class="destacado">npm i zod</span> / Instalamos Zustand <span class="destacado">npm i zustand</span> / Instalamos axios <span class="destacado">npm i axios</span> que es una librería que simplifica bastante las llamadas/consultas a APIs externas (es una abstracción sobre fetch api).</p>
+
+          <p>En <code class="language-ts">if(Object.values(pair).includes('')){...}</code> pair es un objeto,  <span class="destacado">usamos el método de objetos '<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/values" target="blank">Object.values()</a>' para aplicárselo a pair que lo convierte a arreglo y con .include revisamos si algunos de los valores de este arreglo incluye un string vacío</p>
           
+          <p><strong>Para solucionar el eror de cross origen que me daba al intentar una segunda llamada:</strong> ME DABA ERROR DE CROSS ORIGIN, a pesar de mirar varias configuraciones para el server de vite, añadiendo proxy, pruebas etc, solo ha funcionado añadirle este meta tag al index del proyecto, despues de subirlo a github para probar (pensando que podría ser por un tema de localhost vs endpoint) y ver que indicaba que la respuesta del endpoint no era https: <span class="destacado">&lt;meta http-equiv=&quot;Content-Security-Policy&quot; content=&quot;upgrade-insecure-requests&quot;&gt;</span> </span> sacado de <a href="https://stackoverflow.com/questions/33507566/mixed-content-blocked-when-running-an-http-ajax-operation-in-an-https-page" class="underline" target="blank">"Mixed content blocked" when running an HTTP AJAX operation in an HTTPS page</a></p>
 
           <!-- Bloque desplegable interior-->
           <div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion17-281').toggle();">
@@ -3696,11 +3699,11 @@
 
           <!-- Bloque desplegable interior-->
           <div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion17-295').toggle();">
-            <h3>295. Agregando Validación</h3>
+            <h3>295. Agregando Validación <span class="destacado">Object.values(objeto).includes('')</span> <span class="destacado">componente error con children</span></h3>
             <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
           </div>
-          <div id="seccion17-295" class="">
-            <p>Incluyamos una validación, vamos a mostrar un mensaje de error en el caso de que no le pasemos ambos valores a nuestra API. Como vimso, las llamadas a API requieren una petición estructurada y en este caso requieren la moneda y la cryptomoneda.</p>
+          <div id="seccion17-295" class="hidden">
+            <p>Incluyamos una validación, vamos a mostrar un mensaje de error en el caso de que no le pasemos ambos valores a nuestra API. Como vimos, las llamadas a API requieren una petición estructurada y en este caso requieren la moneda y la cryptomoneda.</p>
 
             <p>Vamos a crear la función del <strong>handleSubmit y, recordar, para tipar el parámetro e que recibe, </strong>le ponemos en el form un <code class="language-ts">onSubmit= { e =&gt; }</code> para inferir el type: <span class="bg-amber-950 text-amber-300">(parameter) e: React.FormEvent&lt;HTMLFormElement&gt;</span> y creamos la función. También creamos un state de error iniciándolo con string vacío <code class="language-ts">const [error, setError] = useState('')</code>. Vamos a hacer la validación con esta expresión <code class="language-ts">if(Object.values(pair).includes('')){...}</code> en la que <span class="destacado">como pair es un objeto, empleamos el método de objetos '<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/values" target="blank">Object.values()</a>' para aplicárselo a pair que lo convierte a arreglo y con .include revisamos si algunos de los valores de este arreglo incluye un string vacío</span>:</p>
 
@@ -3761,43 +3764,274 @@
 
           </div>
 
-<!-- Bloque desplegable interior-->
-<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion17-296').toggle();">
-  <h3>296. Obteniendo la Moneda y Cripto a Cotizar</h3>
-  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
-</div>
-<div id="seccion17-296" class="hidden">
+          <!-- Bloque desplegable interior-->
+          <div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion17-296').toggle();">
+            <h3>296. Obteniendo la Moneda y Cripto a Cotizar / 297. Llamando la API para obtener la cotización Actual / 298. Validando la Respuesta de la API con ZOD</h3>
+            <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+          </div>
+          <div id="seccion17-296" class="hidden">
+            <p>Una vez que seleccionamos una moneda tradicional y una criptomenda y pulsamos en "Cotizar" tenemos que obtener los valores de nuestra API. Para ello vamos a utilizar el <strong>endpoint Multiple Symbols Full Data:</strong> <a href="http://min-api.cryptocompare.com/data/pricemultifull?fsyms=BTC&tsyms=USD" class="underline" target="blank">http://min-api.cryptocompare.com/data/pricemultifull?fsyms=BTC&tsyms=USD</a></p>
+
+            
+            <ul class="list-disc my-3">
+              <li class="my-1.25">En nuestro nuestro <span class="file">store.ts</span> generamos una nueva función que ha de ser asíncrona porque es la llamada hacia nuestra API <code class="language-ts">fetchData: async () => {...}</code>; para añadirla al type inferimos (nos ponemos encima del nombre) como hicimos con la que tenemos ahora mismo en el store <strong>fetchCryptos</strong>: <code class="language-ts">fetchData: (pair:Pair) => Promise&lt;void&gt;</code> </li>
+              <li class="my-1.25">Para cotizar requerimos nuestro state <strong>pair</strong>. Volvemos a nuestro <span class="file">components/CriptoSearchForm.tsx</span> y añadimos la línea <code class="language-ts">const fetchData = useCryptoStore((state) => state.fetchData)</code> y un poco más abajo donde teníamos nuestro comentario de <code class="language-ts"> //Consultar la API</code> añadimos la llamada a la función de nuestro store pasándole como parámetro nuestro state pair: <code class="language-ts">fetchData(pair)</code></li>
+              <li class="my-1.25">
+                <div class="flex max-sm:flex-col">
+                  <div class="w-[50%] max-sm:w-[100%]">
+                    <pre data-line="0,9,20-23"><code class="language-ts">
+                      //store.ts
+                      import { create } from "zustand"
+                      import { devtools } from 'zustand/middleware' 
+                      import { Cryptocurrency, Pair } from "./types"
+                      import { getCryptos } from "./services/CryptoService"
+                      
+                      type CryptoStore = {
+                          cryptocurrencies: Cryptocurrency[]
+                          fetchCryptos: () =&gt; Promise&lt;void&gt; 
+                          fetchData: (pair:Pair) =&gt; Promise&lt;void&gt;
+                      }                      
+                      export const useCryptoStore = create&lt;CryptoStore&gt;()(devtools((set) =&gt; ({
+                          cryptocurrencies: [],
+                          fetchCryptos: async () => {
+                              //getCryptos()
+                              const cryptocurrencies = await getCryptos()
+                              //console.log(cryptocurrencies)
+                              set(() => ({
+                                  cryptocurrencies : cryptocurrencies
+                              }))
+                          },
+                          fetchData: async (pair) => {
+                              console.log(pair)
+                          }
+                      })))                      
+                    </code></pre>
+                  </div>
+                  <div class="w-[50%] max-sm:w-[100%]">
+                    <pre data-line="0,4,24,25"><code class="language-ts">
+                      //components/CriptoSearchForm.tsx
+                      ...                      
+                      export default function CriptoSearchForm() {
+                          const cryptocurrencies = useCryptoStore((state) => state.cryptocurrencies )
+                          const fetchData = useCryptoStore((state) => state.fetchData )
+                      
+                          const [pair, setPair] = useState&lt;Pair&gt;({
+                              currency: &#39;&#39;,
+                              criptocurrency: &#39;&#39;
+                          })
+                          const [error, setError] = useState(&#39;&#39;)
+                          const handleChange = (e: ChangeEvent&lt;HTMLSelectElement&gt;) =&gt; {
+                              setPair({
+                                  ...pair,
+                                  [e.target.name]: e.target.value
+                              })
+                          }
+                          const handleSubmit = (e: FormEvent&lt;HTMLFormElement&gt;) =&gt; {
+                              e.preventDefault();
+                              if(Object.values(pair).includes('')){
+                                  setError('Todos los campos son obligatorios')
+                                  return
+                              }
+                              setError('')
+                              //Consultar la API
+                              fetchData(pair)
+                          }
+                    </code></pre>
+                  </div>
+                </div>
+              </li>
+              <li>Como hicimos anteriormente, a continuación vamos a crear una función aparte para no hacer tan pesado nuestro store. Vamos a <span class="file">services/Cryptoservice.ts</span> y creamos nuestra función <code class="language-ts">export async function fetchCurrentCryptoPrice(pair: Pair) {...}</code> <strong>le especificamos al parámetro el type porque entre funciones en distintos archivos se pierde la referencia y es la manera de recuperarla.</strong>
+                <div class="flex max-sm:flex-col">
+                  <div class="w-[50%] max-sm:w-[100%]">
+                    <pre data-line="0,3,15-17"><code class="language-ts">
+                      //services/CryptoService.ts
+                      import axios from 'axios'
+                      import { CryptoCurrenciesResponseSchema } from '../schema/crypto-schema'
+                      import { Pair } from '../types'
+                      
+                      export async function getCryptos(){
+                          const url = 'https://min-api.cryptocompare.com/data/top/mktcapfull?limit=20&tsym=EUR'
+                          const {data: {Data}} = await axios(url)
+                          console.log(Data)
+                          const result = CryptoCurrenciesResponseSchema.safeParse(Data)
+                          console.log(result)
+                          if(result.success){
+                              return result.data
+                          }
+                      }                      
+                      export async function fetchCurrentCryptoPrice(pair: Pair) {
+                          console.log(pair)
+                      }                     
+                    </code></pre>
+                  </div>
+                  <div class="w-[50%] max-sm:w-[100%]">
+                    <pre data-line="0,9,20-23"><code class="language-ts">
+                      //store.ts
+                      import { create } from "zustand"
+                      import { devtools } from 'zustand/middleware' 
+                      import { Cryptocurrency, Pair } from "./types"
+                      import { getCryptos } from "./services/CryptoService"
+                      
+                      type CryptoStore = {
+                          cryptocurrencies: Cryptocurrency[]
+                          fetchCryptos: () =&gt; Promise&lt;void&gt; 
+                          fetchData: (pair:Pair) =&gt; Promise&lt;void&gt;
+                      }                      
+                      export const useCryptoStore = create&lt;CryptoStore&gt;()(devtools((set) =&gt; ({
+                          cryptocurrencies: [],
+                          fetchCryptos: async () => {
+                              //getCryptos()
+                              const cryptocurrencies = await getCryptos()
+                              //console.log(cryptocurrencies)
+                              set(() => ({
+                                  cryptocurrencies : cryptocurrencies
+                              }))
+                          },
+                          fetchData: async (pair) => {
+                            await fetchCurrentCryptoPrice(pair)
+                          }
+                      })))                      
+                    </code></pre>
+                  </div>                  
+                </div>   
+              </li>
+              <li>
+                <p class="naranja">Llamando a la API para obtener la cotización Actual</p>
+                Vamos a hacer el llamado al endpoint <a href="http://min-api.cryptocompare.com/data/pricemultifull?fsyms=BTC&tsyms=USD" class="underline" target="blank">http://min-api.cryptocompare.com/data/pricemultifull?fsyms=BTC&tsyms=USD</a>. En <span class="file">services/CryptoService.ts</span> dentro de nuestra nueva función asíncrona <code class="language-ts">fetchCurrentCryptoPrice</code> añadimos la variable para la url del endpoint usando para ello template strings porque el pair que estamos pasando como parámetro tiene variables que vamos a inyectar dinámicamente. Así en vez de esto <code class="language-ts">const url = `http://min-api.cryptocompare.com/data/pricemultifull?fsyms=BTC&tsyms=USD`</code> ponemos esto: <code class="language-ts">const url = `http://min-api.cryptocompare.com/data/pricemultifull?fsyms=${pair.criptocurrency}&tsyms=${pair.currency}`</code> de manera que lo que el usuario vaya seleccionando en los selects se va a ir inyectando en estas url para tener valores dinámicos.</li>
+                
+                <li><p>Si recordamos, data siempre retorna la parte de la información así que le ponemos destructuring a data: <code class="language-ts">const { data } = await axios(url)</code> y enviamos esto a la consola para ver qué estamos obteniendo: <strong>RAW y DISPLAY</strong>. <span class="destacado">AQUI ME DABA ERROR DE CROSS ORIGIN, a pesar de mirar varias configuraciones para el server de vite, añadiendo proxy, pruebas etc, solo ha funcionado añadirle este meta tag al index del proyecto, despues de subirlo a github para probar (pensando que podría ser por un tema de localhost vs endpoint) y ver que indicaba que la respuesta del endpoint no era https: &lt;meta http-equiv=&quot;Content-Security-Policy&quot; content=&quot;upgrade-insecure-requests&quot;&gt; </span> sacado de <a href="https://stackoverflow.com/questions/33507566/mixed-content-blocked-when-running-an-http-ajax-operation-in-an-https-page" class="underline" target="blank">"Mixed content blocked" when running an HTTP AJAX operation in an HTTPS page</a>.</p>
 
 
-</div>
+                <p><strong>RAW y DISPLAY</strong> son prácticamente lo mismo, solo que RAW tiene los números y DISPLAY trae con el símbolo de $ y en string y ya formateado para presentarse, así que extraemos este último por lo que ponemos <code class="language-ts">const { data: {DISPLAY} } = await axios(url)</code>. Si vemos en consola tras seleccionar por ejemplo dólares (USD) y bitcoin (BTC) vemos que la manera que tiene esta API de retornar los datos es particular, primero BTC y dentro USD. Si cambio de moneda vemos que incluso las llaves de la respuesta son dinámicas y cambian retornando algo diferente en cada petición que hagamos de una moneda diferente. ¿Como lo vamos a hacer? <strong>usando la sintaxis de corchetes que también es para entrar a objetos pero en especial cuando tenemos variables</strong> <svg class="size-6 shrink-0 inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3"></path>
+                </svg> <code class="language-ts">console.log(DISPLAY[pair.criptocurrency][pair.currency])</code> y de esta forma se van a ir inyectando también esos valores en la respuesta. <span class="destacado">vemos la consola para ver que ahora cualquier cmbio que hagamos de moneda todos entran correctamente</span>
+              </li>
 
-<!-- Bloque desplegable interior-->
-<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion17-297').toggle();">
-  <h3>297. Llamando la API para obtener la cotización Actual</h3>
-  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
-</div>
-<div id="seccion17-297" class="hidden">
+                <li><p class="naranja">Validando la Respuesta de la API con ZOD</p>
+                  <p>Veamos como escribir nuestro schema para validar esa respuesta, pero sobre todo para que filtre y quede almacenado únicamente lo que nosotros requerimos: <strong>imagen de la cryptomoneda, el precio más bajo, el más alto, el cambio y la última actualización</strong>. Viendo el console.log(data) tomamos los nombres de los 6 valores devueltos en el DISPLAY de este 2º endpoint (IMAGEURL, HIGHDAY, LOWDAY, CHANGEPCT24HOUR, LASTUPDATE) para definir nuestro schema.</p>    
+
+                  <p>Una vez creado el schema en base a nuestras necesidades comprobamos si efectivmaente tiene ese schema (esta comprobación la hace comprobando el JSON original de la respuesta) para lo que volvemos a nuestro servicio y creamos la variable <strong>result</strong> usando nuestro nuevo schema "CryptoPriceSchema" y con el método safeParse() le pasamos ese DISPLAY con la sintaxis de corchetes <code class="language-ts">const result = CryptoPriceSchema.safeParse(DISPLAY[pair.criptocurrency][pair.currency])</code> (recordar que el DISPLAY lo obtenemos con destructuring <code class="language-ts">const { data: {DISPLAY} } = await axios(url)</code>):</p>
+
+                  <pre data-line="0"><code class="language-ts">
+                    const result = CryptoPriceSchema.safeParse(DISPLAY[pair.criptocurrency][pair.currency])
+                    //console.log(result)
+                    if(result.success){
+                        //console.log(result.data)
+                        return(result.data)
+                    }    
+                  </code></pre>
+
+                  <p>Vemos en la consola un success:true, porqeu hemos colocado la información correctamente. Si yo tuviera al menos un error (un nombre en el schema mal puesto con respecto al dato que viene en el JSON original) nos daría success: false. Le añadimos una comprobación si result es success añadimos a la consola result.data <strong>(Nota: no podríamos poner un console.log(result.data) fuera de ese if, nos marca un error; sin embargo si revisamos que primero exista (con este if) entonces ya tenemos acceso a esos datos, viendo que solo me aparece la información que me interesa)</strong>. En vez del console.log pongamos un return para finalizar el servicio y ya en el store ponemos un <code class="language-ts">const result = await fetchCurrentCryptoPrice(pair)</code> y un console.log(result) para, una vez pulsado el botón cotizar, poder ver el resultado pero ya desde nuestro store:</p>
+                  
+                  <img src="https://andune55.github.io/manual-react/assets/298-BJ0TmsiS.png" alt="img" loading="lazy">                  
+
+                  <div class="flex max-sm:flex-col">
+                    <div class="w-[20%] max-sm:w-[100%]">
+                      <pre data-line="0"><code class="language-ts">
+                        //schema/crypto-schema.ts
+                        ...
+                        export const CryptoPriceSchema = z.object({    
+                          IMAGEURL: z.string(),
+                          PRICE: z.string(),   
+                          HIGHDAY: z.string(), 
+                          LOWDAY: z.string(), 
+                          CHANGEPCT24HOUR: z.string() ,
+                          LASTUPDATE: z.string() 
+                        })
+                      </code></pre>
+                      <pre data-line="0"><code class="language-ts">
+                        //index.html
+                        ...
+                        &lt;meta http-equiv=&quot;Content-Security-Policy&quot; content=&quot;upgrade-insecure-requests&quot;&gt; 
+                      </code></pre>
+                    </div>
+                    <div class="w-[40%] max-sm:w-[100%]">
+                      <pre data-line="0"><code class="language-ts">
+                        //services/CryptoService.ts
+                        import axios from 'axios'
+                        import { CryptoCurrenciesResponseSchema, CryptoPriceSchema } from '../schema/crypto-schema'
+                        import { Pair } from '../types'
+                        
+                        export async function getCryptos(){
+                            const url = 'https://min-api.cryptocompare.com/data/top/mktcapfull?limit=20&tsym=EUR'
+                            const {data: {Data}} = await axios(url)
+                            console.log(Data)  
+                            const result = CryptoCurrenciesResponseSchema.safeParse(Data)
+                            console.log(result)
+                            if(result.success){
+                                return result.data
+                            }   
+                        }                        
+                        export async function fetchCurrentCryptoPrice(pair: Pair) {
+                            //console.log(pair)
+                            //const url = `http://min-api.cryptocompare.com/data/pricemultifull?fsyms=BTC&tsyms=EUR`    
+                            const url = `http://min-api.cryptocompare.com/data/pricemultifull?fsyms=${pair.criptocurrency}&tsyms=${pair.currency}`
+                            // const { data } = await axios(url)
+                            // console.log(data) 
+                        
+                            const { data: {DISPLAY} } = await axios(url)
+                            //console.log(DISPLAY[pair.criptocurrency][pair.currency]) 
+                            const result = CryptoPriceSchema.safeParse(DISPLAY[pair.criptocurrency][pair.currency])
+                            //console.log(result)
+                            if(result.success){
+                                //console.log(result.data)
+                                return(result.data)
+                            }    
+                        }
+                      </code></pre>
+                    </div>
+                    <div class="w-[40%] max-sm:w-[100%]">
+                      <pre data-line="0"><code class="language-ts">
+                        //store.ts
+                        import { create } from "zustand"
+                        import { devtools } from 'zustand/middleware' 
+                        import { Cryptocurrency, Pair } from "./types"
+                        import { getCryptos, fetchCurrentCryptoPrice } from "./services/CryptoService"
+                        
+                        type CryptoStore = {
+                            cryptocurrencies: Cryptocurrency[]
+                            fetchCryptos: () => Promise&lt;void&gt; 
+                            fetchData: (pair:Pair) =&gt; Promise&lt;void&gt;
+                        }
+                        
+                        export const useCryptoStore = create&lt;CryptoStore&gt;()(devtools((set) => ({
+                            cryptocurrencies: [],
+                            fetchCryptos: async () => {
+                                //getCryptos()
+                                const cryptocurrencies = await getCryptos()
+                                //console.log(cryptocurrencies)
+                                set(() => ({
+                                    cryptocurrencies : cryptocurrencies
+                                }))
+                            },
+                            fetchData: async (pair) => {
+                                //console.log(pair)
+                                const result = await fetchCurrentCryptoPrice(pair)
+                                console.log(result)
+                            }
+                        })))
+                      </code></pre>
+                    </div>
+                  </div>
 
 
-</div>
 
-<!-- Bloque desplegable interior-->
-<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion17-298').toggle();">
-  <h3>298. Validando la Respuesta de la API con ZOD</h3>
-  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
-</div>
-<div id="seccion17-298" class="hidden">
+                </li>
+                
 
+            </ul>
+            
 
-</div>
+          </div>
+
 
 <!-- Bloque desplegable interior-->
 <div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion17-299').toggle();">
   <h3>299. Colocando la Respuesta en el State</h3>
   <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
 </div>
-<div id="seccion17-299" class="hidden">
-
+<div id="seccion17-299" class="">
+  <p>Vamos a colocar el resultado en nuestro state.</p>
 
 </div>
 
