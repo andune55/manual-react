@@ -3908,7 +3908,7 @@
               </li>
 
                 <li><p class="naranja">Validando la Respuesta de la API con ZOD</p>
-                  <p>Veamos como escribir nuestro schema para validar esa respuesta, pero sobre todo para que filtre y quede almacenado únicamente lo que nosotros requerimos: <strong>imagen de la cryptomoneda, el precio más bajo, el más alto, el cambio y la última actualización</strong>. Viendo el console.log(data) tomamos los nombres de los 6 valores devueltos en el DISPLAY de este 2º endpoint (IMAGEURL, HIGHDAY, LOWDAY, CHANGEPCT24HOUR, LASTUPDATE) para definir nuestro schema.</p>    
+                  <p>Veamos como escribir nuestro schema para validar esa respuesta, pero sobre todo para que filtre y quede almacenado únicamente lo que nosotros requerimos: <strong>imagen de la cryptomoneda, el precio más bajo, el más alto, el cambio y la última actualización</strong>. Viendo el console.log(data) tomamos los nombres de los 6 valores devueltos en el DISPLAY de este 2º endpoint (IMAGEURL, PRICE, HIGHDAY, LOWDAY, CHANGEPCT24HOUR, LASTUPDATE) para definir nuestro schema.</p>    
 
                   <p>Una vez creado el schema en base a nuestras necesidades comprobamos si efectivmaente tiene ese schema (esta comprobación la hace comprobando el JSON original de la respuesta) para lo que volvemos a nuestro servicio y creamos la variable <strong>result</strong> usando nuestro nuevo schema "CryptoPriceSchema" y con el método safeParse() le pasamos ese DISPLAY con la sintaxis de corchetes <code class="language-ts">const result = CryptoPriceSchema.safeParse(DISPLAY[pair.criptocurrency][pair.currency])</code> (recordar que el DISPLAY lo obtenemos con destructuring <code class="language-ts">const { data: {DISPLAY} } = await axios(url)</code>):</p>
 
@@ -4013,57 +4013,145 @@
                       </code></pre>
                     </div>
                   </div>
-
-
-
                 </li>
-                
-
             </ul>
-            
+          </div>
 
+          <!-- Bloque desplegable interior-->
+          <div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion17-299').toggle();">
+            <h3>299. Colocando la Respuesta en el State</h3>
+            <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+          </div>
+          <div id="seccion17-299" class="hidden">
+            <p><strong>Vamos a colocar el resultado en nuestro state</strong>. Antes de volver a nuestro store <span class="file">store.ts</span> para añadir un nuevo state llamado result, hemos de añadir un type nuevo en nuestro fichero de types <span class="file">types/index.ts</span>, correspondiente al schema "CryptoPriceSchema" con el que hemos validado ese resultado.</p>
+
+            <pre data-line="0,2,7"><code class="language-ts">
+              //types/index.ts
+              import { z } from 'zod'
+              import { CurrencySchema, CryptoCurrencyResponseSchema, PairSchema, CryptoPriceSchema } from '../schema/crypto-schema'
+              
+              export type Currency = z.infer&lt;typeof CurrencySchema&gt;
+              export type Cryptocurrency = z.infer&lt;typeof CryptoCurrencyResponseSchema&gt;
+              export type Pair = z.infer&lt;typeof PairSchema&gt;
+              export type CryptoPrice = z.infer&lt;typeof CryptoPriceSchema&gt;
+            </code></pre>
+            
+            <p>Una vez hecho eso ya sí creamos el nuevo state en nuestro store que va a ser del tipo recién creado <code class="language-ts">result: CryptoPrice</code> y necesitamos darle valor inicial; si le damos valor inicial objeto <code class="language-ts">result: {}</code> nos va a dar error porque al decirle que es de tipo CryptoPrice, ese tipo tiene todos los atributos (IMAGEURL, PRICE, HIGHDAY, LOWDAY, CHANGEPCT24HOUR, LASTUPDATE). Tenemos 2 opciones:</p>
+
+            <p>inicializándolo a vacío o sencillamente diciéndole que trate ese objeto como CryptoPrice, para que así tenga esos atributos:</p>
+            <img src="https://andune55.github.io/manual-react/assets/299-1-DmrAiXsN.png" alt="img" loading="lazy">
+
+            <p>A continuación seteamos el state con nuestra acción <strong>fetchData</strong>: <code class="language-ts">set(()=>({ result }))</code> y lo podemos comprobar con Redux developer tools:</p>
+
+            <div class="flex max-sm:flex-col">
+              <div class="w-[50%] max-sm:w-[100%]">
+                <pre data-line="0,3,8,14,23-25"><code class="language-ts">
+                  //store.ts
+                  import { create } from "zustand"
+                  import { devtools } from 'zustand/middleware' 
+                  import { Cryptocurrency, CryptoPrice, Pair } from "./types"
+                  import { getCryptos, fetchCurrentCryptoPrice } from "./services/CryptoService"
+                  
+                  type CryptoStore = {
+                      cryptocurrencies: Cryptocurrency[]
+                      result: CryptoPrice
+                      fetchCryptos: () => Promise&lt;void&gt; 
+                      fetchData: (pair:Pair) =&gt; Promise&lt;void&gt;
+                  }                  
+                  export const useCryptoStore = create&lt;CryptoStore&gt;()(devtools((set) => ({
+                      cryptocurrencies: [],
+                      result: {} as CryptoPrice,
+                      fetchCryptos: async () => {
+                          const cryptocurrencies = await getCryptos()                        
+                          set(() => ({
+                              cryptocurrencies : cryptocurrencies // podríamos poner solo "cryptocurrencies"
+                          }))
+                      },
+                      fetchData: async (pair) => {                         
+                          const result = await fetchCurrentCryptoPrice(pair)                         
+                          set(()=>({
+                              result : result // podríamos poner solo "result"
+                          }))
+                      }
+                  })))
+                </code></pre>
+              </div>
+              <div class="w-[50%] max-sm:w-[100%]">
+                <img src="https://andune55.github.io/manual-react/assets/299-2-BzYT6upd.png" alt="img" loading="lazy">
+              </div>
+            </div>
+         
+            <p>Vamos a mostrar esta información en otro componente que ubicaremos en nuestro <span class="file">App.tsx</span> tras <code class="language-ts">&lt;CriptoSearchForm /&gt;</code></p> 
+          </div>
+
+          <!-- Bloque desplegable interior-->
+          <div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion17-300').toggle();">
+            <h3>300. Mostrando el Resultado de la cotización / 301. Agregando CSS al resultado de la cotización</h3>
+            <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+          </div>
+          <div id="seccion17-300" class="hidden">
+            <p>Creamos un componente <nuevo><span class="file">components/CryptoPriceDisplay.tsx</span></nuevo></p>
+            <p>Vamos creando el componente y, para que no nos escriba lo de "El precio es" si no hay nada cotizado aún, creamos una variable <strong>hasResult</strong> en la que usando useMemo con result como dependencia y el método de objeto Object.values() especificamos lo siguiente: <code class="language-ts">const hasResult = useMemo(()=> !Object.values(result).includes(''), [result])</code> o que es lo mismo <strong>Si no hay valores vacíos entonces sí hay un resultado</strong></p>
+
+            <p>Añadimos las css restantes.</p>
+
+            <div class="flex max-sm:flex-col">
+              <div class="w-[50%] max-sm:w-[100%]">
+                <pre data-line="0"><code class="language-ts">
+                  //components/CryptoPriceDisplay.tsx
+                  import { useMemo } from "react"
+                  import { useCryptoStore } from "../store"
+                  
+                  export default function CryptoPriceDisplay() {
+                  
+                      const result = useCryptoStore((state) => state.result)
+                      const hasResult = useMemo(()=> !Object.values(result).includes(''), [result])
+                      //console.log(hasResult)
+                      return (
+                          &lt;div className=&quot;result-wrapper&quot;&gt;
+                              {hasResult &amp;&amp; (
+                                  &lt;&gt;
+                                  &lt;h2&gt;Cotización&lt;/h2&gt;
+                                  &lt;div className=&quot;result&quot;&gt;
+                                      &lt;img 
+                                          src={`https://cryptocompare.com/${result.IMAGEURL}`}
+                                          alt=&quot;Imagen Cryptomenda&quot;
+                                          loading=&quot;lazy&quot;
+                                      /&gt;
+                                      &lt;div&gt;
+                                          &lt;p&gt;El precio es de: &lt;span&gt;{result.PRICE}&lt;/span&gt;&lt;/p&gt;
+                                          &lt;p&gt;Precio más alto del día: &lt;span&gt;{result.HIGHDAY}&lt;/span&gt;&lt;/p&gt;
+                                          &lt;p&gt;Precio más bajo del día: &lt;span&gt;{result.LOWDAY}&lt;/span&gt;&lt;/p&gt;
+                                          &lt;p&gt;Variación últimas 24h: &lt;span&gt;{result.CHANGEPCT24HOUR}&lt;/span&gt;&lt;/p&gt;
+                                          &lt;p&gt;Última actualización: &lt;span&gt;{result.LASTUPDATE}&lt;/span&gt;&lt;/p&gt;
+                                      &lt;/div&gt;
+                                  &lt;/div&gt;
+                                  &lt;/&gt;
+                              )}
+                              
+                          &lt;/div&gt;
+                      )
+                  }
+                </code></pre>
+              </div>
+              <div class="w-[50%] max-sm:w-[100%] ml-2">
+                <img src="https://andune55.github.io/manual-react/assets/301-B6HFwonO.png" alt="img" loading="lazy">
+              </div>
+            </div>           
           </div>
 
 
-<!-- Bloque desplegable interior-->
-<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion17-299').toggle();">
-  <h3>299. Colocando la Respuesta en el State</h3>
-  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
-</div>
-<div id="seccion17-299" class="">
-  <p>Vamos a colocar el resultado en nuestro state.</p>
-
-</div>
-
-<!-- Bloque desplegable interior-->
-<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion17-300').toggle();">
-  <h3>300. Mostrando el Resultado de la cotización</h3>
-  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
-</div>
-<div id="seccion17-300" class="hidden">
+        <!-- Bloque desplegable interior-->
+        <div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion17-302').toggle();">
+          <h3>302. Agregando un spinner de Carga y Deployment <span class="destacado"><a href="https://tobiasahlin.com/spinkit/" class="underline" target="blank">https://tobiasahlin.com/spinkit/</a></span></h3>
+          <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+        </div>
+        <div id="seccion17-302" class="">
+          <p>Vemos que la API trae mucha información con lo cual la carga no es inmediata. Vamos a añadir un spinner de carga para que en loq ue se trae la cotización le de algo de retroalimentación al usuario (veamos cómo hacerlo al trabajr con Zustand).</p>
 
 
-</div>
 
-<!-- Bloque desplegable interior-->
-<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion17-301').toggle();">
-  <h3>301. Agregando CSS al resultado de la cotización</h3>
-  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
-</div>
-<div id="seccion17-301" class="hidden">
-
-
-</div>
-
-<!-- Bloque desplegable interior-->
-<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion17-302').toggle();">
-  <h3>302. Agregando un spinner de Carga y Deployment</h3>
-  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
-</div>
-<div id="seccion17-302" class="hidden">
-
-
-</div>
+        </div>
 
         </div>
         <!-- Fin div colapsable-->
