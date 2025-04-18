@@ -10,32 +10,584 @@
     
     <!-- <script src="https://unpkg.com/@tailwindcss/browser@4"></script> -->
   
-    <script type="module" crossorigin src="https://andune55.github.io/manual-react/assets/index-BLKAnzHV.js"></script>
-    <link rel="stylesheet" crossorigin href="https://andune55.github.io/manual-react/assets/index-BPmqzfum.css">
+    <script type="module" crossorigin src="https://andune55.github.io/manual-react/assets/index-DSrHWpeJ.js"></script>
+    <link rel="stylesheet" crossorigin href="https://andune55.github.io/manual-react/assets/index-CeXYDVuD.css">
   </head>
   <body>
     <div id="root"></div>	
     <div>  
 
 
+      <!-- SECCION 18 -->
+      <div class="w-[80%] max-sm:w-[96%] mx-auto bg-gray-200 my-1.25 py-0.75 pr-0 pl-2.5 rounded-xl">
+
+        <div class="flex items-center mt-1.25 cursor-pointer desplegable justify-between" onclick="$('#seccion18').toggle();">
+          <h2>Sección 18: PROYECTO - Buscador de Bebidas y Recetas con React Router DOM</h2>
+          <span class="cambiaicono ico_chevron_up mr-2.5" title=""></span>
+        </div>
+
+        <div id="seccion18">
+
+            <!-- Bloque desplegable interior-->
+            <div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-303').toggle();">
+              <h3>303. Lo que vamos a construir</h3>
+              <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+            </div>
+            <div id="seccion18-303" class="">
+
+
+            </div>
+            <!-- Bloque desplegable interior-->
+            <div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-304').toggle();">
+              <h3>304. Primeros pasos con este proyecto / 305. Instalando Tailwind</h3>
+              <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+            </div>
+            <div id="seccion18-304" class="hidden">
+
+
+            </div>
+            <!-- Bloque desplegable interior-->
+            <div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-306').toggle();">
+              <h3>306. ¿Qué es React Router?</h3>
+              <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+            </div>
+            <div id="seccion18-306" class="hidden">
+
+            </div>
+            
+            <!-- Bloque desplegable interior-->
+            <div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-XX').toggle();">
+              <h3>XXXXXXXXXXXXXXX</h3>
+              <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+            </div>
+            <div id="seccion18-XX" class="hidden">
+
+
+            </div>
+
+            <!-- Bloque desplegable interior-->
+            <div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-XX').toggle();">
+              <h3>XXXXXXXXXXXXXXX</h3>
+              <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+            </div>
+            <div id="seccion18-XX" class="hidden">
+
+
+            </div>
+            <!-- Bloque desplegable interior-->
+            <div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-XX').toggle();">
+              <h3>XXXXXXXXXXXXXXX</h3>
+              <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+            </div>
+            <div id="seccion18-XX" class="hidden">
+
+
+            </div>
+
+        </div>
+        <!-- Fin div colapsable-->
+
+      </div>
+      <!-- FIN SECCION 18 -->
+
 
       <!-- SECCION 17 -->
       <div class="w-[80%] max-sm:w-[96%] mx-auto bg-gray-200 my-1.25 py-0.75 pr-0 pl-2.5 rounded-xl">
 
         <div class="flex items-center mt-1.25 cursor-pointer desplegable justify-between" onclick="$('#seccion17').toggle();">
-          <h2>Sección 17: PROYECTO - Cotizador de Criptomonedas en Tiempo Real con ZOD y Zustand</h2>
-          <span class="cambiaicono ico_chevron_up mr-2.5" title=""></span>
+          <h2>Sección 17: PROYECTO - Cotizador de Criptomonedas en Tiempo Real con ZOD y Zustand - <a href="https://aab-cripto-react-typescript.netlify.app/" class="underline text-emerald-700 font-bold" target="blank">https://aab-cripto-react-typescript.netlify.app/</a></h2>
+          <span class="cambiaicono ico_chevron_down mr-2.5" title=""></span>
         </div>
 
-        <div id="seccion17">
-
+        <div id="seccion17" class="hidden">
           <p>Link para css shadows: <a href="https://getcssscan.com/css-box-shadow-examples" class="underline" target="blank">https://getcssscan.com/css-box-shadow-examples</a> / <a href="https://realfavicongenerator.net/" class="underline" target="blank">Link para generar favicon</a> / <a href="https://developers.coindesk.com/" class="underline" target="blank">Link Crypto compare</a></p>
 
           <p>Instalamos Zod con <span class="destacado">npm i zod</span> / Instalamos Zustand <span class="destacado">npm i zustand</span> / Instalamos axios <span class="destacado">npm i axios</span> que es una librería que simplifica bastante las llamadas/consultas a APIs externas (es una abstracción sobre fetch api).</p>
 
           <p>En <code class="language-ts">if(Object.values(pair).includes('')){...}</code> pair es un objeto,  <span class="destacado">usamos el método de objetos '<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/values" target="blank">Object.values()</a>' para aplicárselo a pair que lo convierte a arreglo y con .include revisamos si algunos de los valores de este arreglo incluye un string vacío</p>
           
-          <p><strong>Para solucionar el eror de cross origen que me daba al intentar una segunda llamada:</strong> ME DABA ERROR DE CROSS ORIGIN, a pesar de mirar varias configuraciones para el server de vite, añadiendo proxy, pruebas etc, solo ha funcionado añadirle este meta tag al index del proyecto, despues de subirlo a github para probar (pensando que podría ser por un tema de localhost vs endpoint) y ver que indicaba que la respuesta del endpoint no era https: <span class="destacado">&lt;meta http-equiv=&quot;Content-Security-Policy&quot; content=&quot;upgrade-insecure-requests&quot;&gt;</span> </span> sacado de <a href="https://stackoverflow.com/questions/33507566/mixed-content-blocked-when-running-an-http-ajax-operation-in-an-https-page" class="underline" target="blank">"Mixed content blocked" when running an HTTP AJAX operation in an HTTPS page</a></p>
+          <p><strong>Para solucionar el error de cross origen que me daba al intentar una segunda llamada:</strong> ME DABA ERROR DE CROSS ORIGIN, a pesar de mirar varias configuraciones para el server de vite, añadiendo proxy, pruebas etc, solo ha funcionado añadirle este meta tag al index del proyecto, despues de subirlo a github para probar (pensando que podría ser por un tema de localhost vs endpoint) y ver que indicaba que la respuesta del endpoint no era https: <span class="destacado">&lt;meta http-equiv=&quot;Content-Security-Policy&quot; content=&quot;upgrade-insecure-requests&quot;&gt;</span> </span> sacado de <a href="https://stackoverflow.com/questions/33507566/mixed-content-blocked-when-running-an-http-ajax-operation-in-an-https-page" class="underline" target="blank">"Mixed content blocked" when running an HTTP AJAX operation in an HTTPS page</a></p>
+
+          <!-- Bloque desplegable interior-->
+          <div class="flex items-center mt-1.25 cursor-pointer desplegable-interior justify-between oscuro" onclick="$('#seccion17-ficheros').toggle();">
+            <h3>FICHEROS FINALES</h3>
+            <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+          </div>
+          <div id="seccion17-ficheros" class="hidden">
+            <div class="flex max-sm:flex-col">
+              <div class="w-[25%] max-sm:w-[100%]">
+                <span class="destacado">types/index.ts, App.tsx, index.css, main.tsx, store.ts</span><br>
+
+                <code class="cursor-pointer" onclick="$('#17-types').toggle();">types/index.ts</code>
+                <pre data-line="0" id="17-types" class="hidden"><code class="language-ts">
+                  //types/index.ts
+                  import { z } from 'zod'
+                  import { CurrencySchema, CryptoCurrencyResponseSchema, PairSchema, CryptoPriceSchema } from '../schema/crypto-schema'
+                  
+                  export type Currency = z.infer&lt;typeof CurrencySchema&gt;
+                  export type Cryptocurrency = z.infer&lt;typeof CryptoCurrencyResponseSchema&gt;
+                  export type Pair = z.infer&lt;typeof PairSchema&gt;
+                  export type CryptoPrice = z.infer&lt;typeof CryptoPriceSchema&gt;
+                </code></pre>
+
+                <code class="cursor-pointer" onclick="$('#17-app').toggle();">App.tsx</code>
+                <pre data-line="0" id="17-app" class="hidden"><code class="language-ts">
+                  //App.tsx
+                  import { useEffect } from 'react';
+                  import CriptoSearchForm from './components/CriptoSearchForm';
+                  import { useCryptoStore } from './store'
+                  import CryptoPriceDisplay from './components/CryptoPriceDisplay';
+                  
+                  function App() {
+                    const fetchCryptos = useCryptoStore((state) => state.fetchCryptos)
+                    useEffect(() => {
+                      fetchCryptos()
+                    }, [])
+                  
+                    return (
+                      &lt;&gt;
+                        &lt;div className=&quot;container&quot;&gt;
+                            &lt;h1 className=&quot;app-title&quot;&gt;
+                                Cotizador de &lt;span&gt;Criptomonedas&lt;/span&gt;
+                            &lt;/h1&gt;
+                  
+                            &lt;div className=&quot;content&quot;&gt;
+                                &lt;CriptoSearchForm /&gt;
+                                &lt;CryptoPriceDisplay /&gt;
+                            &lt;/div&gt;
+                        &lt;/div&gt;
+                      &lt;/&gt;
+                    )
+                  }                  
+                  export default App
+                </code></pre>
+
+                <code class="cursor-pointer" onclick="$('#17-indexcss').toggle();">index.css</code>
+                <pre data-line="0" id="17-indexcss" class="hidden"><code class="language-css">
+                  //index.css
+                  :root {
+                    --white: #FFF;
+                    --primary: #61ECBC;
+                    --black: #182339;
+                  }
+                  html {
+                    font-size: 62.5%;
+                  }
+                  body {
+                    background-image: url('/bg.jpg');
+                    background-position: center;
+                    background-repeat: no-repeat;
+                    background-size: cover;
+                    min-height: 100vh;
+                    font-family: 'Outfit', sans-serif;
+                    font-size: 2rem;
+                  }
+                  .container {
+                    max-width: 60rem;
+                    width: 95%;
+                    margin: 0 auto;
+                  }
+                  .app-title {
+                    font-size: 3.8rem;
+                    margin-top: 5rem;
+                    color: var(--white);
+                    line-height: .8;
+                  }
+                  .app-title span {
+                    display: block;
+                    color: var(--primary);
+                    font-size: 4.4rem;
+                  }
+                  .content {
+                    margin-top: 5rem;
+                    padding: 6rem 2rem;
+                    background-color: var(--white);
+                    border-radius: 1rem;
+                    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+                  }
+                  
+                  .form,
+                  .field {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 2rem;
+                  }
+                  .form label {
+                    color: var(--black);
+                  }
+                  .form select {
+                    background-color: #ECEBEB;
+                    border: none;
+                    padding: 1rem;
+                    border-radius: 1rem;
+                    font-size: 1.8rem;
+                  }
+                  .form [type="submit"] {
+                    background-color: var(--primary);
+                    color: var(--black);
+                    border: none;
+                    padding: 1rem;
+                    font-weight: 900;
+                    cursor: pointer;
+                    text-transform: uppercase;
+                    margin-top: 2rem;
+                    transition: background-color 300ms ease;
+                  }
+                  .form [type="submit"]:hover {
+                    background-color: #0CB387;
+                  }
+                  .result-wrapper {
+                    margin-top: 5rem;
+                  }
+                  .result-wrapper h2 {
+                    text-align: center;
+                  }
+                  .result {
+                    display: grid;
+                    grid-template-columns: 1fr 3fr;
+                    align-items: center;
+                    gap: 1rem;
+                  }
+                  .result img {
+                    width: 100%;
+                  }
+                  .result p {
+                    margin: 0 0 1rem;
+                    font-size: 1.6rem;
+                  }
+                  .result span {
+                    font-weight: 700;
+                  }
+                </code></pre>
+
+                <code class="cursor-pointer" onclick="$('#17-maintsx').toggle();">main.tsx</code>
+                <pre data-line="0" id="17-maintsx" class="hidden"><code class="language-js">
+                  //main.tsx
+                  import { StrictMode } from 'react'
+                  import { createRoot } from 'react-dom/client'
+                  import './index.css'
+                  import App from './App.tsx'
+                  
+                  createRoot(document.getElementById('root')!).render(
+                    &lt;StrictMode&gt;
+                      &lt;App /&gt;
+                    &lt;/StrictMode&gt;,
+                  )
+                </code></pre>
+
+                <code class="cursor-pointer" onclick="$('#17-store').toggle();">store.ts</code>
+                <pre data-line="0" id="17-store" class="hidden"><code class="language-ts">
+                  //store.ts
+                  import { create } from "zustand"
+                  import { devtools } from 'zustand/middleware' 
+                  import { Cryptocurrency, CryptoPrice, Pair } from "./types"
+                  import { getCryptos, fetchCurrentCryptoPrice } from "./services/CryptoService"
+                  
+                  type CryptoStore = {
+                      cryptocurrencies: Cryptocurrency[]
+                      result: CryptoPrice
+                      loading: boolean
+                      fetchCryptos: () => Promise&lt;void&gt; 
+                      fetchData: (pair:Pair) =&gt; Promise&lt;void&gt;
+                  }
+                  
+                  export const useCryptoStore = create&lt;CryptoStore&gt;()(devtools((set) => ({
+                      cryptocurrencies: [],
+                      result: {
+                          IMAGEURL: '',
+                          PRICE: '',   
+                          HIGHDAY: '', 
+                          LOWDAY: '', 
+                          CHANGEPCT24HOUR: '' ,
+                          LASTUPDATE: '' 
+                      },
+                      loading: false,
+                      fetchCryptos: async () => {
+                          //getCryptos()
+                          const cryptocurrencies = await getCryptos()
+                          //console.log(cryptocurrencies)
+                          set(() => ({
+                              cryptocurrencies : cryptocurrencies // podríamos poner solo "cryptocurrencies"
+                          }))
+                      },
+                      fetchData: async (pair) => {
+                          set(()=>({
+                              loading: true
+                          }))
+                          const result = await fetchCurrentCryptoPrice(pair)
+                          //console.log(result)
+                          set(()=>({
+                              result: result, // podríamos poner solo "result"
+                              loading: false
+                          }))
+                      }
+                  })))
+                </code></pre>
+              </div>
+
+              <div class="w-[25%] max-sm:w-[100%]">
+                <span class="destacado">data, helpers, hooks, reducer, services</span><br>
+
+                <code class="cursor-pointer" onclick="$('#17-data').toggle();">data/index.ts</code>
+                <pre data-line="0" id="17-data" class="hidden"><code class="language-ts">
+                  //data/index.ts
+                  import { Currency } from "../types";
+
+                  export const currencies : Currency[] = [
+                      { code: 'USD', name: 'Dolar de Estados Unidos'},
+                      { code: 'MXN', name: 'Peso Mexicano'},
+                      { code: 'EUR', name: 'Euro'},
+                      { code: 'GBP', name: 'Libra Esterlina'},
+                  ]
+                </code></pre>               
+
+                <code class="cursor-pointer" onclick="$('#17-services').toggle();">services/CryptoService.ts</code>
+                <pre data-line="0" id="17-services" class="hidden"><code class="language-ts">
+                  //services/CryptoService.ts
+                  import axios from 'axios'
+                  import { CryptoCurrenciesResponseSchema, CryptoPriceSchema } from '../schema/crypto-schema'
+                  import { Pair } from '../types'
+                  
+                  export async function getCryptos(){
+                      const url = 'https://min-api.cryptocompare.com/data/top/mktcapfull?limit=20&tsym=EUR'
+                      const {data: {Data}} = await axios(url)
+                      //console.log(Data)  
+                      const result = CryptoCurrenciesResponseSchema.safeParse(Data)
+                      //console.log(result)
+                      if(result.success){
+                          return result.data
+                      }   
+                  }
+                  
+                  export async function fetchCurrentCryptoPrice(pair: Pair) {
+                      //console.log(pair)
+                      //const url = `http://min-api.cryptocompare.com/data/pricemultifull?fsyms=BTC&tsyms=EUR`    
+                      const url = `http://min-api.cryptocompare.com/data/pricemultifull?fsyms=${pair.criptocurrency}&tsyms=${pair.currency}`
+                      // const { data } = await axios(url)
+                      // console.log(data) 
+                  
+                      const { data: {DISPLAY} } = await axios(url)
+                      //console.log(DISPLAY[pair.criptocurrency][pair.currency]) 
+                      const result = CryptoPriceSchema.safeParse(DISPLAY[pair.criptocurrency][pair.currency])
+                      //console.log(result)
+                      if(result.success){
+                          //console.log(result.data)
+                          return(result.data)
+                      }    
+                  }
+                </code></pre>
+              </div>
+
+              <div class="w-[50%] max-sm:w-[100%]">
+                <span class="destacado">Componentes</span><br>
+                <code class="cursor-pointer" onclick="$('#17-CriptoSearchForm').toggle();">CriptoSearchForm.tsx</code>
+                <pre data-line="0" id="17-CriptoSearchForm" class="hidden"><code class="language-ts">
+                  // CriptoSearchForm.tsx
+                  import { useCryptoStore } from '../store'
+                  import { currencies } from '../data/index'
+                  import { ChangeEvent, useState , FormEvent} from 'react'
+                  import { Pair } from '../types'
+                  import ErrorMessage from './ErrorMessage'
+                  
+                  export default function CriptoSearchForm() {
+                      const cryptocurrencies = useCryptoStore((state) => state.cryptocurrencies )
+                      const fetchData = useCryptoStore((state) => state.fetchData )
+                  
+                      const [pair, setPair] = useState&lt;Pair&gt;({
+                          currency: &#39;&#39;,
+                          criptocurrency: &#39;&#39;
+                      })
+                      const [error, setError] = useState(&#39;&#39;)
+                      const handleChange = (e: ChangeEvent&lt;HTMLSelectElement&gt;) =&gt; {
+                          setPair({
+                              ...pair,
+                              [e.target.name]: e.target.value
+                          })
+                      }
+                      const handleSubmit = (e: FormEvent&lt;HTMLFormElement&gt;) => {
+                          e.preventDefault();
+                          if(Object.values(pair).includes('')){
+                              setError('Todos los campos son obligatorios')
+                              return
+                          }
+                          setError('')
+                          //Consultar la API
+                          fetchData(pair)
+                      }
+                  
+                      return (
+                          &lt;form 
+                              className=&quot;form&quot; 
+                              onSubmit={ handleSubmit }
+                          &gt;
+                              {error &amp;&amp; &lt;ErrorMessage&gt;{error}&lt;/ErrorMessage&gt;}
+                              &lt;div className=&quot;field&quot;&gt;
+                                  &lt;label htmlFor=&quot;currency&quot;&gt;Moneda:&lt;/label&gt;
+                                  &lt;select 
+                                      name=&quot;currency&quot; 
+                                      id=&quot;currency&quot;
+                                      onChange={handleChange}
+                                      value={pair.currency}
+                                  &gt;
+                                      &lt;option value=&quot;&quot;&gt;-- Seleccione --&lt;/option&gt;
+                                      {currencies.map( currency =&gt; (
+                                          &lt;option key={currency.code} value={currency.code}&gt;{currency.name}&lt;/option&gt;
+                                      ))}
+                                  &lt;/select&gt;
+                              &lt;/div&gt;
+                  
+                              &lt;div className=&quot;field&quot;&gt;
+                                  &lt;label htmlFor=&quot;criptocurrency&quot;&gt;Criptomoneda:&lt;/label&gt;
+                                  &lt;select 
+                                      name=&quot;criptocurrency&quot; 
+                                      id=&quot;criptocurrency&quot;
+                                      onChange={handleChange}
+                                      value={pair.criptocurrency}
+                                  &gt;
+                                      &lt;option value=&quot;&quot;&gt;-- Seleccione --&lt;/option&gt;   
+                                      { cryptocurrencies.map(crypto =&gt; (
+                                          &lt;option 
+                                              key={crypto.CoinInfo.FullName}
+                                              value={crypto.CoinInfo.Name}
+                                          &gt;{crypto.CoinInfo.FullName}&lt;/option&gt;
+                                      ))}                 
+                                  &lt;/select&gt;
+                              &lt;/div&gt;
+                  
+                              &lt;input type=&quot;submit&quot; value=&quot;cotizar&quot;/&gt;
+                          &lt;/form&gt;
+                      )
+                  }                  
+                </code></pre>
+
+                <code class="cursor-pointer" onclick="$('#17-CryptoPriceDisplay').toggle();">CryptoPriceDisplay.tsx</code>
+                <pre data-line="0" id="17-CryptoPriceDisplay" class="hidden"><code class="language-ts">
+                  // CryptoPriceDisplay.tsx
+                  import { useMemo } from "react"
+                  import { useCryptoStore } from "../store"
+                  import Spinner from "./Spinner"
+                  
+                  export default function CryptoPriceDisplay() {
+                      const result = useCryptoStore((state) => state.result)
+                      const loading = useCryptoStore((state) => state.loading)
+                      const hasResult = useMemo(()=> !Object.values(result).includes(''), [result])
+                      //console.log(hasResult)
+                      return (
+                          &lt;div className=&quot;result-wrapper&quot;&gt;
+                              {loading ? &lt;Spinner/&gt; : hasResult &amp;&amp; (
+                                  &lt;&gt;
+                                  &lt;h2&gt;Cotización&lt;/h2&gt;
+                                  &lt;div className=&quot;result&quot;&gt;
+                                      &lt;img 
+                                          src={`https://cryptocompare.com/${result.IMAGEURL}`}
+                                          alt=&quot;Imagen Cryptomenda&quot;
+                                          loading=&quot;lazy&quot;
+                                      /&gt;
+                                      &lt;div&gt;
+                                          &lt;p&gt;El precio es de: &lt;span&gt;{result.PRICE}&lt;/span&gt;&lt;/p&gt;
+                                          &lt;p&gt;Precio más alto del día: &lt;span&gt;{result.HIGHDAY}&lt;/span&gt;&lt;/p&gt;
+                                          &lt;p&gt;Precio más bajo del día: &lt;span&gt;{result.LOWDAY}&lt;/span&gt;&lt;/p&gt;
+                                          &lt;p&gt;Variación últimas 24h: &lt;span&gt;{result.CHANGEPCT24HOUR}&lt;/span&gt;&lt;/p&gt;
+                                          &lt;p&gt;Última actualización: &lt;span&gt;{result.LASTUPDATE}&lt;/span&gt;&lt;/p&gt;
+                                      &lt;/div&gt;
+                                  &lt;/div&gt;
+                                  &lt;/&gt;
+                              )}            
+                          &lt;/div&gt;
+                      )
+                  }
+                </code></pre>
+
+                <code class="cursor-pointer" onclick="$('#17-ErrorMessage').toggle();">ErrorMessage.tsx</code>
+                <pre data-line="0" id="17-ErrorMessage" class="hidden"><code class="language-ts">
+                  // ErrorMessage.tsx
+                  export default function ErrorMessage({children}: {children: React.ReactNode}){
+                    return(
+                        &lt;div&gt;
+                            {children}
+                        &lt;/div&gt;
+                    )
+                }
+                </code></pre>
+
+                <code class="cursor-pointer" onclick="$('#17-Spinner').toggle();">Spinner.tsx</code>
+                <pre data-line="0" id="17-Spinner" class="hidden"><code class="language-ts">
+                  // Spinner.tsx
+                  import '../Spinner.css'
+                  export default function Spinner() {
+                    return (
+                      &lt;div className=&quot;sk-chase&quot;&gt;
+                          &lt;div className=&quot;sk-chase-dot&quot;&gt;&lt;/div&gt;
+                          &lt;div className=&quot;sk-chase-dot&quot;&gt;&lt;/div&gt;
+                          &lt;div className=&quot;sk-chase-dot&quot;&gt;&lt;/div&gt;
+                          &lt;div className=&quot;sk-chase-dot&quot;&gt;&lt;/div&gt;
+                          &lt;div className=&quot;sk-chase-dot&quot;&gt;&lt;/div&gt;
+                          &lt;div className=&quot;sk-chase-dot&quot;&gt;&lt;/div&gt;
+                      &lt;/div&gt;
+                    )
+                  }
+                </code></pre>
+
+                <code class="cursor-pointer" onclick="$('#17-Spinner').toggle();">src/Spinner.css</code>
+                <pre data-line="0" id="17-Spinner" class="hidden"><code class="language-css">
+                  // src/Spinner.css
+                  .sk-chase {
+                    width: 40px;
+                    height: 40px;
+                    position: relative;
+                    animation: sk-chase 2.5s infinite linear both;
+                    margin: 0 auto;
+                  }  
+                  .sk-chase-dot {
+                    width: 100%;
+                    height: 100%;
+                    position: absolute;
+                    left: 0;
+                    top: 0; 
+                    animation: sk-chase-dot 2.0s infinite ease-in-out both; 
+                  }  
+                  .sk-chase-dot:before {
+                    content: '';
+                    display: block;
+                    width: 25%;
+                    height: 25%;
+                    background-color: var(--black);
+                    border-radius: 100%;
+                    animation: sk-chase-dot-before 2.0s infinite ease-in-out both; 
+                  }  
+                  .sk-chase-dot:nth-child(1) { animation-delay: -1.1s; }
+                  .sk-chase-dot:nth-child(2) { animation-delay: -1.0s; }
+                  .sk-chase-dot:nth-child(3) { animation-delay: -0.9s; }
+                  .sk-chase-dot:nth-child(4) { animation-delay: -0.8s; }
+                  .sk-chase-dot:nth-child(5) { animation-delay: -0.7s; }
+                  .sk-chase-dot:nth-child(6) { animation-delay: -0.6s; }
+                  .sk-chase-dot:nth-child(1):before { animation-delay: -1.1s; }
+                  .sk-chase-dot:nth-child(2):before { animation-delay: -1.0s; }
+                  .sk-chase-dot:nth-child(3):before { animation-delay: -0.9s; }
+                  .sk-chase-dot:nth-child(4):before { animation-delay: -0.8s; }
+                  .sk-chase-dot:nth-child(5):before { animation-delay: -0.7s; }
+                  .sk-chase-dot:nth-child(6):before { animation-delay: -0.6s; }
+                  
+                  @keyframes sk-chase {
+                    100% { transform: rotate(360deg); } 
+                  }
+                  
+                  @keyframes sk-chase-dot {
+                    80%, 100% { transform: rotate(360deg); } 
+                  }
+                  
+                  @keyframes sk-chase-dot-before {
+                    50% {
+                      transform: scale(0.4); 
+                    } 100%, 0% {
+                      transform: scale(1.0); 
+                    } 
+                  }
+                </code></pre>
+              </div>
+            </div>
+
+          </div>  
 
           <!-- Bloque desplegable interior-->
           <div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion17-281').toggle();">
@@ -4146,11 +4698,190 @@
           <h3>302. Agregando un spinner de Carga y Deployment <span class="destacado"><a href="https://tobiasahlin.com/spinkit/" class="underline" target="blank">https://tobiasahlin.com/spinkit/</a></span></h3>
           <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
         </div>
-        <div id="seccion17-302" class="">
-          <p>Vemos que la API trae mucha información con lo cual la carga no es inmediata. Vamos a añadir un spinner de carga para que en loq ue se trae la cotización le de algo de retroalimentación al usuario (veamos cómo hacerlo al trabajr con Zustand).</p>
+        <div id="seccion17-302" class="hidden">
+          <p>Vemos que la API trae mucha información con lo cual la carga no es inmediata. Vamos a añadir un spinner de carga para que, en lo que se trae la cotización, le de algo de retroalimentación al usuario (veamos cómo hacerlo al trabajar con Zustand).</p>
 
+          <ul class="list-disc my-3">
+            
+           
+            <li class="my-1.25">Vamos a <a href="https://tobiasahlin.com/spinkit/" class="underline" target="blank">https://tobiasahlin.com/spinkit/</a> elegimos uno y le damos en la parte superior a <strong>source&lt;&gt;</strong> y copiamos el html.
+              <pre><code class="language-html">
+                &lt;div class=&quot;sk-chase&quot;&gt;
+                  &lt;div class=&quot;sk-chase-dot&quot;&gt;&lt;/div&gt;
+                  &lt;div class=&quot;sk-chase-dot&quot;&gt;&lt;/div&gt;
+                  &lt;div class=&quot;sk-chase-dot&quot;&gt;&lt;/div&gt;
+                  &lt;div class=&quot;sk-chase-dot&quot;&gt;&lt;/div&gt;
+                  &lt;div class=&quot;sk-chase-dot&quot;&gt;&lt;/div&gt;
+                  &lt;div class=&quot;sk-chase-dot&quot;&gt;&lt;/div&gt;
+                &lt;/div&gt;
+              </code></pre>
+              
+            </li>
 
+            <li class="my-1.25"><p>Generamos un nuevo componente para el spinner <span class="file">components/Spinner.tsx</span> y pegamos el código reemplazando class por className</p>
+              <pre data-line="0"><code class="language-ts">
+                //components/Spinner.tsx
+                import '../Spinner.css'
+                export default function Spinner() {
+                  return (
+                    &lt;div className=&quot;sk-chase&quot;&gt;
+                      &lt;div className=&quot;sk-chase-dot&quot;&gt;&lt;/div&gt;
+                      &lt;div className=&quot;sk-chase-dot&quot;&gt;&lt;/div&gt;
+                      &lt;div className=&quot;sk-chase-dot&quot;&gt;&lt;/div&gt;
+                      &lt;div className=&quot;sk-chase-dot&quot;&gt;&lt;/div&gt;
+                      &lt;div className=&quot;sk-chase-dot&quot;&gt;&lt;/div&gt;
+                      &lt;div className=&quot;sk-chase-dot&quot;&gt;&lt;/div&gt;
+                    &lt;/div&gt;
+                  )
+                }
+              </code></pre></li>
+            <li class="my-1.25">A la altura de src generamos un archivo <span class="file">src/Spinner.css</span> en donde pegamos los estilos que copiamos de la url. Esta nueva css específica del componente la importamos en el componente <span class="file">components/Spinner.tsx</span>.
+            <pre data-line="0"><code class="language-css">
+              //src/Spinner.css
+              .sk-chase {
+                width: 40px;
+                height: 40px;
+                position: relative;
+                animation: sk-chase 2.5s infinite linear both;
+              }  
+              .sk-chase-dot {
+                width: 100%;
+                height: 100%;
+                position: absolute;
+                left: 0;
+                top: 0; 
+                animation: sk-chase-dot 2.0s infinite ease-in-out both; 
+              }  
+              .sk-chase-dot:before {
+                content: '';
+                display: block;
+                width: 25%;
+                height: 25%;
+                background-color: #fff;
+                border-radius: 100%;
+                animation: sk-chase-dot-before 2.0s infinite ease-in-out both; 
+              }  
+              .sk-chase-dot:nth-child(1) { animation-delay: -1.1s; }
+              .sk-chase-dot:nth-child(2) { animation-delay: -1.0s; }
+              .sk-chase-dot:nth-child(3) { animation-delay: -0.9s; }
+              .sk-chase-dot:nth-child(4) { animation-delay: -0.8s; }
+              .sk-chase-dot:nth-child(5) { animation-delay: -0.7s; }
+              .sk-chase-dot:nth-child(6) { animation-delay: -0.6s; }
+              .sk-chase-dot:nth-child(1):before { animation-delay: -1.1s; }
+              .sk-chase-dot:nth-child(2):before { animation-delay: -1.0s; }
+              .sk-chase-dot:nth-child(3):before { animation-delay: -0.9s; }
+              .sk-chase-dot:nth-child(4):before { animation-delay: -0.8s; }
+              .sk-chase-dot:nth-child(5):before { animation-delay: -0.7s; }
+              .sk-chase-dot:nth-child(6):before { animation-delay: -0.6s; }
+              
+              @keyframes sk-chase {
+                100% { transform: rotate(360deg); } 
+              }
+              
+              @keyframes sk-chase-dot {
+                80%, 100% { transform: rotate(360deg); } 
+              }
+              
+              @keyframes sk-chase-dot-before {
+                50% {
+                  transform: scale(0.4); 
+                } 100%, 0% {
+                  transform: scale(1.0); 
+                } 
+              }
+            </code></pre>
+            </li>
+            <li class="my-1.25">En nuestro store creamos un nuevo state para la parte de este componente Spinner.tsx. lo añadimos después del state result y lo vamos a llamar <strong>loading</strong>. En la firma (la definición del type <code class="language-ts">type CryptoStore = {...}</code>) va a ser de tipo boolean <code class="language-ts">loading: boolean</code> y su valor inicial va a ser false <code class="language-ts">loading: false,</code> es decir por defecto no se muestra. Se mostrará cuando su valor cambie a true, y cambia a true cuando llamemos a la acción fetchData: cuando haga la cotización cambiamos a true y una vez que finalice lo establecemos de nuevo a false. Para ello, el set de una acción lo podemos utilizar en diferentes lugares de la misma, de igual manera y sin ningún problema que hemos visto con setState, podemos controlarlo y llamarlo según requiramos. Así vamos a setear a true nuestro loading cuando comenzamos a hacer el llamado a nuestra API, y una vez obtenemos nuestra cotización, establecemos de nuevo loading a false. Podemos verificar que lo hace correctamente viendo Redux developer tools:
+            <pre data-line="0,9,23,31-33,36-37"><code class="language-ts">
+              //store.ts
+              import { create } from "zustand"
+              import { devtools } from 'zustand/middleware' 
+              import { Cryptocurrency, CryptoPrice, Pair } from "./types"
+              import { getCryptos, fetchCurrentCryptoPrice } from "./services/CryptoService"
+              
+              type CryptoStore = {
+                  cryptocurrencies: Cryptocurrency[]
+                  result: CryptoPrice
+                  loading: boolean
+                  fetchCryptos: () =&gt; Promise&lt;void&gt; 
+                  fetchData: (pair:Pair) =&gt; Promise&lt;void&gt;
+              }
+              export const useCryptoStore = create&lt;CryptoStore&gt;()(devtools((set) =&gt; ({
+                  cryptocurrencies: [],
+                  result: {
+                      IMAGEURL: '',
+                      PRICE: '',   
+                      HIGHDAY: '', 
+                      LOWDAY: '', 
+                      CHANGEPCT24HOUR: '' ,
+                      LASTUPDATE: '' 
+                  },
+                  loading: false,
+                  fetchCryptos: async () => {
+                      const cryptocurrencies = await getCryptos()
+                      set(() => ({
+                          cryptocurrencies : cryptocurrencies // podríamos poner solo "cryptocurrencies"
+                      }))
+                  },
+                  fetchData: async (pair) => {
+                      set(()=>({
+                          loading: true
+                      }))
+                      const result = await fetchCurrentCryptoPrice(pair)
+                      set(()=>({
+                          result: result, 
+                          loading: false
+                      }))
+                  }
+              })))
+            </code></pre>
+            </li>
+            <li class="my-1.25">El siguiente paso es mostrarlo, aún no hemos definido esa lógica. Lo hacemos en <span class="file">components/CryptoPriceDisplay.tsx</span>. Lo primero es crear una variable que llamamos loading para extraer el valor de nuestro state loading <code class="language-ts">const loading = useCryptoStore((state) => state.loading)</code>. Usamos un ternario para, antes de <strong>hasResult</strong> comprobamos si loading está a true mostramos nuestro spinner de carga y en caso contrario, que hasResult ya tendrá algo, mostramos la información: <code class="language-ts"> {loading ? &lt;Spinner/&gt; : hasResult && (...)}</code>
+            <pre data-line="0,7,11"><code class="language-ts">
+              //components/CryptoPriceDisplay.tsx
+              import { useMemo } from "react"
+              import { useCryptoStore } from "../store"
+              import Spinner from "./Spinner"
+              
+              export default function CryptoPriceDisplay() {
+                  const result = useCryptoStore((state) => state.result)
+                  const loading = useCryptoStore((state) => state.loading)
+                  const hasResult = useMemo(()=> !Object.values(result).includes(''), [result])
+                  return (
+                      &lt;div className=&quot;result-wrapper&quot;&gt;
+                          {loading ? &lt;Spinner/&gt; : hasResult &amp;&amp; (
+                              &lt;&gt;
+                              &lt;h2&gt;Cotización&lt;/h2&gt;
+                              &lt;div className=&quot;result&quot;&gt;
+                                  &lt;img 
+                                      src={`https://cryptocompare.com/${result.IMAGEURL}`}
+                                      alt=&quot;Imagen Cryptomenda&quot;
+                                      loading=&quot;lazy&quot;
+                                  /&gt;
+                                  &lt;div&gt;
+                                      &lt;p&gt;El precio es de: &lt;span&gt;{result.PRICE}&lt;/span&gt;&lt;/p&gt;
+                                      &lt;p&gt;Precio más alto del día: &lt;span&gt;{result.HIGHDAY}&lt;/span&gt;&lt;/p&gt;
+                                      &lt;p&gt;Precio más bajo del día: &lt;span&gt;{result.LOWDAY}&lt;/span&gt;&lt;/p&gt;
+                                      &lt;p&gt;Variación últimas 24h: &lt;span&gt;{result.CHANGEPCT24HOUR}&lt;/span&gt;&lt;/p&gt;
+                                      &lt;p&gt;Última actualización: &lt;span&gt;{result.LASTUPDATE}&lt;/span&gt;&lt;/p&gt;
+                                  &lt;/div&gt;
+                              &lt;/div&gt;
+                              &lt;/&gt;
+                          )}            
+                      &lt;/div&gt;
+                  )
+              }
+            </code></pre>
+            </li>
+            <li class="my-1.25">Como vemos, al estar los colores de css del spinner iguales que los de nuestro fondo no llega a distinguirse, pega como un "pestañazo" apenas apreciable. Probamos con Redux developer tools pulsando en los "Jump" para mantener un state como queramos (es como un punto de interrupción para pruebas) y entonces podemos inspeccionar el código viendo que el spinner realmente está ahí y funcionando pero son los estilos los que no nos permiten verlo adecuadamente. 
+            <img src="https://andune55.github.io/manual-react/assets/302-wJayWoiq.png" alt="img" loading="lazy">  
+            Vamos al css del spinner y el background-color blanco de esta clase lo cambiamos por var(--black) <code class="language-css">.sk-chase-dot:before { background-color: var(--black);}</code> y centramos el conteneodr padre con un margin: 0 auto también y ya vemos como aparece así:
+            <img src="data:image/png;base64,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" alt="img" loading="lazy">
+            </li>
+            <li>Ya por último una vez finalizado nuestro proyecto realizamos el build de producción con <span class="destacado">npm run build</span> para asegurarnos que no tenemos ningún error</li>
+          </ul>
 
+          <p>En el siguiente capítulo vamos a consumir otra API y estaremos aprendiendo a crear aplicaciones con múltiples páginas, hasta ahora todos nuestros proyectos han sido de una única página. Existe una dependencia llamada <strong>React Router Dom</strong> que nos va a permitir crear múltiples páginas.</p>
         </div>
 
         </div>
@@ -4164,7 +4895,7 @@
       <div class="w-[80%] max-sm:w-[96%] mx-auto bg-gray-200 my-1.25 py-0.75 pr-0 pl-2.5 rounded-xl">
 
         <div class="flex items-center mt-1.25 cursor-pointer desplegable justify-between" onclick="$('#seccion16').toggle();">
-          <h2>Sección 16: PROYECTO - Aplicación de Clima que obtiene el Clima en tiempo real con una API</h2>
+          <h2>Sección 16: PROYECTO - Aplicación de Clima que obtiene el Clima en tiempo real con una API - <a href="https://aab-clima-react-typescript.netlify.app/" class="underline text-emerald-700 font-bold" target="blank">https://aab-clima-react-typescript.netlify.app/</a></h2>
           <span class="cambiaicono ico_chevron_down mr-2.5" title=""></span>
         </div>
 
@@ -8186,7 +8917,7 @@
       <div class="w-[80%] max-sm:w-[96%] mx-auto bg-gray-200 my-1.25 py-0.75 pr-0 pl-2.5 rounded-xl">
 
         <div class="flex items-center mt-1.25 cursor-pointer desplegable justify-between" onclick="$('#seccion13').toggle();">
-          <h2>Sección 13: PROYECTO - Control de Gastos y Presupuestos con Context API para estado global</h2>
+          <h2>Sección 13: PROYECTO - Control de Gastos y Presupuestos con Context API para estado global - <a href="https://aab-control-gastos-contextapi.netlify.app/" class="underline text-emerald-700 font-bold" target="blank">https://aab-control-gastos-contextapi.netlify.app/</a></h2>
           <span class="cambiaicono ico_chevron_down mr-2.5" title=""></span>
         </div>
 
@@ -13978,7 +14709,7 @@
       <div class="w-[80%] max-sm:w-[96%] mx-auto bg-gray-200 mb-1.25 py-0.75 pr-0 pl-2.5 rounded-xl">
         
         <div class="flex items-center mt-1.25 cursor-pointer desplegable justify-between pointer" onclick="$('#seccion10').toggle();">
-          <h2>Sección 10: PROYECTO - Contador de Calorías, Consumo y Ejercicios con useReducer</h2>
+          <h2>Sección 10: PROYECTO - Contador de Calorías, Consumo y Ejercicios con useReducer - <a href="https://aab-calory-tracker.netlify.app/" class="underline text-emerald-700 font-bold" target="blank">https://aab-calory-tracker.netlify.app/</a></h2>
           <span class="cambiaicono ico_chevron_down mr-2.5" title=""></span>
         </div>
 
@@ -16716,7 +17447,7 @@
       
         <div class="flex items-center mt-1.25 cursor-pointer desplegable justify-between pointer"
           onclick="$('#seccion9').toggle();">
-          <h2>Sección 9: PROYECTO - Calculadora de propinas con TypeScript</h2>
+          <h2>Sección 9: PROYECTO - Calculadora de propinas con TypeScript - <a href="https://calcula-propinas.netlify.app/" class="underline text-emerald-700 font-bold" target="blank">https://calcula-propinas.netlify.app/</a></h2>
           <span class="cambiaicono ico_chevron_down mr-2.5" title=""></span>
         </div>
       
@@ -18350,7 +19081,7 @@
       <div class="w-[80%] max-sm:w-[96%] mx-auto bg-gray-200 mb-1.25 py-0.75 pr-0 pl-2.5 rounded-xl">
 
           <div class="flex items-center mt-1.25 cursor-pointer desplegable justify-between pointer" onclick="$('#seccion08').toggle();">
-            <h2>Sección 8: PROYECTO - Carrito de Compras - Migrando a TypeScript paso a paso</h2>
+            <h2>Sección 8: PROYECTO - Carrito de Compras - Migrando a TypeScript paso a paso - <a href="https://react-tienda-guitarras.netlify.app/" class="underline text-emerald-700 font-bold" target="blank">https://react-tienda-guitarras.netlify.app/</a></h2>
             <span class="cambiaicono ico_chevron_down mr-2.5" title=""></span>
           </div>
 
