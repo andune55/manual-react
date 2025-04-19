@@ -26,7 +26,7 @@
       <div class="w-[80%] max-sm:w-[96%] mx-auto bg-gray-200 my-1.25 py-0.75 pr-0 pl-2.5 rounded-xl">
 
         <div class="flex items-center mt-1.25 cursor-pointer desplegable justify-between" onclick="$('#seccion18').toggle();">
-          <h2>Sección 18: PROYECTO - Buscador de Bebidas y Recetas con React Router DOM</h2>
+          <h2>Sección 18: PROYECTO - Buscador de Bebidas y Recetas con React Router DOM - <a href="https://busca-drink.netlify.app/" class="underline text-emerald-700 font-bold" target="blank">https://busca-drink.netlify.app/</a></h2>
           <span class="cambiaicono ico_chevron_up mr-2.5" title=""></span>
         </div>
 
@@ -34,59 +34,326 @@
 
             <!-- Bloque desplegable interior-->
             <div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-303').toggle();">
-              <h3>303. Lo que vamos a construir</h3>
+              <h3>303. Lo que vamos a construir / 304. Primeros pasos con este proyecto / 305. Instalando Tailwind</h3>
               <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
             </div>
-            <div id="seccion18-303" class="">
+            <div id="seccion18-303" class="hidden">
+              <p>De ahora en adelante construiremos proyectos con múltiples páginas y usaremos para ello <span class="destacado">React router dom</span>. Vamos a hacer un buscador de bebidas. Tenemos dos páginas Inicio y Favoritos. En Inicio tenemos dos campos: input "nombre o Ingredientes" y un select "Categoría". Si buscamos sin seleccionar nada nos sale una notificación de que ambos son obligatorios. La consulta la hace a una REST API externa y abajo nos muestra nuestros resultados a modo de "cards", cada uno de ellos con imagen, nombre y un botón que da acceso a la receta correspondiente. Al pulsar ese botón nos abre una modal con Nombre, foto, Ingredientes y cantidades, Instrucciones y dos botones: cerrar y agregar a favoritos. Si pulsamos en Agregar a favoritos aparece una notificación de que se ha agregado. Si presiono en la misma receta ya no nos aparece el botón de "Agregar a favoritos" sino que aparece "Eliminar favorito".</p>
 
+              <p>Herramientas que utilizaremos:</p>
+              <ul class="list-disc my-3">
+                <li class="my-1.25">Tailwind CSS <span class="destacado">npm install tailwindcss @tailwindcss/vite</span></li>
+                <li class="my-1.25">Headless UI para las ventanas modal</li>
+                <li class="my-1.25">Notificaciones</li>
+                <li class="my-1.25">React Router DOM para poder navegar por diferentes páginas <span class="destacado">npm i react-router-dom</span> - <a href="https://www.npmjs.com/package/react-router-dom" class="underline" target="blank">https://www.npmjs.com/package/react-router-dom</a>. <strong>Borramos App.tsx, creamos router.tsx, ¡Ojo! si tenemos configurado una url base en nuestro vite.config.ts</strong></li>
+                <li class="my-1.25">Zod para validar las respuestas de la API</li>
+                <li class="my-1.25">Zustand para el estado global</li>
+                <li class="my-1.25">Axios para conectarnos a esa REST API</li>
+              </ul>
 
-            </div>
-            <!-- Bloque desplegable interior-->
-            <div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-304').toggle();">
-              <h3>304. Primeros pasos con este proyecto / 305. Instalando Tailwind</h3>
-              <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
-            </div>
-            <div id="seccion18-304" class="hidden">
-
-
-            </div>
+              <p class="naranja">Primeros pasos: crear proyecto, hacer limpieza, instalar tailwinds</p>
+              <ul class="list-disc my-3">
+                <li class="my-1.25"><span class="destacado">npm create vite@latest</span> React,  TS + SWC y nombramos como <strong>bebidas-react-typescript</strong>, vamos a la carpeta e instalamos dependencias con <span class="destacado">npm install</span>, arrancamos servidor de desarrollo con <span class="destacado">npm run dev</span> y hacemos la limpieza de siempre (borramos carpeta assets y el App.css. limpiamos App.tsx y index.css. Eliminamos de public el svg de vite y en el index quitamos el <code class="language-ts">&lt;link rel=&quot;icon&quot; type=&quot;image/svg+xml&quot; href=&quot;/vite.svg&quot; /&gt;</code>,y añadimos título <code class="language-ts">&lt;title&gt;Buscador de bebidas - API, React Router, Tailwind, Zustand, Zod y más&lt;/title&gt;</code></li>
+                <li class="my-1.25">Usamos <a href="https://realfavicongenerator.net/" class="underline" target="blank">https://realfavicongenerator.net/</a> para generar icono personalizado de app/favicon y pongo todo lo generado en public y en el index.html el código correspondiente:
+                <pre data-line="0"><code class="language-html">
+                  //index.html
+                  &lt;link rel=&quot;icon&quot; type=&quot;image/png&quot; href=&quot;./favicon-96x96.png&quot; sizes=&quot;96x96&quot; /&gt;
+                  &lt;link rel=&quot;icon&quot; type=&quot;image/svg+xml&quot; href=&quot;./favicon.svg&quot; /&gt;
+                  &lt;link rel=&quot;shortcut icon&quot; href=&quot;./favicon.ico&quot; /&gt;
+                  &lt;link rel=&quot;apple-touch-icon&quot; sizes=&quot;180x180&quot; href=&quot;./apple-touch-icon.png&quot; /&gt;
+                  &lt;meta name=&quot;apple-mobile-web-app-title&quot; content=&quot;buscaDrink&quot; /&gt;
+                  &lt;link rel=&quot;manifest&quot; href=&quot;./site.webmanifest&quot; /&gt;
+                </code></pre>
+                </li>      
+                <li>Instalamaos Tailwindcss <span class="destacado">npm install tailwindcss @tailwindcss/vite</span> (si vemos que no coge las clases reiniciamos el servidor de desarrollo)</li>      
+                <li>Como vamos a trabajar con React Router Dom vamos a borrar el <span class="file">App.tsx</span> porque ya incorporando distintas páginas vamos a nombrar nuestros archivos de otra forma.</li> 
+              </ul>
+            </div>              
+          
             <!-- Bloque desplegable interior-->
             <div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-306').toggle();">
-              <h3>306. ¿Qué es React Router?</h3>
+              <h3>306. ¿Qué es React Router? - <a href="https://www.npmjs.com/package/react-router-dom" class="underline txt-white" target="blank">https://www.npmjs.com/package/react-router-dom</a></h3>
               <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
             </div>
             <div id="seccion18-306" class="hidden">
+              <p>Este proyecto va a tener diferentes páginas, una para buscar las recetas y otra de favoritos. Para hacer esto vamos a instalar una librería de routing llamada <strong>React Router: con la cual vamos a poder hacer aplicaciones en React con múltiples páginas</strong>. ¿Qué es React Router? </p>
+
+              <ul class="list-disc my-3">
+                <li class="my-1.25"><strong>React Router es una de las librerías más comunes a la hora de crear aplicaciones de múltiples páginas y tener navegación en React</strong>. Existen otras opciones pero esta es la más utilizada</li>
+                <li class="my-1.25"><strong>React Router es una librería de los creadores de remix.</strong> De hecho, ellos crearon primero React Router y después crearon Remix. <strong>Remix Run es un framework de React que se ejecuta en el servidor</strong> que estaremos viendo un poco más adelante y que recientemente fue adquirido por Shopify, una plataforma para crear tiendas virtuales.</li>
+                <li class="my-1.25"><strong>En las últimas versiones de React Router prácticamente se convirtió en un framework de React</strong>. Más adelante en otro proyecto, estaremos viendo cómo obtiene datos desde una API y cómo procesa formularios, porque puedes utilizarlo de diferentes formas.</li>
+              </ul>
+
+              <p>Algunas características de React Router:</p>
+
+              <ul class="list-disc my-3">
+                <li class="my-1.25"><strong>Va a permitir crear secciones con diferentes URLs, tales como /tienda, /productos, /login, etc</strong> En el caso de este proyecto vamos a tener la página principal y también vamos a tener una de favoritos.</li>
+                <li class="my-1.25"><strong>En versiones recientes agregaron la posibilidad de consultar APIs y procesar formularios, pero estas características no son obligatorias, son opcionales (en un proyecto posterior lo veremos para aprender también esa sintaxis)</strong></li>          
+              </ul>
+
+              <p>¿React Router DOM?¿React Router? El proyecto originalmente se llamaba React Router DOM pero lo renombraron a React Router aunque la dependencia que instalamos es esta: <span class="destacado">npm i react-router-dom</span> - <a href="https://www.npmjs.com/package/react-router-dom" class="underline" target="blank">https://www.npmjs.com/package/react-router-dom</a> El en el vídeo a cuento de la v 6.16.0 comenta que "esta dependencia react-router-dom instala esta otra React Router, porque lo que decía la página es que el paquete de React Router era el corazon de React Router y provee toda la funcionalidad tanto para react-router-dom como para react-router-native (para crear apps de múltiples páginas para react native)</p>
+
+              <img src="./src/assets/img/306-1.png" alt="img" loading="lazy">
+
+              <p>Sin embargo esto es lo que en ambas páginas se indica actualmente (19/04/25):</p>
+              <img src="./src/assets/img/306-2.png" alt="img" loading="lazy">
+              
+              <p>Al instalar <span class="destacado">npm i react-router-dom</span> ya instala la otra :D Si vamos al <span class="file">package-lock.json</span> y buscamos react-router-dom vemos que <strong>el módulo de react-router-dom instala react-router</strong> pero la dependencia principal es react-router-dom cuando creas aplicaciones para web.</p>
+              
+              <img src="./src/assets/img/306-3.png" alt="img" loading="lazy">
+
+              <p>Eliminamos el App.tsx que ya no se utiliza (algunas personas crean el router ahí pero no es necesario) y creamos el archivo <span class="file">src/router.tsx</span> dentro del cual utilizaremos algunos componentes que nos da react router dom. Vamos a ver cómo configurar nuestro router.</p>              
 
             </div>
             
             <!-- Bloque desplegable interior-->
-            <div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-XX').toggle();">
-              <h3>XXXXXXXXXXXXXXX</h3>
+            <div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-307').toggle();">
+              <h3>307. Creando el Router <span class="destacado">¡Ojo! si tenemos url base definida en nuestro vite.config.ts :)</span></h3>
               <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
             </div>
-            <div id="seccion18-XX" class="hidden">
+            <div id="seccion18-307" class="hidden">
+              <p><span class="file">src/react.tsx</span> es tsx porque react router dom lo que nos da son componentes de react con los que vamos a ir configurando nuestra aplicación. La estructura de nuestro router.tsx es básicamente la misma que cualquier otro componente (usamos el atajo rfc para crearlo) pero en vez de router como el nombre del fichero, la función la vamos a llamar AppRouter; lo podríamos nombrar como queramos siempre que no choque con los nombres de los 3 componentes que nos facilita react-router-dom e importamos a continuación: <code class="language-ts">import { BrowserRouter, Routes, Route} from 'react-router-dom'</code></p>
+              <ul class="list-disc my-3">
+                <li class="my-1.25"><strong>BrowserRouter:</strong> nos va a permitir crear nuestro router.</li>
+                <li class="my-1.25"><strong>Routes:</strong> es como el grupo de rutas.</li>
+                <li class="my-1.25"><strong>Route:</strong> es el componente donde vamos a colocar cada ruta.
+                    <ul class="list-disc my-3">
+                      <li class="my-1.25">También permite agrupar ciertas rutas, por ejemplo algunas veces crearemos una web para una empresa que tendrá su página principal, /info, /contacto, pero al visitar tienda probablemente tengamos un header con todas las categorías de la tienda... entonces podemos ir agrupando las que son parte de la página informativa y las que son parte de la tienda virtual. En seguida veremos como definir un layout principal.</li>
+                      <li class="my-1.25">El prop <strong>path=""</strong> que la pasamos a cada componente Route, se especifica básicamente la url que el usuario va a visitar para cargar cada página. La página principal se suele definir como <code class="language-ts">&lt;Route path=&quot;/&quot;/&gt;</code></li>
+                      <li class="my-1.25">El prop <strong>element</strong> es el componente que se va a cargar. Para ello primero c reamos nuestra carpeta vistas con esos componentes que serán nuestras páginas/vistas:</li>
+                    </ul>                  
+                  </li>
+              </ul>
 
+              <p>Creamos una carpeta nueva <strong>views</strong>(podría ser también pages) donde se van a contener las páginas (cada página de estas puede tener componentes, qeu seguiríamos colocando en nuestra carpeta components). Al final cada fichero aquí almacenado es otro componente por lo que su extensión es .tsx. Creamos 2: <span class="file">views/FavoritesPage.tsx</span> y <span class="file">views/IndexPage.tsx</span></p>
 
+              <pre data-line="0"><code class="language-ts">
+                //router.tsx
+                import { BrowserRouter, Routes, Route} from 'react-router-dom'
+                import IndexPage from './views/IndexPage'
+                    
+                export default function AppRouter() {
+                    return (
+                        &lt;BrowserRouter&gt;
+                            &lt;Routes&gt;
+                                &lt;Route path=&quot;/&quot; element={&lt;IndexPage/&gt;}/&gt;
+                                &lt;Route path=&quot;/favoritos&quot; element={&lt;FavoritesPage/&gt;}/&gt;
+                            &lt;/Routes&gt;
+                        &lt;/BrowserRouter&gt;
+                    )
+                }
+              </code></pre>
+
+              <p>Si recargamos la app vemos que no nos carga nada porque el router que hemos creado no está conectado con la aplicación principal. Vamos al <span class="file">main.tsx</span> donde vemos que se está llamando el componente App.tsx que ya no existe, lo borramos</p>
+
+              <div class="flex max-sm:flex-col">
+                <div class="w-[50%] max-sm:w-[100%]">
+                  <pre class="rojo" data-line="0,3,7"><code class="language-ts">
+                    //main.tsx
+                    import { StrictMode } from 'react'
+                    import { createRoot } from 'react-dom/client'
+                    import App from './App.tsx'
+                    import './index.css'  
+                    createRoot(document.getElementById('root')!).render(
+                      &lt;StrictMode&gt;
+                        &lt;App /&gt;
+                      &lt;/StrictMode&gt;,
+                    )
+                  </code></pre>
+                </div>
+                <div class="w-[50%] max-sm:w-[100%]">
+                  <pre class="verde" data-line="0,3,7"><code class="language-ts">
+                    //main.tsx
+                    import { StrictMode } from 'react'
+                    import { createRoot } from 'react-dom/client'
+                    import AppRouter from './router'
+                    import './index.css'
+                    createRoot(document.getElementById('root')!).render(
+                      &lt;StrictMode&gt;
+                        &lt;AppRouter /&gt;
+                      &lt;/StrictMode&gt;,
+                    )
+                  </code></pre>
+                </div>
+              </div>
+
+              <p><span class="destacado">NOTA SUPER IMPORTANTE DE LA MUERTE</span> al probar tras realizar este cambio no me salía lo que supuestamente tengo en el componente de mi página principal ¿por qué? porqeu en mi <span class="file">vite.config.ts</span> tengo configurada una ruta <strong>base</strong> para poder publicar mi build en github con github pages. Así que en vez de <span class="rojo">/</span> en el prop path he de poner mi base <span class="verde">/busca-drink/</span></p>
+
+              <div class="flex max-sm:flex-col">
+                <div class="w-[18%] max-sm:w-[100%]">
+                  <pre data-line="0"><code class="language-ts">
+                    //views/IndexPage.tsx
+                    export default function IndexPage() {
+                      return (
+                        &lt;div&gt;
+                          IndexPage
+                        &lt;/div&gt;
+                      )
+                    }
+                  </code></pre>
+                </div>
+                <div class="w-[18%] max-sm:w-[100%]">
+                  <pre data-line="0"><code class="language-ts">
+                    //views/FavoritesPage.tsx
+                    export default function FavoritesPage() {
+                      return (
+                        &lt;div&gt;
+                          FavoritesPage
+                        &lt;/div&gt;
+                      )
+                    }                    
+                  </code></pre>
+                </div>
+                <div class="w-[25%] max-sm:w-[100%]">
+                  <pre data-line="0,7"><code class="language-ts">
+                    //vite.config.ts
+                    import { defineConfig } from 'vite'
+                    import react from '@vitejs/plugin-react-swc'
+                    import tailwindcss from '@tailwindcss/vite'
+                    
+                    // https://vite.dev/config/
+                    export default defineConfig({
+                      base: "https://and....5.github.io/busca-drink/",
+                      plugins: [
+                        react(),
+                        tailwindcss()],
+                    })
+                  </code></pre>
+                </div>
+                <div class="w-[39%] max-sm:w-[100%]">
+                  <pre class="verde" data-line="0,9,10"><code class="language-ts">
+                    //router.tsx
+                    import { BrowserRouter, Routes, Route} from 'react-router-dom'
+                    import IndexPage from './views/IndexPage'
+                    import FavoritesPage from './views/FavoritesPage'
+                        
+                    export default function AppRouter() {
+                        return (
+                            &lt;BrowserRouter&gt;
+                                &lt;Routes&gt;
+                                    &lt;Route path=&quot;/busca-drink/&quot; element={&lt;IndexPage/&gt;}/&gt;
+                                    &lt;Route path=&quot;/busca-drink/favoritos&quot; element={&lt;FavoritesPage/&gt;}/&gt;
+                                &lt;/Routes&gt;
+                            &lt;/BrowserRouter&gt;
+                        )
+                    }
+                  </code></pre>
+                </div>                
+              </div>
+
+              <p>Así ya podemos visitar: la página principal index: <a href="http://localhost:5174/busca-drink/" class="underline" target="blank">http://localhost:5174/busca-drink/</a> y la de favoritos: <a href="http://localhost:5174/busca-drink/favoritos" class="underline" target="blank">http://localhost:5174/busca-drink/favoritos</a></p>
+
+              <p>Podemos así ir creando todas las páginas que queramos y definir cual se va a cargar (qué componente de los creados en nuestra carpeta views) una vez que el usuario visite la url que especifiquemos en cada prop path</p>
             </div>
 
-            <!-- Bloque desplegable interior-->
-            <div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-XX').toggle();">
-              <h3>XXXXXXXXXXXXXXX</h3>
-              <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
-            </div>
-            <div id="seccion18-XX" class="hidden">
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-308').toggle();">
+  <h3>308. Creando el Header</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion18-308" class="hidden">
 
 
-            </div>
-            <!-- Bloque desplegable interior-->
-            <div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-XX').toggle();">
-              <h3>XXXXXXXXXXXXXXX</h3>
-              <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
-            </div>
-            <div id="seccion18-XX" class="hidden">
+</div>
+
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-309').toggle();">
+  <h3>309. Creando el Layout Principal</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion18-309" class="hidden">
 
 
-            </div>
+</div>
+
+
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-310').toggle();">
+  <h3>310. Agregando Navegación entre páginas</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion18-310" class="hidden">
+
+
+</div>
+
+
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-311').toggle();">
+  <h3>311. Resaltando la página actual</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion18-311" class="hidden">
+
+
+</div>
+
+
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-312').toggle();">
+  <h3>312. El Hook useLocation() para saber información de la ruta actual</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion18-312" class="hidden">
+
+
+</div>
+
+
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-XX').toggle();">
+  <h3>XXXXXXXXXXXXXXX</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion18-XX" class="hidden">
+
+
+</div>
+
+
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-XX').toggle();">
+  <h3>XXXXXXXXXXXXXXX</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion18-XX" class="hidden">
+
+
+</div>
+
+
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-XX').toggle();">
+  <h3>XXXXXXXXXXXXXXX</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion18-XX" class="hidden">
+
+
+</div>
+
+
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-XX').toggle();">
+  <h3>XXXXXXXXXXXXXXX</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion18-XX" class="hidden">
+
+
+</div>
+
+
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-XX').toggle();">
+  <h3>XXXXXXXXXXXXXXX</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion18-XX" class="hidden">
+
+
+</div>
+
 
         </div>
         <!-- Fin div colapsable-->
