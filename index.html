@@ -242,186 +242,186 @@
               <p>Podemos así ir creando todas las páginas que queramos y definir cual se va a cargar (qué componente de los creados en nuestra carpeta views) una vez que el usuario visite la url que especifiquemos en cada prop path</p>
             </div>
 
-<!-- Bloque desplegable interior-->
-<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-308').toggle();">
-  <h3>308. Creando el Header / 309. Creando el Layout Principal</h3>
-  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
-</div>
-<div id="seccion18-308" class="">
-  <p>Extraemos del zip <strong>Materiales+Bebidas+React.zip</strong> el logo y el background que ponemos en la carpeta public y creamos nuestro componente para el Header <span class="file">components/Header.tsx</span></p>
+            <!-- Bloque desplegable interior-->
+            <div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-308').toggle();">
+              <h3>308. Creando el Header / 309. Creando el Layout Principal <span class="destacado">Layout principal y componente Outlet</span></h3>
+              <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+            </div>
+            <div id="seccion18-308" class="hidden">
+              <p>Extraemos del zip <strong>Materiales+Bebidas+React.zip</strong> el logo y el background que ponemos en la carpeta public y creamos nuestro componente para el Header <span class="file">components/Header.tsx</span></p>
 
-  <pre data-line="0"><code class="language-ts">
-    //components/Header.tsx
-    export default function Header() {
-      return (
-        &lt;header className=&quot;bg-slate-800&quot;&gt;
-          &lt;div className=&quot;mx-auto container px-5 py-16&quot;&gt;
-            &lt;div className=&quot;flex justify-between items-center&quot;&gt;
-                &lt;div&gt;
-                    &lt;img className=&quot;w-32&quot; src=&quot;./logo.svg&quot; alt=&quot;logotipo&quot; /&gt;
-                &lt;/div&gt;
-    
-                &lt;nav&gt;                        
-                &lt;/nav&gt;
-              &lt;/div&gt;
-            &lt;/div&gt;
-        &lt;/header&gt;
-      )
-    }
-  </code></pre>
-  <p>Como quiero ese Header en cada una de las páginas, en principio lo importaríamos así:</p>
-  <div class="flex max-sm:flex-col">
-    <div class="w-[50%] max-sm:w-[100%]">
-      <pre data-line="0"><code class="language-ts">
-        //views/IndexPage.tsx
-        import Header from "../components/Header"
+              <pre data-line="0"><code class="language-ts">
+                //components/Header.tsx
+                export default function Header() {
+                  return (
+                    &lt;header className=&quot;bg-slate-800&quot;&gt;
+                      &lt;div className=&quot;mx-auto container px-5 py-16&quot;&gt;
+                        &lt;div className=&quot;flex justify-between items-center&quot;&gt;
+                            &lt;div&gt;
+                                &lt;img className=&quot;w-32&quot; src=&quot;./logo.svg&quot; alt=&quot;logotipo&quot; /&gt;
+                            &lt;/div&gt;
+                
+                            &lt;nav&gt;                        
+                            &lt;/nav&gt;
+                          &lt;/div&gt;
+                        &lt;/div&gt;
+                    &lt;/header&gt;
+                  )
+                }
+              </code></pre>
+              <p>Como quiero ese Header en cada una de las páginas, en principio lo importaríamos así:</p>
+              <div class="flex max-sm:flex-col">
+                <div class="w-[50%] max-sm:w-[100%]">
+                  <pre data-line="0"><code class="language-ts">
+                    //views/IndexPage.tsx
+                    import Header from "../components/Header"
 
-        export default function IndexPage() {
-          return (
-            &lt;&gt;
-              &lt;Header /&gt;
-            &lt;/&gt;
-          )
-        }
-      </code></pre>
-    </div>
-    <div class="w-[50%] max-sm:w-[100%]">
-      <pre data-line="0"><code class="language-ts">
-        //views/FavoritesPage.tsx
-        import Header from "../components/Header"
+                    export default function IndexPage() {
+                      return (
+                        &lt;&gt;
+                          &lt;Header /&gt;
+                        &lt;/&gt;
+                      )
+                    }
+                  </code></pre>
+                </div>
+                <div class="w-[50%] max-sm:w-[100%]">
+                  <pre data-line="0"><code class="language-ts">
+                    //views/FavoritesPage.tsx
+                    import Header from "../components/Header"
 
-        export default function FavoritesPage() {
-          return (
-            &lt;&gt;
-              &lt;Header /&gt;
-            &lt;/&gt;
-          )
-        }
-      </code></pre>
-    </div>
-  </div>
-  <p class="naranja">Layout principal</p>
-  <p>Pero claro, eso es algo que tendríamos que hacer en cada una de las páginas si fuéramos teniendo más. Solucionemos eso con un Layout principal. Creamos <span class="file">layouts/Layout.tsx</span>. ¿Cómo hacemos para que en nuestro Router este archivo sea utilizado sobre esas dos páginas de index y favoritos pero que a la vez puedan tener su propio contenido? En nuestro <span class="file">router.tsx</span> añadimos una nueva instancia del componente Route pero sin path, solo con el element del Layout y el tag se cierra englobando nuestras dos páginas <code class="language-ts"> &lt;Route element={&lt;Layout/&gt;}&gt;...&lt;/Route&gt; </code>, es decir, tanto IndexPage como FavoritesPage van a utilizar Layout.tsx como el diseño principal. <span class="destacado">Importante pasarle el prop "index" al Route de nuestra página principal.</span>:</p>
+                    export default function FavoritesPage() {
+                      return (
+                        &lt;&gt;
+                          &lt;Header /&gt;
+                        &lt;/&gt;
+                      )
+                    }
+                  </code></pre>
+                </div>
+              </div>
+              <p class="naranja">Layout principal</p>
+              <p>Pero claro, eso es algo que tendríamos que hacer en cada una de las páginas si fuéramos teniendo más. Solucionemos eso con un Layout principal. Creamos <span class="file">layouts/Layout.tsx</span>. ¿Cómo hacemos para que en nuestro Router este archivo sea utilizado sobre esas dos páginas de index y favoritos pero que a la vez puedan tener su propio contenido? En nuestro <span class="file">router.tsx</span> añadimos una nueva instancia del componente Route pero sin path, solo con el element del Layout y el tag se cierra englobando nuestras dos páginas <code class="language-ts"> &lt;Route element={&lt;Layout/&gt;}&gt;...&lt;/Route&gt; </code>, es decir, tanto IndexPage como FavoritesPage van a utilizar Layout.tsx como el diseño principal. <span class="destacado">Importante pasarle el prop "index" al Route de nuestra página principal.</span>:</p>
 
-  <div class="flex max-sm:flex-col">
-    <div class="w-[50%] max-sm:w-[100%]">
-      <pre data-line="0"><code class="language-ts">
-        //layouts/Layout.tsx
-        export default function Layout(){
-          return(
-              &lt;div&gt;Layout&lt;/div&gt;
-          )
-      }
-      </code></pre>
-    </div>
-    <div class="w-[50%] max-sm:w-[100%]">
-      <pre data-line="0,9,10,12"><code class="language-ts">
-        //router.tsx
-        import { BrowserRouter, Routes, Route} from 'react-router-dom'
-        import IndexPage from './views/IndexPage'
-        import FavoritesPage from './views/FavoritesPage'
-        import Layout from './layouts/Layout'            
-        export default function AppRouter() {
-          return (
-            &lt;BrowserRouter&gt;
-              &lt;Routes&gt;
-                &lt;Route element={&lt;Layout/&gt;}&gt;
-                  &lt;Route path=&quot;/busca-drink/&quot; element={&lt;IndexPage/&gt;} index /&gt;
-                  &lt;Route path=&quot;/busca-drink/favoritos&quot; element={&lt;FavoritesPage/&gt;}/&gt;  
-                &lt;/Route&gt;          
-              &lt;/Routes&gt;
-            &lt;/BrowserRouter&gt;
-          )
-        }
-      </code></pre>
-    </div>
-  </div>
+              <div class="flex max-sm:flex-col">
+                <div class="w-[50%] max-sm:w-[100%]">
+                  <pre data-line="0"><code class="language-ts">
+                    //layouts/Layout.tsx
+                    export default function Layout(){
+                      return(
+                          &lt;div&gt;Layout&lt;/div&gt;
+                      )
+                  }
+                  </code></pre>
+                </div>
+                <div class="w-[50%] max-sm:w-[100%]">
+                  <pre data-line="0,9,10,12"><code class="language-ts">
+                    //router.tsx
+                    import { BrowserRouter, Routes, Route} from 'react-router-dom'
+                    import IndexPage from './views/IndexPage'
+                    import FavoritesPage from './views/FavoritesPage'
+                    import Layout from './layouts/Layout'            
+                    export default function AppRouter() {
+                      return (
+                        &lt;BrowserRouter&gt;
+                          &lt;Routes&gt;
+                            &lt;Route element={&lt;Layout/&gt;}&gt;
+                              &lt;Route path=&quot;/busca-drink/&quot; element={&lt;IndexPage/&gt;} index /&gt;
+                              &lt;Route path=&quot;/busca-drink/favoritos&quot; element={&lt;FavoritesPage/&gt;}/&gt;  
+                            &lt;/Route&gt;          
+                          &lt;/Routes&gt;
+                        &lt;/BrowserRouter&gt;
+                      )
+                    }
+                  </code></pre>
+                </div>
+              </div>
 
-  <p>Si ahora mismo recargamos <a href="http://localhost:5174/busca-drink/" class="underline" target="blank">http://localhost:5174/busca-drink/</a> ya no nos aparece el contenido que tenía cada una de esas páginas sino solo lo que tenemos en el componente <span class="file">layouts/Layout.tsx</span> </p>
-  
-  <p><span class="destacado">Aquí es donde entra el componente Outlet de react router dom</span> que lo que nos permite es inyectar el contenido específico de cada una de las páginas agfrupadas en el <span class="file">router.tsx</span> bajo <code class="language-ts">&lt;Route element={&lt;Layout/&gt;}&gt;...&lt;/Route&gt;</code>. En nuestro Layout.tsx así, gracias a este componente, meteremos todos los elementos comunes a esas páginas como por ejemplo header, footer o navegación. </p>
-  <ul class="list-disc my-3">
-    <li class="my-1.25">Movemos el elemento común &lt;Header /&gt; desde las páginas individuales donde lo habíamos metido originalmente hacia Layout.tsx (se mostrará en todas las páginas que estén agrupadas bajo ese <code class="language-ts">&lt;Route element={&lt;Layout/&gt;}&gt;...&lt;/Route&gt;</code></li>
-    <li class="my-1.25">Outlet será el contenido específico que tenga cada una de esas páginas agrupadas bajo <code class="language-ts">&lt;Route element={&lt;Layout/&gt;}&gt;...&lt;/Route&gt;</code>.</li>
-  </ul>
- 
+              <p>Si ahora mismo recargamos <a href="http://localhost:5174/busca-drink/" class="underline" target="blank">http://localhost:5174/busca-drink/</a> ya no nos aparece el contenido que tenía cada una de esas páginas sino solo lo que tenemos en el componente <span class="file">layouts/Layout.tsx</span> </p>
+              
+              <p><span class="destacado">Aquí es donde entra el componente Outlet de react router dom</span> que lo que nos permite es inyectar el contenido específico de cada una de las páginas agfrupadas en el <span class="file">router.tsx</span> bajo <code class="language-ts">&lt;Route element={&lt;Layout/&gt;}&gt;...&lt;/Route&gt;</code>. En nuestro Layout.tsx así, gracias a este componente, meteremos todos los elementos comunes a esas páginas como por ejemplo header, footer o navegación. </p>
+              <ul class="list-disc my-3">
+                <li class="my-1.25">Movemos el elemento común &lt;Header /&gt; desde las páginas individuales donde lo habíamos metido originalmente hacia Layout.tsx (se mostrará en todas las páginas que estén agrupadas bajo ese <code class="language-ts">&lt;Route element={&lt;Layout/&gt;}&gt;...&lt;/Route&gt;</code></li>
+                <li class="my-1.25">Outlet será el contenido específico que tenga cada una de esas páginas agrupadas bajo <code class="language-ts">&lt;Route element={&lt;Layout/&gt;}&gt;...&lt;/Route&gt;</code>.</li>
+              </ul>
+            
 
-  <div class="flex max-sm:flex-col">
-    <div class="w-[37%] max-sm:w-[100%]">
-      <pre data-line="0,9,10,12"><code class="language-ts">
-        //router.tsx
-        import { BrowserRouter, Routes, Route} from 'react-router-dom'
-        import IndexPage from './views/IndexPage'
-        import FavoritesPage from './views/FavoritesPage'
-        import Layout from './layouts/Layout'            
-        export default function AppRouter() {
-          return (
-            &lt;BrowserRouter&gt;
-              &lt;Routes&gt;
-                &lt;Route element={&lt;Layout/&gt;}&gt;
-                  &lt;Route path=&quot;/busca-drink/&quot; element={&lt;IndexPage/&gt;} index /&gt;
-                  &lt;Route path=&quot;/busca-drink/favoritos&quot; element={&lt;FavoritesPage/&gt;}/&gt;  
-                &lt;/Route&gt;          
-              &lt;/Routes&gt;
-            &lt;/BrowserRouter&gt;
-          )
-        }
-      </code></pre>
-    </div>
+              <div class="flex max-sm:flex-col">
+                <div class="w-[37%] max-sm:w-[100%]">
+                  <pre data-line="0,9,10,12"><code class="language-ts">
+                    //router.tsx
+                    import { BrowserRouter, Routes, Route} from 'react-router-dom'
+                    import IndexPage from './views/IndexPage'
+                    import FavoritesPage from './views/FavoritesPage'
+                    import Layout from './layouts/Layout'            
+                    export default function AppRouter() {
+                      return (
+                        &lt;BrowserRouter&gt;
+                          &lt;Routes&gt;
+                            &lt;Route element={&lt;Layout/&gt;}&gt;
+                              &lt;Route path=&quot;/busca-drink/&quot; element={&lt;IndexPage/&gt;} index /&gt;
+                              &lt;Route path=&quot;/busca-drink/favoritos&quot; element={&lt;FavoritesPage/&gt;}/&gt;  
+                            &lt;/Route&gt;          
+                          &lt;/Routes&gt;
+                        &lt;/BrowserRouter&gt;
+                      )
+                    }
+                  </code></pre>
+                </div>
 
-    <div class="w-[21%] max-sm:w-[100%]">
-      <pre data-line="0,2,7,9"><code class="language-ts">
-        //layouts/Layout.tsx
-        import Header from "../components/Header"
-        import { Outlet } from 'react-router-dom'
-        
-        export default function Layout(){
-            return(
-                &lt;&gt;
-                    &lt;Header /&gt;
-                    &lt;main className=&quot;container mx-auto py-16&quot;&gt;
-                        &lt;Outlet /&gt;
-                    &lt;/main&gt;
-                &lt;/&gt;
-            )
-        }
-      </code></pre>
-    </div>
-    
-    <div class="w-[21%] max-sm:w-[100%]">
-      <pre data-line="0"><code class="language-ts">
-        //views/IndexPage.tsx
-        export default function IndexPage() {
-          return (
-            &lt;&gt;
-              &lt;h1&gt;Inicio&lt;/h1&gt;
-            &lt;/&gt;
-          )
-        }
-      </code></pre>
-      <a href="http://localhost:5174/busca-drink/" class="underline" target="blank">http://localhost:5174/busca-drink/</a>
-      <pre data-line="0"><code class="language-ts">
-        //views/FavoritesPage.tsx
-        export default function FavoritesPage() {
-          return (
-            &lt;&gt;
-              &lt;h1&gt;Favoritos&lt;/h1&gt;
-            &lt;/&gt;
-          )
-        }
-      </code></pre>
-      <a href="http://localhost:5174/busca-drink/favoritos" class="underline" target="blank">http://localhost:5174/busca-drink/favoritos</a>
-    </div>
+                <div class="w-[21%] max-sm:w-[100%]">
+                  <pre data-line="0,2,7,9"><code class="language-ts">
+                    //layouts/Layout.tsx
+                    import Header from "../components/Header"
+                    import { Outlet } from 'react-router-dom'
+                    
+                    export default function Layout(){
+                        return(
+                            &lt;&gt;
+                                &lt;Header /&gt;
+                                &lt;main className=&quot;container mx-auto py-16&quot;&gt;
+                                    &lt;Outlet /&gt;
+                                &lt;/main&gt;
+                            &lt;/&gt;
+                        )
+                    }
+                  </code></pre>
+                </div>
+                
+                <div class="w-[21%] max-sm:w-[100%]">
+                  <pre data-line="0"><code class="language-ts">
+                    //views/IndexPage.tsx
+                    export default function IndexPage() {
+                      return (
+                        &lt;&gt;
+                          &lt;h1&gt;Inicio&lt;/h1&gt;
+                        &lt;/&gt;
+                      )
+                    }
+                  </code></pre>
+                  <a href="http://localhost:5174/busca-drink/" class="underline" target="blank">http://localhost:5174/busca-drink/</a>
+                  <pre data-line="0"><code class="language-ts">
+                    //views/FavoritesPage.tsx
+                    export default function FavoritesPage() {
+                      return (
+                        &lt;&gt;
+                          &lt;h1&gt;Favoritos&lt;/h1&gt;
+                        &lt;/&gt;
+                      )
+                    }
+                  </code></pre>
+                  <a href="http://localhost:5174/busca-drink/favoritos" class="underline" target="blank">http://localhost:5174/busca-drink/favoritos</a>
+                </div>
 
-    <div class="w-[16%] max-sm:w-[100%] ml-2">
-      <img src="https://andune55.github.io/manual-react/assets/309-DOSHfDcf.png" alt="img" loading="lazy">
-    </div>
-  </div>
+                <div class="w-[16%] max-sm:w-[100%] ml-2">
+                  <img src="https://andune55.github.io/manual-react/assets/309-DOSHfDcf.png" alt="img" loading="lazy">
+                </div>
+              </div>
 
-  
-  
+              
+              
 
-</div>
+            </div>
 
 
 
@@ -431,8 +431,8 @@
   <h3>310. Agregando Navegación entre páginas</h3>
   <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
 </div>
-<div id="seccion18-310" class="hidden">
-
+<div id="seccion18-310" class="">
+  <p></p>
 
 </div>
 
