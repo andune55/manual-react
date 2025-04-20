@@ -10,8 +10,8 @@
     
     <!-- <script src="https://unpkg.com/@tailwindcss/browser@4"></script> -->
   
-    <script type="module" crossorigin src="https://andune55.github.io/manual-react/assets/index-Cgog4qWT.js"></script>
-    <link rel="stylesheet" crossorigin href="https://andune55.github.io/manual-react/assets/index-BD4-lMS6.css">
+    <script type="module" crossorigin src="https://andune55.github.io/manual-react/assets/index-kEQx3x4j.js"></script>
+    <link rel="stylesheet" crossorigin href="https://andune55.github.io/manual-react/assets/index-scmK3Ycg.css">
   </head>
   <body>
     <div id="root"></div>	
@@ -41,7 +41,9 @@
                 <li class="my-1.25">Tailwind CSS <span class="destacado">npm install tailwindcss @tailwindcss/vite</span></li>
                 <li class="my-1.25">Headless UI para las ventanas modal</li>
                 <li class="my-1.25">Notificaciones</li>
-                <li class="my-1.25">React Router DOM para poder navegar por diferentes páginas <span class="destacado">npm i react-router-dom</span> - <a href="https://www.npmjs.com/package/react-router-dom" class="underline" target="blank">https://www.npmjs.com/package/react-router-dom</a>. <strong>Borramos App.tsx, creamos router.tsx, ¡Ojo! si tenemos configurado una url base en nuestro vite.config.ts</strong></li>
+                <li class="my-1.25"> <span class="destacado">npm i react-router-dom</span> - <strong>React Router DOM:</strong> para poder navegar por diferentes páginas. Borramos App.tsx, creamos router.tsx, <strong>¡Ojo! si tenemos configurado una url base en nuestro vite.config.ts</strong><br>
+                <a href="https://www.npmjs.com/package/react-router-dom" class="underline" target="blank">https://www.npmjs.com/package/react-router-dom</a> - <a href="https://api.reactrouter.com/v7/functions/react_router.NavLink.html" class="underline" target="blank">React Router API Reference</a> - <a href="https://www.robinwieruch.de/react-router/" class="underline" target="blank">React Router 7 Tutorial</a>
+                </li>
                 <li class="my-1.25">Zod para validar las respuestas de la API</li>
                 <li class="my-1.25">Zustand para el estado global</li>
                 <li class="my-1.25">Axios para conectarnos a esa REST API</li>
@@ -423,41 +425,322 @@
 
             </div>
 
+            <!-- Bloque desplegable interior-->
+            <div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-310').toggle();">
+              <h3>310. Agregando Navegación entre páginas / 311. Resaltando la página actual <span class="destacado">Para que "NavLink" no esté siempre activo en la url root añadir al correspondiente NavLink "end"</span></h3>
+              <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+            </div>
+            <div id="seccion18-310" class="hidden">
+              <p>La forma tradicional en que navegaríamos entre páginas es por ejemplo poniendo links &lt;a href=&quot;&quot;&gt; así:</a></p>
+              
+              <pre class="rojo" data-line="0,3,4"><code class="language-html">
+                //Header.tsx
+                ...
+                &lt;nav&gt;    
+                  &lt;a href=&quot;/busca-drink/&quot;&gt;Inicio&lt;/a&gt;                    
+                  &lt;a href=&quot;/busca-drink/favoritos&quot;&gt;Favoritos&lt;/a&gt;                    
+                &lt;/nav&gt;
+              </code></pre>
 
+              <p>Sin embargo si lo probamos vemos que al pulsar cada enlace sucede como un "flashazo" que degrada un poco el performance de nuestra aplicación. En vez de utilizar esto, vamos a importar 2 componentes que podemos usar <code class="language-ts">import { Link, NavLink } from 'react-router-dom'</code>. Usamos Link y vemos que ya no aparece ese flashazo al pulsar los enlaces:</p>
+
+              <div class="flex max-sm:flex-col">
+                <div class="w-[50%] max-sm:w-[100%]">
+                  <pre class="verde" data-line="0,1,12,13"><code class="language-ts">
+                    //Heder.tsx
+                    import { Link, NavLink } from 'react-router-dom'
+                
+                    export default function Header() {
+                      return (
+                        &lt;header className=&quot;bg-slate-800&quot;&gt;
+                          &lt;div className=&quot;mx-auto container px-5 py-16&quot;&gt;
+                            &lt;div className=&quot;flex justify-between items-center&quot;&gt;
+                                &lt;div&gt;
+                                    &lt;img className=&quot;w-32&quot; src=&quot;./logo.svg&quot; alt=&quot;logotipo&quot; /&gt;
+                                &lt;/div&gt;
+                                &lt;nav className=&#39;flex gap-4&#39;&gt;    
+                                  &lt;Link to=&quot;/busca-drink/&quot; className=&quot;text-white uppercase font-bold&quot;&gt;Inicio&lt;/Link&gt;                    
+                                  &lt;Link to=&quot;/busca-drink/favoritos&quot; className=&quot;text-white uppercase font-bold&quot;&gt;Favoritos&lt;/Link&gt;                    
+                                &lt;/nav&gt;
+                              &lt;/div&gt;
+                            &lt;/div&gt;
+                        &lt;/header&gt;
+                      )
+                    }
+                  </code></pre>
+                </div>
+                <div class="w-[50%] max-sm:w-[100%] ml-2">
+                  <img src="https://andune55.github.io/manual-react/assets/310-KTMXqw0m.png" alt="img" loading="lazy">
+                </div>
+              </div>
+
+              <p>Además de enlazar con el componente de react router dom <strong>Link</strong> podríamos enlazar por medio de un hook, ese es especial cuando quieres redireccionar al usuario en base a ciertas acciones es decir, tal vez enviar un formulario, tal vez inicio de sesión etc. (lo veremos más adelante con otros proyectos)</p>
+              
+              <p class="naranja">Resaltando la página actual</p>
+              <p>Si en vez de Link cambiamos por el uso de NavLink vemos que en principio el uso es el mismo y aparecen igual. El NavLink tiene acceso a un callback en el className para poder detectar la página actual lo cual es muy útil si queremos resaltar la página en la cual se encuentra el usuario. Sin embargo <span class="destacado">para que "NavLink" no esté siempre activo en la url root añadir al correspondiente NavLink "end"</span> <strong>ver siguiente link:</strong> - <a href="https://github.com/remix-run/react-router/issues/9261" class="underline" target="blank">[Bug]: NavLink always active for root url #9261</a>:</p>
+
+              <pre data-line="0,4"><code class="language-ts">
+                //Header.tsx
+                ...
+                &lt;nav className=&#39;flex gap-4&#39;&gt;    
+                  &lt;NavLink 
+                    end
+                    to=&quot;/busca-drink/&quot; 
+                    className={({isActive}) =&gt;
+                      isActive ? &#39;text-orange-500 uppercase font-bold&#39; : &#39;text-white uppercase font-bold&#39;
+                    }&gt;Inicio&lt;/NavLink&gt;                    
+                  &lt;NavLink 
+                    to=&quot;/busca-drink/favoritos&quot; 
+                    className={({isActive}) =&gt;
+                      isActive ? &#39;text-orange-500 uppercase font-bold&#39; : &#39;text-white uppercase font-bold&#39;
+                    }&gt;Favoritos&lt;/NavLink&gt;                    
+                &lt;/nav&gt;
+              </code></pre>
+
+              <p>En inicio vamos a tener un diseño especial porque vamos a tener un formulario de búsqueda además de tener un background. <strong>Vamos a ver cómo detectar mediante código cuando estamos en determinada página</strong>.</p>
+            </div>
+
+
+            <!-- Bloque desplegable interior-->
+            <div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-312').toggle();">
+              <h3>312. El Hook useLocation() para saber información de la ruta actual / 313. Creando el Formulario de Búsqueda</h3>
+              <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+            </div>
+            <div id="seccion18-312" class="hidden">
+              <p>Muchas veces al trabajar con proyectos con diferentes páginas queremos saber donde se encuentra el usuario, bien sea para mostrar u ocultar cierta información. Con react router dom es muy sencillo hacerlo. Hasta ahora hemos importado componentes de react router dom utilicemos ahora uno de sus hooks: <strong>useLocation</strong>. Lo importamos y probamos a usarlo en una variable nueva para ver con un console.log que tenemos ahí:</p>
+
+              <div class="flex max-sm:flex-col">
+                <div class="w-[33%] max-sm:w-[100%]">
+                  <pre data-line="0,1,4,5"><code class="language-ts">
+                    //Header.tsx
+                    import { NavLink, useLocation } from 'react-router-dom'
+
+                    export default function Header() {                    
+                      const location = useLocation()
+                      console.log(location)
+                      return (
+                        &lt;header className=&quot;bg-slate-800&quot;&gt;
+                        ...
+                  </code></pre>
+                </div>
+                <div class="w-[33%] max-sm:w-[100%] mx-2">
+                  <img src="data:image/png;base64,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" alt="img" loading="lazy">
+                </div>
+                <div class="w-[33%] max-sm:w-[100%]">
+                  <img src="https://andune55.github.io/manual-react/assets/312-2-CiYU1Ys3.png" alt="img" loading="lazy">                  
+                </div>
+              </div>
+
+              <div class="mt-3 mb-2 ml-1.5 pl-2.5 pt-0.5 pb-2  border-l-2 border-dashed border-l-stone-600 rounded-tl-2xl rounded-bl-2xl bg-neutral-50 shadow-lg">               
+
+                <div>                 
+                  <ul class="list-disc my-3">
+                    <li class="my-1.25"><strong>hash:</strong> se llena cuando en la url añadimos <strong>&</strong> o <strong>#</strong> por ejemplo: <a href="http://localhost:5174/busca-drink/#nosotros" class="underline" target="blank">http://localhost:5174/busca-drink/#nosotros</a> <svg class="size-6 shrink-0 inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3"></path>
+                    </svg> <strong>hash: "#nosotros"</strong></li>
+                    <li class="my-1.25"><strong>key:</strong> este hook useLocation utiliza la API de location entonces es algo más de html, una forma de identificar la navegación que estamos utilizando, en este caso sería default.</li>
+                    <li class="my-1.25"><strong>pathname:</strong> es la ubicación. Si vamos a <a href="http://localhost:5174/busca-drink/favoritos" class="underline" target="blank">http://localhost:5174/busca-drink/favoritos</a> <svg class="size-6 shrink-0 inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3"></path>
+                    </svg> <strong>pathname: "/busca-drink/favoritos"</strong></li>
+                    <li class="my-1.25"><strong>search:</strong> se llena cuando en la url tenemos un querystring por ejemplo: <a href="http://localhost:5174/busca-drink/favoritos?q=Hola" class="underline" target="blank">http://localhost:5174/busca-drink/favoritos?q=Hola</a> <svg class="size-6 shrink-0 inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3"></path>
+                    </svg> <strong>search: "?q=Hola"</strong>. Es muy común cuando tenemos un sistema de búsquedas, en donde la url se toma un valor para consultar una API o una BBDD.</li>
+                    <li class="my-1.25"><strong>state:</strong> también podemos colocar state en nuestra rutas</li>
+                  </ul>
+
+                  <p><strong>pathname</strong> es lo que nos permite identificar la página en la que estamos, pudiendo acceder a él de dos formas para saber en la página en la que está el usuario:</p>
+
+                  <pre data-line="0"><code class="language-ts">
+                    //
+                    const location = useLocation()
+                    console.log(location.pathname)
+                    //
+                    const {pathname} = useLocation()
+                    console.log(pathname)
+                  </code></pre>
+                  </div>
+                </div>             
+
+              <p>Aprovechémoslo para mostrar un poco de información extra en el Header cuando el usuario esté en una u otra página.</p>
+
+              <p class="naranja">Creando el Formulario de Búsqueda</p>
+            
+              <p>Vamos a ver cómo ejecutar código en base a si estamos en la página de Inicio o la de favoritos. La página de inicio va a tener un formulario en el cual vamos a poder buscar las recetas. Ahí vamos a consumir la API, mostrar algunas categorías, que el usuario pueda agregar ingredientes y entonces buscar las recetas que le interesen y también vamos a tener una imagen de fondo (que vemos como generarla en el siguiente).</p>
+
+              <p>Creamos variable nueva "isHome" para detectar la página de inicio usando useMemo y su arreglo de dependencias va a observar pathname (queremos que esta función cambie cada vez que cambie pathname): <code class="language-ts">const isHome = useMemo (() => pathname=== '/busca-drink/', [pathname])</code>. Si hacemos console.log de esta variable veremos que cuando estemos en inicio nos da true y cuando no sea así, false. Nos va a servir esta variable para ejecutar un código nuevo (el formulario de búsqueda) que vamos a crear a continuación dentro del Header. Podríamos hacerlo también como componente pero no se va a usar en más sitios y estamos aprendiendo el uso del hook <strong>useLocation</strong> de react router dom. Hay muchos más casos de uso de esto, por ejemplo en el checkout de un carrito podríamos querer mostrar productos adicionales, un cupón de descuento...</p>
+
+              <div class="flex max-sm:flex-col">
+                <div class="w-[60%] max-sm:w-[100%]">
+                  <pre data-line="0,1,2,5,7,31,69"><code class="language-ts">
+                    //Header.tsx
+                    import { useMemo } from 'react'
+                    import { NavLink, useLocation } from 'react-router-dom' 
+                    
+                    export default function Header() {                    
+                      const {pathname} = useLocation()
+                      //console.log(pathname)
+                      const isHome = useMemo (() => pathname=== '/busca-drink/', [pathname])
+                    
+                      return (
+                        &lt;header className={isHome ? &#39;bg-[url(./bg.jpg)] bg-center bg-cover&#39; : &#39;bg-slate-800&#39;}&gt;
+                          &lt;div className=&quot;mx-auto container px-5 py-16&quot;&gt;
+                            &lt;div className=&quot;flex justify-between items-center&quot;&gt;
+                                &lt;div&gt;
+                                    &lt;img className=&quot;w-32&quot; src=&quot;./logo.svg&quot; alt=&quot;logotipo&quot; /&gt;
+                                &lt;/div&gt;
+                                &lt;nav className=&#39;flex gap-4&#39;&gt;    
+                                  &lt;NavLink 
+                                    end
+                                    to=&quot;/busca-drink/&quot; 
+                                    className={({isActive}) =&gt; 
+                                      isActive ? &#39;text-orange-500 uppercase font-bold&#39; : &#39;text-white uppercase font-bold&#39;
+                                      }&gt;Inicio&lt;/NavLink&gt;                    
+                                  &lt;NavLink 
+                                    to=&quot;/busca-drink/favoritos&quot; 
+                                    className={({isActive}) =&gt; 
+                                      isActive ? &#39;text-orange-500 uppercase font-bold&#39; : &#39;text-white uppercase font-bold&#39;
+                                    }&gt;Favoritos&lt;/NavLink&gt;                    
+                                &lt;/nav&gt;
+                              &lt;/div&gt;
+                    
+                              {isHome &amp;&amp; (
+                                &lt;form
+                                  className=&#39;md:w-1/2 2xl:w-1/3 bg-orange-400 my-32 p-10 rounded-lg shadow space-y-6&#39;
+                                &gt;
+                                  &lt;div className=&#39;space-y-4&#39;&gt;
+                                    &lt;label 
+                                      htmlFor=&quot;ingredient&quot;
+                                      className=&quot;block text-white uppercase font-extrabold text-lg&quot;
+                                    &gt;Nombre o Ingredientes&lt;/label&gt;
+                    
+                                    &lt;input 
+                                      id=&quot;ingredient&quot;
+                                      type=&quot;text&quot; 
+                                      name=&quot;ingredient&quot;
+                                      className=&#39;p-3  w-full rounded-lg focus:outline-none bg-white&#39;
+                                      placeholder=&quot;Nombre o Ingrediente. Ej. Vodka, Tequila, Café&quot;
+                                    /&gt;
+                                  &lt;/div&gt;
+                    
+                                  &lt;div className=&#39;space-y-4&#39;&gt;
+                                    &lt;label 
+                                      htmlFor=&quot;categoria&quot;
+                                      className=&quot;block text-white uppercase font-extrabold text-lg&quot;
+                                    &gt;Categoría&lt;/label&gt;
+                    
+                                    &lt;select 
+                                      id=&quot;categoria&quot;
+                                      name=&quot;categoria&quot;
+                                      className=&#39;p-3  w-full rounded-lg focus:outline-none bg-white&#39;
+                                    &gt;
+                                      &lt;option value=&quot;&quot;&gt;-- Seleccione --&lt;/option&gt;
+                                    &lt;/select&gt;
+                                  &lt;/div&gt;
+                                  &lt;input 
+                                    type=&quot;submit&quot;
+                                    value=&quot;Buscar Recetas&quot; 
+                                    className=&#39;cursor-pointer bg-orange-800 hover:bg-orange-900 text-white font-extrabold w-full p-2 rounded-lg uppercase&#39;/&gt;
+                                &lt;/form&gt;
+                              )}
+                    
+                            &lt;/div&gt;
+                        &lt;/header&gt;
+                      )
+                    }              
+                  </code></pre>
+                </div>
+                <div class="w-[40%] max-sm:w-[100%]">
+                  <img src="https://andune55.github.io/manual-react/assets/313-F7NfsQJP.png" alt="img" loading="lazy">
+                </div>
+              </div>
+
+              
+          </div>
+
+
+          <!-- Bloque desplegable interior-->
+          <div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-314').toggle();">
+            <h3>314. Theming en Tailwind para añadir una imagen de fondo</h3>
+            <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+          </div>
+          <div id="seccion18-314" class="">
+            <p>Lo que se explica para versión previa de Tailwind (3) vemos en los siguientes links la equivalencia para la versión actual 4: <a href="https://simonswiss.com/posts/tailwind-v4-multi-theme" class="underline" target="blank">https://simonswiss.com/posts/tailwind-v4-multi-theme</a> - <a href="https://tailwindcss.com/docs/theme" class="underline" target="blank">https://tailwindcss.com/docs/theme</a></p>
+
+            <div class="flex max-sm:flex-col">
+              <div class="w-[50%] max-sm:w-[100%]">
+                Lo que en la versión anterior se hacía tocando en este fichero:
+                <pre data-line="0"><code class="language-ts">
+                  // tailwind.config.ts
+                  export default {
+                    theme: {
+                      colors: {
+                        primary: '#aab9ff',
+                      },
+                    },
+                  }
+                </code></pre>
+              </div>
+              <div class="w-[50%] max-sm:w-[100%]">
+                en la actual se hace en la propia css donde se importa tailwind:
+                <pre data-line="0"><code class="language-ts">
+                  /* index.css */
+                  @import 'tailwindcss';
+
+                  @theme {
+                    --color-primary: #aab9ff;
+                  }
+                </code></pre>
+              </div>
+            </div>
+
+            <p>Sin embargo, con respecto a imagen de fondo aún no está claro como hacer esto y el tema de Theming en la nueva versión de Tailwind requiere más tiempo para controlarlo. <br>Para hacer lo que quiere, que es poner la imagen de fondo en el Header solo cuando estemos en el index, y en favoritos usar el color de fondo que teníamos: <code class="language-ts">&lt;header className={isHome ? &#39;bg-[url(./bg.jpg)] bg-center bg-cover&#39; : &#39;bg-slate-800&#39;}&gt;...&lt;/header&gt;</code></p>
+
+
+          </div>
 
 
 <!-- Bloque desplegable interior-->
-<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-310').toggle();">
-  <h3>310. Agregando Navegación entre páginas</h3>
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-315').toggle();">
+  <h3>315. Múltiples Stores en Zustand con Slices Pattern</h3>
   <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
 </div>
-<div id="seccion18-310" class="">
-  <p></p>
-
-</div>
-
-
-<!-- Bloque desplegable interior-->
-<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-311').toggle();">
-  <h3>311. Resaltando la página actual</h3>
-  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
-</div>
-<div id="seccion18-311" class="hidden">
+<div id="seccion18-315" class="hidden">
 
 
 </div>
 
 
 <!-- Bloque desplegable interior-->
-<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-312').toggle();">
-  <h3>312. El Hook useLocation() para saber información de la ruta actual</h3>
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-316').toggle();">
+  <h3>316. Primeros pasos con los múltiples stores</h3>
   <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
 </div>
-<div id="seccion18-312" class="hidden">
+<div id="seccion18-316" class="hidden">
 
 
 </div>
 
+
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-317').toggle();">
+  <h3>317. Obteniendo las Categorías <a href="https://www.thecocktaildb.com/api.php" class="underline" target="blank">https://www.thecocktaildb.com/api.php</a></h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion18-317" class="hidden">
+
+
+</div>
+
+
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-318').toggle();">
+  <h3>318. Obtener las categorías de la API y Validar con ZOD</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion18-318" class="hidden">
+
+
+</div>
 
 <!-- Bloque desplegable interior-->
 <div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-XX').toggle();">
@@ -469,6 +752,15 @@
 
 </div>
 
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-XX').toggle();">
+  <h3>XXXXXXXXXXXXXXX</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion18-XX" class="hidden">
+
+
+</div>
 
 <!-- Bloque desplegable interior-->
 <div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-XX').toggle();">
@@ -480,6 +772,15 @@
 
 </div>
 
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-XX').toggle();">
+  <h3>XXXXXXXXXXXXXXX</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion18-XX" class="hidden">
+
+
+</div>
 
 <!-- Bloque desplegable interior-->
 <div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-XX').toggle();">
@@ -491,6 +792,15 @@
 
 </div>
 
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-XX').toggle();">
+  <h3>XXXXXXXXXXXXXXX</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion18-XX" class="hidden">
+
+
+</div>
 
 <!-- Bloque desplegable interior-->
 <div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-XX').toggle();">
@@ -502,6 +812,15 @@
 
 </div>
 
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-XX').toggle();">
+  <h3>XXXXXXXXXXXXXXX</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion18-XX" class="hidden">
+
+
+</div>
 
 <!-- Bloque desplegable interior-->
 <div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-XX').toggle();">
@@ -512,6 +831,197 @@
 
 
 </div>
+
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-XX').toggle();">
+  <h3>XXXXXXXXXXXXXXX</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion18-XX" class="hidden">
+
+
+</div>
+
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-XX').toggle();">
+  <h3>XXXXXXXXXXXXXXX</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion18-XX" class="hidden">
+
+
+</div>
+
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-XX').toggle();">
+  <h3>XXXXXXXXXXXXXXX</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion18-XX" class="hidden">
+
+
+</div>
+
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-XX').toggle();">
+  <h3>XXXXXXXXXXXXXXX</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion18-XX" class="hidden">
+
+
+</div>
+
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-XX').toggle();">
+  <h3>XXXXXXXXXXXXXXX</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion18-XX" class="hidden">
+
+
+</div>
+
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-XX').toggle();">
+  <h3>XXXXXXXXXXXXXXX</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion18-XX" class="hidden">
+
+
+</div>
+
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-XX').toggle();">
+  <h3>XXXXXXXXXXXXXXX</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion18-XX" class="hidden">
+
+
+</div>
+
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-XX').toggle();">
+  <h3>XXXXXXXXXXXXXXX</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion18-XX" class="hidden">
+
+
+</div>
+
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-XX').toggle();">
+  <h3>XXXXXXXXXXXXXXX</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion18-XX" class="hidden">
+
+
+</div>
+
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-XX').toggle();">
+  <h3>XXXXXXXXXXXXXXX</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion18-XX" class="hidden">
+
+
+</div>
+
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-XX').toggle();">
+  <h3>XXXXXXXXXXXXXXX</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion18-XX" class="hidden">
+
+
+</div>
+
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-XX').toggle();">
+  <h3>XXXXXXXXXXXXXXX</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion18-XX" class="hidden">
+
+
+</div>
+
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-XX').toggle();">
+  <h3>XXXXXXXXXXXXXXX</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion18-XX" class="hidden">
+
+
+</div>
+
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-XX').toggle();">
+  <h3>XXXXXXXXXXXXXXX</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion18-XX" class="hidden">
+
+
+</div>
+
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-XX').toggle();">
+  <h3>XXXXXXXXXXXXXXX</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion18-XX" class="hidden">
+
+
+</div>
+
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-XX').toggle();">
+  <h3>XXXXXXXXXXXXXXX</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion18-XX" class="hidden">
+
+
+</div>
+
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-XX').toggle();">
+  <h3>XXXXXXXXXXXXXXX</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion18-XX" class="hidden">
+
+
+</div>
+
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-XX').toggle();">
+  <h3>XXXXXXXXXXXXXXX</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion18-XX" class="hidden">
+
+
+</div>
+
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-XX').toggle();">
+  <h3>XXXXXXXXXXXXXXX</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion18-XX" class="hidden">
+
+
+</div>
+
 
 
         </div>
