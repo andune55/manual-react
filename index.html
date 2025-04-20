@@ -45,7 +45,9 @@
                 <li class="my-1.25">Tailwind CSS <span class="destacado">npm install tailwindcss @tailwindcss/vite</span></li>
                 <li class="my-1.25">Headless UI para las ventanas modal</li>
                 <li class="my-1.25">Notificaciones</li>
-                <li class="my-1.25">React Router DOM para poder navegar por diferentes páginas <span class="destacado">npm i react-router-dom</span> - <a href="https://www.npmjs.com/package/react-router-dom" class="underline" target="blank">https://www.npmjs.com/package/react-router-dom</a>. <strong>Borramos App.tsx, creamos router.tsx, ¡Ojo! si tenemos configurado una url base en nuestro vite.config.ts</strong></li>
+                <li class="my-1.25"> <span class="destacado">npm i react-router-dom</span> - <strong>React Router DOM:</strong> para poder navegar por diferentes páginas. Borramos App.tsx, creamos router.tsx, <strong>¡Ojo! si tenemos configurado una url base en nuestro vite.config.ts</strong><br>
+                <a href="https://www.npmjs.com/package/react-router-dom" class="underline" target="blank">https://www.npmjs.com/package/react-router-dom</a> - <a href="https://api.reactrouter.com/v7/functions/react_router.NavLink.html" class="underline" target="blank">React Router API Reference</a> - <a href="https://www.robinwieruch.de/react-router/" class="underline" target="blank">React Router 7 Tutorial</a>
+                </li>
                 <li class="my-1.25">Zod para validar las respuestas de la API</li>
                 <li class="my-1.25">Zustand para el estado global</li>
                 <li class="my-1.25">Axios para conectarnos a esa REST API</li>
@@ -427,41 +429,322 @@
 
             </div>
 
+            <!-- Bloque desplegable interior-->
+            <div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-310').toggle();">
+              <h3>310. Agregando Navegación entre páginas / 311. Resaltando la página actual <span class="destacado">Para que "NavLink" no esté siempre activo en la url root añadir al correspondiente NavLink "end"</span></h3>
+              <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+            </div>
+            <div id="seccion18-310" class="hidden">
+              <p>La forma tradicional en que navegaríamos entre páginas es por ejemplo poniendo links &lt;a href=&quot;&quot;&gt; así:</a></p>
+              
+              <pre class="rojo" data-line="0,3,4"><code class="language-html">
+                //Header.tsx
+                ...
+                &lt;nav&gt;    
+                  &lt;a href=&quot;/busca-drink/&quot;&gt;Inicio&lt;/a&gt;                    
+                  &lt;a href=&quot;/busca-drink/favoritos&quot;&gt;Favoritos&lt;/a&gt;                    
+                &lt;/nav&gt;
+              </code></pre>
 
+              <p>Sin embargo si lo probamos vemos que al pulsar cada enlace sucede como un "flashazo" que degrada un poco el performance de nuestra aplicación. En vez de utilizar esto, vamos a importar 2 componentes que podemos usar <code class="language-ts">import { Link, NavLink } from 'react-router-dom'</code>. Usamos Link y vemos que ya no aparece ese flashazo al pulsar los enlaces:</p>
+
+              <div class="flex max-sm:flex-col">
+                <div class="w-[50%] max-sm:w-[100%]">
+                  <pre class="verde" data-line="0,1,12,13"><code class="language-ts">
+                    //Heder.tsx
+                    import { Link, NavLink } from 'react-router-dom'
+                
+                    export default function Header() {
+                      return (
+                        &lt;header className=&quot;bg-slate-800&quot;&gt;
+                          &lt;div className=&quot;mx-auto container px-5 py-16&quot;&gt;
+                            &lt;div className=&quot;flex justify-between items-center&quot;&gt;
+                                &lt;div&gt;
+                                    &lt;img className=&quot;w-32&quot; src=&quot;./logo.svg&quot; alt=&quot;logotipo&quot; /&gt;
+                                &lt;/div&gt;
+                                &lt;nav className=&#39;flex gap-4&#39;&gt;    
+                                  &lt;Link to=&quot;/busca-drink/&quot; className=&quot;text-white uppercase font-bold&quot;&gt;Inicio&lt;/Link&gt;                    
+                                  &lt;Link to=&quot;/busca-drink/favoritos&quot; className=&quot;text-white uppercase font-bold&quot;&gt;Favoritos&lt;/Link&gt;                    
+                                &lt;/nav&gt;
+                              &lt;/div&gt;
+                            &lt;/div&gt;
+                        &lt;/header&gt;
+                      )
+                    }
+                  </code></pre>
+                </div>
+                <div class="w-[50%] max-sm:w-[100%] ml-2">
+                  <img src="./src/assets/img/310.png" alt="img" loading="lazy">
+                </div>
+              </div>
+
+              <p>Además de enlazar con el componente de react router dom <strong>Link</strong> podríamos enlazar por medio de un hook, ese es especial cuando quieres redireccionar al usuario en base a ciertas acciones es decir, tal vez enviar un formulario, tal vez inicio de sesión etc. (lo veremos más adelante con otros proyectos)</p>
+              
+              <p class="naranja">Resaltando la página actual</p>
+              <p>Si en vez de Link cambiamos por el uso de NavLink vemos que en principio el uso es el mismo y aparecen igual. El NavLink tiene acceso a un callback en el className para poder detectar la página actual lo cual es muy útil si queremos resaltar la página en la cual se encuentra el usuario. Sin embargo <span class="destacado">para que "NavLink" no esté siempre activo en la url root añadir al correspondiente NavLink "end"</span> <strong>ver siguiente link:</strong> - <a href="https://github.com/remix-run/react-router/issues/9261" class="underline" target="blank">[Bug]: NavLink always active for root url #9261</a>:</p>
+
+              <pre data-line="0,4"><code class="language-ts">
+                //Header.tsx
+                ...
+                &lt;nav className=&#39;flex gap-4&#39;&gt;    
+                  &lt;NavLink 
+                    end
+                    to=&quot;/busca-drink/&quot; 
+                    className={({isActive}) =&gt;
+                      isActive ? &#39;text-orange-500 uppercase font-bold&#39; : &#39;text-white uppercase font-bold&#39;
+                    }&gt;Inicio&lt;/NavLink&gt;                    
+                  &lt;NavLink 
+                    to=&quot;/busca-drink/favoritos&quot; 
+                    className={({isActive}) =&gt;
+                      isActive ? &#39;text-orange-500 uppercase font-bold&#39; : &#39;text-white uppercase font-bold&#39;
+                    }&gt;Favoritos&lt;/NavLink&gt;                    
+                &lt;/nav&gt;
+              </code></pre>
+
+              <p>En inicio vamos a tener un diseño especial porque vamos a tener un formulario de búsqueda además de tener un background. <strong>Vamos a ver cómo detectar mediante código cuando estamos en determinada página</strong>.</p>
+            </div>
+
+
+            <!-- Bloque desplegable interior-->
+            <div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-312').toggle();">
+              <h3>312. El Hook useLocation() para saber información de la ruta actual / 313. Creando el Formulario de Búsqueda</h3>
+              <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+            </div>
+            <div id="seccion18-312" class="hidden">
+              <p>Muchas veces al trabajar con proyectos con diferentes páginas queremos saber donde se encuentra el usuario, bien sea para mostrar u ocultar cierta información. Con react router dom es muy sencillo hacerlo. Hasta ahora hemos importado componentes de react router dom utilicemos ahora uno de sus hooks: <strong>useLocation</strong>. Lo importamos y probamos a usarlo en una variable nueva para ver con un console.log que tenemos ahí:</p>
+
+              <div class="flex max-sm:flex-col">
+                <div class="w-[33%] max-sm:w-[100%]">
+                  <pre data-line="0,1,4,5"><code class="language-ts">
+                    //Header.tsx
+                    import { NavLink, useLocation } from 'react-router-dom'
+
+                    export default function Header() {                    
+                      const location = useLocation()
+                      console.log(location)
+                      return (
+                        &lt;header className=&quot;bg-slate-800&quot;&gt;
+                        ...
+                  </code></pre>
+                </div>
+                <div class="w-[33%] max-sm:w-[100%] mx-2">
+                  <img src="./src/assets/img/312.png" alt="img" loading="lazy">
+                </div>
+                <div class="w-[33%] max-sm:w-[100%]">
+                  <img src="./src/assets/img/312-2.png" alt="img" loading="lazy">                  
+                </div>
+              </div>
+
+              <div class="mt-3 mb-2 ml-1.5 pl-2.5 pt-0.5 pb-2  border-l-2 border-dashed border-l-stone-600 rounded-tl-2xl rounded-bl-2xl bg-neutral-50 shadow-lg">               
+
+                <div>                 
+                  <ul class="list-disc my-3">
+                    <li class="my-1.25"><strong>hash:</strong> se llena cuando en la url añadimos <strong>&</strong> o <strong>#</strong> por ejemplo: <a href="http://localhost:5174/busca-drink/#nosotros" class="underline" target="blank">http://localhost:5174/busca-drink/#nosotros</a> <svg class="size-6 shrink-0 inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3"></path>
+                    </svg> <strong>hash: "#nosotros"</strong></li>
+                    <li class="my-1.25"><strong>key:</strong> este hook useLocation utiliza la API de location entonces es algo más de html, una forma de identificar la navegación que estamos utilizando, en este caso sería default.</li>
+                    <li class="my-1.25"><strong>pathname:</strong> es la ubicación. Si vamos a <a href="http://localhost:5174/busca-drink/favoritos" class="underline" target="blank">http://localhost:5174/busca-drink/favoritos</a> <svg class="size-6 shrink-0 inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3"></path>
+                    </svg> <strong>pathname: "/busca-drink/favoritos"</strong></li>
+                    <li class="my-1.25"><strong>search:</strong> se llena cuando en la url tenemos un querystring por ejemplo: <a href="http://localhost:5174/busca-drink/favoritos?q=Hola" class="underline" target="blank">http://localhost:5174/busca-drink/favoritos?q=Hola</a> <svg class="size-6 shrink-0 inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3"></path>
+                    </svg> <strong>search: "?q=Hola"</strong>. Es muy común cuando tenemos un sistema de búsquedas, en donde la url se toma un valor para consultar una API o una BBDD.</li>
+                    <li class="my-1.25"><strong>state:</strong> también podemos colocar state en nuestra rutas</li>
+                  </ul>
+
+                  <p><strong>pathname</strong> es lo que nos permite identificar la página en la que estamos, pudiendo acceder a él de dos formas para saber en la página en la que está el usuario:</p>
+
+                  <pre data-line="0"><code class="language-ts">
+                    //
+                    const location = useLocation()
+                    console.log(location.pathname)
+                    //
+                    const {pathname} = useLocation()
+                    console.log(pathname)
+                  </code></pre>
+                  </div>
+                </div>             
+
+              <p>Aprovechémoslo para mostrar un poco de información extra en el Header cuando el usuario esté en una u otra página.</p>
+
+              <p class="naranja">Creando el Formulario de Búsqueda</p>
+            
+              <p>Vamos a ver cómo ejecutar código en base a si estamos en la página de Inicio o la de favoritos. La página de inicio va a tener un formulario en el cual vamos a poder buscar las recetas. Ahí vamos a consumir la API, mostrar algunas categorías, que el usuario pueda agregar ingredientes y entonces buscar las recetas que le interesen y también vamos a tener una imagen de fondo (que vemos como generarla en el siguiente).</p>
+
+              <p>Creamos variable nueva "isHome" para detectar la página de inicio usando useMemo y su arreglo de dependencias va a observar pathname (queremos que esta función cambie cada vez que cambie pathname): <code class="language-ts">const isHome = useMemo (() => pathname=== '/busca-drink/', [pathname])</code>. Si hacemos console.log de esta variable veremos que cuando estemos en inicio nos da true y cuando no sea así, false. Nos va a servir esta variable para ejecutar un código nuevo (el formulario de búsqueda) que vamos a crear a continuación dentro del Header. Podríamos hacerlo también como componente pero no se va a usar en más sitios y estamos aprendiendo el uso del hook <strong>useLocation</strong> de react router dom. Hay muchos más casos de uso de esto, por ejemplo en el checkout de un carrito podríamos querer mostrar productos adicionales, un cupón de descuento...</p>
+
+              <div class="flex max-sm:flex-col">
+                <div class="w-[60%] max-sm:w-[100%]">
+                  <pre data-line="0,1,2,5,7,31,69"><code class="language-ts">
+                    //Header.tsx
+                    import { useMemo } from 'react'
+                    import { NavLink, useLocation } from 'react-router-dom' 
+                    
+                    export default function Header() {                    
+                      const {pathname} = useLocation()
+                      //console.log(pathname)
+                      const isHome = useMemo (() => pathname=== '/busca-drink/', [pathname])
+                    
+                      return (
+                        &lt;header className={isHome ? &#39;bg-[url(./bg.jpg)] bg-center bg-cover&#39; : &#39;bg-slate-800&#39;}&gt;
+                          &lt;div className=&quot;mx-auto container px-5 py-16&quot;&gt;
+                            &lt;div className=&quot;flex justify-between items-center&quot;&gt;
+                                &lt;div&gt;
+                                    &lt;img className=&quot;w-32&quot; src=&quot;./logo.svg&quot; alt=&quot;logotipo&quot; /&gt;
+                                &lt;/div&gt;
+                                &lt;nav className=&#39;flex gap-4&#39;&gt;    
+                                  &lt;NavLink 
+                                    end
+                                    to=&quot;/busca-drink/&quot; 
+                                    className={({isActive}) =&gt; 
+                                      isActive ? &#39;text-orange-500 uppercase font-bold&#39; : &#39;text-white uppercase font-bold&#39;
+                                      }&gt;Inicio&lt;/NavLink&gt;                    
+                                  &lt;NavLink 
+                                    to=&quot;/busca-drink/favoritos&quot; 
+                                    className={({isActive}) =&gt; 
+                                      isActive ? &#39;text-orange-500 uppercase font-bold&#39; : &#39;text-white uppercase font-bold&#39;
+                                    }&gt;Favoritos&lt;/NavLink&gt;                    
+                                &lt;/nav&gt;
+                              &lt;/div&gt;
+                    
+                              {isHome &amp;&amp; (
+                                &lt;form
+                                  className=&#39;md:w-1/2 2xl:w-1/3 bg-orange-400 my-32 p-10 rounded-lg shadow space-y-6&#39;
+                                &gt;
+                                  &lt;div className=&#39;space-y-4&#39;&gt;
+                                    &lt;label 
+                                      htmlFor=&quot;ingredient&quot;
+                                      className=&quot;block text-white uppercase font-extrabold text-lg&quot;
+                                    &gt;Nombre o Ingredientes&lt;/label&gt;
+                    
+                                    &lt;input 
+                                      id=&quot;ingredient&quot;
+                                      type=&quot;text&quot; 
+                                      name=&quot;ingredient&quot;
+                                      className=&#39;p-3  w-full rounded-lg focus:outline-none bg-white&#39;
+                                      placeholder=&quot;Nombre o Ingrediente. Ej. Vodka, Tequila, Café&quot;
+                                    /&gt;
+                                  &lt;/div&gt;
+                    
+                                  &lt;div className=&#39;space-y-4&#39;&gt;
+                                    &lt;label 
+                                      htmlFor=&quot;categoria&quot;
+                                      className=&quot;block text-white uppercase font-extrabold text-lg&quot;
+                                    &gt;Categoría&lt;/label&gt;
+                    
+                                    &lt;select 
+                                      id=&quot;categoria&quot;
+                                      name=&quot;categoria&quot;
+                                      className=&#39;p-3  w-full rounded-lg focus:outline-none bg-white&#39;
+                                    &gt;
+                                      &lt;option value=&quot;&quot;&gt;-- Seleccione --&lt;/option&gt;
+                                    &lt;/select&gt;
+                                  &lt;/div&gt;
+                                  &lt;input 
+                                    type=&quot;submit&quot;
+                                    value=&quot;Buscar Recetas&quot; 
+                                    className=&#39;cursor-pointer bg-orange-800 hover:bg-orange-900 text-white font-extrabold w-full p-2 rounded-lg uppercase&#39;/&gt;
+                                &lt;/form&gt;
+                              )}
+                    
+                            &lt;/div&gt;
+                        &lt;/header&gt;
+                      )
+                    }              
+                  </code></pre>
+                </div>
+                <div class="w-[40%] max-sm:w-[100%]">
+                  <img src="./src/assets/img/313.png" alt="img" loading="lazy">
+                </div>
+              </div>
+
+              
+          </div>
+
+
+          <!-- Bloque desplegable interior-->
+          <div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-314').toggle();">
+            <h3>314. Theming en Tailwind para añadir una imagen de fondo</h3>
+            <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+          </div>
+          <div id="seccion18-314" class="">
+            <p>Lo que se explica para versión previa de Tailwind (3) vemos en los siguientes links la equivalencia para la versión actual 4: <a href="https://simonswiss.com/posts/tailwind-v4-multi-theme" class="underline" target="blank">https://simonswiss.com/posts/tailwind-v4-multi-theme</a> - <a href="https://tailwindcss.com/docs/theme" class="underline" target="blank">https://tailwindcss.com/docs/theme</a></p>
+
+            <div class="flex max-sm:flex-col">
+              <div class="w-[50%] max-sm:w-[100%]">
+                Lo que en la versión anterior se hacía tocando en este fichero:
+                <pre data-line="0"><code class="language-ts">
+                  // tailwind.config.ts
+                  export default {
+                    theme: {
+                      colors: {
+                        primary: '#aab9ff',
+                      },
+                    },
+                  }
+                </code></pre>
+              </div>
+              <div class="w-[50%] max-sm:w-[100%]">
+                en la actual se hace en la propia css donde se importa tailwind:
+                <pre data-line="0"><code class="language-ts">
+                  /* index.css */
+                  @import 'tailwindcss';
+
+                  @theme {
+                    --color-primary: #aab9ff;
+                  }
+                </code></pre>
+              </div>
+            </div>
+
+            <p>Sin embargo, con respecto a imagen de fondo aún no está claro como hacer esto y el tema de Theming en la nueva versión de Tailwind requiere más tiempo para controlarlo. <br>Para hacer lo que quiere, que es poner la imagen de fondo en el Header solo cuando estemos en el index, y en favoritos usar el color de fondo que teníamos: <code class="language-ts">&lt;header className={isHome ? &#39;bg-[url(./bg.jpg)] bg-center bg-cover&#39; : &#39;bg-slate-800&#39;}&gt;...&lt;/header&gt;</code></p>
+
+
+          </div>
 
 
 <!-- Bloque desplegable interior-->
-<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-310').toggle();">
-  <h3>310. Agregando Navegación entre páginas</h3>
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-315').toggle();">
+  <h3>315. Múltiples Stores en Zustand con Slices Pattern</h3>
   <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
 </div>
-<div id="seccion18-310" class="">
-  <p></p>
-
-</div>
-
-
-<!-- Bloque desplegable interior-->
-<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-311').toggle();">
-  <h3>311. Resaltando la página actual</h3>
-  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
-</div>
-<div id="seccion18-311" class="hidden">
+<div id="seccion18-315" class="hidden">
 
 
 </div>
 
 
 <!-- Bloque desplegable interior-->
-<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-312').toggle();">
-  <h3>312. El Hook useLocation() para saber información de la ruta actual</h3>
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-316').toggle();">
+  <h3>316. Primeros pasos con los múltiples stores</h3>
   <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
 </div>
-<div id="seccion18-312" class="hidden">
+<div id="seccion18-316" class="hidden">
 
 
 </div>
 
+
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-317').toggle();">
+  <h3>317. Obteniendo las Categorías <a href="https://www.thecocktaildb.com/api.php" class="underline" target="blank">https://www.thecocktaildb.com/api.php</a></h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion18-317" class="hidden">
+
+
+</div>
+
+
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-318').toggle();">
+  <h3>318. Obtener las categorías de la API y Validar con ZOD</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion18-318" class="hidden">
+
+
+</div>
 
 <!-- Bloque desplegable interior-->
 <div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-XX').toggle();">
@@ -473,6 +756,15 @@
 
 </div>
 
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-XX').toggle();">
+  <h3>XXXXXXXXXXXXXXX</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion18-XX" class="hidden">
+
+
+</div>
 
 <!-- Bloque desplegable interior-->
 <div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-XX').toggle();">
@@ -484,6 +776,15 @@
 
 </div>
 
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-XX').toggle();">
+  <h3>XXXXXXXXXXXXXXX</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion18-XX" class="hidden">
+
+
+</div>
 
 <!-- Bloque desplegable interior-->
 <div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-XX').toggle();">
@@ -495,6 +796,15 @@
 
 </div>
 
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-XX').toggle();">
+  <h3>XXXXXXXXXXXXXXX</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion18-XX" class="hidden">
+
+
+</div>
 
 <!-- Bloque desplegable interior-->
 <div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-XX').toggle();">
@@ -506,6 +816,15 @@
 
 </div>
 
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-XX').toggle();">
+  <h3>XXXXXXXXXXXXXXX</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion18-XX" class="hidden">
+
+
+</div>
 
 <!-- Bloque desplegable interior-->
 <div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-XX').toggle();">
@@ -516,6 +835,197 @@
 
 
 </div>
+
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-XX').toggle();">
+  <h3>XXXXXXXXXXXXXXX</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion18-XX" class="hidden">
+
+
+</div>
+
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-XX').toggle();">
+  <h3>XXXXXXXXXXXXXXX</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion18-XX" class="hidden">
+
+
+</div>
+
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-XX').toggle();">
+  <h3>XXXXXXXXXXXXXXX</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion18-XX" class="hidden">
+
+
+</div>
+
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-XX').toggle();">
+  <h3>XXXXXXXXXXXXXXX</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion18-XX" class="hidden">
+
+
+</div>
+
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-XX').toggle();">
+  <h3>XXXXXXXXXXXXXXX</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion18-XX" class="hidden">
+
+
+</div>
+
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-XX').toggle();">
+  <h3>XXXXXXXXXXXXXXX</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion18-XX" class="hidden">
+
+
+</div>
+
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-XX').toggle();">
+  <h3>XXXXXXXXXXXXXXX</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion18-XX" class="hidden">
+
+
+</div>
+
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-XX').toggle();">
+  <h3>XXXXXXXXXXXXXXX</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion18-XX" class="hidden">
+
+
+</div>
+
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-XX').toggle();">
+  <h3>XXXXXXXXXXXXXXX</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion18-XX" class="hidden">
+
+
+</div>
+
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-XX').toggle();">
+  <h3>XXXXXXXXXXXXXXX</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion18-XX" class="hidden">
+
+
+</div>
+
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-XX').toggle();">
+  <h3>XXXXXXXXXXXXXXX</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion18-XX" class="hidden">
+
+
+</div>
+
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-XX').toggle();">
+  <h3>XXXXXXXXXXXXXXX</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion18-XX" class="hidden">
+
+
+</div>
+
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-XX').toggle();">
+  <h3>XXXXXXXXXXXXXXX</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion18-XX" class="hidden">
+
+
+</div>
+
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-XX').toggle();">
+  <h3>XXXXXXXXXXXXXXX</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion18-XX" class="hidden">
+
+
+</div>
+
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-XX').toggle();">
+  <h3>XXXXXXXXXXXXXXX</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion18-XX" class="hidden">
+
+
+</div>
+
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-XX').toggle();">
+  <h3>XXXXXXXXXXXXXXX</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion18-XX" class="hidden">
+
+
+</div>
+
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-XX').toggle();">
+  <h3>XXXXXXXXXXXXXXX</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion18-XX" class="hidden">
+
+
+</div>
+
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-XX').toggle();">
+  <h3>XXXXXXXXXXXXXXX</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion18-XX" class="hidden">
+
+
+</div>
+
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-XX').toggle();">
+  <h3>XXXXXXXXXXXXXXX</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion18-XX" class="hidden">
+
+
+</div>
+
 
 
         </div>
