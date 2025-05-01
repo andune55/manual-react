@@ -660,11 +660,16 @@
 
           <!-- Bloque desplegable interior-->
           <div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-314').toggle();">
-            <h3>314. Theming en Tailwind para añadir una imagen de fondo</h3>
+            <h3>314. Theming en Tailwind para añadir una imagen de fondo <span class="destacado">Ver links chulos v4 hasta que saquen versión estable</span></h3>
             <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
           </div>
-          <div id="seccion18-314" class="">
-            <p>Lo que se explica para versión previa de Tailwind (3) vemos en los siguientes links la equivalencia para la versión actual 4: <a href="https://simonswiss.com/posts/tailwind-v4-multi-theme" class="underline" target="blank">https://simonswiss.com/posts/tailwind-v4-multi-theme</a> - <a href="https://tailwindcss.com/docs/theme" class="underline" target="blank">https://tailwindcss.com/docs/theme</a></p>
+          <div id="seccion18-314" class="hidden">
+
+            <p><strong>Theming </strong> en tailwind es cambiar los colores etc. Indica que él no suele tocar aquí solo cuadno añade imágenes como fondo y es lo que explica en el ejemplo.</p>
+
+            <p>Lo que se explica para versión previa de Tailwind (3) vemos en los siguientes links la equivalencia para la versión actual 4, aunque como vemos en este link, aún (abril 2025) no tienen listo todo esto en la v4 <a href="https://tailwindcss.com/blog/tailwindcss-v4-alpha" class="underline" target="blank">https://tailwindcss.com/blog/tailwindcss-v4-alpha</a>. Otro ejemplo bueno de como usar esto en la v4: <a href="https://payloadcms.com/posts/guides/how-to-theme-the-payload-admin-panel-with-tailwind-css-4" class="underline" target="blank">How to theme the Payload admin panel with Tailwind CSS 4</a> | <a href="https://play.tailwindcss.com/UVXhuiyxNZ?file=css" class="underline" target="blank">Para jugar con Tailwind</a> <br>
+              
+            <a href="https://simonswiss.com/posts/tailwind-v4-multi-theme" class="underline" target="blank">https://simonswiss.com/posts/tailwind-v4-multi-theme</a> - <a href="https://tailwindcss.com/docs/theme" class="underline" target="blank">https://tailwindcss.com/docs/theme</a></p>
 
             <div class="flex max-sm:flex-col">
               <div class="w-[50%] max-sm:w-[100%]">
@@ -704,8 +709,81 @@
   <h3>315. Múltiples Stores en Zustand con Slices Pattern</h3>
   <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
 </div>
-<div id="seccion18-315" class="hidden">
+<div id="seccion18-315" class="">
+  <p>Este proyecto tiene múltiples stores porque tiene múltiples partes y lo mejor va a ser dividirlo en pequeñas secciones:</p>
+  <ul class="list-disc my-3">
+    <li class="my-1.25">un store para favoritos</li>
+    <li class="my-1.25">Un store para notificaciones</li>
+    <li class="my-1.25">Un store para las recetas que buscamos y categorías</li>
+  </ul>
 
+  <p><strong>Cómo crear múltiples Stores en Zustand</strong></p>
+
+  <ul class="list-disc my-3">
+    <li class="my-1.25">Conforme nuestras aplicaciones van creciendo o son más complejas, nuestro store también puede crecer.</li>
+    <li class="my-1.25">Para poder tener un poco de modularidad, un poco de separación, existen dos opciones para manejar múltiples stores:
+      <ul class="list-disc my-3">
+        <li class="my-1.25"><strong>Crear diferentes archivos múltiples Store:</strong> esto es lo que se recomendaba antes</li>
+        <li class="my-1.25"><strong>Dividirlos utilizando el <span class="destacado">Slice Pattern: </span>es algo que también vamos a encontrar en Redux Toolkit. Es una forma de dividir los stores en pequeñas piezas y al final los unimos en un store principal.</strong></li>
+      </ul>
+    </li>
+  </ul>
+
+  <p><strong>Veamos como crear múltiples Slices para nuestro Store</strong></p>
+  <ul class="list-disc my-3">
+    <li class="my-1.25">Instalamos Zustand <span class="destacado">npm i zustand</span></li>
+    <li class="my-1.25">Creamos en src una carpeta llamada stores</li>
+    <li class="my-1.25">Dentro de stores creo <span class="file">useAppStore.ts</span> (engloba/implica toda la aplicación)</li>
+    <li class="my-1.25">Dentro de stores creo el primer Slice Pattern <span class="file">recipeSlice.ts</span>. Junto a las otras que vayamos creando (dijimos que en esta App son 3: favoritos, notificaciones y recetas) conforman nuestro store principal <span class="file">useAppStore.ts</span>.<br>
+      Vamos a tener las categorías como state y van a ser igual a un arreglo vacío (iremos escribiendo el código de typescript conforme vayamos avanzando) 
+    <pre data-line="0"><code class="language-ts">
+      //recipeSlice.ts
+      export const createRecipesSlice = () => ({
+        categories: []
+      })
+    </code></pre>
+    </li>
+    <li class="my-1.25">Dentro de <span class="file">useAppStore.ts</span> conectamos con el Slice Pattern <span class="file">recipeSlice.ts</span> para lo cual 
+      <ul class="list-disc my-3">
+        <li class="my-1.25">Importamos de Zustand la función de <strong>create</strong> que es la que realmente nos permite crear un store (los slices son únicamente "piezas separadas" para tener un poco más de orden; tienen state y sus acciones sí, pero lo que realmente genera todo un store grande es esta función de create de Zustand) <code class="language-ts">import { create } from 'zustand'</code></li>
+        <li class="my-1.25">Importamos nuestro primer slice: <code class="language-ts">import { createRecipesSlice } from './recipeSlice'</code></li>
+        <li class="my-1.25">Lo colocamos en la función que exportamos <strong>useAppStore</strong> usando <strong>...</strong> para que tome una copia y lo mandamos llamar así <code class="language-ts">...createRecipesSlice()</code>
+          <pre data-line="0"><code class="language-ts">
+            //useAppStore.ts
+            import { create } from 'zustand'
+            import { createRecipesSlice } from './recipeSlice' 
+            
+            export const useAppStore = create ( () => ({
+                ...createRecipesSlice()
+            }))
+          </code></pre>        
+        </li>
+        <li class="my-1.25">Si recordamos, en create, teníamos la función <strong>set</strong> que es la que nos permite escribir en el state:
+          <code class="language-ts">export const useAppStore = create ( (set) => ({...}))</code>. Como los archivos Slices no son stores como tal ¿cómo hacemos para pasarle esta función set hacia el Slice (que simplemente es un arrow funciton como vemos y no tiene las funciones set,get,api de create para obtener datos del state, escribir en el state,...)? Pues según la documentación usamos esta notación <strong>...a</strong> para pasarle una copia de todos los argumentos (funciones set, get, etc) de esta manera:
+          <pre data-line="0"><code class="language-ts">
+            //useAppStore.ts
+            import { create } from 'zustand'
+            import { createRecipesSlice } from './recipeSlice' 
+            
+            export const useAppStore = create ( (...a) => ({
+                ...createRecipesSlice(...a)
+            }))
+          </code></pre>
+          Si nos fijamos aparece un resaltado en rojo del IS de VSC y si nos ponemos encima nos dice: <span class="bg-amber-950 text-amber-300">Se esperaban 0 argumentos pero se obtuvieron 3</span>
+        </li>
+        <li class="my-1.25">Abrimos <span class="file">views/IndexPage.tsx</span> e importamos nuestro store <code class="language-ts">import { useAppStore } from '../stores/useAppStore'</code>. Si a continuación intentamos usar el store así vemos que <span class="destacado">no tenemos autocompletado (no nos aparecen las categorías que hemos puesto en nuestro slice), es como si no estuviera conectado</span>: <code class="language-ts">useAppStore((state) => state.)</code>. Veamos como conectarlo por medio de typescript utilizando una función que se llama state creator.</li>
+        <li class="my-1.25"></li>
+      </ul>
+      
+      
+    <pre data-line="0"><code class="language-ts">
+      //useAppStore.ts
+
+    </code></pre>
+    </li>
+
+  </ul>
+  
 
 </div>
 
