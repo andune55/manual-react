@@ -42,13 +42,15 @@
 
               <p>Herramientas que utilizaremos:</p>
               <ul class="list-disc my-3">
+                <li class="my-1.25"><a href="https://www.thecocktaildb.com/api.php" class="underline" target="blank">API TheCocktailDB</a></li>
                 <li class="my-1.25">Tailwind CSS <span class="destacado">npm install tailwindcss @tailwindcss/vite</span></li>
                 <li class="my-1.25">Headless UI para las ventanas modal</li>
                 <li class="my-1.25">Notificaciones</li>
+                <li class="my-1.25"><span class="destacado">npm i axios</span></li>
                 <li class="my-1.25"> <span class="destacado">npm i react-router-dom</span> - <strong>React Router DOM:</strong> para poder navegar por diferentes páginas. Borramos App.tsx, creamos router.tsx, <strong>¡Ojo! si tenemos configurado una url base en nuestro vite.config.ts</strong><br>
                 <a href="https://www.npmjs.com/package/react-router-dom" class="underline" target="blank">https://www.npmjs.com/package/react-router-dom</a> - <a href="https://api.reactrouter.com/v7/functions/react_router.NavLink.html" class="underline" target="blank">React Router API Reference</a> - <a href="https://www.robinwieruch.de/react-router/" class="underline" target="blank">React Router 7 Tutorial</a>
                 </li>
-                <li class="my-1.25">Zod para validar las respuestas de la API</li>
+                <li class="my-1.25">Zod para validar las respuestas de la API <span class="destacado">npm i zod</span></li>
                 <li class="my-1.25">Zustand para el estado global</li>
                 <li class="my-1.25">Axios para conectarnos a esa REST API</li>
               </ul>
@@ -708,110 +710,186 @@
           </div>
 
 
-<!-- Bloque desplegable interior-->
-<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-315').toggle();">
-  <h3>315. Múltiples Stores en Zustand con Slices Pattern</h3>
-  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
-</div>
-<div id="seccion18-315" class="">
-  <p>Este proyecto tiene múltiples stores porque tiene múltiples partes y lo mejor va a ser dividirlo en pequeñas secciones:</p>
-  <ul class="list-disc my-3">
-    <li class="my-1.25">un store para favoritos</li>
-    <li class="my-1.25">Un store para notificaciones</li>
-    <li class="my-1.25">Un store para las recetas que buscamos y categorías</li>
-  </ul>
+          <!-- Bloque desplegable interior-->
+          <div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-315').toggle();">
+            <h3>315. Múltiples Stores en Zustand con Slices Pattern / 316. Primeros pasos con los múltiples stores</h3>
+            <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+          </div>
+          <div id="seccion18-315" class="hidden">
+            <p>Este proyecto tiene múltiples stores porque tiene múltiples partes y lo mejor va a ser dividirlo en pequeñas secciones:</p>
+            <ul class="list-disc my-3">
+              <li class="my-1.25">un store para favoritos</li>
+              <li class="my-1.25">Un store para notificaciones</li>
+              <li class="my-1.25">Un store para las recetas que buscamos y categorías</li>
+            </ul>
 
-  <p><strong>Cómo crear múltiples Stores en Zustand</strong></p>
+            <p><strong>Cómo crear múltiples Stores en Zustand</strong></p>
 
-  <ul class="list-disc my-3">
-    <li class="my-1.25">Conforme nuestras aplicaciones van creciendo o son más complejas, nuestro store también puede crecer.</li>
-    <li class="my-1.25">Para poder tener un poco de modularidad, un poco de separación, existen dos opciones para manejar múltiples stores:
-      <ul class="list-disc my-3">
-        <li class="my-1.25"><strong>Crear diferentes archivos múltiples Store:</strong> esto es lo que se recomendaba antes</li>
-        <li class="my-1.25"><strong>Dividirlos utilizando el <span class="destacado">Slice Pattern: </span>es algo que también vamos a encontrar en Redux Toolkit. Es una forma de dividir los stores en pequeñas piezas y al final los unimos en un store principal.</strong></li>
-      </ul>
-    </li>
-  </ul>
+            <ul class="list-disc my-3">
+              <li class="my-1.25">Conforme nuestras aplicaciones van creciendo o son más complejas, nuestro store también puede crecer.</li>
+              <li class="my-1.25">Para poder tener un poco de modularidad, un poco de separación, existen dos opciones para manejar múltiples stores:
+                <ul class="list-disc my-3">
+                  <li class="my-1.25"><strong>Crear diferentes archivos múltiples Store:</strong> esto es lo que se recomendaba antes</li>
+                  <li class="my-1.25"><strong>Dividirlos utilizando el <span class="destacado">Slice Pattern:</span> es algo que también vamos a encontrar en Redux Toolkit. Es una forma de dividir los stores en pequeñas piezas y al final los unimos en un store principal.</strong></li>
+                </ul>
+              </li>
+            </ul>
 
-  <p><strong>Veamos como crear múltiples Slices para nuestro Store</strong></p>
-  <ul class="list-disc my-3">
-    <li class="my-1.25">Instalamos Zustand <span class="destacado">npm i zustand</span></li>
-    <li class="my-1.25">Creamos en src una carpeta llamada stores</li>
-    <li class="my-1.25">Dentro de stores creo <span class="file">useAppStore.ts</span> (engloba/implica toda la aplicación)</li>
-    <li class="my-1.25">Dentro de stores creo el primer Slice Pattern <span class="file">recipeSlice.ts</span>. Junto a las otras que vayamos creando (dijimos que en esta App son 3: favoritos, notificaciones y recetas) conforman nuestro store principal <span class="file">useAppStore.ts</span>.<br>
-      Vamos a tener las categorías como state y van a ser igual a un arreglo vacío (iremos escribiendo el código de typescript conforme vayamos avanzando) 
-    <pre data-line="0"><code class="language-ts">
-      //recipeSlice.ts
-      export const createRecipesSlice = () => ({
-        categories: []
-      })
-    </code></pre>
-    </li>
-    <li class="my-1.25">Dentro de <span class="file">useAppStore.ts</span> conectamos con el Slice Pattern <span class="file">recipeSlice.ts</span> para lo cual 
-      <ul class="list-disc my-3">
-        <li class="my-1.25">Importamos de Zustand la función de <strong>create</strong> que es la que realmente nos permite crear un store (los slices son únicamente "piezas separadas" para tener un poco más de orden; tienen state y sus acciones sí, pero lo que realmente genera todo un store grande es esta función de create de Zustand) <code class="language-ts">import { create } from 'zustand'</code></li>
-        <li class="my-1.25">Importamos nuestro primer slice: <code class="language-ts">import { createRecipesSlice } from './recipeSlice'</code></li>
-        <li class="my-1.25">Lo colocamos en la función que exportamos <strong>useAppStore</strong> usando <strong>...</strong> para que tome una copia y lo mandamos llamar así <code class="language-ts">...createRecipesSlice()</code>
-          <pre data-line="0"><code class="language-ts">
-            //useAppStore.ts
-            import { create } from 'zustand'
-            import { createRecipesSlice } from './recipeSlice' 
-            
-            export const useAppStore = create ( () => ({
-                ...createRecipesSlice()
-            }))
-          </code></pre>        
-        </li>
-        <li class="my-1.25">Si recordamos, en create, teníamos la función <strong>set</strong> que es la que nos permite escribir en el state:
-          <code class="language-ts">export const useAppStore = create ( (set) => ({...}))</code>. Como los archivos Slices no son stores como tal ¿cómo hacemos para pasarle esta función set hacia el Slice (que simplemente es un arrow funciton como vemos y no tiene las funciones set,get,api de create para obtener datos del state, escribir en el state,...)? Pues según la documentación usamos esta notación <strong>...a</strong> para pasarle una copia de todos los argumentos (funciones set, get, etc) de esta manera:
-          <pre data-line="0"><code class="language-ts">
-            //useAppStore.ts
-            import { create } from 'zustand'
-            import { createRecipesSlice } from './recipeSlice' 
-            
-            export const useAppStore = create ( (...a) => ({
-                ...createRecipesSlice(...a)
-            }))
-          </code></pre>
-          Si nos fijamos aparece un resaltado en rojo del IS de VSC y si nos ponemos encima nos dice: <span class="bg-amber-950 text-amber-300">Se esperaban 0 argumentos pero se obtuvieron 3</span>
-        </li>
-        <li class="my-1.25">Abrimos <span class="file">views/IndexPage.tsx</span> e importamos nuestro store <code class="language-ts">import { useAppStore } from '../stores/useAppStore'</code>. Si a continuación intentamos usar el store así vemos que <span class="destacado">no tenemos autocompletado (no nos aparecen las categorías que hemos puesto en nuestro slice), es como si no estuviera conectado</span>: <code class="language-ts">useAppStore((state) => state.)</code>. Veamos como conectarlo por medio de typescript utilizando una función que se llama state creator.</li>
-        <li class="my-1.25"></li>
-      </ul>
-      
-      
-    <pre data-line="0"><code class="language-ts">
-      //useAppStore.ts
+            <p><strong>Veamos como crear múltiples Slices para nuestro Store</strong></p>
+            <ul class="list-disc my-3">
+              <li class="my-1.25">Instalamos Zustand <span class="destacado">npm i zustand</span></li>
+              <li class="my-1.25">Creamos en src una carpeta llamada stores</li>
+              <li class="my-1.25">Dentro de stores creo <span class="file">stores/useAppStore.ts</span> (engloba/implica toda la aplicación)</li>
+              <li class="my-1.25">Dentro de stores creo el primer Slice Pattern <span class="file">stores/recipeSlice.ts</span>. Junto a las otras que vayamos creando (dijimos que en esta App son 3: favoritos, notificaciones y recetas) conforman nuestro store principal <span class="file">stores/useAppStore.ts</span>.<br>
+                Vamos a tener las categorías como state y van a ser igual a un arreglo vacío (iremos escribiendo el código de typescript conforme vayamos avanzando) 
+              <pre data-line="0"><code class="language-ts">
+                //stores/recipeSlice.ts
+                export const createRecipesSlice = () => ({
+                  categories: []
+                })
+              </code></pre>
+              </li>
+              <li class="my-1.25">Dentro de <span class="file">stores/useAppStore.ts</span> conectamos con el Slice Pattern <span class="file">stores/recipeSlice.ts</span> para lo cual:
+                <ul class="list-disc my-3">
+                  <li class="my-1.25">Importamos de Zustand la función de <strong>create</strong> que es la que realmente nos permite crear un store (los slices son únicamente "piezas separadas" para tener un poco más de orden; tienen state y sus acciones sí, pero lo que realmente genera todo un store grande es esta función de create de Zustand) <code class="language-ts">import { create } from 'zustand'</code></li>
+                  <li class="my-1.25">Importamos nuestro primer slice: <code class="language-ts">import { createRecipesSlice } from './recipeSlice'</code></li>
+                  <li class="my-1.25">Lo colocamos en la función que exportamos <strong>useAppStore</strong> usando <strong>...</strong> para que tome una copia y lo mandamos llamar así <code class="language-ts">...createRecipesSlice()</code>
+                    <pre data-line="0"><code class="language-ts">
+                      //stores/useAppStore.ts
+                      import { create } from 'zustand'
+                      import { createRecipesSlice } from './recipeSlice' 
+                      
+                      export const useAppStore = create ( () => ({
+                          ...createRecipesSlice()
+                      }))
+                    </code></pre>        
+                  </li>
 
-    </code></pre>
-    </li>
+                  <li class="my-3">Si recordamos, en create, teníamos la función <strong>set</strong> que es la que nos permite escribir en el state:
+                    <code class="language-ts">export const useAppStore = create ( (set) => ({...}))</code>. Como los archivos Slices no son stores como tal ¿cómo hacemos para pasarle esta función set hacia el Slice (que simplemente es un arrow function como vemos y no tiene las funciones set, get, api de create para obtener datos del state, escribir en el state,...)? Pues según la documentación usamos esta notación <strong>...a</strong> para pasarle una copia de todos los argumentos (funciones set, get, etc) de esta manera:
+                    <pre data-line="0,4,5"><code class="language-ts">
+                      //useAppStore.ts
+                      import { create } from 'zustand'
+                      import { createRecipesSlice } from './recipeSlice' 
+                      
+                      export const useAppStore = create ( (...a) => ({
+                          ...createRecipesSlice(...a)
+                      }))
+                    </code></pre>
+                    Si nos fijamos, en el <strong>(...a)</strong> aparece un resaltado en rojo del IS de VSC y si nos ponemos encima nos dice: <span class="bg-amber-950 text-amber-300">Se esperaban 0 argumentos pero se obtuvieron 3</span>
+                  </li>
 
-  </ul>
-  
+                  <li class="my-3">Abrimos <span class="file">views/IndexPage.tsx</span> e importamos nuestro store <code class="language-ts">import { useAppStore } from '../stores/useAppStore'</code>. Si a continuación intentamos usar el store así (intentando recuperar con la notación de "." el state de categorías que hemos escrito en nuestro primer slice) vemos que <span class="destacado">no tenemos autocompletado (no nos aparecen las categorías que hemos puesto en nuestro slice), es como si no estuviera conectado</span>: <code class="language-ts">useAppStore((state) => state.)</code>. Veamos como conectarlo por medio de typescript utilizando como type una función de Zustand que se llama <strong>StateCreator</strong>.</li>
 
-</div>
+                  <li class="my-3"> En <span class="file">stores/recipeSlice.ts</span> de momento definimos los types de la siguiente manera, añadiendo además un <code class="language-ts"> type Category = []</code> (quiere usar Zustand para ello y hay que consultar la API pero de momento para que TS esté feliz lo hacemos así :) volveremos un poco más adelante hacia este <code class="language-ts"> type Category = []</code> para ajustarlo según veamos ya con nuestra API qué es lo que obtenemos). Usamos como type la función de Zustand <span class="destacado">StateCreator</span> que importamos, y nos va a permitir crear el state, y especificamos en este caso con un generic el type que va a tener este slice, y es el que acabamos de crear (RecipesSliceType) de este forma ya va a tener el autocompletado. Sin embargo si guardamos cambios seguimos teniendo el mismo error de antes en <span class="file">stores/useAppStore.ts</span> esta vez el IS nos indica: <span class="bg-amber-950 text-amber-300">No se puede asignar un argumento de tipo "() => unknown" al parámetro de tipo "() => RecipesSliceType".
+
+                  El tipo 'unknown' no se puede asignar al tipo 'RecipesSliceType'.ts(2345)</span> es decir lo marca como desconocido aunque nosotros ya le estamos asignando un type como acabamos de decir. <strong>Le añadimos con un generic el type que hemos creado:</strong>
+
+                  <div class="flex max-sm:flex-col">
+                    <div class="w-[50%] max-sm:w-[100%]">
+                      <pre data-line="0"><code class="language-ts">
+                        //stores/recipeSlice.ts
+                        import { StateCreator } from 'zustand'
+                        type Category = []
+              
+                        export type RecipesSliceType = {
+                            categories: Category[]
+                        }
+                        export const createRecipesSlice: StateCreator&lt;RecipesSliceType&gt; = () => ({
+                            categories: []
+                        })
+                      </code></pre>
+                    </div>
+                    <div class="w-[50%] max-sm:w-[100%]">
+                      <pre data-line="0"><code class="language-ts">
+                        //stores/useAppStore.ts
+                        import { create } from 'zustand'
+                        import { RecipesSliceType, createRecipesSlice } from './recipeSlice' 
+                        
+                        export const useAppStore = create&lt;RecipesSliceType&gt; ( (...a) => ({
+                            ...createRecipesSlice(...a)
+                        }))
+                      </code></pre>
+                    </div>
+                  </div>
+
+                  <p>Y ahora ya sí, lo que vayamos escribiendo en nuestros slices ya tenemos autocompletado, por ejemplo si pusiéramos en nuestro <span class="file">views/IndexPage.ts</span> lo siguiente, al teclear el "." ya nos aparece con autocompletado el state categories que habíamos definido en el slice <span class="file">stores/recipeSlice.ts</span> <code class="language-ts">useAppStore((state) => state.categories)</code>.</p>
+
+                  <p>Ya cuando vayamos teniendo múltiples slices tendremos que ir haciendo lo mismo, <span class="destacado">hacerle saber a nuestro store principal qué forma van a tener esos slices</span> usando para ello lo recién visto con este priumer Slice.</p>
+
+                  </li>
+                  <li class="my-1.25"><p>Escribimos a continuación una función que obtiene las categorías de nuestra API (y recordar, un poco más adelante estaremos cambiando este type <code class="language-ts">type Category = []</code> porque aún no sabemos qué vamos a obtener de la API, ni siquiera sabemos aún cual es el endpoint.</p></li>
+                </ul>
+          
+              </li>
+
+            </ul>           
+
+          </div>
 
 
-<!-- Bloque desplegable interior-->
-<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-316').toggle();">
-  <h3>316. Primeros pasos con los múltiples stores</h3>
-  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
-</div>
-<div id="seccion18-316" class="hidden">
+          <!-- Bloque desplegable interior-->
+          <div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-317').toggle();">
+            <h3>317. Obteniendo las Categorías <a href="https://www.thecocktaildb.com/api.php" class="underline" target="blank">https://www.thecocktaildb.com/api.php</a></h3>
+            <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+          </div>
+          <div id="seccion18-317" class="hidden">
+            <p>Vamos a comenzar a obtener las categorías para lo que vamos a la API que vamos a utilizar: <a href="https://www.thecocktaildb.com/api.php" class="underline" target="blank">TheCocktailDB</a>. Si pulsamos en API vemos los distintos endpoints que tiene (algunos son de pago) y elegimos nuestro endpoint, el que tiene el listado de categorías: <a href="https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list" class="underline" target="blank">https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list</a></p>
 
+            <ul class="list-disc my-3">
+              <li class="my-1.25"><p>Creamos en src carpeta services y dentro <span class="file">services/RecipeService.ts</span></p>
+              <pre data-line="0"><code class="language-ts">
+                //services/RecipeService.ts
+                export async function getCategories(){
+                  console.log('desde RecipeService')
+                }
+              </code></pre>
+              </li>
+              <li class="my-1.25">Instalamos un par de dependencias: <strong>axios</strong> y <strong>Zod</strong> <span class="destacado">npm i axios zod</span> y paso a paso vamos a estar creando de nuevo schemas.</li>
+              <li class="my-1.25">Vamos a llamar a la función que acabamos de crear en nuestro servicio desde el slice <span class="file">stores/recipeSlice.ts</span> es decir, las categorías de nuestro state se tienen que llenar con el resultado de esa llamada, por tanto vamos a definir nuestra primera acción en el slice, <strong>fetchCategories: async () => {...}</strong> (recordar que con el IS, poniéndonos encima del nombre de esta nueva acción, inferimos el type que tiene <span class="bg-amber-950 text-amber-300">(property) fetchCategories: () => Promise&lt;void&gt;</span> para especificarlo en la firma):
+              <pre data-line="0,2,7,11-13"><code class="language-ts">
+                //stores/recipeSlice.ts
+                import { StateCreator } from 'zustand'
+                import { getCategories } from '../services/RecipeService.ts'
+                type Category = []
 
-</div>
+                export type RecipesSliceType = {
+                    categories: Category[]
+                    fetchCategories: () => Promise&lt;void&gt;
+                }
+                export const createRecipesSlice: StateCreator&lt;RecipesSliceType&gt; = () => ({
+                    categories: [],
+                    fetchCategories: async () => {
+                        getCategories()
+                    }
+                })              
+              </code></pre>
+              </li>
+              <li class="my-1.25">Como las categorías las queremos en el formulario de nuestro header abrimos <span class="file">components/Header.tsx</span> e importamos nuestro store y en una variable nueva <strong>fetchCategories</strong> usando el store llamamos a nuestra acción del store fetchCategories. Luego con useEffect llamamos a esto en cuanto nuestro componente esté listo y así se manda llamar hacia el slice y después a nuestro servicio (si probamos veremos en consola que nos sale nuestro mensaje):
+              
+              <pre data-line="0,1,3,11-14"><code class="language-ts">
+                //components/Header.tsx
+                import { useMemo, useEffect } from 'react'
+                import { NavLink, useLocation } from 'react-router-dom' 
+                import { useAppStore } from '../stores/useAppStore'
+                // import Menu from './Menu'
+                
+                export default function Header() {                
+                  const {pathname} = useLocation()
+                  //console.log(pathname)
+                  const isHome = useMemo (() => pathname=== '/busca-drink/', [pathname])
+                
+                  const fetchCategories = useAppStore((state) => state.fetchCategories)
+                  useEffect(() => {
+                    fetchCategories()
+                  }, [])
+                
+                  return (
+              </code></pre>
+              </li>              
+            </ul>           
 
-
-<!-- Bloque desplegable interior-->
-<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-317').toggle();">
-  <h3>317. Obteniendo las Categorías <a href="https://www.thecocktaildb.com/api.php" class="underline" target="blank">https://www.thecocktaildb.com/api.php</a></h3>
-  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
-</div>
-<div id="seccion18-317" class="hidden">
-
-
-</div>
+          </div>
 
 
 <!-- Bloque desplegable interior-->
@@ -825,71 +903,73 @@
 </div>
 
 <!-- Bloque desplegable interior-->
-<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-XX').toggle();">
-  <h3>XXXXXXXXXXXXXXX</h3>
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-319').toggle();">
+  <h3>319. Colocar las categorías en el State y RETO 06 / 320. SOLUCIÓN RETO 06</h3>
   <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
 </div>
-<div id="seccion18-XX" class="hidden">
+<div id="seccion18-319" class="hidden">
+
+
+  <span class="naranja">SOLUCIÓN RETO 06</span>
+
+</div>
+
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-321').toggle();">
+  <h3>321. Leyendo los datos ingresados en el Formulario</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion18-321" class="hidden">
 
 
 </div>
 
 <!-- Bloque desplegable interior-->
-<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-XX').toggle();">
-  <h3>XXXXXXXXXXXXXXX</h3>
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-322').toggle();">
+  <h3>322. Trabajando con el Submit al formulario de búsqueda</h3>
   <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
 </div>
-<div id="seccion18-XX" class="hidden">
+<div id="seccion18-322" class="hidden">
 
 
 </div>
 
 <!-- Bloque desplegable interior-->
-<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-XX').toggle();">
-  <h3>XXXXXXXXXXXXXXX</h3>
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-323').toggle();">
+  <h3>323. Buscar las Recetas en base a categoría e Ingredientes</h3>
   <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
 </div>
-<div id="seccion18-XX" class="hidden">
+<div id="seccion18-323" class="hidden">
 
 
 </div>
 
 <!-- Bloque desplegable interior-->
-<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-XX').toggle();">
-  <h3>XXXXXXXXXXXXXXX</h3>
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-324').toggle();">
+  <h3>324. Validando la Respuesta con ZOD</h3>
   <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
 </div>
-<div id="seccion18-XX" class="hidden">
+<div id="seccion18-324" class="hidden">
 
 
 </div>
 
 <!-- Bloque desplegable interior-->
-<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-XX').toggle();">
-  <h3>XXXXXXXXXXXXXXX</h3>
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-325').toggle();">
+  <h3>325. Primeros pasos mostrando las bebidas</h3>
   <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
 </div>
-<div id="seccion18-XX" class="hidden">
+<div id="seccion18-325" class="hidden">
 
 
 </div>
 
 <!-- Bloque desplegable interior-->
-<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-XX').toggle();">
-  <h3>XXXXXXXXXXXXXXX</h3>
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-326').toggle();">
+  <h3>326. Finalizando el Código para mostrar las bebidas</h3>
   <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
 </div>
-<div id="seccion18-XX" class="hidden">
-
-
-</div>
-
-<!-- Bloque desplegable interior-->
-<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-XX').toggle();">
-  <h3>XXXXXXXXXXXXXXX</h3>
-  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
-</div>
-<div id="seccion18-XX" class="hidden">
+<div id="seccion18-326" class="hidden">
 
 
 </div>
