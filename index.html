@@ -10,8 +10,8 @@
     
     <!-- <script src="https://unpkg.com/@tailwindcss/browser@4"></script> -->
   
-    <script type="module" crossorigin src="https://andune55.github.io/manual-react/assets/index-kEQx3x4j.js"></script>
-    <link rel="stylesheet" crossorigin href="https://andune55.github.io/manual-react/assets/index-scmK3Ycg.css">
+    <script type="module" crossorigin src="https://andune55.github.io/manual-react/assets/index-DAYJarls.js"></script>
+    <link rel="stylesheet" crossorigin href="https://andune55.github.io/manual-react/assets/index-CdcCfou9.css">
   </head>
   <body>
     <div id="root"></div>	
@@ -888,27 +888,302 @@
           </div>
 
 
-<!-- Bloque desplegable interior-->
-<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-318').toggle();">
-  <h3>318. Obtener las categorías de la API y Validar con ZOD</h3>
-  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
-</div>
-<div id="seccion18-318" class="hidden">
+          <!-- Bloque desplegable interior-->
+          <div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-318').toggle();">
+            <h3>318. Obtener las categorías de la API y Validar con ZOD / 319. Colocar las categorías en el State y RETO 06 / 320. SOLUCIÓN RETO 06</h3>
+            <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+          </div>
+          <div id="seccion18-318" class="">
+            <p>Vamos a hacer el llamado hacia la API. Cogemos como decíamos este endpoint <a href="https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list" class="underline" target="blank">https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list</a> y si entramos vemos que nos retorna un objeto, drinks, un arreglo y luego otro objeto que dice "strCategory" y ya trae los nombres de categoría del lado derecho. Utilizamos Zod para definir este Schema. Vamos a src y podemos crear la carpeta <strong>schema</strong> como hemos hecho o, esta vez la llamaremos <strong>utils</strong> <span class="file">utils/recipes-schema.ts</span> y para ir definiendo nuestro schema con Zod nos fijamos en lo que vemos en el endpoint, no es que haya siempre una misma regla, lo ideal es ver en cada proyecto, en cada API, la respuesta que obtenemos (que será distinta según quien haya creado el endpoint): </p>
+
+            <div class="flex max-sm:flex-col mb-3">
+              <div class="w-[30%] max-sm:w-[100%] mr-2">
+                <img src="https://andune55.github.io/manual-react/assets/318-DKs7IIvo.png" alt="img" loading="lazy">
+              </div>
+              <div class="w-[70%] max-sm:w-[100%]">
+                <pre data-line="0"><code class="language-ts">
+                  //utils/recipes-schema.ts
+                  import { z } from 'zod'
+    
+                  export const CategoriesAPIResponseSchema = z.object({
+                      drinks: z.array(
+                          z.object({
+                              strCategory: z.string()
+                          })
+                      )
+                  })
+                </code></pre>
+              </div>
+            </div>           
+
+            <p>En nuestro servicio <span class="file">services/RecipeService.ts</span> importamos axios y nuestro schema recién creado y entonces podemos comenzar: creamos una variable url conteniendo la url de nuestro endpoint <code class="language-ts">const url = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list'</code> y a continuación una nueva variable data con la llamada a la función axios que como es asíncrona, recordemos, <code class="language-ts">const data = await axios (url)</code>. <span class="destacado">Como "data" es siempre la respuesta que nos da axios para acceder a los datos, podemos aplicar destructuring desde aquí</span> y así lo hacemos todo de una sola vez (esta API no requiere una API Key a diferencia de la de clima  que vimos, así que podemos acceder directamente a esa información): <code class="language-ts">const {data} = await axios (url)</code>, recordamos también que en nuestro componente Header.tsx tenemos con un useEffect() esa llamada a nuestro servicio fetchCategories en cuanto el componente esté listo. Si recargamos vemos que aparece drinks y luego el arreglo:</p>
+
+            <div class="flex max-sm:flex-col">
+              
+                <div class="w-[34%] max-sm:w-[100%] ml-2">
+                  <pre data-line="0"><code class="language-ts">
+                    //Components/Header.tsx
+                    ...
+                    const fetchCategories = useAppStore((state) => state.fetchCategories)
+                    useEffect(() => {
+                      fetchCategories()
+                    }, [])
+                    ...
+                  </code></pre>
+                </div>
+                <div class="w-[39%] max-sm:w-[100%]">
+                  <pre data-line="0,6-8"><code class="language-ts">
+                  //services/RecipeService.ts
+                  import axios from 'axios'
+                  import { CategoriesAPIResponseSchema } from '../utils/recipes-schema'
+                  
+                  export async function getCategories(){
+                      //console.log('desde RecipeService')
+                      const url = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list'
+                      const {data} = await axios (url)
+                      console.log(data)
+                  }               
+                  </code></pre>
+              </div>
+              <div class="w-[27%] max-sm:w-[100%] ml-1">
+                <img src="https://andune55.github.io/manual-react/assets/318-2-tbsSzMaV.png" alt="img" loading="lazy">
+              </div>
+            </div>
+            
+            <p><span class="destacado">Para validar la respuesta</span> tenemos que pasarle nuestro schema: <code class="language-ts">const result = CategoriesAPIResponseSchema.safeParse(data)</code> y si hacemos un console.log a esa variable result veremos que obtenemos un success true porque nuestro schema es correcto y estamos validando correctamente esa información que estamos obteniendo (si tuviera algo mal en mi schema obtendríamos un false)</p>
+
+            <div class="flex max-sm:flex-col">
+              <div class="w-[50%] max-sm:w-[100%]">
+                <pre data-line="0"><code class="language-ts">
+                  //services/RecipeService.ts
+                  import axios from 'axios'
+                  import { CategoriesAPIResponseSchema } from '../utils/recipes-schema'
+                  
+                  export async function getCategories(){
+                      //console.log('desde RecipeService')
+                      const url = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list'
+                      const {data} = await axios (url)
+                      const result = CategoriesAPIResponseSchema.safeParse(data)
+                      console.log(result)
+                  }               
+                  </code></pre>
+              </div>
+              <div class="w-[50%] max-sm:w-[100%]">
+                <img src="https://andune55.github.io/manual-react/assets/318-3-BsBBO_b9.png" alt="img" loading="lazy">
+              </div>
+            </div>
+
+           <p><span class="destacado">Vamos a escribir en el state.</span> 
+            <ul class="list-disc my-3">
+              <li class="my-1.25">
+                En nuestro slice <span class="file">stores/recipeSlice.ts</span> en vez de getCategories() vamos a tener un <code class="language-ts">const categories = await getCategories()</code> y hacemos console.log(categories) para que aparezcan las categorías pero desde el slice <span class="destacado">estamos llamando a la función getCategories() de nuestro servicio con un await (porque es una función asíncrona)</span>. Y si recargamos vemos que aparecen esas categorías pero están viniendo desde el slice de nuestro store:</p>
+
+                <div class="flex max-sm:flex-col">
+                  <div class="w-[33%] max-sm:w-[100%]">
+                    <pre data-line="0,8-10"><code class="language-ts">
+                      //services/RecipeService.ts
+                      import axios from 'axios'
+                      import { CategoriesAPIResponseSchema } from '../utils/recipes-schema'
+                      
+                      export async function getCategories(){
+                          const url = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list'
+                          const {data} = await axios (url)                   
+                          const result = CategoriesAPIResponseSchema.safeParse(data)                    
+                          if(result.success){
+                              return result.data
+                          }   
+                      }  
+                    </code></pre>
+                  </div>
+                  <div class="w-[33%] max-sm:w-[100%]">
+                    <pre data-line="0"><code class="language-ts">
+                      //stores/recipeSlice.ts
+                      import { StateCreator } from 'zustand'
+                      import { getCategories } from '../services/RecipeService.ts'
+                      type Category = []
+                      
+                      export type RecipesSliceType = {
+                          categories: Category[]
+                          fetchCategories: () => Promise&lt;void&gt;
+                      }
+                      export const createRecipesSlice: StateCreator&lt;RecipesSliceType&gt; = () => ({
+                          categories: [],
+                          fetchCategories: async () => {
+                              //getCategories()
+                              const categories = await getCategories()
+                              console.log(categories)
+                          }
+                      })
+                    </code></pre>
+                  </div>
+                  <div class="w-[33%] max-sm:w-[100%]">
+                    <img src="https://andune55.github.io/manual-react/assets/318-4-Dgf5j639.png" alt="img" loading="lazy">
+                  </div>
+                </div>
+
+              </li>
+              <li class="my-1.25">
+                <p>Para escribir en nuestro state categories: Category[] de nuestro slice, le pasamos set como parámetro a la función de nuestro slice <strong>createRecipesSlice</strong>, y teniendo acceso a esa función set ya podemos escribir en el state <strong>recordemos que como variable y state se llaman igual podemos setear poniendo únicamente una vez categories en vez de categories: categories :)</strong></p>
+                <pre data-line="0,3,9,15-17"><code class="language-ts">
+                  //stores/recipeSlice.ts
+                  import { StateCreator } from 'zustand'
+                  import { getCategories } from '../services/RecipeService.ts'
+                  type Category = []
+                  
+                  export type RecipesSliceType = {
+                      categories: Category[]
+                      fetchCategories: () => Promise&lt;void&gt;
+                  }
+                  export const createRecipesSlice: StateCreator&lt;RecipesSliceType&gt; = (set) => ({
+                      categories: [],
+                      fetchCategories: async () => {
+                          //getCategories()
+                          const categories = await getCategories()
+                          console.log(categories)
+                          set({
+                              categories
+                          })
+                      }
+                  })
+                </code></pre>
+
+                <p>Ese categories de nuestro seteo ahora mismo nos marca una advertencia en rojo <span class="bg-amber-950 text-amber-300">El tipo '{ drinks: { strCategory: string; }[]; } | undefined' no se puede asignar al tipo '[][] | undefined'.
+                  Al tipo "{ drinks: { strCategory: string; }[]; }" le faltan las propiedades siguientes del tipo "[][]": length, pop, push, concat y 28 más.ts(2322)</span> porque <span class="destacado">RECORDEMOS!</span> habíamos dejado este type sin definir hasta saber qué obtendríamos de la API y poder validarlo: <code class="language-ts">type Category = []</code>. ¿Como lo definimos para que nos permita escribirlo correctamente? Eliminamos ese type y nos vamos a src y generamos nuestra carpeta de types <span class="file">types/index.ts</span> en donde vamos a definir el type para categories en base a la respuesta, el schema que definimos anteriormente:</p>
+
+                  <pre data-line="0"><code class="language-ts">
+                    //types/index.ts
+                    import { z } from 'zod'
+                    import { CategoriesAPIResponseSchema } from '../utils/recipes-schema'
+                    
+                    export type Categories = z.infer&lt;typeof CategoriesAPIResponseSchema&gt;
+                  </code></pre>
+
+                  <div class="flex max-sm:flex-col mt-3">
+                    
+                    <div class="w-[50%] max-sm:w-[100%]">
+                      <pre class="rojo" data-line="0,3,6,10"><code class="language-ts">
+                        //stores/recipeSlice.ts
+                        import { StateCreator } from 'zustand'
+                        import { getCategories } from '../services/RecipeService.ts'
+                        type Category = []
+                        
+                        export type RecipesSliceType = {
+                            categories: Category[]
+                            fetchCategories: () => Promise&lt;void&gt;
+                        }
+                        export const createRecipesSlice: StateCreator&lt;RecipesSliceType&gt; = (set) => ({
+                            categories: [],
+                            fetchCategories: async () => {
+                                const categories = await getCategories()
+                                console.log(categories)
+                                set({
+                                    categories
+                                })
+                            }
+                        })
+                      </code></pre>
+                    </div>
+                    <div class="w-[50%] max-sm:w-[100%]">
+                      <pre class="verde" data-line="0,3,6,10-12"><code class="language-ts">
+                          //stores/recipeSlice.ts
+                          import { StateCreator } from 'zustand'
+                          import { getCategories } from '../services/RecipeService.ts'
+                          import type { Categories } from '../types/index.ts'
+                          
+                          export type RecipesSliceType = {
+                              categories: Categories
+                              fetchCategories: () => Promise&lt;void&gt;
+                          }
+                          export const createRecipesSlice: StateCreator&lt;RecipesSliceType&gt; = (set) => ({
+                              categories: {
+                                  drinks: []
+                              }},
+                              fetchCategories: async () => {
+                                  const categories = await getCategories()
+                                  console.log(categories)
+                                  set({
+                                      categories
+                                  })
+                              }
+                          })
+                        </code></pre>
+                    </div>
+                  </div>
+              </li>
+              <li class="my-1.25">
+                <span class="naranja">Colocar las categorías en el State y RETO 06 / 320. SOLUCIÓN RETO 06</span>
+                <p>Ya estamos leyendo nuestras categorías por medio de nuestro slice sin embargo no se pueden ver aún en el state y enviarlo a la consola no va a ser la forma más eficiente. Veamos como hacerlo para que se vean en Redux Developer Tools. Abrimos <span class="file">stores/useAppStore.ts</span> que es el archivo que "orquesta" los slices :P e importamos <code class="language-ts"> import { devtools } from 'zustand/middleware'</code> y realizamos la modificación indicada a continuación para que funcione. Si abrimos Redux devtools ya podemos ver el state.</p>
+
+                <div class="flex max-sm:flex-col">
+                  <div class="w-[34%] max-sm:w-[100%]">
+                    <pre data-line="0"><code class="language-ts">
+                      //stores/useAppStore.ts
+                      import { create } from 'zustand'
+                      import { RecipesSliceType, createRecipesSlice } from './recipeSlice' 
+                      
+                      export const useAppStore = create&lt;RecipesSliceType&gt;((...a) => ({
+                          ...createRecipesSlice(...a)
+                      }))
+                    </code></pre>
+                  </div>
+                  <div class="w-[37%] max-sm:w-[100%]">
+                    <pre data-line="0,2,5,7"><code class="language-ts">
+                      //stores/useAppStore.ts
+                      import { create } from 'zustand'
+                      import { devtools } from 'zustand/middleware'
+                      import { RecipesSliceType, createRecipesSlice } from './recipeSlice' 
+                      
+                      export const useAppStore = create&lt;RecipesSliceType&gt;()(devtools((...a) => ({
+                          ...createRecipesSlice(...a)
+                      })))
+                    </code></pre>
+                  </div>
+                  <div class="w-[28%] max-sm:w-[100%]">
+                   <img src="https://andune55.github.io/manual-react/assets/318-5-RWdmGvYy.png" alt="img" loading="lazy">
+                  </div>
+                </div>
+
+                <p>Hagamos el <strong>Reto 06: Mostrar categorías</strong>.</p>
+                <ul class="list-disc my-3">
+                  <li class="my-1.25">Mostrar las categorías en las opciones del select.</li>
+                  <li class="my-1.25">En el Header hay que importar las categorías e iterar en el select.</li>
+                  <li class="my-1.25">Recuerda mostrar el key ya que estamos iterando una colección.</li>
+                </ul>
+
+                <p>En <span class="file">components/Header.tsx</span> creamos la variable <code class="language-ts"> const categories = useAppStore((state) => state.categories)</code> e iteramos para generar las opciones del select categoría de la siguiente manera, de modo que si recargamos vemos que ya nos aparecen en ese select las categorías:</p>
+
+                <div class="flex max-sm:flex-col">
+                  <div class="w-[50%] max-sm:w-[100%]">
+                    <pre data-line="0,8-13"><code class="language-ts">
+                      //components/Header.tsx
+                      ...
+                      &lt;select 
+                        id=&quot;categoria&quot;
+                        name=&quot;categoria&quot;
+                        className=&#39;p-3  w-full rounded-lg focus:outline-none bg-white&#39;
+                        &gt;
+                          &lt;option value=&quot;&quot;&gt;-- Seleccione --&lt;/option&gt;
+                          {categories.drinks.map( category =&gt; (
+                            &lt;option 
+                              key={category.strCategory}
+                              value={category.strCategory}
+                            &gt;{category.strCategory}&lt;/option&gt;
+                          ))}
+                      &lt;/select&gt;
+                      ...
+                    </code></pre>
+                  </div>
+                  <div class="w-[50%] max-sm:w-[100%]">
+                    <img src="https://andune55.github.io/manual-react/assets/319-BmDEuN2Q.png" alt="img" loading="lazy">
+                  </div>
+                </div>
+              </li>
+            </ul>
+
+            <p>A continuación veremos como tener en el state tanto nombre como categoría, porqeu requeriremos ambos valores para enviar una petición y obtener las recetas que concuerden con esa búsqueda.</p>
+          </div>
 
 
-</div>
-
-<!-- Bloque desplegable interior-->
-<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-319').toggle();">
-  <h3>319. Colocar las categorías en el State y RETO 06 / 320. SOLUCIÓN RETO 06</h3>
-  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
-</div>
-<div id="seccion18-319" class="hidden">
-
-
-  <span class="naranja">SOLUCIÓN RETO 06</span>
-
-</div>
 
 <!-- Bloque desplegable interior-->
 <div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-321').toggle();">
