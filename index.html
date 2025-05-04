@@ -897,7 +897,7 @@
             <h3>318. Obtener las categorías de la API y Validar con ZOD / 319. Colocar las categorías en el State y RETO 06 / 320. SOLUCIÓN RETO 06</h3>
             <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
           </div>
-          <div id="seccion18-318" class="">
+          <div id="seccion18-318" class="hidden">
             <p>Vamos a hacer el llamado hacia la API. Cogemos como decíamos este endpoint <a href="https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list" class="underline" target="blank">https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list</a> y si entramos vemos que nos retorna un objeto, drinks, un arreglo y luego otro objeto que dice "strCategory" y ya trae los nombres de categoría del lado derecho. Utilizamos Zod para definir este Schema. Vamos a src y podemos crear la carpeta <strong>schema</strong> como hemos hecho o, esta vez la llamaremos <strong>utils</strong> <span class="file">utils/recipes-schema.ts</span> y para ir definiendo nuestro schema con Zod nos fijamos en lo que vemos en el endpoint, no es que haya siempre una misma regla, lo ideal es ver en cada proyecto, en cada API, la respuesta que obtenemos (que será distinta según quien haya creado el endpoint): </p>
 
             <div class="flex max-sm:flex-col mb-3">
@@ -1189,15 +1189,61 @@
 
 
 
-<!-- Bloque desplegable interior-->
-<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-321').toggle();">
-  <h3>321. Leyendo los datos ingresados en el Formulario</h3>
-  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
-</div>
-<div id="seccion18-321" class="hidden">
+          <!-- Bloque desplegable interior-->
+          <div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-321').toggle();">
+            <h3>321. Leyendo los datos ingresados en el Formulario</h3>
+            <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+          </div>
+          <div id="seccion18-321" class="">
+            <p>Coloquemos en el state lo que el usuario meta en el input nombre/ingredientes y lo que seleccione en el select de categorías. Vamos a <span class="file">components/Header.tsx</span> importamos useState (y ChangeEvent ), creamos un nuevo state local <code class="language-ts">const [searchFilters, setSearchFilters]</code> y su correspondiente función para setearlo metida en una variable <strong>handleChange</strong> que llamaremos desde ambos inputs. Si recargamos y vamos a la pestaña components, veremos como cambian cuando rellenamos el input de nombre y seleccionamos una categoría.</p>
 
+            <div class="flex max-sm:flex-col">
+              <div class="w-[50%] max-sm:w-[100%]">
+                <pre data-line="0,1,3-6,8-13,21,22,29,30"><code class="language-ts">
+                  //components/Header.tsx
+                  import { useMemo, useEffect, useState, ChangeEvent } from 'react'
+                  ...
+                  const [searchFilters, setSearchFilters] = useState({
+                    ingredient: '',
+                    category: ''
+                  })
+                  ...
+                  const handleChange = (e: ChangeEvent&lt;HTMLInputElement&gt; | ChangeEvent&lt;HTMLSelectElement&gt;) => {
+                    setSearchFilters({
+                      ...searchFilters,
+                      [e.target.name]: e.target.value
+                    })
+                  }
+                  ...
+                  &lt;input 
+                    id=&quot;ingredient&quot;
+                    type=&quot;text&quot; 
+                    name=&quot;ingredient&quot;
+                    className=&#39;p-3  w-full rounded-lg focus:outline-none bg-white&#39;
+                    placeholder=&quot;Nombre o Ingrediente. Ej. Vodka, Tequila, Café&quot;
+                    onChange={handleChange}
+                    value={searchFilters.ingredient}
+                  /&gt;
+                  ...
+                  &lt;select 
+                    id=&quot;category&quot;
+                    name=&quot;category&quot;
+                    className=&#39;p-3  w-full rounded-lg focus:outline-none bg-white&#39;
+                    onChange={handleChange}
+                    value={searchFilters.category}
+                  &gt;
+    
+                </code></pre>
+              </div>
+              <div class="w-[50%] max-sm:w-[100%]">
+                <img src="./src/assets/img/321.png" alt="img" loading="lazy">
+              </div>
+            </div>
 
-</div>
+            <p>Una vez que tengamos un ingrediente y una categoría ya consultaremos de nuevo nuestra API pero primero tenemos que agregar el onsubmit y un poco de validación.</p>
+            
+
+          </div>
 
 <!-- Bloque desplegable interior-->
 <div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-322').toggle();">
