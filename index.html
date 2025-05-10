@@ -1194,7 +1194,7 @@
             <h3>321. Leyendo los datos ingresados en el Formulario</h3>
             <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
           </div>
-          <div id="seccion18-321" class="">
+          <div id="seccion18-321" class="hidden">
             <p>Coloquemos en el state lo que el usuario meta en el input nombre/ingredientes y lo que seleccione en el select de categorías. Vamos a <span class="file">components/Header.tsx</span> importamos useState (y ChangeEvent ), creamos un nuevo state local <code class="language-ts">const [searchFilters, setSearchFilters]</code> y su correspondiente función para setearlo metida en una variable <strong>handleChange</strong> que llamaremos desde ambos inputs. Si recargamos y vamos a la pestaña components, veremos como cambian cuando rellenamos el input de nombre y seleccionamos una categoría.</p>
 
             <div class="flex max-sm:flex-col">
@@ -1245,15 +1245,212 @@
 
           </div>
 
-<!-- Bloque desplegable interior-->
-<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-322').toggle();">
-  <h3>322. Trabajando con el Submit al formulario de búsqueda</h3>
-  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
-</div>
-<div id="seccion18-322" class="hidden">
+          <!-- Bloque desplegable interior-->
+          <div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-322').toggle();">
+            <h3>322. Trabajando con el Submit al formulario de búsqueda</h3>
+            <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+          </div>
+          <div id="seccion18-322" class="">
+            <p>Vamos a trabajar con el onSubmit del formulario <code class="language-ts">onSubmit={handleSubmit}</code> así que definimos esa función handleSubmit.</p>
+            <ul class="list-disc my-3">
+              <li class="my-1.25">Incluimos la primera validación para que nos saque un console.log con aviso cuando alguno de los dos campos se deje vacío. Lo dejamos como "TODO" porque reutilizaremos la misma notificación cuando agreguemos a favoritos, quitemos de favoritos y también para la parte de validación.
+                 <div class="flex max-sm:flex-col">
+                  <div class="w-[50%] max-sm:w-[100%]">
+                    <pre data-line="0"><code class="language-ts">
+                    //components/Header.tsx
+                    import { useMemo, useEffect, useState, ChangeEvent, FormEvent } from 'react'
+                    ...
+                    const handleSubmit = (e: FormEvent&lt;HTMLFormElement&gt;) => {
+                      e.preventDefault()
+                  
+                      // TODO: Validar
+                      if(Object.values(searchFilters).includes('')){
+                        console.log('Todos los campos son obligatorios')
+                        return
+                      }
+                    }
+                    </code></pre>
+                  </div>
+                  <div class="w-[50%] max-sm:w-[100%]">
+                    <img src="./src/assets/img/322-1.png" alt="img" loading="lazy">
+                  </div>
+                 </div>
+                
+                
+              </li>
+              <li class="my-1.25">Consultamos las recetas. Vamos a <span class="file">stores/recipeSlice.ts</span> y hacemos la llamada para buscar las recetas. Justo a continuación de nuestra acción <code class="language-ts">fetchCategories: async () => {...}</code>. Creamos una función nueva que nombramos como <strong>searchRecipes</strong> (de momento le metemos un <strong>console.log('Desde recipeSlice.ts')</strong> para ver que se llama desde ahí). 
+              
+                <div class="flex max-sm:flex-col">
+                  <div class="w-[50%] max-sm:w-[100%]">
+                    <pre data-line="0,9,10"><code class="language-ts">
+                      //components/Header.tsx
+                      const handleSubmit = (e: FormEvent&lt;HTMLFormElement&gt;) => {
+                        e.preventDefault()
 
+                        // TODO: Validar
+                        if(Object.values(searchFilters).includes('')){
+                          console.log('Todos los campos son obligatorios')
+                          return
+                        }
+                        //Consultar las recetas
+                        searchRecipes()
+                      }
+                    </code></pre>
+                  
+                    <pre data-line="0,8,20-23"><code class="language-ts">
+                    //stores/recipeSlice.ts
+                    import { StateCreator } from 'zustand'
+                    import { getCategories } from '../services/RecipeService.ts'
+                    import type { Categories } from '../types/index.ts'
 
-</div>
+                    export type RecipesSliceType = {
+                        categories: Categories
+                        fetchCategories: () =&gt; Promise&lt;void&gt;
+                        searchRecipes: () =&gt; Promise&lt;void&gt;
+                    }
+                    export const createRecipesSlice: StateCreator&lt;RecipesSliceType&gt; = (set) =&gt; ({
+                        categories: {
+                            drinks: []
+                        },
+                        fetchCategories: async () => {
+                            const categories = await getCategories()
+                            console.log(categories)
+                            set({
+                                categories
+                            })
+                        },
+                        searchRecipes: async () => {
+                            console.log('Desde recipeSlice.ts')
+                        }
+                    })
+                    </code>
+                    </pre>
+                  </div>
+                  <div class="w-[50%] max-sm:w-[100%]">
+                    <img src="./src/assets/img/322-2.png" alt="img" loading="lazy">
+                  </div>
+                </div>
+              </li>
+              <li class="my-1 25">Para poder hacer la consulta hacia la API requerimos ingrediente y categoría. Así que abrimos nuestro schema <span class="file">utils/recipes-schema.ts</span> para generar un schema nuevo que nombramos <strong>SearchFilterSchema</strong> y "tiene que ser lo mismo" que tenemos en nuestro state local <strong>searchFilters</strong> de <span class="file">components/Header.tsx.</span> Y en nuestros types <span class="file">types/index.ts</span> creamos el type correspondiente colocándole el typeof de nuestro nuevo schemma:
+              
+                <div class="flex max-sm:flex-col">
+                  <div class="w-[27%] max-sm:w-[100%]">
+                    <pre data-line="0"><code class="language-ts">
+                      //components/Header.tsx
+                      ...
+                      const [searchFilters, setSearchFilters] = useState({
+                        ingredient: '',
+                        category: ''
+                      })
+                    </code></pre>
+                  </div>
+                  <div class="w-[27%] max-sm:w-[100%]">
+                    <pre data-line="0,10-13"><code class="language-ts">
+                    //utils/recipes-schema.ts
+                    import { z } from 'zod'
+
+                    export const CategoriesAPIResponseSchema = z.object({
+                        drinks: z.array(
+                            z.object({
+                                strCategory: z.string()
+                            })
+                        )
+                    })
+                    export const SearchFilterSchema = z.object({
+                        ingredient: z.string(),
+                        category: z.string()
+                    })
+                    </code></pre>
+                  </div>
+                
+                <div class="w-[45%] max-sm:w-[100%]">
+                    <pre data-line="0,2,5"><code class="language-ts">
+                    //types/index.ts
+                    import { z } from 'zod'
+                    import { CategoriesAPIResponseSchema, SearchFilterSchema } from '../utils/recipes-schema'
+
+                    export type Categories = z.infer&lt;typeof CategoriesAPIResponseSchema&gt;
+                    export type SearchFilter = z.infer&lt;typeof SearchFilterSchema&gt;                     
+                    </code></pre>
+                  </div>
+                </div>
+              </li>
+              <li class="my-1.25">Volvemos a <span class="file">components/Header.tsx</span> y en la llamada para consultar las recetas hemos de pasarle nuestro state de searchFilters para que nuestro slice pueda comunicarse con el servicio y obtener las recetas. Especificamos en nuestro <span class="file">stores/recipeSlices.ts</span>, en la firma de esa acción, el type del parámetro que va a recibir y tan pronto lo hacemos, vemos que en nuestro componente <span class="file">components/Header.tsx</span> el IS nos marca como aviso que, en la llamada de nuestra función <code class="language-ts">searchRecipes()</code> no le estamos pasando ningún argumento: <span class="bg-amber-950 text-amber-300">
+                recipeSlice.ts(8, 21): No se proporcionó ningún argumento para "searchFilters".
+                const searchRecipes: (searchFilters: {<br>
+                    ingredient: string;<br>
+                    category: string;<br>
+                }) => Promise<void></span> como eso está en nuestro state local <strong>searchFilters</strong> lo pasamos como argumento. A continuación en nuestro <span class="file">stores/recipeSlice.ts</span> le ponemos a nuestra función <strong>searchRecipes</strong> el parámetro filters (que ya va a estar tipado como acabamos de añadir en nuestra firma) y hacemos un console.log a esos filtros de búsqueda <strong>console.log(filters)</strong>
+
+                  <div class="flex max-sm:flex-col">
+                    <div class="w-[37%] max-sm:w-[100%]">
+                      <pre data-line="0,6-9,19,20"><code class="language-ts">
+                        //components/Header.tsx
+                        import { useMemo, useEffect, useState, ChangeEvent, FormEvent } from 'react'
+                        import { NavLink, useLocation } from 'react-router-dom' 
+                        import { useAppStore } from '../stores/useAppStore'
+
+                        export default function Header() {
+                          const [searchFilters, setSearchFilters] = useState({
+                            ingredient: '',
+                            category: ''
+                          })
+                        ...
+                        const handleSubmit = (e: FormEvent&lt;HTMLFormElement&gt;) => {
+                            e.preventDefault()
+
+                            // TODO: Validar
+                            if(Object.values(searchFilters).includes('')){
+                              console.log('Todos los campos son obligatorios')
+                              return
+                            }
+                            //Consultar las recetas
+                            searchRecipes(searchFilters)
+                          }
+                      </code></pre>
+                    </div>
+                    <div class="w-[38%] max-sm:w-[100%]">                      
+                        <pre data-line="0,8,21,22"><code class="language-ts">
+                        //stores/recipeSlice.ts
+                        import { StateCreator } from &#39;zustand&#39;
+                        import { getCategories } from &#39;../services/RecipeService.ts&#39;
+                        import type { Categories, SearchFilter } from &#39;../types/index.ts&#39;
+
+                        export type RecipesSliceType = {
+                            categories: Categories
+                            fetchCategories: () =&gt; Promise&lt;void&gt;
+                            searchRecipes: (searchFilters: SearchFilter ) =&gt; Promise&lt;void&gt;
+                        }
+                        export const createRecipesSlice: StateCreator&lt;RecipesSliceType&gt; = (set) =&gt; ({
+                            categories: {
+                                drinks: []
+                            },
+                            fetchCategories: async () =&gt; {
+                                const categories = await getCategories()
+                                console.log(categories)
+                                set({
+                                    categories
+                                })
+                            },
+                            searchRecipes: async (filters) =&gt; {
+                                console.log(filters)
+                            }
+                        })                     
+                      </code></pre>
+                    </div>
+                     
+                    <div class="w-[25%] max-sm:w-[100%]">
+                      <img src="./src/assets/img/322-3.png" alt="img" loading="lazy">
+                    </div>
+                    
+                  </div>
+              
+              </li>
+            </ul>
+
+           <p>Vamos a crear una función más en el servicio para no cargar tanto nuestro store.</p>
+
+          </div>
 
 <!-- Bloque desplegable interior-->
 <div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-323').toggle();">
