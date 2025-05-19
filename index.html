@@ -1246,7 +1246,7 @@
             <h3>322. Trabajando con el Submit al formulario de búsqueda</h3>
             <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
           </div>
-          <div id="seccion18-322" class="">
+          <div id="seccion18-322" class="hidden">
             <p>Vamos a trabajar con el onSubmit del formulario <code class="language-ts">onSubmit={handleSubmit}</code> así que definimos esa función handleSubmit.</p>
             <ul class="list-disc my-3">
               <li class="my-1.25">Incluimos la primera validación para que nos saque un console.log con aviso cuando alguno de los dos campos se deje vacío. Lo dejamos como "TODO" porque reutilizaremos la misma notificación cuando agreguemos a favoritos, quitemos de favoritos y también para la parte de validación.
@@ -1448,15 +1448,57 @@
 
           </div>
 
-<!-- Bloque desplegable interior-->
-<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-323').toggle();">
-  <h3>323. Buscar las Recetas en base a categoría e Ingredientes</h3>
-  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
-</div>
-<div id="seccion18-323" class="hidden">
+          <!-- Bloque desplegable interior-->
+          <div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-323').toggle();">
+            <h3>323. Buscar las Recetas en base a categoría e Ingredientes</h3>
+            <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+          </div>
+          <div id="seccion18-323" class="">
+            <p>En nuestro <span class="file">RecipeService.ts</span> vamos a crear una segunda función que es la que se encarga de obtener las recetas en base a la categoría y los ingredientes que el usuario seleccionó. De momento solo hacemos un console.log(filters) para llamarla desde nuestro slice <span class="file">recipeSlice.ts</span> y comprobarlo en consola. Vamos a hacer algo parecido a vídeos anteriores. Vemos qué endpoints tenemos en la API, los del grupo <strong>search</strong> nos van a permitir hacer una búsqueda; los de <strong>lookup</strong> para buscar un único coctel o ingrediente por id, y también los hay del grupo <strong>filter</strong> para por ejemplo buscar por ingrediente o por categoría; de hecho podemos mezclar estos dos endpoints:</p>
 
+             <ul class="list-disc my-3">
+              <li class="my-1.25"><a class="underline" href="https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=Gin" target="_blank">https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=Gin</a></li>
+              <li class="my-1.25"><a class="underline" href="https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=Ordinary_Drink" target="_blank">https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=Ordinary_Drink</a></li>              
+            </ul>
 
-</div>
+            <p>Entonces componemos nuestra url de consulta combinando esos dos endpoints, haciendo una url dinámica en la que pasamos como querys <strong>filters.category</strong> y <strong>filters.ingredient</strong> para obetener un data que sacamos en la consola para poder ver qué obtenemos y entonces definir nuestro schema</p>
+
+            <div class="flex max-sm:flex-col">
+              <div class="w-[70%] max-sm:w-[100%]">
+                <pre data-line="0"><code class="language-ts">
+                  //services/RecipeService.ts
+                  ...
+                  export async function getRecipes(filters: SearchFilter){
+                      console.log(filters)
+                      const url = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${filters.category}&i=${filters.ingredient}`
+                      const data = await axios(url)
+                      console.log(data)
+                  }
+                </code></pre>
+              </div>
+              <div class="w-[30%] max-sm:w-[100%]">
+                <pre data-line="0"><code class="language-ts">
+                  //stores/recipeSlice.ts
+                  ...
+                  searchRecipes: async (filters) => {
+                      await getRecipes(filters)
+                  }
+                </code></pre>
+              </div>
+            </div>
+
+            <p>Como vemos si por ejemplo buscamos "Tequila" y en categoría elegimos "Cocktail" vemos que obtenemos un array con 100 elementos y cada uno de esos objetos son sencillos, solo tienen lo siguiente:</p>
+
+            <ul class="list-disc my-3">
+              <li class="my-1.25">idDrink</li>
+              <li class="my-1.25">strDrink</li>
+              <li class="my-1.25">strDrinkThumb (la imagen)</li>
+            </ul>
+
+            <p>Veamos cómo definir este schema, validemos esa respuesta con ZOD.</p>
+           
+
+          </div>
 
 <!-- Bloque desplegable interior-->
 <div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-324').toggle();">
