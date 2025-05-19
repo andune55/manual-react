@@ -10,8 +10,8 @@
     
     <!-- <script src="https://unpkg.com/@tailwindcss/browser@4"></script> -->
   
-    <script type="module" crossorigin src="https://andune55.github.io/manual-react/assets/index-CL32eF_7.js"></script>
-    <link rel="stylesheet" crossorigin href="https://andune55.github.io/manual-react/assets/index-DI6qpAW2.css">
+    <script type="module" crossorigin src="https://andune55.github.io/manual-react/assets/index-BPlBfSux.js"></script>
+    <link rel="stylesheet" crossorigin href="https://andune55.github.io/manual-react/assets/index-D-2Q0cn3.css">
   </head>
   <body>
     <div id="root"></div>	
@@ -1183,8 +1183,6 @@
             <p>A continuación veremos como tener en el state tanto nombre como categoría, porqeu requeriremos ambos valores para enviar una petición y obtener las recetas que concuerden con esa búsqueda.</p>
           </div>
 
-
-
           <!-- Bloque desplegable interior-->
           <div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-321').toggle();">
             <h3>321. Leyendo los datos ingresados en el Formulario</h3>
@@ -1450,7 +1448,7 @@
 
           <!-- Bloque desplegable interior-->
           <div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-323').toggle();">
-            <h3>323. Buscar las Recetas en base a categoría e Ingredientes</h3>
+            <h3>323. Buscar las Recetas en base a categoría e Ingredientes / 324. Validando la Respuesta con ZOD</h3>
             <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
           </div>
           <div id="seccion18-323" class="">
@@ -1471,7 +1469,7 @@
                   export async function getRecipes(filters: SearchFilter){
                       console.log(filters)
                       const url = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${filters.category}&i=${filters.ingredient}`
-                      const data = await axios(url)
+                      const {data} = await axios(url)
                       console.log(data)
                   }
                 </code></pre>
@@ -1495,20 +1493,161 @@
               <li class="my-1.25">strDrinkThumb (la imagen)</li>
             </ul>
 
-            <p>Veamos cómo definir este schema, validemos esa respuesta con ZOD.</p>
+            <img src="https://andune55.github.io/manual-react/assets/323-Cru1jxTp.png" alt="img" loading="lazy">
+
+            <span class="naranja">Validando la Respuesta con ZOD</span>
+
+            <p>Veamos cómo definir este schema, validemos esa respuesta con ZOD. Teniendo en mente esta manera de hacerlo de <span class="destacado">ver la respuesta y entonces diseñar nuestro schema</span>, miramos nuestra respuesta y en nuestro <span class="file">utils/recipes-schema.ts</span> creamos estos dos schemas (uno "en plural" para Drinks y "otro en singular" para cada uno de esos tres elementos que vienen en cada Drink):</p>
+
+            <p>Entonces en nuestro <span class="file">services/RecipeService.ts</span> creamos la variable <code class="language-ts">const result = DrinksAPIResponse.safeParse(data)</code> y hacemos un console.log para ver que el resultado es success (si probamos a utilizar el schema singular vemos que nos da error). Entonces usando un if(result.success) retornamos <strong>result.data</strong></p>
+
+            <p>En nuestro <span class="file">stores/recipeSlice.ts</span> creamos la variable <code class="language-ts">const drinks = await getRecipes(filters)</code> y hacemos un console.log de la misma, para obtener ese result desde el slice.</p>
+
+            <div class="flex max-sm:flex-col">
+              <div class="w-[26%] max-sm:w-[100%]">
+                <pre data-line="14-21"><code class="language-ts">
+              //utils/recipes-schema.ts
+              import { z } from 'zod'
+
+              export const CategoriesAPIResponseSchema = z.object({
+                  drinks: z.array(
+                      z.object({
+                          strCategory: z.string()
+                      })
+                  )
+              })
+              export const SearchFilterSchema = z.object({
+                  ingredient: z.string(),
+                  category: z.string()
+              })
+              export const DrinkAPIResponse = z.object({
+                  idDrink: z.string(),
+                  strDrink: z.string(),
+                  strDrinkThumb: z.string() 
+              })
+              export const DrinksAPIResponse = z.object({
+                  drinks: z.array(DrinkAPIResponse)
+              })
+            </code></pre>
+              </div>
+              <div class="w-[37%] max-sm:w-[100%]">
+                <pre data-line="13-19"><code class="language-ts">
+                  //services/RecipeService.ts
+                  import axios from 'axios'
+                  import { CategoriesAPIResponseSchema, DrinksAPIResponse } from '../utils/recipes-schema'
+                  import { SearchFilter } from '../types/index.ts'
+
+                  export async function getCategories(){
+                      const url = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list'
+                      const {data} = await axios (url)
+                      const result = CategoriesAPIResponseSchema.safeParse(data)
+                      if(result.success){
+                          return result.data
+                      }   
+                  }   
+                  export async function getRecipes(filters: SearchFilter){
+                      const url = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${filters.category}&i=${filters.ingredient}`
+                      const {data} = await axios(url) 
+                      const result = DrinksAPIResponse.safeParse(data)
+                      //console.log(result)
+                      if(result.success){
+                        return result.data
+                      }
+                  }
+                </code></pre>
+              </div>
+              <div class="w-[37%] max-sm:w-[100%]">
+                <pre data-line="21-25"><code class="language-ts">
+                //stores/recipeSlice.ts
+                import { StateCreator } from 'zustand'
+                import { getCategories, getRecipes } from '../services/RecipeService.ts'
+                import type { Categories, SearchFilter } from '../types/index.ts'
+
+                export type RecipesSliceType = {
+                    categories: Categories
+                    fetchCategories: () => Promise&lt;void&gt;
+                    searchRecipes: (searchFilters: SearchFilter ) =&gt; Promise&lt;void&gt;
+                }
+                export const createRecipesSlice: StateCreator&lt;RecipesSliceType&gt; = (set) => ({
+                    categories: {
+                        drinks: []
+                    },
+                    fetchCategories: async () => {
+                        const categories = await getCategories()
+                        console.log(categories)
+                        set({
+                            categories
+                        })
+                    },
+                    searchRecipes: async (filters) => {
+                        //console.log(filters)
+                        const drinks = await getRecipes(filters)
+                        console.log(drinks)
+                    }
+                })               
+                </code></pre>
+              </div>
+            </div>
+
+            <p>Mirando en <span class="file">stores/recipeSlice.ts</span> aún no hemos metido en el state esos drinks que sacamos con un console.log(drinks). Lo definimos arriba de las acciones para seguir el mismo orden, y el type aún no lo hemos definido.</p>
+
+            <div class="flex max-sm:flex-col">
+              <div class="w-[50%] max-sm:w-[100%]">
+                <pre data-line="2,6"><code class="language-ts">
+                  //types/index.ts
+                  import { z } from 'zod'
+                  import { CategoriesAPIResponseSchema, DrinkAPIResponse, SearchFilterSchema } from '../utils/recipes-schema'
+
+                  export type Categories = z.infer&lt;typeof CategoriesAPIResponseSchema&gt;
+                  export type SearchFilter = z.infer&lt;typeof SearchFilterSchema &gt;
+                  export type Drinks = z.infer&lt;typeof DrinksAPIResponse &gt;
+                </code></pre>
+              </div>
+              <div class="w-[50%] max-sm:w-[100%]">
+                <pre data-line="3,7,15-17,29-31"><code class="language-ts">
+                  //stores/recipeSlice.ts
+                  import { StateCreator } from 'zustand'
+                  import { getCategories, getRecipes } from '../services/RecipeService.ts'
+                  import type { Categories, Drinks, SearchFilter } from '../types/index.ts'
+
+                  export type RecipesSliceType = {
+                      categories: Categories
+                      drinks: Drinks
+                      fetchCategories: () =&gt; Promise&lt;void&gt;
+                      searchRecipes: (searchFilters: SearchFilter ) =&gt; Promise&lt;void&gt;
+                  }
+                  export const createRecipesSlice: StateCreator&lt;RecipesSliceType&gt; = (set) =&gt; ({
+                      categories: {
+                          drinks: []
+                      },
+                      drinks: {
+                          drinks: []
+                      },
+                      fetchCategories: async () => {
+                          const categories = await getCategories()
+                          console.log(categories)
+                          set({
+                              categories
+                          })
+                      },
+                      searchRecipes: async (filters) => {
+                          //console.log(filters)
+                          const drinks = await getRecipes(filters)
+                          //console.log(drinks)
+                          set({
+                              drinks
+                          })
+                      }
+                  })
+                </code></pre>
+              </div>
+            </div>
+
+
            
 
           </div>
 
-<!-- Bloque desplegable interior-->
-<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-324').toggle();">
-  <h3>324. Validando la Respuesta con ZOD</h3>
-  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
-</div>
-<div id="seccion18-324" class="hidden">
-
-
-</div>
 
 <!-- Bloque desplegable interior-->
 <div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-325').toggle();">
