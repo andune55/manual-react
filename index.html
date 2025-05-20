@@ -10,8 +10,8 @@
     
     <!-- <script src="https://unpkg.com/@tailwindcss/browser@4"></script> -->
   
-    <script type="module" crossorigin src="https://andune55.github.io/manual-react/assets/index-BPlBfSux.js"></script>
-    <link rel="stylesheet" crossorigin href="https://andune55.github.io/manual-react/assets/index-D-2Q0cn3.css">
+    <script type="module" crossorigin src="https://andune55.github.io/manual-react/assets/index-Ctmpknz3.js"></script>
+    <link rel="stylesheet" crossorigin href="https://andune55.github.io/manual-react/assets/index-DdhlyWXW.css">
   </head>
   <body>
     <div id="root"></div>	
@@ -1235,8 +1235,6 @@
             </div>
 
             <p>Una vez que tengamos un ingrediente y una categoría ya consultaremos de nuevo nuestra API pero primero tenemos que agregar el onsubmit y un poco de validación.</p>
-            
-
           </div>
 
           <!-- Bloque desplegable interior-->
@@ -1451,7 +1449,7 @@
             <h3>323. Buscar las Recetas en base a categoría e Ingredientes / 324. Validando la Respuesta con ZOD</h3>
             <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
           </div>
-          <div id="seccion18-323" class="">
+          <div id="seccion18-323" class="hidden">
             <p>En nuestro <span class="file">RecipeService.ts</span> vamos a crear una segunda función que es la que se encarga de obtener las recetas en base a la categoría y los ingredientes que el usuario seleccionó. De momento solo hacemos un console.log(filters) para llamarla desde nuestro slice <span class="file">recipeSlice.ts</span> y comprobarlo en consola. Vamos a hacer algo parecido a vídeos anteriores. Vemos qué endpoints tenemos en la API, los del grupo <strong>search</strong> nos van a permitir hacer una búsqueda; los de <strong>lookup</strong> para buscar un único coctel o ingrediente por id, y también los hay del grupo <strong>filter</strong> para por ejemplo buscar por ingrediente o por categoría; de hecho podemos mezclar estos dos endpoints:</p>
 
              <ul class="list-disc my-3">
@@ -1459,7 +1457,7 @@
               <li class="my-1.25"><a class="underline" href="https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=Ordinary_Drink" target="_blank">https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=Ordinary_Drink</a></li>              
             </ul>
 
-            <p>Entonces componemos nuestra url de consulta combinando esos dos endpoints, haciendo una url dinámica en la que pasamos como querys <strong>filters.category</strong> y <strong>filters.ingredient</strong> para obetener un data que sacamos en la consola para poder ver qué obtenemos y entonces definir nuestro schema</p>
+            <p>Entonces componemos nuestra url de consulta combinando esos dos endpoints, haciendo una url dinámica en la que pasamos como querys <strong>filters.category</strong> y <strong>filters.ingredient</strong> para obtener un data que sacamos en la consola para poder ver qué obtenemos y entonces definir nuestro schema</p>
 
             <div class="flex max-sm:flex-col">
               <div class="w-[70%] max-sm:w-[100%]">
@@ -1596,7 +1594,7 @@
                 <pre data-line="2,6"><code class="language-ts">
                   //types/index.ts
                   import { z } from 'zod'
-                  import { CategoriesAPIResponseSchema, DrinkAPIResponse, SearchFilterSchema } from '../utils/recipes-schema'
+                  import { CategoriesAPIResponseSchema, DrinksAPIResponse, SearchFilterSchema } from '../utils/recipes-schema'
 
                   export type Categories = z.infer&lt;typeof CategoriesAPIResponseSchema&gt;
                   export type SearchFilter = z.infer&lt;typeof SearchFilterSchema &gt;
@@ -1641,37 +1639,477 @@
                   })
                 </code></pre>
               </div>
-            </div>
-
-
-           
+            </div>          
 
           </div>
 
+          <!-- Bloque desplegable interior-->
+          <div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-325').toggle();">
+            <h3>325. Primeros pasos mostrando las bebidas</h3>
+            <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+          </div>
+          <div id="seccion18-325" class="hidden">
+            <p>Vamos a mostrar las recetas en la parte inferior de la pantalla una vez que hacemos una búsqueda y tenemos ya recetas en nuestro state, queremos mostrarlas en la parte de la página de inicio <span class="file">views/indexPage.tsx</span>.</p>
+
+            <pre data-line="0"><code class="language-ts">
+              //views/IndexPage.tsx
+              import { useAppStore } from "../stores/useAppStore"
+              import { useMemo } from "react"
+
+              export default function IndexPage() {
+                const drinks = useAppStore((state) => state.drinks)
+                console.log(drinks)
+
+                const hasDrinks = useMemo (() => drinks.drinks.length, [drinks])
+
+                return (
+                  &lt;&gt;
+                    &lt;h1 className=&quot;text-6xl font-extrabold&quot;&gt;Inicio&lt;/h1&gt;
+
+                    {hasDrinks ? (
+                      &lt;&gt;
+                        &lt;p&gt;Sí hay bebidas&lt;/p&gt;
+                      &lt;/&gt;
+                    ) : (
+                      &lt;p className=&quot;my-10 text-center text-2xl&quot;&gt;
+                        No hay resultados aún, utiliza el formulario para buscar recetas
+                      &lt;/p&gt;
+                    )}
+                  &lt;/&gt;
+                )
+              }
+
+            </code></pre>
+            <p>Cuando sí haya bebidas en lugar de ese texto "Sí hay bebidas" vamos a empezar a iterar sobre el resultado que se almacena en nuestro state. Crearemos un componente card nuevo y le iremos pasando toda la información.</p>
+
+            <p>Como vemos la variable temporal drink que creamos en el map ya va a estar tipada con la estructura que definimos en nuestro schema:</p>
+
+            <img src="https://andune55.github.io/manual-react/assets/325-1-BQOQcpJz.png" alt="img" loading="lazy">
+
+            <p>En cuanto añadimos en <span class="file">views/IndexPage.tsx</span> al componente nuevo, además de la prop <strong>key</strong>, la prop <strong>drink</strong> <code class="language-ts">drink={drink}</code> vemos que VSC nos da advertencia de que falta algo, porque tenemos que incluirlo en la firma del compo <span class="file">components/DrinkCard.tsx</span>, así que creamos nuevo type <strong>Drink</strong> en <span class="file">types/index.ts</span> teniendo en mente nuestro schema ya creado en <span class="file">utils/recipes-schema.ts</span> para esos elementos individuales, y una vez hecho lo usamos para definir esta prop que le pasamos al componente en su firma, y usamos la firma para tipar el argumento de la función del compo:</p>        
+
+            <div class="flex max-sm:flex-col">
+              <div class="w-[60%] max-sm:w-[100%]">
+
+
+                <pre data-line="0,13-17" class="mb-5"><code class="language-ts">               
+                  //utils/recipes-schema.ts
+                  import { z } from 'zod'
+                  export const CategoriesAPIResponseSchema = z.object({
+                      drinks: z.array(
+                          z.object({
+                              strCategory: z.string()
+                          })
+                      )
+                  })
+                  export const SearchFilterSchema = z.object({
+                      ingredient: z.string(),
+                      category: z.string()
+                  })
+                  export const DrinkAPIResponse = z.object({
+                      idDrink: z.string(),
+                      strDrink: z.string(),
+                      strDrinkThumb: z.string()
+                  })
+                  export const DrinksAPIResponse = z.object({
+                      drinks: z.array(DrinkAPIResponse)
+                  }) 
+                </code></pre>
+
+                <pre data-line="7" class="mb-5"><code class="language-ts">
+                  //types/index.ts
+                  import { z } from 'zod'
+                  import { CategoriesAPIResponseSchema, DrinkAPIResponse, DrinksAPIResponse, SearchFilterSchema } from '../utils/recipes-schema'
+
+                  export type Categories = z.infer&lt;typeof CategoriesAPIResponseSchema&gt;
+                  export type SearchFilter = z.infer&lt;typeof SearchFilterSchema&gt;
+                  export type Drinks = z.infer&lt;typeof DrinksAPIResponse&gt; 
+                  export type Drink = z.infer&lt;typeof DrinkAPIResponse&gt; 
+                </code></pre>
+
+                <pre data-line="0-5"><code class="language-ts">
+                  //components/DrinkCard.tsx
+                  import type { Drink } from "../types/index.ts"
+                  type DrinkCardProps = {
+                      drink: Drink
+                  }
+                  export default function DrinkCard({drink}: DrinkCardProps) {
+                    return (
+                      &lt;div&gt;
+                        &lt;h2&gt;{drink.strDrink}&lt;/h2&gt;
+                      &lt;/div&gt;
+                    )
+                  }
+                </code></pre>           
+                
+              </div>
+              <div class="w-[40%] max-sm:w-[100%]">
+                <pre class="mb-5" data-line="0"><code class="language-ts">
+                  //views/indexPage.tsx
+                  import DrinkCard from "../components/DrinkCard"
+                  import { useAppStore } from "../stores/useAppStore"
+                  import { useMemo } from "react"
+
+                  export default function IndexPage() {
+                    const drinks = useAppStore((state) => state.drinks)
+                    console.log(drinks)
+
+                    const hasDrinks = useMemo (() => drinks.drinks.length, [drinks])
+
+                    return (
+                      &lt;&gt;
+                        &lt;h1 className=&quot;text-6xl font-extrabold&quot;&gt;Inicio&lt;/h1&gt;
+
+                        {hasDrinks ? (
+                          &lt;&gt;
+                            {/* &lt;p&gt;Sí hay bebidas&lt;/p&gt; */}     
+
+                            {drinks.drinks.map((drink) =&gt; (
+                              &lt;DrinkCard
+                                key={drink.idDrink}
+                                drink={drink}
+                              /&gt;
+                            ))}
+                            
+                          &lt;/&gt;
+                        ) : (
+                          &lt;p className=&quot;my-10 text-center text-2xl&quot;&gt;
+                            No hay resultados aún, utiliza el formulario para buscar recetas
+                          &lt;/p&gt;
+                        )}
+                      &lt;/&gt;
+                    )
+                  }
+                </code></pre>           
+              </div>
+            </div>
+
+            
+
+          </div>
+
+        <!-- Bloque desplegable interior-->
+        <div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-326').toggle();">
+          <h3>326. Finalizando el Código para mostrar las bebidas</h3>
+          <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+        </div>
+        <div id="seccion18-326" class="hidden">
+          <p>Vamos a finalizar nuestro componente <span class="file">components/DrinkCard.tsx</span> mostrando título, imagen y un botón en el cual si el usuario presiona se mostrará la receta completa (para eso tendremos que hacer una tercera llamada a la API al endpoint "Lookup full cocktail details by id" <a href="https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=11007" class="underline" target="blank">https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=11007</a>)</p>
+
+          <div class="flex max-sm:flex-col">
+            <div class="w-[50%] max-sm:w-[100%]">
+              <pre data-line="0"><code class="language-ts">
+                //components/DrinkCard.tsx
+                import type { Drink } from "../types/index.ts"
+
+                type DrinkCardProps = {
+                    drink: Drink
+                }
+
+                export default function DrinkCard({drink}: DrinkCardProps) {
+                  return (
+                    &lt;div className=&quot;border shadow-lg&quot;&gt;
+                      &lt;div className=&quot;overflow-hidden&quot;&gt;
+                      &lt;img 
+                        src={drink.strDrinkThumb} 
+                        alt={`Imagen de ${drink.strDrink}`} 
+                        className=&quot;hover:scale-125 transition-transform hover:rotate-2&quot;
+                      /&gt;
+                      &lt;/div&gt;
+                      &lt;div className=&quot;p-5&quot;&gt;
+                        &lt;h2 className=&quot;text-2xl truncate font-black&quot;&gt;{drink.strDrink}&lt;/h2&gt;
+                        &lt;button
+                          type=&quot;button&quot;
+                          className=&quot;bg-orange-400 hover:bg-orange-500 mt-5 w-full p-3 font-bold text-white text-lg&quot;
+                        &gt;Ver Receta&lt;/button&gt;
+                      &lt;/div&gt;
+                    &lt;/div&gt;
+                  )
+                }
+              </code></pre>
+            </div>
+            <div class="w-[50%] max-sm:w-[100%]">
+              <pre data-line="0"><code class="language-ts">
+                //views/IndexPage.tsx
+                import DrinkCard from "../components/DrinkCard"
+                import { useAppStore } from "../stores/useAppStore"
+                import { useMemo } from "react"
+
+                export default function IndexPage() {
+                  const drinks = useAppStore((state) => state.drinks)
+                  console.log(drinks)
+
+                  const hasDrinks = useMemo (() => drinks.drinks.length, [drinks])
+
+                  return (
+                    &lt;div className=&quot;grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-3 my-10 gap-10&quot;&gt;
+                      &lt;h1 className=&quot;text-6xl font-extrabold&quot;&gt;Inicio&lt;/h1&gt;
+
+                      {hasDrinks ? (
+                        &lt;&gt;
+                          {/* &lt;p&gt;Sí hay bebidas&lt;/p&gt; */}     
+
+                          {drinks.drinks.map((drink) =&gt; (
+                            &lt;DrinkCard
+                              key={drink.idDrink}
+                              drink={drink}
+                            /&gt;
+                          ))}
+                          
+                        &lt;/&gt;
+                      ) : (
+                        &lt;p className=&quot;my-10 text-center text-2xl&quot;&gt;
+                          No hay resultados aún, utiliza el formulario para buscar recetas
+                        &lt;/p&gt;
+                      )}
+                    &lt;/div&gt;
+                  )
+                }
+              </code></pre>
+            </div>
+          </div>
+
+          <p>Cuando pulsemos en Ver receta vamos a colocar en el state ese id, si está activo entonces mandamos llamar esa receta y una vez que la mandemos llamar la mostramos en una ventana modal.</p>
+        </div>
+
+        <!-- Bloque desplegable interior-->
+        <div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-327').toggle();">
+          <h3>327. Seleccionar una receta para ver los detalles <span class="destacado">nueva acción para identificar con id cual es la receta de la que queremos obtener más detalle</span></h3>
+          <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+        </div>
+        <div id="seccion18-327" class="">
+          <p>Una vez que presionemos en Ver receta queremos obtener los detalles de esa receta y mostrarlos en una ventana modal, para ello necesitamos identificar qué receta es. Para ello:</p>
+          
+          <ul class="list-disc my-3">
+            <li class="my-1.25">Vamos a <span class="file">stores/recipeSlice.ts</span> donde creamos una nueva acción que va a obtener el id para colocarlo en el state como la receta de la que nos interesa obtener los detalles. Primero la creamos en la firma <code class="language-ts">selectRecipe: () =>Promise&lt;void&gt;</code> y al definirla va a ser una función asíncrona, porque va a llamar a nuestra API <code class="language-ts">selectRecipe: async () => {console.log('desde selectRecipe')}</code></li>
+            <li class="my-1.25">Vamos al compo <span class="file">components/DrinkCard.tsx</span> e importamos nuestro hook <strong>useAppStore</strong> y creamos la variable <strong>selectRecipe</strong> que va a hacer la acción de seleccionar una receta <code class="language-ts">const selectRecipe = useAppStore((state) => state.selectRecipe)</code> </li>
+            <li class="my-1.25">En el botón añadimos el onClick y la llamada a la acción (ahora mismo le pasaremos la receta) <code class="language-ts">onClick = {() => selectRecipe()}</code>. Si probamos veremos en consola que la comunicación es correcta y nos aparece el console.log('desde selectRecipe') que de momento hemos indicado.
+            </li>
+            <li class="my-1.25">Para poder seleccionar una receta y hacer la nueva llamada a la API tenemos que utilizar el endpoint "<strong>Lookup full cocktail details by id</strong>": <a href="https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=11007" class="underline" target="blank">https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=11007</a> que como vemos, obtiene todos los detalles de una receta identificándola por su id, así que primero tenemos que conseguir ese id. Vamos a <span class="file">stores/recipeSlice.ts</span> y en la firma especificamos que esta nueva acción <strong>selectRecipe</strong> toma un id que va a ser de tipo Drink y por medio de lookup le pasamos el idDrink: <code class="language-ts">selectRecipe: (id: Drink['idDrink']) =>Promise&lt;void&gt;</code>. En la definición de esa acción especificamos que toma un parámetro id y lo sacamos por consola <code class="language-ts">selectRecipe: async (id) => {console.log(id)}</code>. Ese id lo pasamos desde el compo <span class="file">components/DrinkCard.tsx</span> en concreto en la llamada que hacemos desde el onClick del botón: <code class="language-ts">onClick = {() => selectRecipe(drink.idDrink)}</code> y así ya estamos pasando el id para identificar cual es la receta de la que queremos obtener más detalle.</li>            
+          </ul>
+          
+          <p>Una vez que ya tenemos la receta identificada, vamos a hacer nuestra tercera llamada a la API y vamos a crear una nueva función más en nuestro servicio para obtener los detalles de esa receta</p>
+
+          <div class="flex max-sm:flex-col">
+            <div class="w-[50%] max-sm:w-[100%]">
+              <pre data-line="0,9,33-35"><code class="language-ts">               
+                //stores/recipeSlice.ts
+                import { StateCreator } from 'zustand'
+                import { getCategories, getRecipes } from '../services/RecipeService.ts'
+                import type { Categories, Drink, Drinks, SearchFilter } from '../types/index.ts'
+                export type RecipesSliceType = {
+                    categories: Categories
+                    drinks: Drinks
+                    fetchCategories: () => Promise&lt;void&gt;
+                    searchRecipes: (searchFilters: SearchFilter ) =&gt; Promise&lt;void&gt;
+                    selectRecipe: (id: Drink[&#39;idDrink&#39;]) =&gt;Promise&lt;void&gt;
+                }
+                export const createRecipesSlice: StateCreator&lt;RecipesSliceType&gt; = (set) =&gt; ({
+                    categories: {
+                        drinks: []
+                    },
+                    drinks: {
+                        drinks: []
+                    },
+                    fetchCategories: async () => {
+                        const categories = await getCategories()
+                        console.log(categories)
+                        set({
+                            categories: categories
+                        })
+                    },
+                    searchRecipes: async (filters) => {
+                        //console.log(filters)
+                        const drinks = await getRecipes(filters)
+                        //console.log(drinks)
+                        set({
+                            drinks: drinks
+                        })
+                    },
+                    selectRecipe: async (id) => {
+                        console.log(id)
+                    }
+                })     
+              </code></pre>
+            </div>
+            <div class="w-[50%] max-sm:w-[100%]">
+              <pre data-line="0,2,3-5,7,22"><code class="language-ts">
+                //components/DrinkCard.tsx
+                import type { Drink } from "../types/index.ts"
+                import { useAppStore } from "../stores/useAppStore"
+                type DrinkCardProps = {
+                    drink: Drink
+                }
+                export default function DrinkCard({drink}: DrinkCardProps) {
+                  const selectRecipe = useAppStore((state) => state.selectRecipe)
+                  return (
+                    &lt;div className=&quot;border shadow-lg&quot;&gt;
+                      &lt;div className=&quot;overflow-hidden&quot;&gt;
+                      &lt;img 
+                        src={drink.strDrinkThumb} 
+                        alt={`Imagen de ${drink.strDrink}`} 
+                        className=&quot;hover:scale-125 transition-transform hover:rotate-2&quot;
+                      /&gt;
+                      &lt;/div&gt;
+                      &lt;div className=&quot;p-5&quot;&gt;
+                        &lt;h2 className=&quot;text-2xl truncate font-black&quot;&gt;{drink.strDrink}&lt;/h2&gt;
+                        &lt;button
+                          type=&quot;button&quot;
+                          className=&quot;bg-orange-400 hover:bg-orange-500 mt-5 w-full p-3 font-bold text-white text-lg&quot;
+                          onClick = {() =&gt; selectRecipe(drink.idDrink)}
+                        &gt;Ver Receta&lt;/button&gt;
+                      &lt;/div&gt;
+                    &lt;/div&gt;
+                  )
+                }            
+              </code></pre>
+            </div>
+          </div>
+        </div>
 
 <!-- Bloque desplegable interior-->
-<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-325').toggle();">
-  <h3>325. Primeros pasos mostrando las bebidas</h3>
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-328').toggle();">
+  <h3>328. Consultando la API para obtener los detalles de la receta por ID - <a href="https://gist.github.com/codigoconjuan/d567c34c4c999f17c85618f272bf59ae" class="underline" target="blank">Gist con esquema en Zod para recetas</a></h3>
   <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
 </div>
-<div id="seccion18-325" class="hidden">
+<div id="seccion18-328" class="hidden">
 
 
 </div>
 
 <!-- Bloque desplegable interior-->
-<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-326').toggle();">
-  <h3>326. Finalizando el Código para mostrar las bebidas</h3>
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-329').toggle();">
+  <h3>329. Colocando en el State la Receta y su Contenido</h3>
   <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
 </div>
-<div id="seccion18-326" class="hidden">
+<div id="seccion18-329" class="hidden">
 
 
 </div>
 
 <!-- Bloque desplegable interior-->
-<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-XX').toggle();">
-  <h3>XXXXXXXXXXXXXXX</h3>
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-330').toggle();">
+  <h3>330. Agregando Headless UI para mostrar las recetas <a href="https://headlessui.com/react/dialog" class="underline" target="blank">Headless UI</a> - <a href="https://gist.github.com/codigoconjuan/de54c2f3bbacd80f57359c09c79dba0f" class="underline" target="blank">Gist con Modal para App de Bebidas en React y TypeScript</a></h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion18-330" class="hidden">
+
+
+</div>
+
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-331').toggle();">
+  <h3>331. Mostrando el Contenido de la Receta en Modal</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion18-331" class="hidden">
+
+
+</div>
+
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-332').toggle();">
+  <h3>332. Mostrando los Ingredientes</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion18-332" class="hidden">
+
+
+</div>
+
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-333').toggle();">
+  <h3>333. Creando los Botones para Cerrar Modal y Añadir a Favoritos</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion18-333" class="hidden">
+
+
+</div>
+
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-334').toggle();">
+  <h3>334. Creando un Slice para favoritos</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion18-334" class="hidden">
+
+
+</div>
+
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-335').toggle();">
+  <h3>335. Agregando los Favoritos</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion18-335" class="hidden">
+
+
+</div>
+
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-336').toggle();">
+  <h3>336. Mostrando de forma condicional el texto Agregar / Eliminar Favoritos</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion18-336" class="hidden">
+
+
+</div>
+
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-337').toggle();">
+  <h3>337. Consumir Estado de otra Slice</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion18-337" class="hidden">
+
+
+</div>
+
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-338').toggle();">
+  <h3>338. Agregar Favoritos a LocalStorage</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion18-338" class="hidden">
+
+
+</div>
+
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-339').toggle();">
+  <h3>339. Primeros pasos con la página de favoritos</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion18-339" class="hidden">
+
+
+</div>
+
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-340').toggle();">
+  <h3>340. Creando un Slice para Notificaciones</h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion18-340" class="hidden">
+
+
+</div>
+
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-341').toggle();">
+  <h3>341. Conectando la Notificación con el Slice - <a href="https://gist.github.com/codigoconjuan/1d5338590a7c7857bd2a4673830a2a86" class="underline" target="blank">Gist con componente para notificaciones</a></h3>
+  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+</div>
+<div id="seccion18-341" class="hidden">
+
+
+</div>
+
+<!-- Bloque desplegable interior-->
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-342').toggle();">
+  <h3>342. Llamando el Slice de Notificación para mostrarla</h3>
   <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
 </div>
 <div id="seccion18-XX" class="hidden">
@@ -1680,201 +2118,31 @@
 </div>
 
 <!-- Bloque desplegable interior-->
-<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-XX').toggle();">
-  <h3>XXXXXXXXXXXXXXX</h3>
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-343').toggle();">
+  <h3>343. Cerrando la notificación y RETO 07</h3>
   <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
 </div>
-<div id="seccion18-XX" class="hidden">
+<div id="seccion18-343" class="hidden">
 
 
 </div>
 
 <!-- Bloque desplegable interior-->
-<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-XX').toggle();">
-  <h3>XXXXXXXXXXXXXXX</h3>
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-344').toggle();">
+  <h3>344. SOLUCIÓN RETO 07</h3>
   <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
 </div>
-<div id="seccion18-XX" class="hidden">
+<div id="seccion18-344" class="hidden">
 
 
 </div>
 
 <!-- Bloque desplegable interior-->
-<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-XX').toggle();">
-  <h3>XXXXXXXXXXXXXXX</h3>
+<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-345').toggle();">
+  <h3>345. Performance en tus apps con React Router DOM y Build</h3>
   <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
 </div>
-<div id="seccion18-XX" class="hidden">
-
-
-</div>
-
-<!-- Bloque desplegable interior-->
-<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-XX').toggle();">
-  <h3>XXXXXXXXXXXXXXX</h3>
-  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
-</div>
-<div id="seccion18-XX" class="hidden">
-
-
-</div>
-
-<!-- Bloque desplegable interior-->
-<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-XX').toggle();">
-  <h3>XXXXXXXXXXXXXXX</h3>
-  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
-</div>
-<div id="seccion18-XX" class="hidden">
-
-
-</div>
-
-<!-- Bloque desplegable interior-->
-<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-XX').toggle();">
-  <h3>XXXXXXXXXXXXXXX</h3>
-  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
-</div>
-<div id="seccion18-XX" class="hidden">
-
-
-</div>
-
-<!-- Bloque desplegable interior-->
-<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-XX').toggle();">
-  <h3>XXXXXXXXXXXXXXX</h3>
-  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
-</div>
-<div id="seccion18-XX" class="hidden">
-
-
-</div>
-
-<!-- Bloque desplegable interior-->
-<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-XX').toggle();">
-  <h3>XXXXXXXXXXXXXXX</h3>
-  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
-</div>
-<div id="seccion18-XX" class="hidden">
-
-
-</div>
-
-<!-- Bloque desplegable interior-->
-<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-XX').toggle();">
-  <h3>XXXXXXXXXXXXXXX</h3>
-  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
-</div>
-<div id="seccion18-XX" class="hidden">
-
-
-</div>
-
-<!-- Bloque desplegable interior-->
-<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-XX').toggle();">
-  <h3>XXXXXXXXXXXXXXX</h3>
-  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
-</div>
-<div id="seccion18-XX" class="hidden">
-
-
-</div>
-
-<!-- Bloque desplegable interior-->
-<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-XX').toggle();">
-  <h3>XXXXXXXXXXXXXXX</h3>
-  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
-</div>
-<div id="seccion18-XX" class="hidden">
-
-
-</div>
-
-<!-- Bloque desplegable interior-->
-<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-XX').toggle();">
-  <h3>XXXXXXXXXXXXXXX</h3>
-  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
-</div>
-<div id="seccion18-XX" class="hidden">
-
-
-</div>
-
-<!-- Bloque desplegable interior-->
-<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-XX').toggle();">
-  <h3>XXXXXXXXXXXXXXX</h3>
-  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
-</div>
-<div id="seccion18-XX" class="hidden">
-
-
-</div>
-
-<!-- Bloque desplegable interior-->
-<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-XX').toggle();">
-  <h3>XXXXXXXXXXXXXXX</h3>
-  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
-</div>
-<div id="seccion18-XX" class="hidden">
-
-
-</div>
-
-<!-- Bloque desplegable interior-->
-<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-XX').toggle();">
-  <h3>XXXXXXXXXXXXXXX</h3>
-  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
-</div>
-<div id="seccion18-XX" class="hidden">
-
-
-</div>
-
-<!-- Bloque desplegable interior-->
-<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-XX').toggle();">
-  <h3>XXXXXXXXXXXXXXX</h3>
-  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
-</div>
-<div id="seccion18-XX" class="hidden">
-
-
-</div>
-
-<!-- Bloque desplegable interior-->
-<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-XX').toggle();">
-  <h3>XXXXXXXXXXXXXXX</h3>
-  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
-</div>
-<div id="seccion18-XX" class="hidden">
-
-
-</div>
-
-<!-- Bloque desplegable interior-->
-<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-XX').toggle();">
-  <h3>XXXXXXXXXXXXXXX</h3>
-  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
-</div>
-<div id="seccion18-XX" class="hidden">
-
-
-</div>
-
-<!-- Bloque desplegable interior-->
-<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-XX').toggle();">
-  <h3>XXXXXXXXXXXXXXX</h3>
-  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
-</div>
-<div id="seccion18-XX" class="hidden">
-
-
-</div>
-
-<!-- Bloque desplegable interior-->
-<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-XX').toggle();">
-  <h3>XXXXXXXXXXXXXXX</h3>
-  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
-</div>
-<div id="seccion18-XX" class="hidden">
+<div id="seccion18-345" class="hidden">
 
 
 </div>
