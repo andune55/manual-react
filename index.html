@@ -53,6 +53,7 @@
                 <li class="my-1.25">Zod para validar las respuestas de la API <span class="destacado">npm i zod</span></li>
                 <li class="my-1.25">Zustand para el estado global</li>
                 <li class="my-1.25">Axios para conectarnos a esa REST API</li>
+                <li class="my-1.25">Headless UI <span class="destacado">npm install @headlessui/react</span></li>
               </ul>
 
               <p class="naranja">Primeros pasos: crear proyecto, hacer limpieza, instalar tailwinds</p>
@@ -181,7 +182,7 @@
                 </div>
               </div>
 
-              <p><span class="destacado">NOTA SUPER IMPORTANTE DE LA MUERTE</span> al probar tras realizar este cambio no me salía lo que supuestamente tengo en el componente de mi página principal ¿por qué? porqeu en mi <span class="file">vite.config.ts</span> tengo configurada una ruta <strong>base</strong> para poder publicar mi build en github con github pages. Así que en vez de <span class="rojo">/</span> en el prop path he de poner mi base <span class="verde">/busca-drink/</span></p>
+              <p><span class="destacado">NOTA SUPER IMPORTANTE DE LA MUERTE</span> al probar tras realizar este cambio no me salía lo que supuestamente tengo en el componente de mi página principal ¿por qué? porque en mi <span class="file">vite.config.ts</span> tengo configurada una ruta <strong>base</strong> para poder publicar mi build en github con github pages. Así que en vez de <span class="rojo">/</span> en el prop path he de poner mi base <span class="verde">/busca-drink/</span></p>
 
               <div class="flex max-sm:flex-col">
                 <div class="w-[18%] max-sm:w-[100%]">
@@ -1184,7 +1185,7 @@
               </li>
             </ul>
 
-            <p>A continuación veremos como tener en el state tanto nombre como categoría, porqeu requeriremos ambos valores para enviar una petición y obtener las recetas que concuerden con esa búsqueda.</p>
+            <p>A continuación veremos como tener en el state tanto nombre como categoría, porque requeriremos ambos valores para enviar una petición y obtener las recetas que concuerden con esa búsqueda.</p>
           </div>
 
           <!-- Bloque desplegable interior-->
@@ -2020,7 +2021,7 @@
 
           <p>Copiamos ahora el <a href="https://gist.github.com/codigoconjuan/d567c34c4c999f17c85618f272bf59ae" class="underline" target="blank">Gist con esquema en Zod para la información que nos interesa de la receta (id, nombre, instrucciones, 6 ingredientes y 6 medidas/cantidades)</a>. Si nos fijamos en este código que tiene peparado en el Gist, vemos que indicamos un <strong>nullable()</strong> lo cual significa en nuestro schema que ese valor puede o no existir. Y eso lo hacemos porque cada receta no tiene un número fijo de ingredientes y/o medidas (algunas tienen 3 ingredientes, otras 9...). Lo copiamos y lo pegamos a continuación en nuestro <span class="file">utils/recipe-schema.ts</span> y volvemos a nuestro servicio para, en vez de hacer un console.log(data), creamos variable nueva <strong>result</strong> con <code class="language-ts">const result = RecipeAPIResponseSchema.safeParse(data)}</code> también, como sabemos que la estructura de la respuesta de la API es la del schema podemos hacer esto mejor: <code class="language-ts">const result = RecipeAPIResponseSchema.safeParse(data.drinks[0])}</code> y tras confirmar con un console.log(result) que es success, añadimos el if que compruebe que si el result es success entonces esta función del servicio retorne el result.data.</p>
 
-          <p>Volvemos entonces a nuestro slice para colocar en variable esa llamada a esta función del servicio y sacarla por consola (lo colocaremos a continuación en el state)</p>:
+          <p>Volvemos entonces a nuestro slice para colocar en variable esa llamada a esta función del servicio y sacarla por consola (lo colocaremos a continuación en el state:</p>
 
           <div class="flex max-sm:flex-col">
             <div class="w-[20%] max-sm:w-[100%]">
@@ -2158,7 +2159,7 @@
         <h3>329. Colocando en el State la Receta y su Contenido</h3>
         <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
       </div>
-      <div id="seccion18-329" class="">
+      <div id="seccion18-329" class="hidden">
         <p>Vamos a ver como colocar en el state la receta que obtenemos en nuestra variable <code class="language-ts">const selectedRecipe = await getRecipeById(id)</code> que está en la acción <strong>selectRecipe</strong> de nuestro <span class="file">stores/recipeSlice.ts</span> (en esa variable estamos llamando a la función <strong>getRecipeById</strong> de nuestro servicio que está haciendo nuestra 3ª llamada a la API)</p>
 
         <ul class="list-disc my-3">
@@ -2254,43 +2255,470 @@
 
       </div>
 
-<!-- Bloque desplegable interior-->
-<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-330').toggle();">
-  <h3>330. Agregando Headless UI para mostrar las recetas <a href="https://headlessui.com/react/dialog" class="underline" target="blank">Headless UI</a> - <a href="https://gist.github.com/codigoconjuan/de54c2f3bbacd80f57359c09c79dba0f" class="underline" target="blank">Gist con Modal para App de Bebidas en React y TypeScript</a></h3>
-  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
-</div>
-<div id="seccion18-330" class="hidden">
+      <!-- Bloque desplegable interior-->
+      <div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-330').toggle();">
+        <h3>330. Agregando Headless UI para mostrar las recetas <a href="https://headlessui.com/react/dialog" class="underline" target="blank">Headless UI</a> - <a href="https://gist.github.com/codigoconjuan/de54c2f3bbacd80f57359c09c79dba0f" class="underline" target="blank">Gist con Modal para App de Bebidas en React y TypeScript</a></h3>
+        <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+      </div>
+      <div id="seccion18-330" class="hidden">
+        <p>Instalamos Headless UI que es una librería que se lleva muy bien con Tailwind CSS para cuando queremos tener elementos más dinámicos. Tailwind es un framework únicamente de CSS pero ya se han creado una serie de componentes que se pueden utilizar con React o con Vue JS que son muy interactivos y su aspecto es genial; aquí ene ste link los tenemos <a href="https://headlessui.com/react/dialog" class="underline" target="blank">https://headlessui.com/react/dialog</a>, también algunas animaciones y también una ventana modal que es la que vamos a utilizar. Podemos ver su ejemplo y el código y utilizar las clases de Tailwind CSS para cambiar los colores.</p>
+
+        <ul class="list-disc my-3">
+          <li class="my-1.25">Instalamos Headless UI con <span class="destacado">npm install @headlessui/react</span> </li>
+          
+          <li class="my-1.25">Copiamos el código que hay en este gist con la versión preparada de esta modal: <a href="https://gist.github.com/codigoconjuan/de54c2f3bbacd80f57359c09c79dba0f" class="underline" target="blank">Gist con Modal para App de Bebidas en React y TypeScript</a> y lo utilizamos en un nuevo componente <span class="file">components/Modal.tsx</span> donde pegamos el código (como vemos en él hay un state local llamado <strong>modal</strong> que de momento está a false)</li>
+          
+          <li class="my-1.25">Vamos a nuestro layout principal porque queremos que este modal se pueda utilizar en las dos páginas que tendremos (tanto la parte de búsqueda como la de favoritos mostrarán las recetas en el modal). Así que abrimos <span class="file">layouts/Layout.tsx</span> y añadimos este componente (importándolo arriba como siempre). Si recargamos la app vemos que no se ve nada, porque para ello tendríamos que ir al componente y poner el state modal a true. Lo ideal es que cuando presionemos en el botón "Ver Receta" con el que almacenamos esa receta en el state, nuestro modal se muestre. Para eso ya no nos sirve el state local <strong>modal</strong> del Modal, ha de ser un state global, así que modificamos nuestro modal para eliminar ese state local, usamos <strong>ALT+SHIFT+O(remove unused imports)</strong> para borrar el import <strong>useState</strong> que ya no utilizamos 
+
+            <div class="flex max-sm:flex-col">
+              <div class="w-[40%] max-sm:w-[100%]">
+                <pre data-line="3,13"><code class="language-ts">
+                //layouts/Layout.tsx
+                import { Outlet } from "react-router-dom"
+                import Header from "../components/Header"
+                import Modal  from "../components/Modal" 
+
+                export default function Layout(){
+                    return(
+                        &lt;&gt;
+                            &lt;Header /&gt;
+                            &lt;main className=&quot;container mx-auto py-16&quot;&gt;
+                                &lt;Outlet /&gt;
+                            &lt;/main&gt;   
+
+                            &lt;Modal/&gt;         
+                        &lt;/&gt;
+                    )
+                }
+              </code></pre>
+              </div>              
+              <div class="w-[30%] max-sm:w-[100%]">
+                <pre class="rojo" data-line="2,5"><code class="language-ts">
+                  //components/Modal.tsx
+                  import { Dialog, Transition } from '@headlessui/react';
+                  import { Fragment, useState } from 'react';
+
+                  export default function Modal() {
+                    const [modal, useModal] = useState(true)
+                    return (
+                      &lt;&gt;
+                        &lt;Transition appear show={modal} as={Fragment}&gt;
+                          &lt;Dialog as=&quot;div&quot; className=&quot;relative z-10&quot; onClose={() =&gt; {}}&gt;
+                          ...
+                </code></pre>
+              </div>
+              <div class="w-[30%] max-sm:w-[100%]">
+                <pre class="verde" data-line="2,5"><code class="language-ts">
+                  //components/Modal.tsx
+                  import { Dialog, Transition } from '@headlessui/react';
+                  import { Fragment } from 'react';
+
+                  export default function Modal() {
+                    
+                    return (
+                      &lt;&gt;
+                        &lt;Transition appear show={modal} as={Fragment}&gt;
+                          &lt;Dialog as=&quot;div&quot; className=&quot;relative z-10&quot; onClose={() =&gt; {}}&gt;
+                          ...
+                </code></pre>
+              </div>
+            </div>
+          
+          </li>
+          <li class="my-1.25">Vamos a nuestro <span class="file">stores/recipeSlice.ts</span> y definimos un nuevo state <strong>modal</strong> que va a ser boolean y su valor inicial va a ser false. Vamos a nuestro componente modal <span class="file">components/Modal.tsx</span> e importamos nuestro store y creamos una variable <strong>modal</strong> que va a ser el valor de ese state (la llamamos así que es como se llamaba el state local que utilizábamos en show={modal}, así ya no tenemos error y estamos utilizando el state global). En nuestro slice, modificamos la acción selectRecipe (que es la que llamamos desde el botón "Ver receta" de nuestro DrinkCard) para indicarle además que el state modal pasa a ser true. Si probamos ahora vemos que al pulsar una receta tras realizar una búsqueda, ya nos sale el modal. Sin embargo de momento no hay forma de cerrarlo porque como vemos en el compo Modal.tsx en el código de momento tenemos simplemente esto: <code class="language-ts">onClose={() => {}}</code>. Definamos una función más en nuestro slice que solo va a ser un arrow function que no retorna nada ni toma nada, porque lo único que hace es poner a false el modal: <code class="language-ts">closeModal: () => void</code>. La definimos y en el modal creamos nueva variable <code class="language-ts">const closeModal = useAppStore((state) => state.closeModal)</code> que es la que llamamos para cerrar en el modal en la llamda <code class="language-ts">&lt;Dialog as=&quot;div&quot; className=&quot;relative z-10&quot; onClose={closeModal}&gt;</code></li>
+          
+          <div class="flex max-sm:flex-col">
+            <div class="w-[50%] max-sm:w-[100%]">
+              <pre data-line="9,13,23,40,43-48"><code class="language-ts">
+                //stores/recipeSlice.ts
+                import { StateCreator } from &#39;zustand&#39;
+                import { getCategories, getRecipeById, getRecipes } from &#39;../services/RecipeService.ts&#39;
+                import type { Categories, Drink, Drinks, Recipe, SearchFilter } from &#39;../types/index.ts&#39;
+
+                export type RecipesSliceType = {
+                    categories: Categories
+                    drinks: Drinks
+                    selectedRecipe: Recipe
+                    modal: boolean
+                    fetchCategories: () =&gt; Promise&lt;void&gt;
+                    searchRecipes: (searchFilters: SearchFilter ) =&gt; Promise&lt;void&gt;
+                    selectRecipe: (id: Drink[&#39;idDrink&#39;]) =&gt;Promise&lt;void&gt;
+                    closeModal: () => void
+                }
+                export const createRecipesSlice: StateCreator&lt;RecipesSliceType&gt; = (set) =&gt; ({
+                    categories: {
+                        drinks: []
+                    },
+                    drinks: {
+                        drinks: []
+                    },
+                    selectedRecipe:{} as Recipe,
+                    modal: false,
+                    fetchCategories: async () =&gt; {
+                        const categories = await getCategories()
+                        set({
+                            categories: categories
+                        })
+                    },
+                    searchRecipes: async (filters) =&gt; {
+                        const drinks = await getRecipes(filters)
+                        set({
+                            drinks: drinks
+                        })
+                    },
+                    selectRecipe: async (id) =&gt; {
+                        const selectedRecipe = await getRecipeById(id) 
+                        set({
+                            selectedRecipe,
+                            modal: true
+                        })
+                    },
+                    closeModal: () => {
+                        set({
+                            modal: false,
+                            selectedRecipe: {} as Recipe    
+                        })
+                    }
+                }) 
+              </code></pre>
+            </div>
+            <div class="w-[50%] max-sm:w-[100%]">
+              <pre data-line="3,6,7,10,11"><code class="language-ts">
+                //components/Modal.tsx
+                import { Dialog, Transition } from '@headlessui/react'
+                import { Fragment } from 'react'
+                import { useAppStore } from '../stores/useAppStore'
+                export default function Modal() {
+
+                  const modal = useAppStore((state) => state.modal)
+                  const closeModal = useAppStore((state) => state.closeModal)
+                  return (
+                    &lt;&gt;
+                      &lt;Transition appear show={modal} as={Fragment}&gt;
+                        &lt;Dialog as=&quot;div&quot; className=&quot;relative z-10&quot; onClose={closeModal}&gt;
+                          &lt;Transition.Child
+                            as={Fragment}
+                            enter=&quot;ease-out duration-300&quot;
+                            enterFrom=&quot;opacity-0&quot;
+                            enterTo=&quot;opacity-100&quot;
+                            leave=&quot;ease-in duration-200&quot;
+                            leaveFrom=&quot;opacity-100&quot;
+                            leaveTo=&quot;opacity-0&quot;
+                          &gt;
+                            &lt;div className=&quot;fixed inset-0 bg-black bg-opacity-70&quot; /&gt;
+                          &lt;/Transition.Child&gt;
+
+                          &lt;div className=&quot;fixed inset-0 overflow-y-auto&quot;&gt;
+                            &lt;div className=&quot;flex min-h-full items-center justify-center p-4 text-center&quot;&gt;
+                              &lt;Transition.Child
+                                as={Fragment}
+                                enter=&quot;ease-out duration-300&quot;
+                                enterFrom=&quot;opacity-0 scale-95&quot;
+                                enterTo=&quot;opacity-100 scale-100&quot;
+                                leave=&quot;ease-in duration-200&quot;
+                                leaveFrom=&quot;opacity-100 scale-100&quot;
+                                leaveTo=&quot;opacity-0 scale-95&quot;
+                              &gt;
+                                &lt;Dialog.Panel className=&quot;relative transform overflow-hidden rounded-lg bg-white px-4 pt-5 pb-4 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-2xl sm:p-6&quot; &gt;
+                                  &lt;Dialog.Title as=&quot;h3&quot; className=&quot;text-gray-900 text-4xl font-extrabold my-5 text-center&quot;&gt;
+                                      Titulo Aquí
+                                  &lt;/Dialog.Title&gt;
+                                  &lt;Dialog.Title as=&quot;h3&quot; className=&quot;text-gray-900 text-2xl font-extrabold my-5&quot;&gt;
+                                    Ingredientes y Cantidades
+                                  &lt;/Dialog.Title&gt;
+                                  &lt;Dialog.Title as=&quot;h3&quot; className=&quot;text-gray-900 text-2xl font-extrabold my-5&quot;&gt;
+                                    Instrucciones
+                                  &lt;/Dialog.Title&gt;
+                                &lt;/Dialog.Panel&gt;
+                              &lt;/Transition.Child&gt;
+                            &lt;/div&gt;
+                          &lt;/div&gt;
+                        &lt;/Dialog&gt;
+                      &lt;/Transition&gt;
+                    &lt;/&gt;
+                  )
+                }
+              </code></pre>
+            </div>
+          </div>
+          
+          </li>       
+        </ul>
+
+      </div>
+
+      <!-- Bloque desplegable interior-->
+      <div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-331').toggle();">
+        <h3>331. Mostrando el Contenido de la Receta en Modal / 332. Mostrando los Ingredientes y cantidades</h3>
+        <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
+      </div>
+      <div id="seccion18-331" class="hidden">
+        <p>Una vez que seleccionamos una receta queremos mostrar su información en el modal</p>
+        <img src="./src/assets/img/331-1.jpg" alt="img" loading="lazy">
+        <ul class="list-disc my-3">
+          <li class="my-1.25">Vamos a <span class="file">components/Modal.tsx</span> y extraemos la información de la receta que, recordemos, está en nuestro state llamado <strong>selectedRecipe</strong> <code class="language-ts">const selectedRecipe = useAppStore((state) => state.selectedRecipe)</code> y ya con esa variable recogiendo nuestro state con la receta seleccionada, podemos indicarle en las partes del modal que nos interesa el título. la imagen y la descripción como vemos a continuación.
+          <pre data-line="8,38,40-44,53"><code class="language-ts">
+            //Components/Modal.tsx
+            import { Dialog, Transition } from '@headlessui/react'
+            import { Fragment } from 'react'
+            import { useAppStore } from '../stores/useAppStore'
+            export default function Modal() {
+
+              const modal = useAppStore((state) => state.modal)
+              const closeModal = useAppStore((state) => state.closeModal)
+              const selectedRecipe = useAppStore((state) => state.selectedRecipe)
+              return (
+                &lt;&gt;
+                  &lt;Transition appear show={modal} as={Fragment}&gt;
+                    &lt;Dialog as=&quot;div&quot; className=&quot;relative z-10&quot; onClose={closeModal}&gt;
+                      &lt;Transition.Child
+                        as={Fragment}
+                        enter=&quot;ease-out duration-300&quot;
+                        enterFrom=&quot;opacity-0&quot;
+                        enterTo=&quot;opacity-100&quot;
+                        leave=&quot;ease-in duration-200&quot;
+                        leaveFrom=&quot;opacity-100&quot;
+                        leaveTo=&quot;opacity-0&quot;
+                      &gt;
+                        &lt;div className=&quot;fixed inset-0 bg-black opacity-70&quot; /&gt;
+                      &lt;/Transition.Child&gt;
+
+                      &lt;div className=&quot;fixed inset-0 overflow-y-auto&quot;&gt;
+                        &lt;div className=&quot;flex min-h-full items-center justify-center p-4 text-center&quot;&gt;
+                          &lt;Transition.Child
+                            as={Fragment}
+                            enter=&quot;ease-out duration-300&quot;
+                            enterFrom=&quot;opacity-0 scale-95&quot;
+                            enterTo=&quot;opacity-100 scale-100&quot;
+                            leave=&quot;ease-in duration-200&quot;
+                            leaveFrom=&quot;opacity-100 scale-100&quot;
+                            leaveTo=&quot;opacity-0 scale-95&quot;
+                          &gt;
+                            &lt;Dialog.Panel className=&quot;relative transform overflow-hidden rounded-lg bg-white px-4 pt-5 pb-4 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-2xl sm:p-6&quot; &gt;
+                              &lt;Dialog.Title as=&quot;h3&quot; className=&quot;text-gray-900 text-4xl font-extrabold my-5 text-center&quot;&gt;
+                                  {selectedRecipe.strDrink}
+                              &lt;/Dialog.Title&gt;
+                              &lt;img 
+                                src={selectedRecipe.strDrinkThumb} 
+                                alt={`Imagen de ${selectedRecipe.strDrink}`} 
+                                className=&#39;mx-auto w-96&#39;
+                              /&gt;
+                              &lt;Dialog.Title as=&quot;h3&quot; className=&quot;text-gray-900 text-2xl font-extrabold my-5&quot;&gt;
+                                Ingredientes y Cantidades
+                              &lt;/Dialog.Title&gt;
+                              &lt;Dialog.Title as=&quot;h3&quot; className=&quot;text-gray-900 text-2xl font-extrabold my-5&quot;&gt;
+                                Instrucciones
+                              &lt;/Dialog.Title&gt;
+
+                              &lt;p className=&quot;text-gray-500 text-base&quot;&gt;
+                                {selectedRecipe.strInstructions}
+                              &lt;/p&gt;
+                            &lt;/Dialog.Panel&gt;
+                          &lt;/Transition.Child&gt;
+                        &lt;/div&gt;
+                      &lt;/div&gt;
+                    &lt;/Dialog&gt;
+                  &lt;/Transition&gt;
+                &lt;/&gt;
+              )
+            }
+          </code></pre>
+          
+          </li>
+
+          <li class="my-1.25">Para la parte de los ingredientes y cantidades tenemos que hilar más fino porque, como vemos si seleccionamos distintas recetas, no todas tienen el mismo número de ingredientes. Así que tenemos que escribir un código que primero itere sobre las diferentes opciones que tenemos y, si llega a haber algo, entonces que lo vaya agregando, pero queremos colocarjunos ingredientes y cantidades así que veamos como construir ese listado.</li>
+
+          <li class="my-1.25">
+            <span class="naranja">Mostrando los Ingredientes</span>
+            <ul class="list-disc my-3">
+              <li class="my-1.25"><strong>Construimos una función arrow function llamada renderIngredients</strong></li>
+              <li class="my-1.25">Creamos un arreglo inicialmente vacío llamado <strong>ingredients</strong> que tipamos con JSX.Element (viendo con el IS que esta función nueva es un JSX.Element)</li>
+              <li class="my-1.25">Creamos un bucle for de límite 6 (que es el nº máximo que hemos definido en nuestro schema) para, en cada pasada de bucle, crear variable con const usando el state y en vez de la notación del punto usamos la de [] para poder usar template string y componer dinámicamente el nombre de cada ingrediente y medida que, además, tipamos usando keyof para decirle que nuestro ingredient y measure sí pertenece a alguno de los keys que tiene definido el type de Recipe, para que entonces lo detecte y pueda asignarle el type correctamente (string o null)</li>
+
+              <li class="my-1.25">Si tenemos ingrediente y cantidad quiero ejecutar el siguiente código en el que vamos a ir rellenando nuestro arreglo vacío <strong>ingredients</strong>. Usamos el método push() (que como dijimos no es un método que usamos en React porque muta el arreglo original pero este no es un state sino un array que llenamos nosotros de información)
 
 
-</div>
+                <div class="flex max-sm:flex-col">
+                  <div class="w-[70%] max-sm:w-[100%]">
+                    <pre data-line="8"><code class="language-ts">
+                  //types/index.ts
+                  import { z } from 'zod'
+                  import { CategoriesAPIResponseSchema, SearchFilterSchema, DrinkAPIResponse, DrinksAPIResponse, RecipeAPIResponseSchema } from &#39;../utils/recipes-schema&#39;
 
-<!-- Bloque desplegable interior-->
-<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-331').toggle();">
-  <h3>331. Mostrando el Contenido de la Receta en Modal</h3>
-  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
-</div>
-<div id="seccion18-331" class="hidden">
-
-
-</div>
-
-<!-- Bloque desplegable interior-->
-<div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-332').toggle();">
-  <h3>332. Mostrando los Ingredientes</h3>
-  <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
-</div>
-<div id="seccion18-332" class="hidden">
+                  export type Categories = z.infer&lt;typeof CategoriesAPIResponseSchema&gt;
+                  export type SearchFilter = z.infer&lt;typeof SearchFilterSchema&gt;
+                  export type Drink = z.infer&lt;typeof DrinkAPIResponse&gt; 
+                  export type Drinks = z.infer&lt;typeof DrinksAPIResponse&gt;                   
+                  export type Recipe = z.infer&lt;typeof RecipeAPIResponseSchema&gt;
+                </code></pre>
 
 
-</div>
+                <pre data-line="2,4,11-32,75"><code class="language-ts">
+                  //components/Modal.tsx
+                  import { Dialog, Transition } from '@headlessui/react'
+                  import { Fragment,JSX } from 'react'
+                  import { useAppStore } from '../stores/useAppStore'
+                  import { Recipe } from '../types/index'
+
+                  export default function Modal() {
+                    const modal = useAppStore((state) => state.modal)
+                    const closeModal = useAppStore((state) => state.closeModal)
+                    const selectedRecipe = useAppStore((state) => state.selectedRecipe)
+
+                    const renderIngredients = () => {
+                      const ingredients : JSX.Element[] = []
+                      for (let i = 1; i &lt;= 6; i++) {
+                        const ingredient = selectedRecipe[`strIngredient${i}` as keyof Recipe]
+                        const measure = selectedRecipe[`strMeasure${i}` as keyof Recipe]
+                        if (ingredient && measure) {
+                          ingredients.push(
+                            &lt;li key={i} className=&quot;text-lg text-gray-500&quot;&gt;
+                              {ingredient} - {measure}
+                            &lt;/li&gt;
+                          )
+                        }
+                      }
+                      return ingredients.length &gt; 0 ? (
+                        &lt;ul className=&quot;list-disc pl-5&quot;&gt;
+                          {ingredients}
+                        &lt;/ul&gt;
+                      ) : (
+                        &lt;p className=&quot;text-gray-500&quot;&gt;No hay ingredientes disponibles.&lt;/p&gt;
+                      )
+                      return &lt;p&gt;Desde render Ingredients&lt;/p&gt;
+                    }
+
+                    return (
+                      &lt;&gt;
+                        &lt;Transition appear show={modal} as={Fragment}&gt;
+                          &lt;Dialog as=&quot;div&quot; className=&quot;relative z-10&quot; onClose={closeModal}&gt;
+                            &lt;Transition.Child
+                              as={Fragment}
+                              enter=&quot;ease-out duration-300&quot;
+                              enterFrom=&quot;opacity-0&quot;
+                              enterTo=&quot;opacity-100&quot;
+                              leave=&quot;ease-in duration-200&quot;
+                              leaveFrom=&quot;opacity-100&quot;
+                              leaveTo=&quot;opacity-0&quot;
+                            &gt;
+                              &lt;div className=&quot;fixed inset-0 bg-black opacity-70&quot; /&gt;
+                            &lt;/Transition.Child&gt;
+
+                            &lt;div className=&quot;fixed inset-0 overflow-y-auto&quot;&gt;
+                              &lt;div className=&quot;flex min-h-full items-center justify-center p-4 text-center&quot;&gt;
+                                &lt;Transition.Child
+                                  as={Fragment}
+                                  enter=&quot;ease-out duration-300&quot;
+                                  enterFrom=&quot;opacity-0 scale-95&quot;
+                                  enterTo=&quot;opacity-100 scale-100&quot;
+                                  leave=&quot;ease-in duration-200&quot;
+                                  leaveFrom=&quot;opacity-100 scale-100&quot;
+                                  leaveTo=&quot;opacity-0 scale-95&quot;
+                                &gt;
+                                  &lt;Dialog.Panel className=&quot;relative transform overflow-hidden rounded-lg bg-white px-4 pt-5 pb-4 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-2xl sm:p-6&quot; &gt;
+                                    &lt;Dialog.Title as=&quot;h3&quot; className=&quot;text-gray-900 text-4xl font-extrabold my-5 text-center&quot;&gt;
+                                        {selectedRecipe.strDrink}
+                                    &lt;/Dialog.Title&gt;
+
+                                    &lt;img 
+                                      src={selectedRecipe.strDrinkThumb} 
+                                      alt={`Imagen de ${selectedRecipe.strDrink}`} 
+                                      className=&#39;mx-auto w-96&#39;
+                                    /&gt;
+                                    &lt;Dialog.Title as=&quot;h3&quot; className=&quot;text-gray-900 text-2xl font-extrabold my-5&quot;&gt;
+                                      Ingredientes y Cantidades
+                                    &lt;/Dialog.Title&gt;
+
+                                    {renderIngredients()}
+                                    &lt;Dialog.Title as=&quot;h3&quot; className=&quot;text-gray-900 text-2xl font-extrabold my-5&quot;&gt;
+                                      Instrucciones
+                                    &lt;/Dialog.Title&gt;
+
+                                    &lt;p className=&quot;text-gray-500 text-base&quot;&gt;
+                                      {selectedRecipe.strInstructions}
+                                    &lt;/p&gt;
+                                  &lt;/Dialog.Panel&gt;
+                                &lt;/Transition.Child&gt;
+                              &lt;/div&gt;
+                            &lt;/div&gt;
+                          &lt;/Dialog&gt;
+                        &lt;/Transition&gt;
+                      &lt;/&gt;
+                    )
+                  }
+                </code></pre>
+
+
+                  </div>
+                  <div class="w-[30%] max-sm:w-[100%]">
+                    <pre data-line="22-39"><code class="language-ts">
+                      //utils/recipes-schema.ts
+                      import { z } from 'zod'
+
+                      export const CategoriesAPIResponseSchema = z.object({
+                          drinks: z.array(
+                              z.object({
+                                  strCategory: z.string()
+                              })
+                          )
+                      })
+                      export const SearchFilterSchema = z.object({
+                          ingredient: z.string(),
+                          category: z.string()
+                      })
+                      export const DrinkAPIResponse = z.object({
+                          idDrink: z.string(),
+                          strDrink: z.string(),
+                          strDrinkThumb: z.string()
+                      })
+                      export const DrinksAPIResponse = z.object({
+                          drinks: z.array(DrinkAPIResponse)
+                      }) 
+                      export const RecipeAPIResponseSchema = z.object({
+                          idDrink: z.string(),
+                          strDrink: z.string(),
+                          strDrinkThumb: z.string(),
+                          strInstructions: z.string(),
+                          strIngredient1: z.string().nullable(),
+                          strIngredient2: z.string().nullable(),
+                          strIngredient3: z.string().nullable(),
+                          strIngredient4: z.string().nullable(),
+                          strIngredient5: z.string().nullable(),
+                          strIngredient6: z.string().nullable(),
+                          strMeasure1: z.string().nullable(),
+                          strMeasure2: z.string().nullable(),
+                          strMeasure3: z.string().nullable(),
+                          strMeasure4: z.string().nullable(),
+                          strMeasure5: z.string().nullable(),
+                          strMeasure6: z.string().nullable(),
+                      })                     
+                    </code></pre>
+                  </div>
+                </div>
+
+                
+
+              </li>
+              
+            </ul>
+            
+
+          </li>
+
+        
+        </ul>
+
+      </div>
+
+
 
 <!-- Bloque desplegable interior-->
 <div class="flex justify-between items-center mt-1.25 cursor-pointer desplegable-interior oscuro" onclick="$('#seccion18-333').toggle();">
   <h3>333. Creando los Botones para Cerrar Modal y Añadir a Favoritos</h3>
   <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
 </div>
-<div id="seccion18-333" class="hidden">
-
+<div id="seccion18-333" class="">
+  <p>Vamos a crear los Botones para Cerrar Modal y Añadir a Favoritos.</p>
 
 </div>
 
@@ -6805,7 +7233,7 @@
                     }    
                   </code></pre>
 
-                  <p>Vemos en la consola un success:true, porqeu hemos colocado la información correctamente. Si yo tuviera al menos un error (un nombre en el schema mal puesto con respecto al dato que viene en el JSON original) nos daría success: false. Le añadimos una comprobación si result es success añadimos a la consola result.data <strong>(Nota: no podríamos poner un console.log(result.data) fuera de ese if, nos marca un error; sin embargo si revisamos que primero exista (con este if) entonces ya tenemos acceso a esos datos, viendo que solo me aparece la información que me interesa)</strong>. En vez del console.log pongamos un return para finalizar el servicio y ya en el store ponemos un <code class="language-ts">const result = await fetchCurrentCryptoPrice(pair)</code> y un console.log(result) para, una vez pulsado el botón cotizar, poder ver el resultado pero ya desde nuestro store:</p>
+                  <p>Vemos en la consola un success:true, porque hemos colocado la información correctamente. Si yo tuviera al menos un error (un nombre en el schema mal puesto con respecto al dato que viene en el JSON original) nos daría success: false. Le añadimos una comprobación si result es success añadimos a la consola result.data <strong>(Nota: no podríamos poner un console.log(result.data) fuera de ese if, nos marca un error; sin embargo si revisamos que primero exista (con este if) entonces ya tenemos acceso a esos datos, viendo que solo me aparece la información que me interesa)</strong>. En vez del console.log pongamos un return para finalizar el servicio y ya en el store ponemos un <code class="language-ts">const result = await fetchCurrentCryptoPrice(pair)</code> y un console.log(result) para, una vez pulsado el botón cotizar, poder ver el resultado pero ya desde nuestro store:</p>
                   
                   <img src="./src/assets/img/298.png" alt="img" loading="lazy">                  
 
@@ -9577,7 +10005,7 @@
             <span class="cambiaicono ico_chevron_down_blanco ico20 mr-1.25" title=""></span>
           </div>
           <div id="seccion16-280" class="hidden">
-            <p>Veamos como realizar el Deployment de un proyecto qeu incluye un API KEY. tenemos que agregar el Api Key una vez que subamos nuestro proyecto, porqeu recordemos, el archivo donde está la api key (variable de entorno) es ignorado en GIT y tampoco forma parte del build que realizamos.</p>
+            <p>Veamos como realizar el Deployment de un proyecto qeu incluye un API KEY. tenemos que agregar el Api Key una vez que subamos nuestro proyecto, porque recordemos, el archivo donde está la api key (variable de entorno) es ignorado en GIT y tampoco forma parte del build que realizamos.</p>
 
             <ul class="list-disc my-3">
               <li class="my-1.25">Construimos <span class="destacado">npm run build</span> y la carpeta dist la agregamos a Netlify. Si abrimos el sitio y abrimos el deploy de producción. Vemos que si intentamos hacer una búsqueda nos aparece un error, y eso es porque no tenemos agregado nuestro API KEY
@@ -14371,7 +14799,7 @@
 
             </code></pre>
 
-            <p>y entonces cambiamos nuestra validación de esto a esto e importante reinicar también ese nuevo state previousAmount porqeu en los siguientes que yo agregue queremos iniciar a 0 y entonces cuando se monte el componente, cuando estemos editando que lo tome de ahí:</p>
+            <p>y entonces cambiamos nuestra validación de esto a esto e importante reinicar también ese nuevo state previousAmount porque en los siguientes que yo agregue queremos iniciar a 0 y entonces cuando se monte el componente, cuando estemos editando que lo tome de ahí:</p>
 
             <div class="flex max-sm:flex-col">
               <div class="w-[50%] max-sm:w-[100%]">
@@ -22002,7 +22430,7 @@
                     </code></pre></li>
                   </ul>
                   
-                  <p>Este evento no es necesario porqeu se setea en automático así que lo quitamos (la e):</p>
+                  <p>Este evento no es necesario porque se setea en automático así que lo quitamos (la e):</p>
                   
                   <img class="my-2.5" src="./src/assets/img/101-2.png" alt="" />
 
@@ -23075,7 +23503,7 @@
             </code></pre>
             <img class="my-2.5" src="./src/assets/img/66-1.jpg" alt="" />
 
-            <p>Para cada elemento html que teníamos en el código estático (nombre, imagen, precio...) que queremos que cargue de forma dinámica hacemos el reemplazo por ejemplo el nombre de la  guitarra que está en el h3, 'Lukather', lo cambiamos por <code class="language-js">{guitar.name}</code>. Si actualizamos el navegador vemos que cada guitarra ya muestra un nombre diferente, porqeu ya estamos leyendo la información de nuestra pequeña base de datos. <span class="destacado">Así vemos el beneficio de los props junto al state junto a emplear array methods para iterar en nuestro state --> crear componentes reutilizables optimizando el código a escribir</span></p>
+            <p>Para cada elemento html que teníamos en el código estático (nombre, imagen, precio...) que queremos que cargue de forma dinámica hacemos el reemplazo por ejemplo el nombre de la  guitarra que está en el h3, 'Lukather', lo cambiamos por <code class="language-js">{guitar.name}</code>. Si actualizamos el navegador vemos que cada guitarra ya muestra un nombre diferente, porque ya estamos leyendo la información de nuestra pequeña base de datos. <span class="destacado">Así vemos el beneficio de los props junto al state junto a emplear array methods para iterar en nuestro state --> crear componentes reutilizables optimizando el código a escribir</span></p>
 
             <p>En vez de llamar cada dato así <code class="language-js">{guitar.name}</code>, creemos una variable cont nueva para hacer destructuring del objeto guitar que recibimos como propiedad del compoennte padre App.jsx y simplificar el código de la siguiente manera:</p>
               
@@ -23517,7 +23945,7 @@
             <p>Si tenemos experiencia con Vue.js sabremos que hay algo que se llama compute properties y useMemo hace algo bastante similar:</p>
             <ul class="mb-3.75">
               <li>Simplifica los templates un poco</li>
-              <li>Es un Hook enfocado al performance porqeu evita que este código se ejecute (los 2 states derivados vistos) si alguna de las dependencias que vamos a deifnir en ese useMemo no ha cambiado.</li>
+              <li>Es un Hook enfocado al performance porque evita que este código se ejecute (los 2 states derivados vistos) si alguna de las dependencias que vamos a deifnir en ese useMemo no ha cambiado.</li>
             </ul>
             <p><strong>Importamos esl Hook useMemo en nuestro componente Header.jsx:</strong> <code class="language-js">import { useMemo } from 'react'</code>. Vamos a usarlo en nuestro state derivado isEmpty. useMemo es una función que toma dos parámetros (un factory que es la función y el array de dependencias), los vemos explicados si nos colocamos en VSC encima de useMemo:</p>
             <img class="my-2.5" src="./src/assets/img/77-useMemo.png" alt="" />
@@ -24479,7 +24907,7 @@
                         // })
                     
                         //normalmente el nombre del parámetro ha de ser descriptivo de los valores que contenga el array, por ejemplo array de automóviles--&gt;parámetro 'automovil'. 
-                        // Así que en este caso lo dejamos en 'tech'. Como vemos es mas sencillo que el bucle loop. Ya sabe cuantas veces ejecutarse porqeu ya sabe la extensión del
+                        // Así que en este caso lo dejamos en 'tech'. Como vemos es mas sencillo que el bucle loop. Ya sabe cuantas veces ejecutarse porque ya sabe la extensión del
                         //array sobre el que se está ejecutando
                         // tecnologias.forEach(function(tech){
                         //     console.log(tech)
